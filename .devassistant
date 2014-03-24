@@ -1,0 +1,6 @@
+devassistant_version: 0.8.0
+original_kwargs:
+  name: blivet-gui
+subassistant_path:
+- python
+- gtk3
