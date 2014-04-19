@@ -8,15 +8,22 @@ import blivet
 
 import gettext
 
+import cairo
+
 from utils import *
+
+from dialogs import *
 
 APP_NAME = "blivet-gui"
 
 #-----------------------------------------------------#
 
-class ListDevices:
-	def __init__(self):
-		self.DeviceList = Gtk.ListStore(str, str)
+class ListDevices():
+	def __init__(self,BlivetUtils):
+		
+		self.b = BlivetUtils
+		
+		self.DeviceList = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
 		
 		self.DeviceList.append([None,_("Disk Devices")])
 		self.LoadDisks()
@@ -25,23 +32,31 @@ class ListDevices:
 		self.LoadGroupDevices()
 	
 	def LoadDisks(self):
-		disks = GetDisks()
+		
+		icon_theme = Gtk.IconTheme.get_default()
+		icon_disk = Gtk.IconTheme.load_icon (icon_theme,"drive-harddisk",32, 0)
+		icon_disk_usb = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
+		
+		disks = b.GetDisks()
 		
 		for disk in disks:
 			if disk.removable:
-				self.DeviceList.append([Gtk.STOCK_HARDDISK,str(disk.name + "\n" + disk.model)]) #FIXME
+				self.DeviceList.append([icon_disk_usb,str(disk.name + "\n" + disk.model)])
 			else:
-				self.DeviceList.append([Gtk.STOCK_HARDDISK,str(disk.name + "\n" + disk.model)])
+				self.DeviceList.append([icon_disk,str(disk.name + "\n" + disk.model)])
 	
 	def LoadGroupDevices(self):
-		gdevices = GetGroupDevices()
+		gdevices = b.GetGroupDevices()
+		
+		icon_theme = Gtk.IconTheme.get_default()
+		icon_group = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
 		
 		for device in gdevices:
-			self.DeviceList.append([Gtk.STOCK_HARDDISK,str(device.name + "\n" + device.model)]) #FIXME (proper icon, possibly different icons for different group types) #FIXME model u LVM neni
+			self.DeviceList.append([icon_group,str(device.name + "\n")])
 	
 	def LoadDevices(self):
 		self.LoadDisks()
-		self.LoadGroupDevices
+		self.LoadGroupDevices()
 				
 	def CreateDeviceView(self):
 			
@@ -50,7 +65,7 @@ class ListDevices:
 		#treeview.set_hexpand(True)
 		
 		renderer_pixbuf = Gtk.CellRendererPixbuf()
-		column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, stock_id=0)
+		column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, pixbuf=0)
 		treeview.append_column(column_pixbuf)
 		
 		renderer_text = Gtk.CellRendererText()
@@ -66,8 +81,11 @@ class ListDevices:
 
 #-----------------------------------------------------#
 
-class ListPartitions:
-	def __init__(self,disk=None):
+class ListPartitions():
+	def __init__(self,BlivetUtils,disk=None):
+		
+		self.b = BlivetUtils
+		
 		self.disk = disk
 		
 		self.PartitionsList = Gtk.ListStore(str,str,str,str)
@@ -76,7 +94,7 @@ class ListPartitions:
 	
 	def LoadPartitions(self):
 		self.PartitionsList.clear()
-		partitions = GetPartitions(self.disk)
+		partitions = b.GetPartitions(self.disk)
 		
 		for partition in partitions:
 			if partition.format.mountable:
@@ -86,7 +104,7 @@ class ListPartitions:
 	
 	def UpdatePartitionsView(self):
 		self.PartitionsList.clear()
-		partitions = GetPartitions(self.disk)
+		partitions = b.GetPartitions(self.disk)
 		
 		for partition in partitions:
 			if partition.format.mountable:
@@ -150,18 +168,15 @@ class ListPartitions:
 
 #-----------------------------------------------------#
 
-class RootTestDialog(Gtk.MessageDialog):
-	
-	def __init__(self,parent):
-		Gtk.MessageDialog.__init__(self, parent, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.CANCEL, _("Root privileges required"))
-		format_secondary_text = _("Root privileges are required for running blivet-gui.")
-		
-		self.connect("delete-event", Gtk.main_quit)
-		self.run()
-		self.destroy()
+def on_draw(widget, ctx):
+        ctx.set_source_rgb(0, 0, 0)
+        ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL,
+            cairo.FONT_WEIGHT_NORMAL)
+        ctx.set_font_size(20)
+        ctx.move_to(10, 20)
+        ctx.show_text("Text...")
 
 #-----------------------------------------------------#
-
 
 gettext.bindtextdomain(APP_NAME, 'po')
 gettext.textdomain(APP_NAME)
@@ -177,24 +192,33 @@ MainWindow.connect("delete-event", Gtk.main_quit)
 
 #-----------------------------------------------------#
 
-dlist = ListDevices()
+b = BlivetUtils()
+
+dlist = ListDevices(b)
 dview = dlist.CreateDeviceView()
 select = dview.get_selection()
 path = select.select_path("1")
 
 builder.get_object("disks_viewport").add(dview)
 
-plist = ListPartitions()
+plist = ListPartitions(b)
 plist.on_tree_selection_changed(select)
 selection_signal = select.connect("changed", plist.on_tree_selection_changed)
 builder.get_object("partitions_viewport").add(plist.CreatePartitionView())
+
+darea = Gtk.DrawingArea()
+darea.connect('draw', on_draw)
+
+builder.get_object("image_window").add(darea)
 
 #-----------------------------------------------------#
 
 
 if os.geteuid() != 0:
 	RootTestDialog(MainWindow)
+	sys.exit(0)
 
 else:
 	MainWindow.show_all()
 	Gtk.main()
+

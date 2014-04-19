@@ -3,39 +3,40 @@
 from blivet import *
 
 #TODO
-# do classy -- potrebuji nainitovat na nacist storage a pak s nim vzdycky pracovat
+# do classy -- potrebuji nainitovat a nacist storage a pak s nim vzdycky pracovat
 
+class BlivetUtils():
+	def __init__(self):
+		self.storage = Blivet()
+		self.storage.reset()
 
-def GetDisks():
-	myComputerStorage = Blivet() #jen si vytvorim #FIXME
-	myComputerStorage.reset() #tim nactu informace o vsech discich a vubec storage zarizenich
+	def GetDisks(self):
+		roots = []
 
-	roots = []
+		for device in self.storage.devices:
+			if len(device.parents) == 0 and device.isDisk:
+				roots.append(device)
+				
+		return roots
 
-	for device in myComputerStorage.devices:
-		if len(device.parents) == 0 and device.isDisk:
-			roots.append(device)
-			
-	return roots
+	def GetGroupDevices(self):
 
-def GetGroupDevices():
-	myComputerStorage = Blivet() #jen si vytvorim #FIXME
-	myComputerStorage.reset() #tim nactu informace o vsech discich a vubec storage zarizenich
+		groups = []
 
-	groups = []
+		for device in self.storage.devices:
+			if device._type == "lvmvg":
+				groups.append(device)
+				
+		return groups
 
-	for device in myComputerStorage.devices:
-		if device._type == "lvmvg":
-			groups.append(device)
-			
-	return groups
-
-def GetPartitions(disk):
-	partitions = []
-	
-	myComputerStorage = Blivet() #jen si vytvorim
-	myComputerStorage.reset() #tim nactu informace o vsech discich a vubec storage zarizenich
-	
-	partitions = myComputerStorage.devicetree.getChildren(myComputerStorage.devicetree.getDeviceByName(disk))
-	
-	return partitions
+	def GetPartitions(self,disk):
+		partitions = []
+		
+		partitions = self.storage.devicetree.getChildren(self.storage.devicetree.getDeviceByName(disk))
+		
+		#FIXME
+		#detect free space on disk
+		#sdb = b.devicetree.getDeviceByName("sdb")
+		#blivet.partitioning.getFreeRegions([sdb]) -- returns list of free space (parted.geometry.Geometry)
+		
+		return partitions
