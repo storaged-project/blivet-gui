@@ -97,7 +97,9 @@ class ListPartitions():
 		partitions = b.GetPartitions(self.disk)
 		
 		for partition in partitions:
-			if partition.format.mountable:
+			if partition.name == _("unallocated"):
+				self.PartitionsList.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
+			elif partition.format.mountable:
 				self.PartitionsList.append([partition.format.device,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
 			else:
 				self.PartitionsList.append([partition.format.device,partition.format._type,"",str(int(partition.size)) + " MB"])
@@ -107,7 +109,9 @@ class ListPartitions():
 		partitions = b.GetPartitions(self.disk)
 		
 		for partition in partitions:
-			if partition.format.mountable:
+			if partition.name == _("unallocated"):
+				self.PartitionsList.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
+			elif partition.format.mountable:
 				self.PartitionsList.append([partition.format.device,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
 			else:
 				self.PartitionsList.append([partition.format.device,partition.format._type,"",str(int(partition.size)) + " MB"])

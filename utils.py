@@ -2,8 +2,19 @@
 
 from blivet import *
 
-#TODO
-# do classy -- potrebuji nainitovat a nacist storage a pak s nim vzdycky pracovat
+import gettext
+
+APP_NAME = "blivet-gui"
+
+gettext.bindtextdomain(APP_NAME, 'po')
+gettext.textdomain(APP_NAME)
+_ = gettext.gettext
+
+class FreeSpaceDevice():
+	def __init__(self,freeSpace):
+		self.name = _("unallocated")
+		self.size = int((freeSpace.length*512) / (1024*1024))
+
 
 class BlivetUtils():
 	def __init__(self):
@@ -30,13 +41,31 @@ class BlivetUtils():
 		return groups
 
 	def GetPartitions(self,disk):
+		
+		if disk == None:
+			return []
+		
+		blivetDisk = self.storage.devicetree.getDeviceByName(disk)
+		
 		partitions = []
 		
-		partitions = self.storage.devicetree.getChildren(self.storage.devicetree.getDeviceByName(disk))
+		partitions = self.storage.devicetree.getChildren(blivetDisk)
 		
-		#FIXME
-		#detect free space on disk
-		#sdb = b.devicetree.getDeviceByName("sdb")
-		#blivet.partitioning.getFreeRegions([sdb]) -- returns list of free space (parted.geometry.Geometry)
+		partitions2 = copy.deepcopy(partitions)
 		
-		return partitions
+		if blivetDisk.isDisk: #looking for free space regions, disks only
+			freeSpace = partitioning.getFreeRegions([blivetDisk])
+			
+			if len(freeSpace) != 0:
+				for free in freeSpace:
+					if free.length < 2048:
+						continue
+					for partition in partitions:
+						if partition.name == _("unallocated"):
+							break
+						if free.start < partition.partedPartition.geometry.start:
+								partitions2.insert(partitions.index(partition),FreeSpaceDevice(free))
+						if free.end > partition.partedPartition.geometry.end:
+								partitions2.append(FreeSpaceDevice(free))
+		
+		return partitions2
