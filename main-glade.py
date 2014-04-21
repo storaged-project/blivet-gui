@@ -149,44 +149,7 @@ class ListPartitions():
 		
 		return treeview
 	
-	def create_basic_image(self):
-		img = cairo.ImageSurface(cairo.FORMAT_ARGB32, 24, 24)
-		c = cairo.Context(img)
-		c.set_line_width(4)
-		c.arc(12, 12, 8, 0, 2 * math.pi)
-		c.set_source_rgb(1, 0, 0)
-		c.stroke_preserve()
-		c.set_source_rgb(1, 1, 1)
-		c.fill()
-		return img
-	
-	def on_draw(self,widget, event, img):
-		#print darea.get_allocation().width, darea.get_allocation().height
-		
-		#ctx.set_source_rgb(0, 0, 0)
-		#ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL,
-			#cairo.FONT_WEIGHT_NORMAL)
-		#ctx.set_font_size(20)
-		#ctx.move_to(10, 20)
-		#ctx.show_text("Text...")
-		
-		cr = widget.window.cairo_create()
-		for i in range(10):
-			cr.set_source_surface(img, x[i], y[i])        
-			cr.paint()
-	
-	def checkerboard_draw_event(self, da, cairo_ctx, partitions):
-
-		# At the start of a draw handler, a clip region has been set on
-		# the Cairo context, and the contents have been cleared to the
-		# widget's background color. The docs for
-		# gdk_window_begin_paint_region() give more details on how this
-		# works.
-		#check_size = 10
-		#spacing = 2
-		
-		#xcount = 0
-		#i = spacing
+	def draw_event(self, da, cairo_ctx, partitions):
 		width = da.get_allocated_width()
 		height = da.get_allocated_height()
 		
@@ -204,7 +167,7 @@ class ListPartitions():
 		x = 0
 		y = 0
 		
-		import random
+		import random #FIXME
 		
 		for partition in partitions:
 			
@@ -227,16 +190,19 @@ class ListPartitions():
 
 			cairo_ctx.rectangle(x, y, part_width, height)
 			cairo_ctx.fill()
-
-			x += part_width			
 			
-			#FIXME disk name and size
-		
-		return True
-
-	def clear(self, da, cairo_ctx):
-		cairo_ctx.set_source_rgb(1,1,1)
-		cairo_ctx.paint()
+			cairo_ctx.set_source_rgb(0, 0, 0)
+			cairo_ctx.select_font_face ("Sans",cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL);
+			cairo_ctx.set_font_size(10)
+			
+			cairo_ctx.move_to(x + 12, height/2)
+			cairo_ctx.show_text(partition[0])
+			
+			cairo_ctx.move_to(x +12 , height/2 + 12)
+			cairo_ctx.show_text(partition[3])
+			
+			
+			x += part_width
 		
 		return True
 	
@@ -244,7 +210,7 @@ class ListPartitions():
 		
 		partitions = self.PartitionsList
 		
-		self.darea.connect('draw', self.checkerboard_draw_event, partitions)
+		self.darea.connect('draw', self.draw_event, partitions)
 		
 		return self.darea
 	
