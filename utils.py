@@ -13,7 +13,7 @@ _ = gettext.gettext
 class FreeSpaceDevice():
 	def __init__(self,freeSpace):
 		self.name = _("unallocated")
-		self.size = int((freeSpace.length*512) / (1024*1024))
+		self.size = int((freeSpace.length*512) / (1024*1024)) ## FIXME: 512 = block size
 
 
 class BlivetUtils():
@@ -53,6 +53,7 @@ class BlivetUtils():
 		
 		partitions2 = copy.deepcopy(partitions)
 		
+		#FIXME: function
 		if blivetDisk.isDisk: #looking for free space regions, disks only
 			freeSpace = partitioning.getFreeRegions([blivetDisk])
 			

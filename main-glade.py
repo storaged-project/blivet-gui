@@ -82,6 +82,7 @@ class ListDevices():
 #-----------------------------------------------------#
 
 class ListPartitions():
+	
 	def __init__(self,BlivetUtils,disk=None):
 		
 		self.b = BlivetUtils
@@ -91,6 +92,8 @@ class ListPartitions():
 		self.PartitionsList = Gtk.ListStore(str,str,str,str)
 
 		self.LoadPartitions()
+		
+		self.darea = Gtk.DrawingArea()
 	
 	def LoadPartitions(self):
 		self.PartitionsList.clear()
@@ -146,6 +149,115 @@ class ListPartitions():
 		
 		return treeview
 	
+	def create_basic_image(self):
+		img = cairo.ImageSurface(cairo.FORMAT_ARGB32, 24, 24)
+		c = cairo.Context(img)
+		c.set_line_width(4)
+		c.arc(12, 12, 8, 0, 2 * math.pi)
+		c.set_source_rgb(1, 0, 0)
+		c.stroke_preserve()
+		c.set_source_rgb(1, 1, 1)
+		c.fill()
+		return img
+	
+	def on_draw(self,widget, event, img):
+		#print darea.get_allocation().width, darea.get_allocation().height
+		
+		#ctx.set_source_rgb(0, 0, 0)
+		#ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL,
+			#cairo.FONT_WEIGHT_NORMAL)
+		#ctx.set_font_size(20)
+		#ctx.move_to(10, 20)
+		#ctx.show_text("Text...")
+		
+		cr = widget.window.cairo_create()
+		for i in range(10):
+			cr.set_source_surface(img, x[i], y[i])        
+			cr.paint()
+	
+	def checkerboard_draw_event(self, da, cairo_ctx, partitions):
+
+		# At the start of a draw handler, a clip region has been set on
+		# the Cairo context, and the contents have been cleared to the
+		# widget's background color. The docs for
+		# gdk_window_begin_paint_region() give more details on how this
+		# works.
+		#check_size = 10
+		#spacing = 2
+		
+		#xcount = 0
+		#i = spacing
+		#width = da.get_allocated_width()
+		#height = da.get_allocated_height()
+		
+		#total_size = 0
+		
+		#partitions = b.GetPartitions(self.disk)
+		
+		#for partition in partitions:
+			#total_size += partition.size
+		
+		#cairo_ctx.set_source_rgb(0.45777, 0, 0.45777)
+		
+		#for partition in partitions:
+			#cairo_ctx.rectangle(i, j,check_size,check_size)
+		
+		#print total_size
+
+		#while i < width:
+			#j = spacing
+			#ycount = xcount % 2  # start with even/odd depending on row
+			#while j < height:
+				#if ycount % 2:
+					#cairo_ctx.set_source_rgb(0.45777, 0, 0.45777)
+				#else:
+					#cairo_ctx.set_source_rgb(1, 1, 1)
+				## If we're outside the clip this will do nothing.
+				#cairo_ctx.rectangle(i, j,
+									#check_size,
+									#check_size)
+				#cairo_ctx.fill()
+
+				#j += check_size + spacing
+				#ycount += 1
+
+			#i += check_size + spacing
+			#xcount += 1
+		
+		print "maluju"
+		
+		cairo_ctx.set_source_rgb(1,1,1)
+		cairo_ctx.paint()
+		
+		cairo_ctx.set_source_rgb(0, 0, 0)
+		cairo_ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL,
+			cairo.FONT_WEIGHT_NORMAL)
+		cairo_ctx.set_font_size(20)
+		cairo_ctx.move_to(10, 20)
+		cairo_ctx.show_text("Selected disk: " + self.disk)
+		
+		return True
+
+	def clear(self, da, cairo_ctx):
+		cairo_ctx.set_source_rgb(1,1,1)
+		cairo_ctx.paint()
+		
+		return True
+	
+	def CreatePartitionImage(self):
+		
+		partitions = self.PartitionsList
+		
+		self.darea.connect('draw', self.checkerboard_draw_event, partitions)
+		
+		return self.darea
+	
+	def UpdatePartitionsImage(self):
+		
+		partitions = self.PartitionsList
+		
+		self.darea.queue_draw()
+	
 	def on_tree_selection_changed(self,selection):
 		
 		global last
@@ -165,6 +277,7 @@ class ListPartitions():
 			
 			self.disk = model[treeiter][1].split('\n')[0]
 			self.UpdatePartitionsView()
+			self.UpdatePartitionsImage()
 			
 	
 	def ReturnPartitionsList(self):
@@ -172,13 +285,6 @@ class ListPartitions():
 
 #-----------------------------------------------------#
 
-def on_draw(widget, ctx):
-        ctx.set_source_rgb(0, 0, 0)
-        ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL,
-            cairo.FONT_WEIGHT_NORMAL)
-        ctx.set_font_size(20)
-        ctx.move_to(10, 20)
-        ctx.show_text("Text...")
 
 #-----------------------------------------------------#
 
@@ -210,10 +316,7 @@ plist.on_tree_selection_changed(select)
 selection_signal = select.connect("changed", plist.on_tree_selection_changed)
 builder.get_object("partitions_viewport").add(plist.CreatePartitionView())
 
-darea = Gtk.DrawingArea()
-darea.connect('draw', on_draw)
-
-builder.get_object("image_window").add(darea)
+builder.get_object("image_window").add(plist.CreatePartitionImage())
 
 #-----------------------------------------------------#
 
