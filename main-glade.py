@@ -165,9 +165,9 @@ class ListPartitions():
 		
 		
 		x = 0
-		y = 0
 		
-		import random #FIXME
+		colors = [[0.717,0.717,1],[1,0.502,0.502],[0.545,1,0.545]]
+		i = 0
 		
 		for partition in partitions:
 			
@@ -176,7 +176,8 @@ class ListPartitions():
 				# Grey color for unallocated space
 			
 			else:
-				cairo_ctx.set_source_rgb(random.random() , random.random(), random.random()) #FIXME colors
+				cairo_ctx.set_source_rgb(colors[i % 3][0] , colors[i % 3][1], colors[i % 3][2])
+				# Colors for other partitions/devices
 			
 			part_width = int(partition[3].split()[0])*width/total_size
 			
@@ -188,21 +189,24 @@ class ListPartitions():
 			if part_width > width - ((num_parts-1)* (width / (num_parts*2))):
 				part_width = width - (num_parts-1) * (width / (num_parts*2))
 
-			cairo_ctx.rectangle(x, y, part_width, height)
+			cairo_ctx.rectangle(x, 0, part_width, height)
 			cairo_ctx.fill()
 			
 			cairo_ctx.set_source_rgb(0, 0, 0)
 			cairo_ctx.select_font_face ("Sans",cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL);
 			cairo_ctx.set_font_size(10)
 			
+			# Print name of partition
 			cairo_ctx.move_to(x + 12, height/2)
 			cairo_ctx.show_text(partition[0])
 			
-			cairo_ctx.move_to(x +12 , height/2 + 12)
+			# Print size of partition
+			cairo_ctx.move_to(x + 12 , height/2 + 12)
 			cairo_ctx.show_text(partition[3])
 			
 			
 			x += part_width
+			i += 1
 		
 		return True
 	
