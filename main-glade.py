@@ -187,54 +187,39 @@ class ListPartitions():
 		
 		#xcount = 0
 		#i = spacing
-		#width = da.get_allocated_width()
-		#height = da.get_allocated_height()
+		width = da.get_allocated_width()
+		height = da.get_allocated_height()
 		
-		#total_size = 0
+		total_size = 0
 		
-		#partitions = b.GetPartitions(self.disk)
+		for partition in partitions:
+			total_size += int(partition[3].split()[0])
 		
-		#for partition in partitions:
-			#total_size += partition.size
-		
-		#cairo_ctx.set_source_rgb(0.45777, 0, 0.45777)
-		
-		#for partition in partitions:
-			#cairo_ctx.rectangle(i, j,check_size,check_size)
-		
-		#print total_size
-
-		#while i < width:
-			#j = spacing
-			#ycount = xcount % 2  # start with even/odd depending on row
-			#while j < height:
-				#if ycount % 2:
-					#cairo_ctx.set_source_rgb(0.45777, 0, 0.45777)
-				#else:
-					#cairo_ctx.set_source_rgb(1, 1, 1)
-				## If we're outside the clip this will do nothing.
-				#cairo_ctx.rectangle(i, j,
-									#check_size,
-									#check_size)
-				#cairo_ctx.fill()
-
-				#j += check_size + spacing
-				#ycount += 1
-
-			#i += check_size + spacing
-			#xcount += 1
-		
-		print "maluju"
+		#print total_size, width, height
 		
 		cairo_ctx.set_source_rgb(1,1,1)
 		cairo_ctx.paint()
 		
-		cairo_ctx.set_source_rgb(0, 0, 0)
-		cairo_ctx.select_font_face("Sans", cairo.FONT_SLANT_NORMAL,
-			cairo.FONT_WEIGHT_NORMAL)
-		cairo_ctx.set_font_size(20)
-		cairo_ctx.move_to(10, 20)
-		cairo_ctx.show_text("Selected disk: " + self.disk)
+		
+		x = 0
+		y = 0
+		
+		import random
+		
+		for partition in partitions:
+			cairo_ctx.set_source_rgb(random.random() , random.random(), random.random()) #FIXME colors
+			
+			part_width = int(partition[3].split()[0])*width/total_size
+			
+			if part_width < width / 10:
+				part_width = width / 10
+			
+			cairo_ctx.rectangle(x, y, part_width ,height)
+			cairo_ctx.fill()
+
+			x += part_width
+			
+			#FIXME disk name and size
 		
 		return True
 
