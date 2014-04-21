@@ -191,11 +191,11 @@ class ListPartitions():
 		height = da.get_allocated_height()
 		
 		total_size = 0
+		num_parts = 0
 		
 		for partition in partitions:
 			total_size += int(partition[3].split()[0])
-		
-		#print total_size, width, height
+			num_parts += 1
 		
 		cairo_ctx.set_source_rgb(1,1,1)
 		cairo_ctx.paint()
@@ -207,17 +207,28 @@ class ListPartitions():
 		import random
 		
 		for partition in partitions:
-			cairo_ctx.set_source_rgb(random.random() , random.random(), random.random()) #FIXME colors
+			
+			if partition[0] == _("unallocated"):
+				cairo_ctx.set_source_rgb(0.75, 0.75, 0.75)
+				# Grey color for unallocated space
+			
+			else:
+				cairo_ctx.set_source_rgb(random.random() , random.random(), random.random()) #FIXME colors
 			
 			part_width = int(partition[3].split()[0])*width/total_size
 			
-			if part_width < width / 10:
-				part_width = width / 10
+			# Every partition need some minimum size in the drawing area
+			# Minimum size = number of partitions*2 / width of draving area
+			if part_width < width / (num_parts*2):
+				part_width = width / (num_parts*2)
 			
-			cairo_ctx.rectangle(x, y, part_width ,height)
+			if part_width > width - ((num_parts-1)* (width / (num_parts*2))):
+				part_width = width - (num_parts-1) * (width / (num_parts*2))
+
+			cairo_ctx.rectangle(x, y, part_width, height)
 			cairo_ctx.fill()
 
-			x += part_width
+			x += part_width			
 			
 			#FIXME disk name and size
 		
