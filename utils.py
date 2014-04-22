@@ -54,6 +54,7 @@ class BlivetUtils():
 		partitions2 = copy.deepcopy(partitions)
 		
 		#FIXME: function
+		#FIXME: jen jedna velka prazdna plocha se nezobrazi, viz nize
 		if blivetDisk.isDisk: #looking for free space regions, disks only
 			freeSpace = partitioning.getFreeRegions([blivetDisk])
 			

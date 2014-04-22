@@ -53,10 +53,12 @@ class ListPartitions():
 		self.disk = disk
 		
 		self.PartitionsList = Gtk.ListStore(str,str,str,str)
+		self.actions_list = Gtk.ListStore(str)
 
 		self.LoadPartitions()
 		
 		self.partitions_view = self.CreatePartitionView()
+		self.actions_view = self.create_actions_view()
 		
 		self.darea = Gtk.DrawingArea()
 		
@@ -227,6 +229,33 @@ class ListPartitions():
 		partitions = self.PartitionsList
 		
 		self.darea.queue_draw()
+		
+	def create_actions_view(self):
+			
+		treeview = Gtk.TreeView(model=self.actions_list)
+		treeview.set_vexpand(True)
+		treeview.set_hexpand(True)
+		
+		renderer_text = Gtk.CellRendererText()
+		column_text = Gtk.TreeViewColumn(None, renderer_text, text=0)
+		treeview.append_column(column_text)
+		
+		treeview.set_headers_visible(False)
+	
+		return treeview
+	
+	def update_actions_view(self,action_desc=None,flush=False):
+		"""
+            :param action_desc: description of scheduled action
+            :type partition_name: str
+            :param flush: delete all scheduled actions
+            :type boolean
+        """
+		
+		if flush:
+			self.action_list.clear()
+		else:
+			self.actions_list.append([action_desc])
 	
 	def activate_action_buttons(self,selected_partition):
 		
@@ -263,7 +292,9 @@ class ListPartitions():
 		if response == Gtk.ResponseType.OK:
             
 			self.b.delete_device(self.selected_partition[0])
-
+			
+			self.update_actions_view(_("delete partition {0}").format(self.selected_partition[0]))
+			
 			self.selected_partition = None
 			
 		elif response == Gtk.ResponseType.CANCEL:
@@ -292,6 +323,9 @@ class ListPartitions():
 	
 	def get_partitions_view(self):
 		return self.partitions_view
+	
+	def get_actions_view(self):
+		return self.actions_view
 	
 	def get_toolbar(self):
 		return self.toolbar.get_toolbar()

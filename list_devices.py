@@ -59,6 +59,7 @@ class ListDevices():
 		
 		self.partions_list = ListPartitions(self.b)
 		
+		self.actions_view = self.partions_list.get_actions_view()
 		self.partitions_view = self.partions_list.get_partitions_view()
 		self.partitions_image = self.partions_list.CreatePartitionImage()
 		
@@ -141,6 +142,9 @@ class ListDevices():
 	
 	def ReturnDeviceList(self):
 		return self.DeviceList
+	
+	def return_actions_view(self):
+		return self.actions_view
 	
 	def return_partitions_view(self):
 		return self.partitions_view

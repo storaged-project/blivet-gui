@@ -46,6 +46,10 @@ class RootTestDialog(Gtk.MessageDialog):
 class ConfirmDeleteDialog(Gtk.Dialog):
 	
 	def __init__(self,partition_name):
+		"""
+            :param partition_name: name of partition (device) to delete
+            :type partition_name: str
+        """
 		Gtk.Dialog.__init__(self, _("Confirm delete operation"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
