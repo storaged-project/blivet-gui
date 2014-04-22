@@ -126,9 +126,9 @@ class ListDevices():
 		if treeiter != None:
 			
 			if model[treeiter][1] == "Disk Devices" or model[treeiter][1] == "Group Devices":
-				selection.handler_block(selection_signal)
+				selection.handler_block(self.selection_signal)
 				selection.unselect_iter(treeiter)
-				selection.handler_unblock(selection_signal) 
+				selection.handler_unblock(self.selection_signal) 
 				selection.select_iter(last)
 				treeiter = last
 			else:

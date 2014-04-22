@@ -67,6 +67,8 @@ class ListPartitions():
 		
 		self.on_partition_selection_changed(self.select)
 		self.selection_signal = self.select.connect("changed", self.on_partition_selection_changed)
+		
+		self.selected_partition = None
 	
 	def LoadPartitions(self):
 		self.PartitionsList.clear()
@@ -75,10 +77,12 @@ class ListPartitions():
 		for partition in partitions:
 			if partition.name == _("unallocated"):
 				self.PartitionsList.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
+			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
+				self.PartitionsList.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
 			elif partition.format.mountable:
-				self.PartitionsList.append([partition.format.device,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
+				self.PartitionsList.append([partition.name,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
 			else:
-				self.PartitionsList.append([partition.format.device,partition.format._type,"",str(int(partition.size)) + " MB"])
+				self.PartitionsList.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB"])
 	
 	def UpdatePartitionsView(self,disk):
 		
@@ -90,10 +94,12 @@ class ListPartitions():
 		for partition in partitions:
 			if partition.name == _("unallocated"):
 				self.PartitionsList.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
+			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
+				self.PartitionsList.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
 			elif partition.format.mountable:
-				self.PartitionsList.append([partition.format.device,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
+				self.PartitionsList.append([partition.name,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
 			else:
-				self.PartitionsList.append([partition.format.device,partition.format._type,"",str(int(partition.size)) + " MB"])
+				self.PartitionsList.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB"])
 
 			
 	def CreatePartitionView(self):
@@ -132,15 +138,29 @@ class ListPartitions():
 		total_size = 0
 		num_parts = 0
 		
-		for partition in partitions:
-			total_size += int(partition[3].split()[0])
-			num_parts += 1
-		
 		cairo_ctx.set_source_rgb(1,1,1)
 		cairo_ctx.paint()
 		
+		extended = False
 		
-		x = 0
+		for partition in partitions:
+			
+			if partition[1] == _("extended"):
+				cairo_ctx.set_source_rgb(0,1,1)
+				cairo_ctx.rectangle(0, 0, width, height)
+				cairo_ctx.fill()
+				extended = True
+			
+			else:
+				total_size += int(partition[3].split()[0])
+				num_parts += 1		
+		
+		if extended:
+			x = 5
+			y = 5
+		else:
+			x = 0
+			y = 0
 		
 		colors = [[0.451,0.824,0.086],
 			[0.961,0.474,0],
@@ -150,6 +170,9 @@ class ListPartitions():
 		
 		for partition in partitions:
 			
+			if partition[1] == _("extended"):
+				continue
+			
 			if partition[0] == _("unallocated"):
 				cairo_ctx.set_source_rgb(0.75, 0.75, 0.75)
 				# Grey color for unallocated space
@@ -158,17 +181,17 @@ class ListPartitions():
 				cairo_ctx.set_source_rgb(colors[i % 3][0] , colors[i % 3][1], colors[i % 3][2])
 				# Colors for other partitions/devices
 			
-			part_width = int(partition[3].split()[0])*width/total_size
+			part_width = int(partition[3].split()[0])*(width - 2*y)/total_size
 			
 			# Every partition need some minimum size in the drawing area
 			# Minimum size = number of partitions*2 / width of draving area
-			if part_width < width / (num_parts*2):
-				part_width = width / (num_parts*2)
+			if part_width < (width - 2*y) / (num_parts*2):
+				part_width = (width - 2*y) / (num_parts*2)
 			
-			if part_width > width - ((num_parts-1)* (width / (num_parts*2))):
-				part_width = width - (num_parts-1) * (width / (num_parts*2))
+			if part_width > (width - 2*y) - ((num_parts-1)* ((width - 2*y) / (num_parts*2))):
+				part_width = (width - 2*y) - (num_parts-1) * ((width - 2*y) / (num_parts*2))
 
-			cairo_ctx.rectangle(x, 0, part_width, height)
+			cairo_ctx.rectangle(x, y, part_width, height - 2*y)
 			cairo_ctx.fill()
 			
 			cairo_ctx.set_source_rgb(0, 0, 0)
@@ -207,28 +230,61 @@ class ListPartitions():
 	
 	def activate_action_buttons(self,selected_partition):
 		
-		if selected_partition == _("unallocated"):
+		partition_device = self.b.storage.devicetree.getDeviceByName(selected_partition[0])
+		
+		if selected_partition == None or partition_device == None:
+			self.toolbar.deactivate_all()
+			return
+		
+		if partition_device == None:
+			print "WTF?!", selected_partition[0]
+		
+		if selected_partition[0] == _("unallocated"):
 			self.toolbar.deactivate_all()
 			self.toolbar.activate_buttons(["new"])
 		
-		else:
-			#FIXME detect mounted/resizable
+		elif selected_partition[1] == _("extended"):
 			self.toolbar.deactivate_all()
-			self.toolbar.activate_buttons(["delete","edit"])
+			self.toolbar.activate_buttons(["delete"])
+		
+		else:
+			self.toolbar.deactivate_all()
+			if partition_device.format.mountable and partition_device.format.mountpoint == None:
+				self.toolbar.activate_buttons(["delete"])
+			
+			#FIXME detect resizable
+			#self.toolbar.activate_buttons(["delete","edit"])
+	
+	def delete_selected_partition(self):
+		
+		dialog = ConfirmDeleteDialog(self.selected_partition[0])
+		response = dialog.run()
+
+		if response == Gtk.ResponseType.OK:
+            
+			self.b.delete_device(self.selected_partition[0])
+
+			self.selected_partition = None
+			
+		elif response == Gtk.ResponseType.CANCEL:
+			pass
+
+		dialog.destroy()
+        
+		self.UpdatePartitionsView(self.disk)
+		self.UpdatePartitionsImage(self.disk)
 		
 	
 	def on_partition_selection_changed(self,selection):
-		
-		global last
 		
 		model, treeiter = selection.get_selected()
 		
 		self.toolbar.deactivate_all()
 		
 		if treeiter != None:
-			
 			#FIXME -- need to pass more details if unallocated #TODO possibly add ID for unallocated
-			self.activate_action_buttons(model[treeiter][0])
+			self.activate_action_buttons(model[treeiter])
+			self.selected_partition = model[treeiter]
 			
 	
 	def ReturnPartitionsList(self):

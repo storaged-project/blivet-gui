@@ -69,4 +69,28 @@ class BlivetUtils():
 						if free.end > partition.partedPartition.geometry.end:
 								partitions2.append(FreeSpaceDevice(free))
 		
+		for partition in partitions:
+			try:
+				if partition.isExtended:
+					for logical in self.storage.devicetree.getChildren(partition):
+						partitions2.append(logical)
+					
+					freeSpace = partitioning.getFreeRegions([blivetDisk]) #FIXME prave proto funkce (mozna ne)
+					
+					# Special occassion -- extended partition with only free space on it
+					if len(freeSpace) != 0 and len(partitions2) == 1:
+						for free in freeSpace:
+							if free.length < 2048:
+								continue
+							partitions2.append(FreeSpaceDevice(free))
+						
+			except AttributeError:
+				pass
+		
 		return partitions2
+	
+	def delete_device(self,device_name):
+		
+		device = self.storage.devicetree.getDeviceByName(device_name)		
+		self.storage.destroyDevice(device)
+		

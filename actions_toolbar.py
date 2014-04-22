@@ -60,6 +60,8 @@ class actions_toolbar():
 		button_delete = Gtk.ToolButton.new_from_stock(Gtk.STOCK_DELETE)
 		button_delete.set_sensitive(False)
 		button_delete.set_tooltip_text(_("Delete selected partition"))
+		button_delete.connect("clicked", self.on_delete_clicked)
+		
 		self.toolbar.insert(button_delete, 1)
 		self.buttons["delete"] = button_delete
 		
@@ -85,6 +87,9 @@ class actions_toolbar():
 		
 		for button in self.buttons.values():
 			button.set_sensitive(False)
+			
+	def on_delete_clicked(self,button):
+		self.list_partitions.delete_selected_partition()
 	
 	def get_toolbar(self):
 		return self.toolbar
