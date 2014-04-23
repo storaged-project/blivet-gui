@@ -1,4 +1,24 @@
-#!/usr/bin/python2
+# utils.py
+# Classes working directly with blivet instance
+# 
+# Copyright (C) 2014  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+# Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
+#
 
 from blivet import *
 
@@ -22,6 +42,10 @@ class BlivetUtils():
 		self.storage.reset()
 
 	def GetDisks(self):
+		""" Return list of all disk devices on current system
+			:returns: list of all "disk" devices
+			:rtype: list
+        """
 		roots = []
 
 		for device in self.storage.devices:
@@ -31,6 +55,10 @@ class BlivetUtils():
 		return roots
 
 	def GetGroupDevices(self):
+		""" Return list of other devices with children (e.g. LVM volume group)
+			:returns: list of "group" devices
+			:rtype: list
+        """
 
 		groups = []
 
@@ -39,58 +67,96 @@ class BlivetUtils():
 				groups.append(device)
 				
 		return groups
-
-	def GetPartitions(self,disk):
+	
+	def get_free_space(self,device_name,partitions):
+		""" Find free space on device
+			:param device_name: name of device
+			:type device_name: str
+			:param paritions: partions (children) of device
+			:type partition: list
+			:returns: list of partitions + free space
+			:rtype: list
+        """
 		
-		if disk == None:
+		if device_name == None:
 			return []
 		
-		blivetDisk = self.storage.devicetree.getDeviceByName(disk)
+		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
 		
-		partitions = []
-		
-		partitions = self.storage.devicetree.getChildren(blivetDisk)
-		
-		partitions2 = copy.deepcopy(partitions)
-		
-		#FIXME: function
-		#FIXME: jen jedna velka prazdna plocha se nezobrazi, viz nize
-		if blivetDisk.isDisk: #looking for free space regions, disks only
-			freeSpace = partitioning.getFreeRegions([blivetDisk])
+		if blivet_device.isDisk:
 			
-			if len(freeSpace) != 0:
-				for free in freeSpace:
+			free_space = partitioning.getFreeRegions([blivet_device])
+			partitions2 = copy.deepcopy(partitions)
+			
+			# Special occassion -- disk is empty
+			if len(partitions) == 0:
+				partitions2.append(FreeSpaceDevice(free_space[0]))
+				return partitions2
+			
+			if len(free_space) != 0:
+				for free in free_space:
 					if free.length < 2048:
 						continue
 					for partition in partitions:
 						if partition.name == _("unallocated"):
 							break
-						if free.start < partition.partedPartition.geometry.start:
-								partitions2.insert(partitions.index(partition),FreeSpaceDevice(free))
-						if free.end > partition.partedPartition.geometry.end:
-								partitions2.append(FreeSpaceDevice(free))
-		
-		for partition in partitions:
-			try:
-				if partition.isExtended:
-					for logical in self.storage.devicetree.getChildren(partition):
-						partitions2.append(logical)
-					
-					freeSpace = partitioning.getFreeRegions([blivetDisk]) #FIXME prave proto funkce (mozna ne)
-					
-					# Special occassion -- extended partition with only free space on it
-					if len(freeSpace) != 0 and len(partitions2) == 1:
-						for free in freeSpace:
-							if free.length < 2048:
-								continue
-							partitions2.append(FreeSpaceDevice(free))
 						
-			except AttributeError:
-				pass
+						elif free.start < partition.partedPartition.geometry.start:
+							partitions2.insert(partitions.index(partition),FreeSpaceDevice(free))
+						
+						elif free.end > partition.partedPartition.geometry.end:
+							partitions2.append(FreeSpaceDevice(free))
+			
+			# Find free space inside extended partition
+			for partition in partitions:
+				try:
+					if partition.isExtended:
+						for logical in self.storage.devicetree.getChildren(partition):
+							partitions2.append(logical)
+						
+						free_space = partitioning.getFreeRegions([blivet_device])
+						
+						# Special occassion -- extended partition with only free space on it
+						if len(free_space) != 0 and len(partitions2) == 1:
+							for free in free_space:
+								if free.length < 2048:
+									continue
+								partitions2.append(FreeSpaceDevice(free))
+						
+				except AttributeError:
+					pass
+			
+			return partitions2
 		
-		return partitions2
+		else:
+			return []
+
+	def GetPartitions(self,device_name):
+		""" Get partitions (children) of selected device
+			:param device_name: name of device
+			:type device_name: str
+			:returns: list of partitions
+			:rtype: list
+        """
+		
+		if device_name == None:
+			return []
+		
+		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
+		
+		partitions = []
+		
+		partitions = self.storage.devicetree.getChildren(blivet_device)
+		
+		partitions = self.get_free_space(device_name,partitions)
+		
+		return partitions
 	
 	def delete_device(self,device_name):
+		""" Delete device
+			:param device_name: name of device
+			:type device_name: str
+        """
 		
 		device = self.storage.devicetree.getDeviceByName(device_name)		
 		self.storage.destroyDevice(device)

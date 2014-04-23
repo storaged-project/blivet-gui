@@ -61,7 +61,7 @@ class ListDevices():
 		
 		self.actions_view = self.partions_list.get_actions_view()
 		self.partitions_view = self.partions_list.get_partitions_view()
-		self.partitions_image = self.partions_list.CreatePartitionImage()
+		self.partitions_image = self.partions_list.create_partitions_image()
 		
 		self.disks_view = self.CreateDeviceView()
 		
@@ -137,7 +137,7 @@ class ListDevices():
 			
 			disk = model[treeiter][1].split('\n')[0]
 			self.partions_list.UpdatePartitionsView(disk)
-			self.partions_list.UpdatePartitionsImage(disk)
+			self.partions_list.update_partitions_image(disk)
 			
 	
 	def ReturnDeviceList(self):

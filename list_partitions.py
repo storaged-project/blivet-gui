@@ -53,7 +53,7 @@ class ListPartitions():
 		self.disk = disk
 		
 		self.PartitionsList = Gtk.ListStore(str,str,str,str)
-		self.actions_list = Gtk.ListStore(str)
+		self.actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf,str)
 
 		self.LoadPartitions()
 		
@@ -134,6 +134,14 @@ class ListPartitions():
 		return treeview
 	
 	def draw_event(self, da, cairo_ctx, partitions):
+		""" Drawing event for partition visualisation
+			:param da: drawing area
+			:type da: Gtk.DrawingArea
+            :param cairo_ctx: Cairo context
+            :type cairo_ctx: Cairo.Context
+            :param partitions: list of partitions to paint
+            :type partitions: Gtk.ListStore
+        """
 		width = da.get_allocated_width()
 		height = da.get_allocated_height()
 		
@@ -149,6 +157,8 @@ class ListPartitions():
 			
 			if partition[1] == _("extended"):
 				cairo_ctx.set_source_rgb(0,1,1)
+				# Teal color for extend partition
+				
 				cairo_ctx.rectangle(0, 0, width, height)
 				cairo_ctx.fill()
 				extended = True
@@ -157,13 +167,16 @@ class ListPartitions():
 				total_size += int(partition[3].split()[0])
 				num_parts += 1		
 		
+		# Safe space for extended partition borders
 		if extended:
 			x = 5
 			y = 5
+		
 		else:
 			x = 0
 			y = 0
 		
+		# Colors for partitions
 		colors = [[0.451,0.824,0.086],
 			[0.961,0.474,0],
 			[0.204,0.396,0.643]]
@@ -214,7 +227,11 @@ class ListPartitions():
 		
 		return True
 	
-	def CreatePartitionImage(self):
+	def create_partitions_image(self):
+		""" Create drawing area
+			:returns: drawing area
+			:rtype: Gtk.DrawingArea
+        """
 		
 		partitions = self.PartitionsList
 		
@@ -222,10 +239,13 @@ class ListPartitions():
 		
 		return self.darea
 	
-	def UpdatePartitionsImage(self,disk):
+	def update_partitions_image(self,device):
+		""" Update drawing area for newly selected device
+			:param device: selected device
+			:param type: str
+        """
 		
-		self.disk = disk
-		
+		self.disk = device
 		partitions = self.PartitionsList
 		
 		self.darea.queue_draw()
@@ -236,26 +256,39 @@ class ListPartitions():
 		treeview.set_vexpand(True)
 		treeview.set_hexpand(True)
 		
+		renderer_pixbuf = Gtk.CellRendererPixbuf()
+		column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, pixbuf=0)
+		treeview.append_column(column_pixbuf)
+		
 		renderer_text = Gtk.CellRendererText()
-		column_text = Gtk.TreeViewColumn(None, renderer_text, text=0)
+		column_text = Gtk.TreeViewColumn(None, renderer_text, text=1)
 		treeview.append_column(column_text)
 		
 		treeview.set_headers_visible(False)
 	
 		return treeview
 	
-	def update_actions_view(self,action_desc=None,flush=False):
-		"""
+	def clear_actions_view(self):
+		""" Delete all actions in actions view
+        """
+		self.action_list.clear()
+	
+	def update_actions_view(self,action_type=None,action_desc=None):
+		""" Update list of scheduled actions
+			:param action_type: type of action (delete/add/edit)
+			:type action_type: str
             :param action_desc: description of scheduled action
             :type partition_name: str
-            :param flush: delete all scheduled actions
-            :type boolean
         """
 		
-		if flush:
-			self.action_list.clear()
-		else:
-			self.actions_list.append([action_desc])
+		icon_theme = Gtk.IconTheme.get_default()
+		icon_add = Gtk.IconTheme.load_icon (icon_theme,"gtk-add",16, 0)
+		icon_delete = Gtk.IconTheme.load_icon (icon_theme,"gtk-delete",16, 0)
+		icon_edit = Gtk.IconTheme.load_icon (icon_theme,"gtk-edit",16, 0)
+		
+		action_icons = {"add" : icon_add, "delete" : icon_delete, "edit" : icon_edit}
+		
+		self.actions_list.append([action_icons[action_type], action_desc])
 	
 	def activate_action_buttons(self,selected_partition):
 		
@@ -293,7 +326,7 @@ class ListPartitions():
             
 			self.b.delete_device(self.selected_partition[0])
 			
-			self.update_actions_view(_("delete partition {0}").format(self.selected_partition[0]))
+			self.update_actions_view("delete",_("delete partition {0}").format(self.selected_partition[0]))
 			
 			self.selected_partition = None
 			
@@ -303,7 +336,7 @@ class ListPartitions():
 		dialog.destroy()
         
 		self.UpdatePartitionsView(self.disk)
-		self.UpdatePartitionsImage(self.disk)
+		self.update_partitions_image(self.disk)
 		
 	
 	def on_partition_selection_changed(self,selection):
