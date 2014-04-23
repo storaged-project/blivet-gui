@@ -53,12 +53,12 @@ class ListPartitions():
 		
 		self.disk = disk
 		
-		self.PartitionsList = Gtk.ListStore(str,str,str,str)
+		self.partitions_list = Gtk.ListStore(str,str,str,str)
 		self.actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf,str)
 
-		self.LoadPartitions()
+		self.load_partitions()
 		
-		self.partitions_view = self.CreatePartitionView()
+		self.partitions_view = self.create_partitions_view()
 		self.actions_view = self.create_actions_view()
 		
 		self.darea = Gtk.DrawingArea()
@@ -77,46 +77,55 @@ class ListPartitions():
 		
 		self.selected_partition = None
 	
-	def LoadPartitions(self):
-		self.PartitionsList.clear()
+	def load_partitions(self):
+		""" Load children devices (partitions) for selected disk (root/group device)
+        """
+        
+		self.partitions_list.clear()
 		partitions = self.b.GetPartitions(self.disk)
 		
 		for partition in partitions:
 			if partition.name == _("unallocated"):
-				self.PartitionsList.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
-				self.PartitionsList.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
 			elif partition.format.mountable:
-				self.PartitionsList.append([partition.name,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
 			else:
-				self.PartitionsList.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB"])
 	
-	def UpdatePartitionsView(self,disk):
+	def update_partitions_view(self,device_name):
+		""" Update partition view with selected disc children (partitions)
+			:param device_name: name of selected device 
+			:type device_name: str
+        """
 		
-		self.disk = disk
+		self.disk = device_name
 		
-		self.PartitionsList.clear()
+		self.partitions_list.clear()
 		partitions = self.b.GetPartitions(self.disk)
 		
 		for partition in partitions:
 			if partition.name == _("unallocated"):
-				self.PartitionsList.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
-				self.PartitionsList.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
 			elif partition.format.mountable:
-				self.PartitionsList.append([partition.name,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
 			else:
-				self.PartitionsList.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB"])
 
 			
-	def CreatePartitionView(self):
-	
+	def create_partitions_view(self):
+		""" Create Gtk.TreeView for device children (partitions)
+        """
+        
 		if self.disk == None:
-			partitions = self.PartitionsList
+			partitions = self.partitions_list
 		
 		else:
-			self.LoadPartitions()
-			partitions = self.PartitionsList
+			self.load_partitions()
+			partitions = self.partitions_list
 			
 		treeview = Gtk.TreeView(model=partitions)
 		treeview.set_vexpand(True)
@@ -238,7 +247,7 @@ class ListPartitions():
 			:rtype: Gtk.DrawingArea
         """
 		
-		partitions = self.PartitionsList
+		partitions = self.partitions_list
 		
 		self.darea.connect('draw', self.draw_event, partitions)
 		
@@ -251,7 +260,7 @@ class ListPartitions():
         """
 		
 		self.disk = device
-		partitions = self.PartitionsList
+		partitions = self.partitions_list
 		
 		self.darea.queue_draw()
 		
@@ -352,8 +361,22 @@ class ListPartitions():
 
 		dialog.destroy()
         
-		self.UpdatePartitionsView(self.disk)
+		self.update_partitions_view(self.disk)
 		self.update_partitions_image(self.disk)
+	
+	def add_partition(self):
+		
+		dialog = AddDialog(self.selected_partition[0],100) #FIXME
+		response = dialog.run()
+		
+		if response == Gtk.ResponseType.OK:
+            
+			print "OK"
+			
+		elif response == Gtk.ResponseType.CANCEL:
+			pass
+		
+		dialog.destroy()
 		
 	
 	def on_partition_selection_changed(self,selection):
@@ -368,8 +391,9 @@ class ListPartitions():
 			self.selected_partition = model[treeiter]
 			
 	
-	def ReturnPartitionsList(self):
-		return self.PartitionsList
+	@property
+	def get_partitions_list(self):
+		return self.partitions_list
 	
 	@property
 	def get_partitions_view(self):
@@ -381,7 +405,7 @@ class ListPartitions():
 	
 	@property
 	def get_toolbar(self):
-		return self.toolbar.get_toolbar()
+		return self.toolbar.get_toolbar
 	
 	@property
 	def get_actions_label(self):

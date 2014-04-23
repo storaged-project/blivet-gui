@@ -137,7 +137,8 @@ class ListDevices():
 				last = treeiter
 			
 			disk = model[treeiter][1].split('\n')[0]
-			self.partions_list.UpdatePartitionsView(disk)
+			
+			self.partions_list.update_partitions_view(disk)
 			self.partions_list.update_partitions_image(disk)
 			
 	

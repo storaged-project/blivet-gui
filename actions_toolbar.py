@@ -45,11 +45,15 @@ class actions_toolbar():
 	def __init__(self,list_partitions):
 		self.list_partitions = list_partitions
 		self.toolbar = Gtk.Toolbar()
+		
+		# Dict to translate button names (str) to buttons (Gtk.ToolButton)
 		self.buttons = {}
 		
 		self.create_buttons()
 		
 	def create_buttons(self):
+		""" Fill toolbar with buttons
+        """
 		
 		button_add = Gtk.ToolButton()
 		button_add.set_icon_name("gtk-add")
@@ -88,11 +92,19 @@ class actions_toolbar():
 		button_apply.connect("clicked", self.on_apply_clicked)
 	
 	def activate_buttons(self,button_names):
+		""" Activate selected buttons
+			:param button_names: names of buttons to activate
+			:type button_names: list of str
+        """
 		
 		for button in button_names:
 			self.buttons[button].set_sensitive(True)
 		
 	def deactivate_buttons(self,button_names):
+		""" Deactivate selected buttons
+			:param button_names: names of buttons to deactivate
+			:type button_names: list of str
+        """
 		
 		for button in button_names:
 			self.buttons[button].set_sensitive(False)
@@ -107,7 +119,7 @@ class actions_toolbar():
 		self.list_partitions.delete_selected_partition()
 		
 	def on_add_clicked(self,button):
-		print "clicked on add button"
+		self.list_partitions.add_partition()
 		
 	def on_edit_clicked(self,button):
 		print "clicked on edit button"
@@ -115,20 +127,6 @@ class actions_toolbar():
 	def on_apply_clicked(self,button):
 		print "clicked on apply button"
 	
+	@property
 	def get_toolbar(self):
 		return self.toolbar
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
