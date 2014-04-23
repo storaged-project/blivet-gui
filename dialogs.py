@@ -33,6 +33,8 @@ gettext.textdomain(APP_NAME)
 _ = gettext.gettext
  
 class RootTestDialog(Gtk.MessageDialog):
+	""" Dialog window informing user to run blivet-gui as root	
+	"""
 	
 	def __init__(self):
 		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.CANCEL, _("Root privileges required"))
@@ -44,19 +46,21 @@ class RootTestDialog(Gtk.MessageDialog):
 		
 
 class ConfirmDeleteDialog(Gtk.Dialog):
+	""" Confirmation dialog for device deletion
+	"""
 	
-	def __init__(self,partition_name):
+	def __init__(self,device_name):
 		"""
-            :param partition_name: name of partition (device) to delete
-            :type partition_name: str
+            :param device_name: name of partition (device) to delete
+            :type device_name: str
         """
 		Gtk.Dialog.__init__(self, _("Confirm delete operation"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
-		self.set_default_size(150, 100)
+		self.set_default_size(160, 110)
 
-		label = Gtk.Label(_("Are you sure you want to delete partition %(partition_name)s" % locals()))
+		label = Gtk.Label(_("Are you sure you want to delete device %(device_name)s" % locals()))
 
 		box = self.get_content_area()
 		box.add(label)

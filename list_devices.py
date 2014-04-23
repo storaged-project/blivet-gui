@@ -45,9 +45,10 @@ _ = gettext.gettext
 
 
 class ListDevices():
-	def __init__(self,BlivetUtils):
+	def __init__(self,BlivetUtils,Builder):
 		
 		self.b = BlivetUtils
+		self.builder = Builder
 		
 		self.DeviceList = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
 		
@@ -57,10 +58,10 @@ class ListDevices():
 		self.DeviceList.append([None,_("Group Devices")])
 		self.LoadGroupDevices()
 		
-		self.partions_list = ListPartitions(self.b)
+		self.partions_list = ListPartitions(self.b,self.builder)
 		
-		self.actions_view = self.partions_list.get_actions_view()
-		self.partitions_view = self.partions_list.get_partitions_view()
+		self.actions_view = self.partions_list.get_actions_view
+		self.partitions_view = self.partions_list.get_partitions_view
 		self.partitions_image = self.partions_list.create_partitions_image()
 		
 		self.disks_view = self.CreateDeviceView()

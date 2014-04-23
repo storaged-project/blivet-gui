@@ -32,9 +32,14 @@
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="hbox">
+          <placeholder/>
+        </child>
+        <child>
+          <object class="GtkPaned" id="paned1">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can_focus">True</property>
+            <property name="position">200</property>
+            <property name="position_set">True</property>
             <child>
               <object class="GtkScrolledWindow" id="disks_window">
                 <property name="width_request">175</property>
@@ -52,9 +57,8 @@
                 </child>
               </object>
               <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
+                <property name="resize">True</property>
+                <property name="shrink">True</property>
               </packing>
             </child>
             <child>
@@ -160,21 +164,17 @@
                 </child>
               </object>
               <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
+                <property name="resize">True</property>
+                <property name="shrink">True</property>
               </packing>
             </child>
           </object>
           <packing>
-            <property name="expand">True</property>
+            <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="pack_type">end</property>
-            <property name="position">1</property>
+            <property name="position">2</property>
           </packing>
-        </child>
-        <child>
-          <placeholder/>
         </child>
       </object>
     </child>

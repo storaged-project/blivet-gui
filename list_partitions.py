@@ -46,9 +46,10 @@ _ = gettext.gettext
 
 class ListPartitions():
 	
-	def __init__(self,BlivetUtils,disk=None):
+	def __init__(self,BlivetUtils,Builder,disk=None):
 		
 		self.b = BlivetUtils
+		self.builder = Builder
 		
 		self.disk = disk
 		
@@ -69,6 +70,10 @@ class ListPartitions():
 		
 		self.on_partition_selection_changed(self.select)
 		self.selection_signal = self.select.connect("changed", self.on_partition_selection_changed)
+		
+		self.actions = 0
+		self.actions_label = self.builder.get_object("actions_page")
+		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 		
 		self.selected_partition = None
 	
@@ -271,7 +276,12 @@ class ListPartitions():
 	def clear_actions_view(self):
 		""" Delete all actions in actions view
         """
+		
+		self.actions = 0
+		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 		self.action_list.clear()
+		
+		self.toolbar.deactivate_buttons(["apply"])
 	
 	def update_actions_view(self,action_type=None,action_desc=None):
 		""" Update list of scheduled actions
@@ -289,21 +299,28 @@ class ListPartitions():
 		action_icons = {"add" : icon_add, "delete" : icon_delete, "edit" : icon_edit}
 		
 		self.actions_list.append([action_icons[action_type], action_desc])
+		
+		# Update number of actions on actions card label
+		self.actions += 1
+		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
+		
+		self.toolbar.activate_buttons(["apply"])
 	
 	def activate_action_buttons(self,selected_partition):
+		""" Activate buttons in toolbar based on selected partition
+			:param selected_partition: Selected partition
+			:type selected_partition: Gtk.TreeModelRow
+        """
 		
 		partition_device = self.b.storage.devicetree.getDeviceByName(selected_partition[0])
 		
-		if selected_partition == None or partition_device == None:
+		if selected_partition == None or (partition_device == None and selected_partition[0] != _("unallocated")):
 			self.toolbar.deactivate_all()
 			return
 		
-		if partition_device == None:
-			print "WTF?!", selected_partition[0]
-		
 		if selected_partition[0] == _("unallocated"):
 			self.toolbar.deactivate_all()
-			self.toolbar.activate_buttons(["new"])
+			self.toolbar.activate_buttons(["add"])
 		
 		elif selected_partition[1] == _("extended"):
 			self.toolbar.deactivate_all()
@@ -354,13 +371,20 @@ class ListPartitions():
 	def ReturnPartitionsList(self):
 		return self.PartitionsList
 	
+	@property
 	def get_partitions_view(self):
 		return self.partitions_view
 	
+	@property
 	def get_actions_view(self):
 		return self.actions_view
 	
+	@property
 	def get_toolbar(self):
 		return self.toolbar.get_toolbar()
+	
+	@property
+	def get_actions_label(self):
+		return self.actions_label
 
 #-----------------------------------------------------#

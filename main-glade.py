@@ -58,7 +58,7 @@ def start(): #FIXME to new file/class
 	
 	b = BlivetUtils()
 
-	dlist = ListDevices(b)
+	dlist = ListDevices(b,builder)
 
 	builder.get_object("disks_viewport").add(dlist.get_disks_view())
 
@@ -68,8 +68,8 @@ def start(): #FIXME to new file/class
 
 	builder.get_object("image_window").add(dlist.return_partitions_image())
 
-	builder.get_object("vbox").add(dlist.get_partions_list().get_toolbar())
-
+	builder.get_object("vbox").add(dlist.get_partions_list().get_toolbar)
+	
 	return MainWindow
 
 #-----------------------------------------------------#

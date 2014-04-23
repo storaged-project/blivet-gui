@@ -51,27 +51,41 @@ class actions_toolbar():
 		
 	def create_buttons(self):
 		
-		button_new = Gtk.ToolButton.new_from_stock(Gtk.STOCK_ADD)
-		button_new.set_sensitive(False)
-		button_new.set_tooltip_text(_("Create new partition"))
-		self.toolbar.insert(button_new, 0)
-		self.buttons["new"] = button_new
+		button_add = Gtk.ToolButton()
+		button_add.set_icon_name("gtk-add")
+		button_add.set_sensitive(False)
+		button_add.set_tooltip_text(_("Create new partition"))
+		self.toolbar.insert(button_add, 0)
+		self.buttons["add"] = button_add
+		button_add.connect("clicked", self.on_add_clicked)
 		
-		button_delete = Gtk.ToolButton.new_from_stock(Gtk.STOCK_DELETE)
+		button_delete = Gtk.ToolButton()
+		button_delete.set_icon_name("gtk-delete")
 		button_delete.set_sensitive(False)
-		button_delete.set_tooltip_text(_("Delete selected partition"))
-		button_delete.connect("clicked", self.on_delete_clicked)
-		
+		button_delete.set_tooltip_text(_("Delete selected partition"))		
 		self.toolbar.insert(button_delete, 1)
 		self.buttons["delete"] = button_delete
+		button_delete.connect("clicked", self.on_delete_clicked)
 		
 		self.toolbar.insert(Gtk.SeparatorToolItem(), 2)
 		
-		button_edit = Gtk.ToolButton.new_from_stock(Gtk.STOCK_EDIT)
+		button_edit = Gtk.ToolButton()
+		button_edit.set_icon_name("gtk-edit")
 		button_edit.set_sensitive(False)
 		button_edit.set_tooltip_text(_("Move or resize partition"))
 		self.toolbar.insert(button_edit, 3)
 		self.buttons["edit"] = button_edit
+		button_edit.connect("clicked", self.on_edit_clicked)
+		
+		self.toolbar.insert(Gtk.SeparatorToolItem(), 4)
+		
+		button_apply = Gtk.ToolButton()
+		button_apply.set_icon_name("gtk-apply")
+		button_apply.set_sensitive(False)
+		button_apply.set_tooltip_text(_("Apply queued actions"))
+		self.toolbar.insert(button_apply, 5)
+		self.buttons["apply"] = button_apply
+		button_apply.connect("clicked", self.on_apply_clicked)
 	
 	def activate_buttons(self,button_names):
 		
@@ -85,11 +99,21 @@ class actions_toolbar():
 			
 	def deactivate_all(self):
 		
-		for button in self.buttons.values():
-			button.set_sensitive(False)
+		for button in self.buttons:
+			if button != "apply":
+				self.buttons[button].set_sensitive(False)
 			
 	def on_delete_clicked(self,button):
 		self.list_partitions.delete_selected_partition()
+		
+	def on_add_clicked(self,button):
+		print "clicked on add button"
+		
+	def on_edit_clicked(self,button):
+		print "clicked on edit button"
+	
+	def on_apply_clicked(self,button):
+		print "clicked on apply button"
 	
 	def get_toolbar(self):
 		return self.toolbar
