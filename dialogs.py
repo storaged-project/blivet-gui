@@ -44,6 +44,18 @@ class RootTestDialog(Gtk.MessageDialog):
 		self.run()
 		self.destroy()
 		
+class AddErrorDialog(Gtk.MessageDialog):
+	""" Dialog window informing user he/she need to specify fs type to create new partition
+	"""
+	
+	def __init__(self):
+		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.OK, _("Error"))
+		format_secondary_text = _("Filesystem type must be specified when creating new partition.")
+		
+		self.connect("delete-event", Gtk.main_quit)
+		self.run()
+		self.destroy()
+		
 
 class ConfirmDeleteDialog(Gtk.Dialog):
 	""" Confirmation dialog for device deletion
@@ -58,9 +70,9 @@ class ConfirmDeleteDialog(Gtk.Dialog):
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
-		self.set_default_size(160, 110)
+		self.set_default_size(175, 110)
 
-		label = Gtk.Label(_("Are you sure you want to delete device %(device_name)s" % locals()))
+		label = Gtk.Label(_("Are you sure you want to delete device %(device_name)s?" % locals()))
 
 		box = self.get_content_area()
 		box.add(label)
@@ -82,12 +94,18 @@ class AddDialog(Gtk.Dialog):
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
-		self.set_default_size(450, 300)
+		self.set_default_size(550, 200)
 
-		self.grid = Gtk.Grid(column_homogeneous=False)
+		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
 
 		box = self.get_content_area()
 		box.add(self.grid)
+		
+		self.add_size_scale()
+		self.add_fs_chooser()
+		self.add_name_chooser()
+	
+	def add_size_scale(self):
 		
 		self.scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=Gtk.Adjustment(0, 1, self.free_space, 1, 10, 0))
 		self.scale.set_hexpand(True)
@@ -99,7 +117,7 @@ class AddDialog(Gtk.Dialog):
 		self.grid.attach(self.scale, 0, 0, 6, 1) #left-top-width-height
 		
 		self.label_size = Gtk.Label()
-		self.label_size.set_text(_("Volume size"))
+		self.label_size.set_text(_("Volume size:"))
 		self.grid.attach(self.label_size, 0, 1, 1, 1) #left-top-width-height
 		
 		self.spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 1, self.free_space, 1, 10, 0))
@@ -109,16 +127,48 @@ class AddDialog(Gtk.Dialog):
 		
 		self.grid.attach(self.spin_size, 1, 1, 1, 1) #left-top-width-height
 		
+		self.label_mb = Gtk.Label()
+		self.label_mb.set_text(_("MB"))
+		self.grid.attach(self.label_mb, 2, 1, 1, 1) #left-top-width-height
+		
 		self.label_free = Gtk.Label()
-		self.label_free.set_text(_("Free space after"))
-		self.grid.attach(self.label_free, 4, 1, 1, 1) #left-top-width-height
+		self.label_free.set_text(_("Free space after:"))
+		self.grid.attach(self.label_free, 3, 1, 1, 1) #left-top-width-height
 		
 		self.spin_free = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 0, self.free_space, 1, 10, 0))
 		self.spin_free.set_numeric(True)
 		self.spin_free.connect("value-changed", self.spin_free_moved)
 		
-		self.grid.attach(self.spin_free, 5, 1, 1, 1) #left-top-width-height
+		self.grid.attach(self.spin_free, 4, 1, 1, 1) #left-top-width-height
 		
+		self.label_mb2 = Gtk.Label()
+		self.label_mb2.set_text(_("MB"))
+		self.grid.attach(self.label_mb2, 5, 1, 1, 1) #left-top-width-height
+		
+	def add_fs_chooser(self):
+		
+		self.label_fs = Gtk.Label()
+		self.label_fs.set_text(_("Filesystem:"))
+		self.grid.attach(self.label_fs, 0, 2, 1, 1)
+		
+		filesystems = ["ext2", "ext3", "ext4", "ntfs",
+			"fat", "xfs", "reiserfs"]
+		self.filesystems_combo = Gtk.ComboBoxText()
+		self.filesystems_combo.set_entry_text_column(0)
+		
+		for fs in filesystems:
+			self.filesystems_combo.append_text(fs)
+		
+		self.grid.attach(self.filesystems_combo,1,2,2,1)
+		
+	def add_name_chooser(self):
+		
+		self.label_entry = Gtk.Label()
+		self.label_entry.set_text(_("Name:"))
+		self.grid.attach(self.label_entry, 0, 3, 1, 1)
+		
+		self.name_entry = Gtk.Entry()
+		self.grid.attach(self.name_entry,1,3,2,1)
 		
 		self.show_all()
 	
@@ -136,3 +186,6 @@ class AddDialog(Gtk.Dialog):
 		
 		self.scale.set_value(self.free_space - self.spin_free.get_value())
 		self.spin_size.set_value(self.free_space - self.spin_free.get_value())
+	
+	def get_selection(self):
+		return (self.spin_size.get_value(),self.filesystems_combo.get_active_text())

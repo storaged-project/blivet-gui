@@ -110,21 +110,31 @@ class actions_toolbar():
 			self.buttons[button].set_sensitive(False)
 			
 	def deactivate_all(self):
+		""" Deactivate all partition based buttons
+        """
 		
 		for button in self.buttons:
 			if button != "apply":
 				self.buttons[button].set_sensitive(False)
 			
 	def on_delete_clicked(self,button):
+		""" Onclick action for delete button
+		"""
 		self.list_partitions.delete_selected_partition()
 		
 	def on_add_clicked(self,button):
+		""" Onclick action for add button
+		"""
 		self.list_partitions.add_partition()
 		
 	def on_edit_clicked(self,button):
+		""" Onclick action for edit button
+		"""
 		print "clicked on edit button"
 	
 	def on_apply_clicked(self,button):
+		""" Onclick action for edit button
+		"""
 		print "clicked on apply button"
 	
 	@property

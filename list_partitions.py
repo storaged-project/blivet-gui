@@ -23,7 +23,7 @@
 
 import sys, os, signal
 
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import Gtk, GdkPixbuf, Gdk
 
 import blivet
 
@@ -53,6 +53,7 @@ class ListPartitions():
 		
 		self.disk = disk
 		
+		# ListStores for partitions and actions
 		self.partitions_list = Gtk.ListStore(str,str,str,str)
 		self.actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf,str)
 
@@ -240,6 +241,12 @@ class ListPartitions():
 			i += 1
 		
 		return True
+
+	def button_press_event(self, da, event):
+		
+		#print "clicked on", event.x, "|", event.y
+
+		return True
 	
 	def create_partitions_image(self):
 		""" Create drawing area
@@ -250,6 +257,15 @@ class ListPartitions():
 		partitions = self.partitions_list
 		
 		self.darea.connect('draw', self.draw_event, partitions)
+		self.darea.connect('button-press-event', self.button_press_event)
+		
+		# Ask to receive events the drawing area doesn't normally
+		# subscribe to
+		self.darea.set_events(self.darea.get_events()
+				| Gdk.EventMask.LEAVE_NOTIFY_MASK
+				| Gdk.EventMask.BUTTON_PRESS_MASK
+				| Gdk.EventMask.POINTER_MOTION_MASK
+				| Gdk.EventMask.POINTER_MOTION_HINT_MASK)
 		
 		return self.darea
 	
@@ -265,6 +281,10 @@ class ListPartitions():
 		self.darea.queue_draw()
 		
 	def create_actions_view(self):
+		""" Create treeview for actions
+			:returns: treeview
+			:rtype: Gtk.TreeView
+        """
 			
 		treeview = Gtk.TreeView(model=self.actions_list)
 		treeview.set_vexpand(True)
@@ -369,14 +389,25 @@ class ListPartitions():
 		dialog = AddDialog(self.selected_partition[0],100) #FIXME
 		response = dialog.run()
 		
-		if response == Gtk.ResponseType.OK:
-            
-			print "OK"
-			
-		elif response == Gtk.ResponseType.CANCEL:
-			pass
+		selection = dialog.get_selection()
 		
-		dialog.destroy()
+		if response == Gtk.ResponseType.OK:
+			
+			if selection[1] == None:
+				# If fs is not selected, show error window and re-run add dialog
+				dialog_error = AddErrorDialog()
+				dialog.destroy()
+				self.add_partition()
+		
+			else:
+            
+				print "OK", dialog.get_selection() #FIXME
+				dialog.destroy()
+			
+		elif response == Gtk.ResponseType.CANCEL:		
+			
+			dialog.destroy()
+			return
 		
 	
 	def on_partition_selection_changed(self,selection):

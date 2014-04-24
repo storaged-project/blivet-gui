@@ -75,8 +75,8 @@ class ListDevices():
 	def LoadDisks(self):
 		
 		icon_theme = Gtk.IconTheme.get_default()
-		icon_disk = Gtk.IconTheme.load_icon (icon_theme,"drive-harddisk",32, 0)
-		icon_disk_usb = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
+		icon_disk = Gtk.IconTheme.load_icon (icon_theme,"gnome-dev-harddisk",32, 0)
+		icon_disk_usb = Gtk.IconTheme.load_icon (icon_theme,"gnome-dev-harddisk-usb",32, 0)
 		
 		disks = self.b.GetDisks()
 		

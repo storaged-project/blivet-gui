@@ -1,91 +1,76 @@
-#!/usr/bin/python2
 from gi.repository import Gtk
-from gi.repository.GdkPixbuf import Pixbuf
 
+class ComboBoxWindow(Gtk.Window):
 
-actresses = [i.strip().replace("'", "").split() for i in open("lista.txt").readlines()]
-
-
-class PyApp(Gtk.Window): 
     def __init__(self):
-        super(PyApp, self).__init__()
+        Gtk.Window.__init__(self, title="ComboBox Example")
 
-        self.set_size_request(350, 250)
-        self.set_position(Gtk.WIN_POS_CENTER)
+        self.set_border_width(10)
 
-        self.connect("destroy", Gtk.main_quit)
-        self.set_title("ListView")
+        name_store = Gtk.ListStore(int, str)
+        name_store.append([1, "Billy Bob"])
+        name_store.append([11, "Billy Bob Junior"])
+        name_store.append([12, "Sue Bob"])
+        name_store.append([2, "Joey Jojo"])
+        name_store.append([3, "Rob McRoberts"])
+        name_store.append([31, "Xavier McRoberts"])
 
-        self.Boton = Gtk.Button("click")
-        self.Boton.connect("clicked",self.create_list)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
-        self.Boton.show()
+        name_combo = Gtk.ComboBox.new_with_model_and_entry(name_store)
+        name_combo.connect("changed", self.on_name_combo_changed)
+        name_combo.set_entry_text_column(1)
+        vbox.pack_start(name_combo, False, False, 0)
 
-        vbox = Gtk.VBox(False, 8)
+        country_store = Gtk.ListStore(str)
+        countries = ["Austria", "Brazil", "Belgium", "France", "Germany",
+            "Switzerland", "United Kingdom", "United States of America",
+            "Uruguay"]
+        for country in countries:
+            country_store.append([country])
 
-        sw = Gtk.ScrolledWindow()
-        sw.set_shadow_type(Gtk.SHADOW_ETCHED_IN)
-        sw.set_policy(Gtk.POLICY_AUTOMATIC, Gtk.POLICY_AUTOMATIC)
+        country_combo = Gtk.ComboBox.new_with_model(country_store)
+        country_combo.connect("changed", self.on_country_combo_changed)
+        renderer_text = Gtk.CellRendererText()
+        country_combo.pack_start(renderer_text, True)
+        country_combo.add_attribute(renderer_text, "text", 0)
+        vbox.pack_start(country_combo, False, False, True)
 
-        vbox.pack_start(sw, True, True, 0)
-        vbox.pack_start(self.Boton, True, True, 0)
+        currencies = ["Euro", "US Dollars", "British Pound", "Japanese Yen",
+            "Russian Ruble", "Mexican peso", "Swiss franc"]
+        currency_combo = Gtk.ComboBoxText()
+        currency_combo.set_entry_text_column(0)
+        currency_combo.connect("changed", self.on_currency_combo_changed)
+        for currency in currencies:
+            currency_combo.append_text(currency)
 
-        store = self.create_model()
-
-        treeView = Gtk.TreeView(store)
-        treeView.connect("row-activated", self.on_activated)
-        treeView.set_rules_hint(True)
-        sw.add(treeView)
-
-        self.create_columns(treeView)
-        self.statusbar = Gtk.Statusbar()
-
-        vbox.pack_start(self.statusbar, False, False, 0)
+        vbox.pack_start(currency_combo, False, False, 0)
 
         self.add(vbox)
-        self.show_all()
 
+    def on_name_combo_changed(self, combo):
+        tree_iter = combo.get_active_iter()
+        if tree_iter != None:
+            model = combo.get_model()
+            row_id, name = model[tree_iter][:2]
+            print("Selected: ID=%d, name=%s" % (row_id, name))
+        else:
+            entry = combo.get_child()
+            print("Entered: %s" % entry.get_text())
 
-    def create_model(self):
-        store = Gtk.ListStore(str, str, str)
+    def on_country_combo_changed(self, combo):
+        tree_iter = combo.get_active_iter()
+        if tree_iter != None:
+            model = combo.get_model()
+            country = model[tree_iter][0]
+            print("Selected: country=%s" % country)
 
-        for act in actresses:
-            store.append([act[0], act[1], act[2]])
+    def on_currency_combo_changed(self, combo):
+        text = combo.get_active_text()
+        if text != None:
+            print("Selected: currency=%s" % text)
 
-        return store
-
-
-    def create_columns(self, treeView):
-
-        rendererText = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Nombre", rendererText, text=0)
-        column.set_sort_column_id(0)    
-        treeView.append_column(column)
-
-        rendererText = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("apellido", rendererText, text=1)
-        column.set_sort_column_id(1)
-        treeView.append_column(column)
-
-        rendererText = Gtk.CellRendererText()
-        column = Gtk.TreeViewColumn("Tamano", rendererText, text=2)
-        column.set_sort_column_id(2)
-        treeView.append_column(column)
-
-
-    def on_activated(self, widget, row, col):
-
-        model = widget.get_model()
-        text = model[row][0] + ", " + model[row][1] + ", " + model[row][2]
-        self.statusbar.push(0, text)
-    if model[row][0] == "lol":
-       print "Funciona"
-
-    def create_list(self, widget):
-        # create a TreeView object which will work with our model (ListStore)
-        self.listview = self.create_model()
-        self.treeView = Gtk.TreeView(self.listview)
-        self.treeView.set_rules_hint(True)
-
-PyApp()
+win = ComboBoxWindow()
+win.connect("delete-event", Gtk.main_quit)
+win.show_all()
 Gtk.main()
