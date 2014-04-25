@@ -33,7 +33,10 @@ _ = gettext.gettext
 class FreeSpaceDevice():
 	def __init__(self,freeSpace):
 		self.name = _("unallocated")
-		self.size = int((freeSpace.length*512) / (1024*1024)) ## FIXME: 512 = block size
+		self.sectorSize = freeSpace.device.sectorSize
+		self.size = int((freeSpace.length*self.sectorSize) / (self.sectorSize*2)**2)
+		self.start = freeSpace.start
+		self.end = freeSpace.end
 
 
 class BlivetUtils():
@@ -103,9 +106,11 @@ class BlivetUtils():
 						
 						elif free.start < partition.partedPartition.geometry.start:
 							partitions2.insert(partitions.index(partition),FreeSpaceDevice(free))
+							break
 						
 						elif free.end > partition.partedPartition.geometry.end:
 							partitions2.append(FreeSpaceDevice(free))
+							break
 			
 			# Find free space inside extended partition
 			for partition in partitions:
@@ -113,6 +118,7 @@ class BlivetUtils():
 					if partition.isExtended:
 						for logical in self.storage.devicetree.getChildren(partition):
 							partitions2.append(logical)
+							break
 						
 						free_space = partitioning.getFreeRegions([blivet_device])
 						
@@ -122,6 +128,7 @@ class BlivetUtils():
 								if free.length < 2048:
 									continue
 								partitions2.append(FreeSpaceDevice(free))
+								break
 						
 				except AttributeError:
 					pass
@@ -160,4 +167,27 @@ class BlivetUtils():
 		
 		device = self.storage.devicetree.getDeviceByName(device_name)		
 		self.storage.destroyDevice(device)
+	
+	def add_partition_device(self, parent_device, fs_type, pstart, pend, label=None, flags=[]):
+		""" Create new partition device
+			:param parent_device: name of parent device
+			:type parent_device: str
+			:param fs_type: filesystem
+			:type fs_type: str
+			:param start: start sector
+			:type start: int
+			:param end: end sector
+			:type end: int
+			:param label: device label (name)
+			:type label: str
+			:param flags: device flags
+			:type flags: list of str
+        """
+		new_part = self.storage.newPartition(start=pstart, end=pend, parents=[self.storage.devicetree.getDeviceByName(parent_device)])
+		self.storage.createDevice(new_part)
+
+		new_fmt = formats.getFormat(fs_type, device=new_part.path)
+		self.storage.formatDevice(new_part, new_fmt)
+		
+		partitioning.doPartitioning(self.storage)
 		

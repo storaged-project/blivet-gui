@@ -54,7 +54,7 @@ class ListPartitions():
 		self.disk = disk
 		
 		# ListStores for partitions and actions
-		self.partitions_list = Gtk.ListStore(str,str,str,str)
+		self.partitions_list = Gtk.ListStore(str,str,str,str,int,int)
 		self.actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf,str)
 
 		self.load_partitions()
@@ -108,13 +108,13 @@ class ListPartitions():
 		
 		for partition in partitions:
 			if partition.name == _("unallocated"):
-				self.partitions_list.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,"--","--",str(int(partition.size)) + " MB",partition.start,partition.end])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
-				self.partitions_list.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB",0,0])
 			elif partition.format.mountable:
-				self.partitions_list.append([partition.name,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB",0,0])
 			else:
-				self.partitions_list.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB",0,0])
 
 			
 	def create_partitions_view(self):
@@ -386,7 +386,10 @@ class ListPartitions():
 	
 	def add_partition(self):
 		
-		dialog = AddDialog(self.selected_partition[0],100) #FIXME
+		free_size = int(self.selected_partition[3].split()[0])
+		
+		dialog = AddDialog(self.selected_partition[0],free_size)
+		
 		response = dialog.run()
 		
 		selection = dialog.get_selection()
@@ -400,8 +403,15 @@ class ListPartitions():
 				self.add_partition()
 		
 			else:
-            
-				print "OK", dialog.get_selection() #FIXME
+				user_input = dialog.get_selection()
+				
+				#FIXME really ugly way to pass arguments, I know
+				self.b.add_partition_device(self.disk, user_input[1], self.selected_partition[-2], int((self.selected_partition[-1] - self.selected_partition[-2])*user_input[0] / free_size) + self.selected_partition[-2])
+				
+				self.update_actions_view("add","add " + str(user_input[0]) + " MB " + user_input[1] + " partition")
+				self.update_partitions_view(self.disk)
+				self.update_partitions_image(self.disk)
+				
 				dialog.destroy()
 			
 		elif response == Gtk.ResponseType.CANCEL:		
