@@ -81,13 +81,22 @@ class actions_toolbar():
 		self.buttons["edit"] = button_edit
 		button_edit.connect("clicked", self.on_edit_clicked)
 		
-		self.toolbar.insert(Gtk.SeparatorToolItem(), 4)
+		
+		button_umount = Gtk.ToolButton()
+		button_umount.set_icon_name("emblem-readonly")
+		button_umount.set_sensitive(False)
+		button_umount.set_tooltip_text(_("Unmount selected device"))
+		self.toolbar.insert(button_umount, 4)
+		self.buttons["umount"] = button_umount
+		button_umount.connect("clicked", self.on_umount_clicked)
+		
+		self.toolbar.insert(Gtk.SeparatorToolItem(), 5)
 		
 		button_apply = Gtk.ToolButton()
 		button_apply.set_icon_name("gtk-apply")
 		button_apply.set_sensitive(False)
 		button_apply.set_tooltip_text(_("Apply queued actions"))
-		self.toolbar.insert(button_apply, 5)
+		self.toolbar.insert(button_apply, 6)
 		self.buttons["apply"] = button_apply
 		button_apply.connect("clicked", self.on_apply_clicked)
 	
@@ -131,11 +140,28 @@ class actions_toolbar():
 		""" Onclick action for edit button
 		"""
 		print "clicked on edit button"
+		
+	def on_umount_clicked(self,button):
+		""" Onclick action for umount button
+		"""
+		
+		self.list_partitions.umount_partition()
 	
 	def on_apply_clicked(self,button):
 		""" Onclick action for edit button
 		"""
-		print "clicked on apply button"
+		dialog = ConfirmPerformActions()
+		
+		response = dialog.run()
+
+		if response == Gtk.ResponseType.OK:
+            
+			self.list_partitions.perform_actions()
+			
+		elif response == Gtk.ResponseType.CANCEL:
+			pass
+
+		dialog.destroy()
 	
 	@property
 	def get_toolbar(self):

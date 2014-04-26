@@ -112,7 +112,7 @@ class ListPartitions():
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
 				self.partitions_list.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB",0,0])
 			elif partition.format.mountable:
-				self.partitions_list.append([partition.name,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB",0,0])
+				self.partitions_list.append([partition.name,partition.format._type,partition_mounted(partition.path),str(int(partition.size)) + " MB",0,0])
 			else:
 				self.partitions_list.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB",0,0])
 
@@ -357,8 +357,10 @@ class ListPartitions():
 		
 		else:
 			self.toolbar.deactivate_all()
-			if partition_device.format.mountable and partition_device.format.mountpoint == None:
+			if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
 				self.toolbar.activate_buttons(["delete"])
+			elif partition_device.format.mountable and partition_mounted(partition_device.path) != None:
+				self.toolbar.activate_buttons(["umount"])
 			
 			#FIXME detect resizable
 			#self.toolbar.activate_buttons(["delete","edit"])
@@ -398,7 +400,7 @@ class ListPartitions():
 			
 			if selection[1] == None:
 				# If fs is not selected, show error window and re-run add dialog
-				dialog_error = AddErrorDialog()
+				AddErrorDialog()
 				dialog.destroy()
 				self.add_partition()
 		
@@ -406,19 +408,42 @@ class ListPartitions():
 				user_input = dialog.get_selection()
 				
 				#FIXME really ugly way to pass arguments, I know
-				self.b.add_partition_device(self.disk, user_input[1], self.selected_partition[-2], int((self.selected_partition[-1] - self.selected_partition[-2])*user_input[0] / free_size) + self.selected_partition[-2])
+				ret = self.b.add_partition_device(self.disk, user_input[1], self.selected_partition[-2], int((self.selected_partition[-1] - self.selected_partition[-2])*user_input[0] / free_size) + self.selected_partition[-2])
 				
-				self.update_actions_view("add","add " + str(user_input[0]) + " MB " + user_input[1] + " partition")
-				self.update_partitions_view(self.disk)
-				self.update_partitions_image(self.disk)
+				if ret:
+					self.update_actions_view("add","add " + str(user_input[0]) + " MB " + user_input[1] + " partition")
+					self.update_partitions_view(self.disk)
+					self.update_partitions_image(self.disk)
+				
+				else:
+					self.update_partitions_view(self.disk)
+					self.update_partitions_image(self.disk)
 				
 				dialog.destroy()
 			
 		elif response == Gtk.ResponseType.CANCEL:		
 			
 			dialog.destroy()
+			
 			return
 		
+	def perform_actions(self):
+		
+		print "here comes the truth!"
+		
+		self.update_partitions_view(self.disk)
+		self.update_partitions_image(self.disk)
+	
+	def umount_partition(self):
+		
+		mountpoint = self.selected_partition[2]
+		
+		if os_umount_partition(mountpoint):
+			self.update_partitions_view(self.disk)
+			self.update_partitions_image(self.disk)
+			
+		else:
+			UnmountErrorDialog(self.selected_partition[0])
 	
 	def on_partition_selection_changed(self,selection):
 		
@@ -427,7 +452,7 @@ class ListPartitions():
 		self.toolbar.deactivate_all()
 		
 		if treeiter != None:
-			#FIXME -- need to pass more details if unallocated #TODO possibly add ID for unallocated
+			
 			self.activate_action_buttons(model[treeiter])
 			self.selected_partition = model[treeiter]
 			
@@ -451,5 +476,9 @@ class ListPartitions():
 	@property
 	def get_actions_label(self):
 		return self.actions_label
+	
+	@property
+	def get_actions_list(self):
+		return self.actions_list
 
 #-----------------------------------------------------#

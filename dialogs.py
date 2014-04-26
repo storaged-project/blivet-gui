@@ -38,7 +38,9 @@ class RootTestDialog(Gtk.MessageDialog):
 	
 	def __init__(self):
 		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.CANCEL, _("Root privileges required"))
-		format_secondary_text = _("Root privileges are required for running blivet-gui.")
+		self.format_secondary_text = _("Root privileges are required for running blivet-gui.")
+		
+		self.show_all()
 		
 		self.connect("delete-event", Gtk.main_quit)
 		self.run()
@@ -49,8 +51,27 @@ class AddErrorDialog(Gtk.MessageDialog):
 	"""
 	
 	def __init__(self):
-		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.OK, _("Error"))
-		format_secondary_text = _("Filesystem type must be specified when creating new partition.")
+		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.OK, _("Error:\n\nFilesystem type must be specified when creating new partition."))
+		
+		self.show_all()
+		
+		self.connect("delete-event", Gtk.main_quit)
+		self.run()
+		self.destroy()
+		
+class UnmountErrorDialog(Gtk.MessageDialog):
+	""" Dialog window informing user about unsuccesfull unmount operation
+	"""
+	
+	def __init__(self, device_name):
+		"""
+            :param device_name: name of partition (device) to unmount
+            :type device_name: str
+        """
+        
+		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.OK, _("Unmount failed.\n\nAre you sure \'%(device_name)s\' is not in use?" % locals()))
+		
+		self.show_all()
 		
 		self.connect("delete-event", Gtk.main_quit)
 		self.run()
@@ -76,6 +97,24 @@ class ConfirmDeleteDialog(Gtk.Dialog):
 
 		box = self.get_content_area()
 		box.add(label)
+		self.show_all()
+		
+class ConfirmPerformActions(Gtk.Dialog):
+	""" Confirmation dialog for device deletion
+	"""
+	
+	def __init__(self):
+		Gtk.Dialog.__init__(self, _("Confirm scheduled actions"), None, 0,
+			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+			Gtk.STOCK_OK, Gtk.ResponseType.OK))
+
+		self.set_default_size(175, 110)
+
+		label = Gtk.Label(_("Are you sure you want to perform scheduled actions?"))
+		
+		box = self.get_content_area()
+		box.add(label)
+		
 		self.show_all()
 
 

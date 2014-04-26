@@ -24,11 +24,56 @@ from blivet import *
 
 import gettext
 
+import os, subprocess
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
 gettext.textdomain(APP_NAME)
 _ = gettext.gettext
+
+
+def partition_mounted(partition_path):
+	""" Is selected partition partition_mounted
+		:param partition_path: /dev path for partition
+		:param type: str
+		:returns: mountpoint
+		:rtype: str
+	"""
+	
+	try:
+		mounts = open("/proc/mounts", "r")
+	except IOError as e:
+			print e #FIXME
+	
+	for line in mounts:
+		# /proc/mounts line fmt:
+		# device-mountpoint-mountopts
+		if line.split()[0] == partition_path:
+			return line.split()[1]
+	
+	return None
+
+def os_umount_partition(mountpoint):
+	""" Umount selected partition
+		:param mountpoint: mountpoint (os.path)
+		:type mountpoint: str
+		:returns: success
+		:rtype: bool
+	"""
+	
+	if not os.path.ismount(mountpoint):
+		print "Something very wrong happened"
+		return False
+	
+	FNULL = open(os.devnull, "w")
+	ret = subprocess.Popen(["umount", mountpoint],stdout=FNULL, stderr=subprocess.STDOUT)
+	
+	if ret != 0:
+		return False
+	
+	return True
+	
 
 class FreeSpaceDevice():
 	def __init__(self,freeSpace):
@@ -136,7 +181,7 @@ class BlivetUtils():
 			return partitions2
 		
 		else:
-			return []
+			return partitions
 
 	def GetPartitions(self,device_name):
 		""" Get partitions (children) of selected device
@@ -182,6 +227,8 @@ class BlivetUtils():
 			:type label: str
 			:param flags: device flags
 			:type flags: list of str
+			:returns: success
+			:rtype: bool
         """
 		new_part = self.storage.newPartition(start=pstart, end=pend, parents=[self.storage.devicetree.getDeviceByName(parent_device)])
 		self.storage.createDevice(new_part)
@@ -189,5 +236,12 @@ class BlivetUtils():
 		new_fmt = formats.getFormat(fs_type, device=new_part.path)
 		self.storage.formatDevice(new_part, new_fmt)
 		
-		partitioning.doPartitioning(self.storage)
-		
+		try:
+			partitioning.doPartitioning(self.storage)
+			
+			return True
+		except PartitioningError as e:
+			print "Something very wrong happened:"
+			print e
+			
+			return False
