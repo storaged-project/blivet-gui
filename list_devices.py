@@ -50,12 +50,12 @@ class ListDevices():
 		self.b = BlivetUtils
 		self.builder = Builder
 		
-		self.DeviceList = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
+		self.device_list = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
 		
-		self.DeviceList.append([None,_("Disk Devices")])
+		self.device_list.append([None,_("Disk Devices")])
 		self.LoadDisks()
 		
-		self.DeviceList.append([None,_("Group Devices")])
+		self.device_list.append([None,_("Group Devices")])
 		self.LoadGroupDevices()
 		
 		self.partions_list = ListPartitions(self.b,self.builder)
@@ -78,23 +78,23 @@ class ListDevices():
 		icon_disk = Gtk.IconTheme.load_icon (icon_theme,"gnome-dev-harddisk",32, 0)
 		icon_disk_usb = Gtk.IconTheme.load_icon (icon_theme,"gnome-dev-harddisk-usb",32, 0)
 		
-		disks = self.b.GetDisks()
+		disks = self.b.get_disks()
 		
 		for disk in disks:
 			if disk.removable:
-				self.DeviceList.append([icon_disk_usb,str(disk.name + "\n" + disk.model)])
+				self.device_list.append([icon_disk_usb,str(disk.name + "\n" + disk.model)])
 			else:
-				self.DeviceList.append([icon_disk,str(disk.name + "\n" + disk.model)])
+				self.device_list.append([icon_disk,str(disk.name + "\n" + disk.model)])
 	
 	def LoadGroupDevices(self):
 		
-		gdevices = self.b.GetGroupDevices()
+		gdevices = self.b.get_group_devices()
 		
 		icon_theme = Gtk.IconTheme.get_default()
 		icon_group = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
 		
 		for device in gdevices:
-			self.DeviceList.append([icon_group,str(device.name + "\n")])
+			self.device_list.append([icon_group,str(device.name + "\n")])
 	
 	def LoadDevices(self):
 		
@@ -103,7 +103,7 @@ class ListDevices():
 				
 	def CreateDeviceView(self):
 			
-		treeview = Gtk.TreeView(model=self.DeviceList)
+		treeview = Gtk.TreeView(model=self.device_list)
 		#treeview.set_vexpand(True)
 		#treeview.set_hexpand(True)
 		
@@ -121,18 +121,22 @@ class ListDevices():
 	
 	def on_disk_selection_changed(self,selection):
 		
+		# Last selected device from list
 		global last
 		
 		model, treeiter = selection.get_selected()
 		
 		if treeiter != None:
 			
+			# 'Disk Devices' and 'Group Devices' are just labels
+			# If user select one of these, we need to unselect this and select previous choice
 			if model[treeiter][1] == "Disk Devices" or model[treeiter][1] == "Group Devices":
 				selection.handler_block(self.selection_signal)
 				selection.unselect_iter(treeiter)
 				selection.handler_unblock(self.selection_signal) 
 				selection.select_iter(last)
 				treeiter = last
+			
 			else:
 				last = treeiter
 			
@@ -142,8 +146,8 @@ class ListDevices():
 			self.partions_list.update_partitions_image(disk)
 			
 	
-	def ReturnDeviceList(self):
-		return self.DeviceList
+	def return_device_list(self):
+		return self.device_list
 	
 	def return_actions_view(self):
 		return self.actions_view
@@ -159,4 +163,3 @@ class ListDevices():
 	
 	def get_partions_list(self):
 		return self.partions_list
-

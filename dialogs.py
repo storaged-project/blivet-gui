@@ -119,7 +119,7 @@ class ConfirmPerformActions(Gtk.Dialog):
 
 
 class AddDialog(Gtk.Dialog):
-	""" Confirmation dialog for device deletion
+	""" Dialog window allowing user to add new partition including selecting size, fs, label etc.
 	"""
 	def __init__(self,partition_name, free_space):
 		"""

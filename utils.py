@@ -76,6 +76,9 @@ def os_umount_partition(mountpoint):
 	
 
 class FreeSpaceDevice():
+	""" Special class to represent free space on disk (device)
+		(blivet doesn't have class/device to represent free space)
+	"""
 	def __init__(self,freeSpace):
 		self.name = _("unallocated")
 		self.sectorSize = freeSpace.device.sectorSize
@@ -85,11 +88,13 @@ class FreeSpaceDevice():
 
 
 class BlivetUtils():
+	""" Class with utils directly working with blivet itselves
+	"""
 	def __init__(self):
 		self.storage = Blivet()
 		self.storage.reset()
 
-	def GetDisks(self):
+	def get_disks(self):
 		""" Return list of all disk devices on current system
 			:returns: list of all "disk" devices
 			:rtype: list
@@ -102,7 +107,7 @@ class BlivetUtils():
 				
 		return roots
 
-	def GetGroupDevices(self):
+	def get_group_devices(self):
 		""" Return list of other devices with children (e.g. LVM volume group)
 			:returns: list of "group" devices
 			:rtype: list
