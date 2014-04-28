@@ -26,6 +26,8 @@ import gettext
 
 import os, subprocess
 
+from common import *
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
@@ -67,8 +69,10 @@ def os_umount_partition(mountpoint):
 		return False
 	
 	FNULL = open(os.devnull, "w")
-	ret = subprocess.Popen(["umount", mountpoint],stdout=FNULL, stderr=subprocess.STDOUT)
+	umount_proc = subprocess.Popen(["umount", mountpoint],stdout=FNULL, stderr=subprocess.STDOUT)
 	
+	ret = umount_proc.wait()
+
 	if ret != 0:
 		return False
 	
@@ -93,6 +97,15 @@ class BlivetUtils():
 	def __init__(self):
 		self.storage = Blivet()
 		self.storage.reset()
+		
+		self.add_examples()
+	
+	def add_examples(self):
+		disk1_file = create_sparse_file(self.storage, "disk_ex", size=10000)
+		self.storage.config.diskImages["disk_ex"] = disk1_file
+		
+		#self.storage.reset()
+		
 
 	def get_disks(self):
 		""" Return list of all disk devices on current system
@@ -104,7 +117,7 @@ class BlivetUtils():
 		for device in self.storage.devices:
 			if len(device.parents) == 0 and device.isDisk:
 				roots.append(device)
-				
+		
 		return roots
 
 	def get_group_devices(self):
@@ -118,7 +131,7 @@ class BlivetUtils():
 		for device in self.storage.devices:
 			if device._type == "lvmvg":
 				groups.append(device)
-				
+		
 		return groups
 	
 	def get_free_space(self,device_name,partitions):
@@ -218,6 +231,66 @@ class BlivetUtils():
 		device = self.storage.devicetree.getDeviceByName(device_name)		
 		self.storage.destroyDevice(device)
 	
+	def device_resizable(self,device_name):
+		""" Is given device resizable
+			:param device_name: anme of device
+			:type device_name: str
+			:returns: device resizable, minSize, maxSize, size
+			:rtype: tuple
+		"""
+		
+		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
+		
+		if blivet_device.resizable:
+			return (True, blivet_device.minSize, blivet_device.maxSize, blivet_device.size)
+		
+		else:
+			return (False, blivet_device.size, blivet_device.size, blivet_device.size)
+		
+	
+	def edit_partition_device(self, device_name, settings):
+		""" Edit device
+			:param device_name: name of device
+			:type device_name: str
+			:param settings: resize, target_size, target_fs
+			:type settings: tuple
+			:returns: success
+			:rtype: bool
+        """
+        
+		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
+		resize = settings[0]
+		target_size = settings[1]
+		target_fs = settings[2]
+		
+		print resize, target_size, target_fs
+        
+		if resize == False and target_fs == None:
+			print "Something got very wrong"
+			return False
+		
+		elif resize == False and target_fs != None:
+			new_fmt = formats.getFormat(target_fs, device=blivet_device.path)
+			self.storage.formatDevice(blivet_device, new_fmt)
+		
+		elif resize == True and target_fs == None:
+			self.storage.resizeDevice(blivet_device, int(target_size))
+		
+		else:
+			self.storage.resizeDevice(blivet_device, int(target_size))
+			new_fmt = formats.getFormat(target_fs, device=blivet_device.path)
+			self.storage.formatDevice(blivet_device, new_fmt)
+		
+		try:
+			partitioning.doPartitioning(self.storage)
+			return True
+		
+		except PartitioningError as e:
+			print "Something very wrong happened:"
+			print e
+			
+			return False
+	
 	def add_partition_device(self, parent_device, fs_type, pstart, pend, label=None, flags=[]):
 		""" Create new partition device
 			:param parent_device: name of parent device
@@ -250,3 +323,6 @@ class BlivetUtils():
 			print e
 			
 			return False
+	
+	def blivet_do_it(self):
+		self.storage.doIt()

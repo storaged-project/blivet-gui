@@ -1,5 +1,5 @@
-# main.py
-# Main
+# actions_menu.py
+# Toolbar class
 # 
 # Copyright (C) 2014  Red Hat, Inc.
 #
@@ -20,6 +20,7 @@
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
 
+
 import sys, os, signal
 
 from gi.repository import Gtk, GdkPixbuf
@@ -34,57 +35,33 @@ from utils import *
 
 from dialogs import *
 
-from list_devices import *
-
 APP_NAME = "blivet-gui"
-
-#-----------------------------------------------------#
 
 gettext.bindtextdomain(APP_NAME, 'po')
 gettext.textdomain(APP_NAME)
 _ = gettext.gettext
 
-#-----------------------------------------------------#
-
-def start(): #FIXME to new file/class
+class actions_menu():
+	def __init__(self,list_partitions):
+		self.list_partitions = list_partitions
+		self.menu = Gtk.Menu()
+		
+		# Dict to translate menu item names (str) to menu items (Gtk.MenuItem)
+		self.items = {}
+		
+		self.create_menu_items()
 	
-	builder = Gtk.Builder()
-	builder.add_from_file("blivet-gui.glade")
-
-	signal.signal(signal.SIGINT, signal.SIG_DFL)
-
-	MainWindow = builder.get_object("MainWindow")
-	MainWindow.connect("delete-event", Gtk.main_quit)
+	def create_menu_items(self):
+		self.add_menu_item(None,"aaa")
 	
-	b = BlivetUtils()
+	def add_menu_item(self, command, title):
+		aMenuitem = Gtk.MenuItem()
+		aMenuitem.set_label(title)
+		#aMenuitem.connect("activate", command)
 
-	dlist = ListDevices(b,builder)
-
-	builder.get_object("disks_viewport").add(dlist.get_disks_view())
-
-	builder.get_object("partitions_viewport").add(dlist.return_partitions_view())
-
-	builder.get_object("actions_viewport").add(dlist.return_actions_view())
-
-	builder.get_object("image_window").add(dlist.return_partitions_image())
-
-	builder.get_object("vbox").add(dlist.get_partions_list().get_toolbar)
+		self.menu.append(aMenuitem)
+		self.menu.show_all()
 	
-	return MainWindow
-
-#-----------------------------------------------------#
-
-
-def main():	
-	if os.geteuid() != 0:
-		# privileges are required for blivet
-		RootTestDialog()
-		sys.exit(0)
-	
-	else:
-		MainWindow = start()
-		MainWindow.show_all()
-		Gtk.main()
-
-if  __name__ =='__main__':main()
-
+	@property
+	def get_menu(self):
+		return self.menu

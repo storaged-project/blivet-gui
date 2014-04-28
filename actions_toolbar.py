@@ -1,4 +1,4 @@
-# list_partitions.py
+# actions_toolbar.py
 # Toolbar class
 # 
 # Copyright (C) 2014  Red Hat, Inc.
@@ -76,7 +76,7 @@ class actions_toolbar():
 		button_edit = Gtk.ToolButton()
 		button_edit.set_icon_name("gtk-edit")
 		button_edit.set_sensitive(False)
-		button_edit.set_tooltip_text(_("Move or resize partition"))
+		button_edit.set_tooltip_text(_("Edit or resize partition"))
 		self.toolbar.insert(button_edit, 3)
 		self.buttons["edit"] = button_edit
 		button_edit.connect("clicked", self.on_edit_clicked)
@@ -139,7 +139,7 @@ class actions_toolbar():
 	def on_edit_clicked(self,button):
 		""" Onclick action for edit button
 		"""
-		print "clicked on edit button"
+		self.list_partitions.edit_partition()
 		
 	def on_umount_clicked(self,button):
 		""" Onclick action for umount button

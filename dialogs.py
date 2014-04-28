@@ -116,6 +116,122 @@ class ConfirmPerformActions(Gtk.Dialog):
 		box.add(label)
 		
 		self.show_all()
+		
+class EditDialog(Gtk.Dialog):
+	""" Dialog window allowing user to edit partition including selecting size, fs, label etc.
+	"""
+	def __init__(self,partition_name, resizable):
+		"""
+			:param partition_name: name of device
+			:type partition_name: str
+            :param resizable: is partition resizable, minSize, maxSize
+            :type free_space: tuple
+        """
+        
+		self.partition_name = partition_name
+		self.resizable = resizable
+		self.resize = False
+		
+		Gtk.Dialog.__init__(self, _("Create new partition"), None, 0,
+			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+			Gtk.STOCK_OK, Gtk.ResponseType.OK))
+
+		self.set_default_size(550, 200)
+
+		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
+		
+		box = self.get_content_area()
+		box.add(self.grid)
+		
+		self.add_size_scale()
+		self.add_fs_chooser()
+		self.add_name_chooser()
+		
+	def add_size_scale(self):
+		
+		self.scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=Gtk.Adjustment(0, self.resizable[1], self.resizable[2], 1, 10, 0))
+		self.scale.set_hexpand(True)
+		self.scale.set_valign(Gtk.Align.START)
+		self.scale.set_digits(0)
+		self.scale.set_value(self.resizable[3])
+		self.scale.connect("value-changed", self.scale_moved)
+		
+		self.grid.attach(self.scale, 0, 1, 6, 1) #left-top-width-height
+		
+		self.label_size = Gtk.Label()
+		self.label_size.set_text(_("Volume size:"))
+		self.grid.attach(self.label_size, 0, 2, 1, 1) #left-top-width-height
+		
+		self.spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, self.resizable[1], self.resizable[2], 1, 10, 0))
+		self.spin_size.set_numeric(True)
+		self.spin_size.set_value(self.resizable[3])
+		self.spin_size.connect("value-changed", self.spin_size_moved)
+		
+		self.grid.attach(self.spin_size, 1, 2, 1, 1) #left-top-width-height
+		
+		self.label_mb = Gtk.Label()
+		self.label_mb.set_text(_("MB"))
+		self.grid.attach(self.label_mb, 2, 2, 1, 1) #left-top-width-height
+		
+		if self.resizable[0] == False or self.resizable[1] == self.resizable[2]:
+			self.label_resize = Gtk.Label()
+			self.label_resize.set_markup(_("<b>This device cannot be resized.</b>"))
+			self.grid.attach(self.label_resize, 0, 0, 6, 1) #left-top-width-height
+			
+			self.scale.set_sensitive(False)
+			self.spin_size.set_sensitive(False)
+		
+	def add_fs_chooser(self):
+		
+		self.label_fs = Gtk.Label()
+		self.label_fs.set_text(_("Filesystem:"))
+		self.grid.attach(self.label_fs, 0, 3, 1, 1)
+		
+		
+		filesystems = ["ext2", "ext3", "ext4", "ntfs",
+			"fat", "xfs", "reiserfs"]
+		self.filesystems_combo = Gtk.ComboBoxText()
+		self.filesystems_combo.set_entry_text_column(0)
+		
+		self.filesystems_combo.connect("changed", self.filesystems_combo_changed)
+		
+		for fs in filesystems:
+			self.filesystems_combo.append_text(fs)
+		
+		self.grid.attach(self.filesystems_combo,1,3,2,1)
+		
+		self.label_warn = Gtk.Label()
+		self.grid.attach(self.label_warn, 0, 5, 6, 1)
+		
+	def add_name_chooser(self):
+		
+		self.label_entry = Gtk.Label()
+		self.label_entry.set_text(_("Name:"))
+		self.grid.attach(self.label_entry, 0, 4, 1, 1)
+		
+		self.name_entry = Gtk.Entry()
+		self.grid.attach(self.name_entry,1,4,2,1)
+		
+		self.show_all()
+	
+	def filesystems_combo_changed(self, event):
+		
+		if self.filesystems_combo.get_active_text() != None:
+			self.label_warn.set_markup(_("<b>Warning: This will delete all data on {0}!</b>").format(self.partition_name))
+	
+	def scale_moved(self,event):
+		
+		self.resize = True
+		self.spin_size.set_value(self.scale.get_value())
+		
+	def spin_size_moved(self,event):
+		
+		self.resize = True
+		self.scale.set_value(self.spin_size.get_value())
+
+	def get_selection(self):
+		
+		return (self.resize, self.spin_size.get_value(), self.filesystems_combo.get_active_text())
 
 
 class AddDialog(Gtk.Dialog):
@@ -123,10 +239,13 @@ class AddDialog(Gtk.Dialog):
 	"""
 	def __init__(self,partition_name, free_space):
 		"""
+			:param partition_name: name of device
+			:type partition_name: str
             :param free_space: size of selected free space
             :type free_space: int
         """
         
+		self.partition_name = partition_name
 		self.free_space = free_space
         
 		Gtk.Dialog.__init__(self, _("Create new partition"), None, 0,

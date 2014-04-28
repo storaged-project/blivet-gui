@@ -58,11 +58,11 @@ class ListDevices():
 		self.device_list.append([None,_("Group Devices")])
 		self.LoadGroupDevices()
 		
-		self.partions_list = ListPartitions(self.b,self.builder)
+		self.partitions_list = ListPartitions(self.b,self.builder)
 		
-		self.actions_view = self.partions_list.get_actions_view
-		self.partitions_view = self.partions_list.get_partitions_view
-		self.partitions_image = self.partions_list.create_partitions_image()
+		self.actions_view = self.partitions_list.get_actions_view
+		self.partitions_view = self.partitions_list.get_partitions_view
+		self.partitions_image = self.partitions_list.create_partitions_image()
 		
 		self.disks_view = self.CreateDeviceView()
 		
@@ -142,8 +142,8 @@ class ListDevices():
 			
 			disk = model[treeiter][1].split('\n')[0]
 			
-			self.partions_list.update_partitions_view(disk)
-			self.partions_list.update_partitions_image(disk)
+			self.partitions_list.update_partitions_view(disk)
+			self.partitions_list.update_partitions_image(disk)
 			
 	
 	def return_device_list(self):
@@ -162,4 +162,4 @@ class ListDevices():
 		return self.disks_view
 	
 	def get_partions_list(self):
-		return self.partions_list
+		return self.partitions_list

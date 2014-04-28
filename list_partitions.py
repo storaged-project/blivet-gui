@@ -37,6 +37,8 @@ from dialogs import *
 
 from actions_toolbar import *
 
+from actions_menu import *
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
@@ -146,7 +148,24 @@ class ListPartitions():
 		
 		treeview.set_headers_visible(True)
 		
+		treeview.connect('button-press-event' , self.on_right_click_event)
+		
 		return treeview
+	
+	def on_right_click_event(self,treeview, event):
+		""" Right click event on partition treeview
+		"""
+		
+		if event.button == 3: # right click
+			
+			selection = treeview.get_path_at_pos(int(event.x), int(event.y))
+			
+			path = selection[0]
+			treemodel = treeview.get_model()
+			treeiter = treemodel.get_iter(path)
+			print "clicked on", treemodel.get_value(treeiter,0)
+			menu = actions_menu(self)
+			menu.get_menu.popup(None, None, None, None, event.button, event.time)
 	
 	def draw_event(self, da, cairo_ctx, partitions):
 		""" Drawing event for partition visualisation
@@ -178,9 +197,13 @@ class ListPartitions():
 				cairo_ctx.fill()
 				extended = True
 			
+			#elif partition[1] == "luks":
+				##FIXME
+				#pass
+			
 			else:
 				total_size += int(partition[3].split()[0])
-				num_parts += 1		
+				num_parts += 1	
 		
 		# Safe space for extended partition borders
 		if extended:
@@ -241,11 +264,13 @@ class ListPartitions():
 			i += 1
 		
 		return True
-
+	
 	def button_press_event(self, da, event):
+		""" Button press event for partition image
+		"""
 		
 		#print "clicked on", event.x, "|", event.y
-
+		
 		return True
 	
 	def create_partitions_image(self):
@@ -308,7 +333,7 @@ class ListPartitions():
 		
 		self.actions = 0
 		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
-		self.action_list.clear()
+		self.actions_list.clear()
 		
 		self.toolbar.deactivate_buttons(["apply"])
 	
@@ -359,13 +384,16 @@ class ListPartitions():
 			self.toolbar.deactivate_all()
 			if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
 				self.toolbar.activate_buttons(["delete"])
-			elif partition_device.format.mountable and partition_mounted(partition_device.path) != None:
+				
+			if partition_device.format.mountable and partition_mounted(partition_device.path) != None:
 				self.toolbar.activate_buttons(["umount"])
-			
-			#FIXME detect resizable
-			#self.toolbar.activate_buttons(["delete","edit"])
+				
+			if partition_mounted(partition_device.path) == None:
+				self.toolbar.activate_buttons(["edit"])
 	
 	def delete_selected_partition(self):
+		""" Delete selected partition
+		"""
 		
 		dialog = ConfirmDeleteDialog(self.selected_partition[0])
 		response = dialog.run()
@@ -387,6 +415,8 @@ class ListPartitions():
 		self.update_partitions_image(self.disk)
 	
 	def add_partition(self):
+		""" Add new partition
+		"""
 		
 		free_size = int(self.selected_partition[3].split()[0])
 		
@@ -428,13 +458,19 @@ class ListPartitions():
 			return
 		
 	def perform_actions(self):
+		""" Perform queued actions
+		"""
 		
-		print "here comes the truth!"
+		self.b.blivet_do_it()
+		
+		self.clear_actions_view()
 		
 		self.update_partitions_view(self.disk)
 		self.update_partitions_image(self.disk)
 	
 	def umount_partition(self):
+		""" Unmount selected partition
+		"""
 		
 		mountpoint = self.selected_partition[2]
 		
@@ -445,7 +481,51 @@ class ListPartitions():
 		else:
 			UnmountErrorDialog(self.selected_partition[0])
 	
+	def edit_partition(self):
+		""" Edit selected partition
+		"""
+		
+		resizable = self.b.device_resizable(self.selected_partition[0])
+		
+		dialog = EditDialog(self.selected_partition[0], resizable)
+		dialog.connect("delete-event", Gtk.main_quit)
+		
+		response = dialog.run()
+		
+		selection = dialog.get_selection()
+		
+		if response == Gtk.ResponseType.OK:
+		
+			user_input = dialog.get_selection()
+			
+			if user_input[0] == False and user_input[2] == None:
+				dialog.destroy()
+				
+			else:
+				
+				ret = self.b.edit_partition_device(self.selected_partition[0], user_input)
+			
+				if ret:
+					self.update_actions_view("edit","edit " + self.selected_partition[0] + " partition")
+					self.update_partitions_view(self.disk)
+					self.update_partitions_image(self.disk)
+				
+				else:
+					self.update_partitions_view(self.disk)
+					self.update_partitions_image(self.disk)
+			
+				dialog.destroy()
+			
+		elif response == Gtk.ResponseType.CANCEL:		
+			
+			dialog.destroy()
+			
+			return
+		
+	
 	def on_partition_selection_changed(self,selection):
+		""" On selected partition action
+		"""
 		
 		model, treeiter = selection.get_selected()
 		
