@@ -39,6 +39,8 @@ from actions_toolbar import *
 
 from actions_menu import *
 
+from main_menu import *
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
@@ -66,6 +68,7 @@ class ListPartitions():
 		
 		self.darea = Gtk.DrawingArea()
 		
+		self.main_menu = main_menu(self)		
 		self.toolbar = actions_toolbar(self)
 		
 		self.select = self.partitions_view.get_selection()
@@ -560,5 +563,9 @@ class ListPartitions():
 	@property
 	def get_actions_list(self):
 		return self.actions_list
+	
+	@property
+	def get_main_menu(self):
+		return self.main_menu.get_main_menu
 
 #-----------------------------------------------------#

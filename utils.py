@@ -26,8 +26,6 @@ import gettext
 
 import os, subprocess
 
-from common import *
-
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
@@ -97,15 +95,6 @@ class BlivetUtils():
 	def __init__(self):
 		self.storage = Blivet()
 		self.storage.reset()
-		
-		self.add_examples()
-	
-	def add_examples(self):
-		disk1_file = create_sparse_file(self.storage, "disk_ex", size=10000)
-		self.storage.config.diskImages["disk_ex"] = disk1_file
-		
-		#self.storage.reset()
-		
 
 	def get_disks(self):
 		""" Return list of all disk devices on current system

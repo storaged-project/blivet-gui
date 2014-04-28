@@ -347,3 +347,29 @@ class AddDialog(Gtk.Dialog):
 	
 	def get_selection(self):
 		return (self.spin_size.get_value(),self.filesystems_combo.get_active_text())
+	
+class AboutDialog(Gtk.AboutDialog):
+	""" Standard 'about application' dialog
+	"""
+	
+	def __init__(self):
+		Gtk.AboutDialog.__init__(self)
+
+		authors = ["Vojtech Trefny"]
+		documenters = ["Vojtech Trefny"]
+
+		self.set_program_name(APP_NAME)
+		self.set_copyright(_("Copyright \xc2\xa9 2014 Red Hat Inc."))
+		self.set_authors(authors)
+		self.set_documenters(documenters)
+		self.set_website("https://github.com/vojtechtrefny/blivet-gui")
+		self.set_website_label("blivet-gui Website")
+
+		self.set_title("")
+
+		self.connect("response", self.on_close)
+
+		self.show()
+
+	def on_close(self, action, parameter):
+		action.destroy()

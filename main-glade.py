@@ -68,6 +68,7 @@ def start(): #FIXME to new file/class
 
 	builder.get_object("image_window").add(dlist.return_partitions_image())
 
+	builder.get_object("vbox").add(dlist.get_partions_list().get_main_menu)
 	builder.get_object("vbox").add(dlist.get_partions_list().get_toolbar)
 	
 	return MainWindow
