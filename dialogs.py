@@ -116,6 +116,27 @@ class ConfirmPerformActions(Gtk.Dialog):
 		box.add(label)
 		
 		self.show_all()
+
+class ConfirmQuitDialog(Gtk.Dialog):
+	""" Confirmation dialog for application quit
+	"""
+	
+	def __init__(self,actions):
+		"""
+            :param actions: number of queued actions
+            :type device_name: int
+        """
+		Gtk.Dialog.__init__(self, _("Are you sure you want to quit?"), None, 0,
+			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+			Gtk.STOCK_OK, Gtk.ResponseType.OK))
+
+		self.set_default_size(175, 110)
+
+		label = Gtk.Label(_("There are unapplied queued actions. Are you sure you want to quit blivet-gui now?"))
+
+		box = self.get_content_area()
+		box.add(label)
+		self.show_all()
 		
 class EditDialog(Gtk.Dialog):
 	""" Dialog window allowing user to edit partition including selecting size, fs, label etc.
@@ -355,8 +376,8 @@ class AboutDialog(Gtk.AboutDialog):
 	def __init__(self):
 		Gtk.AboutDialog.__init__(self)
 
-		authors = ["Vojtech Trefny"]
-		documenters = ["Vojtech Trefny"]
+		authors = ["Vojtech Trefny <vtrefny@redhat.com>"]
+		documenters = ["Vojtech Trefny <vtrefny@redhat.com>"]
 
 		self.set_program_name(APP_NAME)
 		self.set_copyright(_("Copyright \xc2\xa9 2014 Red Hat Inc."))
@@ -364,6 +385,7 @@ class AboutDialog(Gtk.AboutDialog):
 		self.set_documenters(documenters)
 		self.set_website("https://github.com/vojtechtrefny/blivet-gui")
 		self.set_website_label("blivet-gui Website")
+		self.set_license_type(Gtk.License.GPL_3_0)
 
 		self.set_title("")
 
@@ -371,5 +393,5 @@ class AboutDialog(Gtk.AboutDialog):
 
 		self.show()
 
-	def on_close(self, action, parameter):
-		action.destroy()
+	def on_close(self, action, par):
+		self.destroy()

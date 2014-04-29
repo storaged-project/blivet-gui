@@ -68,7 +68,7 @@ class ListPartitions():
 		
 		self.darea = Gtk.DrawingArea()
 		
-		self.main_menu = main_menu(self)		
+		self.main_menu = main_menu(self.builder.get_object("MainWindow"),self)		
 		self.toolbar = actions_toolbar(self)
 		
 		self.select = self.partitions_view.get_selection()
@@ -538,6 +538,25 @@ class ListPartitions():
 			
 			self.activate_action_buttons(model[treeiter])
 			self.selected_partition = model[treeiter]
+	
+	def quit(self):
+		
+		if self.actions != 0:
+			# There are queued actions we don't want do quit now
+			dialog = ConfirmQuitDialog(self.actions)
+			response = dialog.run()
+
+			if response == Gtk.ResponseType.OK:
+				
+				Gtk.main_quit()
+				
+			elif response == Gtk.ResponseType.CANCEL:
+				pass
+
+			dialog.destroy()
+		
+		else:
+			Gtk.main_quit()
 			
 	
 	@property

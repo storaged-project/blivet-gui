@@ -36,11 +36,16 @@ _ = gettext.gettext
 
 class main_menu():
 
-	def __init__(self,list_partitions):
+	def __init__(self,main_window,list_partitions):
 		
 		self.list_partitions = list_partitions
 		
 		self.menu_bar = Gtk.MenuBar()
+		
+		self.icon_theme = Gtk.IconTheme.get_default()
+		
+		self.agr = Gtk.AccelGroup()
+		main_window.add_accel_group(self.agr)
 		
 		self.menu_bar.add(self.add_file_menu())
 		self.menu_bar.add(self.add_help_menu())
@@ -50,20 +55,38 @@ class main_menu():
 		file_menu_item = Gtk.MenuItem(label=_("File"))
 		
 		file_menu = Gtk.Menu()
+		file_menu_item.set_submenu(file_menu)
+		
+		quit_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_QUIT, self.agr)
+		key, mod = Gtk.accelerator_parse("<Control>Q")
+		quit_item.add_accelerator("activate", self.agr,
+											key, mod, Gtk.AccelFlags.VISIBLE)
+		
+		quit_item.connect("activate", self.on_quit_item)
+		
+		
+		file_menu.add(quit_item)
 		
 		return file_menu_item
 		
 	
 	def add_help_menu(self):
 		
-		help_menu_item = Gtk.MenuItem(label=_("Help"))
+		help_menu_item = Gtk.MenuItem(_("Help"))
 		help_menu = Gtk.Menu()
 		help_menu_item.set_submenu(help_menu)
 		
-		about_item = Gtk.MenuItem(label="About")
-		about_item.connect("activate", self.on_about_item)
+		help_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_HELP, self.agr)
+		key, mod = Gtk.accelerator_parse("F1")
+		help_item.add_accelerator("activate", self.agr,
+											key, mod, Gtk.AccelFlags.VISIBLE)
 		
+		help_item.connect("activate", self.on_help_item)
+		help_menu.add(help_item)
 		
+		about_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_ABOUT, self.agr)
+		
+		about_item.connect("activate", self.on_about_item)	
 		help_menu.add(about_item)
 		
 		return help_menu_item
@@ -74,6 +97,14 @@ class main_menu():
 		dialog = AboutDialog()
 		
 		dialog.run()
+	
+	def on_help_item(self, event):
+		
+		print "sorry no help available" #FIXME
+	
+	def on_quit_item(self, event):
+		
+		self.list_partitions.quit()
 		
 	@property
 	def get_main_menu(self):
