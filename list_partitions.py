@@ -339,6 +339,7 @@ class ListPartitions():
 		self.actions_list.clear()
 		
 		self.toolbar.deactivate_buttons(["apply"])
+		self.main_menu.deactivate_menu_items(["apply"])
 	
 	def update_actions_view(self,action_type=None,action_desc=None):
 		""" Update list of scheduled actions
@@ -362,6 +363,7 @@ class ListPartitions():
 		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 		
 		self.toolbar.activate_buttons(["apply"])
+		self.main_menu.activate_menu_items(["apply"])
 	
 	def activate_action_buttons(self,selected_partition):
 		""" Activate buttons in toolbar based on selected partition
@@ -373,26 +375,36 @@ class ListPartitions():
 		
 		if selected_partition == None or (partition_device == None and selected_partition[0] != _("unallocated")):
 			self.toolbar.deactivate_all()
+			self.main_menu.deactivate_all()
 			return
 		
 		if selected_partition[0] == _("unallocated"):
 			self.toolbar.deactivate_all()
 			self.toolbar.activate_buttons(["add"])
+			
+			self.main_menu.deactivate_all()
+			self.main_menu.activate_menu_items(["add"])
 		
 		elif selected_partition[1] == _("extended"):
 			self.toolbar.deactivate_all()
 			self.toolbar.activate_buttons(["delete"])
+			
+			self.main_menu.deactivate_all()
+			self.main_menu.activate_menu_items(["delete"])
 		
 		else:
 			self.toolbar.deactivate_all()
 			if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
 				self.toolbar.activate_buttons(["delete"])
+				self.main_menu.activate_menu_items(["delete"])
 				
 			if partition_device.format.mountable and partition_mounted(partition_device.path) != None:
 				self.toolbar.activate_buttons(["umount"])
+				self.main_menu.activate_menu_items(["umount"])
 				
-			if partition_mounted(partition_device.path) == None:
+			if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
 				self.toolbar.activate_buttons(["edit"])
+				self.main_menu.activate_menu_items(["edit"])
 	
 	def delete_selected_partition(self):
 		""" Delete selected partition

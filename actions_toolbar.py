@@ -144,7 +144,6 @@ class actions_toolbar():
 	def on_umount_clicked(self,button):
 		""" Onclick action for umount button
 		"""
-		
 		self.list_partitions.umount_partition()
 	
 	def on_apply_clicked(self,button):
