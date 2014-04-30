@@ -20,8 +20,6 @@
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
  
-import sys, os, signal
-
 import gettext
 
 from gi.repository import Gtk, GdkPixbuf
@@ -35,8 +33,16 @@ gettext.textdomain(APP_NAME)
 _ = gettext.gettext
 
 class main_menu():
+	""" Main menu for blivet-gui
+	"""
 
 	def __init__(self,main_window,list_partitions):
+		"""
+			:param main_window: main window instance
+			:type main_window: Gtk.Window
+			:list_partitions: list partitions instance
+			:type list_partitions: ListPartitions
+		"""
 		
 		self.list_partitions = list_partitions
 		
@@ -55,6 +61,8 @@ class main_menu():
 		self.menu_bar.add(self.add_help_menu())
 	
 	def add_file_menu(self):
+		""" Menu item 'File'
+		"""
 		
 		file_menu_item = Gtk.MenuItem(label=_("File"))
 		
@@ -62,6 +70,7 @@ class main_menu():
 		file_menu_item.set_submenu(file_menu)
 		
 		quit_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_QUIT, self.agr)
+		quit_item.set_label(_("Quit"))
 		key, mod = Gtk.accelerator_parse("<Control>Q")
 		quit_item.add_accelerator("activate", self.agr,
 											key, mod, Gtk.AccelFlags.VISIBLE)
@@ -74,6 +83,9 @@ class main_menu():
 		return file_menu_item
 	
 	def add_edit_menu(self):
+		""" Menu item 'Edit'
+		"""
+		
 		edit_menu_item = Gtk.MenuItem(_("Edit"))
 		edit_menu = Gtk.Menu()
 		edit_menu_item.set_submenu(edit_menu)
@@ -112,6 +124,9 @@ class main_menu():
 		return edit_menu_item
 	
 	def add_partition_menu(self):
+		""" Menu item 'Partition'
+		"""
+		
 		partition_menu_item = Gtk.MenuItem(_("Partition"))
 		partition_menu = Gtk.Menu()
 		partition_menu_item.set_submenu(partition_menu)
@@ -163,12 +178,15 @@ class main_menu():
 		return partition_menu_item
 
 	def add_help_menu(self):
+		""" Menu item 'Help'
+		"""
 		
 		help_menu_item = Gtk.MenuItem(_("Help"))
 		help_menu = Gtk.Menu()
 		help_menu_item.set_submenu(help_menu)
 		
 		help_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_HELP, self.agr)
+		help_item.set_label(_("Contents"))
 		key, mod = Gtk.accelerator_parse("F1")
 		help_item.add_accelerator("activate", self.agr,
 											key, mod, Gtk.AccelFlags.VISIBLE)
@@ -177,8 +195,9 @@ class main_menu():
 		help_menu.add(help_item)
 		
 		about_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_ABOUT, self.agr)
+		about_item.set_label(_("About"))
 		
-		about_item.connect("activate", self.on_about_item)	
+		about_item.connect("activate", self.on_about_item)
 		help_menu.add(about_item)
 		
 		
@@ -211,25 +230,35 @@ class main_menu():
 				self.menu_items[item].set_sensitive(False)
 	
 	def on_about_item(self, event):
+		""" Onselect action for 'About'
+		"""
 		
 		dialog = AboutDialog()
 		
 		dialog.run()
 	
 	def on_help_item(self, event):
+		""" Onselect action for 'Help'
+		"""
 		
 		print "sorry no help available" #FIXME
 	
 	def on_undo_item(self, event):
+		""" Onselect action for 'Undo Last Action'
+		"""
 		
 		print "not implemented" #FIXME
 		
 	def on_clear_item(self, event):
-		pass
+		""" Onselect action for 'Clear Queued Actions'
+		"""
+		
+		print "not implemented" #FIXME
 	
 	def on_apply_item(self, event):
-		""" Onselect action for edit item
+		""" Onselect action for 'Apply Queued Actions'
 		"""
+		
 		dialog = ConfirmPerformActions()
 		
 		response = dialog.run()
@@ -244,28 +273,33 @@ class main_menu():
 		dialog.destroy()
 	
 	def on_add_item(self, event):
-		""" Onselect action for add item
+		""" Onselect action for 'New'
 		"""
+		
 		self.list_partitions.add_partition()
 	
 	def on_delete_item(self, event):
-		""" Onselect action for delete item
+		""" Onselect action for 'Delete'
 		"""
+		
 		self.list_partitions.delete_selected_partition()
 	
 	def on_edit_item(self, event):
-		""" Onselect action for edit item
+		""" Onselect action for 'Edit'
 		"""
+		
 		self.list_partitions.edit_partition()
 	
 	def on_umount_item(self, event):
-		""" Onselect action for umount item
+		""" Onselect action for 'Unmount'
 		"""
+		
 		self.list_partitions.umount_partition()
 	
 	def on_quit_item(self, event):
-		""" Onselect action for quit item
+		""" Onselect action for 'Quit'
 		"""
+		
 		self.list_partitions.quit()
 		
 	@property

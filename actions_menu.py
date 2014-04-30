@@ -18,18 +18,10 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
-#
-
-
-import sys, os, signal
 
 from gi.repository import Gtk, GdkPixbuf
 
-import blivet
-
 import gettext
-
-import cairo
 
 from utils import *
 
@@ -52,6 +44,8 @@ class actions_menu():
 		self.create_menu()
 	
 	def create_menu(self):
+		""" Create popup menu
+		"""
 		
 		add_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_ADD, None)
 		add_item.set_label(_("New"))
