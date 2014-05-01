@@ -58,7 +58,7 @@ class ListPartitions():
 		self.disk = disk
 		
 		# ListStores for partitions and actions
-		self.partitions_list = Gtk.ListStore(str,str,str,str,int,int)
+		self.partitions_list = Gtk.ListStore(str,str,str,str)
 		self.actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf,str)
 
 		self.load_partitions()
@@ -92,7 +92,7 @@ class ListPartitions():
 		partitions = self.b.GetPartitions(self.disk)
 		
 		for partition in partitions:
-			if partition.name == _("unallocated"):
+			if partition.name == _("free space"):
 				self.partitions_list.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
 				self.partitions_list.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
@@ -113,14 +113,14 @@ class ListPartitions():
 		partitions = self.b.GetPartitions(self.disk)
 		
 		for partition in partitions:
-			if partition.name == _("unallocated"):
-				self.partitions_list.append([partition.name,"--","--",str(int(partition.size)) + " MB",partition.start,partition.end])
+			if partition.name == _("free space"):
+				self.partitions_list.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
-				self.partitions_list.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB",0,0])
+				self.partitions_list.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
 			elif partition.format.mountable:
-				self.partitions_list.append([partition.name,partition.format._type,partition_mounted(partition.path),str(int(partition.size)) + " MB",0,0])
+				self.partitions_list.append([partition.name,partition.format._type,partition_mounted(partition.path),str(int(partition.size)) + " MB"])
 			else:
-				self.partitions_list.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB",0,0])
+				self.partitions_list.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB"])
 
 	def create_partitions_view(self):
 		""" Create Gtk.TreeView for device children (partitions)
@@ -231,7 +231,7 @@ class ListPartitions():
 				
 				extended = True
 			
-			elif partition[0] == _("unallocated"):
+			elif partition[0] == _("free space"):
 				cairo_ctx.set_source_rgb(0.75, 0.75, 0.75)
 				# Grey color for unallocated space
 				
@@ -392,13 +392,13 @@ class ListPartitions():
 		
 		partition_device = self.b.storage.devicetree.getDeviceByName(selected_partition[0])
 		
-		if selected_partition == None or (partition_device == None and selected_partition[0] != _("unallocated")):
+		if selected_partition == None or (partition_device == None and selected_partition[0] != _("free space")):
 			self.toolbar.deactivate_all()
 			self.main_menu.deactivate_all()
 			self.popup_menu.deactivate_all()
 			return
 		
-		if selected_partition[0] == _("unallocated"):			
+		if selected_partition[0] == _("free space"):			
 			self.toolbar.deactivate_all()
 			self.toolbar.activate_buttons(["add"])
 			
@@ -408,7 +408,7 @@ class ListPartitions():
 			self.popup_menu.deactivate_all()
 			self.popup_menu.activate_menu_items(["add"])
 		
-		elif selected_partition[1] == _("extended"):
+		elif selected_partition[1] == _("extended") and partition_device.isleaf:
 			self.toolbar.deactivate_all()
 			self.toolbar.activate_buttons(["delete"])
 			
@@ -485,7 +485,7 @@ class ListPartitions():
 				user_input = dialog.get_selection()
 				
 				#FIXME really ugly way to pass arguments, I know
-				ret = self.b.add_partition_device(self.disk, user_input[1], self.selected_partition[-2], int((self.selected_partition[-1] - self.selected_partition[-2])*user_input[0] / free_size) + self.selected_partition[-2])
+				ret = self.b.add_partition_device(self.disk, user_input[1], user_input[0])
 				
 				if ret:
 					self.update_actions_view("add","add " + str(user_input[0]) + " MB " + user_input[1] + " partition")

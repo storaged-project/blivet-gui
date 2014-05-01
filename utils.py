@@ -81,17 +81,19 @@ class FreeSpaceDevice():
 	""" Special class to represent free space on disk (device)
 		(blivet doesn't have class/device to represent free space)
 	"""
-	def __init__(self,freeSpace):
-		self.name = _("unallocated")
-		self.sectorSize = freeSpace.device.sectorSize
-		self.size = int((freeSpace.length*self.sectorSize) / (self.sectorSize*2)**2)
-		self.start = freeSpace.start
-		self.end = freeSpace.end
-
+	
+	def __init__(self,free_size):
+		"""
+		:param free_size: size of free space in MB
+		:type free_size: int
+		"""
+		self.name = _("free space")
+		self.size = free_size
 
 class BlivetUtils():
 	""" Class with utils directly working with blivet itselves
 	"""
+	
 	def __init__(self):
 		self.storage = Blivet()
 		self.storage.reset()
@@ -145,7 +147,8 @@ class BlivetUtils():
 			
 			# Special occassion -- disk is empty
 			if len(partitions) == 0:
-				partitions2.append(FreeSpaceDevice(free_space[0]))
+				free = free_space[0]
+				partitions2.append(FreeSpaceDevice(int((free.length*free.device.sectorSize) / (free.device.sectorSize*2)**2)))
 				return partitions2
 			
 			if len(free_space) != 0:
@@ -157,11 +160,11 @@ class BlivetUtils():
 							break
 						
 						elif free.start < partition.partedPartition.geometry.start:
-							partitions2.insert(partitions.index(partition),FreeSpaceDevice(free))
+							partitions2.insert(partitions.index(partition),FreeSpaceDevice(int((free.length*free.device.sectorSize) / (free.device.sectorSize*2)**2)))
 							break
 						
 						elif free.end > partition.partedPartition.geometry.end:
-							partitions2.append(FreeSpaceDevice(free))
+							partitions2.append(FreeSpaceDevice(int((free.length*free.device.sectorSize) / (free.device.sectorSize*2)**2)))
 							break
 			
 			# Find free space inside extended partition
@@ -179,13 +182,19 @@ class BlivetUtils():
 							for free in free_space:
 								if free.length < 2048:
 									continue
-								partitions2.append(FreeSpaceDevice(free))
+								partitions2.append(FreeSpaceDevice(int((free.length*free.device.sectorSize) / (free.device.sectorSize*2)**2)))
 								break
 						
 				except AttributeError:
 					pass
+				
+				return partitions2
 			
-			return partitions2
+		elif blivet_device._type == "lvmvg":
+			if blivet_device.freeSpace > 0:
+				partitions.append(FreeSpaceDevice(blivet_device.freeSpace))
+			
+			return partitions
 		
 		else:
 			return partitions
@@ -280,16 +289,14 @@ class BlivetUtils():
 			
 			return False
 	
-	def add_partition_device(self, parent_device, fs_type, pstart, pend, label=None, flags=[]):
+	def add_partition_device(self, parent_device, fs_type, target_size, label=None, flags=[]):
 		""" Create new partition device
 			:param parent_device: name of parent device
 			:type parent_device: str
 			:param fs_type: filesystem
 			:type fs_type: str
-			:param start: start sector
-			:type start: int
-			:param end: end sector
-			:type end: int
+			:param target_size: target size
+			:type target_size: int
 			:param label: device label (name)
 			:type label: str
 			:param flags: device flags
@@ -298,7 +305,7 @@ class BlivetUtils():
 			:rtype: bool
 		"""
 		
-		new_part = self.storage.newPartition(start=pstart+2, end=pend-2, parents=[self.storage.devicetree.getDeviceByName(parent_device)])
+		new_part = self.storage.newPartition(size=target_size, parents=[self.storage.devicetree.getDeviceByName(parent_device)])
 		self.storage.createDevice(new_part)
 
 		new_fmt = formats.getFormat(fs_type, device=new_part.path)

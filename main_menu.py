@@ -58,6 +58,7 @@ class main_menu():
 		self.menu_bar.add(self.add_file_menu())
 		self.menu_bar.add(self.add_edit_menu())
 		self.menu_bar.add(self.add_partition_menu())
+		self.menu_bar.add(self.add_lvm_menu())
 		self.menu_bar.add(self.add_help_menu())
 	
 	def add_file_menu(self):
@@ -176,6 +177,30 @@ class main_menu():
 		self.menu_items["umount"] = umount_item
 		
 		return partition_menu_item
+	
+	def add_lvm_menu(self):
+		""" Menu item 'LVM'
+		"""
+		
+		lvm_menu_item = Gtk.MenuItem(_("LVM"))
+		lvm_menu = Gtk.Menu()
+		lvm_menu_item.set_submenu(lvm_menu)
+		
+		pv_item = Gtk.ImageMenuItem()
+		pv_item.set_label(_("Create LVM Physical Volume"))
+		
+		pv_item.connect("activate", self.on_pv_item)
+		pv_item.set_sensitive(True)
+		lvm_menu.add(pv_item)
+		
+		vg_item = Gtk.ImageMenuItem()
+		vg_item.set_label(_("Create LVM Volume Group"))
+		
+		vg_item.connect("activate", self.on_vg_item)
+		vg_item.set_sensitive(True)
+		lvm_menu.add(vg_item)
+		
+		return lvm_menu_item
 
 	def add_help_menu(self):
 		""" Menu item 'Help'
@@ -302,6 +327,12 @@ class main_menu():
 		"""
 		
 		self.list_partitions.quit()
+		
+	def on_pv_item(self, event):
+		pass
+	
+	def on_vg_item(self, event):
+		pass
 		
 	@property
 	def get_main_menu(self):
