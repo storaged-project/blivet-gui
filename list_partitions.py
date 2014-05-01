@@ -122,7 +122,6 @@ class ListPartitions():
 			else:
 				self.partitions_list.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB",0,0])
 
-			
 	def create_partitions_view(self):
 		""" Create Gtk.TreeView for device children (partitions)
         """
@@ -356,7 +355,10 @@ class ListPartitions():
 		self.actions_list.clear()
 		
 		self.toolbar.deactivate_buttons(["apply"])
-		self.main_menu.deactivate_menu_items(["apply"])
+		self.main_menu.deactivate_menu_items(["apply", "clear"])
+		
+		self.update_partitions_view(self.disk)
+		self.update_partitions_image(self.disk)
 	
 	def update_actions_view(self,action_type=None,action_desc=None):
 		""" Update list of scheduled actions
@@ -380,7 +382,7 @@ class ListPartitions():
 		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 		
 		self.toolbar.activate_buttons(["apply"])
-		self.main_menu.activate_menu_items(["apply"])
+		self.main_menu.activate_menu_items(["apply", "clear"])
 	
 	def activate_action_buttons(self,selected_partition):
 		""" Activate buttons in toolbar based on selected partition
@@ -566,7 +568,12 @@ class ListPartitions():
 			dialog.destroy()
 			
 			return
+	
+	def clear_actions(self):
+		""" Clear all scheduled actions
+		"""
 		
+		self.b.blivet_reset()		
 	
 	def on_partition_selection_changed(self,selection):
 		""" On selected partition action
@@ -598,8 +605,7 @@ class ListPartitions():
 			dialog.destroy()
 		
 		else:
-			Gtk.main_quit()
-			
+			Gtk.main_quit()			
 	
 	@property
 	def get_partitions_list(self):

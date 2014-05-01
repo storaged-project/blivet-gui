@@ -208,7 +208,7 @@ class main_menu():
 			:param menu_item_names: names of menu items to activate
 			:type button_names: list of str
         """
-		
+
 		for item in menu_item_names:
 			self.menu_items[item].set_sensitive(True)
 		
@@ -226,7 +226,7 @@ class main_menu():
         """
         
 		for item in self.menu_items:
-			if item != "apply":
+			if item not in ["apply", "clear"]:
 				self.menu_items[item].set_sensitive(False)
 	
 	def on_about_item(self, event):
@@ -253,7 +253,8 @@ class main_menu():
 		""" Onselect action for 'Clear Queued Actions'
 		"""
 		
-		print "not implemented" #FIXME
+		self.list_partitions.clear_actions()
+		self.list_partitions.clear_actions_view()
 	
 	def on_apply_item(self, event):
 		""" Onselect action for 'Apply Queued Actions'

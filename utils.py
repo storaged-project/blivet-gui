@@ -314,5 +314,8 @@ class BlivetUtils():
 			
 			return False
 	
+	def blivet_reset(self):
+		self.storage.reset()
+	
 	def blivet_do_it(self):
 		self.storage.doIt()
