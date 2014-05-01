@@ -296,8 +296,9 @@ class BlivetUtils():
 			:type flags: list of str
 			:returns: success
 			:rtype: bool
-        """
-		new_part = self.storage.newPartition(start=pstart, end=pend, parents=[self.storage.devicetree.getDeviceByName(parent_device)])
+		"""
+		
+		new_part = self.storage.newPartition(start=pstart+2, end=pend-2, parents=[self.storage.devicetree.getDeviceByName(parent_device)])
 		self.storage.createDevice(new_part)
 
 		new_fmt = formats.getFormat(fs_type, device=new_part.path)

@@ -184,6 +184,7 @@ class ListPartitions():
             :param partitions: list of partitions to paint
             :type partitions: Gtk.ListStore
         """
+        
 		width = da.get_allocated_width()
 		height = da.get_allocated_height()
 		
@@ -198,29 +199,11 @@ class ListPartitions():
 		for partition in partitions:
 			
 			if partition[1] == _("extended"):
-				cairo_ctx.set_source_rgb(0,1,1)
-				# Teal color for extend partition
-				
-				cairo_ctx.rectangle(0, 0, width, height)
-				cairo_ctx.fill()
-				extended = True
-			
-			#elif partition[1] == "luks":
-				##FIXME
-				#pass
+				pass
 			
 			else:
 				total_size += int(partition[3].split()[0])
 				num_parts += 1	
-		
-		# Safe space for extended partition borders
-		if extended:
-			x = 5
-			y = 5
-		
-		else:
-			x = 0
-			y = 0
 		
 		# Colors for partitions
 		colors = [[0.451,0.824,0.086],
@@ -229,30 +212,59 @@ class ListPartitions():
 		
 		i = 0
 		
+		shrink = 0
+		x = 0
+		y = 0
+		
+		#print "--------------"
+		
 		for partition in partitions:
 			
-			if partition[1] == _("extended"):
-				continue
+			if extended:
+				shrink = 5
+				x += 5
+				y = 5
+				
 			
-			if partition[0] == _("unallocated"):
+			if partition[1] == _("extended"):
+				# Teal color for extend partition
+				cairo_ctx.set_source_rgb(0,1,1)
+				
+				extended = True
+			
+			elif partition[0] == _("unallocated"):
 				cairo_ctx.set_source_rgb(0.75, 0.75, 0.75)
 				# Grey color for unallocated space
+				
+				extended = False
 			
 			else:
 				cairo_ctx.set_source_rgb(colors[i % 3][0] , colors[i % 3][1], colors[i % 3][2])
 				# Colors for other partitions/devices
+				
+				extended = False
 			
-			part_width = int(partition[3].split()[0])*(width - 2*y)/total_size
+			part_width = int(partition[3].split()[0])*(width - 2*shrink)/total_size
+			
+			#print part_width, partition[0]
 			
 			# Every partition need some minimum size in the drawing area
 			# Minimum size = number of partitions*2 / width of draving area
-			if part_width < (width - 2*y) / (num_parts*2):
-				part_width = (width - 2*y) / (num_parts*2)
+			if extended:
+				pass
 			
-			if part_width > (width - 2*y) - ((num_parts-1)* ((width - 2*y) / (num_parts*2))):
-				part_width = (width - 2*y) - (num_parts-1) * ((width - 2*y) / (num_parts*2))
+			elif part_width < (width - 2*shrink) / (num_parts*2):
+				part_width = (width - 2*shrink) / (num_parts*2)
+			
+			elif part_width > (width - 2*shrink) - ((num_parts-1)* ((width - 2*shrink) / (num_parts*2))):
+				part_width = (width - 2*shrink) - (num_parts-1) * ((width - 2*shrink) / (num_parts*2))
+			
+			elif x + part_width > width and not extended:
+				part_width = (width - x - shrink)
+			
+			#print "printing rectangle starting at (" + str(x) + "|" + str(shrink) + ") with size " + str(part_width) + "x" + str(height - 2*shrink) + " partition " + str(partition[0])
 
-			cairo_ctx.rectangle(x, y, part_width, height - 2*y)
+			cairo_ctx.rectangle(x, shrink, part_width, height - 2*shrink)
 			cairo_ctx.fill()
 			
 			cairo_ctx.set_source_rgb(0, 0, 0)
@@ -267,8 +279,8 @@ class ListPartitions():
 			cairo_ctx.move_to(x + 12 , height/2 + 12)
 			cairo_ctx.show_text(partition[3])
 			
-			
-			x += part_width
+			if not extended:
+				x += part_width
 			i += 1
 		
 		return True
@@ -384,7 +396,7 @@ class ListPartitions():
 			self.popup_menu.deactivate_all()
 			return
 		
-		if selected_partition[0] == _("unallocated"):
+		if selected_partition[0] == _("unallocated"):			
 			self.toolbar.deactivate_all()
 			self.toolbar.activate_buttons(["add"])
 			
