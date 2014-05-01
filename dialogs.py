@@ -258,8 +258,10 @@ class EditDialog(Gtk.Dialog):
 class AddDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add new partition including selecting size, fs, label etc.
 	"""
-	def __init__(self,partition_name, free_space):
+	def __init__(self,device_type, partition_name, free_space):
 		"""
+			:param device_type: type of parent device
+			:type device_type: str
 			:param partition_name: name of device
 			:type partition_name: str
             :param free_space: size of selected free space
@@ -268,6 +270,7 @@ class AddDialog(Gtk.Dialog):
         
 		self.partition_name = partition_name
 		self.free_space = free_space
+		self.device_type = device_type
         
 		Gtk.Dialog.__init__(self, _("Create new partition"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -331,7 +334,7 @@ class AddDialog(Gtk.Dialog):
 		self.grid.attach(self.label_fs, 0, 2, 1, 1)
 		
 		filesystems = ["ext2", "ext3", "ext4", "ntfs",
-			"fat", "xfs", "reiserfs"]
+			"fat", "xfs", "reiserfs", "swap"]
 		self.filesystems_combo = Gtk.ComboBoxText()
 		self.filesystems_combo.set_entry_text_column(0)
 		
@@ -343,11 +346,22 @@ class AddDialog(Gtk.Dialog):
 	def add_name_chooser(self):
 		
 		self.label_entry = Gtk.Label()
-		self.label_entry.set_text(_("Name:"))
+		self.label_entry.set_text(_("Label:"))
 		self.grid.attach(self.label_entry, 0, 3, 1, 1)
 		
 		self.name_entry = Gtk.Entry()
 		self.grid.attach(self.name_entry,1,3,2,1)
+		
+		self.name_entry = Gtk.Label()
+		self.name_entry.set_text(_("Name:"))
+		self.grid.attach(self.name_entry, 3, 3, 1, 1)
+		
+		self.name_entry = Gtk.Entry()
+		
+		if self.device_type != "lvmvg":
+			self.name_entry.set_sensitive(False)
+		
+		self.grid.attach(self.name_entry,4,3,2,1)
 		
 		self.show_all()
 	
@@ -367,7 +381,7 @@ class AddDialog(Gtk.Dialog):
 		self.spin_size.set_value(self.free_space - self.spin_free.get_value())
 	
 	def get_selection(self):
-		return (self.spin_size.get_value(),self.filesystems_combo.get_active_text())
+		return (self.spin_size.get_value(),self.filesystems_combo.get_active_text(), self.name_entry.get_text())
 	
 class AboutDialog(Gtk.AboutDialog):
 	""" Standard 'about application' dialog

@@ -467,7 +467,9 @@ class ListPartitions():
 		
 		free_size = int(self.selected_partition[3].split()[0])
 		
-		dialog = AddDialog(self.selected_partition[0],free_size)
+		device_type = self.b.get_device_type(self.disk)
+		
+		dialog = AddDialog(device_type,self.selected_partition[0],free_size)
 		
 		response = dialog.run()
 		
@@ -484,8 +486,7 @@ class ListPartitions():
 			else:
 				user_input = dialog.get_selection()
 				
-				#FIXME really ugly way to pass arguments, I know
-				ret = self.b.add_partition_device(self.disk, user_input[1], user_input[0])
+				ret = self.b.add_partition_device(self.disk, user_input[1], user_input[0], user_input[2])
 				
 				if ret:
 					self.update_actions_view("add","add " + str(user_input[0]) + " MB " + user_input[1] + " partition")

@@ -289,10 +289,10 @@ class BlivetUtils():
 			
 			return False
 	
-	def add_partition_device(self, parent_device, fs_type, target_size, label=None, flags=[]):
+	def add_partition_device(self, parent_name, fs_type, target_size, name=None, flags=[]):
 		""" Create new partition device
-			:param parent_device: name of parent device
-			:type parent_device: str
+			:param parent_name: name of parent device
+			:type parent_name: str
 			:param fs_type: filesystem
 			:type fs_type: str
 			:param target_size: target size
@@ -305,11 +305,22 @@ class BlivetUtils():
 			:rtype: bool
 		"""
 		
-		new_part = self.storage.newPartition(size=target_size, parents=[self.storage.devicetree.getDeviceByName(parent_device)])
-		self.storage.createDevice(new_part)
+		parent_device = self.storage.devicetree.getDeviceByName(parent_name)		
+		
+		if parent_device._type == "disk":
+			new_part = self.storage.newPartition(size=target_size, parents=[parent_device])
+			self.storage.createDevice(new_part)
 
-		new_fmt = formats.getFormat(fs_type, device=new_part.path)
-		self.storage.formatDevice(new_part, new_fmt)
+			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=name)
+			self.storage.formatDevice(new_part, new_fmt)
+			
+		elif parent_device._type == "lvmvg":
+			new_part = self.storage.newLV(size=target_size, parents=[parent_device], name=name)
+			
+			self.storage.createDevice(new_part)
+
+			new_fmt = formats.getFormat(fs_type, device=new_part.path)
+			self.storage.formatDevice(new_part, new_fmt)
 		
 		try:
 			partitioning.doPartitioning(self.storage)
@@ -320,6 +331,16 @@ class BlivetUtils():
 			print e
 			
 			return False
+	
+	def get_device_type(self, device_name):
+		"""
+			:param device_name: device name
+			:type device_name: str
+			:returns: type of device
+			:rtype: str
+		"""
+		
+		return self.storage.devicetree.getDeviceByName(device_name)._type
 	
 	def blivet_reset(self):
 		self.storage.reset()
