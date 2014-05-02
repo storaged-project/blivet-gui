@@ -122,7 +122,7 @@ class ListPartitions():
 			for pv in pvs:
 				info_str += _("\t• PV <i>{0}</i>, size: {1} MB on <i>{2}</i> disk.\n").format(pv.name, pv.size, pv.disks[0].name)
 		
-		elif device_type in ["partition", "luks/dm-crypt"]:
+		elif device_type in ["lvmpv", "luks/dm-crypt"]:
 			blivet_device = self.b.get_blivet_device(self.disk)
 			
 			if blivet_device.format._type == "lvmpv":
@@ -535,7 +535,6 @@ class ListPartitions():
 		self.update_partitions_view(self.disk)
 		self.update_partitions_image(self.disk)
 		
-		#FIXME: only when deleting PV or VG
 		self.list_devices.update_devices_view("delete", self.disk, deleted_device)
 	
 	def add_partition(self):
@@ -554,11 +553,38 @@ class ListPartitions():
 		
 		if response == Gtk.ResponseType.OK:
 			
-			if selection[2] == None and selection[0] not in ["LVM2 Physical Volume", "LVM2 Volume Group"]:
+			if selection[2] == None and selection[0] not in ["LVM2 Physical Volume", "LVM2 Volume Group", "LVM2 Storage"]:
 				# If fs is not selected, show error window and re-run add dialog
 				AddErrorDialog()
 				dialog.destroy()
 				self.add_partition()
+			
+			elif selection[0] == "LVM2 Storage":
+				user_input = dialog.get_selection()
+				
+				ret1 = self.b.add_device(parent_name=self.disk, device_type="LVM2 Physical Volume", fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
+				
+				if ret1 != None:
+					
+					if user_input[2] == None:
+						self.list_devices.update_devices_view("add", self.disk, ret1)
+					
+				ret2 = self.b.add_device(parent_name=ret1, device_type="LVM2 Volume Group", fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
+				
+				if ret2 != None:
+					
+					if user_input[2] == None:
+						self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
+						self.list_devices.update_devices_view("add", self.disk, ret2)
+						
+					self.update_partitions_view(self.disk)
+					self.update_partitions_image(self.disk)
+				
+				else:
+					self.update_partitions_view(self.disk)
+					self.update_partitions_image(self.disk)
+				
+				dialog.destroy()
 		
 			else:
 				user_input = dialog.get_selection()

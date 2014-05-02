@@ -293,7 +293,7 @@ class AddDialog(Gtk.Dialog):
 	def add_device_chooser(self):
 		
 		map_type_devices = {
-			"disk" : [_("Partition"), _("LVM2 Physical Volume")],
+			"disk" : [_("Partition"), _("LVM2 Storage"), _("LVM2 Physical Volume")],
 			"lvmpv" : [_("LVM2 Volume Group")],
 			"lvmvg" : [_("LVM2 Logical Volume")],
 			}
@@ -430,6 +430,16 @@ class AddDialog(Gtk.Dialog):
 				
 				self.name_label.set_sensitive(False)
 				self.name_entry.set_sensitive(False)
+				
+				self.filesystems_combo.set_sensitive(False)
+				self.label_fs.set_sensitive(False)
+			
+			if device == _("LVM2 Storage"):
+				self.label_label.set_sensitive(False)
+				self.label_entry.set_sensitive(False)
+				
+				self.name_label.set_sensitive(True)
+				self.name_entry.set_sensitive(True)
 				
 				self.filesystems_combo.set_sensitive(False)
 				self.label_fs.set_sensitive(False)
