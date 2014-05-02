@@ -51,8 +51,9 @@ _ = gettext.gettext
 
 class ListPartitions():
 	
-	def __init__(self,BlivetUtils,Builder,disk=None):
+	def __init__(self,ListDevices,BlivetUtils,Builder,disk=None):
 		
+		self.list_devices = ListDevices
 		self.b = BlivetUtils
 		self.builder = Builder
 		
@@ -72,7 +73,7 @@ class ListPartitions():
 		
 		self.darea = Gtk.DrawingArea()
 		
-		self.main_menu = main_menu(self.builder.get_object("MainWindow"),self)		
+		self.main_menu = main_menu(self.builder.get_object("MainWindow"),self,self.list_devices)		
 		self.popup_menu = actions_menu(self)
 		self.toolbar = actions_toolbar(self)
 		
@@ -93,13 +94,15 @@ class ListPartitions():
         """
         
 		self.partitions_list.clear()
-		partitions = self.b.GetPartitions(self.disk)
+		partitions = self.b.get_partitions(self.disk)
 		
 		for partition in partitions:
 			if partition.name == _("free space"):
 				self.partitions_list.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
 				self.partitions_list.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
+			elif partition._type == "lvmvg":
+				self.partitions_list.append([partition.name,_("lvmvg"),"--",str(int(partition.size)) + " MB"])
 			elif partition.format.mountable:
 				self.partitions_list.append([partition.name,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
 			else:
@@ -118,6 +121,15 @@ class ListPartitions():
 		
 			for pv in pvs:
 				info_str += _("\t• PV <i>{0}</i>, size: {1} MB on <i>{2}</i> disk.\n").format(pv.name, pv.size, pv.disks[0].name)
+		
+		elif device_type in ["partition", "luks/dm-crypt"]:
+			blivet_device = self.b.get_blivet_device(self.disk)
+			
+			if blivet_device.format._type == "lvmpv":
+				info_str = _("<b>LVM2 Physical Volume</b>").format()
+			
+			else:
+				info_str = ""
 		
 		elif device_type == "disk":
 			
@@ -143,13 +155,15 @@ class ListPartitions():
 		self.device_info()
 		
 		self.partitions_list.clear()
-		partitions = self.b.GetPartitions(self.disk)
+		partitions = self.b.get_partitions(self.disk)
 		
 		for partition in partitions:
 			if partition.name == _("free space"):
 				self.partitions_list.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
 				self.partitions_list.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
+			elif partition._type == "lvmvg":
+				self.partitions_list.append([partition.name,_("lvmvg"),"--",str(int(partition.size)) + " MB"])
 			elif partition.format.mountable:
 				self.partitions_list.append([partition.name,partition.format._type,partition_mounted(partition.path),str(int(partition.size)) + " MB"])
 			else:
@@ -451,12 +465,28 @@ class ListPartitions():
 			self.popup_menu.deactivate_all()
 			self.popup_menu.activate_menu_items(["delete"])
 		
+		elif selected_partition[1] == _("lvmvg") and partition_device.isleaf:
+			print selected_partition[0]
+			self.toolbar.deactivate_all()
+			self.toolbar.activate_buttons(["delete"])
+			
+			self.main_menu.deactivate_all()
+			self.main_menu.activate_menu_items(["delete"])
+			
+			self.popup_menu.deactivate_all()
+			self.popup_menu.activate_menu_items(["delete"])
+		
 		else:
 			self.toolbar.deactivate_all()
 			self.main_menu.deactivate_all()
 			self.popup_menu.deactivate_all()
 			
 			if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
+				self.toolbar.activate_buttons(["delete"])
+				self.main_menu.activate_menu_items(["delete"])
+				self.popup_menu.activate_menu_items(["delete"])
+			
+			if partition_device._type != "lvmvg" and partition_device.format.type == None:
 				self.toolbar.activate_buttons(["delete"])
 				self.main_menu.activate_menu_items(["delete"])
 				self.popup_menu.activate_menu_items(["delete"])

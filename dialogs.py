@@ -382,6 +382,33 @@ class AddDialog(Gtk.Dialog):
 	
 	def get_selection(self):
 		return (self.spin_size.get_value(),self.filesystems_combo.get_active_text(), self.name_entry.get_text())
+
+class AddPVDialog(Gtk.Dialog):
+	""" Dialog window allowing user to add new LVM2 Physical Volume
+	"""
+	def __init__(self):
+		"""
+			:param device_type: type of parent device
+			:type device_type: str
+			:param partition_name: name of device
+			:type partition_name: str
+            :param free_space: size of selected free space
+            :type free_space: int
+        """
+        
+		Gtk.Dialog.__init__(self, _("Create new LVM2 PV"), None, 0,
+			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+			Gtk.STOCK_OK, Gtk.ResponseType.OK))
+
+		self.set_default_size(550, 200)
+
+		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
+
+		box = self.get_content_area()
+		box.add(self.grid)
+		
+	def get_selection(self):
+		return
 	
 class AboutDialog(Gtk.AboutDialog):
 	""" Standard 'about application' dialog

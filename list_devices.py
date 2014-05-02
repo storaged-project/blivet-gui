@@ -46,25 +46,32 @@ _ = gettext.gettext
 
 class ListDevices():
 	def __init__(self,Builder):
+		"""
+		:param Builder: glade builder
+		:type Builder: Gtk.Builder
+		"""
 		
 		self.b = BlivetUtils()
 		self.builder = Builder
 		
 		self.device_list = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
 		
-		self.device_list.append([None,_("Disk Devices")])
-		self.LoadDisks()
+		self.device_list.append([None,_("<b>Disks</b>")])
+		self.load_disks()
 		
-		self.device_list.append([None,_("Group Devices")])
-		self.LoadGroupDevices()
+		self.device_list.append([None,_("<b>LVM2 Physical Volumes</b>")])
+		self.load_lvm_physical_volumes()
 		
-		self.partitions_list = ListPartitions(self.b,self.builder)
+		self.device_list.append([None,_("<b>LVM2 Volume Groups</b>")])
+		self.load_lvm_volume_groups()
+		
+		self.partitions_list = ListPartitions(self,self.b,self.builder)
 		
 		self.actions_view = self.partitions_list.get_actions_view
 		self.partitions_view = self.partitions_list.get_partitions_view
 		self.partitions_image = self.partitions_list.create_partitions_image()
 		
-		self.disks_view = self.CreateDeviceView()
+		self.disks_view = self.create_device_view()
 		
 		self.select = self.disks_view.get_selection()
 		self.path = self.select.select_path("1")
@@ -72,7 +79,9 @@ class ListDevices():
 		self.on_disk_selection_changed(self.select)
 		self.selection_signal = self.select.connect("changed", self.on_disk_selection_changed)
 	
-	def LoadDisks(self):
+	def load_disks(self):
+		""" Load disks
+		"""
 		
 		icon_theme = Gtk.IconTheme.get_default()
 		icon_disk = Gtk.IconTheme.load_icon (icon_theme,"gnome-dev-harddisk",32, 0)
@@ -82,11 +91,25 @@ class ListDevices():
 		
 		for disk in disks:
 			if disk.removable:
-				self.device_list.append([icon_disk_usb,str(disk.name + "\n" + disk.model)])
+				self.device_list.append([icon_disk_usb,str(disk.name + "\n<i><small>" + disk.model + "</small></i>")])
 			else:
-				self.device_list.append([icon_disk,str(disk.name + "\n" + disk.model)])
+				self.device_list.append([icon_disk,str(disk.name + "\n<i><small>" + disk.model + "</small></i>")])
+				
+	def load_lvm_physical_volumes(self):
+		""" Load LVM PVs
+		"""
+		
+		icon_theme = Gtk.IconTheme.get_default()
+		icon_physical = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
+		
+		pdevices = self.b.get_physical_devices()
+		
+		for device in pdevices:
+			self.device_list.append([icon_physical,str(device.name + "\n<i><small>LVM2 PV</small></i>")])
 	
-	def LoadGroupDevices(self):
+	def load_lvm_volume_groups(self):
+		""" Load LVM2 VGs
+		"""
 		
 		gdevices = self.b.get_group_devices()
 		
@@ -94,14 +117,19 @@ class ListDevices():
 		icon_group = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
 		
 		for device in gdevices:
-			self.device_list.append([icon_group,str(device.name + "\n")])
+			self.device_list.append([icon_group,str(device.name + "\n<i><small>LVM2 VG</small></i>")])
 	
-	def LoadDevices(self):
+	def load_devices(self):
+		""" Load all devices
+		"""
 		
-		self.LoadDisks()
-		self.LoadGroupDevices()
+		self.load_disks()
+		self.load_lvm_physical_volumes()
+		self.load_lvm_volume_groups()
 				
-	def CreateDeviceView(self):
+	def create_device_view(self):
+		""" Create view for devices
+		"""
 			
 		treeview = Gtk.TreeView(model=self.device_list)
 		#treeview.set_vexpand(True)
@@ -112,7 +140,7 @@ class ListDevices():
 		treeview.append_column(column_pixbuf)
 		
 		renderer_text = Gtk.CellRendererText()
-		column_text = Gtk.TreeViewColumn(None, renderer_text, text=1)
+		column_text = Gtk.TreeViewColumn('Pango Markup', renderer_text, markup=1)
 		treeview.append_column(column_text)
 		
 		treeview.set_headers_visible(False)
@@ -120,6 +148,8 @@ class ListDevices():
 		return treeview
 	
 	def on_disk_selection_changed(self,selection):
+		""" Onselect action for devices
+		"""
 		
 		# Last selected device from list
 		global last
@@ -130,7 +160,7 @@ class ListDevices():
 			
 			# 'Disk Devices' and 'Group Devices' are just labels
 			# If user select one of these, we need to unselect this and select previous choice
-			if model[treeiter][1] == "Disk Devices" or model[treeiter][1] == "Group Devices":
+			if model[treeiter][1] in ["<b>Disks</b>", "<b>LVM2 Volume Groups</b>", "<b>LVM2 Physical Volumes</b>"] :
 				selection.handler_block(self.selection_signal)
 				selection.unselect_iter(treeiter)
 				selection.handler_unblock(self.selection_signal) 
@@ -144,8 +174,50 @@ class ListDevices():
 			
 			self.partitions_list.update_partitions_view(disk)
 			self.partitions_list.update_partitions_image(disk)
-			
 	
+	def add_pv(self):
+		""" Add new physical volume
+		"""
+		
+		#FIXME get list of free space on disks
+		
+		
+		dialog = AddPVDialog()
+		
+		response = dialog.run()
+		
+		selection = dialog.get_selection()
+		
+		if response == Gtk.ResponseType.OK:
+			
+			if selection[1] == None:
+				# If fs is not selected, show error window and re-run add dialog
+				#AddErrorDialog()
+				dialog.destroy()
+				#self.add_partition()
+		
+			else:
+				user_input = dialog.get_selection()
+				
+				#ret = self.b.add_partition_device(self.disk, user_input[1], user_input[0], user_input[2])
+				
+				#if ret:
+					#self.update_actions_view("add","add " + str(user_input[0]) + " MB " + user_input[1] + " partition")
+					#self.update_partitions_view(self.disk)
+					#self.update_partitions_image(self.disk)
+				
+				#else:
+					#self.update_partitions_view(self.disk)
+					#self.update_partitions_image(self.disk)
+				
+				#dialog.destroy()
+			
+		elif response == Gtk.ResponseType.CANCEL:		
+			
+			dialog.destroy()
+			
+			return
+
 	def return_device_list(self):
 		return self.device_list
 	

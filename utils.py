@@ -102,29 +102,22 @@ class BlivetUtils():
 			:rtype: list
         """
         
-		#FIXME: self.storage.disks
-        
-		roots = []
-
-		for device in self.storage.devices:
-			if len(device.parents) == 0 and device.isDisk:
-				roots.append(device)
-		
-		return roots
+		return self.storage.disks
 
 	def get_group_devices(self):
-		""" Return list of other devices with children (e.g. LVM volume group)
-			:returns: list of "group" devices
+		""" Return list of LVM2 Volume Group devices
+			:returns: list of LVM2 VG devices
 			:rtype: list
         """
 
-		groups = []
-
-		for device in self.storage.devices:
-			if device._type == "lvmvg":
-				groups.append(device)
+		return self.storage.vgs
+	
+	def get_physical_devices(self):
+		""" Return list of LVM2 Physical Volumes
+			:returns: list of LVM2 PV devices
+		"""
 		
-		return groups
+		return self.storage.pvs
 	
 	def get_free_space(self,device_name,partitions):
 		""" Find free space on device
@@ -197,10 +190,16 @@ class BlivetUtils():
 			
 			return partitions
 		
+		elif blivet_device._type == "partition":
+			if blivet_device.format.type == "lvmpv" and blivet_device.kids == 0:
+				partitions.append(FreeSpaceDevice(blivet_device.size))
+			
+			return partitions
+		
 		else:
 			return partitions
 
-	def GetPartitions(self,device_name):
+	def get_partitions(self,device_name):
 		""" Get partitions (children) of selected device
 			:param device_name: name of device
 			:type device_name: str
@@ -262,7 +261,7 @@ class BlivetUtils():
 		target_size = settings[1]
 		target_fs = settings[2]
 		
-		print resize, target_size, target_fs
+		#print resize, target_size, target_fs
         
 		if resize == False and target_fs == None:
 			return False

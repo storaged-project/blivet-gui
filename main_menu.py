@@ -36,7 +36,7 @@ class main_menu():
 	""" Main menu for blivet-gui
 	"""
 
-	def __init__(self,main_window,list_partitions):
+	def __init__(self,main_window,list_partitions,list_devices):
 		"""
 			:param main_window: main window instance
 			:type main_window: Gtk.Window
@@ -45,6 +45,7 @@ class main_menu():
 		"""
 		
 		self.list_partitions = list_partitions
+		self.list_devices = list_devices
 		
 		self.menu_bar = Gtk.MenuBar()
 		
@@ -329,7 +330,8 @@ class main_menu():
 		self.list_partitions.quit()
 		
 	def on_pv_item(self, event):
-		pass
+		
+		self.list_devices.add_pv()
 	
 	def on_vg_item(self, event):
 		pass
