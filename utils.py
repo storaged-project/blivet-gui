@@ -302,21 +302,34 @@ class BlivetUtils():
 			:type label: str
 			:param flags: device flags
 			:type flags: list of str
-			:returns: success
-			:rtype: bool
+			:returns: new device name
+			:rtype: str
 		"""
+		
+		device_id = 0
 		
 		parent_device = self.storage.devicetree.getDeviceByName(parent_name)		
 		
 		if device_type == _("Partition"):
 			new_part = self.storage.newPartition(size=target_size, parents=[parent_device])
 			self.storage.createDevice(new_part)
+			
+			device_id = new_part.id
 
 			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label)
 			self.storage.formatDevice(new_part, new_fmt)
 			
 		elif device_type == _("LVM2 Logical Volume"):
+			
+			if name == None:
+				name = self.storage.suggestDeviceName(parent=parent_device,swap=False)
+			
+			else:
+				name = self.storage.safeDeviceName(name)
+			
 			new_part = self.storage.newLV(size=target_size, parents=[parent_device], name=name)
+			
+			device_id = new_part.id
 			
 			self.storage.createDevice(new_part)
 
@@ -324,26 +337,41 @@ class BlivetUtils():
 			self.storage.formatDevice(new_part, new_fmt)
 		
 		elif device_type == _("LVM2 Volume Group"):
+			
+			if name == None:
+				name = self.storage.suggestDeviceName(parent=parent_device,swap=False)
+			
+			else:
+				name = self.storage.safeDeviceName(name)
+			
 			new_part = self.storage.newVG(size=target_size, parents=[parent_device], name=name)
+			
+			device_id = new_part.id
 			
 			self.storage.createDevice(new_part)
 			
 			
 		elif device_type == _("LVM2 Physical Volume"):
-			new_part = self.storage.newPV(size=target_size, parents=[parent_device])
+			
+			new_part = self.storage.newPartition(size=target_size, parents=[parent_device])
+			
+			device_id = new_part.id
 			
 			self.storage.createDevice(new_part)
+			
+			new_fmt = formats.getFormat("lvmpv", device=new_part.path)
+			self.storage.formatDevice(new_part, new_fmt)
 		
 		try:
 			partitioning.doPartitioning(self.storage)
 			
-			return True
+			return self.storage.devicetree.getDeviceByID(device_id).name
 		
 		except PartitioningError as e:
 			print "Something very wrong happened:" #FIXME
 			print e
 			
-			return False
+			return None
 	
 	def get_device_type(self, device_name):
 		""" Get device type
@@ -371,8 +399,6 @@ class BlivetUtils():
 		"""
 		
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
-		
-		assert blivet_device._type != None
 		
 		return blivet_device
 	

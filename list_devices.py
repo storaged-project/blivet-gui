@@ -129,7 +129,7 @@ class ListDevices():
 	
 	def update_devices_view(self, action, parent_device, changed_device):
 		""" Update device view
-			:param action: reason to update (delete/add)
+			:param action: reason to update (delete/add/all)
 			:type action: str
 			:param parent_device: parent device for device to change
 			:type parent device: str
@@ -139,10 +139,51 @@ class ListDevices():
 
                 After removing or adding VGs or PVs it is neccesary to add or remove
                 these devices from device list.
+                After removing all queud actions it is neccesary to go through list of
+                devices and find if they are still in devicetree and also go through
+                devicetree and find if those devices are in device list.
                 This function will update the Gtk.ListStore.
 		"""
+		if action == "all":
+			
+			for row in self.device_list:
+				blivet_device = self.b.get_blivet_device(row[1].split("\n")[0])
+				if blivet_device == None and row[0] != None:
+					self.device_list.remove(row.iter)
+			
+			pdevices = self.b.get_physical_devices()
+			gdevices = self.b.get_group_devices()
+			
+			icon_theme = Gtk.IconTheme.get_default()
+			icon_physical = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
+			
+			for device in pdevices:
+				device_is_in = False
+				for row in self.device_list:
+					if row[1].split("\n")[0] == device.name:
+						device_is_in = True
+						break
+				if not device_is_in:
+					row_to_find = _("<b>LVM2 Volume Groups</b>")
+					new_row = ([icon_physical,str(device.name + "\n<i><small>LVM2 PV</small></i>")])
+				
+					for row in self.device_list:
+						if row[1] == row_to_find:
+							row_to_add_after = row
+			
+					if row_to_add_after != None:
+						self.device_list.insert_before(row_to_add_after.iter, new_row)
+			
+			for device in gdevices:
+				device_is_in = False
+				for row in self.device_list:
+					if row[1].split("\n")[0] == device.name:
+						device_is_in = True
+						break
+				if not device_is_in:
+					self.device_list.append([icon_physical,str(device.name + "\n<i><small>LVM2 VG</small></i>")])
 		
-		if action == "delete":
+		elif action == "delete":
 			
 			row_to_remove = None
 			row_to_select = None
@@ -160,23 +201,45 @@ class ListDevices():
 				self.select.select_iter(row_to_select.iter)
 
 		elif action == "add":
-			row_to_remove = None
+			row_to_add_after = None
 			row_to_select = None
 			
-			changed_type = self.b.get_device_type(changed_type)
-			#if changed_type == lvmvg --> vkladam do sekce VG
+			# I want to add new device to appropriate section -> looking for row
+			# with section name and adding new row after it
 			
-			for row in self.device_list:
-				if row[1].split("\n")[0] == changed_device:
-					row_to_remove = row
-				elif row[1].split("\n")[0] == parent_device:
-					row_to_select = row
-		
-			if row_to_remove != None:
-				self.device_list.remove(row_to_remove.iter)
-		
-			if row_to_select != None:
-				self.select.select_iter(row_to_select.iter)
+			icon_theme = Gtk.IconTheme.get_default()
+			icon_physical = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
+
+			changed_type = self.b.get_device_type(changed_device)
+			
+			if changed_type == "lvmvg":
+				# new volume group is always last
+				new_row = ([icon_physical,str(changed_device + "\n<i><small>LVM2 VG</small></i>")])
+				self.device_list.append(new_row)
+				
+				for row in self.device_list:
+					if row[1].split("\n")[0] == parent_device:
+						row_to_select = row
+			
+				if row_to_select != None:
+					self.select.select_iter(row_to_select.iter)
+			
+			elif changed_type == "lvmpv":
+				# new physical volume comes before list of vgs
+				row_to_find = _("<b>LVM2 Volume Groups</b>")
+				new_row = ([icon_physical,str(changed_device + "\n<i><small>LVM2 PV</small></i>")])
+			
+				for row in self.device_list:
+					if row[1] == row_to_find:
+						row_to_add_after = row
+					elif row[1].split("\n")[0] == parent_device:
+						row_to_select = row
+			
+				if row_to_add_after != None:
+					self.device_list.insert_before(row_to_add_after.iter, new_row)
+			
+				if row_to_select != None:
+					self.select.select_iter(row_to_select.iter)
 			
 			return
 				

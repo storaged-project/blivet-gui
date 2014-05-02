@@ -466,7 +466,16 @@ class ListPartitions():
 			self.popup_menu.activate_menu_items(["delete"])
 		
 		elif selected_partition[1] == _("lvmvg") and partition_device.isleaf:
-			print selected_partition[0]
+			self.toolbar.deactivate_all()
+			self.toolbar.activate_buttons(["delete"])
+			
+			self.main_menu.deactivate_all()
+			self.main_menu.activate_menu_items(["delete"])
+			
+			self.popup_menu.deactivate_all()
+			self.popup_menu.activate_menu_items(["delete"])
+			
+		elif selected_partition[1] == _("lvmpv") and partition_device.isleaf:
 			self.toolbar.deactivate_all()
 			self.toolbar.activate_buttons(["delete"])
 			
@@ -545,7 +554,7 @@ class ListPartitions():
 		
 		if response == Gtk.ResponseType.OK:
 			
-			if selection[1] == None and (device_type in ["disk", "lvmvg"]):
+			if selection[2] == None and selection[0] not in ["LVM2 Physical Volume", "LVM2 Volume Group"]:
 				# If fs is not selected, show error window and re-run add dialog
 				AddErrorDialog()
 				dialog.destroy()
@@ -557,11 +566,11 @@ class ListPartitions():
 				# user_input = [device, size, fs, name, label]
 				ret = self.b.add_device(parent_name=self.disk, device_type=user_input[0], fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
 				
-				if ret:
+				if ret != None:
 					
 					if user_input[2] == None:
 						self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
-						self.list_devices.update_devices_view("add", self.disk, user_input[0])
+						self.list_devices.update_devices_view("add", self.disk, ret)
 						
 					else:
 						self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[2] + " partition")
@@ -650,7 +659,11 @@ class ListPartitions():
 		""" Clear all scheduled actions
 		"""
 		
-		self.b.blivet_reset()		
+		self.b.blivet_reset()
+		
+		self.list_devices.update_devices_view("all",None,None)
+		self.update_partitions_view(self.disk)
+		self.update_partitions_image(self.disk)
 	
 	def on_partition_selection_changed(self,selection):
 		""" On selected partition action
