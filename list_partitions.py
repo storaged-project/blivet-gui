@@ -505,6 +505,8 @@ class ListPartitions():
 		""" Delete selected partition
 		"""
 		
+		deleted_device = self.selected_partition[0]
+		
 		dialog = ConfirmDeleteDialog(self.selected_partition[0])
 		response = dialog.run()
 
@@ -523,6 +525,9 @@ class ListPartitions():
         
 		self.update_partitions_view(self.disk)
 		self.update_partitions_image(self.disk)
+		
+		#FIXME: only when deleting PV or VG
+		self.list_devices.update_devices_view("delete", self.disk, deleted_device)
 	
 	def add_partition(self):
 		""" Add new partition
@@ -540,7 +545,7 @@ class ListPartitions():
 		
 		if response == Gtk.ResponseType.OK:
 			
-			if selection[1] == None:
+			if selection[1] == None and (device_type in ["disk", "lvmvg"]):
 				# If fs is not selected, show error window and re-run add dialog
 				AddErrorDialog()
 				dialog.destroy()
@@ -549,10 +554,18 @@ class ListPartitions():
 			else:
 				user_input = dialog.get_selection()
 				
-				ret = self.b.add_partition_device(self.disk, user_input[1], user_input[0], user_input[2])
+				# user_input = [device, size, fs, name, label]
+				ret = self.b.add_device(parent_name=self.disk, device_type=user_input[0], fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
 				
 				if ret:
-					self.update_actions_view("add","add " + str(user_input[0]) + " MB " + user_input[1] + " partition")
+					
+					if user_input[2] == None:
+						self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
+						self.list_devices.update_devices_view("add", self.disk, user_input[0])
+						
+					else:
+						self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[2] + " partition")
+						
 					self.update_partitions_view(self.disk)
 					self.update_partitions_image(self.disk)
 				

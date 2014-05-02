@@ -286,6 +286,47 @@ class AddDialog(Gtk.Dialog):
 		self.add_size_scale()
 		self.add_fs_chooser()
 		self.add_name_chooser()
+		self.add_device_chooser() #!important
+		
+		self.show_all()
+		
+	def add_device_chooser(self):
+		
+		map_type_devices = {
+			"disk" : [_("Partition"), _("LVM2 Physical Volume")],
+			"lvmpv" : [_("LVM2 Volume Group")],
+			"lvmvg" : [_("LVM2 Logical Volume")],
+			}
+		
+		self.label_devices = Gtk.Label()
+		self.label_devices.set_text(_("Device type:"))
+		self.grid.attach(self.label_devices, 0, 0, 1, 1)
+		
+		devices = map_type_devices[self.device_type]
+		
+		devices_store = Gtk.ListStore(str)
+		
+		for device in devices:
+			devices_store.append([device])
+            
+		self.devices_combo = Gtk.ComboBox.new_with_model(devices_store)
+		
+		self.devices_combo.set_entry_text_column(0)
+		self.devices_combo.set_active(0)
+		
+		if len(devices) == 1:
+			self.devices_combo.set_sensitive(False)
+		
+		if self.device_type == "lvmpv":
+			self.filesystems_combo.set_sensitive(False)
+			self.label_fs.set_sensitive(False)
+		
+		self.grid.attach(self.devices_combo,1,0,2,1)
+		
+		self.devices_combo.connect("changed", self.on_devices_combo_changed)
+		renderer_text = Gtk.CellRendererText()
+		self.devices_combo.pack_start(renderer_text, True)
+		self.devices_combo.add_attribute(renderer_text, "text", 0)
 	
 	def add_size_scale(self):
 		
@@ -296,42 +337,42 @@ class AddDialog(Gtk.Dialog):
 		self.scale.set_value(self.free_space)
 		self.scale.connect("value-changed", self.scale_moved)
 		
-		self.grid.attach(self.scale, 0, 0, 6, 1) #left-top-width-height
+		self.grid.attach(self.scale, 0, 1, 6, 1) #left-top-width-height
 		
 		self.label_size = Gtk.Label()
 		self.label_size.set_text(_("Volume size:"))
-		self.grid.attach(self.label_size, 0, 1, 1, 1) #left-top-width-height
+		self.grid.attach(self.label_size, 0, 2, 1, 1) #left-top-width-height
 		
 		self.spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 1, self.free_space, 1, 10, 0))
 		self.spin_size.set_numeric(True)
 		self.spin_size.set_value(self.free_space)
 		self.spin_size.connect("value-changed", self.spin_size_moved)
 		
-		self.grid.attach(self.spin_size, 1, 1, 1, 1) #left-top-width-height
+		self.grid.attach(self.spin_size, 1, 2, 1, 1) #left-top-width-height
 		
 		self.label_mb = Gtk.Label()
 		self.label_mb.set_text(_("MB"))
-		self.grid.attach(self.label_mb, 2, 1, 1, 1) #left-top-width-height
+		self.grid.attach(self.label_mb, 2, 2, 1, 1) #left-top-width-height
 		
 		self.label_free = Gtk.Label()
 		self.label_free.set_text(_("Free space after:"))
-		self.grid.attach(self.label_free, 3, 1, 1, 1) #left-top-width-height
+		self.grid.attach(self.label_free, 3, 2, 1, 1) #left-top-width-height
 		
 		self.spin_free = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 0, self.free_space, 1, 10, 0))
 		self.spin_free.set_numeric(True)
 		self.spin_free.connect("value-changed", self.spin_free_moved)
 		
-		self.grid.attach(self.spin_free, 4, 1, 1, 1) #left-top-width-height
+		self.grid.attach(self.spin_free, 4, 2, 1, 1) #left-top-width-height
 		
 		self.label_mb2 = Gtk.Label()
 		self.label_mb2.set_text(_("MB"))
-		self.grid.attach(self.label_mb2, 5, 1, 1, 1) #left-top-width-height
+		self.grid.attach(self.label_mb2, 5, 2, 1, 1) #left-top-width-height
 		
 	def add_fs_chooser(self):
 		
 		self.label_fs = Gtk.Label()
 		self.label_fs.set_text(_("Filesystem:"))
-		self.grid.attach(self.label_fs, 0, 2, 1, 1)
+		self.grid.attach(self.label_fs, 0, 3, 1, 1)
 		
 		filesystems = ["ext2", "ext3", "ext4", "ntfs",
 			"fat", "xfs", "reiserfs", "swap"]
@@ -341,29 +382,57 @@ class AddDialog(Gtk.Dialog):
 		for fs in filesystems:
 			self.filesystems_combo.append_text(fs)
 		
-		self.grid.attach(self.filesystems_combo,1,2,2,1)
+		self.grid.attach(self.filesystems_combo,1,3,2,1)
 		
 	def add_name_chooser(self):
 		
-		self.label_entry = Gtk.Label()
-		self.label_entry.set_text(_("Label:"))
-		self.grid.attach(self.label_entry, 0, 3, 1, 1)
+		self.label_label = Gtk.Label()
+		self.label_label.set_text(_("Label:"))
+		self.grid.attach(self.label_label, 0, 4, 1, 1)
+		
+		self.label_entry = Gtk.Entry()
+		self.grid.attach(self.label_entry,1,4,2,1)
+		
+		if self.device_type not in ["lvmvg", "disk"]:
+			self.label_label.set_sensitive(False)
+			self.label_entry.set_sensitive(False)
+		
+		self.name_label = Gtk.Label()
+		self.name_label.set_text(_("Name:"))
+		self.grid.attach(self.name_label, 3, 4, 1, 1)
 		
 		self.name_entry = Gtk.Entry()
-		self.grid.attach(self.name_entry,1,3,2,1)
 		
-		self.name_entry = Gtk.Label()
-		self.name_entry.set_text(_("Name:"))
-		self.grid.attach(self.name_entry, 3, 3, 1, 1)
-		
-		self.name_entry = Gtk.Entry()
-		
-		if self.device_type != "lvmvg":
+		if self.device_type not in ["lvmvg", "lvmpv"]:
+			self.name_label.set_sensitive(False)
 			self.name_entry.set_sensitive(False)
 		
-		self.grid.attach(self.name_entry,4,3,2,1)
+		self.grid.attach(self.name_entry,4,4,2,1)
+	
+	def on_devices_combo_changed(self, event):
 		
-		self.show_all()
+		tree_iter = self.devices_combo.get_active_iter()
+		
+		if tree_iter != None:
+			model = self.devices_combo.get_model()
+			device = model[tree_iter][0]
+			
+			if device == _("Partition"):
+				self.label_label.set_sensitive(True)
+				self.label_entry.set_sensitive(True)
+				
+				self.name_label.set_sensitive(False)
+				self.name_entry.set_sensitive(False)
+				
+			if device == _("LVM2 Physical Volume"):
+				self.label_label.set_sensitive(False)
+				self.label_entry.set_sensitive(False)
+				
+				self.name_label.set_sensitive(False)
+				self.name_entry.set_sensitive(False)
+				
+				self.filesystems_combo.set_sensitive(False)
+				self.label_fs.set_sensitive(False)
 	
 	def scale_moved(self,event):
 		
@@ -381,7 +450,13 @@ class AddDialog(Gtk.Dialog):
 		self.spin_size.set_value(self.free_space - self.spin_free.get_value())
 	
 	def get_selection(self):
-		return (self.spin_size.get_value(),self.filesystems_combo.get_active_text(), self.name_entry.get_text())
+		tree_iter = self.devices_combo.get_active_iter()
+		
+		if tree_iter != None:
+			model = self.devices_combo.get_model()
+			device = model[tree_iter][0]
+			
+		return (device, self.spin_size.get_value(),self.filesystems_combo.get_active_text(), self.name_entry.get_text(), self.label_entry.get_text())
 
 class AddPVDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add new LVM2 Physical Volume

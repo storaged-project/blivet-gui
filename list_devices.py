@@ -71,7 +71,7 @@ class ListDevices():
 		self.partitions_view = self.partitions_list.get_partitions_view
 		self.partitions_image = self.partitions_list.create_partitions_image()
 		
-		self.disks_view = self.create_device_view()
+		self.disks_view = self.create_devices_view()
 		
 		self.select = self.disks_view.get_selection()
 		self.path = self.select.select_path("1")
@@ -126,8 +126,61 @@ class ListDevices():
 		self.load_disks()
 		self.load_lvm_physical_volumes()
 		self.load_lvm_volume_groups()
+	
+	def update_devices_view(self, action, parent_device, changed_device):
+		""" Update device view
+			:param action: reason to update (delete/add)
+			:type action: str
+			:param parent_device: parent device for device to change
+			:type parent device: str
+			:param device_changed: added/deleted device
+			:type device_changed: str
+			.. note::
+
+                After removing or adding VGs or PVs it is neccesary to add or remove
+                these devices from device list.
+                This function will update the Gtk.ListStore.
+		"""
+		
+		if action == "delete":
+			
+			row_to_remove = None
+			row_to_select = None
+			
+			for row in self.device_list:
+				if row[1].split("\n")[0] == changed_device:
+					row_to_remove = row
+				elif row[1].split("\n")[0] == parent_device:
+					row_to_select = row
+		
+			if row_to_remove != None:
+				self.device_list.remove(row_to_remove.iter)
+		
+			if row_to_select != None:
+				self.select.select_iter(row_to_select.iter)
+
+		elif action == "add":
+			row_to_remove = None
+			row_to_select = None
+			
+			changed_type = self.b.get_device_type(changed_type)
+			#if changed_type == lvmvg --> vkladam do sekce VG
+			
+			for row in self.device_list:
+				if row[1].split("\n")[0] == changed_device:
+					row_to_remove = row
+				elif row[1].split("\n")[0] == parent_device:
+					row_to_select = row
+		
+			if row_to_remove != None:
+				self.device_list.remove(row_to_remove.iter)
+		
+			if row_to_select != None:
+				self.select.select_iter(row_to_select.iter)
+			
+			return
 				
-	def create_device_view(self):
+	def create_devices_view(self):
 		""" Create view for devices
 		"""
 			
@@ -156,7 +209,7 @@ class ListDevices():
 		
 		model, treeiter = selection.get_selected()
 		
-		if treeiter != None:
+		if treeiter != None and model != None:
 			
 			# 'Disk Devices' and 'Group Devices' are just labels
 			# If user select one of these, we need to unselect this and select previous choice
@@ -174,49 +227,6 @@ class ListDevices():
 			
 			self.partitions_list.update_partitions_view(disk)
 			self.partitions_list.update_partitions_image(disk)
-	
-	def add_pv(self):
-		""" Add new physical volume
-		"""
-		
-		#FIXME get list of free space on disks
-		
-		
-		dialog = AddPVDialog()
-		
-		response = dialog.run()
-		
-		selection = dialog.get_selection()
-		
-		if response == Gtk.ResponseType.OK:
-			
-			if selection[1] == None:
-				# If fs is not selected, show error window and re-run add dialog
-				#AddErrorDialog()
-				dialog.destroy()
-				#self.add_partition()
-		
-			else:
-				user_input = dialog.get_selection()
-				
-				#ret = self.b.add_partition_device(self.disk, user_input[1], user_input[0], user_input[2])
-				
-				#if ret:
-					#self.update_actions_view("add","add " + str(user_input[0]) + " MB " + user_input[1] + " partition")
-					#self.update_partitions_view(self.disk)
-					#self.update_partitions_image(self.disk)
-				
-				#else:
-					#self.update_partitions_view(self.disk)
-					#self.update_partitions_image(self.disk)
-				
-				#dialog.destroy()
-			
-		elif response == Gtk.ResponseType.CANCEL:		
-			
-			dialog.destroy()
-			
-			return
 
 	def return_device_list(self):
 		return self.device_list

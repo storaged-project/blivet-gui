@@ -288,10 +288,12 @@ class BlivetUtils():
 			
 			return False
 	
-	def add_partition_device(self, parent_name, fs_type, target_size, name=None, flags=[]):
-		""" Create new partition device
+	def add_device(self, parent_name, device_type, fs_type, target_size, name=None, label=None, flags=[]):
+		""" Create new device
 			:param parent_name: name of parent device
 			:type parent_name: str
+			:param device_type: type of device to create
+			:type device_type: str
 			:param fs_type: filesystem
 			:type fs_type: str
 			:param target_size: target size
@@ -306,20 +308,31 @@ class BlivetUtils():
 		
 		parent_device = self.storage.devicetree.getDeviceByName(parent_name)		
 		
-		if parent_device._type == "disk":
+		if device_type == _("Partition"):
 			new_part = self.storage.newPartition(size=target_size, parents=[parent_device])
 			self.storage.createDevice(new_part)
 
-			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=name)
+			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label)
 			self.storage.formatDevice(new_part, new_fmt)
 			
-		elif parent_device._type == "lvmvg":
+		elif device_type == _("LVM2 Logical Volume"):
 			new_part = self.storage.newLV(size=target_size, parents=[parent_device], name=name)
 			
 			self.storage.createDevice(new_part)
 
-			new_fmt = formats.getFormat(fs_type, device=new_part.path)
+			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label)
 			self.storage.formatDevice(new_part, new_fmt)
+		
+		elif device_type == _("LVM2 Volume Group"):
+			new_part = self.storage.newVG(size=target_size, parents=[parent_device], name=name)
+			
+			self.storage.createDevice(new_part)
+			
+			
+		elif device_type == _("LVM2 Physical Volume"):
+			new_part = self.storage.newPV(size=target_size, parents=[parent_device])
+			
+			self.storage.createDevice(new_part)
 		
 		try:
 			partitioning.doPartitioning(self.storage)
@@ -343,6 +356,9 @@ class BlivetUtils():
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
 		
 		assert blivet_device._type != None
+		
+		if blivet_device._type == "partition" and blivet_device.format.type == "lvmpv":
+			return "lvmpv"
 		
 		return blivet_device._type
 	
