@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # list_partitions.py
 # Load and display partitions for selected device
 # 
@@ -66,6 +67,9 @@ class ListPartitions():
 		self.partitions_view = self.create_partitions_view()
 		self.actions_view = self.create_actions_view()
 		
+		self.info_label = Gtk.Label("")
+		self.builder.get_object("pv_viewport").add(self.info_label)
+		
 		self.darea = Gtk.DrawingArea()
 		
 		self.main_menu = main_menu(self.builder.get_object("MainWindow"),self)		
@@ -101,6 +105,33 @@ class ListPartitions():
 			else:
 				self.partitions_list.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB"])
 	
+	def device_info(self):
+		""" Basic information for selected device	
+		"""
+		
+		device_type = self.b.get_device_type(self.disk)
+		
+		if device_type == "lvmvg":
+			pvs = self.b.get_parent_pvs(self.disk)
+		
+			info_str = _("<b>LVM2 Volume group <i>{0}</i> occupying {1} Physical Volume(s):</b>\n\n").format(self.disk, len(pvs))
+		
+			for pv in pvs:
+				info_str += _("\t• PV <i>{0}</i>, size: {1} MB on <i>{2}</i> disk.\n").format(pv.name, pv.size, pv.disks[0].name)
+		
+		elif device_type == "disk":
+			
+			blivet_disk = self.b.get_blivet_device(self.disk)
+			
+			info_str = _("<b>Hard disk</b> <i>{0}</i>\n\n\t• Size: <i>{1} MB</i>\n\t• Model: <i>{2}</i>\n").format(blivet_disk.path, blivet_disk.size, blivet_disk.model)
+
+		else:
+			info_str = ""
+		
+		self.info_label.set_markup(info_str)
+		
+		return		
+	
 	def update_partitions_view(self,device_name):
 		""" Update partition view with selected disc children (partitions)
 			:param device_name: name of selected device 
@@ -108,6 +139,8 @@ class ListPartitions():
         """
 		
 		self.disk = device_name
+		
+		self.device_info()
 		
 		self.partitions_list.clear()
 		partitions = self.b.GetPartitions(self.disk)

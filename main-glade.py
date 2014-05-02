@@ -20,7 +20,7 @@
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
 
-import sys, os, signal
+import sys, os, signal, logging
 
 from gi.repository import Gtk, GdkPixbuf
 
@@ -55,10 +55,8 @@ def start(): #FIXME to new file/class
 
 	MainWindow = builder.get_object("MainWindow")
 	MainWindow.connect("delete-event", Gtk.main_quit)
-	
-	b = BlivetUtils()
 
-	dlist = ListDevices(b,builder)
+	dlist = ListDevices(builder)
 
 	builder.get_object("disks_viewport").add(dlist.get_disks_view())
 
@@ -78,7 +76,7 @@ def start(): #FIXME to new file/class
 
 def main():	
 	if os.geteuid() != 0:
-		# privileges are required for blivet
+		# root privileges are required for blivet
 		RootTestDialog()
 		sys.exit(0)
 	

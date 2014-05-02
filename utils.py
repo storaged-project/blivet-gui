@@ -32,7 +32,6 @@ gettext.bindtextdomain(APP_NAME, 'po')
 gettext.textdomain(APP_NAME)
 _ = gettext.gettext
 
-
 def partition_mounted(partition_path):
 	""" Is selected partition partition_mounted
 		:param partition_path: /dev path for partition
@@ -44,7 +43,7 @@ def partition_mounted(partition_path):
 	try:
 		mounts = open("/proc/mounts", "r")
 	except IOError as e:
-			print e #FIXME
+		return None
 	
 	for line in mounts:
 		# /proc/mounts line fmt:
@@ -63,7 +62,6 @@ def os_umount_partition(mountpoint):
 	"""
 	
 	if not os.path.ismount(mountpoint):
-		print "Something very wrong happened"
 		return False
 	
 	FNULL = open(os.devnull, "w")
@@ -103,6 +101,9 @@ class BlivetUtils():
 			:returns: list of all "disk" devices
 			:rtype: list
         """
+        
+		#FIXME: self.storage.disks
+        
 		roots = []
 
 		for device in self.storage.devices:
@@ -153,7 +154,7 @@ class BlivetUtils():
 			
 			if len(free_space) != 0:
 				for free in free_space:
-					if free.length < 2048:
+					if free.length < 4096:
 						continue
 					for partition in partitions:
 						if partition.name == _("unallocated"):
@@ -191,7 +192,7 @@ class BlivetUtils():
 				return partitions2
 			
 		elif blivet_device._type == "lvmvg":
-			if blivet_device.freeSpace > 0:
+			if blivet_device.freeSpace > 2:
 				partitions.append(FreeSpaceDevice(blivet_device.freeSpace))
 			
 			return partitions
@@ -264,7 +265,6 @@ class BlivetUtils():
 		print resize, target_size, target_fs
         
 		if resize == False and target_fs == None:
-			print "Something got very wrong"
 			return False
 		
 		elif resize == False and target_fs != None:
@@ -284,7 +284,7 @@ class BlivetUtils():
 			return True
 		
 		except PartitioningError as e:
-			print "Something very wrong happened:"
+			print "Something very wrong happened:" #FIXME
 			print e
 			
 			return False
@@ -326,21 +326,54 @@ class BlivetUtils():
 			partitioning.doPartitioning(self.storage)
 			
 			return True
+		
 		except PartitioningError as e:
-			print "Something very wrong happened:"
+			print "Something very wrong happened:" #FIXME
 			print e
 			
 			return False
 	
 	def get_device_type(self, device_name):
-		"""
+		""" Get device type
 			:param device_name: device name
 			:type device_name: str
 			:returns: type of device
 			:rtype: str
 		"""
 		
-		return self.storage.devicetree.getDeviceByName(device_name)._type
+		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
+		
+		assert blivet_device._type != None
+		
+		return blivet_device._type
+	
+	def get_blivet_device(self, device_name):
+		""" Get blivet device
+			:param device_name: device name
+			:type device_name: str
+			:returns: blviet device
+			:rtype: blivet.StorageDevice
+		"""
+		
+		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
+		
+		assert blivet_device._type != None
+		
+		return blivet_device
+	
+	def get_parent_pvs(self, device_name):
+		""" Return list of LVM VG PVs
+			:param device_name: device name
+			:type device_name: str
+			:returns: list of devices
+			:rtype: list of blivet.StorageDevice
+		"""
+		
+		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
+		
+		assert blivet_device._type == "lvmvg"
+		
+		return blivet_device.pvs
 	
 	def blivet_reset(self):
 		self.storage.reset()

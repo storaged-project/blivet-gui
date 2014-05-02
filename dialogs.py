@@ -227,7 +227,7 @@ class EditDialog(Gtk.Dialog):
 	def add_name_chooser(self):
 		
 		self.label_entry = Gtk.Label()
-		self.label_entry.set_text(_("Name:"))
+		self.label_entry.set_text(_("Label:"))
 		self.grid.attach(self.label_entry, 0, 4, 1, 1)
 		
 		self.name_entry = Gtk.Entry()

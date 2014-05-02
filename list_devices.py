@@ -45,9 +45,9 @@ _ = gettext.gettext
 
 
 class ListDevices():
-	def __init__(self,BlivetUtils,Builder):
+	def __init__(self,Builder):
 		
-		self.b = BlivetUtils
+		self.b = BlivetUtils()
 		self.builder = Builder
 		
 		self.device_list = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
