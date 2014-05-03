@@ -49,7 +49,6 @@ _ = gettext.gettext
 #TODO
 """
 
-1. Edit VG -- pridani noveho pv
 3. Embedovani
 6. dokumentace
 7. mozna device-info

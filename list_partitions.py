@@ -551,7 +551,7 @@ class ListPartitions():
 		
 		device_type = self.b.get_device_type(self.disk)
 		
-		dialog = AddDialog(device_type,self.selected_partition[0],free_size)
+		dialog = AddDialog(device_type, self.disk ,self.selected_partition[0],free_size, self.b.get_free_pvs_info())
 		
 		response = dialog.run()
 		
@@ -565,17 +565,36 @@ class ListPartitions():
 				dialog.destroy()
 				self.add_partition()
 			
+			elif selection[0] == "LVM2 Volume Group":
+				user_input = dialog.get_selection()
+				
+				ret = self.b.add_device(parent_names=user_input[5], device_type=user_input[0], fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
+				
+				if ret != None:
+					
+					self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
+					self.list_devices.update_devices_view("add", self.disk, ret)
+						
+					self.update_partitions_view(self.disk)
+					self.update_partitions_image(self.disk)
+				
+				else:
+					self.update_partitions_view(self.disk)
+					self.update_partitions_image(self.disk)
+				
+				dialog.destroy()
+			
 			elif selection[0] == "LVM2 Storage":
 				user_input = dialog.get_selection()
 				
-				ret1 = self.b.add_device(parent_name=self.disk, device_type="LVM2 Physical Volume", fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
+				ret1 = self.b.add_device(parent_names=[self.disk], device_type="LVM2 Physical Volume", fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
 				
 				if ret1 != None:
 					
 					if user_input[2] == None:
 						self.list_devices.update_devices_view("add", self.disk, ret1)
 					
-				ret2 = self.b.add_device(parent_name=ret1, device_type="LVM2 Volume Group", fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
+				ret2 = self.b.add_device(parent_names=[ret1], device_type="LVM2 Volume Group", fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
 				
 				if ret2 != None:
 					
@@ -596,7 +615,7 @@ class ListPartitions():
 				user_input = dialog.get_selection()
 				
 				# user_input = [device, size, fs, name, label]
-				ret = self.b.add_device(parent_name=self.disk, device_type=user_input[0], fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
+				ret = self.b.add_device(parent_names=[self.disk], device_type=user_input[0], fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
 				
 				if ret != None:
 					

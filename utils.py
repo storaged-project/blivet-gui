@@ -121,6 +121,18 @@ class BlivetUtils():
 		
 		return self.storage.pvs
 	
+	def get_free_pvs_info(self):
+		
+		pvs = self.get_physical_devices()
+		
+		free_pvs = []
+		
+		for pv in pvs:
+			if pv.kids == 0:
+				free_pvs.append((pv.name, "lvmpv", int(pv.size)))
+		
+		return free_pvs
+	
 	def get_free_space(self,device_name,partitions):
 		""" Find free space on device
 			:param device_name: name of device
@@ -289,10 +301,10 @@ class BlivetUtils():
 			
 			return False
 	
-	def add_device(self, parent_name, device_type, fs_type, target_size, name=None, label=None, flags=[]):
+	def add_device(self, parent_names, device_type, fs_type, target_size, name=None, label=None, flags=[]):
 		""" Create new device
-			:param parent_name: name of parent device
-			:type parent_name: str
+			:param parent_names: name of parent device
+			:type parent_names: list of str
 			:param device_type: type of device to create
 			:type device_type: str
 			:param fs_type: filesystem
@@ -309,10 +321,13 @@ class BlivetUtils():
 		
 		device_id = 0
 		
-		parent_device = self.storage.devicetree.getDeviceByName(parent_name)		
+		parent_devices = []
+		
+		for pname in parent_names:
+			parent_devices.append(self.storage.devicetree.getDeviceByName(pname))		
 		
 		if device_type == _("Partition"):
-			new_part = self.storage.newPartition(size=target_size, parents=[parent_device])
+			new_part = self.storage.newPartition(size=target_size, parents=parent_devices)
 			self.storage.createDevice(new_part)
 			
 			device_id = new_part.id
@@ -323,12 +338,12 @@ class BlivetUtils():
 		elif device_type == _("LVM2 Logical Volume"):
 			
 			if name == None:
-				name = self.storage.suggestDeviceName(parent=parent_device,swap=False)
+				name = self.storage.suggestDeviceName(parent=parent_devices[0],swap=False)
 			
 			else:
 				name = self.storage.safeDeviceName(name)
 			
-			new_part = self.storage.newLV(size=target_size, parents=[parent_device], name=name)
+			new_part = self.storage.newLV(size=target_size, parents=parent_devices, name=name)
 			
 			device_id = new_part.id
 			
@@ -340,13 +355,12 @@ class BlivetUtils():
 		elif device_type == _("LVM2 Volume Group"):
 			
 			if name == None:
-				name = self.storage.suggestDeviceName(parent=parent_device,swap=False)
+				name = self.storage.suggestDeviceName(parent=parent_devices,swap=False)
 			
 			else:
 				name = self.storage.safeDeviceName(name)
 			
-			print target_size
-			new_part = self.storage.newVG(size=target_size, parents=[parent_device], name=name)
+			new_part = self.storage.newVG(size=target_size, parents=parent_devices, name=name)
 			
 			device_id = new_part.id
 			
@@ -355,7 +369,7 @@ class BlivetUtils():
 			
 		elif device_type == _("LVM2 Physical Volume"):
 			
-			new_part = self.storage.newPartition(size=target_size, parents=[parent_device])
+			new_part = self.storage.newPartition(size=target_size, parents=parent_devices)
 			
 			device_id = new_part.id
 			

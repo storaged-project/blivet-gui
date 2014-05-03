@@ -270,25 +270,32 @@ class EditDialog(Gtk.Dialog):
 class AddDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add new partition including selecting size, fs, label etc.
 	"""
-	def __init__(self,device_type, partition_name, free_space):
+	def __init__(self,device_type, parent_name, partition_name, free_space, free_pvs):
 		"""
 			:param device_type: type of parent device
 			:type device_type: str
+			:parama parent_name: name of parent device
+			:type parent_name: str
 			:param partition_name: name of device
 			:type partition_name: str
             :param free_space: size of selected free space
             :type free_space: int
+            :param free_pvs: list PVs with no VG
+            :type free_pvs: list
         """
         
 		self.partition_name = partition_name
 		self.free_space = free_space
 		self.device_type = device_type
+		self.parent_name = parent_name
+		self.free_pvs = free_pvs
         
 		Gtk.Dialog.__init__(self, _("Create new partition"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
-
-		self.set_default_size(550, 200)
+		
+		self.set_border_width(10)
+		self.set_default_size(600, 300)
 
 		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
 
@@ -298,6 +305,7 @@ class AddDialog(Gtk.Dialog):
 		self.add_size_scale()
 		self.add_fs_chooser()
 		self.add_name_chooser()
+		self.add_parent_list()
 		self.add_device_chooser() #!important
 		
 		self.show_all()
@@ -332,6 +340,11 @@ class AddDialog(Gtk.Dialog):
 		if self.device_type == "lvmpv":
 			self.filesystems_combo.set_sensitive(False)
 			self.label_fs.set_sensitive(False)
+			self.label_size.set_sensitive(False)
+			self.label_free.set_sensitive(False)
+			self.scale.set_sensitive(False)
+			self.spin_size.set_sensitive(False)
+			self.spin_free.set_sensitive(False)
 		
 		self.grid.attach(self.devices_combo,1,0,2,1)
 		
@@ -339,6 +352,58 @@ class AddDialog(Gtk.Dialog):
 		renderer_text = Gtk.CellRendererText()
 		self.devices_combo.pack_start(renderer_text, True)
 		self.devices_combo.add_attribute(renderer_text, "text", 0)
+	
+	def add_parent_list(self):
+		
+		self.parents_store = Gtk.ListStore(bool, str, str, str)
+		
+		self.parents = Gtk.TreeView(model=self.parents_store)
+		#self.parents.set_vexpand(True)
+		#self.parents.set_hexpand(True)
+		
+		renderer_toggle = Gtk.CellRendererToggle()
+		renderer_toggle.connect("toggled", self.on_cell_toggled)
+		
+		renderer_text = Gtk.CellRendererText()
+		
+		column_toggle = Gtk.TreeViewColumn(None, renderer_toggle, active=0)
+		column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=1)
+		column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=2)
+		column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=3)
+		
+		self.parents.append_column(column_toggle)
+		self.parents.append_column(column_name)
+		self.parents.append_column(column_type)
+		self.parents.append_column(column_size)
+		
+		self.parents.set_headers_visible(True)
+		
+		if self.device_type == "lvmpv":
+			for pv in self.free_pvs:
+				if pv[0] == self.parent_name:
+					self.parents_store.append([True, self.parent_name, self.device_type, str(self.free_space) + " MB"])
+				else:
+					self.parents_store.append([False, pv[0], pv[1], str(pv[2]) + " MB"])
+			
+			self.parents.set_sensitive(True)
+		
+		else:
+			self.parents_store.append([True, self.parent_name, self.device_type, str(self.free_space) + " MB"])
+			self.parents.set_sensitive(False)
+		
+		self.label_list = Gtk.Label()
+		self.label_list.set_text(_("Available devices:"))
+		
+		self.grid.attach(self.label_list, 0, 1, 1, 1)
+		self.grid.attach(self.parents, 1, 1, 4, 4)
+	
+	def on_cell_toggled(self, event, path):
+		
+		if self.parents_store[path][1] == self.parent_name:
+			pass
+		
+		else:
+			self.parents_store[path][0] = not self.parents_store[path][0]		
 	
 	def add_size_scale(self):
 		
@@ -349,42 +414,42 @@ class AddDialog(Gtk.Dialog):
 		self.scale.set_value(self.free_space)
 		self.scale.connect("value-changed", self.scale_moved)
 		
-		self.grid.attach(self.scale, 0, 1, 6, 1) #left-top-width-height
+		self.grid.attach(self.scale, 0, 6, 6, 1) #left-top-width-height
 		
 		self.label_size = Gtk.Label()
 		self.label_size.set_text(_("Volume size:"))
-		self.grid.attach(self.label_size, 0, 2, 1, 1) #left-top-width-height
+		self.grid.attach(self.label_size, 0, 7, 1, 1) #left-top-width-height
 		
 		self.spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 1, self.free_space, 1, 10, 0))
 		self.spin_size.set_numeric(True)
 		self.spin_size.set_value(self.free_space)
 		self.spin_size.connect("value-changed", self.spin_size_moved)
 		
-		self.grid.attach(self.spin_size, 1, 2, 1, 1) #left-top-width-height
+		self.grid.attach(self.spin_size, 1, 7, 1, 1) #left-top-width-height
 		
 		self.label_mb = Gtk.Label()
 		self.label_mb.set_text(_("MB"))
-		self.grid.attach(self.label_mb, 2, 2, 1, 1) #left-top-width-height
+		self.grid.attach(self.label_mb, 2, 7, 1, 1) #left-top-width-height
 		
 		self.label_free = Gtk.Label()
 		self.label_free.set_text(_("Free space after:"))
-		self.grid.attach(self.label_free, 3, 2, 1, 1) #left-top-width-height
+		self.grid.attach(self.label_free, 3, 7, 1, 1) #left-top-width-height
 		
 		self.spin_free = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 0, self.free_space, 1, 10, 0))
 		self.spin_free.set_numeric(True)
 		self.spin_free.connect("value-changed", self.spin_free_moved)
 		
-		self.grid.attach(self.spin_free, 4, 2, 1, 1) #left-top-width-height
+		self.grid.attach(self.spin_free, 4, 7, 1, 1) #left-top-width-height
 		
 		self.label_mb2 = Gtk.Label()
 		self.label_mb2.set_text(_("MB"))
-		self.grid.attach(self.label_mb2, 5, 2, 1, 1) #left-top-width-height
+		self.grid.attach(self.label_mb2, 5, 7, 1, 1) #left-top-width-height
 		
 	def add_fs_chooser(self):
 		
 		self.label_fs = Gtk.Label()
 		self.label_fs.set_text(_("Filesystem:"))
-		self.grid.attach(self.label_fs, 0, 3, 1, 1)
+		self.grid.attach(self.label_fs, 0, 8, 1, 1)
 		
 		filesystems = ["ext2", "ext3", "ext4", "ntfs",
 			"fat", "xfs", "reiserfs", "swap"]
@@ -394,16 +459,16 @@ class AddDialog(Gtk.Dialog):
 		for fs in filesystems:
 			self.filesystems_combo.append_text(fs)
 		
-		self.grid.attach(self.filesystems_combo,1,3,2,1)
+		self.grid.attach(self.filesystems_combo,1,8,2,1)
 		
 	def add_name_chooser(self):
 		
 		self.label_label = Gtk.Label()
 		self.label_label.set_text(_("Label:"))
-		self.grid.attach(self.label_label, 0, 4, 1, 1)
+		self.grid.attach(self.label_label, 0, 9, 1, 1)
 		
 		self.label_entry = Gtk.Entry()
-		self.grid.attach(self.label_entry,1,4,2,1)
+		self.grid.attach(self.label_entry,1,9,2,1)
 		
 		if self.device_type not in ["lvmvg", "disk"]:
 			self.label_label.set_sensitive(False)
@@ -411,7 +476,7 @@ class AddDialog(Gtk.Dialog):
 		
 		self.name_label = Gtk.Label()
 		self.name_label.set_text(_("Name:"))
-		self.grid.attach(self.name_label, 3, 4, 1, 1)
+		self.grid.attach(self.name_label, 3, 9, 1, 1)
 		
 		self.name_entry = Gtk.Entry()
 		
@@ -419,7 +484,7 @@ class AddDialog(Gtk.Dialog):
 			self.name_label.set_sensitive(False)
 			self.name_entry.set_sensitive(False)
 		
-		self.grid.attach(self.name_entry,4,4,2,1)
+		self.grid.attach(self.name_entry,4,9,2,1)
 	
 	def on_devices_combo_changed(self, event):
 		
@@ -477,6 +542,17 @@ class AddDialog(Gtk.Dialog):
 		if tree_iter != None:
 			model = self.devices_combo.get_model()
 			device = model[tree_iter][0]
+		
+		if device == "LVM2 Volume Group":
+			parents = []
+			size = 0
+			
+			for row in self.parents_store:
+				if row[0]:
+					parents.append(row[1])
+					size += int(row[3].split()[0])
+			
+			return (device, size, self.filesystems_combo.get_active_text(), self.name_entry.get_text(), self.label_entry.get_text(), parents)
 			
 		return (device, self.spin_size.get_value(),self.filesystems_combo.get_active_text(), self.name_entry.get_text(), self.label_entry.get_text())
 
