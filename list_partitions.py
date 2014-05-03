@@ -24,7 +24,7 @@
 
 import sys, os, signal
 
-from gi.repository import Gtk, GdkPixbuf, Gdk
+from gi.repository import Gtk, GdkPixbuf, Gdk, GLib
 
 import blivet
 
@@ -42,6 +42,8 @@ from actions_menu import *
 
 from main_menu import *
 
+from processing_window import *
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
@@ -52,6 +54,10 @@ _ = gettext.gettext
 class ListPartitions():
 	
 	def __init__(self,ListDevices,BlivetUtils,Builder,disk=None):
+		
+		GLib.threads_init()
+		Gdk.threads_init()
+		Gdk.threads_enter()
 		
 		self.list_devices = ListDevices
 		self.b = BlivetUtils
@@ -618,9 +624,13 @@ class ListPartitions():
 		
 	def perform_actions(self):
 		""" Perform queued actions
+		.. note::
+                New window creates separate thread to run blivet.doIt()
 		"""
 		
-		self.b.blivet_do_it()
+		win = ProcessingActions(self)
+		
+		Gdk.threads_leave()
 		
 		self.clear_actions_view()
 		

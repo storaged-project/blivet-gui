@@ -58,6 +58,19 @@ class AddErrorDialog(Gtk.MessageDialog):
 		self.connect("delete-event", Gtk.main_quit)
 		self.run()
 		self.destroy()
+
+class BlivetError(Gtk.MessageDialog):
+	""" Dialog window informing user about blivet error/exception
+	"""
+	
+	def __init__(self, exception):
+		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.OK, _("Error:\n\nUnknown error appeared:\n\n%(e)s." % locals()))
+		
+		self.show_all()
+		
+		self.connect("delete-event", Gtk.main_quit)
+		self.run()
+		self.destroy()	
 		
 class UnmountErrorDialog(Gtk.MessageDialog):
 	""" Dialog window informing user about unsuccesfull unmount operation
@@ -76,7 +89,6 @@ class UnmountErrorDialog(Gtk.MessageDialog):
 		self.connect("delete-event", Gtk.main_quit)
 		self.run()
 		self.destroy()
-		
 
 class ConfirmDeleteDialog(Gtk.Dialog):
 	""" Confirmation dialog for device deletion

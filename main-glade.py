@@ -46,7 +46,24 @@ _ = gettext.gettext
 
 #-----------------------------------------------------#
 
+#TODO
+"""
+
+1. Edit VG -- pridani noveho pv
+3. Embedovani
+6. dokumentace
+7. mozna device-info
+"""
+
+
+
+
 def start(): #FIXME to new file/class
+	
+	window_id = 0
+	plug = Gtk.Plug(window_id)
+	
+	print plug.get_id()
 	
 	builder = Gtk.Builder()
 	builder.add_from_file("blivet-gui.glade")

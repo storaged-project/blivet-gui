@@ -22,6 +22,8 @@
 
 from blivet import *
 
+from dialogs import *
+
 import gettext
 
 import os, subprocess
@@ -283,8 +285,7 @@ class BlivetUtils():
 			return True
 		
 		except PartitioningError as e:
-			print "Something very wrong happened:" #FIXME
-			print e
+			BlivetError(e)
 			
 			return False
 	
@@ -344,6 +345,7 @@ class BlivetUtils():
 			else:
 				name = self.storage.safeDeviceName(name)
 			
+			print target_size
 			new_part = self.storage.newVG(size=target_size, parents=[parent_device], name=name)
 			
 			device_id = new_part.id
@@ -368,8 +370,7 @@ class BlivetUtils():
 			return self.storage.devicetree.getDeviceByID(device_id).name
 		
 		except PartitioningError as e:
-			print "Something very wrong happened:" #FIXME
-			print e
+			BlivetError(e)
 			
 			return None
 	

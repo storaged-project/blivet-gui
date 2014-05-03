@@ -58,7 +58,7 @@ class actions_toolbar():
 		button_add = Gtk.ToolButton()
 		button_add.set_icon_name("gtk-add")
 		button_add.set_sensitive(False)
-		button_add.set_tooltip_text(_("Create new partition"))
+		button_add.set_tooltip_text(_("Create new device"))
 		self.toolbar.insert(button_add, 0)
 		self.buttons["add"] = button_add
 		button_add.connect("clicked", self.on_add_clicked)
@@ -66,7 +66,7 @@ class actions_toolbar():
 		button_delete = Gtk.ToolButton()
 		button_delete.set_icon_name("gtk-delete")
 		button_delete.set_sensitive(False)
-		button_delete.set_tooltip_text(_("Delete selected partition"))		
+		button_delete.set_tooltip_text(_("Delete selected device"))		
 		self.toolbar.insert(button_delete, 1)
 		self.buttons["delete"] = button_delete
 		button_delete.connect("clicked", self.on_delete_clicked)
@@ -76,7 +76,7 @@ class actions_toolbar():
 		button_edit = Gtk.ToolButton()
 		button_edit.set_icon_name("gtk-edit")
 		button_edit.set_sensitive(False)
-		button_edit.set_tooltip_text(_("Edit or resize partition"))
+		button_edit.set_tooltip_text(_("Edit or resize device"))
 		self.toolbar.insert(button_edit, 3)
 		self.buttons["edit"] = button_edit
 		button_edit.connect("clicked", self.on_edit_clicked)
@@ -155,12 +155,11 @@ class actions_toolbar():
 
 		if response == Gtk.ResponseType.OK:
             
+			dialog.destroy()
 			self.list_partitions.perform_actions()
 			
 		elif response == Gtk.ResponseType.CANCEL:
-			pass
-
-		dialog.destroy()
+			dialog.destroy()
 	
 	@property
 	def get_toolbar(self):

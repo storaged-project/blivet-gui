@@ -218,7 +218,7 @@ class ListDevices():
 				self.device_list.append(new_row)
 				
 				for row in self.device_list:
-					if row[1].split("\n")[0] == parent_device:
+					if row[1].split("\n")[0] == changed_device:
 						row_to_select = row
 			
 				if row_to_select != None:
@@ -232,7 +232,7 @@ class ListDevices():
 				for row in self.device_list:
 					if row[1] == row_to_find:
 						row_to_add_after = row
-					elif row[1].split("\n")[0] == parent_device:
+					elif row[1].split("\n")[0] == changed_device:
 						row_to_select = row
 			
 				if row_to_add_after != None:

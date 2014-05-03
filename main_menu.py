@@ -59,7 +59,7 @@ class main_menu():
 		self.menu_bar.add(self.add_file_menu())
 		self.menu_bar.add(self.add_edit_menu())
 		self.menu_bar.add(self.add_partition_menu())
-		self.menu_bar.add(self.add_lvm_menu())
+		#self.menu_bar.add(self.add_lvm_menu())
 		self.menu_bar.add(self.add_help_menu())
 	
 	def add_file_menu(self):
@@ -129,7 +129,7 @@ class main_menu():
 		""" Menu item 'Partition'
 		"""
 		
-		partition_menu_item = Gtk.MenuItem(_("Partition"))
+		partition_menu_item = Gtk.MenuItem(_("Device"))
 		partition_menu = Gtk.Menu()
 		partition_menu_item.set_submenu(partition_menu)
 		
@@ -272,8 +272,6 @@ class main_menu():
 	def on_undo_item(self, event):
 		""" Onselect action for 'Undo Last Action'
 		"""
-		
-		print "not implemented" #FIXME
 		
 	def on_clear_item(self, event):
 		""" Onselect action for 'Clear Queued Actions'
