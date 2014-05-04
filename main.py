@@ -83,6 +83,7 @@ def main():
 		
 		else:
 			MainWindow = main_window()
+			MainWindow.set_position(Gtk.WindowPosition.CENTER)
 			MainWindow.show_all()
 			Gtk.main()
 

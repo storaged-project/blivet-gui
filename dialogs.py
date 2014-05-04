@@ -134,7 +134,7 @@ class ConfirmDeleteDialog(Gtk.Dialog):
 		box = self.get_content_area()
 		box.add(label)
 		self.show_all()
-		
+
 class ConfirmPerformActions(Gtk.Dialog):
 	""" Confirmation dialog for device deletion
 	"""

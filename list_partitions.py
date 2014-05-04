@@ -695,7 +695,7 @@ class ListPartitions():
 		
 		win = ProcessingActions(self)
 		
-		#Gdk.threads_leave()
+		Gdk.threads_leave()
 		
 		self.clear_actions_view()
 		

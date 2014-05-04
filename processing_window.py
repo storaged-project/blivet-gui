@@ -26,7 +26,7 @@ import threading, time
 
 import gettext
 
-from gi.repository import Gtk, GdkPixbuf, Gdk, GLib
+from gi.repository import Gtk, GdkPixbuf, Gdk, GLib, GObject
 
 #------------------------------------------------------------------------------#
 
@@ -45,16 +45,19 @@ class ProcessingActions(Gtk.Window):
 		self.window = Gtk.Window(title=_("Proccessing"))
 
 		self.window.set_border_width(8)
+		self.window.set_position(Gtk.WindowPosition.CENTER)
 
 		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
 		
 		self.window.add(self.grid)
 		
-		self.spinner = Gtk.Spinner()
-		self.grid.attach(self.spinner, 0, 0, 2, 1)
+		self.pulse = True
 		
 		self.label = Gtk.Label()
-		self.grid.attach(self.label, 0, 1, 2, 1)
+		self.grid.attach(self.label, 0, 0, 2, 1)
+		
+		self.progressbar = Gtk.ProgressBar()
+		self.grid.attach(self.progressbar, 0, 1, 2, 1)
 		
 		self.button = Gtk.Button(stock=Gtk.STOCK_OK)
 		self.button.connect("clicked", self.close_window)
@@ -62,21 +65,34 @@ class ProcessingActions(Gtk.Window):
 		
 		self.grid.attach(self.button, 1, 2, 1, 1)
 		
-		self.start()
-		self.window.show_all()
+		self.timeout_id = GObject.timeout_add(50, self.on_timeout, None)
+			
 		threading.Thread(target=do_it, args=[self, self.list_partitions]).start()
+		
+		self.window.show_all()
+		self.start()
 
 	def close_window(self, event):
 		self.window.destroy()
 	
 	def start(self):
-		self.spinner.start()
+		self.progressbar.pulse()
 		self.label.set_markup(_("<b>Queued actions are being proccessed.</b>"))
 	
 	def end(self):
-		self.spinner.stop()
+		self.pulse = False
+		self.progressbar.set_fraction(1)
 		self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
 		self.button.set_sensitive(True)
+	
+	def on_timeout(self, user_data):
+		
+		if self.pulse:
+			self.progressbar.pulse()
+			return True
+		
+		else:
+			return False
 
 def do_it(window,list_partitions):
 	list_partitions.b.blivet_do_it()
