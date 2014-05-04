@@ -18,6 +18,7 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
+#------------------------------------------------------------------------------#
 
 from gi.repository import Gtk, GdkPixbuf
 
@@ -27,11 +28,15 @@ from utils import *
 
 from dialogs import *
 
+#------------------------------------------------------------------------------#
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
 gettext.textdomain(APP_NAME)
 _ = gettext.gettext
+
+#------------------------------------------------------------------------------#
 
 class actions_menu():
 	def __init__(self,list_partitions):

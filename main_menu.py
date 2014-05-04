@@ -19,7 +19,8 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
- 
+#------------------------------------------------------------------------------#
+
 import gettext
 
 from gi.repository import Gtk, GdkPixbuf
@@ -28,11 +29,15 @@ from dialogs import *
 
 import os, subprocess
 
+#------------------------------------------------------------------------------#
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
 gettext.textdomain(APP_NAME)
 _ = gettext.gettext
+
+#------------------------------------------------------------------------------#
 
 class main_menu():
 	""" Main menu for blivet-gui

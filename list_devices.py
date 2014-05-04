@@ -19,7 +19,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-
+#------------------------------------------------------------------------------#
 
 import sys, os, signal
 
@@ -37,12 +37,15 @@ from dialogs import *
 
 from list_partitions import *
 
+#------------------------------------------------------------------------------#
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
 gettext.textdomain(APP_NAME)
 _ = gettext.gettext
 
+#------------------------------------------------------------------------------#
 
 class ListDevices():
 	def __init__(self,Builder):

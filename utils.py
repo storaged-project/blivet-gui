@@ -19,6 +19,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
+#------------------------------------------------------------------------------#
 
 from blivet import *
 
@@ -28,11 +29,15 @@ import gettext
 
 import os, subprocess
 
+#------------------------------------------------------------------------------#
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
 gettext.textdomain(APP_NAME)
 _ = gettext.gettext
+
+#------------------------------------------------------------------------------#
 
 def partition_mounted(partition_path):
 	""" Is selected partition partition_mounted

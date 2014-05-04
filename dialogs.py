@@ -19,6 +19,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
+#------------------------------------------------------------------------------#
  
 import sys, os, signal
 
@@ -26,11 +27,15 @@ import gettext
 
 from gi.repository import Gtk, GdkPixbuf
 
+#------------------------------------------------------------------------------#
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
 gettext.textdomain(APP_NAME)
 _ = gettext.gettext
+
+#------------------------------------------------------------------------------#
  
 class RootTestDialog(Gtk.MessageDialog):
 	""" Dialog window informing user to run blivet-gui as root	

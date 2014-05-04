@@ -19,7 +19,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-
+#------------------------------------------------------------------------------#
 
 import sys, os, signal
 
@@ -35,11 +35,15 @@ from utils import *
 
 from dialogs import *
 
+#------------------------------------------------------------------------------#
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
 gettext.textdomain(APP_NAME)
 _ = gettext.gettext
+
+#------------------------------------------------------------------------------#
 
 class actions_toolbar():
 	def __init__(self,list_partitions):

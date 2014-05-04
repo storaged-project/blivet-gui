@@ -19,22 +19,24 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
- 
+#------------------------------------------------------------------------------#
+
 import sys, os, signal
+import threading, time
 
 import gettext
 
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import Gtk, GdkPixbuf, Gdk, GLib
 
-from gi.repository import Gtk,Gdk, GLib
-import threading 
-import time
+#------------------------------------------------------------------------------#
 
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
 gettext.textdomain(APP_NAME)
 _ = gettext.gettext
+
+#------------------------------------------------------------------------------#
 
 class ProcessingActions(Gtk.Window):
 	def __init__(self, list_partitions):

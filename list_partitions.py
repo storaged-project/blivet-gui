@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-
+#------------------------------------------------------------------------------#
 
 import sys, os, signal
 
@@ -44,12 +44,15 @@ from main_menu import *
 
 from processing_window import *
 
+#------------------------------------------------------------------------------#
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
 gettext.textdomain(APP_NAME)
 _ = gettext.gettext
 
+#------------------------------------------------------------------------------#
 
 class ListPartitions():
 	
@@ -174,6 +177,10 @@ class ListPartitions():
 				self.partitions_list.append([partition.name,partition.format._type,partition_mounted(partition.path),str(int(partition.size)) + " MB"])
 			else:
 				self.partitions_list.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB"])
+		
+		# select first line in partitions view
+		self.select = self.partitions_view.get_selection()
+		self.path = self.select.select_path("0")
 
 	def create_partitions_view(self):
 		""" Create Gtk.TreeView for device children (partitions)
