@@ -2,4 +2,21 @@
       type="guide"
       id="index">
 <title>blivet-gui Help</title>
-</page> 
+
+<info>
+  <link type="guide" xref="index"/>
+  <link type="topic" xref="partitioning"/>
+  <link type="topic" xref="window" />
+</info>
+
+<p>blivet-gui is a graphical application to manage disks, partitions and LVM2 storages.
+As backend it uses <link href="https://fedoraproject.org/wiki/Blivet">blivet</link>, powerful python module for storage configuration.</p>
+
+<p>This guide will help you with some basic tasks regarding partitioning and creating and managing LVM2 storages.</p>
+
+<figure>
+  <title>blivet-gui</title>
+  <media type="image" src="main-window.png" width="600" />
+</figure>
+
+</page>

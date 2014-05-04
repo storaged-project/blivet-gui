@@ -1,0 +1,12 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="partitioning">
+<title>Partitioning</title>
+
+<info>
+  <link type="guide" xref="index"/>
+  <link type="topic" xref="partitioning"/>
+  <link type="topic" xref="window" />
+</info>
+
+</page>
