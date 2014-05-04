@@ -48,6 +48,8 @@ _ = gettext.gettext
 #------------------------------------------------------------------------------#
 
 def main_window():
+	""" Create main window from Glade UI file
+	"""
 	
 	builder = Gtk.Builder()
 	builder.add_from_file("blivet-gui.ui")
@@ -73,10 +75,13 @@ def main_window():
 	return MainWindow
 
 def embeded_window():
+	""" Create Gtk.Plug widget
+	"""
 	
 	window_id = 0
 	plug = Gtk.Plug(window_id)
 	
+	#FIXME
 	print plug.get_id()
 	
 	builder = Gtk.Builder()
@@ -86,7 +91,6 @@ def embeded_window():
 
 	vbox = builder.get_object("vbox")
 	vbox.reparent(plug)
-	#plug.add(vbox)
 
 	dlist = ListDevices(builder)
 
@@ -99,6 +103,5 @@ def embeded_window():
 	builder.get_object("image_window").add(dlist.return_partitions_image())
 
 	builder.get_object("vbox").add(dlist.get_partions_list().get_toolbar)
-
 	
 	return plug

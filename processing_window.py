@@ -78,9 +78,6 @@ class ProcessingActions(Gtk.Window):
 		self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
 		self.button.set_sensitive(True)
 
-	def passfun(self):
-		pass
-
 def do_it(window,list_partitions):
 	list_partitions.b.blivet_do_it()
 	window.end()

@@ -107,15 +107,20 @@ class ListPartitions():
 		
 		for partition in partitions:
 			if partition.name == _("free space"):
-				self.partitions_list.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,"--","--",
+								 str(int(partition.size)) + " MB"])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
-				self.partitions_list.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,_("extended"),"--",
+								 str(int(partition.size)) + " MB"])
 			elif partition._type == "lvmvg":
-				self.partitions_list.append([partition.name,_("lvmvg"),"--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,_("lvmvg"),"--",
+								 str(int(partition.size)) + " MB"])
 			elif partition.format.mountable:
-				self.partitions_list.append([partition.name,partition.format._type,partition.format.mountpoint,str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,partition.format._type,
+								 partition.format.mountpoint,str(int(partition.size)) + " MB"])
 			else:
-				self.partitions_list.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,partition.format._type,"--",
+								 str(int(partition.size)) + " MB"])
 	
 	def device_info(self):
 		""" Basic information for selected device	
@@ -168,15 +173,20 @@ class ListPartitions():
 		
 		for partition in partitions:
 			if partition.name == _("free space"):
-				self.partitions_list.append([partition.name,"--","--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,"--","--",
+								 str(int(partition.size)) + " MB"])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
-				self.partitions_list.append([partition.name,_("extended"),"--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,_("extended"),"--",
+								 str(int(partition.size)) + " MB"])
 			elif partition._type == "lvmvg":
-				self.partitions_list.append([partition.name,_("lvmvg"),"--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,_("lvmvg"),"--",
+								 str(int(partition.size)) + " MB"])
 			elif partition.format.mountable:
-				self.partitions_list.append([partition.name,partition.format._type,partition_mounted(partition.path),str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,partition.format._type,
+								 partition_mounted(partition.path),str(int(partition.size)) + " MB"])
 			else:
-				self.partitions_list.append([partition.name,partition.format._type,"--",str(int(partition.size)) + " MB"])
+				self.partitions_list.append([partition.name,partition.format._type,"--",
+								 str(int(partition.size)) + " MB"])
 		
 		# select first line in partitions view
 		self.select = self.partitions_view.get_selection()
@@ -275,8 +285,6 @@ class ListPartitions():
 		x = 0
 		y = 0
 		
-		#print "--------------"
-		
 		for partition in partitions:
 			
 			if extended:
@@ -320,8 +328,6 @@ class ListPartitions():
 			
 			elif x + part_width > width and not extended:
 				part_width = (width - x - shrink)
-			
-			#print "printing rectangle starting at (" + str(x) + "|" + str(shrink) + ") with size " + str(part_width) + "x" + str(height - 2*shrink) + " partition " + str(partition[0])
 
 			cairo_ctx.rectangle(x, shrink, part_width, height - 2*shrink)
 			cairo_ctx.fill()
@@ -414,7 +420,7 @@ class ListPartitions():
 		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 		self.actions_list.clear()
 		
-		self.toolbar.deactivate_buttons(["apply"])
+		self.toolbar.deactivate_buttons(["apply", "clear"])
 		self.main_menu.deactivate_menu_items(["apply", "clear"])
 		
 		self.update_partitions_view(self.disk)
@@ -441,7 +447,7 @@ class ListPartitions():
 		self.actions += 1
 		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 		
-		self.toolbar.activate_buttons(["apply"])
+		self.toolbar.activate_buttons(["apply", "clear"])
 		self.main_menu.activate_menu_items(["apply", "clear"])
 	
 	def activate_action_buttons(self,selected_partition):
@@ -558,7 +564,31 @@ class ListPartitions():
 		
 		device_type = self.b.get_device_type(self.disk)
 		
-		dialog = AddDialog(device_type, self.disk ,self.selected_partition[0],free_size, self.b.get_free_pvs_info())
+		if device_type == "disk" and self.b.has_disklabel(self.disk) != True:
+			
+			dialog = AddLabelDialog(self.disk)
+			
+			response = dialog.run()
+			
+			if response == Gtk.ResponseType.OK:
+				
+				selection = dialog.get_selection()
+				
+				self.b.create_disk_label(self.disk)
+				self.update_actions_view("add","create new disklabel on " + str(self.disk) + " device")
+				
+				dialog.destroy()
+			
+			elif response == Gtk.ResponseType.CANCEL:		
+			
+				dialog.destroy()
+			
+				return
+			
+			return
+		
+		dialog = AddDialog(device_type, self.disk ,self.selected_partition[0],
+					 free_size, self.b.get_free_pvs_info())
 		
 		response = dialog.run()
 		
@@ -566,7 +596,8 @@ class ListPartitions():
 		
 		if response == Gtk.ResponseType.OK:
 			
-			if selection[2] == None and selection[0] not in ["LVM2 Physical Volume", "LVM2 Volume Group", "LVM2 Storage"]:
+			if selection[2] == None and selection[0] not in ["LVM2 Physical Volume",
+													"LVM2 Volume Group", "LVM2 Storage"]:
 				# If fs is not selected, show error window and re-run add dialog
 				AddErrorDialog()
 				dialog.destroy()
@@ -575,7 +606,9 @@ class ListPartitions():
 			elif selection[0] == "LVM2 Volume Group":
 				user_input = dialog.get_selection()
 				
-				ret = self.b.add_device(parent_names=user_input[5], device_type=user_input[0], fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
+				ret = self.b.add_device(parent_names=user_input[5], device_type=user_input[0],
+							fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
+							label=user_input[4])
 				
 				if ret != None:
 					
@@ -594,14 +627,18 @@ class ListPartitions():
 			elif selection[0] == "LVM2 Storage":
 				user_input = dialog.get_selection()
 				
-				ret1 = self.b.add_device(parent_names=[self.disk], device_type="LVM2 Physical Volume", fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
+				ret1 = self.b.add_device(parent_names=[self.disk], device_type="LVM2 Physical Volume",
+							 fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
+							 label=user_input[4])
 				
 				if ret1 != None:
 					
 					if user_input[2] == None:
 						self.list_devices.update_devices_view("add", self.disk, ret1)
 					
-				ret2 = self.b.add_device(parent_names=[ret1], device_type="LVM2 Volume Group", fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
+				ret2 = self.b.add_device(parent_names=[ret1], device_type="LVM2 Volume Group",
+							 fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
+							 label=user_input[4])
 				
 				if ret2 != None:
 					
@@ -622,7 +659,9 @@ class ListPartitions():
 				user_input = dialog.get_selection()
 				
 				# user_input = [device, size, fs, name, label]
-				ret = self.b.add_device(parent_names=[self.disk], device_type=user_input[0], fs_type=user_input[2], target_size=user_input[1], name=user_input[3], label=user_input[4])
+				ret = self.b.add_device(parent_names=[self.disk], device_type=user_input[0],
+							fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
+							label=user_input[4])
 				
 				if ret != None:
 					
@@ -656,7 +695,7 @@ class ListPartitions():
 		
 		win = ProcessingActions(self)
 		
-		Gdk.threads_leave()
+		#Gdk.threads_leave()
 		
 		self.clear_actions_view()
 		
@@ -741,6 +780,8 @@ class ListPartitions():
 			self.selected_partition = model[treeiter]
 	
 	def quit(self):
+		""" Quit blivet-gui
+		"""
 		
 		if self.actions != 0:
 			# There are queued actions we don't want do quit now
@@ -786,5 +827,3 @@ class ListPartitions():
 	@property
 	def get_main_menu(self):
 		return self.main_menu.get_main_menu
-
-#-----------------------------------------------------#

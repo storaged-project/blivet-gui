@@ -94,12 +94,14 @@ class ListDevices():
 		
 		for disk in disks:
 			if disk.removable:
-				self.device_list.append([icon_disk_usb,str(disk.name + "\n<i><small>" + disk.model + "</small></i>")])
+				self.device_list.append([icon_disk_usb,str(disk.name +
+											   "\n<i><small>" + disk.model + "</small></i>")])
 			else:
-				self.device_list.append([icon_disk,str(disk.name + "\n<i><small>" + disk.model + "</small></i>")])
+				self.device_list.append([icon_disk,str(disk.name +
+										   "\n<i><small>" + disk.model + "</small></i>")])
 				
 	def load_lvm_physical_volumes(self):
-		""" Load LVM PVs
+		""" Load LVM2 PVs
 		"""
 		
 		icon_theme = Gtk.IconTheme.get_default()
@@ -108,7 +110,8 @@ class ListDevices():
 		pdevices = self.b.get_physical_devices()
 		
 		for device in pdevices:
-			self.device_list.append([icon_physical,str(device.name + "\n<i><small>LVM2 PV</small></i>")])
+			self.device_list.append([icon_physical,str(device.name +
+											  "\n<i><small>LVM2 PV</small></i>")])
 	
 	def load_lvm_volume_groups(self):
 		""" Load LVM2 VGs
@@ -120,7 +123,8 @@ class ListDevices():
 		icon_group = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
 		
 		for device in gdevices:
-			self.device_list.append([icon_group,str(device.name + "\n<i><small>LVM2 VG</small></i>")])
+			self.device_list.append([icon_group,str(device.name +
+										   "\n<i><small>LVM2 VG</small></i>")])
 	
 	def load_devices(self):
 		""" Load all devices
@@ -168,7 +172,8 @@ class ListDevices():
 						break
 				if not device_is_in:
 					row_to_find = _("<b>LVM2 Volume Groups</b>")
-					new_row = ([icon_physical,str(device.name + "\n<i><small>LVM2 PV</small></i>")])
+					new_row = ([icon_physical,str(device.name +
+								   "\n<i><small>LVM2 PV</small></i>")])
 				
 					for row in self.device_list:
 						if row[1] == row_to_find:
@@ -184,7 +189,8 @@ class ListDevices():
 						device_is_in = True
 						break
 				if not device_is_in:
-					self.device_list.append([icon_physical,str(device.name + "\n<i><small>LVM2 VG</small></i>")])
+					self.device_list.append([icon_physical,str(device.name +
+												"\n<i><small>LVM2 VG</small></i>")])
 		
 		elif action == "delete":
 			
@@ -277,9 +283,10 @@ class ListDevices():
 		
 		if treeiter != None and model != None:
 			
-			# 'Disk Devices' and 'Group Devices' are just labels
+			# 'Disks', 'LVM2 Volume Groups' and 'LVM2 Physical Volumes' are just labels
 			# If user select one of these, we need to unselect this and select previous choice
-			if model[treeiter][1] in ["<b>Disks</b>", "<b>LVM2 Volume Groups</b>", "<b>LVM2 Physical Volumes</b>"] :
+			if model[treeiter][1] in ["<b>Disks</b>", "<b>LVM2 Volume Groups</b>",
+							 "<b>LVM2 Physical Volumes</b>"]:
 				selection.handler_block(self.selection_signal)
 				selection.unselect_iter(treeiter)
 				selection.handler_unblock(self.selection_signal) 

@@ -46,6 +46,9 @@ _ = gettext.gettext
 #------------------------------------------------------------------------------#
 
 class actions_toolbar():
+	""" Create toolbar with action buttons
+	"""
+	
 	def __init__(self,list_partitions):
 		self.list_partitions = list_partitions
 		self.toolbar = Gtk.Toolbar()
@@ -103,6 +106,14 @@ class actions_toolbar():
 		self.toolbar.insert(button_apply, 6)
 		self.buttons["apply"] = button_apply
 		button_apply.connect("clicked", self.on_apply_clicked)
+		
+		button_clear = Gtk.ToolButton()
+		button_clear.set_icon_name("gtk-clear")
+		button_clear.set_sensitive(False)
+		button_clear.set_tooltip_text(_("Clear queued actions"))
+		self.toolbar.insert(button_clear, 7)
+		self.buttons["clear"] = button_clear
+		button_clear.connect("clicked", self.on_clear_clicked)
 	
 	def activate_buttons(self,button_names):
 		""" Activate selected buttons
@@ -127,7 +138,7 @@ class actions_toolbar():
         """
 		
 		for button in self.buttons:
-			if button != "apply":
+			if button not in ["apply", "clear"]:
 				self.buttons[button].set_sensitive(False)
 			
 	def on_delete_clicked(self,button):
@@ -164,6 +175,13 @@ class actions_toolbar():
 			
 		elif response == Gtk.ResponseType.CANCEL:
 			dialog.destroy()
+	
+	def on_clear_clicked(self, event):
+		""" Onselect action for 'Clear Queued Actions'
+		"""
+		
+		self.list_partitions.clear_actions()
+		self.list_partitions.clear_actions_view()
 	
 	@property
 	def get_toolbar(self):

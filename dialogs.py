@@ -42,7 +42,11 @@ class RootTestDialog(Gtk.MessageDialog):
 	"""
 	
 	def __init__(self):
-		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.CANCEL, _("Root privileges required"))
+		Gtk.MessageDialog.__init__(self, None, 0, 
+			Gtk.MessageType.ERROR,
+			Gtk.ButtonsType.CANCEL, 
+			_("Root privileges required"))
+		
 		self.format_secondary_text = _("Root privileges are required for running blivet-gui.")
 		
 		self.show_all()
@@ -56,7 +60,10 @@ class AddErrorDialog(Gtk.MessageDialog):
 	"""
 	
 	def __init__(self):
-		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.OK, _("Error:\n\nFilesystem type must be specified when creating new partition."))
+		Gtk.MessageDialog.__init__(self, None, 0,
+			Gtk.MessageType.ERROR,
+			Gtk.ButtonsType.OK, 
+			_("Error:\n\nFilesystem type must be specified when creating new partition."))
 		
 		self.show_all()
 		
@@ -69,7 +76,15 @@ class BlivetError(Gtk.MessageDialog):
 	"""
 	
 	def __init__(self, exception):
-		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.OK, _("Error:\n\nUnknown error appeared:\n\n%(exception)s." % locals()))
+		"""
+			:param exception: raised exception
+			:type exception: str
+		"""
+		
+		Gtk.MessageDialog.__init__(self, None, 0, 
+			Gtk.MessageType.ERROR,
+			Gtk.ButtonsType.OK, 
+			_("Error:\n\nUnknown error appeared:\n\n%(exception)s." % locals()))
 		
 		self.show_all()
 		
@@ -87,7 +102,10 @@ class UnmountErrorDialog(Gtk.MessageDialog):
             :type device_name: str
         """
         
-		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.OK, _("Unmount failed.\n\nAre you sure \'%(device_name)s\' is not in use?" % locals()))
+		Gtk.MessageDialog.__init__(self, None, 0, 
+			Gtk.MessageType.ERROR,
+			Gtk.ButtonsType.OK, 
+			_("Unmount failed.\n\nAre you sure \'%(device_name)s\' is not in use?" % locals()))
 		
 		self.show_all()
 		
@@ -104,6 +122,7 @@ class ConfirmDeleteDialog(Gtk.Dialog):
             :param device_name: name of partition (device) to delete
             :type device_name: str
         """
+        
 		Gtk.Dialog.__init__(self, _("Confirm delete operation"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
@@ -143,6 +162,7 @@ class ConfirmQuitDialog(Gtk.Dialog):
             :param actions: number of queued actions
             :type device_name: int
         """
+        
 		Gtk.Dialog.__init__(self, _("Are you sure you want to quit?"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
@@ -192,6 +212,8 @@ class EditDialog(Gtk.Dialog):
 		self.scale.set_valign(Gtk.Align.START)
 		self.scale.set_digits(0)
 		self.scale.set_value(self.resizable[3])
+		self.scale.add_mark(self.resizable[1],Gtk.PositionType.BOTTOM,str(int(self.resizable[1])))
+		self.scale.add_mark(self.resizable[2],Gtk.PositionType.BOTTOM,str(int(self.resizable[2])))
 		self.scale.connect("value-changed", self.scale_moved)
 		
 		self.grid.attach(self.scale, 0, 1, 6, 1) #left-top-width-height
@@ -417,6 +439,8 @@ class AddDialog(Gtk.Dialog):
 		self.scale.set_valign(Gtk.Align.START)
 		self.scale.set_digits(0)
 		self.scale.set_value(self.free_space)
+		self.scale.add_mark(0,Gtk.PositionType.BOTTOM,str(1))
+		self.scale.add_mark(self.free_space,Gtk.PositionType.BOTTOM,str(self.free_space))
 		self.scale.connect("value-changed", self.scale_moved)
 		
 		self.grid.attach(self.scale, 0, 6, 6, 1) #left-top-width-height
@@ -557,9 +581,92 @@ class AddDialog(Gtk.Dialog):
 					parents.append(row[1])
 					size += int(row[3].split()[0])
 			
-			return (device, size, self.filesystems_combo.get_active_text(), self.name_entry.get_text(), self.label_entry.get_text(), parents)
+			return (device, size, self.filesystems_combo.get_active_text(), 
+				self.name_entry.get_text(), self.label_entry.get_text(), parents)
 			
-		return (device, self.spin_size.get_value(),self.filesystems_combo.get_active_text(), self.name_entry.get_text(), self.label_entry.get_text())
+		return (device, self.spin_size.get_value(),
+		  self.filesystems_combo.get_active_text(), self.name_entry.get_text(), 
+		  self.label_entry.get_text())
+	
+class AddLabelDialog(Gtk.Dialog):
+	""" Dialog window allowing user to add disklabel to disk
+	"""
+	def __init__(self, disk_name):
+		"""
+			:param disk_name: name of the disk
+			:type disk_name: str
+		"""
+		
+		self.disk_name = disk_name
+        
+		Gtk.Dialog.__init__(self, _("No partition table found on disk"), None, 0,
+			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+			Gtk.STOCK_OK, Gtk.ResponseType.OK))
+
+		self.set_default_size(550, 200)
+		self.set_border_width(10)
+
+		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
+
+		box = self.get_content_area()
+		box.add(self.grid)
+		
+		self.add_labels()
+		self.add_pt_chooser()
+		
+		self.show_all()
+	
+	def add_labels(self):
+		
+		self.info_label = Gtk.Label()
+		self.info_label.set_markup(_("A partition table is required before partitions can be added.\n\n<b>Warning: This will delete all data on {0}!</b>").format(self.disk_name))
+		
+		self.grid.attach(self.info_label, 0, 0, 4, 1) #left-top-width-height
+		
+	def add_pt_chooser(self):
+		
+		self.pts_store = Gtk.ListStore(str)
+		
+		pt_list = ["msdos"]
+		
+		for pt in pt_list:
+			self.pts_store.append([pt])
+            
+		self.pts_combo = Gtk.ComboBox.new_with_model(self.pts_store)
+		
+		self.pts_combo.set_entry_text_column(0)
+		self.pts_combo.set_active(0)
+		
+		self.pts_combo.set_sensitive(False)
+		
+		self.label_list = Gtk.Label()
+		self.label_list.set_text(_("Select new partition table type:"))
+		
+		self.grid.attach(self.label_list, 0, 1, 3, 1)
+		self.grid.attach(self.pts_combo, 3, 1, 1, 1)
+		
+		self.pts_combo.connect("changed", self.on_devices_combo_changed)
+		renderer_text = Gtk.CellRendererText()
+		self.pts_combo.pack_start(renderer_text, True)
+		self.pts_combo.add_attribute(renderer_text, "text", 0)
+		
+		
+	def on_devices_combo_changed(self, event):
+		
+		tree_iter = self.devices_combo.get_active_iter()
+		
+		if tree_iter != None:
+			model = self.devices_combo.get_model()
+			device = model[tree_iter][0]
+		
+	def get_selection(self):
+		tree_iter = self.pts_combo.get_active_iter()
+		
+		if tree_iter != None:
+			model = self.pts_combo.get_model()
+			pt = model[tree_iter][0]
+		
+		return [pt]
 
 class AddPVDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add new LVM2 Physical Volume
@@ -579,6 +686,7 @@ class AddPVDialog(Gtk.Dialog):
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
 		self.set_default_size(550, 200)
+		self.set_border_width(10)
 
 		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
 

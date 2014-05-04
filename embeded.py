@@ -29,6 +29,9 @@ import subprocess, time
 from gi.repository import Gtk, GdkPixbuf, Gdk, GLib
 
 class SocketWindow(Gtk.Window):
+	""" Example Gtk.Window for blivet-gui embedding test
+	"""
+	
 	def __init__(self):
 		Gtk.Window.__init__(self, title="Embeded Window Example")
 		

@@ -127,6 +127,10 @@ class BlivetUtils():
 		return self.storage.pvs
 	
 	def get_free_pvs_info(self):
+		""" Return list of PVs without VGs
+			:returns: list of free PVs with name and size
+			:rtype: tuple
+		"""
 		
 		pvs = self.get_physical_devices()
 		
@@ -153,7 +157,7 @@ class BlivetUtils():
 		
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
 		
-		if blivet_device.isDisk:
+		if blivet_device.isDisk and blivet_device.format.type != None:
 			
 			free_space = partitioning.getFreeRegions([blivet_device])
 			partitions2 = copy.deepcopy(partitions)
@@ -202,6 +206,11 @@ class BlivetUtils():
 					pass
 				
 				return partitions2
+		
+		elif blivet_device.isDisk and blivet_device.format.type == None:
+			partitions.append(FreeSpaceDevice(blivet_device.size))
+			
+			return partitions
 			
 		elif blivet_device._type == "lvmvg":
 			if blivet_device.freeSpace > 2:
@@ -436,8 +445,38 @@ class BlivetUtils():
 		
 		return blivet_device.pvs
 	
+	def has_disklabel(self, device_name):
+		""" Has this disk device disklabel
+			:param device_name: device name
+			:type device_name: str
+			:returns: true/false
+			:rtype: bool
+		"""
+		
+		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
+		
+		assert blivet_device._type == "disk"
+		
+		return blivet_device.format.type == "disklabel"
+	
+	def create_disk_label(self, disk_name):
+		""" Create disklabel
+			:param disk_name: disk name
+			:type device_name: str
+		"""
+		
+		blivet_device = self.storage.devicetree.getDeviceByName(disk_name)
+		
+		self.storage.initializeDisk(blivet_device)
+	
 	def blivet_reset(self):
+		""" Blivet.reset()
+		"""
+		
 		self.storage.reset()
 	
 	def blivet_do_it(self):
+		""" Blivet.doIt()
+		"""
+		
 		self.storage.doIt()
