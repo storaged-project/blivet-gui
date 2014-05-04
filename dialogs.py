@@ -64,7 +64,7 @@ class BlivetError(Gtk.MessageDialog):
 	"""
 	
 	def __init__(self, exception):
-		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.OK, _("Error:\n\nUnknown error appeared:\n\n%(e)s." % locals()))
+		Gtk.MessageDialog.__init__(self, None, 0, Gtk.MessageType.ERROR,Gtk.ButtonsType.OK, _("Error:\n\nUnknown error appeared:\n\n%(exception)s." % locals()))
 		
 		self.show_all()
 		

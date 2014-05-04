@@ -26,6 +26,8 @@ from gi.repository import Gtk, GdkPixbuf
 
 from dialogs import *
 
+import os, subprocess
+
 APP_NAME = "blivet-gui"
 
 gettext.bindtextdomain(APP_NAME, 'po')
@@ -267,7 +269,12 @@ class main_menu():
 		""" Onselect action for 'Help'
 		"""
 		
-		print "sorry no help available" #FIXME
+		try:
+			FNULL = open(os.devnull, "w")
+			subprocess.Popen(["yelp", "help/C/index.page"],stdout=FNULL, stderr=subprocess.STDOUT)
+		
+		except Exception as e:
+			BlivetError("You need \"Yelp\" to see the documentation.\n" + str(e))
 	
 	def on_undo_item(self, event):
 		""" Onselect action for 'Undo Last Action'

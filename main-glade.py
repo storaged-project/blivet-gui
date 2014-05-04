@@ -54,9 +54,6 @@ _ = gettext.gettext
 7. mozna device-info
 """
 
-
-
-
 def start(): #FIXME to new file/class
 	
 	window_id = 0
