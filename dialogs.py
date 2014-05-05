@@ -190,7 +190,7 @@ class EditDialog(Gtk.Dialog):
 		self.resizable = resizable
 		self.resize = False
 		
-		Gtk.Dialog.__init__(self, _("Create new partition"), None, 0,
+		Gtk.Dialog.__init__(self, _("Edit device"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
 

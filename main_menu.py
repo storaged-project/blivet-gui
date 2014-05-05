@@ -279,7 +279,7 @@ class main_menu():
 			subprocess.Popen(["yelp", "help/C/index.page"],stdout=FNULL, stderr=subprocess.STDOUT)
 		
 		except Exception as e:
-			BlivetError("You need \"Yelp\" to see the documentation.\n" + str(e))
+			BlivetError("You need \"Yelp\" to see the documentation.\n" + str(e) + "\n\nOnline version of documentation is available at http://vojtechtrefny.github.io/")
 	
 	def on_undo_item(self, event):
 		""" Onselect action for 'Undo Last Action'

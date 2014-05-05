@@ -1,0 +1,203 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="topic"
+      id="lvm2">
+      
+<info>
+    <link type="guide" xref="index"/>
+
+    <credit type="author copyright">
+  <name>Vojtech Trefny</name>
+  <email>vtrefny@redhat.com</email>
+  <years>2014</years>
+  </credit>
+
+    <include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
+
+    <desc>Creating and managing LVM2 Storages</desc>
+</info>
+      
+<title>LVM2 Storages</title>
+
+<list>
+  <item>
+    <title><link type="section" xref="#representation">LVM2 in blivet-gui</link></title>
+  </item>
+  <item>
+    <title><link type="section" xref="#storage">Creating LVM2 Storages</link></title>
+  </item>
+  <item>
+    <title><link type="section" xref="#pv">Creating LVM2 Physical Volumes</link></title>
+  </item>
+  <item>
+    <title><link type="section" xref="#vg">Creating LVM2 Volume Groups</link></title>
+  </item>
+  <item>
+    <title><link type="section" xref="#lv">Creating LVM2 Logical Volumes</link></title>
+  </item>
+  <item>
+    <title><link type="section" xref="#delete">Deleting LVM2 Storages</link></title>
+  </item>
+</list>
+
+<section id="representation">
+	<title>LVM2 in blivet-gui</title>
+
+	<p>LVM2 storages basically consist of (at least) one physical volume (disk, partition, RAID...) that hosts volume groups.
+	Volume groups contains logical volumes that works (from system point of view) as standard partitions.</p>
+
+<figure>
+  <title>LVM2 Volume Group in blivet-gui</title>
+  <media type="image" src="images/lvm2-vg.png" width="600" />
+</figure>
+
+	<p>Volume groups and physical volumes are displayed in their specific section in device list at the left side of
+	blivet-gui window.</p>
+	<p>Physical volumes can contain one volume group, volume groups can contain (in theory) infinite number of logical volumes.</p>
+	
+	<p>In the image shown above, there are two volume groups - <em>fedora</em> placed on sda2 physical volume and <em>fedora-lvm</em>
+	placed on two physical volumes - sdb1 and sdc1.</p>
+</section>
+
+
+<section id="storage">
+    <title>Creating LVM2 Storages</title>
+
+<p>LVM2 Storage represents whole LVM2 "ecosystem" - by creating it you will create physical volume with volume group.</p>
+
+<note style="tip">
+  <p>This option currently doesn't support create storage with multiple physical volumes. If you need this setup, you'll need
+  to create multiple physical volumes first and then create new volume group.</p>
+</note>
+
+<steps>
+  <item><p>Select a disk with free space from the list of <gui>Disks</gui>.</p></item>
+  <item><p>From <gui>Partitions</gui> tab select <em>free space</em> line.</p></item>
+  <item><p>Click on <gui>Add</gui> button in toolbar or just press <key>Insert</key>.</p></item>
+</steps> 
+
+<p>Create new device window will be opened.</p>
+
+<figure>
+  <title>Create new Storage</title>
+  <media type="image" src="images/new-lvm2-storage.png" width="400" />
+</figure>
+
+<steps>
+   <item><p>Set <gui>Device type</gui> to <gui>LVM2 Storage</gui>.</p></item>
+   <item><p>Set size for your storage.</p></item>
+   <item><p>Set <gui>Name</gui> for your volume group (if left blank, system will choose name based on machine <em>hostname</em>).</p></item>
+  <item><p>Hit <gui style="button">OK</gui> to create volume.</p></item>
+</steps>
+
+<note>
+  <p>All changes you make are only temporary. They won't be written to disks until you use the <gui>Apply</gui> button. See <link xref="actions"/>.</p>
+</note>
+
+</section>
+
+<section id="vg">
+    <title>Creating LVM2 Volume Groups</title>
+    
+<steps>
+  <item><p>Select a physical volume without volume group from the list of <gui>LVM2 Physical Volume</gui>.</p></item>
+  <item><p>From <gui>Partitions</gui> tab select <em>free space</em> line.</p></item>
+  <item><p>Click on <gui>Add</gui> button in toolbar or just press <key>Insert</key>.</p></item>
+</steps> 
+
+<p>Create new device window will be opened.</p>
+
+<figure>
+  <title>Create new Volume Group</title>
+  <media type="image" src="images/new-lvm2-vg.png" width="400" />
+</figure>
+
+<steps>
+  <item><p>From list of <gui>Available devices</gui> select at least one free physical volume (the one selected in previous steps will pre-selected).</p></item>
+  <item><p>Set <gui>Name</gui> for your volume group (if left blank, system will choose name based on machine <em>hostname</em>).</p></item>
+  <item><p>Hit <gui style="button">OK</gui> to create volume.</p></item>
+</steps>
+
+<note>
+  <p>All changes you make are only temporary. They won't be written to disks until you use the <gui>Apply</gui> button. See <link xref="actions"/>.</p>
+</note>
+
+</section>
+
+<section id="pv">
+    <title>Creating LVM2 Physical Volumes</title>
+    
+<steps>
+  <item><p>Select a disk with free space from the list of <gui>Disks</gui>.</p></item>
+  <item><p>From <gui>Partitions</gui> tab select <em>free space</em> line.</p></item>
+  <item><p>Click on <gui>Add</gui> button in toolbar or just press <key>Insert</key>.</p></item>
+</steps> 
+
+<p>Create new device window will be opened.</p>
+
+<figure>
+  <title>Create new Physical Volume</title>
+  <media type="image" src="images/new-lvm2-pv.png" width="400" />
+</figure>
+
+<steps>
+   <item><p>Set <gui>Device type</gui> to <gui>LVM2 Physical Volume</gui>.</p></item>
+   <item><p>Set size for your physical volume.</p></item>>
+  <item><p>Hit <gui style="button">OK</gui> to create volume.</p></item>
+</steps>
+
+<note>
+  <p>All changes you make are only temporary. They won't be written to disks until you use the <gui>Apply</gui> button. See <link xref="actions"/>.</p>
+</note>
+
+</section>
+
+<section id="lv">
+    <title>Creating LVM2 Logical Volumes</title>
+    
+<steps>
+  <item><p>Select a volume group with free space from the list of <gui>LVM2 Volume Groups</gui>.</p></item>
+  <item><p>From <gui>Partitions</gui> tab select <em>free space</em> line.</p></item>
+  <item><p>Click on <gui>Add</gui> button in toolbar or just press <key>Insert</key>.</p></item>
+</steps> 
+
+<p>Create new partition window will be opened.</p>
+
+<figure>
+  <title>Create new Logical Volume</title>
+  <media type="image" src="images/new-lvm2-lv.png" width="400" />
+</figure>
+
+<steps>
+  <item><p>Set size for your new logical volume.</p></item>
+  <item><p>Choose <gui>Filesystem</gui>. Optionally you can set <gui>Label</gui> and <gui>Name</gui> too.</p></item>
+  <item><p>Hit <gui style="button">OK</gui> to create volume.</p></item>
+</steps>
+
+<note>
+  <p>All changes you make are only temporary. They won't be written to disks until you use the <gui>Apply</gui> button. See <link xref="actions"/>.</p>
+</note>
+
+</section>
+
+<section id="delete">
+    <title>Deleting LVM2 Storages</title>
+    
+<p>Because only devices without any active child devices can be deleted, to delete whole LVM2 storage it is neccessary to first delete all
+LVM2 logical volumes, then delete the volume group and at last delete all physical volumes.</p>
+
+<steps>
+  <item><p>From list of devices in section <gui>LVM2 Volume Groups</gui> select storage you would like to delete and delete all logical volumes
+  on it. (Use the same process as when deleting partition. See <link xref="partitioning"/> for more information.)</p></item>
+  <item><p>From list of devices in section <gui>LVM2 Physical Volumes</gui> select one of the volumes hosting volume group you'd like to delete.
+  (It doesn't matter which one.)</p></item>
+  <item><p>From list of devices in section <gui>Disks</gui> select disk with physical volume and delete it.</p></item>
+  <item><p>Repeat previous for all physical volumes you'd like to delete.</p></item>
+</steps> 
+
+<note>
+  <p>All changes you make are only temporary. They won't be written to disks until you use the <gui>Apply</gui> button. See <link xref="actions"/>.</p>
+</note>
+    
+</section>
+
+</page>

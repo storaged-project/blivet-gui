@@ -1,22 +1,34 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      type="guide"
+      type="guide" style="task"
       id="index">
-<title>blivet-gui Help</title>
-
 <info>
-  <link type="guide" xref="index"/>
-  <link type="topic" xref="partitioning"/>
-  <link type="topic" xref="window" />
+  <link type="guide" xref="hardware"/>
+
+
+  <credit type="author copyright">
+  <name>Vojtech Trefny</name>
+  <email>vtrefny@redhat.com</email>
+  <years>2014</years>
+  </credit>
+
+  <desc>
+    <link xref="lvm2">LVM2 Storages</link>,
+    <link xref="partitioning">Disk Partitions</link>,
+    <link xref="window">User Interface</link>…
+  </desc>
+
+<include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 </info>
 
-<p>blivet-gui is a graphical application to manage disks, partitions and LVM2 storages.
-As backend it uses <link href="https://fedoraproject.org/wiki/Blivet">blivet</link>, powerful python module for storage configuration.</p>
+<title>blivet-gui</title>
+
+<p>blivet-gui is a graphical application to manage disks, partitions and LVM2 storages. As backend it uses blivet, powerful python module for storage configuration.</p>
 
 <p>This guide will help you with some basic tasks regarding partitioning and creating and managing LVM2 storages.</p>
 
 <figure>
-  <title>blivet-gui</title>
-  <media type="image" src="main-window.png" width="600" />
+  <title>Create new partition</title>
+  <media type="image" src="images/main-window.png" width="600" />
 </figure>
 
 </page>
