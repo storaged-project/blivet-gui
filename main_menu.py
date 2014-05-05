@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # main_menu.py
 # Main menu
 # 
@@ -33,9 +34,8 @@ import os, subprocess
 
 APP_NAME = "blivet-gui"
 
-gettext.bindtextdomain(APP_NAME, 'po')
-gettext.textdomain(APP_NAME)
-_ = gettext.gettext
+t = gettext.translation('messages', 'i18n')
+_ = t.gettext
 
 #------------------------------------------------------------------------------#
 

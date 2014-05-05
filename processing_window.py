@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # processing_window.py
 # Gtk.Window
 # 
@@ -32,9 +33,8 @@ from gi.repository import Gtk, GdkPixbuf, Gdk, GLib, GObject
 
 APP_NAME = "blivet-gui"
 
-gettext.bindtextdomain(APP_NAME, 'po')
-gettext.textdomain(APP_NAME)
-_ = gettext.gettext
+t = gettext.translation('messages', 'i18n')
+_ = t.gettext
 
 #------------------------------------------------------------------------------#
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # dialogs.py
 # Gtk.MessageDialog classes for blivet-gui
 # 
@@ -31,9 +32,8 @@ from gi.repository import Gtk, GdkPixbuf
 
 APP_NAME = "blivet-gui"
 
-gettext.bindtextdomain(APP_NAME, 'po')
-gettext.textdomain(APP_NAME)
-_ = gettext.gettext
+t = gettext.translation('messages', 'i18n')
+_ = t.gettext
 
 #------------------------------------------------------------------------------#
  

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # actions_toolbar.py
 # Toolbar class
 # 
@@ -39,9 +40,8 @@ from dialogs import *
 
 APP_NAME = "blivet-gui"
 
-gettext.bindtextdomain(APP_NAME, 'po')
-gettext.textdomain(APP_NAME)
-_ = gettext.gettext
+t = gettext.translation('messages', 'i18n')
+_ = t.gettext
 
 #------------------------------------------------------------------------------#
 

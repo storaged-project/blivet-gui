@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # list_devices.py
 # Load and display root and group devices
 # 
@@ -41,9 +42,8 @@ from list_partitions import *
 
 APP_NAME = "blivet-gui"
 
-gettext.bindtextdomain(APP_NAME, 'po')
-gettext.textdomain(APP_NAME)
-_ = gettext.gettext
+t = gettext.translation('messages', 'i18n')
+_ = t.gettext
 
 #------------------------------------------------------------------------------#
 

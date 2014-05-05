@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # main.py
 # Main
 # 
@@ -44,9 +45,8 @@ APP_VERSION = "0.1.0"
 
 #------------------------------------------------------------------------------#
 
-gettext.bindtextdomain(APP_NAME, 'po')
-gettext.textdomain(APP_NAME)
-_ = gettext.gettext
+t = gettext.translation('messages', 'i18n')
+_ = t.gettext
 
 #------------------------------------------------------------------------------#
 

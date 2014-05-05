@@ -48,9 +48,8 @@ from processing_window import *
 
 APP_NAME = "blivet-gui"
 
-gettext.bindtextdomain(APP_NAME, 'po')
-gettext.textdomain(APP_NAME)
-_ = gettext.gettext
+t = gettext.translation('messages', 'i18n')
+_ = t.gettext
 
 #------------------------------------------------------------------------------#
 
@@ -95,6 +94,9 @@ class ListPartitions():
 		self.actions = 0
 		self.actions_label = self.builder.get_object("actions_page")
 		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
+		
+		self.partitions_label = self.builder.get_object("partitions_page")
+		self.partitions_label.set_text(_("Partitions").format(self.actions))
 		
 		self.selected_partition = None
 	

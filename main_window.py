@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # main_window.py
 # blivet-gui Main Window
 # 
@@ -41,9 +42,8 @@ from list_devices import *
 
 APP_NAME = "blivet-gui"
 
-gettext.bindtextdomain(APP_NAME, 'po')
-gettext.textdomain(APP_NAME)
-_ = gettext.gettext
+t = gettext.translation('messages', 'i18n')
+_ = t.gettext
 
 #------------------------------------------------------------------------------#
 
