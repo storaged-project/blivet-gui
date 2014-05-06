@@ -42,7 +42,7 @@ from list_devices import *
 
 APP_NAME = "blivet-gui"
 
-t = gettext.translation('messages', 'i18n')
+t = gettext.translation('messages', '../i18n')
 _ = t.gettext
 
 #------------------------------------------------------------------------------#
@@ -52,7 +52,7 @@ def main_window():
 	"""
 	
 	builder = Gtk.Builder()
-	builder.add_from_file('data/ui/blivet-gui.ui')
+	builder.add_from_file('../data/ui/blivet-gui.ui')
 
 	signal.signal(signal.SIGINT, signal.SIG_DFL)
 

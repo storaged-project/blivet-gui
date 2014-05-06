@@ -48,7 +48,7 @@ from processing_window import *
 
 APP_NAME = "blivet-gui"
 
-t = gettext.translation('messages', 'i18n')
+t = gettext.translation('messages', '../i18n')
 _ = t.gettext
 
 #------------------------------------------------------------------------------#
@@ -174,7 +174,6 @@ class ListPartitions():
 		partitions = self.b.get_partitions(self.disk)
 		
 		for partition in partitions:
-			
 			if partition.name == _("free space"):
 				self.partitions_list.append([partition.name,"--","--",
 								 str(int(partition.size)) + " MB"])
