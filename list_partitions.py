@@ -48,8 +48,10 @@ from processing_window import *
 
 APP_NAME = "blivet-gui"
 
-t = gettext.translation('messages', 'i18n')
-_ = t.gettext
+dirname, filename = os.path.split(os.path.abspath(__file__))
+
+gettext.install('messages', dirname + '/i18n', unicode=True)
+_ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
@@ -162,8 +164,10 @@ class ListPartitions():
 	
 	def update_partitions_view(self,device_name):
 		""" Update partition view with selected disc children (partitions)
+		
 			:param device_name: name of selected device 
 			:type device_name: str
+			
         """
 		
 		self.disk = device_name
@@ -249,14 +253,16 @@ class ListPartitions():
 	
 	def draw_event(self, da, cairo_ctx, partitions):
 		""" Drawing event for partition visualisation
+		
 			:param da: drawing area
 			:type da: Gtk.DrawingArea
-            :param cairo_ctx: Cairo context
-            :type cairo_ctx: Cairo.Context
-            :param partitions: list of partitions to paint
-            :type partitions: Gtk.ListStore
-        """
-        
+			:param cairo_ctx: Cairo context
+			:type cairo_ctx: Cairo.Context
+			:param partitions: list of partitions to paint
+			:type partitions: Gtk.ListStore
+			
+		"""
+		        
 		width = da.get_allocated_width()
 		height = da.get_allocated_height()
 		
@@ -363,8 +369,10 @@ class ListPartitions():
 	
 	def create_partitions_image(self):
 		""" Create drawing area
+		
 			:returns: drawing area
 			:rtype: Gtk.DrawingArea
+			
         """
 		
 		partitions = self.partitions_list
@@ -384,8 +392,10 @@ class ListPartitions():
 	
 	def update_partitions_image(self,device):
 		""" Update drawing area for newly selected device
+		
 			:param device: selected device
 			:param type: str
+			
         """
 		
 		self.disk = device
@@ -395,8 +405,10 @@ class ListPartitions():
 		
 	def create_actions_view(self):
 		""" Create treeview for actions
+		
 			:returns: treeview
 			:rtype: Gtk.TreeView
+			
         """
 			
 		treeview = Gtk.TreeView(model=self.actions_list)
@@ -431,11 +443,13 @@ class ListPartitions():
 	
 	def update_actions_view(self,action_type=None,action_desc=None):
 		""" Update list of scheduled actions
+		
 			:param action_type: type of action (delete/add/edit)
 			:type action_type: str
-            :param action_desc: description of scheduled action
-            :type partition_name: str
-        """
+			:param action_desc: description of scheduled action
+			:type partition_name: str
+			
+		"""
 		
 		icon_theme = Gtk.IconTheme.get_default()
 		icon_add = Gtk.IconTheme.load_icon (icon_theme,"gtk-add",16, 0)
@@ -455,8 +469,10 @@ class ListPartitions():
 	
 	def activate_action_buttons(self,selected_partition):
 		""" Activate buttons in toolbar based on selected partition
+		
 			:param selected_partition: Selected partition
 			:type selected_partition: Gtk.TreeModelRow
+			
         """
 		
 		partition_device = self.b.storage.devicetree.getDeviceByName(selected_partition[0])
@@ -692,8 +708,10 @@ class ListPartitions():
 		
 	def perform_actions(self):
 		""" Perform queued actions
+		
 		.. note::
-                New window creates separate thread to run blivet.doIt()
+				New window creates separate thread to run blivet.doIt()
+				
 		"""
 		
 		win = ProcessingActions(self)

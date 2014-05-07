@@ -42,16 +42,20 @@ from list_partitions import *
 
 APP_NAME = "blivet-gui"
 
-t = gettext.translation('messages', 'i18n')
-_ = t.gettext
+dirname, filename = os.path.split(os.path.abspath(__file__))
+
+gettext.install('messages', dirname + '/i18n', unicode=True)
+_ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
 class ListDevices():
 	def __init__(self,Builder):
 		"""
+		
 		:param Builder: glade builder
 		:type Builder: Gtk.Builder
+		
 		"""
 		
 		self.b = BlivetUtils()
@@ -136,21 +140,25 @@ class ListDevices():
 	
 	def update_devices_view(self, action, parent_device, changed_device):
 		""" Update device view
+		
 			:param action: reason to update (delete/add/all)
 			:type action: str
 			:param parent_device: parent device for device to change
 			:type parent device: str
 			:param device_changed: added/deleted device
 			:type device_changed: str
+			
 			.. note::
 
-                After removing or adding VGs or PVs it is neccesary to add or remove
-                these devices from device list.
-                After removing all queud actions it is neccesary to go through list of
-                devices and find if they are still in devicetree and also go through
-                devicetree and find if those devices are in device list.
-                This function will update the Gtk.ListStore.
+				After removing or adding VGs or PVs it is neccesary to add or remove
+				these devices from device list.
+				After removing all queud actions it is neccesary to go through list of
+				devices and find if they are still in devicetree and also go through
+				devicetree and find if those devices are in device list.
+				This function will update the Gtk.ListStore.
+				
 		"""
+		
 		if action == "all":
 			
 			for row in self.device_list:

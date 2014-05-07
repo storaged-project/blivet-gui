@@ -40,8 +40,10 @@ from dialogs import *
 
 APP_NAME = "blivet-gui"
 
-t = gettext.translation('messages', 'i18n')
-_ = t.gettext
+dirname, filename = os.path.split(os.path.abspath(__file__))
+
+gettext.install('messages', dirname + '/i18n', unicode=True)
+_ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
@@ -117,8 +119,10 @@ class actions_toolbar():
 	
 	def activate_buttons(self,button_names):
 		""" Activate selected buttons
+		
 			:param button_names: names of buttons to activate
 			:type button_names: list of str
+			
         """
 		
 		for button in button_names:
@@ -126,8 +130,10 @@ class actions_toolbar():
 		
 	def deactivate_buttons(self,button_names):
 		""" Deactivate selected buttons
+		
 			:param button_names: names of buttons to deactivate
 			:type button_names: list of str
+			
         """
 		
 		for button in button_names:

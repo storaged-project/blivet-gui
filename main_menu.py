@@ -34,8 +34,10 @@ import os, subprocess
 
 APP_NAME = "blivet-gui"
 
-t = gettext.translation('messages', 'i18n')
-_ = t.gettext
+dirname, filename = os.path.split(os.path.abspath(__file__))
+
+gettext.install('messages', dirname + '/i18n', unicode=True)
+_ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
@@ -45,10 +47,12 @@ class main_menu():
 
 	def __init__(self,main_window,list_partitions,list_devices):
 		"""
+		
 			:param main_window: main window instance
 			:type main_window: Gtk.Window
 			:list_partitions: list partitions instance
 			:type list_partitions: ListPartitions
+			
 		"""
 		
 		self.list_partitions = list_partitions
@@ -238,18 +242,22 @@ class main_menu():
 
 	def activate_menu_items(self,menu_item_names):
 		""" Activate selected menu items
+		
 			:param menu_item_names: names of menu items to activate
 			:type button_names: list of str
-        """
-
+			
+		"""
+		
 		for item in menu_item_names:
 			self.menu_items[item].set_sensitive(True)
 		
 	def deactivate_menu_items(self,menu_item_names):
 		""" Deactivate selected buttons
+		
 			:param menu_item_names: names of menu items to activate
 			:type button_names: list of str
-        """
+			
+		"""
 		
 		for item in menu_item_names:
 			self.menu_items[item].set_sensitive(True)
@@ -276,7 +284,7 @@ class main_menu():
 		
 		try:
 			FNULL = open(os.devnull, "w")
-			subprocess.Popen(["yelp", "help/C/index.page"],stdout=FNULL, stderr=subprocess.STDOUT)
+			subprocess.Popen(["yelp", dirname + "/help/C/index.page"],stdout=FNULL, stderr=subprocess.STDOUT)
 		
 		except Exception as e:
 			BlivetError("You need \"Yelp\" to see the documentation.\n" + str(e) + "\n\nOnline version of documentation is available at http://vojtechtrefny.github.io/")

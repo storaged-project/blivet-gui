@@ -33,8 +33,10 @@ from gi.repository import Gtk, GdkPixbuf, Gdk, GLib, GObject
 
 APP_NAME = "blivet-gui"
 
-t = gettext.translation('messages', 'i18n')
-_ = t.gettext
+dirname, filename = os.path.split(os.path.abspath(__file__))
+
+gettext.install('messages', dirname + '/i18n', unicode=True)
+_ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 

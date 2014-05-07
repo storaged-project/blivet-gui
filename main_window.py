@@ -42,8 +42,10 @@ from list_devices import *
 
 APP_NAME = "blivet-gui"
 
-t = gettext.translation('messages', 'i18n')
-_ = t.gettext
+dirname, filename = os.path.split(os.path.abspath(__file__))
+
+gettext.install('messages', dirname + '/i18n', unicode=True)
+_ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
@@ -52,7 +54,7 @@ def main_window():
 	"""
 	
 	builder = Gtk.Builder()
-	builder.add_from_file('data/ui/blivet-gui.ui')
+	builder.add_from_file(dirname + '/data/ui/blivet-gui.ui')
 
 	signal.signal(signal.SIGINT, signal.SIG_DFL)
 
@@ -85,7 +87,7 @@ def embeded_window():
 	print plug.get_id()
 	
 	builder = Gtk.Builder()
-	builder.add_from_file("blivet-gui.ui")
+	builder.add_from_file(dirname + '/data/ui/blivet-gui.ui')
 
 	signal.signal(signal.SIGINT, signal.SIG_DFL)
 

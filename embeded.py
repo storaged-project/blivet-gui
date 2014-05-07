@@ -26,7 +26,18 @@ import sys, os, signal
 
 import subprocess, time
 
+import gettext
+
 from gi.repository import Gtk, GdkPixbuf, Gdk, GLib
+
+#------------------------------------------------------------------------------#
+
+dirname, filename = os.path.split(os.path.abspath(__file__))
+
+gettext.install('messages', dirname + '/i18n', unicode=True)
+_ = gettext.gettext
+
+#------------------------------------------------------------------------------#
 
 class SocketWindow(Gtk.Window):
 	""" Example Gtk.Window for blivet-gui embedding test
@@ -42,7 +53,7 @@ class SocketWindow(Gtk.Window):
 		
 		socket_id = None
 		
-		process = subprocess.Popen(["python2", "main.py", "-e"])
+		process = subprocess.Popen(["python2",  dirname + "/main.py", "-e"])
 
 		socket_id = raw_input("Enter the ID printed above:\n")
 		socket.add_id(int(socket_id))

@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>list_partitions Module &mdash; blivet-gui 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="blivet-gui 0.1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">blivet-gui 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-list_partitions">
+<span id="list-partitions-module"></span><h1>list_partitions Module<a class="headerlink" href="#module-list_partitions" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="list_partitions.ListPartitions">
+<em class="property">class </em><tt class="descclassname">list_partitions.</tt><tt class="descname">ListPartitions</tt><big>(</big><em>ListDevices</em>, <em>BlivetUtils</em>, <em>Builder</em>, <em>disk=None</em><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="list_partitions.ListPartitions.activate_action_buttons">
+<tt class="descname">activate_action_buttons</tt><big>(</big><em>selected_partition</em><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.activate_action_buttons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate buttons in toolbar based on selected partition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>selected_partition</strong> (<em>Gtk.TreeModelRow</em>) &#8211; Selected partition</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.add_partition">
+<tt class="descname">add_partition</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.add_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add new partition</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.button_press_event">
+<tt class="descname">button_press_event</tt><big>(</big><em>da</em>, <em>event</em><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.button_press_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Button press event for partition image</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.clear_actions">
+<tt class="descname">clear_actions</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.clear_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all scheduled actions</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.clear_actions_view">
+<tt class="descname">clear_actions_view</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.clear_actions_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all actions in actions view</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.create_actions_view">
+<tt class="descname">create_actions_view</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.create_actions_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create treeview for actions</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">treeview</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Gtk.TreeView</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.create_partitions_image">
+<tt class="descname">create_partitions_image</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.create_partitions_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create drawing area</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">drawing area</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">Gtk.DrawingArea</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.create_partitions_view">
+<tt class="descname">create_partitions_view</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.create_partitions_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create Gtk.TreeView for device children (partitions)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.delete_selected_partition">
+<tt class="descname">delete_selected_partition</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.delete_selected_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete selected partition</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.device_info">
+<tt class="descname">device_info</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.device_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Basic information for selected device</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.draw_event">
+<tt class="descname">draw_event</tt><big>(</big><em>da</em>, <em>cairo_ctx</em>, <em>partitions</em><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.draw_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drawing event for partition visualisation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>da</strong> (<em>Gtk.DrawingArea</em>) &#8211; drawing area</li>
+<li><strong>cairo_ctx</strong> (<em>Cairo.Context</em>) &#8211; Cairo context</li>
+<li><strong>partitions</strong> (<em>Gtk.ListStore</em>) &#8211; list of partitions to paint</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.edit_partition">
+<tt class="descname">edit_partition</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.edit_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edit selected partition</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="list_partitions.ListPartitions.get_actions_label">
+<tt class="descname">get_actions_label</tt><a class="headerlink" href="#list_partitions.ListPartitions.get_actions_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="list_partitions.ListPartitions.get_actions_list">
+<tt class="descname">get_actions_list</tt><a class="headerlink" href="#list_partitions.ListPartitions.get_actions_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="list_partitions.ListPartitions.get_actions_view">
+<tt class="descname">get_actions_view</tt><a class="headerlink" href="#list_partitions.ListPartitions.get_actions_view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="list_partitions.ListPartitions.get_main_menu">
+<tt class="descname">get_main_menu</tt><a class="headerlink" href="#list_partitions.ListPartitions.get_main_menu" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="list_partitions.ListPartitions.get_partitions_list">
+<tt class="descname">get_partitions_list</tt><a class="headerlink" href="#list_partitions.ListPartitions.get_partitions_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="list_partitions.ListPartitions.get_partitions_view">
+<tt class="descname">get_partitions_view</tt><a class="headerlink" href="#list_partitions.ListPartitions.get_partitions_view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="list_partitions.ListPartitions.get_toolbar">
+<tt class="descname">get_toolbar</tt><a class="headerlink" href="#list_partitions.ListPartitions.get_toolbar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.load_partitions">
+<tt class="descname">load_partitions</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.load_partitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load children devices (partitions) for selected disk (root/group device)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.on_partition_selection_changed">
+<tt class="descname">on_partition_selection_changed</tt><big>(</big><em>selection</em><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.on_partition_selection_changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>On selected partition action</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.on_right_click_event">
+<tt class="descname">on_right_click_event</tt><big>(</big><em>treeview</em>, <em>event</em><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.on_right_click_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Right click event on partition treeview</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.perform_actions">
+<tt class="descname">perform_actions</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.perform_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform queued actions</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">New window creates separate thread to run blivet.doIt()</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.quit">
+<tt class="descname">quit</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.quit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quit blivet-gui</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.umount_partition">
+<tt class="descname">umount_partition</tt><big>(</big><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.umount_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unmount selected partition</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.update_actions_view">
+<tt class="descname">update_actions_view</tt><big>(</big><em>action_type=None</em>, <em>action_desc=None</em><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.update_actions_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update list of scheduled actions</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>action_type</strong> (<em>str</em>) &#8211; type of action (delete/add/edit)</li>
+<li><strong>action_desc</strong> &#8211; description of scheduled action</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.update_partitions_image">
+<tt class="descname">update_partitions_image</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.update_partitions_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update drawing area for newly selected device</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>device</strong> &#8211; selected device</li>
+<li><strong>type</strong> &#8211; str</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="list_partitions.ListPartitions.update_partitions_view">
+<tt class="descname">update_partitions_view</tt><big>(</big><em>device_name</em><big>)</big><a class="headerlink" href="#list_partitions.ListPartitions.update_partitions_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update partition view with selected disc children (partitions)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_name</strong> (<em>str</em>) &#8211; name of selected device</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/list_partitions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">blivet-gui 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Vojtech Trefny.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

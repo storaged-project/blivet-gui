@@ -32,8 +32,10 @@ from gi.repository import Gtk, GdkPixbuf
 
 APP_NAME = "blivet-gui"
 
-t = gettext.translation('messages', 'i18n')
-_ = t.gettext
+dirname, filename = os.path.split(os.path.abspath(__file__))
+
+gettext.install('messages', dirname + '/i18n', unicode=True)
+_ = gettext.gettext
 
 #------------------------------------------------------------------------------#
  
@@ -178,14 +180,16 @@ class ConfirmQuitDialog(Gtk.Dialog):
 class EditDialog(Gtk.Dialog):
 	""" Dialog window allowing user to edit partition including selecting size, fs, label etc.
 	"""
+	
 	def __init__(self,partition_name, resizable):
 		"""
+		
 			:param partition_name: name of device
 			:type partition_name: str
-            :param resizable: is partition resizable, minSize, maxSize
-            :type free_space: tuple
-        """
-        
+			:param resizable: is partition resizable, minSize, maxSize
+			:type free_space: tuple
+		"""
+		
 		self.partition_name = partition_name
 		self.resizable = resizable
 		self.resize = False
@@ -297,18 +301,21 @@ class EditDialog(Gtk.Dialog):
 class AddDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add new partition including selecting size, fs, label etc.
 	"""
+	
 	def __init__(self,device_type, parent_name, partition_name, free_space, free_pvs):
 		"""
+			
 			:param device_type: type of parent device
 			:type device_type: str
 			:parama parent_name: name of parent device
 			:type parent_name: str
 			:param partition_name: name of device
 			:type partition_name: str
-            :param free_space: size of selected free space
-            :type free_space: int
-            :param free_pvs: list PVs with no VG
-            :type free_pvs: list
+			:param free_space: size of selected free space
+			:type free_space: int
+			:param free_pvs: list PVs with no VG
+			:type free_pvs: list
+			
         """
         
 		self.partition_name = partition_name
@@ -591,10 +598,12 @@ class AddDialog(Gtk.Dialog):
 class AddLabelDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add disklabel to disk
 	"""
+	
 	def __init__(self, disk_name):
 		"""
 			:param disk_name: name of the disk
 			:type disk_name: str
+			
 		"""
 		
 		self.disk_name = disk_name
@@ -671,15 +680,8 @@ class AddLabelDialog(Gtk.Dialog):
 class AddPVDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add new LVM2 Physical Volume
 	"""
+	
 	def __init__(self):
-		"""
-			:param device_type: type of parent device
-			:type device_type: str
-			:param partition_name: name of device
-			:type partition_name: str
-            :param free_space: size of selected free space
-            :type free_space: int
-        """
         
 		Gtk.Dialog.__init__(self, _("Create new LVM2 PV"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,

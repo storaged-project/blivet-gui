@@ -34,17 +34,21 @@ import os, subprocess
 
 APP_NAME = "blivet-gui"
 
-t = gettext.translation('messages', 'i18n')
-_ = t.gettext
+dirname, filename = os.path.split(os.path.abspath(__file__))
+
+gettext.install('messages', dirname + '/i18n', unicode=True)
+_ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
 def partition_mounted(partition_path):
 	""" Is selected partition partition_mounted
+	
 		:param partition_path: /dev path for partition
 		:param type: str
 		:returns: mountpoint
 		:rtype: str
+		
 	"""
 	
 	try:
@@ -62,10 +66,12 @@ def partition_mounted(partition_path):
 
 def os_umount_partition(mountpoint):
 	""" Umount selected partition
+	
 		:param mountpoint: mountpoint (os.path)
 		:type mountpoint: str
 		:returns: success
 		:rtype: bool
+		
 	"""
 	
 	if not os.path.ismount(mountpoint):
@@ -89,9 +95,12 @@ class FreeSpaceDevice():
 	
 	def __init__(self,free_size):
 		"""
+		
 		:param free_size: size of free space in MB
 		:type free_size: int
+		
 		"""
+		
 		self.name = _("free space")
 		self.size = free_size
 
@@ -105,31 +114,40 @@ class BlivetUtils():
 
 	def get_disks(self):
 		""" Return list of all disk devices on current system
+		
 			:returns: list of all "disk" devices
 			:rtype: list
-        """
-        
+			
+		"""
+		
 		return self.storage.disks
 
 	def get_group_devices(self):
 		""" Return list of LVM2 Volume Group devices
+		
 			:returns: list of LVM2 VG devices
 			:rtype: list
-        """
+			
+		"""
 
 		return self.storage.vgs
 	
 	def get_physical_devices(self):
 		""" Return list of LVM2 Physical Volumes
+		
 			:returns: list of LVM2 PV devices
+			:rtype: list
+			
 		"""
 		
 		return self.storage.pvs
 	
 	def get_free_pvs_info(self):
 		""" Return list of PVs without VGs
+		
 			:returns: list of free PVs with name and size
 			:rtype: tuple
+			
 		"""
 		
 		pvs = self.get_physical_devices()
@@ -144,12 +162,14 @@ class BlivetUtils():
 	
 	def get_free_space(self,device_name,partitions):
 		""" Find free space on device
+		
 			:param device_name: name of device
 			:type device_name: str
 			:param paritions: partions (children) of device
 			:type partition: list
 			:returns: list of partitions + free space
 			:rtype: list
+			
         """
 		
 		if device_name == None:
@@ -229,10 +249,12 @@ class BlivetUtils():
 
 	def get_partitions(self,device_name):
 		""" Get partitions (children) of selected device
+		
 			:param device_name: name of device
 			:type device_name: str
 			:returns: list of partitions
 			:rtype: list
+			
         """
 		
 		if device_name == None:
@@ -250,8 +272,10 @@ class BlivetUtils():
 	
 	def delete_device(self,device_name):
 		""" Delete device
+		
 			:param device_name: name of device
 			:type device_name: str
+			
         """
 		
 		device = self.storage.devicetree.getDeviceByName(device_name)		
@@ -259,10 +283,12 @@ class BlivetUtils():
 	
 	def device_resizable(self,device_name):
 		""" Is given device resizable
+		
 			:param device_name: anme of device
 			:type device_name: str
 			:returns: device resizable, minSize, maxSize, size
 			:rtype: tuple
+			
 		"""
 		
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
@@ -276,12 +302,14 @@ class BlivetUtils():
 	
 	def edit_partition_device(self, device_name, settings):
 		""" Edit device
+		
 			:param device_name: name of device
 			:type device_name: str
 			:param settings: resize, target_size, target_fs
 			:type settings: tuple
 			:returns: success
 			:rtype: bool
+			
         """
         
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
@@ -317,6 +345,7 @@ class BlivetUtils():
 	
 	def add_device(self, parent_names, device_type, fs_type, target_size, name=None, label=None, flags=[]):
 		""" Create new device
+		
 			:param parent_names: name of parent device
 			:type parent_names: list of str
 			:param device_type: type of device to create
@@ -331,6 +360,7 @@ class BlivetUtils():
 			:type flags: list of str
 			:returns: new device name
 			:rtype: str
+			
 		"""
 		
 		device_id = 0
@@ -404,10 +434,12 @@ class BlivetUtils():
 	
 	def get_device_type(self, device_name):
 		""" Get device type
+		
 			:param device_name: device name
 			:type device_name: str
 			:returns: type of device
 			:rtype: str
+			
 		"""
 		
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
@@ -421,10 +453,12 @@ class BlivetUtils():
 	
 	def get_blivet_device(self, device_name):
 		""" Get blivet device
+		
 			:param device_name: device name
 			:type device_name: str
 			:returns: blviet device
 			:rtype: blivet.StorageDevice
+			
 		"""
 		
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
@@ -433,10 +467,12 @@ class BlivetUtils():
 	
 	def get_parent_pvs(self, device_name):
 		""" Return list of LVM VG PVs
+		
 			:param device_name: device name
 			:type device_name: str
 			:returns: list of devices
 			:rtype: list of blivet.StorageDevice
+			
 		"""
 		
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
@@ -447,10 +483,12 @@ class BlivetUtils():
 	
 	def has_disklabel(self, device_name):
 		""" Has this disk device disklabel
+		
 			:param device_name: device name
 			:type device_name: str
 			:returns: true/false
 			:rtype: bool
+			
 		"""
 		
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
@@ -461,8 +499,10 @@ class BlivetUtils():
 	
 	def create_disk_label(self, disk_name):
 		""" Create disklabel
+		
 			:param disk_name: disk name
 			:type device_name: str
+			
 		"""
 		
 		blivet_device = self.storage.devicetree.getDeviceByName(disk_name)

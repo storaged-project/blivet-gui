@@ -25,6 +25,8 @@ from gi.repository import Gtk, GdkPixbuf
 
 import gettext
 
+import os
+
 from utils import *
 
 from dialogs import *
@@ -33,8 +35,10 @@ from dialogs import *
 
 APP_NAME = "blivet-gui"
 
-t = gettext.translation('messages', 'i18n')
-_ = t.gettext
+dirname, filename = os.path.split(os.path.abspath(__file__))
+
+gettext.install('messages', dirname + '/i18n', unicode=True)
+_ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
@@ -94,8 +98,10 @@ class actions_menu():
 
 	def activate_menu_items(self,menu_item_names):
 		""" Activate selected menu items
+		
 			:param menu_item_names: names of menu items to activate
 			:type button_names: list of str
+			
         """
 		
 		for item in menu_item_names:
@@ -103,8 +109,10 @@ class actions_menu():
 		
 	def deactivate_menu_items(self,menu_item_names):
 		""" Deactivate selected buttons
+		
 			:param menu_item_names: names of menu items to activate
 			:type button_names: list of str
+			
         """
 		
 		for item in menu_item_names:
