@@ -1,5 +1,0 @@
-#!/bin/sh
-
-DIR=`pwd`
-
-python2 $DIR/blivetgui.zip > /dev/null
