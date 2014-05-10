@@ -1,0 +1,6 @@
+include blivet-gui README.txt
+recursive-include blivetgui/data *
+recursive-include blivetgui/i18n *
+recursive-include blivetgui/help *
+recursive-include blivetgui/doc *
+recursive-include blivetgui/po *

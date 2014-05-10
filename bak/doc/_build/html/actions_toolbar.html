@@ -1,0 +1,185 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>actions_toolbar Module &mdash; blivet-gui 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="blivet-gui 0.1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">blivet-gui 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-actions_toolbar">
+<span id="actions-toolbar-module"></span><h1>actions_toolbar Module<a class="headerlink" href="#module-actions_toolbar" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="actions_toolbar.actions_toolbar">
+<em class="property">class </em><tt class="descclassname">actions_toolbar.</tt><tt class="descname">actions_toolbar</tt><big>(</big><em>list_partitions</em><big>)</big><a class="headerlink" href="#actions_toolbar.actions_toolbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create toolbar with action buttons</p>
+<dl class="method">
+<dt id="actions_toolbar.actions_toolbar.activate_buttons">
+<tt class="descname">activate_buttons</tt><big>(</big><em>button_names</em><big>)</big><a class="headerlink" href="#actions_toolbar.actions_toolbar.activate_buttons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate selected buttons</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>button_names</strong> (<em>list of str</em>) &#8211; names of buttons to activate</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="actions_toolbar.actions_toolbar.create_buttons">
+<tt class="descname">create_buttons</tt><big>(</big><big>)</big><a class="headerlink" href="#actions_toolbar.actions_toolbar.create_buttons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fill toolbar with buttons</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="actions_toolbar.actions_toolbar.deactivate_all">
+<tt class="descname">deactivate_all</tt><big>(</big><big>)</big><a class="headerlink" href="#actions_toolbar.actions_toolbar.deactivate_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deactivate all partition based buttons</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="actions_toolbar.actions_toolbar.deactivate_buttons">
+<tt class="descname">deactivate_buttons</tt><big>(</big><em>button_names</em><big>)</big><a class="headerlink" href="#actions_toolbar.actions_toolbar.deactivate_buttons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deactivate selected buttons</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>button_names</strong> (<em>list of str</em>) &#8211; names of buttons to deactivate</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="actions_toolbar.actions_toolbar.get_toolbar">
+<tt class="descname">get_toolbar</tt><a class="headerlink" href="#actions_toolbar.actions_toolbar.get_toolbar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="actions_toolbar.actions_toolbar.on_add_clicked">
+<tt class="descname">on_add_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#actions_toolbar.actions_toolbar.on_add_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Onclick action for add button</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="actions_toolbar.actions_toolbar.on_apply_clicked">
+<tt class="descname">on_apply_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#actions_toolbar.actions_toolbar.on_apply_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Onclick action for edit button</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="actions_toolbar.actions_toolbar.on_clear_clicked">
+<tt class="descname">on_clear_clicked</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#actions_toolbar.actions_toolbar.on_clear_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Onselect action for &#8216;Clear Queued Actions&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="actions_toolbar.actions_toolbar.on_delete_clicked">
+<tt class="descname">on_delete_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#actions_toolbar.actions_toolbar.on_delete_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Onclick action for delete button</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="actions_toolbar.actions_toolbar.on_edit_clicked">
+<tt class="descname">on_edit_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#actions_toolbar.actions_toolbar.on_edit_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Onclick action for edit button</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="actions_toolbar.actions_toolbar.on_umount_clicked">
+<tt class="descname">on_umount_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#actions_toolbar.actions_toolbar.on_umount_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Onclick action for umount button</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/actions_toolbar.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">blivet-gui 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Vojtech Trefny.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

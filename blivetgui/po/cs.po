@@ -1,0 +1,388 @@
+# Language LOCALE=cs translations for PACKAGE package.
+# Copyright (C) 2014 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Vojtěch Trefný <vtrefny@redhat.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-04-05 22:08+0200\n"
+"PO-Revision-Date: 2014-04-05 22:10+0200\n"
+"Last-Translator: Vojtch Trefn <vtrefny@redhat.com>\n"
+"Language-Team: Language LOCALE=cs\n"
+"Language: LOCALE=cs_CZ\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: main_menu.py:76
+msgid "File"
+msgstr "Soubor"
+
+#: main_menu.py:82
+msgid "Quit"
+msgstr "Ukončit"
+
+#: main_menu.py:98 main_menu.py:168 actions_menu.py:74
+msgid "Edit"
+msgstr "Upravit"
+
+#: main_menu.py:103
+msgid "Undo Last Action"
+msgstr "Vrátit poslední akci"
+
+#: main_menu.py:113
+msgid "Clear Queued Actions"
+msgstr "Zrušit naplánované akce"
+
+#: main_menu.py:122
+msgid "Apply Queued Actions"
+msgstr "Provést naplánované akce"
+
+#: main_menu.py:139 dialogs.py:397
+msgid "Device"
+msgstr "Zařízení"
+
+#: main_menu.py:144 actions_menu.py:56
+msgid "New"
+msgstr "Nové"
+
+#: main_menu.py:156 actions_menu.py:65
+msgid "Delete"
+msgstr "Smazat"
+
+#: main_menu.py:179 actions_menu.py:85
+msgid "Unmount"
+msgstr "Odpojit"
+
+#: main_menu.py:193
+msgid "LVM"
+msgstr "LVM"
+
+#: main_menu.py:198
+msgid "Create LVM Physical Volume"
+msgstr "Vytvořit LVM Physical Volume"
+
+#: main_menu.py:205
+msgid "Create LVM Volume Group"
+msgstr "Vytvořit LVM Volume Group"
+
+#: main_menu.py:217
+msgid "Help"
+msgstr "Nápověda"
+
+#: main_menu.py:222
+msgid "Contents"
+msgstr "Obsah"
+
+#: main_menu.py:231
+msgid "About"
+msgstr "O blivet-gui"
+
+#: utils.py:95 list_partitions.py:109 list_partitions.py:175
+#: list_partitions.py:302 list_partitions.py:461 list_partitions.py:467
+msgid "free space"
+msgstr "volné místo"
+
+#: utils.py:176
+msgid "unallocated"
+msgstr "nealokováno"
+
+#: utils.py:343 list_partitions.py:212 dialogs.py:343 dialogs.py:526
+msgid "Partition"
+msgstr "Oddíl"
+
+#: utils.py:352 dialogs.py:345
+msgid "LVM2 Logical Volume"
+msgstr "LVM2 Logical Volume"
+
+#: utils.py:369 dialogs.py:344
+msgid "LVM2 Volume Group"
+msgstr "LVM2 Volume Group"
+
+#: utils.py:384 dialogs.py:343 dialogs.py:533
+msgid "LVM2 Physical Volume"
+msgstr "LVM2 Physical Volume"
+
+#: actions_toolbar.py:68
+msgid "Create new device"
+msgstr "Vytvořit nové zařízení"
+
+#: actions_toolbar.py:76
+msgid "Delete selected device"
+msgstr "Smazat vybrané zařízení"
+
+#: actions_toolbar.py:86
+msgid "Edit or resize device"
+msgstr "Upravit vybrané zařízení"
+
+#: actions_toolbar.py:95
+msgid "Unmount selected device"
+msgstr "Odpojit vybrané zařízení"
+
+#: actions_toolbar.py:105
+msgid "Apply queued actions"
+msgstr "Provést naplánované akce"
+
+#: actions_toolbar.py:113
+msgid "Clear queued actions"
+msgstr "Smazat naplánované akce"
+
+#: processing_window.py:45
+msgid "Proccessing"
+msgstr "Zpracování probíhá"
+
+#: processing_window.py:80
+msgid "<b>Queued actions are being proccessed.</b>"
+msgstr "<b>Naplánované akce jsou právě zpracovávány.</b>"
+
+#: processing_window.py:85
+msgid "<b>All queued actions have been processed.</b>"
+msgstr "<b>Všechny naplánované akce byly provedeny.</b>"
+
+#: list_partitions.py:97 list_partitions.py:420 list_partitions.py:448
+#, python-brace-format
+msgid "Pending actions ({0})"
+msgstr "Čekající akce ({0})"
+
+#: list_partitions.py:99
+msgid "Partitions"
+msgstr "Oddíly"
+
+#: list_partitions.py:113 list_partitions.py:179 list_partitions.py:270
+#: list_partitions.py:296 list_partitions.py:477
+msgid "extended"
+msgstr "rozšířený"
+
+#: list_partitions.py:116 list_partitions.py:182 list_partitions.py:487
+msgid "lvmvg"
+msgstr "lvmvg"
+
+#: list_partitions.py:134
+#, python-brace-format
+msgid ""
+"<b>LVM2 Volume group <i>{0}</i> occupying {1} Physical Volume(s):</b>\n"
+"\n"
+msgstr ""
+"<b>LVM2 Volume group <i>{0}</i> umístěný na {1} Physical Volume:</b>\n"
+"\n"
+
+#: list_partitions.py:137
+#, python-brace-format
+msgid "\t• PV <i>{0}</i>, size: {1} MB on <i>{2}</i> disk.\n"
+msgstr "\t• PV <i>{0}</i>, velikost: {1} MB na disku <i>{2}</i>.\n"
+
+#: list_partitions.py:143
+msgid "<b>LVM2 Physical Volume</b>"
+msgstr "<b>LVM2 Physical Volume</b>"
+
+#: list_partitions.py:152
+#, python-brace-format
+msgid ""
+"<b>Hard disk</b> <i>{0}</i>\n"
+"\n"
+"\t• Size: <i>{1} MB</i>\n"
+"\t• Model: <i>{2}</i>\n"
+msgstr ""
+"<b>Pevný disk</b> <i>{0}</i>\n"
+"\n"
+"\t• Velikost: <i>{1} MB</i>\n"
+"\t• Model: <i>{2}</i>\n"
+
+#: list_partitions.py:213
+msgid "Filesystem"
+msgstr "Souborový systém"
+
+#: list_partitions.py:214
+msgid "Mountpoint"
+msgstr "Přípojný bod"
+
+#: list_partitions.py:215 dialogs.py:399
+msgid "Size"
+msgstr "Velikost"
+
+#: list_partitions.py:497
+msgid "lvmpv"
+msgstr "lvmpv"
+
+#: list_partitions.py:545
+#, python-brace-format
+msgid "delete partition {0}"
+msgstr "smazat oddíl {0}"
+
+#: list_devices.py:62
+msgid "<b>Disks</b>"
+msgstr "<b>Disky</b>"
+
+#: list_devices.py:65
+msgid "<b>LVM2 Physical Volumes</b>"
+msgstr "<b>LVM2 Physical Volumes</b>"
+
+#: list_devices.py:68 list_devices.py:174 list_devices.py:238
+msgid "<b>LVM2 Volume Groups</b>"
+msgstr "<b>LVM2 Volume Groups</b>"
+
+#: main.py:59
+msgid "show version information"
+msgstr "zobrazit informace o verzi"
+
+#: main.py:61
+msgid "embed this application"
+msgstr "embedovat tuto aplikaci"
+
+#: dialogs.py:48
+msgid "Root privileges required"
+msgstr "Jsou vyžadována práva roota"
+
+#: dialogs.py:50
+msgid "Root privileges are required for running blivet-gui."
+msgstr "Pro spouštění blivet-gui jsou vyžadována rootovská práva."
+
+#: dialogs.py:66
+msgid ""
+"Error:\n"
+"\n"
+"Filesystem type must be specified when creating new partition."
+msgstr ""
+"Chyba:\n"
+"\n"
+"Při vytváření nového oddílu musíte specifikovat souborový systém."
+
+#: dialogs.py:87
+#, python-format
+msgid ""
+"Error:\n"
+"\n"
+"Unknown error appeared:\n"
+"\n"
+"%(exception)s."
+msgstr ""
+"Chyba:\n"
+"\n"
+"Objevila se neznámá chyba:\n"
+"\n"
+"%(exception)s."
+
+#: dialogs.py:108
+#, python-format
+msgid ""
+"Unmount failed.\n"
+"\n"
+"Are you sure '%(device_name)s' is not in use?"
+msgstr ""
+"Odpojení se nezdařilo.\n"
+"\n"
+"Jste si jisti, že '%(device_name)s' není používáno?"
+
+#: dialogs.py:126
+msgid "Confirm delete operation"
+msgstr "Potvrzení mazání"
+
+#: dialogs.py:132
+#, python-format
+msgid "Are you sure you want to delete device %(device_name)s?"
+msgstr "Jste si jisti, že chcete smazat zařízení %(device_name)s?"
+
+#: dialogs.py:143
+msgid "Confirm scheduled actions"
+msgstr "Potvrzení naplánovaných akcí"
+
+#: dialogs.py:149
+msgid "Are you sure you want to perform scheduled actions?"
+msgstr "Jste si jisti, že chcete provést naplánované akce?"
+
+#: dialogs.py:166
+msgid "Are you sure you want to quit?"
+msgstr "Jste si jisti, že chce ukočit aplikaci?"
+
+#: dialogs.py:172
+msgid ""
+"There are unapplied queued actions. Are you sure you want to quit blivet-gui "
+"now?"
+msgstr "Existují naplánované nepotvrzené akce. Jste si jisti, že chcete blivet-gui "
+"nyní ukočit?"
+
+#: dialogs.py:193
+msgid "Edit device"
+msgstr "Upravit zařízení"
+
+#: dialogs.py:222 dialogs.py:449
+msgid "Volume size:"
+msgstr "Velikost"
+
+#: dialogs.py:233 dialogs.py:460 dialogs.py:474
+msgid "MB"
+msgstr "MB"
+
+#: dialogs.py:238
+msgid "<b>This device cannot be resized.</b>"
+msgstr "<b>U tohoto zařízení nelze změnit velikost.</b>"
+
+#: dialogs.py:247 dialogs.py:480
+msgid "Filesystem:"
+msgstr "Souborový systém:"
+
+#: dialogs.py:269 dialogs.py:496
+msgid "Label:"
+msgstr "Label:"
+
+#: dialogs.py:280
+#, python-brace-format
+msgid "<b>Warning: This will delete all data on {0}!</b>"
+msgstr "<b>Varování: Tímto smažete všechna data na {0}!</b>"
+
+#: dialogs.py:320
+msgid "Create new partition"
+msgstr "Vytvořit nový oddíl"
+
+#: dialogs.py:343 dialogs.py:543
+msgid "LVM2 Storage"
+msgstr "LVM2 Storage"
+
+#: dialogs.py:349
+msgid "Device type:"
+msgstr "Typ zařízení:"
+
+#: dialogs.py:398
+msgid "Type"
+msgstr "Typ"
+
+#: dialogs.py:422
+msgid "Available devices:"
+msgstr "Dostupná zařízení:"
+
+#: dialogs.py:464
+msgid "Free space after:"
+msgstr "Volné místo za:"
+
+#: dialogs.py:507
+msgid "Name:"
+msgstr "Jméno:"
+
+#: dialogs.py:602
+msgid "No partition table found on disk"
+msgstr "Na disku nebyla nalezena tabulka oddílů"
+
+#: dialogs.py:622
+#, python-brace-format
+msgid ""
+"A partition table is required before partitions can be added.\n"
+"\n"
+"<b>Warning: This will delete all data on {0}!</b>"
+msgstr ""
+"Tabulka oddílů musí být vytvořena před vytvořením dalších oddílů.\n"
+"\n"
+"<b>Varování: Tímto smažete všechna data na {0}!</b>"
+
+#: dialogs.py:643
+msgid "Select new partition table type:"
+msgstr "Vyberte novou tabulku oddílů:"
+
+#: dialogs.py:684
+msgid "Create new LVM2 PV"
+msgstr "Vytvořit nový LVM2 PV"
+
+#: dialogs.py:710
+msgid "Copyright © 2014 Red Hat Inc."
+msgstr "Copyright © 2014 Red Hat Inc."

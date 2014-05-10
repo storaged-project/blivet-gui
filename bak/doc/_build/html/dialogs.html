@@ -1,0 +1,302 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dialogs Module &mdash; blivet-gui 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="blivet-gui 0.1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">blivet-gui 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-dialogs">
+<span id="dialogs-module"></span><h1>dialogs Module<a class="headerlink" href="#module-dialogs" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="dialogs.AboutDialog">
+<em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">AboutDialog</tt><a class="headerlink" href="#dialogs.AboutDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.AboutDialog</span></tt></p>
+<p>Standard &#8216;about application&#8217; dialog</p>
+<dl class="method">
+<dt id="dialogs.AboutDialog.on_close">
+<tt class="descname">on_close</tt><big>(</big><em>action</em>, <em>par</em><big>)</big><a class="headerlink" href="#dialogs.AboutDialog.on_close" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dialogs.AddDialog">
+<em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">AddDialog</tt><big>(</big><em>device_type</em>, <em>parent_name</em>, <em>partition_name</em>, <em>free_space</em>, <em>free_pvs</em><big>)</big><a class="headerlink" href="#dialogs.AddDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Dialog</span></tt></p>
+<p>Dialog window allowing user to add new partition including selecting size, fs, label etc.</p>
+<dl class="method">
+<dt id="dialogs.AddDialog.add_device_chooser">
+<tt class="descname">add_device_chooser</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.AddDialog.add_device_chooser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddDialog.add_fs_chooser">
+<tt class="descname">add_fs_chooser</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.AddDialog.add_fs_chooser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddDialog.add_name_chooser">
+<tt class="descname">add_name_chooser</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.AddDialog.add_name_chooser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddDialog.add_parent_list">
+<tt class="descname">add_parent_list</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.AddDialog.add_parent_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddDialog.add_size_scale">
+<tt class="descname">add_size_scale</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.AddDialog.add_size_scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddDialog.get_selection">
+<tt class="descname">get_selection</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.AddDialog.get_selection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddDialog.on_cell_toggled">
+<tt class="descname">on_cell_toggled</tt><big>(</big><em>event</em>, <em>path</em><big>)</big><a class="headerlink" href="#dialogs.AddDialog.on_cell_toggled" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddDialog.on_devices_combo_changed">
+<tt class="descname">on_devices_combo_changed</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#dialogs.AddDialog.on_devices_combo_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddDialog.scale_moved">
+<tt class="descname">scale_moved</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#dialogs.AddDialog.scale_moved" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddDialog.spin_free_moved">
+<tt class="descname">spin_free_moved</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#dialogs.AddDialog.spin_free_moved" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddDialog.spin_size_moved">
+<tt class="descname">spin_size_moved</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#dialogs.AddDialog.spin_size_moved" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dialogs.AddErrorDialog">
+<em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">AddErrorDialog</tt><a class="headerlink" href="#dialogs.AddErrorDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.MessageDialog</span></tt></p>
+<p>Dialog window informing user he/she need to specify fs type to create new partition</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dialogs.AddLabelDialog">
+<em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">AddLabelDialog</tt><big>(</big><em>disk_name</em><big>)</big><a class="headerlink" href="#dialogs.AddLabelDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Dialog</span></tt></p>
+<p>Dialog window allowing user to add disklabel to disk</p>
+<dl class="method">
+<dt id="dialogs.AddLabelDialog.add_labels">
+<tt class="descname">add_labels</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.AddLabelDialog.add_labels" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddLabelDialog.add_pt_chooser">
+<tt class="descname">add_pt_chooser</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.AddLabelDialog.add_pt_chooser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddLabelDialog.get_selection">
+<tt class="descname">get_selection</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.AddLabelDialog.get_selection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.AddLabelDialog.on_devices_combo_changed">
+<tt class="descname">on_devices_combo_changed</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#dialogs.AddLabelDialog.on_devices_combo_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dialogs.AddPVDialog">
+<em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">AddPVDialog</tt><a class="headerlink" href="#dialogs.AddPVDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Dialog</span></tt></p>
+<p>Dialog window allowing user to add new LVM2 Physical Volume</p>
+<dl class="method">
+<dt id="dialogs.AddPVDialog.get_selection">
+<tt class="descname">get_selection</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.AddPVDialog.get_selection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dialogs.BlivetError">
+<em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">BlivetError</tt><big>(</big><em>exception</em><big>)</big><a class="headerlink" href="#dialogs.BlivetError" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.MessageDialog</span></tt></p>
+<p>Dialog window informing user about blivet error/exception</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dialogs.ConfirmDeleteDialog">
+<em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">ConfirmDeleteDialog</tt><big>(</big><em>device_name</em><big>)</big><a class="headerlink" href="#dialogs.ConfirmDeleteDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Dialog</span></tt></p>
+<p>Confirmation dialog for device deletion</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dialogs.ConfirmPerformActions">
+<em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">ConfirmPerformActions</tt><a class="headerlink" href="#dialogs.ConfirmPerformActions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Dialog</span></tt></p>
+<p>Confirmation dialog for device deletion</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dialogs.ConfirmQuitDialog">
+<em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">ConfirmQuitDialog</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#dialogs.ConfirmQuitDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Dialog</span></tt></p>
+<p>Confirmation dialog for application quit</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dialogs.EditDialog">
+<em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">EditDialog</tt><big>(</big><em>partition_name</em>, <em>resizable</em><big>)</big><a class="headerlink" href="#dialogs.EditDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Dialog</span></tt></p>
+<p>Dialog window allowing user to edit partition including selecting size, fs, label etc.</p>
+<dl class="method">
+<dt id="dialogs.EditDialog.add_fs_chooser">
+<tt class="descname">add_fs_chooser</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.EditDialog.add_fs_chooser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.EditDialog.add_name_chooser">
+<tt class="descname">add_name_chooser</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.EditDialog.add_name_chooser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.EditDialog.add_size_scale">
+<tt class="descname">add_size_scale</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.EditDialog.add_size_scale" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.EditDialog.filesystems_combo_changed">
+<tt class="descname">filesystems_combo_changed</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#dialogs.EditDialog.filesystems_combo_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.EditDialog.get_selection">
+<tt class="descname">get_selection</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.EditDialog.get_selection" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.EditDialog.scale_moved">
+<tt class="descname">scale_moved</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#dialogs.EditDialog.scale_moved" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="dialogs.EditDialog.spin_size_moved">
+<tt class="descname">spin_size_moved</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#dialogs.EditDialog.spin_size_moved" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="dialogs.RootTestDialog">
+<em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">RootTestDialog</tt><a class="headerlink" href="#dialogs.RootTestDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.MessageDialog</span></tt></p>
+<p>Dialog window informing user to run blivet-gui as root</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="dialogs.UnmountErrorDialog">
+<em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">UnmountErrorDialog</tt><big>(</big><em>device_name</em><big>)</big><a class="headerlink" href="#dialogs.UnmountErrorDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.MessageDialog</span></tt></p>
+<p>Dialog window informing user about unsuccesfull unmount operation</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/dialogs.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">blivet-gui 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Vojtech Trefny.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

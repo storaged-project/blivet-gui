@@ -1,0 +1,441 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>utils Module &mdash; blivet-gui 0.1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="blivet-gui 0.1.0 documentation" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">blivet-gui 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-utils">
+<span id="utils-module"></span><h1>utils Module<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="utils.BlivetUtils">
+<em class="property">class </em><tt class="descclassname">utils.</tt><tt class="descname">BlivetUtils</tt><a class="headerlink" href="#utils.BlivetUtils" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class with utils directly working with blivet itselves</p>
+<dl class="method">
+<dt id="utils.BlivetUtils.add_device">
+<tt class="descname">add_device</tt><big>(</big><em>parent_names</em>, <em>device_type</em>, <em>fs_type</em>, <em>target_size</em>, <em>name=None</em>, <em>label=None</em>, <em>flags=</em><span class="optional">[</span><span class="optional">]</span><big>)</big><a class="headerlink" href="#utils.BlivetUtils.add_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new device</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>parent_names</strong> (<em>list of str</em>) &#8211; name of parent device</li>
+<li><strong>device_type</strong> (<em>str</em>) &#8211; type of device to create</li>
+<li><strong>fs_type</strong> (<em>str</em>) &#8211; filesystem</li>
+<li><strong>target_size</strong> (<em>int</em>) &#8211; target size</li>
+<li><strong>label</strong> (<em>str</em>) &#8211; device label (name)</li>
+<li><strong>flags</strong> (<em>list of str</em>) &#8211; device flags</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">new device name</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.blivet_do_it">
+<tt class="descname">blivet_do_it</tt><big>(</big><big>)</big><a class="headerlink" href="#utils.BlivetUtils.blivet_do_it" title="Permalink to this definition">¶</a></dt>
+<dd><p>Blivet.doIt()</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.blivet_reset">
+<tt class="descname">blivet_reset</tt><big>(</big><big>)</big><a class="headerlink" href="#utils.BlivetUtils.blivet_reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Blivet.reset()</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.create_disk_label">
+<tt class="descname">create_disk_label</tt><big>(</big><em>disk_name</em><big>)</big><a class="headerlink" href="#utils.BlivetUtils.create_disk_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create disklabel</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>disk_name</strong> &#8211; disk name</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.delete_device">
+<tt class="descname">delete_device</tt><big>(</big><em>device_name</em><big>)</big><a class="headerlink" href="#utils.BlivetUtils.delete_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete device</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_name</strong> (<em>str</em>) &#8211; name of device</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.device_resizable">
+<tt class="descname">device_resizable</tt><big>(</big><em>device_name</em><big>)</big><a class="headerlink" href="#utils.BlivetUtils.device_resizable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is given device resizable</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_name</strong> (<em>str</em>) &#8211; anme of device</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">device resizable, minSize, maxSize, size</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.edit_partition_device">
+<tt class="descname">edit_partition_device</tt><big>(</big><em>device_name</em>, <em>settings</em><big>)</big><a class="headerlink" href="#utils.BlivetUtils.edit_partition_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edit device</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>device_name</strong> (<em>str</em>) &#8211; name of device</li>
+<li><strong>settings</strong> (<em>tuple</em>) &#8211; resize, target_size, target_fs</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">success</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.get_blivet_device">
+<tt class="descname">get_blivet_device</tt><big>(</big><em>device_name</em><big>)</big><a class="headerlink" href="#utils.BlivetUtils.get_blivet_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get blivet device</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_name</strong> (<em>str</em>) &#8211; device name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">blviet device</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">blivet.StorageDevice</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.get_device_type">
+<tt class="descname">get_device_type</tt><big>(</big><em>device_name</em><big>)</big><a class="headerlink" href="#utils.BlivetUtils.get_device_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get device type</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_name</strong> (<em>str</em>) &#8211; device name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">type of device</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.get_disks">
+<tt class="descname">get_disks</tt><big>(</big><big>)</big><a class="headerlink" href="#utils.BlivetUtils.get_disks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of all disk devices on current system</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of all &#8220;disk&#8221; devices</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.get_free_pvs_info">
+<tt class="descname">get_free_pvs_info</tt><big>(</big><big>)</big><a class="headerlink" href="#utils.BlivetUtils.get_free_pvs_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of PVs without VGs</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of free PVs with name and size</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.get_free_space">
+<tt class="descname">get_free_space</tt><big>(</big><em>device_name</em>, <em>partitions</em><big>)</big><a class="headerlink" href="#utils.BlivetUtils.get_free_space" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find free space on device</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>device_name</strong> (<em>str</em>) &#8211; name of device</li>
+<li><strong>paritions</strong> &#8211; partions (children) of device</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">list of partitions + free space</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">list</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.get_group_devices">
+<tt class="descname">get_group_devices</tt><big>(</big><big>)</big><a class="headerlink" href="#utils.BlivetUtils.get_group_devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of LVM2 Volume Group devices</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of LVM2 VG devices</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.get_parent_pvs">
+<tt class="descname">get_parent_pvs</tt><big>(</big><em>device_name</em><big>)</big><a class="headerlink" href="#utils.BlivetUtils.get_parent_pvs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of LVM VG PVs</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_name</strong> (<em>str</em>) &#8211; device name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of devices</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of blivet.StorageDevice</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.get_partitions">
+<tt class="descname">get_partitions</tt><big>(</big><em>device_name</em><big>)</big><a class="headerlink" href="#utils.BlivetUtils.get_partitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get partitions (children) of selected device</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_name</strong> (<em>str</em>) &#8211; name of device</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of partitions</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.get_physical_devices">
+<tt class="descname">get_physical_devices</tt><big>(</big><big>)</big><a class="headerlink" href="#utils.BlivetUtils.get_physical_devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of LVM2 Physical Volumes</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of LVM2 PV devices</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="utils.BlivetUtils.has_disklabel">
+<tt class="descname">has_disklabel</tt><big>(</big><em>device_name</em><big>)</big><a class="headerlink" href="#utils.BlivetUtils.has_disklabel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Has this disk device disklabel</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_name</strong> (<em>str</em>) &#8211; device name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">true/false</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="utils.FreeSpaceDevice">
+<em class="property">class </em><tt class="descclassname">utils.</tt><tt class="descname">FreeSpaceDevice</tt><big>(</big><em>free_size</em><big>)</big><a class="headerlink" href="#utils.FreeSpaceDevice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Special class to represent free space on disk (device)
+(blivet doesn&#8217;t have class/device to represent free space)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.os_umount_partition">
+<tt class="descclassname">utils.</tt><tt class="descname">os_umount_partition</tt><big>(</big><em>mountpoint</em><big>)</big><a class="headerlink" href="#utils.os_umount_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Umount selected partition</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>mountpoint</strong> (<em>str</em>) &#8211; mountpoint (os.path)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">success</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utils.partition_mounted">
+<tt class="descclassname">utils.</tt><tt class="descname">partition_mounted</tt><big>(</big><em>partition_path</em><big>)</big><a class="headerlink" href="#utils.partition_mounted" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is selected partition partition_mounted</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>partition_path</strong> &#8211; /dev path for partition</li>
+<li><strong>type</strong> &#8211; str</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">mountpoint</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">str</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/utils.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="index.html">blivet-gui 0.1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, Vojtech Trefny.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
