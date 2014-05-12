@@ -46,9 +46,26 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-dialogs">
-<span id="dialogs-module"></span><h1>dialogs Module<a class="headerlink" href="#module-dialogs" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+  <div class="section" id="dialogs-module">
+<h1>dialogs Module<a class="headerlink" href="#dialogs-module" title="Permalink to this headline">¶</a></h1>
+<p class="graphviz">
+<img src="_images/inheritance-c2b63681d3a3db55707d6d6328833573a0602575.png" alt="Inheritance diagram of dialogs" usemap="#inheritancef62d5fb03b" class="inheritance"/>
+<map id="inheritancef62d5fb03b" name="inheritancef62d5fb03b">
+<area shape="rect" id="node16" href="#dialogs.ConfirmDeleteDialog" title="dialogs.ConfirmDeleteDialog" alt="" coords="912,977,1115,1002"/>
+<area shape="rect" id="node21" href="#dialogs.ConfirmPerformActions" title="dialogs.ConfirmPerformActions" alt="" coords="1139,977,1357,1002"/>
+<area shape="rect" id="node22" href="#dialogs.AddLabelDialog" title="dialogs.AddLabelDialog" alt="" coords="1381,977,1552,1002"/>
+<area shape="rect" id="node26" href="#dialogs.AddDialog" title="dialogs.AddDialog" alt="" coords="1576,977,1712,1002"/>
+<area shape="rect" id="node27" href="#dialogs.AddPVDialog" title="dialogs.AddPVDialog" alt="" coords="1737,977,1889,1002"/>
+<area shape="rect" id="node28" href="#dialogs.ConfirmQuitDialog" title="dialogs.ConfirmQuitDialog" alt="" coords="1915,977,2101,1002"/>
+<area shape="rect" id="node30" href="#dialogs.EditDialog" title="dialogs.EditDialog" alt="" coords="2126,977,2260,1002"/>
+<area shape="rect" id="node32" href="#dialogs.AboutDialog" title="dialogs.AboutDialog" alt="" coords="773,1126,923,1151"/>
+<area shape="rect" id="node11" href="#dialogs.AddErrorDialog" title="dialogs.AddErrorDialog" alt="" coords="5,1126,171,1151"/>
+<area shape="rect" id="node25" href="#dialogs.UnmountErrorDialog" title="dialogs.UnmountErrorDialog" alt="" coords="196,1126,399,1151"/>
+<area shape="rect" id="node29" href="#dialogs.BlivetError" title="dialogs.BlivetError" alt="" coords="423,1126,560,1151"/>
+<area shape="rect" id="node31" href="#dialogs.RootTestDialog" title="dialogs.RootTestDialog" alt="" coords="585,1126,748,1151"/>
+</map>
+</p>
+<span class="target" id="module-dialogs"></span><dl class="class">
 <dt id="dialogs.AboutDialog">
 <em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">AboutDialog</tt><a class="headerlink" href="#dialogs.AboutDialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.AboutDialog</span></tt></p>
@@ -65,6 +82,24 @@
 <em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">AddDialog</tt><big>(</big><em>device_type</em>, <em>parent_name</em>, <em>partition_name</em>, <em>free_space</em>, <em>free_pvs</em><big>)</big><a class="headerlink" href="#dialogs.AddDialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Dialog</span></tt></p>
 <p>Dialog window allowing user to add new partition including selecting size, fs, label etc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>device_type</strong> (<em>str</em>) &#8211; type of parent device</li>
+<li><strong>partition_name</strong> (<em>str</em>) &#8211; name of device</li>
+<li><strong>free_space</strong> (<em>int</em>) &#8211; size of selected free space</li>
+<li><strong>free_pvs</strong> (<em>list</em>) &#8211; list PVs with no VG</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Parama parent_name:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">name of parent device</p>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="dialogs.AddDialog.add_device_chooser">
 <tt class="descname">add_device_chooser</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.AddDialog.add_device_chooser" title="Permalink to this definition">¶</a></dt>
@@ -134,6 +169,14 @@
 <em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">AddLabelDialog</tt><big>(</big><em>disk_name</em><big>)</big><a class="headerlink" href="#dialogs.AddLabelDialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Dialog</span></tt></p>
 <p>Dialog window allowing user to add disklabel to disk</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>disk_name</strong> (<em>str</em>) &#8211; name of the disk</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="dialogs.AddLabelDialog.add_labels">
 <tt class="descname">add_labels</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.AddLabelDialog.add_labels" title="Permalink to this definition">¶</a></dt>
@@ -173,6 +216,14 @@
 <em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">BlivetError</tt><big>(</big><em>exception</em><big>)</big><a class="headerlink" href="#dialogs.BlivetError" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.MessageDialog</span></tt></p>
 <p>Dialog window informing user about blivet error/exception</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>exception</strong> (<em>str</em>) &#8211; raised exception</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -180,6 +231,14 @@
 <em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">ConfirmDeleteDialog</tt><big>(</big><em>device_name</em><big>)</big><a class="headerlink" href="#dialogs.ConfirmDeleteDialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Dialog</span></tt></p>
 <p>Confirmation dialog for device deletion</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_name</strong> (<em>str</em>) &#8211; name of partition (device) to delete</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -194,6 +253,14 @@
 <em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">ConfirmQuitDialog</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#dialogs.ConfirmQuitDialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Dialog</span></tt></p>
 <p>Confirmation dialog for application quit</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>actions</strong> &#8211; number of queued actions</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="class">
@@ -201,6 +268,18 @@
 <em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">EditDialog</tt><big>(</big><em>partition_name</em>, <em>resizable</em><big>)</big><a class="headerlink" href="#dialogs.EditDialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Dialog</span></tt></p>
 <p>Dialog window allowing user to edit partition including selecting size, fs, label etc.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>partition_name</strong> (<em>str</em>) &#8211; name of device</li>
+<li><strong>resizable</strong> &#8211; is partition resizable, minSize, maxSize</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="dialogs.EditDialog.add_fs_chooser">
 <tt class="descname">add_fs_chooser</tt><big>(</big><big>)</big><a class="headerlink" href="#dialogs.EditDialog.add_fs_chooser" title="Permalink to this definition">¶</a></dt>
@@ -250,6 +329,14 @@
 <em class="property">class </em><tt class="descclassname">dialogs.</tt><tt class="descname">UnmountErrorDialog</tt><big>(</big><em>device_name</em><big>)</big><a class="headerlink" href="#dialogs.UnmountErrorDialog" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.MessageDialog</span></tt></p>
 <p>Dialog window informing user about unsuccesfull unmount operation</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_name</strong> (<em>str</em>) &#8211; name of partition (device) to unmount</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>

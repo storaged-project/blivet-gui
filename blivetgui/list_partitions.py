@@ -111,21 +111,22 @@ class ListPartitions():
 		partitions = self.b.get_partitions(self.disk)
 		
 		for partition in partitions:
+			
 			if partition.name == _("free space"):
 				self.partitions_list.append([partition.name,"--","--",
-								 str(int(partition.size)) + " MB"])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
 				self.partitions_list.append([partition.name,_("extended"),"--",
-								 str(int(partition.size)) + " MB"])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif partition._type == "lvmvg":
 				self.partitions_list.append([partition.name,_("lvmvg"),"--",
-								 str(int(partition.size)) + " MB"])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif partition.format.mountable:
 				self.partitions_list.append([partition.name,partition.format._type,
-								 partition.format.mountpoint,str(int(partition.size)) + " MB"])
+								 partition_mounted(partition.path),Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			else:
 				self.partitions_list.append([partition.name,partition.format._type,"--",
-								 str(int(partition.size)) + " MB"])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 	
 	def device_info(self):
 		""" Basic information for selected device	
@@ -139,7 +140,7 @@ class ListPartitions():
 			info_str = _("<b>LVM2 Volume group <i>{0}</i> occupying {1} Physical Volume(s):</b>\n\n").format(self.disk, len(pvs))
 		
 			for pv in pvs:
-				info_str += _("\t• PV <i>{0}</i>, size: {1} MB on <i>{2}</i> disk.\n").format(pv.name, pv.size, pv.disks[0].name)
+				info_str += _("\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> disk.\n").format(pv.name, Size(spec=(str(pv.size) + " MB")).humanReadable(), pv.disks[0].name)
 		
 		elif device_type in ["lvmpv", "luks/dm-crypt"]:
 			blivet_device = self.b.get_blivet_device(self.disk)
@@ -154,7 +155,7 @@ class ListPartitions():
 			
 			blivet_disk = self.b.get_blivet_device(self.disk)
 			
-			info_str = _("<b>Hard disk</b> <i>{0}</i>\n\n\t• Size: <i>{1} MB</i>\n\t• Model: <i>{2}</i>\n").format(blivet_disk.path, blivet_disk.size, blivet_disk.model)
+			info_str = _("<b>Hard disk</b> <i>{0}</i>\n\n\t• Size: <i>{1}</i>\n\t• Model: <i>{2}</i>\n").format(blivet_disk.path, Size(spec=(str(blivet_disk.size) + " MB")).humanReadable(), blivet_disk.model)
 
 		else:
 			info_str = ""
@@ -182,19 +183,19 @@ class ListPartitions():
 			
 			if partition.name == _("free space"):
 				self.partitions_list.append([partition.name,"--","--",
-								 str(int(partition.size)) + " MB"])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
 				self.partitions_list.append([partition.name,_("extended"),"--",
-								 str(int(partition.size)) + " MB"])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif partition._type == "lvmvg":
 				self.partitions_list.append([partition.name,_("lvmvg"),"--",
-								 str(int(partition.size)) + " MB"])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif partition.format.mountable:
 				self.partitions_list.append([partition.name,partition.format._type,
-								 partition_mounted(partition.path),str(int(partition.size)) + " MB"])
+								 partition_mounted(partition.path),Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			else:
 				self.partitions_list.append([partition.name,partition.format._type,"--",
-								 str(int(partition.size)) + " MB"])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 		
 		# select first line in partitions view
 		self.select = self.partitions_view.get_selection()
@@ -281,7 +282,8 @@ class ListPartitions():
 				pass
 			
 			else:
-				total_size += int(partition[3].split()[0])
+				
+				total_size += int(Size(spec=partition[3]).convertTo(spec="MB"))
 				num_parts += 1	
 		
 		# Colors for partitions
@@ -321,7 +323,7 @@ class ListPartitions():
 				
 				extended = False
 			
-			part_width = int(partition[3].split()[0])*(width - 2*shrink)/total_size
+			part_width = int(Size(spec=partition[3]).convertTo(spec="MB"))*(width - 2*shrink)/total_size
 			
 			#print part_width, partition[0]
 			
@@ -580,7 +582,7 @@ class ListPartitions():
 		""" Add new partition
 		"""
 		
-		free_size = int(self.selected_partition[3].split()[0])
+		free_size = int(Size(spec=self.selected_partition[3]).convertTo(spec="MB"))
 		
 		device_type = self.b.get_device_type(self.disk)
 		

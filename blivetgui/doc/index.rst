@@ -12,7 +12,6 @@ blivet-gui is a graphical application to manage disks, partitions and LVM2 stora
    :maxdepth: 2
 
 
-
 Indices and tables
 ==================
 

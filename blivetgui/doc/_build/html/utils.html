@@ -46,9 +46,16 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-utils">
-<span id="utils-module"></span><h1>utils Module<a class="headerlink" href="#module-utils" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
+  <div class="section" id="utils-module">
+<h1>utils Module<a class="headerlink" href="#utils-module" title="Permalink to this headline">¶</a></h1>
+<p class="graphviz">
+<img src="_images/inheritance-4d42e155c65b10f103638a0324d58fef74505443.png" alt="Inheritance diagram of utils" usemap="#inheritance19ede0fb84" class="inheritance"/>
+<map id="inheritance19ede0fb84" name="inheritance19ede0fb84">
+<area shape="rect" id="node1" href="#utils.BlivetUtils" title="utils.BlivetUtils" alt="" coords="5,6,120,31"/>
+<area shape="rect" id="node2" href="#utils.FreeSpaceDevice" title="utils.FreeSpaceDevice" alt="" coords="144,6,307,31"/>
+</map>
+</p>
+<span class="target" id="module-utils"></span><dl class="class">
 <dt id="utils.BlivetUtils">
 <em class="property">class </em><tt class="descclassname">utils.</tt><tt class="descname">BlivetUtils</tt><a class="headerlink" href="#utils.BlivetUtils" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class with utils directly working with blivet itselves</p>
@@ -61,11 +68,12 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>parent_names</strong> (<em>list of str</em>) &#8211; name of parent device</li>
+<li><strong>parent_names</strong> (<em>list of str</em>) &#8211; name of parent devices</li>
 <li><strong>device_type</strong> (<em>str</em>) &#8211; type of device to create</li>
 <li><strong>fs_type</strong> (<em>str</em>) &#8211; filesystem</li>
 <li><strong>target_size</strong> (<em>int</em>) &#8211; target size</li>
-<li><strong>label</strong> (<em>str</em>) &#8211; device label (name)</li>
+<li><strong>name</strong> (<em>str</em>) &#8211; device name</li>
+<li><strong>label</strong> (<em>str</em>) &#8211; device label</li>
 <li><strong>flags</strong> (<em>list of str</em>) &#8211; device flags</li>
 </ul>
 </td>
@@ -128,7 +136,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_name</strong> (<em>str</em>) &#8211; anme of device</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_name</strong> (<em>str</em>) &#8211; name of device</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">device resizable, minSize, maxSize, size</td>
 </tr>
@@ -347,6 +355,14 @@
 <em class="property">class </em><tt class="descclassname">utils.</tt><tt class="descname">FreeSpaceDevice</tt><big>(</big><em>free_size</em><big>)</big><a class="headerlink" href="#utils.FreeSpaceDevice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Special class to represent free space on disk (device)
 (blivet doesn&#8217;t have class/device to represent free space)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>free_size</strong> (<em>int</em>) &#8211; size of free space in MB</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">

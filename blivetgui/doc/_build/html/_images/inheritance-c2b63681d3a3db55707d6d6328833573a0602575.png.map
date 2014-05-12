@@ -1,0 +1,14 @@
+<map id="inheritancef62d5fb03b" name="inheritancef62d5fb03b">
+<area shape="rect" id="node16" href="#dialogs.ConfirmDeleteDialog" title="dialogs.ConfirmDeleteDialog" alt="" coords="912,977,1115,1002"/>
+<area shape="rect" id="node21" href="#dialogs.ConfirmPerformActions" title="dialogs.ConfirmPerformActions" alt="" coords="1139,977,1357,1002"/>
+<area shape="rect" id="node22" href="#dialogs.AddLabelDialog" title="dialogs.AddLabelDialog" alt="" coords="1381,977,1552,1002"/>
+<area shape="rect" id="node26" href="#dialogs.AddDialog" title="dialogs.AddDialog" alt="" coords="1576,977,1712,1002"/>
+<area shape="rect" id="node27" href="#dialogs.AddPVDialog" title="dialogs.AddPVDialog" alt="" coords="1737,977,1889,1002"/>
+<area shape="rect" id="node28" href="#dialogs.ConfirmQuitDialog" title="dialogs.ConfirmQuitDialog" alt="" coords="1915,977,2101,1002"/>
+<area shape="rect" id="node30" href="#dialogs.EditDialog" title="dialogs.EditDialog" alt="" coords="2126,977,2260,1002"/>
+<area shape="rect" id="node32" href="#dialogs.AboutDialog" title="dialogs.AboutDialog" alt="" coords="773,1126,923,1151"/>
+<area shape="rect" id="node11" href="#dialogs.AddErrorDialog" title="dialogs.AddErrorDialog" alt="" coords="5,1126,171,1151"/>
+<area shape="rect" id="node25" href="#dialogs.UnmountErrorDialog" title="dialogs.UnmountErrorDialog" alt="" coords="196,1126,399,1151"/>
+<area shape="rect" id="node29" href="#dialogs.BlivetError" title="dialogs.BlivetError" alt="" coords="423,1126,560,1151"/>
+<area shape="rect" id="node31" href="#dialogs.RootTestDialog" title="dialogs.RootTestDialog" alt="" coords="585,1126,748,1151"/>
+</map>

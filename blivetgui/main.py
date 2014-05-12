@@ -67,14 +67,15 @@ def parse_options():
 	
 	return options
 
-def main():	
+def main(options=None):	
 	if os.geteuid() != 0:
 		# root privileges are required for blivet
 		RootTestDialog()
 		sys.exit(0)
 	
 	else:
-		options = parse_options()
+		if options == None:
+			options = parse_options()
 		
 		if options.version == True:
 			print APP_NAME, "version", APP_VERSION
