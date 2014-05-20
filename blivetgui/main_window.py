@@ -62,7 +62,7 @@ def main_window():
 	MainWindow = builder.get_object("MainWindow")
 	MainWindow.connect("delete-event", Gtk.main_quit)
 
-	dlist = ListDevices(builder)
+	dlist = ListDevices(MainWindow, builder)
 
 	builder.get_object("disks_viewport").add(dlist.get_disks_view())
 
@@ -95,7 +95,7 @@ def embeded_window():
 	vbox = builder.get_object("vbox")
 	vbox.reparent(plug)
 
-	dlist = ListDevices(builder)
+	dlist = ListDevices(plug, builder)
 
 	builder.get_object("disks_viewport").add(dlist.get_disks_view())
 

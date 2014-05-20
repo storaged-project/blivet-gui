@@ -58,13 +58,14 @@ class main_menu():
 		
 		self.list_partitions = list_partitions
 		self.list_devices = list_devices
+		self.main_window = main_window
 		
 		self.menu_bar = Gtk.MenuBar()
 		
 		self.icon_theme = Gtk.IconTheme.get_default()
 		
 		self.agr = Gtk.AccelGroup()
-		main_window.add_accel_group(self.agr)
+		self.main_window.add_accel_group(self.agr)
 		
 		self.menu_items = {}
 		
@@ -275,7 +276,7 @@ class main_menu():
 		""" Onselect action for 'About'
 		"""
 		
-		dialog = AboutDialog()
+		dialog = AboutDialog(self.main_window)
 		
 		dialog.run()
 	
@@ -305,7 +306,7 @@ class main_menu():
 		""" Onselect action for 'Apply Queued Actions'
 		"""
 		
-		dialog = ConfirmPerformActions()
+		dialog = ConfirmPerformActions(self.main_window)
 		
 		response = dialog.run()
 

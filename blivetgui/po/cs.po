@@ -159,35 +159,35 @@ msgstr "rozšířený"
 msgid "lvmvg"
 msgstr "lvmvg"
 
-#: list_partitions.py:134
+#: list_partitions.py:140
 #, python-brace-format
 msgid ""
-"<b>LVM2 Volume group <i>{0}</i> occupying {1} Physical Volume(s):</b>\n"
+"<b>LVM2 Volume group <i>{0}</i> occupying {1} physical volume(s):</b>\n"
 "\n"
 msgstr ""
-"<b>LVM2 Volume group <i>{0}</i> umístěný na {1} Physical Volume:</b>\n"
+"<b>LVM2 Volume group <i>{0}</i> umístěný na {1} fyzických zařízeních:</b>\n"
 "\n"
 
-#: list_partitions.py:137
+#: list_partitions.py:143
 #, python-brace-format
-msgid "\t• PV <i>{0}</i>, size: {1} MB on <i>{2}</i> disk.\n"
-msgstr "\t• PV <i>{0}</i>, velikost: {1} MB na disku <i>{2}</i>.\n"
+msgid "\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> disk.\n"
+msgstr "\t• PV <i>{0}</i>, velikost: {1} na disku <i>{2}</i>.\n"
 
 #: list_partitions.py:143
 msgid "<b>LVM2 Physical Volume</b>"
 msgstr "<b>LVM2 Physical Volume</b>"
 
-#: list_partitions.py:152
+#: list_partitions.py:158
 #, python-brace-format
 msgid ""
 "<b>Hard disk</b> <i>{0}</i>\n"
 "\n"
-"\t• Size: <i>{1} MB</i>\n"
+"\t• Size: <i>{1}</i>\n"
 "\t• Model: <i>{2}</i>\n"
 msgstr ""
 "<b>Pevný disk</b> <i>{0}</i>\n"
 "\n"
-"\t• Velikost: <i>{1} MB</i>\n"
+"\t• Velikost: <i>{1}</i>\n"
 "\t• Model: <i>{2}</i>\n"
 
 #: list_partitions.py:213

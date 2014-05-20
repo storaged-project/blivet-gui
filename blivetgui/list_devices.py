@@ -51,15 +51,19 @@ _ = gettext.gettext
 #------------------------------------------------------------------------------#
 
 class ListDevices():
-	def __init__(self,Builder):
+	def __init__(self, main_window, Builder):
 		"""
 		
+		:param main_window: main window instance
+		:type main_window: Gtk.Window
 		:param Builder: glade builder
 		:type Builder: Gtk.Builder
 		
 		"""
 		
-		self.b = BlivetUtils()
+		self.main_window = main_window
+		
+		self.b = BlivetUtils(self.main_window)
 		self.builder = Builder
 		
 		self.device_list = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
@@ -73,7 +77,7 @@ class ListDevices():
 		self.device_list.append([None,_("<b>LVM2 Volume Groups</b>")])
 		self.load_lvm_volume_groups()
 		
-		self.partitions_list = ListPartitions(self,self.b,self.builder)
+		self.partitions_list = ListPartitions(self.main_window, self, self.b,self.builder)
 		
 		self.actions_view = self.partitions_list.get_actions_view
 		self.partitions_view = self.partitions_list.get_partitions_view

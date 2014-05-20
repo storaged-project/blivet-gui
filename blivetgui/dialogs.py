@@ -65,11 +65,16 @@ class AddErrorDialog(Gtk.MessageDialog):
 	""" Dialog window informing user he/she need to specify fs type to create new partition
 	"""
 	
-	def __init__(self):
+	def __init__(self, parent_window):
+		
+		self.parent_window = parent_window
+		
 		Gtk.MessageDialog.__init__(self, None, 0,
 			Gtk.MessageType.ERROR,
 			Gtk.ButtonsType.OK, 
 			_("Error:\n\nFilesystem type must be specified when creating new partition."))
+		
+		self.set_transient_for(self.parent_window)
 		
 		self.show_all()
 		
@@ -81,16 +86,22 @@ class BlivetError(Gtk.MessageDialog):
 	""" Dialog window informing user about blivet error/exception
 	"""
 	
-	def __init__(self, exception):
+	def __init__(self, exception, parent_window):
 		"""
+			:param parent_window: parent window
+			:type parent_window: Gtk.Window
 			:param exception: raised exception
 			:type exception: str
 		"""
+		
+		self.parent_window = parent_window
 		
 		Gtk.MessageDialog.__init__(self, None, 0, 
 			Gtk.MessageType.ERROR,
 			Gtk.ButtonsType.OK, 
 			_("Error:\n\nUnknown error appeared:\n\n%(exception)s." % locals()))
+		
+		self.set_transient_for(self.parent_window)
 		
 		self.show_all()
 		
@@ -102,16 +113,23 @@ class UnmountErrorDialog(Gtk.MessageDialog):
 	""" Dialog window informing user about unsuccesfull unmount operation
 	"""
 	
-	def __init__(self, device_name):
+	def __init__(self, device_name, parent_window):
 		"""
-            :param device_name: name of partition (device) to unmount
-            :type device_name: str
-        """
-        
+		
+			:param parent_window: parent window
+			:type parent_window: Gtk.Window
+			:param device_name: name of partition (device) to unmount
+			:type device_name: str
+		"""
+		
+		self.parent_window = parent_window
+		
 		Gtk.MessageDialog.__init__(self, None, 0, 
 			Gtk.MessageType.ERROR,
 			Gtk.ButtonsType.OK, 
 			_("Unmount failed.\n\nAre you sure \'%(device_name)s\' is not in use?" % locals()))
+		
+		self.set_transient_for(self.parent_window)
 		
 		self.show_all()
 		
@@ -123,16 +141,24 @@ class ConfirmDeleteDialog(Gtk.Dialog):
 	""" Confirmation dialog for device deletion
 	"""
 	
-	def __init__(self,device_name):
+	def __init__(self, device_name, parent_window):
 		"""
-            :param device_name: name of partition (device) to delete
-            :type device_name: str
+		
+			:param parent_window: parent window
+			:type parent_window: Gtk.Window
+			:param device_name: name of partition (device) to delete
+			:type device_name: str
+		
         """
-        
+		
+		self.parent_window = parent_window
+		
 		Gtk.Dialog.__init__(self, _("Confirm delete operation"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
-
+		
+		self.set_transient_for(self.parent_window)
+		
 		self.set_default_size(175, 110)
 
 		label = Gtk.Label(_("Are you sure you want to delete device %(device_name)s?" % locals()))
@@ -145,11 +171,16 @@ class ConfirmPerformActions(Gtk.Dialog):
 	""" Confirmation dialog for device deletion
 	"""
 	
-	def __init__(self):
+	def __init__(self, parent_window):
+		
+		self.parent_window = parent_window
+		
 		Gtk.Dialog.__init__(self, _("Confirm scheduled actions"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
-
+		
+		self.set_transient_for(self.parent_window)
+		
 		self.set_default_size(175, 110)
 
 		label = Gtk.Label(_("Are you sure you want to perform scheduled actions?"))
@@ -163,16 +194,24 @@ class ConfirmQuitDialog(Gtk.Dialog):
 	""" Confirmation dialog for application quit
 	"""
 	
-	def __init__(self,actions):
+	def __init__(self, parent_window, actions):
 		"""
-            :param actions: number of queued actions
-            :type device_name: int
+		
+			:param parent_window: parent window
+			:type parent_window: Gtk.Window
+			:param actions: number of queued actions
+			:type device_name: int
+			
         """
-        
+		
+		self.parent_window = parent_window
+		
 		Gtk.Dialog.__init__(self, _("Are you sure you want to quit?"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
-
+			
+		self.set_transient_for(self.parent_window)
+		
 		self.set_default_size(175, 110)
 
 		label = Gtk.Label(_("There are unapplied queued actions. Are you sure you want to quit blivet-gui now?"))
@@ -185,9 +224,11 @@ class EditDialog(Gtk.Dialog):
 	""" Dialog window allowing user to edit partition including selecting size, fs, label etc.
 	"""
 	
-	def __init__(self,partition_name, resizable):
+	def __init__(self, parent_window, partition_name, resizable):
 		"""
-		
+			
+			:param parent_window: parent window
+			:type parent_window: Gtk.Window
 			:param partition_name: name of device
 			:type partition_name: str
 			:param resizable: is partition resizable, minSize, maxSize
@@ -198,10 +239,13 @@ class EditDialog(Gtk.Dialog):
 		self.resizable = resizable
 		self.resize = False
 		
+		self.parent_window = parent_window
+		
 		Gtk.Dialog.__init__(self, _("Edit device"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
-
+		
+		self.set_transient_for(self.parent_window)
 		self.set_default_size(550, 200)
 
 		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
@@ -211,7 +255,9 @@ class EditDialog(Gtk.Dialog):
 		
 		self.add_size_scale()
 		self.add_fs_chooser()
-		self.add_name_chooser()
+		#self.add_name_chooser()
+		
+		self.show_all()
 		
 	def add_size_scale(self):
 		
@@ -279,8 +325,6 @@ class EditDialog(Gtk.Dialog):
 		
 		self.name_entry = Gtk.Entry()
 		self.grid.attach(self.name_entry,1,4,2,1)
-		
-		self.show_all()
 	
 	def filesystems_combo_changed(self, event):
 		
@@ -306,7 +350,7 @@ class AddDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add new partition including selecting size, fs, label etc.
 	"""
 	
-	def __init__(self,device_type, parent_name, partition_name, free_space, free_pvs):
+	def __init__(self, parent_window, device_type, parent_name, partition_name, free_space, free_pvs):
 		"""
 			
 			:param device_type: type of parent device
@@ -327,10 +371,13 @@ class AddDialog(Gtk.Dialog):
 		self.device_type = device_type
 		self.parent_name = parent_name
 		self.free_pvs = free_pvs
-        
+		self.parent_window = parent_window
+		        
 		Gtk.Dialog.__init__(self, _("Create new partition"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
+		
+		self.set_transient_for(self.parent_window)
 		
 		self.set_border_width(10)
 		self.set_default_size(600, 300)
@@ -603,19 +650,25 @@ class AddLabelDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add disklabel to disk
 	"""
 	
-	def __init__(self, disk_name):
+	def __init__(self, disk_name, parent_window):
 		"""
+		
+			:param parent_window: parent window
+			:type parent_window: Gtk.Window
 			:param disk_name: name of the disk
 			:type disk_name: str
 			
 		"""
 		
 		self.disk_name = disk_name
+		self.parent_window = parent_window
         
 		Gtk.Dialog.__init__(self, _("No partition table found on disk"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
-
+		
+		self.set_transient_for(self.parent_window)
+		
 		self.set_default_size(550, 200)
 		self.set_border_width(10)
 
@@ -706,9 +759,13 @@ class AboutDialog(Gtk.AboutDialog):
 	""" Standard 'about application' dialog
 	"""
 	
-	def __init__(self):
+	def __init__(self, parent_window):
 		Gtk.AboutDialog.__init__(self)
-
+		
+		self.parent_window = parent_window
+		
+		self.set_transient_for(self.parent_window)
+		
 		authors = ["Vojtech Trefny <vtrefny@redhat.com>"]
 		documenters = ["Vojtech Trefny <vtrefny@redhat.com>"]
 

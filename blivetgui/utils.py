@@ -109,9 +109,11 @@ class BlivetUtils():
 	""" Class with utils directly working with blivet itselves
 	"""
 	
-	def __init__(self):
+	def __init__(self, main_window):
 		self.storage = Blivet()
 		self.storage.reset()
+		
+		self.main_window = main_window
 
 	def get_disks(self):
 		""" Return list of all disk devices on current system
@@ -179,6 +181,8 @@ class BlivetUtils():
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
 		
 		if blivet_device.isDisk and blivet_device.format.type != None:
+			
+			#print blivet_device
 			
 			free_space = partitioning.getFreeRegions([blivet_device])
 			partitions2 = copy.deepcopy(partitions)
@@ -340,7 +344,7 @@ class BlivetUtils():
 			return True
 		
 		except PartitioningError as e:
-			BlivetError(e)
+			BlivetError(e, self.main_window)
 			
 			return False
 	
@@ -431,7 +435,7 @@ class BlivetUtils():
 			return self.storage.devicetree.getDeviceByID(device_id).name
 		
 		except PartitioningError as e:
-			BlivetError(e)
+			BlivetError(e, self.main_window)
 			
 			return None
 	

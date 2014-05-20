@@ -58,7 +58,7 @@ _ = gettext.gettext
 
 class ListPartitions():
 	
-	def __init__(self,ListDevices,BlivetUtils,Builder,disk=None):
+	def __init__(self, main_window, ListDevices, BlivetUtils, Builder, disk=None):
 		
 		GLib.threads_init()
 		Gdk.threads_init()
@@ -69,6 +69,8 @@ class ListPartitions():
 		self.builder = Builder
 		
 		self.disk = disk
+		
+		self.main_window = main_window
 		
 		# ListStores for partitions and actions
 		self.partitions_list = Gtk.ListStore(str,str,str,str)
@@ -86,7 +88,7 @@ class ListPartitions():
 		
 		self.main_menu = main_menu(self.builder.get_object("MainWindow"),self,self.list_devices)		
 		self.popup_menu = actions_menu(self)
-		self.toolbar = actions_toolbar(self)
+		self.toolbar = actions_toolbar(self, self.builder.get_object("MainWindow"))
 		
 		self.select = self.partitions_view.get_selection()
 		self.path = self.select.select_path("1")
@@ -137,7 +139,7 @@ class ListPartitions():
 		if device_type == "lvmvg":
 			pvs = self.b.get_parent_pvs(self.disk)
 		
-			info_str = _("<b>LVM2 Volume group <i>{0}</i> occupying {1} Physical Volume(s):</b>\n\n").format(self.disk, len(pvs))
+			info_str = _("<b>LVM2 Volume group <i>{0}</i> occupying {1} physical volume(s):</b>\n\n").format(self.disk, len(pvs))
 		
 			for pv in pvs:
 				info_str += _("\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> disk.\n").format(pv.name, Size(spec=(str(pv.size) + " MB")).humanReadable(), pv.disks[0].name)
@@ -557,7 +559,7 @@ class ListPartitions():
 		
 		deleted_device = self.selected_partition[0]
 		
-		dialog = ConfirmDeleteDialog(self.selected_partition[0])
+		dialog = ConfirmDeleteDialog(self.selected_partition[0], self.main_window)
 		response = dialog.run()
 
 		if response == Gtk.ResponseType.OK:
@@ -588,7 +590,7 @@ class ListPartitions():
 		
 		if device_type == "disk" and self.b.has_disklabel(self.disk) != True:
 			
-			dialog = AddLabelDialog(self.disk)
+			dialog = AddLabelDialog(self.disk, self.main_window)
 			
 			response = dialog.run()
 			
@@ -609,7 +611,7 @@ class ListPartitions():
 			
 			return
 		
-		dialog = AddDialog(device_type, self.disk ,self.selected_partition[0],
+		dialog = AddDialog(self.main_window, device_type, self.disk ,self.selected_partition[0],
 					 free_size, self.b.get_free_pvs_info())
 		
 		response = dialog.run()
@@ -621,7 +623,7 @@ class ListPartitions():
 			if selection[2] == None and selection[0] not in ["LVM2 Physical Volume",
 													"LVM2 Volume Group", "LVM2 Storage"]:
 				# If fs is not selected, show error window and re-run add dialog
-				AddErrorDialog()
+				AddErrorDialog(dialog)
 				dialog.destroy()
 				self.add_partition()
 			
@@ -737,7 +739,7 @@ class ListPartitions():
 			self.update_partitions_image(self.disk)
 			
 		else:
-			UnmountErrorDialog(self.selected_partition[0])
+			UnmountErrorDialog(self.selected_partition[0], self.main_window)
 	
 	def edit_partition(self):
 		""" Edit selected partition
@@ -745,7 +747,7 @@ class ListPartitions():
 		
 		resizable = self.b.device_resizable(self.selected_partition[0])
 		
-		dialog = EditDialog(self.selected_partition[0], resizable)
+		dialog = EditDialog(self.main_window, self.selected_partition[0], resizable)
 		dialog.connect("delete-event", Gtk.main_quit)
 		
 		response = dialog.run()
@@ -809,7 +811,7 @@ class ListPartitions():
 		
 		if self.actions != 0:
 			# There are queued actions we don't want do quit now
-			dialog = ConfirmQuitDialog(self.actions)
+			dialog = ConfirmQuitDialog(self.main_window, self.actions)
 			response = dialog.run()
 
 			if response == Gtk.ResponseType.OK:

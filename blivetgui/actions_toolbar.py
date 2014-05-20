@@ -52,8 +52,10 @@ class actions_toolbar():
 	""" Create toolbar with action buttons
 	"""
 	
-	def __init__(self,list_partitions):
+	def __init__(self,list_partitions, main_window):
 		self.list_partitions = list_partitions
+		self.main_window = main_window
+		
 		self.toolbar = Gtk.Toolbar()
 		
 		# Dict to translate button names (str) to buttons (Gtk.ToolButton)
@@ -171,7 +173,7 @@ class actions_toolbar():
 	def on_apply_clicked(self,button):
 		""" Onclick action for edit button
 		"""
-		dialog = ConfirmPerformActions()
+		dialog = ConfirmPerformActions(self.main_window)
 		
 		response = dialog.run()
 
