@@ -788,7 +788,7 @@ class ListPartitions():
 		
 		self.b.blivet_reset()
 		
-		self.list_devices.update_devices_view("all",None,None)
+		self.list_devices.update_devices_view("all", None, None)
 		self.update_partitions_view(self.disk)
 		self.update_partitions_image(self.disk)
 	

@@ -166,14 +166,16 @@ class ListDevices():
 		
 		if action == "all":
 			
-			for row in self.device_list:
-				blivet_device = self.b.get_blivet_device(row[1].split("\n")[0])
-				if blivet_device == None and row[0] != None:
-					self.device_list.remove(row.iter)
-			
 			pdevices = self.b.get_physical_devices()
 			gdevices = self.b.get_group_devices()
 			
+			for row in self.device_list:
+				blivet_device = self.b.get_blivet_device(row[1].split("\n")[0])
+				
+				if blivet_device == None and row[0] != None:
+					self.device_list.remove(row.iter)
+					#FIXME need to delete non-existent devices!
+				
 			icon_theme = Gtk.IconTheme.get_default()
 			icon_physical = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
 			

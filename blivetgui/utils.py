@@ -451,7 +451,7 @@ class BlivetUtils():
 		
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
 		
-		assert blivet_device._type != None
+		assert blivet_device != None
 		
 		if blivet_device._type == "partition" and blivet_device.format.type == "lvmpv":
 			return "lvmpv"
