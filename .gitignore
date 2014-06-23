@@ -9,3 +9,6 @@ build
 sdist
 
 *.sqlite3
+
+bak
+.directory

@@ -88,8 +88,7 @@ def os_umount_partition(mountpoint):
 	
 	return True
 	
-
-class FreeSpaceDevice(Blivet):
+class FreeSpaceDevice():
 	""" Special class to represent free space on disk (device)
 		(blivet doesn't have class/device to represent free space)
 	"""
@@ -106,7 +105,7 @@ class FreeSpaceDevice(Blivet):
 		self.size = free_size
 		
 		self.format = None
-
+		
 class BlivetUtils():
 	""" Class with utils directly working with blivet itselves
 	"""
@@ -126,7 +125,7 @@ class BlivetUtils():
 		"""
 		
 		return self.storage.disks
-
+	
 	def get_group_devices(self):
 		""" Return list of LVM2 Volume Group devices
 		
@@ -134,7 +133,7 @@ class BlivetUtils():
 			:rtype: list
 			
 		"""
-
+		
 		return self.storage.vgs
 	
 	def get_physical_devices(self):
@@ -301,15 +300,13 @@ class BlivetUtils():
 			:returns: success
 			:rtype: bool
 			
-        """
-        
+		"""
+		
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
 		resize = settings[0]
 		target_size = settings[1]
 		target_fs = settings[2]
-		
-		#print resize, target_size, target_fs
-        
+		    
 		if resize == False and target_fs == None:
 			return False
 		
@@ -368,7 +365,7 @@ class BlivetUtils():
 			self.storage.createDevice(new_part)
 			
 			device_id = new_part.id
-
+			
 			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label)
 			self.storage.formatDevice(new_part, new_fmt)
 			
@@ -385,7 +382,7 @@ class BlivetUtils():
 			device_id = new_part.id
 			
 			self.storage.createDevice(new_part)
-
+			
 			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label)
 			self.storage.formatDevice(new_part, new_fmt)
 		
