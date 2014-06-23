@@ -350,13 +350,13 @@ class AddDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add new partition including selecting size, fs, label etc.
 	"""
 	
-	def __init__(self, parent_window, device_type, parent_name, partition_name, free_space, free_pvs):
+	def __init__(self, parent_window, device_type, parent_device, partition_name, free_space, free_pvs):
 		"""
 			
 			:param device_type: type of parent device
 			:type device_type: str
-			:parama parent_name: name of parent device
-			:type parent_name: str
+			:parama parent_device: parent device
+			:type parent_device: blivet.Device
 			:param partition_name: name of device
 			:type partition_name: str
 			:param free_space: size of selected free space
@@ -369,7 +369,7 @@ class AddDialog(Gtk.Dialog):
 		self.partition_name = partition_name
 		self.free_space = free_space
 		self.device_type = device_type
-		self.parent_name = parent_name
+		self.parent_device = parent_device
 		self.free_pvs = free_pvs
 		self.parent_window = parent_window
 		        
@@ -465,15 +465,15 @@ class AddDialog(Gtk.Dialog):
 		
 		if self.device_type == "lvmpv":
 			for pv in self.free_pvs:
-				if pv[0] == self.parent_name:
-					self.parents_store.append([True, self.parent_name, self.device_type, str(self.free_space) + " MB"])
+				if pv[0] == self.parent_device.name:
+					self.parents_store.append([True, self.parent_device.name, self.device_type, str(self.free_space) + " MB"])
 				else:
 					self.parents_store.append([False, pv[0], pv[1], str(pv[2]) + " MB"])
 			
 			self.parents.set_sensitive(True)
 		
 		else:
-			self.parents_store.append([True, self.parent_name, self.device_type, str(self.free_space) + " MB"])
+			self.parents_store.append([True, self.parent_device.name, self.device_type, str(self.free_space) + " MB"])
 			self.parents.set_sensitive(False)
 		
 		self.label_list = Gtk.Label()
@@ -484,7 +484,7 @@ class AddDialog(Gtk.Dialog):
 	
 	def on_cell_toggled(self, event, path):
 		
-		if self.parents_store[path][1] == self.parent_name:
+		if self.parents_store[path][1] == self.parent_device.name:
 			pass
 		
 		else:

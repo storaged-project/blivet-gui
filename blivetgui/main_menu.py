@@ -115,6 +115,20 @@ class main_menu():
 		undo_item.set_sensitive(False)
 		edit_menu.add(undo_item)
 		
+		self.menu_items["undo"] = undo_item
+		
+		redo_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_REDO, self.agr)
+		redo_item.set_label(_("Redo Last Action"))
+		key, mod = Gtk.accelerator_parse("<Control><Shift>Z")
+		redo_item.add_accelerator("activate", self.agr,
+											key, mod, Gtk.AccelFlags.VISIBLE)
+		
+		redo_item.connect("activate", self.on_redo_item)
+		redo_item.set_sensitive(False)
+		edit_menu.add(redo_item)
+		
+		self.menu_items["redo"] = redo_item
+		
 		clear_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_CLEAR, self.agr)
 		clear_item.set_label(_("Clear Queued Actions"))
 		
@@ -262,14 +276,14 @@ class main_menu():
 		"""
 		
 		for item in menu_item_names:
-			self.menu_items[item].set_sensitive(True)
+			self.menu_items[item].set_sensitive(False)
 			
 	def deactivate_all(self):
 		""" Deactivate all partition based buttons
         """
         
 		for item in self.menu_items:
-			if item not in ["apply", "clear"]:
+			if item not in ["apply", "clear", "undo", "redo"]:
 				self.menu_items[item].set_sensitive(False)
 	
 	def on_about_item(self, event):
@@ -294,6 +308,14 @@ class main_menu():
 	def on_undo_item(self, event):
 		""" Onselect action for 'Undo Last Action'
 		"""
+		
+		self.list_partitions.actions_undo()
+	
+	def on_redo_item(self, event):
+		""" Onselect action for 'Redo Last Action'
+		"""
+		
+		self.list_partitions.actions_redo()
 		
 	def on_clear_item(self, event):
 		""" Onselect action for 'Clear Queued Actions'

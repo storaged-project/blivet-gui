@@ -22,7 +22,7 @@
 #
 #------------------------------------------------------------------------------#
 
-import sys, os, signal
+import sys, os, signal, copy
 
 from gi.repository import Gtk, GdkPixbuf, Gdk, GLib
 
@@ -56,6 +56,88 @@ _ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
+class actions_history():
+	""" Stores devicetree instances for undo-redo option
+	"""
+	
+	def __init__(self, list_partitions, main_menu, toolbar):
+		
+		self.list_partitions = list_partitions
+		self.main_menu = main_menu
+		self.toolbar = toolbar
+		
+		self.undo_list = []
+		self.redo_list = []
+		
+		self.undo_items = 0
+		self.redo_items = 0
+	
+	def add_undo(self, devicetree):
+		
+		self.main_menu.activate_menu_items(["undo"])
+		
+		if self.undo_items == 5:
+			self.undo_list.popleft()
+			self.undo_items -= 1
+			
+		self.undo_list.append(copy.deepcopy(devicetree))
+		
+		self.undo_items += 1
+		
+		return
+	
+	def add_redo(self, devicetree):
+		
+		self.main_menu.activate_menu_items(["redo"])
+		self.toolbar.activate_buttons(["clear", "apply"])
+		
+		if self.redo_items == 5:
+			self.redo_list.popleft()
+			self.redo_items -= 1
+		
+		self.redo_list.append(devicetree)
+		self.redo_items += 1
+				
+		return
+	
+	def undo(self):
+		
+		self.add_redo(copy.deepcopy(self.list_partitions.b.storage.devicetree))
+		
+		self.main_menu.activate_menu_items(["redo"])
+		
+		self.undo_items -= 1
+		
+		if self.undo_items == 0:
+			self.main_menu.deactivate_menu_items(["undo", "clear", "apply"])
+			self.toolbar.deactivate_buttons(["clear", "apply"])
+					
+		return self.undo_list.pop()
+	
+	def redo(self):
+		
+		self.add_undo(copy.deepcopy(self.list_partitions.b.storage.devicetree))
+		
+		self.redo_items -= 1
+		
+		self.main_menu.activate_menu_items(["clear", "apply"])
+		self.toolbar.activate_buttons(["clear", "apply"])
+		
+		if self.redo_items == 0:
+			self.main_menu.deactivate_menu_items(["redo"])
+		
+		return self.redo_list.pop()
+	
+	def clear_history(self):
+		""" Clear history after performing actions
+		"""
+		
+		self.undo_items = 0
+		self.redo_items = 0
+		
+		self.undo_list = []
+		self.redo_list = []
+	
 class ListPartitions():
 	
 	def __init__(self, main_window, ListDevices, BlivetUtils, Builder, disk=None):
@@ -73,9 +155,9 @@ class ListPartitions():
 		self.main_window = main_window
 		
 		# ListStores for partitions and actions
-		self.partitions_list = Gtk.ListStore(str,str,str,str)
+		self.partitions_list = Gtk.ListStore(object,str,str,str,str)
 		self.actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf,str)
-
+		
 		self.load_partitions()
 		
 		self.partitions_view = self.create_partitions_view()
@@ -104,30 +186,32 @@ class ListPartitions():
 		self.partitions_label.set_text(_("Partitions").format(self.actions))
 		
 		self.selected_partition = None
+		
+		self.history = actions_history(self, self.main_menu, self.toolbar)
 	
 	def load_partitions(self):
 		""" Load children devices (partitions) for selected disk (root/group device)
-        """
-        
+		"""
+		
 		self.partitions_list.clear()
 		partitions = self.b.get_partitions(self.disk)
 		
 		for partition in partitions:
 			
 			if partition.name == _("free space"):
-				self.partitions_list.append([partition.name,"--","--",
+				self.partitions_list.append([partition,partition.name,"--","--",
 								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
-				self.partitions_list.append([partition.name,_("extended"),"--",
+				self.partitions_list.append(partition,[partition.name,_("extended"),"--",
 								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif partition._type == "lvmvg":
-				self.partitions_list.append([partition.name,_("lvmvg"),"--",
+				self.partitions_list.append([partition,partition.name,_("lvmvg"),"--",
 								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif partition.format.mountable:
-				self.partitions_list.append([partition.name,partition.format._type,
+				self.partitions_list.append([partition,partition.name,partition.format._type,
 								 partition_mounted(partition.path),Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			else:
-				self.partitions_list.append([partition.name,partition.format._type,"--",
+				self.partitions_list.append([partition,partition.name,partition.format._type,"--",
 								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 	
 	def device_info(self):
@@ -139,13 +223,13 @@ class ListPartitions():
 		if device_type == "lvmvg":
 			pvs = self.b.get_parent_pvs(self.disk)
 		
-			info_str = _("<b>LVM2 Volume group <i>{0}</i> occupying {1} physical volume(s):</b>\n\n").format(self.disk, len(pvs))
+			info_str = _("<b>LVM2 Volume group <i>{0}</i> occupying {1} physical volume(s):</b>\n\n").format(self.disk.name, len(pvs))
 		
 			for pv in pvs:
 				info_str += _("\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> disk.\n").format(pv.name, Size(spec=(str(pv.size) + " MB")).humanReadable(), pv.disks[0].name)
 		
 		elif device_type in ["lvmpv", "luks/dm-crypt"]:
-			blivet_device = self.b.get_blivet_device(self.disk)
+			blivet_device = self.disk
 			
 			if blivet_device.format._type == "lvmpv":
 				info_str = _("<b>LVM2 Physical Volume</b>").format()
@@ -155,10 +239,10 @@ class ListPartitions():
 		
 		elif device_type == "disk":
 			
-			blivet_disk = self.b.get_blivet_device(self.disk)
+			blivet_disk = self.disk
 			
 			info_str = _("<b>Hard disk</b> <i>{0}</i>\n\n\t• Size: <i>{1}</i>\n\t• Model: <i>{2}</i>\n").format(blivet_disk.path, Size(spec=(str(blivet_disk.size) + " MB")).humanReadable(), blivet_disk.model)
-
+			
 		else:
 			info_str = ""
 		
@@ -166,15 +250,15 @@ class ListPartitions():
 		
 		return		
 	
-	def update_partitions_view(self,device_name):
+	def update_partitions_view(self,selected_device):
 		""" Update partition view with selected disc children (partitions)
 		
-			:param device_name: name of selected device 
-			:type device_name: str
+			:param selected_device: selected device from list (eg. disk or VG) 
+			:type device_name: blivet.Device
 			
-        """
+		"""
 		
-		self.disk = device_name
+		self.disk = selected_device
 		
 		self.device_info()
 		
@@ -184,29 +268,29 @@ class ListPartitions():
 		for partition in partitions:
 			
 			if partition.name == _("free space"):
-				self.partitions_list.append([partition.name,"--","--",
+				self.partitions_list.append([partition,partition.name,"--","--",
 								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
-				self.partitions_list.append([partition.name,_("extended"),"--",
+				self.partitions_list.append([partition,partition.name,_("extended"),"--",
 								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif partition._type == "lvmvg":
-				self.partitions_list.append([partition.name,_("lvmvg"),"--",
+				self.partitions_list.append([partition,partition.name,_("lvmvg"),"--",
 								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif partition.format.mountable:
-				self.partitions_list.append([partition.name,partition.format._type,
+				self.partitions_list.append([partition,partition.name,partition.format._type,
 								 partition_mounted(partition.path),Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			else:
-				self.partitions_list.append([partition.name,partition.format._type,"--",
+				self.partitions_list.append([partition,partition.name,partition.format._type,"--",
 								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 		
 		# select first line in partitions view
 		self.select = self.partitions_view.get_selection()
 		self.path = self.select.select_path("0")
-
+		
 	def create_partitions_view(self):
 		""" Create Gtk.TreeView for device children (partitions)
-        """
-        
+		"""
+		
 		if self.disk == None:
 			partitions = self.partitions_list
 		
@@ -220,10 +304,10 @@ class ListPartitions():
 		
 		renderer_text = Gtk.CellRendererText()
 		
-		column_text1 = Gtk.TreeViewColumn(_("Partition"), renderer_text, text=0)
-		column_text2 = Gtk.TreeViewColumn(_("Filesystem"), renderer_text, text=1)
-		column_text3 = Gtk.TreeViewColumn(_("Mountpoint"), renderer_text, text=2)
-		column_text4 = Gtk.TreeViewColumn(_("Size"), renderer_text, text=3)
+		column_text1 = Gtk.TreeViewColumn(_("Partition"), renderer_text, text=1)
+		column_text2 = Gtk.TreeViewColumn(_("Filesystem"), renderer_text, text=2)
+		column_text3 = Gtk.TreeViewColumn(_("Mountpoint"), renderer_text, text=3)
+		column_text4 = Gtk.TreeViewColumn(_("Size"), renderer_text, text=4)
 		
 		treeview.append_column(column_text1)
 		treeview.append_column(column_text2)
@@ -280,12 +364,12 @@ class ListPartitions():
 		
 		for partition in partitions:
 			
-			if partition[1] == _("extended"):
+			if partition[2] == _("extended"):
 				pass
 			
 			else:
 				
-				total_size += int(Size(spec=partition[3]).convertTo(spec="MB"))
+				total_size += int(Size(spec=partition[4]).convertTo(spec="MB"))
 				num_parts += 1	
 		
 		# Colors for partitions
@@ -307,13 +391,13 @@ class ListPartitions():
 				y = 5
 				
 			
-			if partition[1] == _("extended"):
+			if partition[2] == _("extended"):
 				# Teal color for extend partition
 				cairo_ctx.set_source_rgb(0,1,1)
 				
 				extended = True
 			
-			elif partition[0] == _("free space"):
+			elif partition[1] == _("free space"):
 				cairo_ctx.set_source_rgb(0.75, 0.75, 0.75)
 				# Grey color for unallocated space
 				
@@ -325,7 +409,7 @@ class ListPartitions():
 				
 				extended = False
 			
-			part_width = int(Size(spec=partition[3]).convertTo(spec="MB"))*(width - 2*shrink)/total_size
+			part_width = int(Size(spec=partition[4]).convertTo(spec="MB"))*(width - 2*shrink)/total_size
 			
 			#print part_width, partition[0]
 			
@@ -342,7 +426,7 @@ class ListPartitions():
 			
 			elif x + part_width > width and not extended:
 				part_width = (width - x - shrink)
-
+			
 			cairo_ctx.rectangle(x, shrink, part_width, height - 2*shrink)
 			cairo_ctx.fill()
 			
@@ -352,11 +436,11 @@ class ListPartitions():
 			
 			# Print name of partition
 			cairo_ctx.move_to(x + 12, height/2)
-			cairo_ctx.show_text(partition[0])
+			cairo_ctx.show_text(partition[0].name)
 			
 			# Print size of partition
 			cairo_ctx.move_to(x + 12 , height/2 + 12)
-			cairo_ctx.show_text(partition[3])
+			cairo_ctx.show_text(Size(spec=str(int(partition[0].size)) + " MB").humanReadable())
 			
 			if not extended:
 				x += part_width
@@ -378,7 +462,7 @@ class ListPartitions():
 			:returns: drawing area
 			:rtype: Gtk.DrawingArea
 			
-        """
+		"""
 		
 		partitions = self.partitions_list
 		
@@ -401,7 +485,7 @@ class ListPartitions():
 			:param device: selected device
 			:param type: str
 			
-        """
+		"""
 		
 		self.disk = device
 		partitions = self.partitions_list
@@ -414,7 +498,7 @@ class ListPartitions():
 			:returns: treeview
 			:rtype: Gtk.TreeView
 			
-        """
+		"""
 			
 		treeview = Gtk.TreeView(model=self.actions_list)
 		treeview.set_vexpand(True)
@@ -434,7 +518,7 @@ class ListPartitions():
 	
 	def clear_actions_view(self):
 		""" Delete all actions in actions view
-        """
+		"""
 		
 		self.actions = 0
 		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
@@ -478,17 +562,17 @@ class ListPartitions():
 			:param selected_partition: Selected partition
 			:type selected_partition: Gtk.TreeModelRow
 			
-        """
+		"""
 		
-		partition_device = self.b.storage.devicetree.getDeviceByName(selected_partition[0])
+		partition_device = selected_partition[0]
 		
-		if selected_partition == None or (partition_device == None and selected_partition[0] != _("free space")):
+		if selected_partition == None or (partition_device == None and selected_partition[1] != _("free space")):
 			self.toolbar.deactivate_all()
 			self.main_menu.deactivate_all()
 			self.popup_menu.deactivate_all()
 			return
 		
-		if selected_partition[0] == _("free space"):			
+		if selected_partition[1] == _("free space"):			
 			self.toolbar.deactivate_all()
 			self.toolbar.activate_buttons(["add"])
 			
@@ -498,7 +582,7 @@ class ListPartitions():
 			self.popup_menu.deactivate_all()
 			self.popup_menu.activate_menu_items(["add"])
 		
-		elif selected_partition[1] == _("extended") and partition_device.isleaf:
+		elif selected_partition[2] == _("extended") and partition_device.isleaf:
 			self.toolbar.deactivate_all()
 			self.toolbar.activate_buttons(["delete"])
 			
@@ -508,7 +592,7 @@ class ListPartitions():
 			self.popup_menu.deactivate_all()
 			self.popup_menu.activate_menu_items(["delete"])
 		
-		elif selected_partition[1] == _("lvmvg") and partition_device.isleaf:
+		elif selected_partition[2] == _("lvmvg") and partition_device.isleaf:
 			self.toolbar.deactivate_all()
 			self.toolbar.activate_buttons(["delete"])
 			
@@ -518,7 +602,7 @@ class ListPartitions():
 			self.popup_menu.deactivate_all()
 			self.popup_menu.activate_menu_items(["delete"])
 			
-		elif selected_partition[1] == _("lvmpv") and partition_device.isleaf:
+		elif selected_partition[2] == _("lvmpv") and partition_device.isleaf:
 			self.toolbar.deactivate_all()
 			self.toolbar.activate_buttons(["delete"])
 			
@@ -559,22 +643,25 @@ class ListPartitions():
 		
 		deleted_device = self.selected_partition[0]
 		
-		dialog = ConfirmDeleteDialog(self.selected_partition[0], self.main_window)
+		dialog = ConfirmDeleteDialog(self.selected_partition[0].name, self.main_window)
 		response = dialog.run()
 
 		if response == Gtk.ResponseType.OK:
-            
+			
+			self.history.add_undo(self.b.return_devicetree)
+			self.main_menu.activate_menu_items(["undo"])
+			
 			self.b.delete_device(self.selected_partition[0])
 			
-			self.update_actions_view("delete",_("delete partition {0}").format(self.selected_partition[0]))
+			self.update_actions_view("delete",_("delete partition {0}").format(self.selected_partition[0].name))
 			
 			self.selected_partition = None
 			
 		elif response == Gtk.ResponseType.CANCEL:
 			pass
-
+		
 		dialog.destroy()
-        
+		
 		self.update_partitions_view(self.disk)
 		self.update_partitions_image(self.disk)
 		
@@ -584,7 +671,7 @@ class ListPartitions():
 		""" Add new partition
 		"""
 		
-		free_size = int(Size(spec=self.selected_partition[3]).convertTo(spec="MB"))
+		free_size = int(Size(spec=self.selected_partition[4]).convertTo(spec="MB"))
 		
 		device_type = self.b.get_device_type(self.disk)
 		
@@ -597,6 +684,9 @@ class ListPartitions():
 			if response == Gtk.ResponseType.OK:
 				
 				selection = dialog.get_selection()
+				
+				self.history.add_undo(self.b.return_devicetree)
+				self.main_menu.activate_menu_items(["undo"])
 				
 				self.b.create_disk_label(self.disk)
 				self.update_actions_view("add","create new disklabel on " + str(self.disk) + " device")
@@ -630,11 +720,15 @@ class ListPartitions():
 			elif selection[0] == "LVM2 Volume Group":
 				user_input = dialog.get_selection()
 				
+				self.history.add_undo(self.b.return_devicetree)
+				self.main_menu.activate_menu_items(["undo"])
+				
 				ret = self.b.add_device(parent_names=user_input[5], device_type=user_input[0],
 							fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
 							label=user_input[4])
 				
 				if ret != None:
+					
 					
 					self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
 					self.list_devices.update_devices_view("add", self.disk, ret)
@@ -650,6 +744,9 @@ class ListPartitions():
 			
 			elif selection[0] == "LVM2 Storage":
 				user_input = dialog.get_selection()
+				
+				self.history.add_undo(self.b.return_devicetree)
+				self.main_menu.activate_menu_items(["undo"])
 				
 				ret1 = self.b.add_device(parent_names=[self.disk], device_type="LVM2 Physical Volume",
 							 fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
@@ -667,6 +764,7 @@ class ListPartitions():
 				if ret2 != None:
 					
 					if user_input[2] == None:
+						
 						self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
 						self.list_devices.update_devices_view("add", self.disk, ret2)
 						
@@ -682,18 +780,23 @@ class ListPartitions():
 			else:
 				user_input = dialog.get_selection()
 				
+				self.history.add_undo(self.b.return_devicetree)
+				self.main_menu.activate_menu_items(["undo"])
+				
 				# user_input = [device, size, fs, name, label]
-				ret = self.b.add_device(parent_names=[self.disk], device_type=user_input[0],
+				ret = self.b.add_device(parent_devices=[self.disk], device_type=user_input[0],
 							fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
 							label=user_input[4])
 				
 				if ret != None:
 					
 					if user_input[2] == None:
+					
 						self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
 						self.list_devices.update_devices_view("add", self.disk, ret)
 						
 					else:
+					
 						self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[2] + " partition")
 						
 					self.update_partitions_view(self.disk)
@@ -763,9 +866,13 @@ class ListPartitions():
 				
 			else:
 				
+				self.history.add_undo(self.b.return_devicetree)
+				self.main_menu.activate_menu_items(["undo"])
+				
 				ret = self.b.edit_partition_device(self.selected_partition[0], user_input)
 			
 				if ret:
+					
 					self.update_actions_view("edit","edit " + self.selected_partition[0] + " partition")
 					self.update_partitions_view(self.disk)
 					self.update_partitions_image(self.disk)
@@ -791,6 +898,31 @@ class ListPartitions():
 		self.list_devices.update_devices_view("all", None, None)
 		self.update_partitions_view(self.disk)
 		self.update_partitions_image(self.disk)
+		
+	def actions_redo(self):
+		""" Redo last action
+		"""
+		
+		self.b.override_devicetree(self.history.redo())
+		
+		self.list_devices.update_devices_view("all", None, None)
+		self.update_partitions_view(self.disk)
+		self.update_partitions_image(self.disk)
+		
+		return
+	
+	def actions_undo(self):
+		""" Undo last action
+		"""
+		
+		self.b.override_devicetree(self.history.undo())
+		
+		self.list_devices.update_devices_view("all", None, None)
+		
+		self.update_partitions_view(self.disk)
+		self.update_partitions_image(self.disk)
+		
+		return
 	
 	def on_partition_selection_changed(self,selection):
 		""" On selected partition action
@@ -820,11 +952,11 @@ class ListPartitions():
 				
 			elif response == Gtk.ResponseType.CANCEL:
 				pass
-
+			
 			dialog.destroy()
 		
 		else:
-			Gtk.main_quit()			
+			Gtk.main_quit()
 	
 	@property
 	def get_partitions_list(self):

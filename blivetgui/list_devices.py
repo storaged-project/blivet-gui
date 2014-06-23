@@ -66,15 +66,15 @@ class ListDevices():
 		self.b = BlivetUtils(self.main_window)
 		self.builder = Builder
 		
-		self.device_list = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
+		self.device_list = Gtk.ListStore(object, GdkPixbuf.Pixbuf, str)
 		
-		self.device_list.append([None,_("<b>Disks</b>")])
+		self.device_list.append([None,None,_("<b>Disks</b>")])
 		self.load_disks()
 		
-		self.device_list.append([None,_("<b>LVM2 Physical Volumes</b>")])
+		self.device_list.append([None,None,_("<b>LVM2 Physical Volumes</b>")])
 		self.load_lvm_physical_volumes()
 		
-		self.device_list.append([None,_("<b>LVM2 Volume Groups</b>")])
+		self.device_list.append([None,None,_("<b>LVM2 Volume Groups</b>")])
 		self.load_lvm_volume_groups()
 		
 		self.partitions_list = ListPartitions(self.main_window, self, self.b,self.builder)
@@ -103,10 +103,10 @@ class ListDevices():
 		
 		for disk in disks:
 			if disk.removable:
-				self.device_list.append([icon_disk_usb,str(disk.name +
+				self.device_list.append([disk,icon_disk_usb,str(disk.name +
 											   "\n<i><small>" + disk.model + "</small></i>")])
 			else:
-				self.device_list.append([icon_disk,str(disk.name +
+				self.device_list.append([disk,icon_disk,str(disk.name +
 										   "\n<i><small>" + disk.model + "</small></i>")])
 				
 	def load_lvm_physical_volumes(self):
@@ -119,7 +119,7 @@ class ListDevices():
 		pdevices = self.b.get_physical_devices()
 		
 		for device in pdevices:
-			self.device_list.append([icon_physical,str(device.name +
+			self.device_list.append([device,icon_physical,str(device.name +
 											  "\n<i><small>LVM2 PV</small></i>")])
 	
 	def load_lvm_volume_groups(self):
@@ -132,7 +132,7 @@ class ListDevices():
 		icon_group = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
 		
 		for device in gdevices:
-			self.device_list.append([icon_group,str(device.name +
+			self.device_list.append([device,icon_group,str(device.name +
 										   "\n<i><small>LVM2 VG</small></i>")])
 	
 	def load_devices(self):
@@ -143,6 +143,7 @@ class ListDevices():
 		self.load_lvm_physical_volumes()
 		self.load_lvm_volume_groups()
 	
+	#FIXME
 	def update_devices_view(self, action, parent_device, changed_device):
 		""" Update device view
 		
@@ -170,7 +171,7 @@ class ListDevices():
 			gdevices = self.b.get_group_devices()
 			
 			for row in self.device_list:
-				blivet_device = self.b.get_blivet_device(row[1].split("\n")[0])
+				blivet_device = row[0]
 				
 				if blivet_device == None and row[0] != None:
 					self.device_list.remove(row.iter)
@@ -182,7 +183,7 @@ class ListDevices():
 			for device in pdevices:
 				device_is_in = False
 				for row in self.device_list:
-					if row[1].split("\n")[0] == device.name:
+					if row[2].split("\n")[0] == device.name:
 						device_is_in = True
 						break
 				if not device_is_in:
@@ -191,7 +192,7 @@ class ListDevices():
 								   "\n<i><small>LVM2 PV</small></i>")])
 				
 					for row in self.device_list:
-						if row[1] == row_to_find:
+						if row[2] == row_to_find:
 							row_to_add_after = row
 			
 					if row_to_add_after != None:
@@ -200,7 +201,7 @@ class ListDevices():
 			for device in gdevices:
 				device_is_in = False
 				for row in self.device_list:
-					if row[1].split("\n")[0] == device.name:
+					if row[2].split("\n")[0] == device.name:
 						device_is_in = True
 						break
 				if not device_is_in:
@@ -213,9 +214,9 @@ class ListDevices():
 			row_to_select = None
 			
 			for row in self.device_list:
-				if row[1].split("\n")[0] == changed_device:
+				if row[2].split("\n")[0] == changed_device:
 					row_to_remove = row
-				elif row[1].split("\n")[0] == parent_device:
+				elif row[2].split("\n")[0] == parent_device:
 					row_to_select = row
 		
 			if row_to_remove != None:
@@ -223,7 +224,7 @@ class ListDevices():
 		
 			if row_to_select != None:
 				self.select.select_iter(row_to_select.iter)
-
+			
 		elif action == "add":
 			row_to_add_after = None
 			row_to_select = None
@@ -242,7 +243,7 @@ class ListDevices():
 				self.device_list.append(new_row)
 				
 				for row in self.device_list:
-					if row[1].split("\n")[0] == changed_device:
+					if row[2].split("\n")[0] == changed_device:
 						row_to_select = row
 			
 				if row_to_select != None:
@@ -254,9 +255,9 @@ class ListDevices():
 				new_row = ([icon_physical,str(changed_device + "\n<i><small>LVM2 PV</small></i>")])
 			
 				for row in self.device_list:
-					if row[1] == row_to_find:
+					if row[2] == row_to_find:
 						row_to_add_after = row
-					elif row[1].split("\n")[0] == changed_device:
+					elif row[2].split("\n")[0] == changed_device:
 						row_to_select = row
 			
 				if row_to_add_after != None:
@@ -276,11 +277,11 @@ class ListDevices():
 		#treeview.set_hexpand(True)
 		
 		renderer_pixbuf = Gtk.CellRendererPixbuf()
-		column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, pixbuf=0)
+		column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, pixbuf=1)
 		treeview.append_column(column_pixbuf)
 		
 		renderer_text = Gtk.CellRendererText()
-		column_text = Gtk.TreeViewColumn('Pango Markup', renderer_text, markup=1)
+		column_text = Gtk.TreeViewColumn('Pango Markup', renderer_text, markup=2)
 		treeview.append_column(column_text)
 		
 		treeview.set_headers_visible(False)
@@ -300,8 +301,7 @@ class ListDevices():
 			
 			# 'Disks', 'LVM2 Volume Groups' and 'LVM2 Physical Volumes' are just labels
 			# If user select one of these, we need to unselect this and select previous choice
-			if model[treeiter][1] in ["<b>Disks</b>", "<b>LVM2 Volume Groups</b>",
-							 "<b>LVM2 Physical Volumes</b>"]:
+			if model[treeiter][0] == None:
 				selection.handler_block(self.selection_signal)
 				selection.unselect_iter(treeiter)
 				selection.handler_unblock(self.selection_signal) 
@@ -311,7 +311,7 @@ class ListDevices():
 			else:
 				last = treeiter
 			
-			disk = model[treeiter][1].split('\n')[0]
+			disk = model[treeiter][0]
 			
 			self.partitions_list.update_partitions_view(disk)
 			self.partitions_list.update_partitions_image(disk)

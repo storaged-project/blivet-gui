@@ -28,7 +28,7 @@ from dialogs import *
 
 import gettext
 
-import os, subprocess
+import os, subprocess, copy
 
 #------------------------------------------------------------------------------#
 
@@ -164,22 +164,20 @@ class BlivetUtils():
 		
 		return free_pvs
 	
-	def get_free_space(self,device_name,partitions):
+	def get_free_space(self, blivet_device, partitions):
 		""" Find free space on device
 		
-			:param device_name: name of device
-			:type device_name: str
+			:param blivet_device: blivet device
+			:type blivet_device: blivet.Device
 			:param paritions: partions (children) of device
 			:type partition: list
 			:returns: list of partitions + free space
 			:rtype: list
 			
-        """
+		"""
 		
-		if device_name == None:
+		if blivet_device == None:
 			return []
-		
-		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
 		
 		if blivet_device.isDisk and blivet_device.kids == 0:
 			# disk is empty
@@ -222,7 +220,8 @@ class BlivetUtils():
 			
 		elif blivet_device._type == "lvmvg":
 			
-			partitions.append(FreeSpaceDevice(blivet_device.freeSpace))
+			if blivet_device.freeSpace > 0:
+				partitions.append(FreeSpaceDevice(blivet_device.freeSpace))
 			
 			return partitions
 		
@@ -237,51 +236,46 @@ class BlivetUtils():
 		else:
 			return partitions
 
-	def get_partitions(self,device_name):
+	def get_partitions(self,blivet_device):
 		""" Get partitions (children) of selected device
 		
-			:param device_name: name of device
-			:type device_name: str
+			:param blivet_device: blivet device
+			:type blivet_device: blivet.Device
 			:returns: list of partitions
 			:rtype: list
 			
-        """
+		"""
 		
-		if device_name == None:
+		if blivet_device == None:
 			return []
 		
-		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
+		blivet_device = self.storage.devicetree.getDeviceByName(blivet_device.name)
 		
-		partitions = []
-		
+		partitions = []		
 		partitions = self.storage.devicetree.getChildren(blivet_device)
-		
-		partitions = self.get_free_space(device_name,partitions)
+		partitions = self.get_free_space(blivet_device,partitions)
 		
 		return partitions
 	
-	def delete_device(self,device_name):
+	def delete_device(self,blivet_device):
 		""" Delete device
 		
-			:param device_name: name of device
-			:type device_name: str
+			:param blivet_device: blivet device
+			:type blivet_device: blivet.Device
 			
-        """
+		"""
 		
-		device = self.storage.devicetree.getDeviceByName(device_name)		
-		self.storage.destroyDevice(device)
+		self.storage.destroyDevice(blivet_device)
 	
-	def device_resizable(self,device_name):
+	def device_resizable(self,blivet_device):
 		""" Is given device resizable
 		
-			:param device_name: name of device
-			:type device_name: str
+			:param blivet_device: blivet device
+			:type blivet_device: blivet.Device
 			:returns: device resizable, minSize, maxSize, size
 			:rtype: tuple
 			
 		"""
-		
-		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
 		
 		if blivet_device.resizable:
 			return (True, blivet_device.minSize, blivet_device.maxSize, blivet_device.size)
@@ -290,11 +284,11 @@ class BlivetUtils():
 			return (False, blivet_device.size, blivet_device.size, blivet_device.size)
 		
 	
-	def edit_partition_device(self, device_name, settings):
+	def edit_partition_device(self, blivet_device, settings):
 		""" Edit device
 		
-			:param device_name: name of device
-			:type device_name: str
+			:param blivet_device: blivet.Device
+			:type blivet_device: blivet.Device
 			:param settings: resize, target_size, target_fs
 			:type settings: tuple
 			:returns: success
@@ -302,7 +296,6 @@ class BlivetUtils():
 			
 		"""
 		
-		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
 		resize = settings[0]
 		target_size = settings[1]
 		target_fs = settings[2]
@@ -328,14 +321,17 @@ class BlivetUtils():
 		
 		except PartitioningError as e:
 			BlivetError(e, self.main_window)
+		
+		except _ped.PartitionException as e:
+			BlivetError(e, self.main_window)
 			
 			return False
 	
-	def add_device(self, parent_names, device_type, fs_type, target_size, name=None, label=None, flags=[]):
+	def add_device(self, parent_devices, device_type, fs_type, target_size, name=None, label=None, flags=[]):
 		""" Create new device
 		
-			:param parent_names: name of parent devices
-			:type parent_names: list of str
+			:param parent_devices: parent devices
+			:type parent_devices: list of blivet.Device
 			:param device_type: type of device to create
 			:type device_type: str
 			:param fs_type: filesystem
@@ -357,8 +353,8 @@ class BlivetUtils():
 		
 		parent_devices = []
 		
-		for pname in parent_names:
-			parent_devices.append(self.storage.devicetree.getDeviceByName(pname))		
+		for pname in parent_devices:
+			parent_devices.append(pdevice)		
 		
 		if device_type == _("Partition"):
 			new_part = self.storage.newPartition(size=target_size, parents=parent_devices)
@@ -422,17 +418,15 @@ class BlivetUtils():
 			
 			return None
 	
-	def get_device_type(self, device_name):
+	def get_device_type(self, blivet_device):
 		""" Get device type
 		
-			:param device_name: device name
-			:type device_name: str
+			:param blivet_device: blivet device
+			:type device_name: blivet.Device
 			:returns: type of device
 			:rtype: str
 			
 		"""
-		
-		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
 		
 		assert blivet_device != None
 		
@@ -455,33 +449,29 @@ class BlivetUtils():
 		
 		return blivet_device
 	
-	def get_parent_pvs(self, device_name):
+	def get_parent_pvs(self, blivet_device):
 		""" Return list of LVM VG PVs
 		
-			:param device_name: device name
-			:type device_name: str
+			:param blivet_device: blivet device
+			:type blivet_device: blivet.Device
 			:returns: list of devices
 			:rtype: list of blivet.StorageDevice
 			
 		"""
 		
-		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
-		
 		assert blivet_device._type == "lvmvg"
 		
 		return blivet_device.pvs
 	
-	def has_disklabel(self, device_name):
+	def has_disklabel(self, blivet_device):
 		""" Has this disk device disklabel
 		
-			:param device_name: device name
-			:type device_name: str
+			:param blivet_device: blivet device
+			:type blivet_device: blivet.Device
 			:returns: true/false
 			:rtype: bool
 			
 		"""
-		
-		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
 		
 		assert blivet_device._type == "disk"
 		
@@ -498,6 +488,15 @@ class BlivetUtils():
 		blivet_device = self.storage.devicetree.getDeviceByName(disk_name)
 		
 		self.storage.initializeDisk(blivet_device)
+	
+	@property
+	def return_devicetree(self):
+		
+		return self.storage.devicetree
+	
+	def override_devicetree(self, devicetree):
+		
+		self.storage.devicetree = copy.deepcopy(devicetree)
 	
 	def blivet_reset(self):
 		""" Blivet.reset()
