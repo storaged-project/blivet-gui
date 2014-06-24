@@ -349,12 +349,7 @@ class BlivetUtils():
 			
 		"""
 		
-		device_id = 0
-		
-		parent_devices = []
-		
-		for pname in parent_devices:
-			parent_devices.append(pdevice)		
+		device_id = 0	
 		
 		if device_type == _("Partition"):
 			new_part = self.storage.newPartition(size=target_size, parents=parent_devices)
@@ -411,7 +406,7 @@ class BlivetUtils():
 		try:
 			partitioning.doPartitioning(self.storage)
 			
-			return self.storage.devicetree.getDeviceByID(device_id).name
+			return self.storage.devicetree.getDeviceByID(device_id)
 		
 		except PartitioningError as e:
 			BlivetError(e, self.main_window)

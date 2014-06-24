@@ -671,7 +671,7 @@ class ListPartitions():
 		""" Add new partition
 		"""
 		
-		free_size = int(Size(spec=self.selected_partition[4]).convertTo(spec="MB"))
+		free_size = self.selected_partition[0].size
 		
 		device_type = self.b.get_device_type(self.disk)
 		
@@ -748,7 +748,7 @@ class ListPartitions():
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
 				
-				ret1 = self.b.add_device(parent_names=[self.disk], device_type="LVM2 Physical Volume",
+				ret1 = self.b.add_device(parent_devices=[self.disk], device_type="LVM2 Physical Volume",
 							 fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
 							 label=user_input[4])
 				
@@ -757,7 +757,7 @@ class ListPartitions():
 					if user_input[2] == None:
 						self.list_devices.update_devices_view("add", self.disk, ret1)
 					
-				ret2 = self.b.add_device(parent_names=[ret1], device_type="LVM2 Volume Group",
+				ret2 = self.b.add_device(parent_devices=[ret1], device_type="LVM2 Volume Group",
 							 fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
 							 label=user_input[4])
 				

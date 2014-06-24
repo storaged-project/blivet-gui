@@ -67,15 +67,7 @@ class ListDevices():
 		self.builder = Builder
 		
 		self.device_list = Gtk.ListStore(object, GdkPixbuf.Pixbuf, str)
-		
-		self.device_list.append([None,None,_("<b>Disks</b>")])
-		self.load_disks()
-		
-		self.device_list.append([None,None,_("<b>LVM2 Physical Volumes</b>")])
-		self.load_lvm_physical_volumes()
-		
-		self.device_list.append([None,None,_("<b>LVM2 Volume Groups</b>")])
-		self.load_lvm_volume_groups()
+		self.load_devices()
 		
 		self.partitions_list = ListPartitions(self.main_window, self, self.b,self.builder)
 		
@@ -95,6 +87,8 @@ class ListDevices():
 		""" Load disks
 		"""
 		
+		self.device_list.append([None,None,_("<b>Disks</b>")])
+		
 		icon_theme = Gtk.IconTheme.get_default()
 		icon_disk = Gtk.IconTheme.load_icon (icon_theme,"drive-harddisk",32, 0)
 		icon_disk_usb = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
@@ -113,18 +107,23 @@ class ListDevices():
 		""" Load LVM2 PVs
 		"""
 		
+		self.device_list.append([None,None,_("<b>LVM2 Physical Volumes</b>")])
+		
 		icon_theme = Gtk.IconTheme.get_default()
 		icon_physical = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
 		
 		pdevices = self.b.get_physical_devices()
 		
 		for device in pdevices:
+			
 			self.device_list.append([device,icon_physical,str(device.name +
 											  "\n<i><small>LVM2 PV</small></i>")])
 	
 	def load_lvm_volume_groups(self):
 		""" Load LVM2 VGs
 		"""
+		
+		self.device_list.append([None,None,_("<b>LVM2 Volume Groups</b>")])
 		
 		gdevices = self.b.get_group_devices()
 		
@@ -138,12 +137,12 @@ class ListDevices():
 	def load_devices(self):
 		""" Load all devices
 		"""
+		self.device_list.clear()
 		
 		self.load_disks()
 		self.load_lvm_physical_volumes()
 		self.load_lvm_volume_groups()
 	
-	#FIXME
 	def update_devices_view(self, action, parent_device, changed_device):
 		""" Update device view
 		
@@ -154,119 +153,32 @@ class ListDevices():
 			:param device_changed: added/deleted device
 			:type device_changed: str
 			
-			.. note::
-
-				After removing or adding VGs or PVs it is neccesary to add or remove
-				these devices from device list.
-				After removing all queud actions it is neccesary to go through list of
-				devices and find if they are still in devicetree and also go through
-				devicetree and find if those devices are in device list.
-				This function will update the Gtk.ListStore.
-				
+			#FIXME: deprecated parametres action/parent_device/changed_device
 		"""
 		
-		if action == "all":
-			
-			pdevices = self.b.get_physical_devices()
-			gdevices = self.b.get_group_devices()
-			
-			for row in self.device_list:
-				blivet_device = row[0]
-				
-				if blivet_device == None and row[0] != None:
-					self.device_list.remove(row.iter)
-					#FIXME need to delete non-existent devices!
-				
-			icon_theme = Gtk.IconTheme.get_default()
-			icon_physical = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
-			
-			for device in pdevices:
-				device_is_in = False
-				for row in self.device_list:
-					if row[2].split("\n")[0] == device.name:
-						device_is_in = True
-						break
-				if not device_is_in:
-					row_to_find = _("<b>LVM2 Volume Groups</b>")
-					new_row = ([icon_physical,str(device.name +
-								   "\n<i><small>LVM2 PV</small></i>")])
-				
-					for row in self.device_list:
-						if row[2] == row_to_find:
-							row_to_add_after = row
-			
-					if row_to_add_after != None:
-						self.device_list.insert_before(row_to_add_after.iter, new_row)
-			
-			for device in gdevices:
-				device_is_in = False
-				for row in self.device_list:
-					if row[2].split("\n")[0] == device.name:
-						device_is_in = True
-						break
-				if not device_is_in:
-					self.device_list.append([icon_physical,str(device.name +
-												"\n<i><small>LVM2 VG</small></i>")])
+		# remember previously selected device name
+		selection = self.disks_view.get_selection()
+		model, treeiter = selection.get_selected()
+		if treeiter != None and model != None:
+			selected_device = model[treeiter][0].name
 		
-		elif action == "delete":
-			
-			row_to_remove = None
-			row_to_select = None
-			
-			for row in self.device_list:
-				if row[2].split("\n")[0] == changed_device:
-					row_to_remove = row
-				elif row[2].split("\n")[0] == parent_device:
-					row_to_select = row
+		# reload devices
+		self.load_devices()
 		
-			if row_to_remove != None:
-				self.device_list.remove(row_to_remove.iter)
+		# if the device still exists, select it; else select first device in list
+		i = 0
+		selected = False
 		
-			if row_to_select != None:
-				self.select.select_iter(row_to_select.iter)
+		for device in self.device_list:
 			
-		elif action == "add":
-			row_to_add_after = None
-			row_to_select = None
+			if device[0] != None and device[0].name == selected_device:
+				self.disks_view.set_cursor(i)
+				selected = True
 			
-			# I want to add new device to appropriate section -> looking for row
-			# with section name and adding new row after it
+			i += 1
 			
-			icon_theme = Gtk.IconTheme.get_default()
-			icon_physical = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
-
-			changed_type = self.b.get_device_type(changed_device)
-			
-			if changed_type == "lvmvg":
-				# new volume group is always last
-				new_row = ([icon_physical,str(changed_device + "\n<i><small>LVM2 VG</small></i>")])
-				self.device_list.append(new_row)
-				
-				for row in self.device_list:
-					if row[2].split("\n")[0] == changed_device:
-						row_to_select = row
-			
-				if row_to_select != None:
-					self.select.select_iter(row_to_select.iter)
-			
-			elif changed_type == "lvmpv":
-				# new physical volume comes before list of vgs
-				row_to_find = _("<b>LVM2 Volume Groups</b>")
-				new_row = ([icon_physical,str(changed_device + "\n<i><small>LVM2 PV</small></i>")])
-			
-				for row in self.device_list:
-					if row[2] == row_to_find:
-						row_to_add_after = row
-					elif row[2].split("\n")[0] == changed_device:
-						row_to_select = row
-			
-				if row_to_add_after != None:
-					self.device_list.insert_before(row_to_add_after.iter, new_row)
-			
-				if row_to_select != None:
-					self.select.select_iter(row_to_select.iter)
-			
-			return
+		if not selected:
+			self.disks_view.set_cursor(1)		
 				
 	def create_devices_view(self):
 		""" Create view for devices
@@ -311,10 +223,11 @@ class ListDevices():
 			else:
 				last = treeiter
 			
-			disk = model[treeiter][0]
+			if self.device_list.iter_is_valid(treeiter):
+				disk = model[treeiter][0]
 			
-			self.partitions_list.update_partitions_view(disk)
-			self.partitions_list.update_partitions_image(disk)
+				self.partitions_list.update_partitions_view(disk)
+				self.partitions_list.update_partitions_image(disk)
 
 	def return_device_list(self):
 		return self.device_list
