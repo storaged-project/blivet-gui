@@ -160,7 +160,7 @@ class BlivetUtils():
 		
 		for pv in pvs:
 			if pv.kids == 0:
-				free_pvs.append((pv.name, "lvmpv", int(pv.size)))
+				free_pvs.append(pv)
 		
 		return free_pvs
 	

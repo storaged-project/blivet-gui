@@ -28,6 +28,8 @@ import gettext
 
 from gi.repository import Gtk, GdkPixbuf
 
+from blivet import Size
+
 #------------------------------------------------------------------------------#
 
 APP_NAME = "blivet-gui"
@@ -440,7 +442,7 @@ class AddDialog(Gtk.Dialog):
 	
 	def add_parent_list(self):
 		
-		self.parents_store = Gtk.ListStore(bool, str, str, str)
+		self.parents_store = Gtk.ListStore(object, bool, str, str, str)
 		
 		self.parents = Gtk.TreeView(model=self.parents_store)
 		#self.parents.set_vexpand(True)
@@ -451,10 +453,10 @@ class AddDialog(Gtk.Dialog):
 		
 		renderer_text = Gtk.CellRendererText()
 		
-		column_toggle = Gtk.TreeViewColumn(None, renderer_toggle, active=0)
-		column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=1)
-		column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=2)
-		column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=3)
+		column_toggle = Gtk.TreeViewColumn(None, renderer_toggle, active=1)
+		column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=2)
+		column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=3)
+		column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=4)
 		
 		self.parents.append_column(column_toggle)
 		self.parents.append_column(column_name)
@@ -465,15 +467,15 @@ class AddDialog(Gtk.Dialog):
 		
 		if self.device_type == "lvmpv":
 			for pv in self.free_pvs:
-				if pv[0] == self.parent_device.name:
-					self.parents_store.append([True, self.parent_device.name, self.device_type, str(self.free_space) + " MB"])
+				if pv.name == self.parent_device.name:
+					self.parents_store.append([self.parent_device, True, self.parent_device.name, self.device_type, Size(spec=str(int(self.free_space)) + " MB").humanReadable()])
 				else:
-					self.parents_store.append([False, pv[0], pv[1], str(pv[2]) + " MB"])
+					self.parents_store.append([pv, False, pv.name, "lvmpv", Size(spec=str(pv.size) + " MB").humanReadable()])
 			
 			self.parents.set_sensitive(True)
 		
 		else:
-			self.parents_store.append([True, self.parent_device.name, self.device_type, str(self.free_space) + " MB"])
+			self.parents_store.append([self.parent_device, True, self.parent_device.name, self.device_type, Size(spec=str(int(self.free_space)) + " MB").humanReadable()])
 			self.parents.set_sensitive(False)
 		
 		self.label_list = Gtk.Label()
@@ -484,11 +486,11 @@ class AddDialog(Gtk.Dialog):
 	
 	def on_cell_toggled(self, event, path):
 		
-		if self.parents_store[path][1] == self.parent_device.name:
+		if self.parents_store[path][2] == self.parent_device.name:
 			pass
 		
 		else:
-			self.parents_store[path][0] = not self.parents_store[path][0]		
+			self.parents_store[path][1] = not self.parents_store[path][1]		
 	
 	def add_size_scale(self):
 		
@@ -635,9 +637,9 @@ class AddDialog(Gtk.Dialog):
 			size = 0
 			
 			for row in self.parents_store:
-				if row[0]:
-					parents.append(row[1])
-					size += int(row[3].split()[0])
+				if row[1]:
+					parents.append(row[0])
+					size += row[0].size
 			
 			return (device, size, self.filesystems_combo.get_active_text(), 
 				self.name_entry.get_text(), self.label_entry.get_text(), parents)

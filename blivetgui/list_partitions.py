@@ -726,7 +726,7 @@ class ListPartitions():
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
 				
-				ret = self.b.add_device(parent_names=user_input[5], device_type=user_input[0],
+				ret = self.b.add_device(parent_devices=user_input[5], device_type=user_input[0],
 							fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
 							label=user_input[4])
 				
