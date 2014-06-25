@@ -75,6 +75,7 @@ class actions_history():
 	def add_undo(self, devicetree):
 		
 		self.main_menu.activate_menu_items(["undo"])
+		self.toolbar.activate_buttons(["undo"])
 		
 		if self.undo_items == 5:
 			self.undo_list.popleft()
@@ -88,8 +89,8 @@ class actions_history():
 	
 	def add_redo(self, devicetree):
 		
-		self.main_menu.activate_menu_items(["redo"])
-		self.toolbar.activate_buttons(["clear", "apply"])
+		self.main_menu.activate_menu_items(["redo", "clear", "apply"])
+		self.toolbar.activate_buttons(["redo", "clear", "apply"])
 		
 		if self.redo_items == 5:
 			self.redo_list.popleft()
@@ -105,12 +106,13 @@ class actions_history():
 		self.add_redo(copy.deepcopy(self.list_partitions.b.storage.devicetree))
 		
 		self.main_menu.activate_menu_items(["redo"])
+		self.toolbar.activate_buttons(["redo"])
 		
 		self.undo_items -= 1
 		
 		if self.undo_items == 0:
 			self.main_menu.deactivate_menu_items(["undo", "clear", "apply"])
-			self.toolbar.deactivate_buttons(["clear", "apply"])
+			self.toolbar.deactivate_buttons(["undo", "clear", "apply"])
 					
 		return self.undo_list.pop()
 	
@@ -125,6 +127,7 @@ class actions_history():
 		
 		if self.redo_items == 0:
 			self.main_menu.deactivate_menu_items(["redo"])
+			self.toolbar.deactivate_buttons(["redo"])
 		
 		return self.redo_list.pop()
 	

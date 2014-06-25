@@ -119,6 +119,24 @@ class actions_toolbar():
 		self.toolbar.insert(button_clear, 7)
 		self.buttons["clear"] = button_clear
 		button_clear.connect("clicked", self.on_clear_clicked)
+		
+		self.toolbar.insert(Gtk.SeparatorToolItem(), 8)
+		
+		button_undo = Gtk.ToolButton()
+		button_undo.set_icon_name("edit-undo")
+		button_undo.set_sensitive(False)
+		button_undo.set_tooltip_text(_("Undo"))
+		self.toolbar.insert(button_undo, 9)
+		self.buttons["undo"] = button_undo
+		button_undo.connect("clicked", self.on_undo_clicked)
+		
+		button_redo = Gtk.ToolButton()
+		button_redo.set_icon_name("edit-redo")
+		button_redo.set_sensitive(False)
+		button_redo.set_tooltip_text(_("Redo"))
+		self.toolbar.insert(button_redo, 10)
+		self.buttons["redo"] = button_redo
+		button_redo.connect("clicked", self.on_redo_clicked)
 	
 	def activate_buttons(self,button_names):
 		""" Activate selected buttons
@@ -147,7 +165,7 @@ class actions_toolbar():
         """
 		
 		for button in self.buttons:
-			if button not in ["apply", "clear"]:
+			if button not in ["apply", "clear", "undo", "redo"]:
 				self.buttons[button].set_sensitive(False)
 			
 	def on_delete_clicked(self,button):
@@ -191,6 +209,18 @@ class actions_toolbar():
 		
 		self.list_partitions.clear_actions()
 		self.list_partitions.clear_actions_view()
+		
+	def on_undo_clicked(self, event):
+		""" Onselect action for 'Undo' button
+		"""
+		
+		self.list_partitions.actions_undo()
+		
+	def on_redo_clicked(self, event):
+		""" Onselect action for 'Redo' button
+		"""
+		
+		self.list_partitions.actions_redo()
 	
 	@property
 	def get_toolbar(self):

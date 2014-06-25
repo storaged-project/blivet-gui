@@ -472,15 +472,13 @@ class BlivetUtils():
 		
 		return blivet_device.format.type == "disklabel"
 	
-	def create_disk_label(self, disk_name):
+	def create_disk_label(self, blivet_device):
 		""" Create disklabel
 		
-			:param disk_name: disk name
-			:type device_name: str
+			:param blivet_device: blivet device
+			:type blivet_device: blivet.Device
 			
 		"""
-		
-		blivet_device = self.storage.devicetree.getDeviceByName(disk_name)
 		
 		self.storage.initializeDisk(blivet_device)
 	
