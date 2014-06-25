@@ -134,7 +134,9 @@ class actions_history():
 	def clear_history(self):
 		""" Clear history after performing actions
 		"""
-		
+		self.main_menu.deactivate_menu_items(["undo", "redo"])
+		self.toolbar.deactivate_buttons(["undo", "redo"])
+			
 		self.undo_items = 0
 		self.redo_items = 0
 		
@@ -897,6 +899,8 @@ class ListPartitions():
 		"""
 		
 		self.b.blivet_reset()
+		
+		self.history.clear_history()
 		
 		self.list_devices.update_devices_view("all", None, None)
 		self.update_partitions_view(self.disk)

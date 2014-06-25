@@ -1,1 +1,0 @@
-xgettext --language=Python --keyword=_ --output=po/blivet-gui.pot `find . -name "*.py"`
