@@ -7,6 +7,7 @@
 dist
 build
 sdist
+_build
 
 *.sqlite3
 
