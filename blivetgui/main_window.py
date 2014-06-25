@@ -50,7 +50,7 @@ _ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
-def main_window():
+def main_window(kickstart = False):
 	""" Create main window from Glade UI file
 	"""
 	
@@ -62,7 +62,7 @@ def main_window():
 	MainWindow = builder.get_object("MainWindow")
 	MainWindow.connect("delete-event", Gtk.main_quit)
 
-	dlist = ListDevices(MainWindow, builder)
+	dlist = ListDevices(MainWindow, builder, kickstart)
 
 	builder.get_object("disks_viewport").add(dlist.get_disks_view())
 
@@ -77,7 +77,7 @@ def main_window():
 	
 	return MainWindow
 
-def embeded_window():
+def embeded_window(kickstart=False):
 	""" Create Gtk.Plug widget
 	"""
 	

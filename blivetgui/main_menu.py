@@ -328,18 +328,7 @@ class main_menu():
 		""" Onselect action for 'Apply Queued Actions'
 		"""
 		
-		dialog = ConfirmPerformActions(self.main_window)
-		
-		response = dialog.run()
-
-		if response == Gtk.ResponseType.OK:
-            
-			self.list_partitions.perform_actions()
-			
-		elif response == Gtk.ResponseType.CANCEL:
-			pass
-
-		dialog.destroy()
+		self.list_partitions.apply_event()
 	
 	def on_add_item(self, event):
 		""" Onselect action for 'New'

@@ -22,7 +22,9 @@
 #
 #------------------------------------------------------------------------------#
 
-import sys, os, signal, copy
+import sys, os, signal
+
+import copy as cp
 
 from gi.repository import Gtk, GdkPixbuf, Gdk, GLib
 
@@ -60,11 +62,9 @@ class actions_history():
 	""" Stores devicetree instances for undo-redo option
 	"""
 	
-	def __init__(self, list_partitions, main_menu, toolbar):
+	def __init__(self, list_partitions):
 		
 		self.list_partitions = list_partitions
-		self.main_menu = main_menu
-		self.toolbar = toolbar
 		
 		self.undo_list = []
 		self.redo_list = []
@@ -74,14 +74,14 @@ class actions_history():
 	
 	def add_undo(self, devicetree):
 		
-		self.main_menu.activate_menu_items(["undo"])
-		self.toolbar.activate_buttons(["undo"])
+		self.list_partitions.main_menu.activate_menu_items(["undo"])
+		self.list_partitions.toolbar.activate_buttons(["undo"])
 		
 		if self.undo_items == 5:
 			self.undo_list.popleft()
 			self.undo_items -= 1
 			
-		self.undo_list.append(copy.deepcopy(devicetree))
+		self.undo_list.append(cp.deepcopy(devicetree))
 		
 		self.undo_items += 1
 		
@@ -89,8 +89,8 @@ class actions_history():
 	
 	def add_redo(self, devicetree):
 		
-		self.main_menu.activate_menu_items(["redo", "clear", "apply"])
-		self.toolbar.activate_buttons(["redo", "clear", "apply"])
+		self.list_partitions.main_menu.activate_menu_items(["redo", "clear", "apply"])
+		self.list_partitions.toolbar.activate_buttons(["redo", "clear", "apply"])
 		
 		if self.redo_items == 5:
 			self.redo_list.popleft()
@@ -103,39 +103,40 @@ class actions_history():
 	
 	def undo(self):
 		
-		self.add_redo(copy.deepcopy(self.list_partitions.b.storage.devicetree))
+		self.add_redo(cp.deepcopy(self.list_partitions.b.storage.devicetree))
 		
-		self.main_menu.activate_menu_items(["redo"])
-		self.toolbar.activate_buttons(["redo"])
+		self.list_partitions.main_menu.activate_menu_items(["redo"])
+		self.list_partitions.toolbar.activate_buttons(["redo"])
 		
 		self.undo_items -= 1
 		
 		if self.undo_items == 0:
-			self.main_menu.deactivate_menu_items(["undo", "clear", "apply"])
-			self.toolbar.deactivate_buttons(["undo", "clear", "apply"])
+			self.list_partitions.main_menu.deactivate_menu_items(["undo", "clear", "apply"])
+			self.list_partitions.toolbar.deactivate_buttons(["undo", "clear", "apply"])
 					
 		return self.undo_list.pop()
 	
 	def redo(self):
 		
-		self.add_undo(copy.deepcopy(self.list_partitions.b.storage.devicetree))
+		self.add_undo(cp.deepcopy(self.list_partitions.b.storage.devicetree))
 		
 		self.redo_items -= 1
 		
-		self.main_menu.activate_menu_items(["clear", "apply"])
-		self.toolbar.activate_buttons(["clear", "apply"])
+		self.list_partitions.main_menu.activate_menu_items(["clear", "apply"])
+		self.list_partitions.toolbar.activate_buttons(["clear", "apply"])
 		
 		if self.redo_items == 0:
-			self.main_menu.deactivate_menu_items(["redo"])
-			self.toolbar.deactivate_buttons(["redo"])
+			self.list_partitions.main_menu.deactivate_menu_items(["redo"])
+			self.list_partitions.toolbar.deactivate_buttons(["redo"])
 		
 		return self.redo_list.pop()
 	
 	def clear_history(self):
-		""" Clear history after performing actions
+		""" Clear history after performing (or clearing) actions
 		"""
-		self.main_menu.deactivate_menu_items(["undo", "redo"])
-		self.toolbar.deactivate_buttons(["undo", "redo"])
+		
+		self.list_partitions.main_menu.deactivate_menu_items(["undo", "redo"])
+		self.list_partitions.toolbar.deactivate_buttons(["undo", "redo"])
 			
 		self.undo_items = 0
 		self.redo_items = 0
@@ -145,7 +146,7 @@ class actions_history():
 	
 class ListPartitions():
 	
-	def __init__(self, main_window, ListDevices, BlivetUtils, Builder, disk=None):
+	def __init__(self, main_window, ListDevices, BlivetUtils, Builder, kickstart_mode=False, disk=None):
 		
 		GLib.threads_init()
 		Gdk.threads_init()
@@ -154,6 +155,8 @@ class ListPartitions():
 		self.list_devices = ListDevices
 		self.b = BlivetUtils
 		self.builder = Builder
+		
+		self.kickstart_mode = kickstart_mode
 		
 		self.disk = disk
 		
@@ -192,7 +195,7 @@ class ListPartitions():
 		
 		self.selected_partition = None
 		
-		self.history = actions_history(self, self.main_menu, self.toolbar)
+		self.history = actions_history(self)
 	
 	def load_partitions(self):
 		""" Load children devices (partitions) for selected disk (root/group device)
@@ -213,7 +216,11 @@ class ListPartitions():
 				self.partitions_list.append([partition,partition.name,_("lvmvg"),"--",
 								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif partition.format.mountable:
-				self.partitions_list.append([partition,partition.name,partition.format._type,
+				if partition.format.mountpoint != None:
+					self.partitions_list.append([partition,partition.name,partition.format._type,
+								 partition.format.mountpoint,Size(spec=(str(partition.size) + " MB")).humanReadable()])
+				else:
+					self.partitions_list.append([partition,partition.name,partition.format._type,
 								 partition_mounted(partition.path),Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			else:
 				self.partitions_list.append([partition,partition.name,partition.format._type,"--",
@@ -282,7 +289,11 @@ class ListPartitions():
 				self.partitions_list.append([partition,partition.name,_("lvmvg"),"--",
 								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			elif partition.format.mountable:
-				self.partitions_list.append([partition,partition.name,partition.format._type,
+				if partition.format.mountpoint != None:
+					self.partitions_list.append([partition,partition.name,partition.format._type,
+								 partition.format.mountpoint,Size(spec=(str(partition.size) + " MB")).humanReadable()])
+				else:
+					self.partitions_list.append([partition,partition.name,partition.format._type,
 								 partition_mounted(partition.path),Size(spec=(str(partition.size) + " MB")).humanReadable()])
 			else:
 				self.partitions_list.append([partition,partition.name,partition.format._type,"--",
@@ -707,7 +718,7 @@ class ListPartitions():
 			return
 		
 		dialog = AddDialog(self.main_window, device_type, self.disk ,self.selected_partition[0],
-					 free_size, self.b.get_free_pvs_info())
+					 free_size, self.b.get_free_pvs_info(), self.kickstart_mode)
 		
 		response = dialog.run()
 		
@@ -733,7 +744,6 @@ class ListPartitions():
 							label=user_input[4])
 				
 				if ret != None:
-					
 					
 					self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
 					self.list_devices.update_devices_view("add", self.disk, ret)
@@ -788,10 +798,10 @@ class ListPartitions():
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
 				
-				# user_input = [device, size, fs, name, label]
+				# user_input = [device, size, fs, name, label, mountpoint]
 				ret = self.b.add_device(parent_devices=[self.disk], device_type=user_input[0],
 							fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
-							label=user_input[4])
+							label=user_input[4], mountpoint=user_input[5])
 				
 				if ret != None:
 					
@@ -836,11 +846,51 @@ class ListPartitions():
 		self.update_partitions_view(self.disk)
 		self.update_partitions_image(self.disk)
 	
+	def apply_event(self):
+		""" Apply event for main menu/toolbar
+		
+		.. note:: 
+				This is neccessary because of kickstart mode -- in "standard" mode
+				we need only simple confirmation dialog, but in kickstart mode it
+				is neccessary to create file choosing dialog for kickstart file save.
+		
+		"""
+		if self.kickstart_mode:
+			
+			dialog = KickstartFileSaveDialog(self.main_window)
+			
+			response = dialog.run()
+			
+			if response == Gtk.ResponseType.OK:
+				
+				self.clear_actions_view()
+				self.b.create_kickstart_file(dialog.get_filename())
+				
+			elif response == Gtk.ResponseType.CANCEL:
+				dialog.destroy()
+				
+			dialog.destroy()
+		
+		else:
+			dialog = ConfirmPerformActions(self.main_window)
+			
+			response = dialog.run()
+
+			if response == Gtk.ResponseType.OK:
+				
+				self.perform_actions()
+				
+			elif response == Gtk.ResponseType.CANCEL:
+				pass
+
+			dialog.destroy()
+		
+	
 	def umount_partition(self):
 		""" Unmount selected partition
 		"""
 		
-		mountpoint = self.selected_partition[2]
+		mountpoint = self.selected_partition[3]
 		
 		if os_umount_partition(mountpoint):
 			self.update_partitions_view(self.disk)
@@ -855,7 +905,7 @@ class ListPartitions():
 		
 		resizable = self.b.device_resizable(self.selected_partition[0])
 		
-		dialog = EditDialog(self.main_window, self.selected_partition[0], resizable)
+		dialog = EditDialog(self.main_window, self.selected_partition[0], resizable, self.kickstart_mode)
 		dialog.connect("delete-event", Gtk.main_quit)
 		
 		response = dialog.run()
@@ -866,7 +916,7 @@ class ListPartitions():
 		
 			user_input = dialog.get_selection()
 			
-			if user_input[0] == False and user_input[2] == None:
+			if user_input[0] == False and user_input[2] == None and user_input[3] == None:
 				dialog.destroy()
 				
 			else:
@@ -878,7 +928,7 @@ class ListPartitions():
 			
 				if ret:
 					
-					self.update_actions_view("edit","edit " + self.selected_partition[0] + " partition")
+					self.update_actions_view("edit","edit " + self.selected_partition[0].name + " partition")
 					self.update_partitions_view(self.disk)
 					self.update_partitions_image(self.disk)
 				

@@ -226,7 +226,8 @@ class EditDialog(Gtk.Dialog):
 	""" Dialog window allowing user to edit partition including selecting size, fs, label etc.
 	"""
 	
-	def __init__(self, parent_window, partition_name, resizable):
+	#FIXME add mountpoint validation -- os.path.isabs(path)
+	def __init__(self, parent_window, partition_name, resizable, kickstart=False):
 		"""
 			
 			:param parent_window: parent window
@@ -234,12 +235,15 @@ class EditDialog(Gtk.Dialog):
 			:param partition_name: name of device
 			:type partition_name: str
 			:param resizable: is partition resizable, minSize, maxSize
-			:type free_space: tuple
+			:type resizable: tuple
+			:param kickstart: kickstart mode
+			:type kickstart: bool
 		"""
 		
 		self.partition_name = partition_name
 		self.resizable = resizable
 		self.resize = False
+		self.kickstart = kickstart
 		
 		self.parent_window = parent_window
 		
@@ -258,6 +262,9 @@ class EditDialog(Gtk.Dialog):
 		self.add_size_scale()
 		self.add_fs_chooser()
 		#self.add_name_chooser()
+		
+		if kickstart:
+			self.add_mountpoint()
 		
 		self.show_all()
 		
@@ -299,25 +306,32 @@ class EditDialog(Gtk.Dialog):
 		
 	def add_fs_chooser(self):
 		
+		self.label_format = Gtk.Label()
+		self.label_format.set_text(_("Format?:"))
+		self.grid.attach(self.label_format, 0, 3, 1, 1)
+		
+		self.format_check = Gtk.CheckButton()
+		self.grid.attach(self.format_check, 1, 3, 1, 1)
+		self.format_check.connect("toggled", self.on_format_changed)
+		
 		self.label_fs = Gtk.Label()
 		self.label_fs.set_text(_("Filesystem:"))
-		self.grid.attach(self.label_fs, 0, 3, 1, 1)
+		self.grid.attach(self.label_fs, 0, 4, 1, 1)
 		
-		
-		filesystems = ["ext2", "ext3", "ext4", "ntfs",
-			"fat", "xfs", "reiserfs"]
+		filesystems = ["ext2", "ext3", "ext4", "xfs", "reiserfs"]
 		self.filesystems_combo = Gtk.ComboBoxText()
 		self.filesystems_combo.set_entry_text_column(0)
+		self.filesystems_combo.set_sensitive(False)
 		
 		self.filesystems_combo.connect("changed", self.filesystems_combo_changed)
 		
 		for fs in filesystems:
 			self.filesystems_combo.append_text(fs)
 		
-		self.grid.attach(self.filesystems_combo,1,3,2,1)
+		self.grid.attach(self.filesystems_combo,1,4,2,1)
 		
 		self.label_warn = Gtk.Label()
-		self.grid.attach(self.label_warn, 0, 5, 6, 1)
+		self.grid.attach(self.label_warn, 0, 6, 6, 1)
 		
 	def add_name_chooser(self):
 		
@@ -328,10 +342,18 @@ class EditDialog(Gtk.Dialog):
 		self.name_entry = Gtk.Entry()
 		self.grid.attach(self.name_entry,1,4,2,1)
 	
+	def add_mountpoint(self):
+		
+		self.mountpoint_label = Gtk.Label()
+		self.mountpoint_label.set_text(_("Mountpoint:"))
+		self.grid.attach(self.mountpoint_label, 0, 5, 1, 1)
+		
+		self.mountpoint_entry = Gtk.Entry()
+		self.grid.attach(self.mountpoint_entry,1,5,2,1)
+	
 	def filesystems_combo_changed(self, event):
 		
-		if self.filesystems_combo.get_active_text() != None:
-			self.label_warn.set_markup(_("<b>Warning: This will delete all data on {0}!</b>").format(self.partition_name))
+		pass
 	
 	def scale_moved(self,event):
 		
@@ -342,17 +364,39 @@ class EditDialog(Gtk.Dialog):
 		
 		self.resize = True
 		self.scale.set_value(self.spin_size.get_value())
-
+	
+	def on_format_changed(self, event):
+		
+		if self.format_check.get_active():
+			self.filesystems_combo.set_sensitive(True)
+			self.label_warn.set_markup(_("<b>Warning: This will delete all data on {0}!</b>").format(self.partition_name))
+		
+		else:
+			self.filesystems_combo.set_sensitive(False)
+			self.label_warn.set_markup("")
+			
 	def get_selection(self):
 		
-		return (self.resize, self.spin_size.get_value(), self.filesystems_combo.get_active_text())
-
-
+		if self.format_check.get_active():
+			if self.kickstart:
+				return (self.resize, self.spin_size.get_value(), self.filesystems_combo.get_active_text(), self.mountpoint_entry.get_text())
+			
+			else:
+				return (self.resize, self.spin_size.get_value(), self.filesystems_combo.get_active_text(), None)
+		
+		else:
+			if self.kickstart:
+				return (self.resize, self.spin_size.get_value(), None, self.mountpoint_entry.get_text())
+			
+			else:
+				return (self.resize, self.spin_size.get_value(), None, None)
+	
 class AddDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add new partition including selecting size, fs, label etc.
 	"""
 	
-	def __init__(self, parent_window, device_type, parent_device, partition_name, free_space, free_pvs):
+	#FIXME add mountpoint validation -- os.path.isabs(path)
+	def __init__(self, parent_window, device_type, parent_device, partition_name, free_space, free_pvs, kickstart=False):
 		"""
 			
 			:param device_type: type of parent device
@@ -365,6 +409,8 @@ class AddDialog(Gtk.Dialog):
 			:type free_space: int
 			:param free_pvs: list PVs with no VG
 			:type free_pvs: list
+			:param kickstart: kickstart mode
+			:type kickstart: bool
 			
         """
         
@@ -374,6 +420,7 @@ class AddDialog(Gtk.Dialog):
 		self.parent_device = parent_device
 		self.free_pvs = free_pvs
 		self.parent_window = parent_window
+		self.kickstart = kickstart
 		        
 		Gtk.Dialog.__init__(self, _("Create new partition"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -394,6 +441,9 @@ class AddDialog(Gtk.Dialog):
 		self.add_name_chooser()
 		self.add_parent_list()
 		self.add_device_chooser() #!important
+		
+		if kickstart and self.device_type in ["disk", "lvmvg"]:
+			self.add_mountpoint()
 		
 		self.show_all()
 		
@@ -540,8 +590,7 @@ class AddDialog(Gtk.Dialog):
 		self.label_fs.set_text(_("Filesystem:"))
 		self.grid.attach(self.label_fs, 0, 8, 1, 1)
 		
-		filesystems = ["ext2", "ext3", "ext4", "ntfs",
-			"fat", "xfs", "reiserfs", "swap"]
+		filesystems = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap"]
 		self.filesystems_combo = Gtk.ComboBoxText()
 		self.filesystems_combo.set_entry_text_column(0)
 		
@@ -575,6 +624,19 @@ class AddDialog(Gtk.Dialog):
 		
 		self.grid.attach(self.name_entry,4,9,2,1)
 	
+	def add_mountpoint(self):
+		
+		self.mountpoint_label = Gtk.Label()
+		self.mountpoint_label.set_text(_("Mountpoint:"))
+		self.grid.attach(self.mountpoint_label, 0, 10, 1, 1)
+		
+		self.mountpoint_entry = Gtk.Entry()
+		self.grid.attach(self.mountpoint_entry,1,10,2,1)
+		
+		if self.device_type not in ["lvmvg", "disk"]:
+			self.label_label.set_sensitive(False)
+			self.label_entry.set_sensitive(False)
+	
 	def on_devices_combo_changed(self, event):
 		
 		tree_iter = self.devices_combo.get_active_iter()
@@ -590,6 +652,13 @@ class AddDialog(Gtk.Dialog):
 				self.name_label.set_sensitive(False)
 				self.name_entry.set_sensitive(False)
 				
+				self.filesystems_combo.set_sensitive(True)
+				self.label_fs.set_sensitive(True)
+				
+				if self.kickstart:
+					self.mountpoint_label.set_sensitive(True)
+					self.mountpoint_entry.set_sensitive(True)
+				
 			if device == _("LVM2 Physical Volume"):
 				self.label_label.set_sensitive(False)
 				self.label_entry.set_sensitive(False)
@@ -599,6 +668,10 @@ class AddDialog(Gtk.Dialog):
 				
 				self.filesystems_combo.set_sensitive(False)
 				self.label_fs.set_sensitive(False)
+				
+				if self.kickstart:
+					self.mountpoint_label.set_sensitive(False)
+					self.mountpoint_entry.set_sensitive(False)
 			
 			if device == _("LVM2 Storage"):
 				self.label_label.set_sensitive(False)
@@ -609,6 +682,10 @@ class AddDialog(Gtk.Dialog):
 				
 				self.filesystems_combo.set_sensitive(False)
 				self.label_fs.set_sensitive(False)
+				
+				if self.kickstart:
+					self.mountpoint_label.set_sensitive(False)
+					self.mountpoint_entry.set_sensitive(False)
 	
 	def scale_moved(self,event):
 		
@@ -643,10 +720,16 @@ class AddDialog(Gtk.Dialog):
 			
 			return (device, size, self.filesystems_combo.get_active_text(), 
 				self.name_entry.get_text(), self.label_entry.get_text(), parents)
-			
-		return (device, self.spin_size.get_value(),
-		  self.filesystems_combo.get_active_text(), self.name_entry.get_text(), 
-		  self.label_entry.get_text())
+		
+		if self.kickstart:
+			return (device, self.spin_size.get_value(),
+				self.filesystems_combo.get_active_text(), self.name_entry.get_text(), 
+				self.label_entry.get_text(), self.mountpoint_entry.get_text())
+		
+		else:
+			return (device, self.spin_size.get_value(),
+				self.filesystems_combo.get_active_text(), self.name_entry.get_text(), 
+				self.label_entry.get_text(), None)
 	
 class AddLabelDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add disklabel to disk
@@ -735,27 +818,6 @@ class AddLabelDialog(Gtk.Dialog):
 			pt = model[tree_iter][0]
 		
 		return [pt]
-
-class AddPVDialog(Gtk.Dialog):
-	""" Dialog window allowing user to add new LVM2 Physical Volume
-	"""
-	
-	def __init__(self):
-        
-		Gtk.Dialog.__init__(self, _("Create new LVM2 PV"), None, 0,
-			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-			Gtk.STOCK_OK, Gtk.ResponseType.OK))
-
-		self.set_default_size(550, 200)
-		self.set_border_width(10)
-
-		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
-
-		box = self.get_content_area()
-		box.add(self.grid)
-		
-	def get_selection(self):
-		return
 	
 class AboutDialog(Gtk.AboutDialog):
 	""" Standard 'about application' dialog
@@ -787,3 +849,18 @@ class AboutDialog(Gtk.AboutDialog):
 
 	def on_close(self, action, par):
 		self.destroy()
+
+class KickstartFileSaveDialog(Gtk.FileChooserDialog):
+	""" File choose dialog for kickstart file save
+	"""
+	
+	def __init__(self, parent_window):
+		Gtk.FileChooserDialog.__init__(self, _("Please choose a folder"), None,
+						Gtk.FileChooserAction.SAVE,
+						(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+						_("Select"), Gtk.ResponseType.OK))
+		
+		self.parent_window = parent_window
+		
+		self.set_transient_for(self.parent_window)
+		self.set_default_size(800, 400)

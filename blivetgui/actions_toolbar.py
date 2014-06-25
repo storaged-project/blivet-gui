@@ -191,17 +191,8 @@ class actions_toolbar():
 	def on_apply_clicked(self,button):
 		""" Onclick action for edit button
 		"""
-		dialog = ConfirmPerformActions(self.main_window)
 		
-		response = dialog.run()
-
-		if response == Gtk.ResponseType.OK:
-            
-			dialog.destroy()
-			self.list_partitions.perform_actions()
-			
-		elif response == Gtk.ResponseType.CANCEL:
-			dialog.destroy()
+		self.list_partitions.apply_event()
 	
 	def on_clear_clicked(self, event):
 		""" Onselect action for 'Clear Queued Actions'

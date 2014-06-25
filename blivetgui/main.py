@@ -62,6 +62,8 @@ def parse_options():
 				   default=False,help=_("show version information"))
 	parser.add_option("-e", "--embeded", action="store_true", dest="embeded", 
 				   default=False,help=_("embed this application"))
+	parser.add_option("-k", "--kickstart", action="store_true", dest="kickstart", 
+				   default=False,help=_("run blivet-gui in kickstart mode"))
 
 	(options, args) = parser.parse_args()
 	
@@ -77,11 +79,20 @@ def main(options=None):
 		if options == None:
 			options = parse_options()
 		
-		if options.version == True:
+		if options.version:
 			print APP_NAME, "version", APP_VERSION
 		
-		if options.embeded == True:
-			MainWindow = embeded_window()
+		if options.embeded:
+			if options.kickstart:
+				MainWindow = embeded_window(kickstart=True)
+			else:
+				MainWindow = embeded_window()
+			MainWindow.show_all()
+			Gtk.main()
+		
+		if options.kickstart:
+			MainWindow = main_window(kickstart=True)
+			MainWindow.set_position(Gtk.WindowPosition.CENTER)
 			MainWindow.show_all()
 			Gtk.main()
 		

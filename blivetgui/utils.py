@@ -30,6 +30,9 @@ import gettext
 
 import os, subprocess, copy
 
+from pykickstart.parser import *
+from pykickstart.version import makeVersion
+
 #------------------------------------------------------------------------------#
 
 APP_NAME = "blivet-gui"
@@ -82,7 +85,7 @@ def os_umount_partition(mountpoint):
 	umount_proc = subprocess.Popen(["umount", mountpoint],stdout=FNULL, stderr=subprocess.STDOUT)
 	
 	ret = umount_proc.wait()
-
+	
 	if ret != 0:
 		return False
 	
@@ -110,8 +113,14 @@ class BlivetUtils():
 	""" Class with utils directly working with blivet itselves
 	"""
 	
-	def __init__(self, main_window):
-		self.storage = Blivet()
+	def __init__(self, main_window, kickstart=False):
+		
+		if kickstart:
+			ksparser = KickstartParser(makeVersion())
+			self.storage = Blivet(ksdata=ksparser.handler)
+		else:
+			self.storage = Blivet()
+			
 		self.storage.reset()
 		
 		self.main_window = main_window
@@ -235,7 +244,7 @@ class BlivetUtils():
 		
 		else:
 			return partitions
-
+	
 	def get_partitions(self,blivet_device):
 		""" Get partitions (children) of selected device
 		
@@ -278,9 +287,11 @@ class BlivetUtils():
 		"""
 		
 		if blivet_device.resizable:
+			
 			return (True, blivet_device.minSize, blivet_device.maxSize, blivet_device.size)
 		
 		else:
+			
 			return (False, blivet_device.size, blivet_device.size, blivet_device.size)
 		
 	
@@ -299,9 +310,15 @@ class BlivetUtils():
 		resize = settings[0]
 		target_size = settings[1]
 		target_fs = settings[2]
+		mountpoint = settings[3]
 		    
 		if resize == False and target_fs == None:
-			return False
+			
+			if mountpoint == None:
+				return False
+			
+			else:
+				blivet_device.format.mountpoint = mountpoint
 		
 		elif resize == False and target_fs != None:
 			new_fmt = formats.getFormat(target_fs, device=blivet_device.path)
@@ -327,7 +344,7 @@ class BlivetUtils():
 			
 			return False
 	
-	def add_device(self, parent_devices, device_type, fs_type, target_size, name=None, label=None, flags=[]):
+	def add_device(self, parent_devices, device_type, fs_type, target_size, name=None, label=None, mountpoint=None, flags=[]):
 		""" Create new device
 		
 			:param parent_devices: parent devices
@@ -342,6 +359,8 @@ class BlivetUtils():
 			:type name: str
 			:param label: device label
 			:type label: str
+			:param mountpoint: mountpoint
+			:type mountpoint: str
 			:param flags: device flags
 			:type flags: list of str
 			:returns: new device name
@@ -357,7 +376,7 @@ class BlivetUtils():
 			
 			device_id = new_part.id
 			
-			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label)
+			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label, mountpoint=mountpoint)
 			self.storage.formatDevice(new_part, new_fmt)
 			
 		elif device_type == _("LVM2 Logical Volume"):
@@ -374,7 +393,7 @@ class BlivetUtils():
 			
 			self.storage.createDevice(new_part)
 			
-			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label)
+			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label, mountpoint=mountpoint)
 			self.storage.formatDevice(new_part, new_fmt)
 		
 		elif device_type == _("LVM2 Volume Group"):
@@ -502,3 +521,13 @@ class BlivetUtils():
 		"""
 		
 		self.storage.doIt()
+	
+	def create_kickstart_file(self, filename):
+		""" Create kickstart config file
+		"""
+		
+		self.storage.updateKSData()
+		outfile = open(filename, 'w')
+		outfile.write(self.storage.ksdata.__str__())
+		outfile.close()
+		

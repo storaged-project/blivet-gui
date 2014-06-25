@@ -51,25 +51,29 @@ _ = gettext.gettext
 #------------------------------------------------------------------------------#
 
 class ListDevices():
-	def __init__(self, main_window, Builder):
+	def __init__(self, main_window, Builder, kickstart=False):
 		"""
 		
 		:param main_window: main window instance
 		:type main_window: Gtk.Window
 		:param Builder: glade builder
 		:type Builder: Gtk.Builder
+		:param kickstart: use blivet-gui in kickstart mode
+		:type kickstart: bool
 		
 		"""
 		
 		self.main_window = main_window
 		
-		self.b = BlivetUtils(self.main_window)
+		self.b = BlivetUtils(self.main_window, kickstart)
 		self.builder = Builder
+		
+		self.kickstart_mode = kickstart
 		
 		self.device_list = Gtk.ListStore(object, GdkPixbuf.Pixbuf, str)
 		self.load_devices()
 		
-		self.partitions_list = ListPartitions(self.main_window, self, self.b,self.builder)
+		self.partitions_list = ListPartitions(self.main_window, self, self.b,self.builder, kickstart_mode=self.kickstart_mode)
 		
 		self.actions_view = self.partitions_list.get_actions_view
 		self.partitions_view = self.partitions_list.get_partitions_view
