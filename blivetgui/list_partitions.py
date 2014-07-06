@@ -78,7 +78,7 @@ class actions_history():
 		self.list_partitions.toolbar.activate_buttons(["undo"])
 		
 		if self.undo_items == 5:
-			self.undo_list.popleft()
+			self.undo_list.pop(0)
 			self.undo_items -= 1
 			
 		self.undo_list.append(cp.deepcopy(devicetree))
@@ -93,7 +93,7 @@ class actions_history():
 		self.list_partitions.toolbar.activate_buttons(["redo", "clear", "apply"])
 		
 		if self.redo_items == 5:
-			self.redo_list.popleft()
+			self.redo_list.pop(0)
 			self.redo_items -= 1
 		
 		self.redo_list.append(devicetree)
@@ -638,6 +638,11 @@ class ListPartitions():
 				self.main_menu.activate_menu_items(["delete"])
 				self.popup_menu.activate_menu_items(["delete"])
 			
+			if partition_device.format.type == "swap" and swap_is_on(partition_device.sysfsPath) == False:
+				self.toolbar.activate_buttons(["delete"])
+				self.main_menu.activate_menu_items(["delete"])
+				self.popup_menu.activate_menu_items(["delete"])
+			
 			if partition_device._type != "lvmvg" and partition_device.format.type == None:
 				self.toolbar.activate_buttons(["delete"])
 				self.main_menu.activate_menu_items(["delete"])
@@ -772,17 +777,17 @@ class ListPartitions():
 					if user_input[2] == None:
 						self.list_devices.update_devices_view("add", self.disk, ret1)
 					
-				ret2 = self.b.add_device(parent_devices=[ret1], device_type="LVM2 Volume Group",
+					ret2 = self.b.add_device(parent_devices=[ret1], device_type="LVM2 Volume Group",
 							 fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
 							 label=user_input[4])
 				
-				if ret2 != None:
-					
-					if user_input[2] == None:
+					if ret2 != None:
 						
-						self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
-						self.list_devices.update_devices_view("add", self.disk, ret2)
-						
+						if user_input[2] == None:
+							
+							self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
+							self.list_devices.update_devices_view("add", self.disk, ret2)
+							
 					self.update_partitions_view(self.disk)
 					self.update_partitions_image(self.disk)
 				

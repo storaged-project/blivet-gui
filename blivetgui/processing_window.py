@@ -46,10 +46,12 @@ class ProcessingActions(Gtk.Window):
 		self.list_partitions = list_partitions
 		
 		self.window = Gtk.Window(title=_("Proccessing"))
-
+		
 		self.window.set_border_width(8)
 		self.window.set_position(Gtk.WindowPosition.CENTER)
-
+		
+		self.window.set_transient_for(self.list_partitions.main_window)
+		
 		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
 		
 		self.window.add(self.grid)

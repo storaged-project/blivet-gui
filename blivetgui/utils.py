@@ -68,6 +68,27 @@ def partition_mounted(partition_path):
 	
 	return None
 
+def swap_is_on(sysfs_path):
+	""" Is selected swap in use?
+	
+		:param sysfs_path: sysfs path for swap
+		:type sysfs_path: str
+		
+	"""
+	
+	try:
+		swaps = open("/proc/swaps", "r")
+	except IOError as e:
+		return None
+	
+	for line in swaps:
+		# /proc/swaps line fmt:
+		# Filename-Type-Size-Used-Priority
+		if line.split()[0].split("/")[-1] == sysfs_path.split("/")[-1]:
+			return True
+	
+	return False
+
 def os_umount_partition(mountpoint):
 	""" Umount selected partition
 	
@@ -560,6 +581,9 @@ class BlivetUtils():
 		"""
 		
 		self.storage.updateKSData()
+		
+		print self.storage.ksdata.__str__()
+		
 		outfile = open(filename, 'w')
 		outfile.write(self.storage.ksdata.__str__())
 		outfile.close()
