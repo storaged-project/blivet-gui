@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
 	name = "blivetgui",
 	packages = ["blivetgui"],
-	version = "0.1.1",
+	version = "0.1.3",
 	license = 'GPL',
 	description = "Tool for data storages configuration",
 	author = "Vojtech Trefny",

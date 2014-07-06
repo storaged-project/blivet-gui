@@ -70,6 +70,22 @@ class ListDevices():
 		
 		self.kickstart_mode = kickstart
 		
+		if self.kickstart_mode:
+			dialog = KickstartSelectDevicesDialog(self.main_window, self.b.get_disks())
+			response = dialog.run()
+			
+			if response == Gtk.ResponseType.OK:
+				self.use_disks, self.install_bootloader, self.bootloader_device = dialog.get_selection()
+				dialog.destroy()
+				
+				if self.install_bootloader and self.bootloader_device:
+					self.b.set_bootloader_device(self.bootloader_device)
+				
+				self.b.kickstart_use_disks(self.use_disks)
+			else:
+				dialog.destroy()
+				sys.exit(0)
+		
 		self.device_list = Gtk.ListStore(object, GdkPixbuf.Pixbuf, str)
 		self.load_devices()
 		
@@ -100,7 +116,10 @@ class ListDevices():
 		disks = self.b.get_disks()
 		
 		for disk in disks:
-			if disk.removable:
+			if self.kickstart_mode and disk.name not in self.use_disks:
+				continue
+			
+			elif disk.removable:
 				self.device_list.append([disk,icon_disk_usb,str(disk.name +
 											   "\n<i><small>" + disk.model + "</small></i>")])
 			else:

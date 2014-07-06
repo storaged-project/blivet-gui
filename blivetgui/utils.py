@@ -116,15 +116,15 @@ class BlivetUtils():
 	def __init__(self, main_window, kickstart=False):
 		
 		if kickstart:
-			ksparser = KickstartParser(makeVersion())
-			self.storage = Blivet(ksdata=ksparser.handler)
+			self.ksparser = KickstartParser(makeVersion())
+			self.storage = Blivet(ksdata=self.ksparser.handler)
 		else:
 			self.storage = Blivet()
 			
 		self.storage.reset()
 		
 		self.main_window = main_window
-
+		
 	def get_disks(self):
 		""" Return list of all disk devices on current system
 		
@@ -134,6 +134,21 @@ class BlivetUtils():
 		"""
 		
 		return self.storage.disks
+	
+	def get_disk_names(self):
+		""" Return list of names of all disk devices on current system
+		
+			:returns: list of all "disk" devices names
+			:rtype: list
+			
+		"""
+		
+		disk_names = []
+		
+		for disk in self.storage.disks:
+			disk_names.append(disk.name)
+		
+		return disk_names
 	
 	def get_group_devices(self):
 		""" Return list of LVM2 Volume Group devices
@@ -500,6 +515,24 @@ class BlivetUtils():
 		"""
 		
 		self.storage.initializeDisk(blivet_device)
+		
+	def set_bootloader_device(self, disk_name):
+		
+		blivet_device = self.storage.devicetree.getDeviceByName(disk_name)
+		
+		assert blivet_device.isDisk
+		
+		self.ksparser.handler.bootloader.location = "mbr"
+		self.ksparser.handler.bootloader.bootDrive = disk_name
+		
+		self.storage.ksdata = self.ksparser.handler
+	
+	def kickstart_use_disks(self, disk_names):
+		
+		for name in disk_names:
+			self.ksparser.handler.ignoredisk.onlyuse.append(name)
+		
+		self.storage.ksdata = self.ksparser.handler
 	
 	@property
 	def return_devicetree(self):
@@ -530,4 +563,3 @@ class BlivetUtils():
 		outfile = open(filename, 'w')
 		outfile.write(self.storage.ksdata.__str__())
 		outfile.close()
-		

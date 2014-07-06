@@ -13,7 +13,9 @@ def parse_options():
 				   default=False,help="show version information")
 	parser.add_option("-e", "--embeded", action="store_true", dest="embeded", 
 				   default=False,help="embed this application")
-
+	parser.add_option("-k", "--kickstart", action="store_true", dest="kickstart", 
+				   default=False,help=_("run blivet-gui in kickstart mode"))
+	
 	(options, args) = parser.parse_args()
 	
 	return options
