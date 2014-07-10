@@ -30,7 +30,7 @@ import gettext
 
 import os, subprocess, copy
 
-from pykickstart.parser import *
+import pykickstart.parser
 from pykickstart.version import makeVersion
 
 #------------------------------------------------------------------------------#
@@ -137,7 +137,7 @@ class BlivetUtils():
 	def __init__(self, main_window, kickstart=False):
 		
 		if kickstart:
-			self.ksparser = KickstartParser(makeVersion())
+			self.ksparser = pykickstart.parser.KickstartParser(makeVersion())
 			self.storage = Blivet(ksdata=self.ksparser.handler)
 		else:
 			self.storage = Blivet()
@@ -278,6 +278,13 @@ class BlivetUtils():
 			
 			return partitions
 		
+		elif blivet_device._type == "luks/dm-crypt" and blivet_device.kids == 0:
+			# empty luks encrypted physical volume
+			
+			partitions.append(FreeSpaceDevice(blivet_device.size))
+			
+			return partitions
+		
 		else:
 			return partitions
 	
@@ -380,7 +387,7 @@ class BlivetUtils():
 			
 			return False
 	
-	def add_device(self, parent_devices, device_type, fs_type, target_size, name=None, label=None, mountpoint=None, flags=[]):
+	def add_device(self, parent_devices, device_type, fs_type, target_size, name=None, label=None, mountpoint=None, encrypt=False, encrypt_args={}, flags=[]):
 		""" Create new device
 		
 			:param parent_devices: parent devices
@@ -404,7 +411,7 @@ class BlivetUtils():
 			
 		"""
 		
-		device_id = 0	
+		device_id = None
 		
 		if device_type == _("Partition"):
 			new_part = self.storage.newPartition(size=target_size, parents=parent_devices)
@@ -446,19 +453,33 @@ class BlivetUtils():
 			
 			self.storage.createDevice(new_part)
 			
-			
 		elif device_type == _("LVM2 Physical Volume"):
 			
-			new_part = self.storage.newPartition(size=target_size, parents=parent_devices)
+			if encrypt:				
+				dev = self.storage.newPartition(size=target_size, parents=parent_devices)
+				self.storage.createDevice(dev)
+				
+				fmt = formats.getFormat(fmt_type="luks", passphrase=encrypt_args["passphrase"], device=dev.path)
+				self.storage.formatDevice(dev, fmt)
+				
+				luks_dev = LUKSDevice("luks-%s" % dev.name, format=getFormat("lvmpv", device=dev.path), size=dev.size, parents=[dev])
+				
+				self.storage.createDevice(luks_dev)
+				
+				device_id = luks_dev.id
+				
+			else:			
+				new_part = self.storage.newPartition(size=target_size, parents=parent_devices)
+				
+				device_id = new_part.id
+				
+				self.storage.createDevice(new_part)
+				
+				new_fmt = formats.getFormat("lvmpv", device=new_part.path)
+				self.storage.formatDevice(new_part, new_fmt)
 			
-			device_id = new_part.id
-			
-			self.storage.createDevice(new_part)
-			
-			new_fmt = formats.getFormat("lvmpv", device=new_part.path)
-			self.storage.formatDevice(new_part, new_fmt)
-		
 		try:
+			
 			partitioning.doPartitioning(self.storage)
 			
 			return self.storage.devicetree.getDeviceByID(device_id)
@@ -581,8 +602,6 @@ class BlivetUtils():
 		"""
 		
 		self.storage.updateKSData()
-		
-		print self.storage.ksdata.__str__()
 		
 		outfile = open(filename, 'w')
 		outfile.write(self.storage.ksdata.__str__())

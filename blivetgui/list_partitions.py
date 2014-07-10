@@ -643,7 +643,7 @@ class ListPartitions():
 				self.main_menu.activate_menu_items(["delete"])
 				self.popup_menu.activate_menu_items(["delete"])
 			
-			if partition_device._type != "lvmvg" and partition_device.format.type == None:
+			if partition_device._type != "lvmvg" and partition_device.format.type == None and selected_partition[2] != _("extended"): #FIXME
 				self.toolbar.activate_buttons(["delete"])
 				self.main_menu.activate_menu_items(["delete"])
 				self.popup_menu.activate_menu_items(["delete"])
@@ -657,6 +657,11 @@ class ListPartitions():
 				self.toolbar.activate_buttons(["edit"])
 				self.main_menu.activate_menu_items(["edit"])
 				self.popup_menu.activate_menu_items(["edit"])
+				
+			if partition_device.format.type == "luks" and partition_device.kids == 0:
+				self.toolbar.activate_buttons(["delete"])
+				self.main_menu.activate_menu_items(["delete"])
+				self.popup_menu.activate_menu_items(["delete"])
 	
 	def delete_selected_partition(self):
 		""" Delete selected partition
@@ -734,7 +739,8 @@ class ListPartitions():
 			if selection[2] == None and selection[0] not in ["LVM2 Physical Volume",
 													"LVM2 Volume Group", "LVM2 Storage"]:
 				# If fs is not selected, show error window and re-run add dialog
-				AddErrorDialog(dialog)
+				msg = _("Error:\n\nFilesystem type must be specified when creating new partition.")
+				AddErrorDialog(dialog, msg)
 				dialog.destroy()
 				self.add_partition()
 			
@@ -778,7 +784,7 @@ class ListPartitions():
 						self.list_devices.update_devices_view("add", self.disk, ret1)
 					
 					ret2 = self.b.add_device(parent_devices=[ret1], device_type="LVM2 Volume Group",
-							 fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
+							 fs_type=user_input[2], target_size=ret1.size, name=user_input[3],
 							 label=user_input[4])
 				
 					if ret2 != None:
@@ -796,18 +802,24 @@ class ListPartitions():
 					self.update_partitions_image(self.disk)
 				
 				dialog.destroy()
-		
+				
 			else:
 				user_input = dialog.get_selection()
 				
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
 				
+				if user_input[6] and not user_input[7]["passphrase"]:
+					msg = _("Error:\n\nPassphrase not specified.")
+					AddErrorDialog(dialog, msg)
+					dialog.destroy()
+					self.add_partition()
+				
 				# user_input = [device, size, fs, name, label, mountpoint]
 				ret = self.b.add_device(parent_devices=[self.disk], device_type=user_input[0],
 							fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
-							label=user_input[4], mountpoint=user_input[5])
-				
+							label=user_input[4], mountpoint=user_input[5], encrypt=user_input[6], encrypt_args=user_input[7])
+
 				if ret != None:
 					
 					if user_input[2] == None:

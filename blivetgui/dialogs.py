@@ -67,14 +67,14 @@ class AddErrorDialog(Gtk.MessageDialog):
 	""" Dialog window informing user he/she need to specify fs type to create new partition
 	"""
 	
-	def __init__(self, parent_window):
+	def __init__(self, parent_window, error_msg):
 		
 		self.parent_window = parent_window
 		
 		Gtk.MessageDialog.__init__(self, None, 0,
 			Gtk.MessageType.ERROR,
 			Gtk.ButtonsType.OK, 
-			_("Error:\n\nFilesystem type must be specified when creating new partition."))
+			error_msg)
 		
 		self.set_transient_for(self.parent_window)
 		
@@ -440,6 +440,7 @@ class AddDialog(Gtk.Dialog):
 		self.add_fs_chooser()
 		self.add_name_chooser()
 		self.add_parent_list()
+		self.add_encrypt_chooser()
 		self.add_device_chooser() #!important
 		
 		if kickstart and self.device_type in ["disk", "lvmvg"]:
@@ -453,6 +454,7 @@ class AddDialog(Gtk.Dialog):
 			"disk" : [_("Partition"), _("LVM2 Storage"), _("LVM2 Physical Volume")],
 			"lvmpv" : [_("LVM2 Volume Group")],
 			"lvmvg" : [_("LVM2 Logical Volume")],
+			"luks/dm-crypt" : [_("LVM2 Volume Group")]
 			}
 		
 		self.label_devices = Gtk.Label()
@@ -465,7 +467,7 @@ class AddDialog(Gtk.Dialog):
 		
 		for device in devices:
 			devices_store.append([device])
-            
+			
 		self.devices_combo = Gtk.ComboBox.new_with_model(devices_store)
 		
 		self.devices_combo.set_entry_text_column(0)
@@ -474,7 +476,7 @@ class AddDialog(Gtk.Dialog):
 		if len(devices) == 1:
 			self.devices_combo.set_sensitive(False)
 		
-		if self.device_type == "lvmpv":
+		if self.device_type in ["lvmpv", "luks/dm-crypt"]:
 			self.filesystems_combo.set_sensitive(False)
 			self.label_fs.set_sensitive(False)
 			self.label_size.set_sensitive(False)
@@ -482,6 +484,8 @@ class AddDialog(Gtk.Dialog):
 			self.scale.set_sensitive(False)
 			self.spin_size.set_sensitive(False)
 			self.spin_free.set_sensitive(False)
+			self.name_entry.set_sensitive(True)
+			self.name_label.set_sensitive(True)
 		
 		self.grid.attach(self.devices_combo,1,0,2,1)
 		
@@ -624,18 +628,44 @@ class AddDialog(Gtk.Dialog):
 		
 		self.grid.attach(self.name_entry,4,9,2,1)
 	
+	def add_encrypt_chooser(self):
+		
+		self.encrypt_label = Gtk.Label()
+		self.encrypt_label.set_text(_("Encrypt:"))
+		self.grid.attach(self.encrypt_label, 0, 10, 1, 1)
+		self.encrypt_label.set_sensitive(False)
+		
+		self.encrypt_check = Gtk.CheckButton()
+		self.grid.attach(self.encrypt_check, 1, 10, 1, 1)
+		self.encrypt_check.connect("toggled", self.on_encrypt_changed)
+		self.encrypt_check.set_sensitive(False)
+		
+		self.passphrase_label = Gtk.Label()
+		self.passphrase_label.set_text(_("Passphrase:"))
+		self.grid.attach(self.passphrase_label, 3, 10, 1, 1)
+		self.passphrase_label.set_sensitive(False)
+		
+		self.passphrase_entry = Gtk.Entry()
+		self.grid.attach(self.passphrase_entry,4,10,2,1)
+		self.passphrase_entry.set_sensitive(False)
+		
 	def add_mountpoint(self):
 		
 		self.mountpoint_label = Gtk.Label()
 		self.mountpoint_label.set_text(_("Mountpoint:"))
-		self.grid.attach(self.mountpoint_label, 0, 10, 1, 1)
+		self.grid.attach(self.mountpoint_label, 0, 11, 1, 1)
 		
 		self.mountpoint_entry = Gtk.Entry()
-		self.grid.attach(self.mountpoint_entry,1,10,2,1)
+		self.grid.attach(self.mountpoint_entry,1,11,2,1)
 		
 		if self.device_type not in ["lvmvg", "disk"]:
 			self.label_label.set_sensitive(False)
 			self.label_entry.set_sensitive(False)
+			
+	def on_encrypt_changed(self, event):
+		
+		self.passphrase_entry.set_sensitive(not self.passphrase_entry.get_sensitive())
+		self.passphrase_label.set_sensitive(not self.passphrase_label.get_sensitive())
 	
 	def on_devices_combo_changed(self, event):
 		
@@ -655,6 +685,9 @@ class AddDialog(Gtk.Dialog):
 				self.filesystems_combo.set_sensitive(True)
 				self.label_fs.set_sensitive(True)
 				
+				self.encrypt_label.set_sensitive(False)
+				self.encrypt_check.set_sensitive(False)
+				
 				if self.kickstart:
 					self.mountpoint_label.set_sensitive(True)
 					self.mountpoint_entry.set_sensitive(True)
@@ -669,6 +702,9 @@ class AddDialog(Gtk.Dialog):
 				self.filesystems_combo.set_sensitive(False)
 				self.label_fs.set_sensitive(False)
 				
+				self.encrypt_label.set_sensitive(True)
+				self.encrypt_check.set_sensitive(True)
+				
 				if self.kickstart:
 					self.mountpoint_label.set_sensitive(False)
 					self.mountpoint_entry.set_sensitive(False)
@@ -682,6 +718,9 @@ class AddDialog(Gtk.Dialog):
 				
 				self.filesystems_combo.set_sensitive(False)
 				self.label_fs.set_sensitive(False)
+				
+				self.encrypt_label.set_sensitive(False)
+				self.encrypt_check.set_sensitive(False)
 				
 				if self.kickstart:
 					self.mountpoint_label.set_sensitive(False)
@@ -729,7 +768,7 @@ class AddDialog(Gtk.Dialog):
 		else:
 			return (device, self.spin_size.get_value(),
 				self.filesystems_combo.get_active_text(), self.name_entry.get_text(), 
-				self.label_entry.get_text(), None)
+				self.label_entry.get_text(), None, self.encrypt_check.get_active(), {"passphrase" : self.passphrase_entry.get_text()})
 	
 class AddLabelDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add disklabel to disk

@@ -11,5 +11,6 @@ _build
 
 *.sqlite3
 
+tests
 bak
 .directory
