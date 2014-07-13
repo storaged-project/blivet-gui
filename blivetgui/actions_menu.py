@@ -63,7 +63,7 @@ class actions_menu():
 		add_item.connect("activate", self.on_add_item)
 		add_item.set_sensitive(False)
 		self.menu.add(add_item)
-
+		
 		self.menu_items["add"] = add_item
 		
 		delete_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_DELETE, None)
@@ -95,6 +95,15 @@ class actions_menu():
 		
 		self.menu_items["umount"] = umount_item
 		
+		decrypt_item = Gtk.MenuItem()
+		decrypt_item.set_label(_("Decrypt"))
+		
+		decrypt_item.connect("activate", self.on_decrypt_item)
+		decrypt_item.set_sensitive(False)
+		self.menu.add(decrypt_item)
+		
+		self.menu_items["decrypt"] = decrypt_item
+		
 		self.menu.show_all()
 
 	def activate_menu_items(self,menu_item_names):
@@ -103,7 +112,7 @@ class actions_menu():
 			:param menu_item_names: names of menu items to activate
 			:type button_names: list of str
 			
-        """
+		"""
 		
 		for item in menu_item_names:
 			self.menu_items[item].set_sensitive(True)
@@ -114,15 +123,15 @@ class actions_menu():
 			:param menu_item_names: names of menu items to activate
 			:type button_names: list of str
 			
-        """
+		"""
 		
 		for item in menu_item_names:
 			self.menu_items[item].set_sensitive(True)
 			
 	def deactivate_all(self):
 		""" Deactivate all partition based buttons
-        """
-        
+		"""
+		
 		for item in self.menu_items:
 			self.menu_items[item].set_sensitive(False)
 	
@@ -145,6 +154,12 @@ class actions_menu():
 		""" Onselect action for umount item
 		"""
 		self.list_partitions.umount_partition()
+		
+	def on_decrypt_item(self, event):
+		""" Onselect action for 'Decrypt'
+		"""
+		
+		self.list_partitions.decrypt_device()
 	
 	@property
 	def get_menu(self):

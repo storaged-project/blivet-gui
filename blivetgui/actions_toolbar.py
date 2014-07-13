@@ -93,7 +93,6 @@ class actions_toolbar():
 		self.buttons["edit"] = button_edit
 		button_edit.connect("clicked", self.on_edit_clicked)
 		
-		
 		button_umount = Gtk.ToolButton()
 		button_umount.set_icon_name("emblem-readonly")
 		button_umount.set_sensitive(False)
@@ -102,13 +101,21 @@ class actions_toolbar():
 		self.buttons["umount"] = button_umount
 		button_umount.connect("clicked", self.on_umount_clicked)
 		
-		self.toolbar.insert(Gtk.SeparatorToolItem(), 5)
+		button_decrypt = Gtk.ToolButton()
+		button_decrypt.set_icon_name("dialog-password")
+		button_decrypt.set_sensitive(False)
+		button_decrypt.set_tooltip_text(_("Decrypt selected device"))
+		self.toolbar.insert(button_decrypt, 5)
+		self.buttons["decrypt"] = button_decrypt
+		button_decrypt.connect("clicked", self.on_decrypt_clicked)
+		
+		self.toolbar.insert(Gtk.SeparatorToolItem(), 6)
 		
 		button_apply = Gtk.ToolButton()
 		button_apply.set_icon_name("gtk-apply")
 		button_apply.set_sensitive(False)
 		button_apply.set_tooltip_text(_("Apply queued actions"))
-		self.toolbar.insert(button_apply, 6)
+		self.toolbar.insert(button_apply, 7)
 		self.buttons["apply"] = button_apply
 		button_apply.connect("clicked", self.on_apply_clicked)
 		
@@ -116,17 +123,17 @@ class actions_toolbar():
 		button_clear.set_icon_name("gtk-clear")
 		button_clear.set_sensitive(False)
 		button_clear.set_tooltip_text(_("Clear queued actions"))
-		self.toolbar.insert(button_clear, 7)
+		self.toolbar.insert(button_clear, 8)
 		self.buttons["clear"] = button_clear
 		button_clear.connect("clicked", self.on_clear_clicked)
 		
-		self.toolbar.insert(Gtk.SeparatorToolItem(), 8)
+		self.toolbar.insert(Gtk.SeparatorToolItem(), 9)
 		
 		button_undo = Gtk.ToolButton()
 		button_undo.set_icon_name("edit-undo")
 		button_undo.set_sensitive(False)
 		button_undo.set_tooltip_text(_("Undo"))
-		self.toolbar.insert(button_undo, 9)
+		self.toolbar.insert(button_undo, 10)
 		self.buttons["undo"] = button_undo
 		button_undo.connect("clicked", self.on_undo_clicked)
 		
@@ -134,7 +141,7 @@ class actions_toolbar():
 		button_redo.set_icon_name("edit-redo")
 		button_redo.set_sensitive(False)
 		button_redo.set_tooltip_text(_("Redo"))
-		self.toolbar.insert(button_redo, 10)
+		self.toolbar.insert(button_redo, 11)
 		self.buttons["redo"] = button_redo
 		button_redo.connect("clicked", self.on_redo_clicked)
 	
@@ -187,6 +194,12 @@ class actions_toolbar():
 		""" Onclick action for umount button
 		"""
 		self.list_partitions.umount_partition()
+		
+	def on_decrypt_clicked(self, button):
+		""" Onclick action for decrypt button
+		"""
+		
+		self.list_partitions.decrypt_device()
 	
 	def on_apply_clicked(self,button):
 		""" Onclick action for edit button

@@ -662,6 +662,11 @@ class ListPartitions():
 				self.toolbar.activate_buttons(["delete"])
 				self.main_menu.activate_menu_items(["delete"])
 				self.popup_menu.activate_menu_items(["delete"])
+				
+			if partition_device.format.type == "luks" and not partition_device.format.status:
+				self.toolbar.activate_buttons(["decrypt"])
+				self.main_menu.activate_menu_items(["decrypt"])
+				self.popup_menu.activate_menu_items(["decrypt"])
 	
 	def delete_selected_partition(self):
 		""" Delete selected partition
@@ -859,6 +864,7 @@ class ListPartitions():
 		Gdk.threads_leave()
 		
 		self.clear_actions_view()
+		self.history.clear_history()
 		
 		self.update_partitions_view(self.disk)
 		self.update_partitions_image(self.disk)
@@ -892,14 +898,14 @@ class ListPartitions():
 			dialog = ConfirmPerformActions(self.main_window)
 			
 			response = dialog.run()
-
+			
 			if response == Gtk.ResponseType.OK:
 				
 				self.perform_actions()
 				
 			elif response == Gtk.ResponseType.CANCEL:
 				pass
-
+			
 			dialog.destroy()
 		
 	
@@ -915,6 +921,31 @@ class ListPartitions():
 			
 		else:
 			UnmountErrorDialog(self.selected_partition[0], self.main_window)
+	
+	def decrypt_device(self):
+		""" Decrypt selected device
+		"""
+		
+		dialog = LuksPassphraseDialog(self.main_window, self.selected_partition[0].name)
+			
+		response = dialog.run()
+		
+		if response == Gtk.ResponseType.OK:
+			
+			ret = self.b.luks_decrypt(self.selected_partition[0], dialog.get_selection())
+			
+			if ret:
+				BlivetError(self.main_window, ret)
+				return
+			
+		elif response == Gtk.ResponseType.CANCEL:
+			pass
+		
+		dialog.destroy()
+		
+		self.list_devices.update_devices_view("all", None, None)
+		self.update_partitions_view(self.disk)
+		self.update_partitions_image(self.disk)
 	
 	def edit_partition(self):
 		""" Edit selected partition

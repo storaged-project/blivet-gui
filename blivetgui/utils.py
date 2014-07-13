@@ -455,7 +455,7 @@ class BlivetUtils():
 			
 		elif device_type == _("LVM2 Physical Volume"):
 			
-			if encrypt:				
+			if encrypt:
 				dev = self.storage.newPartition(size=target_size, parents=parent_devices)
 				self.storage.createDevice(dev)
 				
@@ -575,6 +575,32 @@ class BlivetUtils():
 			self.ksparser.handler.ignoredisk.onlyuse.append(name)
 		
 		self.storage.ksdata = self.ksparser.handler
+	
+	def luks_decrypt(self, blivet_device, passphrase):
+		""" Decrypt selected luks device
+		
+			:param blivet_device: device to decrypt
+			:type blivet_device: LUKSDevice
+			:param passphrase: passphrase
+			:type passphrase: str
+		
+		"""
+		
+		assert blivet_device.format.type == "luks"
+		
+		blivet_device.format._setPassphrase(passphrase)
+		
+		try:
+			blivet_device.format.setup()
+		
+		except CryptoError as e:
+			
+			return e
+		
+		self.storage.devicetree.populate()
+		
+		return
+			
 	
 	@property
 	def return_devicetree(self):

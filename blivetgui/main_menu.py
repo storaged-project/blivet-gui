@@ -153,7 +153,7 @@ class main_menu():
 		return edit_menu_item
 	
 	def add_partition_menu(self):
-		""" Menu item 'Partition'
+		""" Menu item 'Partition' #FIXME: 'device' menu now
 		"""
 		
 		partition_menu_item = Gtk.MenuItem(_("Device"))
@@ -203,6 +203,15 @@ class main_menu():
 		partition_menu.add(umount_item)
 		
 		self.menu_items["umount"] = umount_item
+		
+		decrypt_item = Gtk.MenuItem()
+		decrypt_item.set_label(_("Decrypt"))
+		
+		decrypt_item.connect("activate", self.on_decrypt_item)
+		decrypt_item.set_sensitive(False)
+		partition_menu.add(decrypt_item)
+		
+		self.menu_items["decrypt"] = decrypt_item
 		
 		return partition_menu_item
 	
@@ -353,6 +362,12 @@ class main_menu():
 		"""
 		
 		self.list_partitions.umount_partition()
+	
+	def on_decrypt_item(self, event):
+		""" Onselect action for 'Decrypt'
+		"""
+		
+		self.list_partitions.decrypt_device()
 	
 	def on_quit_item(self, event):
 		""" Onselect action for 'Quit'

@@ -1024,3 +1024,51 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
 				selected_disks_names.append(row[0].name)
 		
 		return (selected_disks_names, self.boot_device_combo.get_sensitive() , self.boot_device_combo.get_active_text())
+
+class LuksPassphraseDialog(Gtk.Dialog):
+	""" Dialog window allowing user to enter passphrase to decrypt 
+	"""
+	
+	def __init__(self, parent_window, device_name):
+		"""
+		
+			:param parent_window: parent window
+			:type parent_window: Gtk.Window
+			:param device_name: name of device to decrypt
+			:type device_name: str
+			
+		"""
+		
+		self.parent_window = parent_window
+		self.device_name = device_name
+		
+		Gtk.Dialog.__init__(self, _("Enter passphrase to decrypt {0}").format(self.device_name), None, 0,
+			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+			Gtk.STOCK_OK, Gtk.ResponseType.OK))
+		
+		self.set_transient_for(self.parent_window)
+		
+		self.set_default_size(250, 100)
+		self.set_border_width(10)
+		
+		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
+		
+		box = self.get_content_area()
+		box.add(self.grid)
+		
+		self.pass_label = Gtk.Label()
+		self.pass_label.set_markup(_("Passphrase:"))
+		
+		self.grid.attach(self.pass_label, 0, 0, 1, 1) #left-top-width-height
+		
+		self.pass_entry = Gtk.Entry()
+		self.pass_entry.set_visibility(False)
+		self.pass_entry.set_property("caps-lock-warning", True)
+		
+		self.grid.attach(self.pass_entry, 1, 0, 2, 1)
+		
+		self.show_all()
+		
+	def get_selection(self):
+		
+		return self.pass_entry.get_text()
