@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=blivet-gui
+Exec=pkexec /usr/bin/blivet-gui
+Terminal=false
+Type=Application
+Categories=GNOME;System;Filesystem;X-Fedora;GTK;
+StartupNotify=true

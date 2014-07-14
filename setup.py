@@ -3,15 +3,14 @@ from distutils.core import setup
 setup(
 	name = "blivetgui",
 	packages = ["blivetgui"],
-	version = "0.1.3",
-	license = 'GPL',
+	version = "0.1.5",
 	description = "Tool for data storages configuration",
 	author = "Vojtech Trefny",
 	author_email = "vtrefny@redhat.com",
 	url = "http://github.com/vojtechtrefny/blivet-gui",
 	package_dir = {'blivetgui' : 'blivetgui'},
 	package_data = {'blivetgui' : ['data/ui/*.ui', 'help/C/*.page',
-			'help/C/*.xml', 'help/C/icons/*', 'help/C/images/*', 'i18n/cs_CZ/LC_MESSAGES/*.mo'] },
+			'help/C/*.xml', 'help/C/icons/*', 'help/C/images/*']},
 	classifiers = [
 		'Development Status :: 4 - Beta',
 		'Environment :: X11 Applications :: GTK',
