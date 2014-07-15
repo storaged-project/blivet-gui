@@ -81,10 +81,13 @@ class ListDevices():
 				if self.install_bootloader and self.bootloader_device:
 					self.b.set_bootloader_device(self.bootloader_device)
 				
-				self.b.kickstart_use_disks(self.use_disks)
 			else:
 				dialog.destroy()
 				sys.exit(0)
+			
+			self.kickstart_auto_ignore()
+			
+			self.b.kickstart_use_disks(self.use_disks)
 		
 		self.device_list = Gtk.ListStore(object, GdkPixbuf.Pixbuf, str)
 		self.load_devices()
@@ -116,10 +119,8 @@ class ListDevices():
 		disks = self.b.get_disks()
 		
 		for disk in disks:
-			if self.kickstart_mode and disk.name not in self.use_disks:
-				continue
 			
-			elif disk.removable:
+			if disk.removable:
 				self.device_list.append([disk,icon_disk_usb,str(disk.name +
 											   "\n<i><small>" + disk.model + "</small></i>")])
 			else:
@@ -251,6 +252,23 @@ class ListDevices():
 			
 				self.partitions_list.update_partitions_view(disk)
 				self.partitions_list.update_partitions_image(disk)
+	
+	def kickstart_auto_ignore(self):
+		""" mounted filesystems (especially /) creates huge mess in kickstart mode
+			it's neccessary to either unmount these filesystems or add these disks to ignored
+		"""
+		
+		ignored_disks = []
+		
+		for mount in self.b.storage.mountpoints.values():
+			for disk in mount.disks:
+				if disk.name in self.use_disks:
+					self.use_disks.remove(disk.name)
+				
+				if disk.name not in ignored_disks:
+					ignored_disks.append(disk.name)
+		
+		KickstartAutoIgnoreDialog(self.main_window, ignored_disks)
 
 	def return_device_list(self):
 		return self.device_list

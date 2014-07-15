@@ -575,6 +575,8 @@ class BlivetUtils():
 			self.ksparser.handler.ignoredisk.onlyuse.append(name)
 		
 		self.storage.ksdata = self.ksparser.handler
+		
+		self.storage.reset()
 	
 	def luks_decrypt(self, blivet_device, passphrase):
 		""" Decrypt selected luks device

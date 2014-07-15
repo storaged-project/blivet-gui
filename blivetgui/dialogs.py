@@ -55,7 +55,7 @@ class RootTestDialog(Gtk.MessageDialog):
 			Gtk.ButtonsType.CANCEL, 
 			_("Root privileges required"))
 		
-		self.format_secondary_text = _("Root privileges are required for running blivet-gui.")
+		self.format_secondary_text(_("Root privileges are required for running blivet-gui."))
 		
 		self.show_all()
 		
@@ -763,7 +763,8 @@ class AddDialog(Gtk.Dialog):
 		if self.kickstart:
 			return (device, self.spin_size.get_value(),
 				self.filesystems_combo.get_active_text(), self.name_entry.get_text(), 
-				self.label_entry.get_text(), self.mountpoint_entry.get_text())
+				self.label_entry.get_text(), self.mountpoint_entry.get_text(), 
+				self.encrypt_check.get_active(), {"passphrase" : self.passphrase_entry.get_text()})
 		
 		else:
 			return (device, self.spin_size.get_value(),
@@ -1024,6 +1025,41 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
 				selected_disks_names.append(row[0].name)
 		
 		return (selected_disks_names, self.boot_device_combo.get_sensitive() , self.boot_device_combo.get_active_text())
+
+class KickstartAutoIgnoreDialog(Gtk.MessageDialog):
+	""" Dialog window informing user about ignored devices in kickstart mode
+	"""
+	
+	def __init__(self, parent_window, devices):
+		"""
+			:param parent_window: parent window
+			:type parent_window: Gtk.Window
+			:param devices: raised exception
+			:type devices: str
+		"""
+		
+		self.parent_window = parent_window
+		
+		Gtk.MessageDialog.__init__(self, None, 0, 
+			Gtk.MessageType.ERROR,
+			Gtk.ButtonsType.OK, 
+			_("Following disk will be ignored"))
+		
+		self.set_transient_for(self.parent_window)
+		
+		info_str = "blivet-gui in kickstart mode can't work with disks with" \
+			"active mounts, following disks will be ignored:\n\n"
+		
+		for device in devices:
+			info_str = info_str + "\t• " + device + "\n"
+		
+		self.format_secondary_text(info_str)
+		
+		self.show_all()
+		
+		self.connect("delete-event", Gtk.main_quit)
+		self.run()
+		self.destroy()
 
 class LuksPassphraseDialog(Gtk.Dialog):
 	""" Dialog window allowing user to enter passphrase to decrypt 
