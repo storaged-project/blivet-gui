@@ -117,7 +117,7 @@ class FreeSpaceDevice():
 		(blivet doesn't have class/device to represent free space)
 	"""
 	
-	def __init__(self,free_size):
+	def __init__(self, free_size):
 		"""
 		
 		:param free_size: size of free space in MB
@@ -224,15 +224,7 @@ class BlivetUtils():
 		if blivet_device == None:
 			return []
 		
-		if blivet_device.isDisk and blivet_device.kids == 0:
-			# disk is empty
-			
-			partitions.append(FreeSpaceDevice(int(blivet_device.size)))
-			
-			return partitions
-		
-		elif blivet_device.isDisk and blivet_device.kids > 0:
-			# disk with partitions
+		if blivet_device.isDisk:
 			
 			free_space = partitioning.getFreeRegions([blivet_device])
 			
@@ -329,7 +321,9 @@ class BlivetUtils():
 			
 		"""
 		
-		if blivet_device.resizable:
+		if blivet_device.resizable and blivet_device.format.resizable:
+			
+			blivet_device.format.updateSizeInfo()
 			
 			return (True, blivet_device.minSize, blivet_device.maxSize, blivet_device.size)
 		
@@ -486,6 +480,8 @@ class BlivetUtils():
 		
 		except PartitioningError as e:
 			BlivetError(e, self.main_window)
+			
+			print "requested size:", target_size, "free space:", self.storage.getFreeSpace(parent_devices)
 			
 			return None
 	
