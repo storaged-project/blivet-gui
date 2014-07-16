@@ -268,8 +268,9 @@ class ListDevices():
 				if disk.name not in ignored_disks:
 					ignored_disks.append(disk.name)
 		
-		KickstartAutoIgnoreDialog(self.main_window, ignored_disks)
-
+		if len(ignored_disks) > 0:
+			KickstartAutoIgnoreDialog(self.main_window, ignored_disks)
+		
 	def return_device_list(self):
 		return self.device_list
 	
