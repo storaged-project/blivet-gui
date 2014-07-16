@@ -583,9 +583,9 @@ class BlivetUtils():
 		
 		# when running from Live CD, its filesystem is mounted in '/' thus creating huge mess with kickstart
 		# deleting the mountpoint from devicetree is odd hack but simply ignoring this device doesn't work
-		if "/" in self.storage.mountpoints.keys and self.storage.mountpoints["/"].name == "live-rw":
-			live_rw = self.storage.getDeviceByName("live-rw")
-			live_rw.format.mountpoint = "/"
+		if "/" in self.storage.mountpoints.keys() and self.storage.mountpoints["/"].name == "live-rw":
+			live_rw = self.storage.devicetree.getDeviceByName("live-rw")
+			live_rw.format.mountpoint = ""
 	
 	def luks_decrypt(self, blivet_device, passphrase):
 		""" Decrypt selected luks device
