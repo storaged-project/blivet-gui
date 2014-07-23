@@ -646,6 +646,8 @@ class AddDialog(Gtk.Dialog):
 		self.passphrase_label.set_sensitive(False)
 		
 		self.passphrase_entry = Gtk.Entry()
+		self.passphrase_entry.set_visibility(False)
+		self.passphrase_entry.set_property("caps-lock-warning", True)
 		self.grid.attach(self.passphrase_entry,4,10,2,1)
 		self.passphrase_entry.set_sensitive(False)
 		

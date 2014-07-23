@@ -209,8 +209,6 @@ class ListDevices():
 		"""
 			
 		treeview = Gtk.TreeView(model=self.device_list)
-		#treeview.set_vexpand(True)
-		#treeview.set_hexpand(True)
 		
 		renderer_pixbuf = Gtk.CellRendererPixbuf()
 		column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, pixbuf=1)
