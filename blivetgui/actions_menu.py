@@ -93,7 +93,7 @@ class actions_menu():
 		umount_item.set_sensitive(False)
 		self.menu.add(umount_item)
 		
-		self.menu_items["umount"] = umount_item
+		self.menu_items["unmount"] = umount_item
 		
 		decrypt_item = Gtk.MenuItem()
 		decrypt_item.set_label(_("Decrypt"))

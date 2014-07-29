@@ -98,7 +98,7 @@ class actions_toolbar():
 		button_umount.set_sensitive(False)
 		button_umount.set_tooltip_text(_("Unmount selected device"))
 		self.toolbar.insert(button_umount, 4)
-		self.buttons["umount"] = button_umount
+		self.buttons["unmount"] = button_umount
 		button_umount.connect("clicked", self.on_umount_clicked)
 		
 		button_decrypt = Gtk.ToolButton()

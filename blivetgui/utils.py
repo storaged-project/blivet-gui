@@ -120,8 +120,8 @@ class FreeSpaceDevice():
 	def __init__(self, free_size):
 		"""
 		
-		:param free_size: size of free space in MB
-		:type free_size: int
+		:param free_size: size of free space
+		:type free_size: blivet.Size
 		
 		"""
 		
@@ -227,7 +227,7 @@ class BlivetUtils():
 		if blivet_device.isDisk and blivet_device.format.type == None:
 			# empty disk without disk label
 			
-			partitions.append(FreeSpaceDevice(int(blivet_device.size)))
+			partitions.append(FreeSpaceDevice(blivet_device.size))
 			
 			return partitions
 		
@@ -245,7 +245,7 @@ class BlivetUtils():
 					# too small to be usable
 					continue
 				
-				free_size = int((free.length*free.device.sectorSize) / (free.device.sectorSize*2)**2) # free space in MiB
+				free_size = Size(free.length * free.device.sectorSize) # free space in B
 				
 				added = False
 				
@@ -352,7 +352,7 @@ class BlivetUtils():
 		"""
 		
 		resize = settings[0]
-		target_size = settings[1]
+		target_size = Size(str(settings[1]) + "MiB")
 		target_fs = settings[2]
 		mountpoint = settings[3]
 		    
@@ -369,10 +369,10 @@ class BlivetUtils():
 			self.storage.formatDevice(blivet_device, new_fmt)
 		
 		elif resize == True and target_fs == None:
-			self.storage.resizeDevice(blivet_device, int(target_size))
+			self.storage.resizeDevice(blivet_device, target_size)
 		
 		else:
-			self.storage.resizeDevice(blivet_device, int(target_size))
+			self.storage.resizeDevice(blivet_device, target_size)
 			new_fmt = formats.getFormat(target_fs, device=blivet_device.path)
 			self.storage.formatDevice(blivet_device, new_fmt)
 		
@@ -485,7 +485,7 @@ class BlivetUtils():
 			
 			return self.storage.devicetree.getDeviceByID(device_id)
 		
-		except PartitioningError as e:
+		except errors.PartitioningError as e:
 			BlivetError(e, self.main_window)
 			
 			return None

@@ -270,13 +270,17 @@ class EditDialog(Gtk.Dialog):
 		
 	def add_size_scale(self):
 		
-		self.scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=Gtk.Adjustment(0, self.resizable[1], self.resizable[2], 1, 10, 0))
+		self.down_limit = int(self.resizable[1].convertTo("MiB"))
+		self.up_limit = int(self.resizable[2].convertTo("MiB"))
+		self.current_size = int(self.resizable[3].convertTo("MiB"))
+		
+		self.scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=Gtk.Adjustment(0, self.down_limit, self.up_limit, 1, 10, 0))
 		self.scale.set_hexpand(True)
 		self.scale.set_valign(Gtk.Align.START)
 		self.scale.set_digits(0)
-		self.scale.set_value(self.resizable[3])
-		self.scale.add_mark(self.resizable[1],Gtk.PositionType.BOTTOM,str(int(self.resizable[1])))
-		self.scale.add_mark(self.resizable[2],Gtk.PositionType.BOTTOM,str(int(self.resizable[2])))
+		self.scale.set_value(self.current_size)
+		self.scale.add_mark(self.down_limit,Gtk.PositionType.BOTTOM,(str(self.down_limit)))
+		self.scale.add_mark(self.up_limit,Gtk.PositionType.BOTTOM,str(self.up_limit))
 		self.scale.connect("value-changed", self.scale_moved)
 		
 		self.grid.attach(self.scale, 0, 1, 6, 1) #left-top-width-height
@@ -285,18 +289,18 @@ class EditDialog(Gtk.Dialog):
 		self.label_size.set_text(_("Volume size:"))
 		self.grid.attach(self.label_size, 0, 2, 1, 1) #left-top-width-height
 		
-		self.spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, self.resizable[1], self.resizable[2], 1, 10, 0))
+		self.spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, self.down_limit, self.up_limit, 1, 10, 0))
 		self.spin_size.set_numeric(True)
-		self.spin_size.set_value(self.resizable[3])
+		self.spin_size.set_value(self.current_size)
 		self.spin_size.connect("value-changed", self.spin_size_moved)
 		
 		self.grid.attach(self.spin_size, 1, 2, 1, 1) #left-top-width-height
 		
 		self.label_mb = Gtk.Label()
-		self.label_mb.set_text(_("MB"))
+		self.label_mb.set_text(_("MiB"))
 		self.grid.attach(self.label_mb, 2, 2, 1, 1) #left-top-width-height
 		
-		if self.resizable[0] == False or self.resizable[1] == self.resizable[2]:
+		if self.resizable[0] == False or self.down_limit == self.up_limit:
 			self.label_resize = Gtk.Label()
 			self.label_resize.set_markup(_("<b>This device cannot be resized.</b>"))
 			self.grid.attach(self.label_resize, 0, 0, 6, 1) #left-top-width-height
@@ -405,8 +409,8 @@ class AddDialog(Gtk.Dialog):
 			:type parent_device: blivet.Device
 			:param partition_name: name of device
 			:type partition_name: str
-			:param free_space: size of selected free space
-			:type free_space: int
+			:param free_device: free device
+			:type free_space: FreeSpaceDevice
 			:param free_pvs: list PVs with no VG
 			:type free_pvs: list
 			:param kickstart: kickstart mode
@@ -522,14 +526,14 @@ class AddDialog(Gtk.Dialog):
 		if self.device_type == "lvmpv":
 			for pv in self.free_pvs:
 				if pv.name == self.parent_device.name:
-					self.parents_store.append([self.parent_device, True, self.parent_device.name, self.device_type, Size(spec=str(int(self.free_space)) + " MB").humanReadable()])
+					self.parents_store.append([self.parent_device, True, self.parent_device.name, self.device_type, str(self.free_space)])
 				else:
-					self.parents_store.append([pv, False, pv.name, "lvmpv", Size(spec=str(pv.size) + " MB").humanReadable()])
+					self.parents_store.append([pv, False, pv.name, "lvmpv", str(pv.size)])
 			
 			self.parents.set_sensitive(True)
 		
 		else:
-			self.parents_store.append([self.parent_device, True, self.parent_device.name, self.device_type, Size(spec=str(int(self.free_space)) + " MB").humanReadable()])
+			self.parents_store.append([self.parent_device, True, self.parent_device.name, self.device_type, str(self.free_space)])
 			self.parents.set_sensitive(False)
 		
 		self.label_list = Gtk.Label()
@@ -548,13 +552,15 @@ class AddDialog(Gtk.Dialog):
 	
 	def add_size_scale(self):
 		
-		self.scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=Gtk.Adjustment(0, 1, self.free_space, 1, 10, 0))
+		self.up_limit = int(self.free_space.convertTo("MiB"))
+		
+		self.scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=Gtk.Adjustment(0, 1, self.up_limit, 1, 10, 0))
 		self.scale.set_hexpand(True)
 		self.scale.set_valign(Gtk.Align.START)
 		self.scale.set_digits(0)
-		self.scale.set_value(self.free_space)
+		self.scale.set_value(self.up_limit)
 		self.scale.add_mark(0,Gtk.PositionType.BOTTOM,str(1))
-		self.scale.add_mark(self.free_space,Gtk.PositionType.BOTTOM,str(self.free_space))
+		self.scale.add_mark(self.up_limit,Gtk.PositionType.BOTTOM,str(self.up_limit))
 		self.scale.connect("value-changed", self.scale_moved)
 		
 		self.grid.attach(self.scale, 0, 6, 6, 1) #left-top-width-height
@@ -563,29 +569,29 @@ class AddDialog(Gtk.Dialog):
 		self.label_size.set_text(_("Volume size:"))
 		self.grid.attach(self.label_size, 0, 7, 1, 1) #left-top-width-height
 		
-		self.spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 1, self.free_space, 1, 10, 0))
+		self.spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 1, self.up_limit, 1, 10, 0))
 		self.spin_size.set_numeric(True)
-		self.spin_size.set_value(self.free_space)
+		self.spin_size.set_value(self.up_limit)
 		self.spin_size.connect("value-changed", self.spin_size_moved)
 		
 		self.grid.attach(self.spin_size, 1, 7, 1, 1) #left-top-width-height
 		
 		self.label_mb = Gtk.Label()
-		self.label_mb.set_text(_("MB"))
+		self.label_mb.set_text(_("MiB"))
 		self.grid.attach(self.label_mb, 2, 7, 1, 1) #left-top-width-height
 		
 		self.label_free = Gtk.Label()
 		self.label_free.set_text(_("Free space after:"))
 		self.grid.attach(self.label_free, 3, 7, 1, 1) #left-top-width-height
 		
-		self.spin_free = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 0, self.free_space, 1, 10, 0))
+		self.spin_free = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 0, self.up_limit, 1, 10, 0))
 		self.spin_free.set_numeric(True)
 		self.spin_free.connect("value-changed", self.spin_free_moved)
 		
 		self.grid.attach(self.spin_free, 4, 7, 1, 1) #left-top-width-height
 		
 		self.label_mb2 = Gtk.Label()
-		self.label_mb2.set_text(_("MB"))
+		self.label_mb2.set_text(_("MiB"))
 		self.grid.attach(self.label_mb2, 5, 7, 1, 1) #left-top-width-height
 		
 	def add_fs_chooser(self):
@@ -731,17 +737,17 @@ class AddDialog(Gtk.Dialog):
 	def scale_moved(self,event):
 		
 		self.spin_size.set_value(self.scale.get_value())
-		self.spin_free.set_value(self.free_space - self.scale.get_value())
+		self.spin_free.set_value(self.up_limit - self.scale.get_value())
 		
 	def spin_size_moved(self,event):
 		
 		self.scale.set_value(self.spin_size.get_value())
-		self.spin_free.set_value(self.free_space - self.scale.get_value())
+		self.spin_free.set_value(self.up_limit - self.scale.get_value())
 		
 	def spin_free_moved(self,event):
 		
-		self.scale.set_value(self.free_space - self.spin_free.get_value())
-		self.spin_size.set_value(self.free_space - self.spin_free.get_value())
+		self.scale.set_value(self.up_limit - self.spin_free.get_value())
+		self.spin_size.set_value(self.up_limit - self.spin_free.get_value())
 	
 	def get_selection(self):
 		tree_iter = self.devices_combo.get_active_iter()
@@ -759,7 +765,7 @@ class AddDialog(Gtk.Dialog):
 					parents.append(row[0])
 					size += row[0].size
 			
-			return (device, size, self.filesystems_combo.get_active_text(), 
+			return (device, int(size.convertTo("MiB")), self.filesystems_combo.get_active_text(), 
 				self.name_entry.get_text(), self.label_entry.get_text(), parents)
 		
 		if self.kickstart:

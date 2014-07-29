@@ -208,31 +208,31 @@ class ListPartitions():
 			
 			if partition.name == _("free space"):
 				self.partitions_list.append([partition,partition.name,"--","--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+								 str(partition.size), None])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
 				self.partitions_list.append(partition,[partition.name,_("extended"),"--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+								 str(partition.size), None])
 			elif partition._type == "lvmvg":
 				self.partitions_list.append([partition,partition.name,_("lvmvg"),"--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+								 str(partition.size), None])
 			elif partition.format.mountable:
 				if partition.format.mountpoint != None:
 					self.partitions_list.append([partition,partition.name,partition.format._type,
-								 partition.format.mountpoint,Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+								 partition.format.mountpoint,str(partition.size), None])
 					
 				elif partition.format.mountpoint == None and self.kickstart_mode:
 					
 					old_mnt = self.list_devices.old_mountpoints[partition.format.uuid]
 					
 					self.partitions_list.append([partition,partition.name,partition.format._type,
-								 partition.format.mountpoint,Size(spec=(str(partition.size) + " MB")).humanReadable(), old_mnt])
+								 partition.format.mountpoint,str(partition.size), old_mnt])
 					
 				else:
 					self.partitions_list.append([partition,partition.name,partition.format._type,
-								 partition_mounted(partition.path),Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+								 partition_mounted(partition.path),str(partition.size), None])
 			else:
 				self.partitions_list.append([partition,partition.name,partition.format._type,"--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+								 str(partition.size), None])
 	
 	def device_info(self):
 		""" Basic information for selected device	
@@ -246,7 +246,7 @@ class ListPartitions():
 			info_str = _("<b>LVM2 Volume group <i>{0}</i> occupying {1} physical volume(s):</b>\n\n").format(self.disk.name, len(pvs))
 		
 			for pv in pvs:
-				info_str += _("\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> disk.\n").format(pv.name, Size(spec=(str(pv.size) + " MB")).humanReadable(), pv.disks[0].name)
+				info_str += _("\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> disk.\n").format(pv.name, str(pv.size), pv.disks[0].name)
 		
 		elif device_type in ["lvmpv", "luks/dm-crypt"]:
 			blivet_device = self.disk
@@ -261,7 +261,7 @@ class ListPartitions():
 			
 			blivet_disk = self.disk
 			
-			info_str = _("<b>Hard disk</b> <i>{0}</i>\n\n\t• Size: <i>{1}</i>\n\t• Model: <i>{2}</i>\n").format(blivet_disk.path, Size(spec=(str(blivet_disk.size) + " MB")).humanReadable(), blivet_disk.model)
+			info_str = _("<b>Hard disk</b> <i>{0}</i>\n\n\t• Size: <i>{1}</i>\n\t• Model: <i>{2}</i>\n").format(blivet_disk.path, str(blivet_disk.size), blivet_disk.model)
 			
 		else:
 			info_str = ""
@@ -289,17 +289,17 @@ class ListPartitions():
 			
 			if partition.name == _("free space"):
 				self.partitions_list.append([partition,partition.name,"--","--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+								 str(partition.size), None])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
 				self.partitions_list.append([partition,partition.name,_("extended"),"--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+								 str(partition.size), None])
 			elif partition._type == "lvmvg":
 				self.partitions_list.append([partition,partition.name,_("lvmvg"),"--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+								 str(partition.size), None])
 			elif partition.format.mountable:
 				if partition.format.mountpoint != None:
 					self.partitions_list.append([partition,partition.name,partition.format._type,
-								 partition.format.mountpoint,Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+								 partition.format.mountpoint,str(partition.size), None])
 				
 				elif partition.format.mountpoint == None and self.kickstart_mode:
 					
@@ -309,14 +309,14 @@ class ListPartitions():
 						old_mnt = None
 					
 					self.partitions_list.append([partition,partition.name,partition.format._type,
-								 partition.format.mountpoint,Size(spec=(str(partition.size) + " MB")).humanReadable(), old_mnt])
+								 partition.format.mountpoint,str(partition.size), old_mnt])
 				
 				else:
 					self.partitions_list.append([partition,partition.name,partition.format._type,
-								 partition_mounted(partition.path),Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+								 partition_mounted(partition.path),str(partition.size), None])
 			else:
 				self.partitions_list.append([partition,partition.name,partition.format._type,"--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+								 str(partition.size), None])
 		
 		# select first line in partitions view
 		self.select = self.partitions_view.get_selection()
@@ -408,7 +408,7 @@ class ListPartitions():
 			
 			else:
 				
-				total_size += int(Size(spec=partition[4]).convertTo(spec="MB"))
+				total_size += partition[0].size.convertTo(spec="MB")
 				num_parts += 1	
 		
 		# Colors for partitions
@@ -448,7 +448,7 @@ class ListPartitions():
 				
 				extended = False
 			
-			part_width = int(Size(spec=partition[4]).convertTo(spec="MB"))*(width - 2*shrink)/total_size
+			part_width = int(partition[0].size.convertTo(spec="MB"))*(width - 2*shrink)/total_size
 			
 			#print part_width, partition[0]
 			
@@ -479,7 +479,7 @@ class ListPartitions():
 			
 			# Print size of partition
 			cairo_ctx.move_to(x + 12 , height/2 + 12)
-			cairo_ctx.show_text(Size(spec=str(int(partition[0].size)) + " MB").humanReadable())
+			cairo_ctx.show_text(str(partition[0].size))
 			
 			if not extended:
 				x += part_width
@@ -646,7 +646,7 @@ class ListPartitions():
 		if selected_partition[1] == _("free space"):			
 			
 			self.deactivate_all_options()
-			self.activate_options(["all"])
+			self.activate_options(["add"])
 		
 		elif selected_partition[2] == _("extended") and partition_device.isleaf:
 			
@@ -739,8 +739,6 @@ class ListPartitions():
 		""" Add new partition
 		"""
 		
-		free_size = self.selected_partition[0].size
-		
 		device_type = self.b.get_device_type(self.disk)
 		
 		if device_type == "disk" and self.b.has_disklabel(self.disk) != True:
@@ -769,14 +767,18 @@ class ListPartitions():
 			
 			return
 		
-		dialog = AddDialog(self.main_window, device_type, self.disk ,self.selected_partition[0],
-					 free_size, self.b.get_free_pvs_info(), self.kickstart_mode)
+		dialog = AddDialog(self.main_window, device_type, self.disk, self.selected_partition[1],
+					 self.selected_partition[0].size, self.b.get_free_pvs_info(), self.kickstart_mode)
 		
 		response = dialog.run()
 		
 		selection = dialog.get_selection()
 		
 		if response == Gtk.ResponseType.OK:
+			
+			user_input = dialog.get_selection()
+			
+			selected_size = Size(str(user_input[1]) + "MiB")
 			
 			if selection[2] == None and selection[0] not in ["LVM2 Physical Volume",
 													"LVM2 Volume Group", "LVM2 Storage"]:
@@ -787,18 +789,17 @@ class ListPartitions():
 				self.add_partition()
 			
 			elif selection[0] == "LVM2 Volume Group":
-				user_input = dialog.get_selection()
 				
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
 				
 				ret = self.b.add_device(parent_devices=user_input[5], device_type=user_input[0],
-							fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
+							fs_type=user_input[2], target_size=selected_size, name=user_input[3],
 							label=user_input[4])
 				
 				if ret != None:
 					
-					self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
+					self.update_actions_view("add","add " + str(selected_size) + " " + user_input[0] + " device")
 					self.list_devices.update_devices_view("add", self.disk, ret)
 						
 					self.update_partitions_view(self.disk)
@@ -811,13 +812,12 @@ class ListPartitions():
 				dialog.destroy()
 			
 			elif selection[0] == "LVM2 Storage":
-				user_input = dialog.get_selection()
 				
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
 				
 				ret1 = self.b.add_device(parent_devices=[self.disk], device_type="LVM2 Physical Volume",
-							 fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
+							 fs_type=user_input[2], target_size=selected_size, name=user_input[3],
 							 label=user_input[4])
 				
 				if ret1 != None:
@@ -833,7 +833,7 @@ class ListPartitions():
 						
 						if user_input[2] == None:
 							
-							self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
+							self.update_actions_view("add","add " + str(selected_size) + " " + user_input[0] + " device")
 							self.list_devices.update_devices_view("add", self.disk, ret2)
 							
 					self.update_partitions_view(self.disk)
@@ -846,7 +846,6 @@ class ListPartitions():
 				dialog.destroy()
 				
 			else:
-				user_input = dialog.get_selection()
 				
 				# kickstart mode
 				
@@ -867,20 +866,21 @@ class ListPartitions():
 					self.add_partition()
 				
 				# user_input = [device, size, fs, name, label, mountpoint]
+				
 				ret = self.b.add_device(parent_devices=[self.disk], device_type=user_input[0],
-							fs_type=user_input[2], target_size=user_input[1], name=user_input[3],
+							fs_type=user_input[2], target_size=selected_size, name=user_input[3],
 							label=user_input[4], mountpoint=user_input[5], encrypt=user_input[6], encrypt_args=user_input[7])
 
 				if ret != None:
 					
 					if user_input[2] == None:
 					
-						self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[0] + " device")
+						self.update_actions_view("add","add " + str(selected_size) + " " + user_input[0] + " device")
 						self.list_devices.update_devices_view("add", self.disk, ret)
 						
 					else:
 					
-						self.update_actions_view("add","add " + str(user_input[1]) + " MB " + user_input[2] + " partition")
+						self.update_actions_view("add","add " + str(selected_size) + " " + user_input[2] + " partition")
 						
 					self.update_partitions_view(self.disk)
 					self.update_partitions_image(self.disk)
@@ -1047,7 +1047,7 @@ class ListPartitions():
 			user_input = dialog.get_selection()
 			
 			if user_input[0] == False and user_input[2] == None and user_input[3] == None:
-				dialog.destroy()				
+				dialog.destroy()
 				
 			else:
 				
