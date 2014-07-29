@@ -1,34 +1,22 @@
-#----------------------#
-#----Python package----#
-#----------------------#
-# Create python package
+GUI tool for storage configuration using blivet library
 
-$ python2 setup.py sdist
+Installation
+------------
 
-# Install python package
+Fedora 20 copr repository:
 
-$ cd dist
-$ tar zxf blivetgui-<version>.tar.gz
-$ cd blivetgui-<version>
-$ sudo python2 setup.py install
+http://copr.fedoraproject.org/coprs/vtrefny/blivet-gui/
 
-# Run blivet-gui
+Help
+----
 
-$ sudo blivet-gui
+https://vojtechtrefny.github.io/blivet-gui/
 
-#----------------------#
-#------RPM package-----#
-#----------------------#
-# Create RPM package
+or
 
-$ python2 setup.py sdist
-$ python setup.py bdist_rpm --requires="python, pygobject3, gettext, yelp, python-blivet, gtk3, gnome-icon-theme"
+Help → Contents
 
-# Install RPM package
+Documentation
+-------------
 
-$ cd dist
-$ sudo yum localinstall blivetgui-<version>.noarch.rpm
-
-# Run blivet-gui
-
-$ sudo blivet-gui
+https://vojtechtrefny.github.io/doc/

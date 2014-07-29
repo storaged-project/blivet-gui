@@ -128,11 +128,15 @@ blivetgui/help/C/legal.xml
 blivetgui/help/C/lvm2.page
 blivetgui/help/C/partitioning.page
 blivetgui/help/C/window.page
+blivetgui/help/C/icons/.directory
 blivetgui/help/C/icons/add.png
 blivetgui/help/C/icons/apply.png
 blivetgui/help/C/icons/clear.png
 blivetgui/help/C/icons/delete.png
 blivetgui/help/C/icons/edit.png
+blivetgui/help/C/icons/password.png
+blivetgui/help/C/icons/redo.png
+blivetgui/help/C/icons/undo.png
 blivetgui/help/C/icons/unmount.png
 blivetgui/help/C/images/.directory
 blivetgui/help/C/images/edit-partition.png
