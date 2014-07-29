@@ -1063,6 +1063,39 @@ class KickstartAutoIgnoreDialog(Gtk.MessageDialog):
 		self.run()
 		self.destroy()
 
+class KickstartDuplicateMountpointDialog(Gtk.MessageDialog):
+	""" Dialog window informing user about duplicate mountpoints in kickstart mode
+	"""
+	
+	def __init__(self, parent_window, mountpoint, old_device):
+		"""
+		
+			:param parent_window: parent window
+			:type parent_window: Gtk.Window
+			:param mountpoint: duplicate mountpoint
+			:type mountpoint: str
+			:param old_device: existing device with same mountpoint
+			:type old_device: str
+			
+		"""
+		
+		self.parent_window = parent_window
+		
+		Gtk.Dialog.__init__(self, _("Duplicate mountpoint detected"), None, Gtk.MessageType.WARNING,
+			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+			Gtk.STOCK_OK, Gtk.ResponseType.OK))
+		
+		self.set_transient_for(self.parent_window)
+		
+		self.set_default_size(175, 110)
+		
+		info_str = _("Selected mountpoint \"{0}\" is already used for \"{1}\" device. Do you want to remove this mountpoint?").format(mountpoint, old_device)
+		
+		self.format_secondary_text(info_str)
+		
+		self.show_all()
+		
+
 class LuksPassphraseDialog(Gtk.Dialog):
 	""" Dialog window allowing user to enter passphrase to decrypt 
 	"""

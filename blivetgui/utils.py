@@ -488,8 +488,6 @@ class BlivetUtils():
 		except PartitioningError as e:
 			BlivetError(e, self.main_window)
 			
-			print "requested size:", target_size, "free space:", self.storage.getFreeSpace(parent_devices)
-			
 			return None
 	
 	def get_device_type(self, blivet_device):
@@ -510,7 +508,7 @@ class BlivetUtils():
 		return blivet_device._type
 	
 	def get_blivet_device(self, device_name):
-		""" Get blivet device
+		""" Get blivet device by name
 		
 			:param device_name: device name
 			:type device_name: str
@@ -520,6 +518,20 @@ class BlivetUtils():
 		"""
 		
 		blivet_device = self.storage.devicetree.getDeviceByName(device_name)
+		
+		return blivet_device
+	
+	def get_blivet_device(self, device_uuid):
+		""" Get blivet device by UUID
+		
+			:param device_uuid: device uuid
+			:type device_name: str
+			:returns: blviet device
+			:rtype: blivet.StorageDevice
+			
+		"""
+		
+		blivet_device = self.storage.devicetree.getDeviceByUuid(device_uuid)
 		
 		return blivet_device
 	
@@ -572,6 +584,17 @@ class BlivetUtils():
 		
 		self.storage.ksdata = self.ksparser.handler
 	
+	def kickstart_mountpoints(self):
+		
+		#delete existing mountpoints from devicetree and save them for future use
+		old_mountpoints = {}
+		
+		for mountpoint in self.storage.mountpoints.values():
+			old_mountpoints[mountpoint.format.uuid] = mountpoint.format.mountpoint
+			mountpoint.format.mountpoint = None
+		
+		return old_mountpoints
+	
 	def kickstart_use_disks(self, disk_names):
 		
 		for name in disk_names:
@@ -581,11 +604,7 @@ class BlivetUtils():
 		
 		self.storage.reset()
 		
-		# when running from Live CD, its filesystem is mounted in '/' thus creating huge mess with kickstart
-		# deleting the mountpoint from devicetree is odd hack but simply ignoring this device doesn't work
-		if "/" in self.storage.mountpoints.keys() and self.storage.mountpoints["/"].name == "live-rw":
-			live_rw = self.storage.devicetree.getDeviceByName("live-rw")
-			live_rw.format.mountpoint = ""
+		# ignore existing mountpoints
 	
 	def luks_decrypt(self, blivet_device, passphrase):
 		""" Decrypt selected luks device

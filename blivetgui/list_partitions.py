@@ -163,7 +163,7 @@ class ListPartitions():
 		self.main_window = main_window
 		
 		# ListStores for partitions and actions
-		self.partitions_list = Gtk.ListStore(object,str,str,str,str)
+		self.partitions_list = Gtk.ListStore(object,str,str,str,str,str)
 		self.actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf,str)
 		
 		self.load_partitions()
@@ -208,23 +208,31 @@ class ListPartitions():
 			
 			if partition.name == _("free space"):
 				self.partitions_list.append([partition,partition.name,"--","--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
 				self.partitions_list.append(partition,[partition.name,_("extended"),"--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
 			elif partition._type == "lvmvg":
 				self.partitions_list.append([partition,partition.name,_("lvmvg"),"--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
 			elif partition.format.mountable:
 				if partition.format.mountpoint != None:
 					self.partitions_list.append([partition,partition.name,partition.format._type,
-								 partition.format.mountpoint,Size(spec=(str(partition.size) + " MB")).humanReadable()])
+								 partition.format.mountpoint,Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+					
+				elif partition.format.mountpoint == None and self.kickstart_mode:
+					
+					old_mnt = self.list_devices.old_mountpoints[partition.format.uuid]
+					
+					self.partitions_list.append([partition,partition.name,partition.format._type,
+								 partition.format.mountpoint,Size(spec=(str(partition.size) + " MB")).humanReadable(), old_mnt])
+					
 				else:
 					self.partitions_list.append([partition,partition.name,partition.format._type,
-								 partition_mounted(partition.path),Size(spec=(str(partition.size) + " MB")).humanReadable()])
+								 partition_mounted(partition.path),Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
 			else:
 				self.partitions_list.append([partition,partition.name,partition.format._type,"--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
 	
 	def device_info(self):
 		""" Basic information for selected device	
@@ -281,23 +289,34 @@ class ListPartitions():
 			
 			if partition.name == _("free space"):
 				self.partitions_list.append([partition,partition.name,"--","--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
 				self.partitions_list.append([partition,partition.name,_("extended"),"--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
 			elif partition._type == "lvmvg":
 				self.partitions_list.append([partition,partition.name,_("lvmvg"),"--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
 			elif partition.format.mountable:
 				if partition.format.mountpoint != None:
 					self.partitions_list.append([partition,partition.name,partition.format._type,
-								 partition.format.mountpoint,Size(spec=(str(partition.size) + " MB")).humanReadable()])
+								 partition.format.mountpoint,Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
+				
+				elif partition.format.mountpoint == None and self.kickstart_mode:
+					
+					if partition.format.uuid in self.list_devices.old_mountpoints.keys():
+						old_mnt = self.list_devices.old_mountpoints[partition.format.uuid]
+					else:
+						old_mnt = None
+					
+					self.partitions_list.append([partition,partition.name,partition.format._type,
+								 partition.format.mountpoint,Size(spec=(str(partition.size) + " MB")).humanReadable(), old_mnt])
+				
 				else:
 					self.partitions_list.append([partition,partition.name,partition.format._type,
-								 partition_mounted(partition.path),Size(spec=(str(partition.size) + " MB")).humanReadable()])
+								 partition_mounted(partition.path),Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
 			else:
 				self.partitions_list.append([partition,partition.name,partition.format._type,"--",
-								 Size(spec=(str(partition.size) + " MB")).humanReadable()])
+								 Size(spec=(str(partition.size) + " MB")).humanReadable(), None])
 		
 		# select first line in partitions view
 		self.select = self.partitions_view.get_selection()
@@ -324,11 +343,15 @@ class ListPartitions():
 		column_text2 = Gtk.TreeViewColumn(_("Filesystem"), renderer_text, text=2)
 		column_text3 = Gtk.TreeViewColumn(_("Mountpoint"), renderer_text, text=3)
 		column_text4 = Gtk.TreeViewColumn(_("Size"), renderer_text, text=4)
+		column_text5 = Gtk.TreeViewColumn(_("Current Mountpoint"), renderer_text, text=5)
 		
 		treeview.append_column(column_text1)
 		treeview.append_column(column_text2)
 		treeview.append_column(column_text3)
 		treeview.append_column(column_text4)
+		
+		if self.kickstart_mode:
+			treeview.append_column(column_text5)
 		
 		treeview.set_headers_visible(True)
 		
@@ -633,40 +656,73 @@ class ListPartitions():
 			self.main_menu.deactivate_all()
 			self.popup_menu.deactivate_all()
 			
-			if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
-				self.toolbar.activate_buttons(["delete"])
-				self.main_menu.activate_menu_items(["delete"])
-				self.popup_menu.activate_menu_items(["delete"])
+			if self.kickstart_mode:
 			
-			if partition_device.format.type == "swap" and swap_is_on(partition_device.sysfsPath) == False:
-				self.toolbar.activate_buttons(["delete"])
-				self.main_menu.activate_menu_items(["delete"])
-				self.popup_menu.activate_menu_items(["delete"])
+				if partition_device.format.mountable:
+					self.toolbar.activate_buttons(["delete"])
+					self.main_menu.activate_menu_items(["delete"])
+					self.popup_menu.activate_menu_items(["delete"])
+				
+				if partition_device.format.type == "swap":
+					self.toolbar.activate_buttons(["delete"])
+					self.main_menu.activate_menu_items(["delete"])
+					self.popup_menu.activate_menu_items(["delete"])
+				
+				if partition_device._type != "lvmvg" and partition_device.format.type == None and selected_partition[2] != _("extended"): #FIXME
+					self.toolbar.activate_buttons(["delete"])
+					self.main_menu.activate_menu_items(["delete"])
+					self.popup_menu.activate_menu_items(["delete"])
+					
+				if partition_device.format.mountable:
+					self.toolbar.activate_buttons(["edit"])
+					self.main_menu.activate_menu_items(["edit"])
+					self.popup_menu.activate_menu_items(["edit"])
+					
+				if partition_device.format.type == "luks" and partition_device.kids == 0:
+					self.toolbar.activate_buttons(["delete"])
+					self.main_menu.activate_menu_items(["delete"])
+					self.popup_menu.activate_menu_items(["delete"])
+					
+				if partition_device.format.type == "luks" and not partition_device.format.status:
+					self.toolbar.activate_buttons(["decrypt"])
+					self.main_menu.activate_menu_items(["decrypt"])
+					self.popup_menu.activate_menu_items(["decrypt"])
 			
-			if partition_device._type != "lvmvg" and partition_device.format.type == None and selected_partition[2] != _("extended"): #FIXME
-				self.toolbar.activate_buttons(["delete"])
-				self.main_menu.activate_menu_items(["delete"])
-				self.popup_menu.activate_menu_items(["delete"])
+			else:
+				if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
+					self.toolbar.activate_buttons(["delete"])
+					self.main_menu.activate_menu_items(["delete"])
+					self.popup_menu.activate_menu_items(["delete"])
 				
-			if partition_device.format.mountable and partition_mounted(partition_device.path) != None:
-				self.toolbar.activate_buttons(["umount"])
-				self.main_menu.activate_menu_items(["umount"])
-				self.popup_menu.activate_menu_items(["umount"])
+				if partition_device.format.type == "swap" and swap_is_on(partition_device.sysfsPath) == False:
+					self.toolbar.activate_buttons(["delete"])
+					self.main_menu.activate_menu_items(["delete"])
+					self.popup_menu.activate_menu_items(["delete"])
 				
-			if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
-				self.toolbar.activate_buttons(["edit"])
-				self.main_menu.activate_menu_items(["edit"])
-				self.popup_menu.activate_menu_items(["edit"])
-				
-			if partition_device.format.type == "luks" and partition_device.kids == 0:
-				self.toolbar.activate_buttons(["delete"])
-				self.main_menu.activate_menu_items(["delete"])
-				self.popup_menu.activate_menu_items(["delete"])
-				
-			if partition_device.format.type == "luks" and not partition_device.format.status:
-				self.toolbar.activate_buttons(["decrypt"])
-				self.main_menu.activate_menu_items(["decrypt"])
-				self.popup_menu.activate_menu_items(["decrypt"])
+				if partition_device._type != "lvmvg" and partition_device.format.type == None and selected_partition[2] != _("extended"): #FIXME
+					self.toolbar.activate_buttons(["delete"])
+					self.main_menu.activate_menu_items(["delete"])
+					self.popup_menu.activate_menu_items(["delete"])
+					
+				if partition_device.format.mountable and partition_mounted(partition_device.path) != None:
+					self.toolbar.activate_buttons(["umount"])
+					self.main_menu.activate_menu_items(["umount"])
+					self.popup_menu.activate_menu_items(["umount"])
+					
+				if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
+					self.toolbar.activate_buttons(["edit"])
+					self.main_menu.activate_menu_items(["edit"])
+					self.popup_menu.activate_menu_items(["edit"])
+					
+				if partition_device.format.type == "luks" and partition_device.kids == 0:
+					self.toolbar.activate_buttons(["delete"])
+					self.main_menu.activate_menu_items(["delete"])
+					self.popup_menu.activate_menu_items(["delete"])
+					
+				if partition_device.format.type == "luks" and not partition_device.format.status:
+					self.toolbar.activate_buttons(["decrypt"])
+					self.main_menu.activate_menu_items(["decrypt"])
+					self.popup_menu.activate_menu_items(["decrypt"])
 	
 	def delete_selected_partition(self):
 		""" Delete selected partition
@@ -811,6 +867,15 @@ class ListPartitions():
 			else:
 				user_input = dialog.get_selection()
 				
+				# kickstart mode
+				
+				if self.kickstart_mode:
+					if self.check_mountpoint(user_input[5]):
+						pass
+					else:
+						dialog.destroy()
+						return
+				
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
 				
@@ -850,6 +915,39 @@ class ListPartitions():
 			dialog.destroy()
 			
 			return
+		
+	def check_mountpoint(self, mountpoint):
+		""" Kickstart mode; check for duplicate mountpoints
+			
+			:param mountpoint: mountpoint selected by user
+			:type mountpoint: str
+			:returns: mountpoint validity
+			:rtype: bool
+		"""
+		
+		if mountpoint == None:
+			return True
+		
+		elif mountpoint not in self.b.storage.mountpoints.keys():
+			return True
+		
+		else:
+			
+			old_device = self.b.storage.mountpoints[mountpoint]
+			
+			dialog = KickstartDuplicateMountpointDialog(self.main_window, mountpoint, old_device.name)
+		
+			response = dialog.run()
+		
+			if response == Gtk.ResponseType.OK:
+				old_device.format.mountpoint = None
+				
+				dialog.destroy()
+				return True
+			else:
+				dialog.destroy()
+				return False
+		
 		
 	def perform_actions(self):
 		""" Perform queued actions
@@ -893,6 +991,9 @@ class ListPartitions():
 				dialog.destroy()
 				
 			dialog.destroy()
+			
+			self.clear_actions_view()
+			self.history.clear_history()
 		
 		else:
 			dialog = ConfirmPerformActions(self.main_window)
@@ -965,9 +1066,16 @@ class ListPartitions():
 			user_input = dialog.get_selection()
 			
 			if user_input[0] == False and user_input[2] == None and user_input[3] == None:
-				dialog.destroy()
+				dialog.destroy()				
 				
 			else:
+				
+				if self.kickstart_mode:
+					if self.check_mountpoint(user_input[3]):
+						pass
+					else:
+						dialog.destroy()
+						return
 				
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
