@@ -71,6 +71,11 @@
     <p>Is active only when selected device is mounted.</p>
   </item>
   <item>
+    <title><media type="image" src="icons/password.png" width="24" />Decrypt selected device</title>
+    <p>Allows you to decrypt selected luks-device.</p>
+    <p>Is active only when selected device is LUKS/DM-Crypt device and is currently enrypted.</p>
+  </item>
+  <item>
     <title><media type="image" src="icons/apply.png" width="24" />Apply queued actions</title>
     <p>Allows you to execute all scheduled actions. All changes will be written on disks.</p>
     <p>Is active only when there is at least one action scheduled.</p>
@@ -79,6 +84,14 @@
     <title><media type="image" src="icons/clear.png" width="24" />Clear queued actions</title>
     <p>Allows you to cancel all scheduled actions.</p>
     <p>Is active only when there is at least one action scheduled.</p>
+  </item>
+  <item>
+    <title><media type="image" src="icons/undo.png" width="24" />Undo</title>
+    <p>Undo last action.</p>
+  </item>
+  <item>
+    <title><media type="image" src="icons/redo.png" width="24" />Redo</title>
+    <p>Redo last action.</p>
   </item>
 </terms>
 
