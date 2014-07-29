@@ -595,6 +595,40 @@ class ListPartitions():
 		self.toolbar.activate_buttons(["apply", "clear"])
 		self.main_menu.activate_menu_items(["apply", "clear"])
 	
+	def activate_options(self, activate_list):
+		""" Activate toolbar buttons and menu items
+		
+			:param activate_list: list of items to activate
+			:type activate_list: list of str
+			
+		"""
+		
+		for item in activate_list:
+			self.toolbar.activate_buttons([item])
+			self.popup_menu.activate_menu_items([item])
+			self.main_menu.activate_menu_items([item])
+	
+	def deactivate_options(self, deactivate_list):
+		""" Deactivate toolbar buttons and menu items
+		
+			:param deactivate_list: list of items to deactivate
+			:type deactivate_list: list of str
+			
+		"""
+		
+		for item in deactivate_list:
+			self.toolbar.deactivate_buttons([item])
+			self.popup_menu.deactivate_menu_items([item])
+			self.main_menu.deactivate_menu_items([item])
+	
+	def deactivate_all_options(self):
+		""" Deactivate all partition-based buttons/menu items
+		"""
+		
+		self.toolbar.deactivate_all()
+		self.main_menu.deactivate_all()
+		self.popup_menu.deactivate_all()
+	
 	def activate_action_buttons(self,selected_partition):
 		""" Activate buttons in toolbar based on selected partition
 		
@@ -606,123 +640,70 @@ class ListPartitions():
 		partition_device = selected_partition[0]
 		
 		if selected_partition == None or (partition_device == None and selected_partition[1] != _("free space")):
-			self.toolbar.deactivate_all()
-			self.main_menu.deactivate_all()
-			self.popup_menu.deactivate_all()
+			self.deactivate_all_options()
 			return
 		
 		if selected_partition[1] == _("free space"):			
-			self.toolbar.deactivate_all()
-			self.toolbar.activate_buttons(["add"])
 			
-			self.main_menu.deactivate_all()
-			self.main_menu.activate_menu_items(["add"])
-			
-			self.popup_menu.deactivate_all()
-			self.popup_menu.activate_menu_items(["add"])
+			self.deactivate_all_options()
+			self.activate_options(["all"])
 		
 		elif selected_partition[2] == _("extended") and partition_device.isleaf:
-			self.toolbar.deactivate_all()
-			self.toolbar.activate_buttons(["delete"])
 			
-			self.main_menu.deactivate_all()
-			self.main_menu.activate_menu_items(["delete"])
-			
-			self.popup_menu.deactivate_all()
-			self.popup_menu.activate_menu_items(["delete"])
+			self.deactivate_all_options()
+			self.activate_options(["delete"])
 		
 		elif selected_partition[2] == _("lvmvg") and partition_device.isleaf:
-			self.toolbar.deactivate_all()
-			self.toolbar.activate_buttons(["delete"])
 			
-			self.main_menu.deactivate_all()
-			self.main_menu.activate_menu_items(["delete"])
-			
-			self.popup_menu.deactivate_all()
-			self.popup_menu.activate_menu_items(["delete"])
+			self.deactivate_all_options()
+			self.activate_options(["delete"])
 			
 		elif selected_partition[2] == _("lvmpv") and partition_device.isleaf:
-			self.toolbar.deactivate_all()
-			self.toolbar.activate_buttons(["delete"])
 			
-			self.main_menu.deactivate_all()
-			self.main_menu.activate_menu_items(["delete"])
-			
-			self.popup_menu.deactivate_all()
-			self.popup_menu.activate_menu_items(["delete"])
+			self.deactivate_all_options()
+			self.activate_options(["delete"])
 		
 		else:
-			self.toolbar.deactivate_all()
-			self.main_menu.deactivate_all()
-			self.popup_menu.deactivate_all()
+			self.deactivate_all_options()
 			
 			if self.kickstart_mode:
 			
 				if partition_device.format.mountable:
-					self.toolbar.activate_buttons(["delete"])
-					self.main_menu.activate_menu_items(["delete"])
-					self.popup_menu.activate_menu_items(["delete"])
+					self.activate_options(["delete", "edit"])
 				
 				if partition_device.format.type == "swap":
-					self.toolbar.activate_buttons(["delete"])
-					self.main_menu.activate_menu_items(["delete"])
-					self.popup_menu.activate_menu_items(["delete"])
+					self.activate_options(["delete"])
 				
 				if partition_device._type != "lvmvg" and partition_device.format.type == None and selected_partition[2] != _("extended"): #FIXME
-					self.toolbar.activate_buttons(["delete"])
-					self.main_menu.activate_menu_items(["delete"])
-					self.popup_menu.activate_menu_items(["delete"])
-					
-				if partition_device.format.mountable:
-					self.toolbar.activate_buttons(["edit"])
-					self.main_menu.activate_menu_items(["edit"])
-					self.popup_menu.activate_menu_items(["edit"])
+					self.activate_options(["delete"])
 					
 				if partition_device.format.type == "luks" and partition_device.kids == 0:
-					self.toolbar.activate_buttons(["delete"])
-					self.main_menu.activate_menu_items(["delete"])
-					self.popup_menu.activate_menu_items(["delete"])
+					self.activate_options(["delete"])
 					
 				if partition_device.format.type == "luks" and not partition_device.format.status:
-					self.toolbar.activate_buttons(["decrypt"])
-					self.main_menu.activate_menu_items(["decrypt"])
-					self.popup_menu.activate_menu_items(["decrypt"])
+					self.activate_options(["decrypt"])
 			
 			else:
 				if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
-					self.toolbar.activate_buttons(["delete"])
-					self.main_menu.activate_menu_items(["delete"])
-					self.popup_menu.activate_menu_items(["delete"])
+					self.activate_options(["delete"])
 				
 				if partition_device.format.type == "swap" and swap_is_on(partition_device.sysfsPath) == False:
-					self.toolbar.activate_buttons(["delete"])
-					self.main_menu.activate_menu_items(["delete"])
-					self.popup_menu.activate_menu_items(["delete"])
+					self.activate_options(["delete"])
 				
 				if partition_device._type != "lvmvg" and partition_device.format.type == None and selected_partition[2] != _("extended"): #FIXME
-					self.toolbar.activate_buttons(["delete"])
-					self.main_menu.activate_menu_items(["delete"])
-					self.popup_menu.activate_menu_items(["delete"])
+					self.activate_options(["delete"])
 					
 				if partition_device.format.mountable and partition_mounted(partition_device.path) != None:
-					self.toolbar.activate_buttons(["umount"])
-					self.main_menu.activate_menu_items(["umount"])
-					self.popup_menu.activate_menu_items(["umount"])
+					self.activate_options(["unmount"])
 					
 				if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
-					self.toolbar.activate_buttons(["edit"])
-					self.main_menu.activate_menu_items(["edit"])
-					self.popup_menu.activate_menu_items(["edit"])
+					self.activate_options(["edit"])
 					
 				if partition_device.format.type == "luks" and partition_device.kids == 0:
-					self.toolbar.activate_buttons(["delete"])
-					self.main_menu.activate_menu_items(["delete"])
-					self.popup_menu.activate_menu_items(["delete"])
+					self.activate_options(["delete"])
 					
 				if partition_device.format.type == "luks" and not partition_device.format.status:
-					self.toolbar.activate_buttons(["decrypt"])
-					self.main_menu.activate_menu_items(["decrypt"])
-					self.popup_menu.activate_menu_items(["decrypt"])
+					self.activate_options(["decrypt"])
 	
 	def delete_selected_partition(self):
 		""" Delete selected partition
