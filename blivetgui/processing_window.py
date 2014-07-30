@@ -41,20 +41,25 @@ _ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
-class ProcessingActions(Gtk.Window):
-	def __init__(self, list_partitions):
+class ProcessingActions(Gtk.Dialog):
+	
+	def __init__(self, list_partitions, parent_window):
+		
 		self.list_partitions = list_partitions
+		self.parent_window = parent_window
 		
-		self.window = Gtk.Window(title=_("Proccessing"))
+		Gtk.Dialog.__init__(self, _("Proccessing"), None, 0,
+			None)
 		
-		self.window.set_border_width(8)
-		self.window.set_position(Gtk.WindowPosition.CENTER)
+		self.set_transient_for(self.parent_window)
 		
-		self.window.set_transient_for(self.list_partitions.main_window)
+		self.set_border_width(8)
+		self.set_position(Gtk.WindowPosition.CENTER)
 		
 		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
 		
-		self.window.add(self.grid)
+		box = self.get_content_area()
+		box.add(self.grid)
 		
 		self.pulse = True
 		
@@ -74,11 +79,11 @@ class ProcessingActions(Gtk.Window):
 			
 		threading.Thread(target=do_it, args=[self, self.list_partitions]).start()
 		
-		self.window.show_all()
+		self.show_all()
 		self.start()
 
 	def close_window(self, event):
-		self.window.destroy()
+		self.destroy()
 	
 	def start(self):
 		self.progressbar.pulse()
@@ -98,7 +103,7 @@ class ProcessingActions(Gtk.Window):
 		
 		else:
 			return False
-
+		
 def do_it(window,list_partitions):
 	list_partitions.b.blivet_do_it()
 	window.end()

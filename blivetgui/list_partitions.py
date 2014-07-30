@@ -938,9 +938,13 @@ class ListPartitions():
 				
 		"""
 		
-		win = ProcessingActions(self)
+		dialog = ProcessingActions(self, self.main_window)
+		
+		response = dialog.run()
 		
 		Gdk.threads_leave()
+		
+		dialog.destroy()
 		
 		self.clear_actions_view()
 		self.history.clear_history()
@@ -983,12 +987,12 @@ class ListPartitions():
 			
 			if response == Gtk.ResponseType.OK:
 				
+				dialog.destroy()
+				
 				self.perform_actions()
 				
 			elif response == Gtk.ResponseType.CANCEL:
-				pass
-			
-			dialog.destroy()
+				dialog.destroy()
 		
 	
 	def umount_partition(self):

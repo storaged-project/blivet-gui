@@ -316,7 +316,10 @@ class BlivetUtils():
 			
 		"""
 		
-		self.storage.destroyDevice(blivet_device)
+		try:	
+			self.storage.destroyDevice(blivet_device)
+		except Exception as e:
+			BlivetError(e, self.main_window)
 	
 	def device_resizable(self,blivet_device):
 		""" Is given device resizable
