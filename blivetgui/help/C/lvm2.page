@@ -142,6 +142,7 @@
 <steps>
    <item><p>Set <gui>Device type</gui> to <gui>LVM2 Physical Volume</gui>.</p></item>
    <item><p>Set size for your physical volume.</p></item>>
+   <item><p>It's possible to create encrypted LVM using LUKS/dm-crypt. Check <gui>Encrypt</gui> option and fill in passphrase.</p></item>
   <item><p>Hit <gui style="button">OK</gui> to create volume.</p></item>
 </steps>
 

@@ -12,6 +12,7 @@
   </credit>
 
   <desc>
+    <link xref="kickstart">Kickstart Mode</link>,
     <link xref="lvm2">LVM2 Storages</link>,
     <link xref="partitioning">Disk Partitions</link>,
     <link xref="window">User Interface</link>…
