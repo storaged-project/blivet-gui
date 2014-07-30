@@ -281,6 +281,10 @@ class EditDialog(Gtk.Dialog):
 		self.scale.set_value(self.current_size)
 		self.scale.add_mark(self.down_limit,Gtk.PositionType.BOTTOM,(str(self.down_limit)))
 		self.scale.add_mark(self.up_limit,Gtk.PositionType.BOTTOM,str(self.up_limit))
+		
+		if self.current_size not in [self.down_limit, self.up_limit]:
+			self.scale.add_mark(self.current_size,Gtk.PositionType.BOTTOM,str(self.current_size))
+			
 		self.scale.connect("value-changed", self.scale_moved)
 		
 		self.grid.attach(self.scale, 0, 1, 6, 1) #left-top-width-height
@@ -322,7 +326,7 @@ class EditDialog(Gtk.Dialog):
 		self.label_fs.set_text(_("Filesystem:"))
 		self.grid.attach(self.label_fs, 0, 4, 1, 1)
 		
-		filesystems = ["ext2", "ext3", "ext4", "xfs", "reiserfs"]
+		filesystems = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "vfat"]
 		self.filesystems_combo = Gtk.ComboBoxText()
 		self.filesystems_combo.set_entry_text_column(0)
 		self.filesystems_combo.set_sensitive(False)
@@ -426,7 +430,7 @@ class AddDialog(Gtk.Dialog):
 		self.parent_window = parent_window
 		self.kickstart = kickstart
 		        
-		Gtk.Dialog.__init__(self, _("Create new partition"), None, 0,
+		Gtk.Dialog.__init__(self, _("Create new device"), None, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
 			Gtk.STOCK_OK, Gtk.ResponseType.OK))
 		
@@ -600,7 +604,7 @@ class AddDialog(Gtk.Dialog):
 		self.label_fs.set_text(_("Filesystem:"))
 		self.grid.attach(self.label_fs, 0, 8, 1, 1)
 		
-		filesystems = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap"]
+		filesystems = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap", "vfat"]
 		self.filesystems_combo = Gtk.ComboBoxText()
 		self.filesystems_combo.set_entry_text_column(0)
 		
