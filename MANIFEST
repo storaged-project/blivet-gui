@@ -124,6 +124,7 @@ blivetgui/help/C/.directory
 blivetgui/help/C/actions.page
 blivetgui/help/C/disklabel.page
 blivetgui/help/C/index.page
+blivetgui/help/C/kickstart.page
 blivetgui/help/C/legal.xml
 blivetgui/help/C/lvm2.page
 blivetgui/help/C/partitioning.page
@@ -140,6 +141,7 @@ blivetgui/help/C/icons/undo.png
 blivetgui/help/C/icons/unmount.png
 blivetgui/help/C/images/.directory
 blivetgui/help/C/images/edit-partition.png
+blivetgui/help/C/images/kickstart-mode.png
 blivetgui/help/C/images/lvm2-pv.png
 blivetgui/help/C/images/lvm2-vg.png
 blivetgui/help/C/images/main-window.png

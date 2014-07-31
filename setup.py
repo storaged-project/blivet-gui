@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-	name = "blivetgui",
+	name = "blivet-gui",
 	packages = ["blivetgui"],
 	version = "0.1.6",
 	description = "Tool for data storages configuration",
