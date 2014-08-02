@@ -472,14 +472,14 @@ class ListPartitions():
 			# Every partition need some minimum size in the drawing area
 			# Minimum size = number of partitions*2 / width of draving area
 			
-			if part_width < (width - 2*shrink) / (num_parts*2):
-				part_width = (width - 2*shrink) / (num_parts*2)
+			if part_width < width / (num_parts*2):
+				part_width = width / (num_parts*2)
 			
-			elif part_width > (width - 2*shrink) - ((num_parts-1)* ((width - 2*shrink) / (num_parts*2))):
-				part_width = (width - 2*shrink) - (num_parts-1) * ((width - 2*shrink) / (num_parts*2))
+			elif part_width > width - ((num_parts-1)* (width / (num_parts*2))):
+				part_width = width - (num_parts-1) * (width / (num_parts*2))
 			
-			elif x + part_width > width:
-				part_width = (width - x - shrink)
+			if x + part_width > width:
+				part_width = width - x
 				
 			if hasattr(partition, "isExtended") and partition.isExtended:
 				extended_width = part_width
@@ -505,6 +505,8 @@ class ListPartitions():
 		
 		if extended:
 			
+			#print "extended_x", extended_x, "extended_width", extended_width
+			
 			extended_end = extended_x + extended_width
 			
 			# "border" space
@@ -526,7 +528,6 @@ class ListPartitions():
 				if hasattr(partition, "isLogical") and partition.isLogical:
 					
 					part_width = int(partition.size.convertTo(spec="MiB"))*(extended_width )/extended_size
-					#print "part width", part_width, "extended_width", extended_width, "extended_size:", extended_size
 					
 					if part_width < (extended_width) / (num_logical*2):
 						part_width = (extended_width) / (num_logical*2)
@@ -534,8 +535,8 @@ class ListPartitions():
 					elif part_width > (extended_width) - ((num_logical-1)* ((extended_width) / (num_logical*2))):
 						part_width = (extended_width) - (num_logical-1) * ((extended_width) / (num_logical*2))
 					
-					elif extended_x + part_width > extended_end:
-						part_width = (extended_width - extended_x)
+					if extended_x + part_width > extended_end:
+						part_width = extended_end - extended_x - 5
 						
 					cairo_ctx.rectangle(extended_x, 5, part_width, height - 10)
 					cairo_ctx.fill()
@@ -552,8 +553,6 @@ class ListPartitions():
 					cairo_ctx.move_to(extended_x + 12 , height/2 + 12)
 					cairo_ctx.show_text(str(partition.size))
 					
-					#print "new part width:", part_width
-					#print "printing logical partition from", extended_x, "to", extended_x+part_width
 					extended_x += part_width
 					i += 1
 		

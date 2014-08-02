@@ -30,6 +30,8 @@ from gi.repository import Gtk, GdkPixbuf
 
 from blivet import Size
 
+from math import floor, ceil
+
 #------------------------------------------------------------------------------#
 
 APP_NAME = "blivet-gui"
@@ -270,8 +272,11 @@ class EditDialog(Gtk.Dialog):
 		
 	def add_size_scale(self):
 		
-		self.down_limit = int(self.resizable[1].convertTo("MiB"))
-		self.up_limit = int(self.resizable[2].convertTo("MiB"))
+		# blivet.Size cuts fractional part -- eg. Size('2000 KiB').convertTo('MiB') = 1 MiB
+		# so the down limit for resizing would be 1 MiB even though it is not possible to
+		# resize the partition to less than 2 MiB (rounded to MiBs)
+		self.down_limit = int(ceil(self.resizable[1].convertTo("KiB")/1024))
+		self.up_limit = int(floor(self.resizable[2].convertTo("KiB")/1024))
 		self.current_size = int(self.resizable[3].convertTo("MiB"))
 		
 		self.scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=Gtk.Adjustment(0, self.down_limit, self.up_limit, 1, 10, 0))
@@ -556,7 +561,7 @@ class AddDialog(Gtk.Dialog):
 	
 	def add_size_scale(self):
 		
-		self.up_limit = int(self.free_space.convertTo("MiB"))
+		self.up_limit = int(floor(self.free_space.convertTo("KiB")/1024)) # see edit dialog for explanation
 		
 		self.scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=Gtk.Adjustment(0, 1, self.up_limit, 1, 10, 0))
 		self.scale.set_hexpand(True)
