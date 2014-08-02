@@ -131,6 +131,7 @@ class FreeSpaceDevice():
 		self.size = free_size
 		
 		self.isLogical = logical
+		self.isFreeSpace = True
 		
 		self.format = None
 		

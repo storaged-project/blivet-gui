@@ -163,7 +163,7 @@ class ListPartitions():
 		self.main_window = main_window
 		
 		# ListStores for partitions and actions
-		self.partitions_list = Gtk.ListStore(object,str,str,str,str,str)
+		self.partitions_list = Gtk.TreeStore(object,str,str,str,str,str)
 		self.actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf,str)
 		
 		self.load_partitions()
@@ -207,31 +207,35 @@ class ListPartitions():
 		for partition in partitions:
 			
 			if partition.name == _("free space"):
-				self.partitions_list.append([partition,partition.name,"--","--",
+				if partition[0].isLogical:
+					self.partitions_list.append(extended_iter,[partition,partition.name,"--","--",
+								 str(partition.size), None])
+				else:
+					self.partitions_list.append(None,[partition,partition.name,"--","--",
 								 str(partition.size), None])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
-				self.partitions_list.append(partition,[partition.name,_("extended"),"--",
+				extended_iter = self.partitions_list.append(None,[partition,partition.name,_("extended"),"--",
 								 str(partition.size), None])
 			elif partition._type == "lvmvg":
-				self.partitions_list.append([partition,partition.name,_("lvmvg"),"--",
+				self.partitions_list.append(None,[partition,partition.name,_("lvmvg"),"--",
 								 str(partition.size), None])
 			elif partition.format.mountable:
 				if partition.format.mountpoint != None:
-					self.partitions_list.append([partition,partition.name,partition.format._type,
+					self.partitions_list.append(None,[partition,partition.name,partition.format._type,
 								 partition.format.mountpoint,str(partition.size), None])
 					
 				elif partition.format.mountpoint == None and self.kickstart_mode:
 					
 					old_mnt = self.list_devices.old_mountpoints[partition.format.uuid]
 					
-					self.partitions_list.append([partition,partition.name,partition.format._type,
+					self.partitions_list.append(None,[partition,partition.name,partition.format._type,
 								 partition.format.mountpoint,str(partition.size), old_mnt])
 					
 				else:
-					self.partitions_list.append([partition,partition.name,partition.format._type,
+					self.partitions_list.append(None,[partition,partition.name,partition.format._type,
 								 partition_mounted(partition.path),str(partition.size), None])
 			else:
-				self.partitions_list.append([partition,partition.name,partition.format._type,"--",
+				self.partitions_list.append(None,[partition,partition.name,partition.format._type,"--",
 								 str(partition.size), None])
 	
 	def device_info(self):
@@ -285,20 +289,29 @@ class ListPartitions():
 		self.partitions_list.clear()
 		partitions = self.b.get_partitions(self.disk)
 		
+		extended_iter = None
+		
 		for partition in partitions:
 			
+			if hasattr(partition, "isLogical") and partition.isLogical:
+				parent = extended_iter
+			
+			else:
+				parent = None
+			
 			if partition.name == _("free space"):
-				self.partitions_list.append([partition,partition.name,"--","--",
+					self.partitions_list.append(parent,[partition,partition.name,"--","--",
 								 str(partition.size), None])
 			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
-				self.partitions_list.append([partition,partition.name,_("extended"),"--",
+				extended_iter = self.partitions_list.append(None,[partition,partition.name,_("extended"),"--",
 								 str(partition.size), None])
 			elif partition._type == "lvmvg":
-				self.partitions_list.append([partition,partition.name,_("lvmvg"),"--",
+				self.partitions_list.append(parent,[partition,partition.name,_("lvmvg"),"--",
 								 str(partition.size), None])
 			elif partition.format.mountable:
+				
 				if partition.format.mountpoint != None:
-					self.partitions_list.append([partition,partition.name,partition.format._type,
+					self.partitions_list.append(parent,[partition,partition.name,partition.format._type,
 								 partition.format.mountpoint,str(partition.size), None])
 				
 				elif partition.format.mountpoint == None and self.kickstart_mode:
@@ -308,19 +321,23 @@ class ListPartitions():
 					else:
 						old_mnt = None
 					
-					self.partitions_list.append([partition,partition.name,partition.format._type,
+					self.partitions_list.append(parent,[partition,partition.name,partition.format._type,
 								 partition.format.mountpoint,str(partition.size), old_mnt])
 				
 				else:
-					self.partitions_list.append([partition,partition.name,partition.format._type,
+					self.partitions_list.append(parent,[partition,partition.name,partition.format._type,
 								 partition_mounted(partition.path),str(partition.size), None])
 			else:
-				self.partitions_list.append([partition,partition.name,partition.format._type,"--",
+				self.partitions_list.append(parent,[partition,partition.name,partition.format._type,"--",
 								 str(partition.size), None])
 		
 		# select first line in partitions view
 		self.select = self.partitions_view.get_selection()
 		self.path = self.select.select_path("0")
+		
+		# expand all expanders
+		
+		self.partitions_view.expand_all()
 		
 	def create_partitions_view(self):
 		""" Create Gtk.TreeView for device children (partitions)
@@ -378,15 +395,13 @@ class ListPartitions():
 			
 			return True
 	
-	def draw_event(self, da, cairo_ctx, partitions):
+	def draw_event(self, da, cairo_ctx):
 		""" Drawing event for partition visualisation
 		
 			:param da: drawing area
 			:type da: Gtk.DrawingArea
 			:param cairo_ctx: Cairo context
 			:type cairo_ctx: Cairo.Context
-			:param partitions: list of partitions to paint
-			:type partitions: Gtk.ListStore
 			
 		"""
 		
@@ -404,17 +419,19 @@ class ListPartitions():
 		
 		extended = False
 		
+		partitions = self.b.get_partitions(self.disk)
+		
 		for partition in partitions:
 			
-			if partition[2] == _("extended"):
+			if hasattr(partition, "isExtended") and partition.isExtended:
 				extended = True # there is extended partition
 			
-			if hasattr(partition[0], "isLogical") and partition[0].isLogical:
+			if hasattr(partition, "isLogical") and partition.isLogical:
 				num_logical += 1
 				pass
 			
 			else:
-				total_size += partition[0].size.convertTo(spec="MiB")
+				total_size += partition.size.convertTo(spec="MiB")
 				num_parts += 1
 			
 		#print "total size:", total_size, "num parts:", num_parts
@@ -432,15 +449,15 @@ class ListPartitions():
 		
 		for partition in partitions:
 			
-			if hasattr(partition[0], "isLogical") and partition[0].isLogical:
+			if hasattr(partition, "isLogical") and partition.isLogical:
 				continue
 			
-			elif partition[2] == _("extended"):
+			elif hasattr(partition, "isExtended") and partition.isExtended:
 				extended_x = x
-				extended_size = partition[0].size.convertTo(spec="MiB")
+				extended_size = partition.size.convertTo(spec="MiB")
 				cairo_ctx.set_source_rgb(0,1,1)
 			
-			elif partition[1] == _("free space"):
+			elif hasattr(partition, "isFreeSpace") and partition.isFreeSpace:
 				cairo_ctx.set_source_rgb(0.75, 0.75, 0.75)
 				# Grey color for unallocated space
 			
@@ -448,7 +465,7 @@ class ListPartitions():
 				cairo_ctx.set_source_rgb(colors[i % 3][0] , colors[i % 3][1], colors[i % 3][2])
 				# Colors for other partitions/devices
 			
-			part_width = int(partition[0].size.convertTo(spec="MiB"))*(width - 2*shrink)/total_size
+			part_width = int(partition.size.convertTo(spec="MiB"))*(width - 2*shrink)/total_size
 			
 			#print part_width, partition[1]
 			
@@ -464,7 +481,7 @@ class ListPartitions():
 			elif x + part_width > width:
 				part_width = (width - x - shrink)
 				
-			if partition[2] == _("extended"):
+			if hasattr(partition, "isExtended") and partition.isExtended:
 				extended_width = part_width
 			
 			#print "printing partition from", x, "to", x+part_width
@@ -477,11 +494,11 @@ class ListPartitions():
 			
 			# Print name of partition
 			cairo_ctx.move_to(x + 12, height/2)
-			cairo_ctx.show_text(partition[0].name)
+			cairo_ctx.show_text(partition.name)
 			
 			# Print size of partition
 			cairo_ctx.move_to(x + 12 , height/2 + 12)
-			cairo_ctx.show_text(str(partition[0].size))
+			cairo_ctx.show_text(str(partition.size))
 			
 			x += part_width
 			i += 1
@@ -498,7 +515,7 @@ class ListPartitions():
 			
 			for partition in partitions:
 				
-				if partition[1] == _("free space"):
+				if hasattr(partition, "isFreeSpace") and partition.isFreeSpace:
 					cairo_ctx.set_source_rgb(0.75, 0.75, 0.75)
 					# Grey color for unallocated space
 				
@@ -506,9 +523,9 @@ class ListPartitions():
 					cairo_ctx.set_source_rgb(colors[i % 3][0] , colors[i % 3][1], colors[i % 3][2])
 					# Colors for other partitions/devices
 				
-				if hasattr(partition[0], "isLogical") and partition[0].isLogical:
+				if hasattr(partition, "isLogical") and partition.isLogical:
 					
-					part_width = int(partition[0].size.convertTo(spec="MiB"))*(extended_width )/extended_size
+					part_width = int(partition.size.convertTo(spec="MiB"))*(extended_width )/extended_size
 					#print "part width", part_width, "extended_width", extended_width, "extended_size:", extended_size
 					
 					if part_width < (extended_width) / (num_logical*2):
@@ -529,11 +546,11 @@ class ListPartitions():
 					
 					# Print name of partition
 					cairo_ctx.move_to(extended_x + 12, height/2)
-					cairo_ctx.show_text(partition[0].name)
+					cairo_ctx.show_text(partition.name)
 					
 					# Print size of partition
 					cairo_ctx.move_to(extended_x + 12 , height/2 + 12)
-					cairo_ctx.show_text(str(partition[0].size))
+					cairo_ctx.show_text(str(partition.size))
 					
 					#print "new part width:", part_width
 					#print "printing logical partition from", extended_x, "to", extended_x+part_width
@@ -558,9 +575,23 @@ class ListPartitions():
 			
 		"""
 		
-		partitions = self.partitions_list
+		#self.partitions = []
 		
-		self.darea.connect('draw', self.draw_event, partitions)
+		#treeiter = self.partitions_list.get_iter_first()
+		#print "treeiter", treeiter
+		
+		#while treeiter != None:
+			#print "treeiter", treeiter
+			#if self.partitions_list.iter_has_child(treeiter):
+				#childiter = self.partitions_list.iter_children(treeiter)
+				#for row in childiter:
+					#self.partitions.append(row)
+			#else:
+				#self.partitions.append(self.partitions_list[treeiter])
+		
+			#treeiter = self.partitions_list.iter_next(treeiter)
+		
+		self.darea.connect('draw', self.draw_event)
 		self.darea.connect('button-press-event', self.button_press_event)
 		
 		# Ask to receive events the drawing area doesn't normally
