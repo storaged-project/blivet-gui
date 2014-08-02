@@ -117,16 +117,20 @@ class FreeSpaceDevice():
 		(blivet doesn't have class/device to represent free space)
 	"""
 	
-	def __init__(self, free_size):
+	def __init__(self, free_size, logical=False):
 		"""
 		
 		:param free_size: size of free space
 		:type free_size: blivet.Size
+		:param logical: is this free space inside extended partition
+		:type logical: bool
 		
 		"""
 		
 		self.name = _("free space")
 		self.size = free_size
+		
+		self.isLogical = logical
 		
 		self.format = None
 		
@@ -233,6 +237,13 @@ class BlivetUtils():
 		
 		elif blivet_device.isDisk:
 			
+			extended = None
+			
+			for partition in partitions:
+				if partition.isExtended:
+					extended = partition
+					break
+			
 			free_space = partitioning.getFreeRegions([blivet_device])
 			
 			if len(free_space) == 0:
@@ -252,13 +263,22 @@ class BlivetUtils():
 				for partition in partitions:
 					
 					if hasattr(partition, "partedPartition") and free.start < partition.partedPartition.geometry.start:
-						partitions.insert(partitions.index(partition),FreeSpaceDevice(free_size))
+						if extended and extended.partedPartition.geometry.start <= free.start and extended.partedPartition.geometry.end >= free.end:
+							partitions.insert(partitions.index(partition),FreeSpaceDevice(free_size, True))
+						
+						else:
+							partitions.insert(partitions.index(partition),FreeSpaceDevice(free_size, False))
+						
 						added = True
 						break
 					
 				if not added:
 					# free space is at the end of device
-					partitions.append(FreeSpaceDevice(free_size))
+					if extended and extended.partedPartition.geometry.start <= free.start and extended.partedPartition.geometry.end >= free.end:
+						partitions.append(FreeSpaceDevice(free_size, True))
+						
+					else:
+						partitions.append(FreeSpaceDevice(free_size, False))
 			
 			return partitions
 			

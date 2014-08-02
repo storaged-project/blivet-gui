@@ -389,12 +389,15 @@ class ListPartitions():
 			:type partitions: Gtk.ListStore
 			
 		"""
+		
+		# completely new visualisation tool is in progress, this one is really bad
 		        
 		width = da.get_allocated_width()
 		height = da.get_allocated_height()
 		
 		total_size = 0
 		num_parts = 0
+		num_logical = 0
 		
 		cairo_ctx.set_source_rgb(1,1,1)
 		cairo_ctx.paint()
@@ -404,12 +407,17 @@ class ListPartitions():
 		for partition in partitions:
 			
 			if partition[2] == _("extended"):
+				extended = True # there is extended partition
+			
+			if hasattr(partition[0], "isLogical") and partition[0].isLogical:
+				num_logical += 1
 				pass
 			
 			else:
-				
-				total_size += partition[0].size.convertTo(spec="MB")
-				num_parts += 1	
+				total_size += partition[0].size.convertTo(spec="MiB")
+				num_parts += 1
+			
+		#print "total size:", total_size, "num parts:", num_parts
 		
 		# Colors for partitions
 		colors = [[0.451,0.824,0.086],
@@ -424,48 +432,42 @@ class ListPartitions():
 		
 		for partition in partitions:
 			
-			if extended:
-				shrink = 5
-				x += 5
-				y = 5
-				
+			if hasattr(partition[0], "isLogical") and partition[0].isLogical:
+				continue
 			
-			if partition[2] == _("extended"):
-				# Teal color for extend partition
+			elif partition[2] == _("extended"):
+				extended_x = x
+				extended_size = partition[0].size.convertTo(spec="MiB")
 				cairo_ctx.set_source_rgb(0,1,1)
-				
-				extended = True
 			
 			elif partition[1] == _("free space"):
 				cairo_ctx.set_source_rgb(0.75, 0.75, 0.75)
 				# Grey color for unallocated space
-				
-				extended = False
 			
 			else:
 				cairo_ctx.set_source_rgb(colors[i % 3][0] , colors[i % 3][1], colors[i % 3][2])
 				# Colors for other partitions/devices
-				
-				extended = False
 			
-			part_width = int(partition[0].size.convertTo(spec="MB"))*(width - 2*shrink)/total_size
+			part_width = int(partition[0].size.convertTo(spec="MiB"))*(width - 2*shrink)/total_size
 			
-			#print part_width, partition[0]
+			#print part_width, partition[1]
 			
 			# Every partition need some minimum size in the drawing area
 			# Minimum size = number of partitions*2 / width of draving area
-			if extended:
-				pass
 			
-			elif part_width < (width - 2*shrink) / (num_parts*2):
+			if part_width < (width - 2*shrink) / (num_parts*2):
 				part_width = (width - 2*shrink) / (num_parts*2)
 			
 			elif part_width > (width - 2*shrink) - ((num_parts-1)* ((width - 2*shrink) / (num_parts*2))):
 				part_width = (width - 2*shrink) - (num_parts-1) * ((width - 2*shrink) / (num_parts*2))
 			
-			elif x + part_width > width and not extended:
+			elif x + part_width > width:
 				part_width = (width - x - shrink)
+				
+			if partition[2] == _("extended"):
+				extended_width = part_width
 			
+			#print "printing partition from", x, "to", x+part_width
 			cairo_ctx.rectangle(x, shrink, part_width, height - 2*shrink)
 			cairo_ctx.fill()
 			
@@ -481,9 +483,62 @@ class ListPartitions():
 			cairo_ctx.move_to(x + 12 , height/2 + 12)
 			cairo_ctx.show_text(str(partition[0].size))
 			
-			if not extended:
-				x += part_width
+			x += part_width
 			i += 1
+		
+		if extended:
+			
+			extended_end = extended_x + extended_width
+			
+			# "border" space
+			extended_x += 5
+			extended_width -= 10
+			
+			#print "num_logical:", num_logical
+			
+			for partition in partitions:
+				
+				if partition[1] == _("free space"):
+					cairo_ctx.set_source_rgb(0.75, 0.75, 0.75)
+					# Grey color for unallocated space
+				
+				else:
+					cairo_ctx.set_source_rgb(colors[i % 3][0] , colors[i % 3][1], colors[i % 3][2])
+					# Colors for other partitions/devices
+				
+				if hasattr(partition[0], "isLogical") and partition[0].isLogical:
+					
+					part_width = int(partition[0].size.convertTo(spec="MiB"))*(extended_width )/extended_size
+					#print "part width", part_width, "extended_width", extended_width, "extended_size:", extended_size
+					
+					if part_width < (extended_width) / (num_logical*2):
+						part_width = (extended_width) / (num_logical*2)
+					
+					elif part_width > (extended_width) - ((num_logical-1)* ((extended_width) / (num_logical*2))):
+						part_width = (extended_width) - (num_logical-1) * ((extended_width) / (num_logical*2))
+					
+					elif extended_x + part_width > extended_end:
+						part_width = (extended_width - extended_x)
+						
+					cairo_ctx.rectangle(extended_x, 5, part_width, height - 10)
+					cairo_ctx.fill()
+					
+					cairo_ctx.set_source_rgb(0, 0, 0)
+					cairo_ctx.select_font_face ("Sans",cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL);
+					cairo_ctx.set_font_size(10)
+					
+					# Print name of partition
+					cairo_ctx.move_to(extended_x + 12, height/2)
+					cairo_ctx.show_text(partition[0].name)
+					
+					# Print size of partition
+					cairo_ctx.move_to(extended_x + 12 , height/2 + 12)
+					cairo_ctx.show_text(str(partition[0].size))
+					
+					#print "new part width:", part_width
+					#print "printing logical partition from", extended_x, "to", extended_x+part_width
+					extended_x += part_width
+					i += 1
 		
 		return True
 	

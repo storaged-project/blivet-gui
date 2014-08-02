@@ -1,7 +1,7 @@
 %define name blivet-gui
 %define version 0.1.6
 %define unmangled_version 0.1.6
-%define release 4
+%define release 5
 %define build_timestamp %(date +"%Y%m%d")
 
 Summary: Tool for data storages configuration
@@ -19,6 +19,7 @@ BuildArch: noarch
 Vendor: Vojtech Trefny <vtrefny@redhat.com>
 BuildRequires: python2-devel, desktop-file-utils
 Requires: python, pygobject3, gettext, yelp, python-blivet >= 0.61, gtk3, gnome-icon-theme, polkit-gnome
+Provides: blivetgui
 Url: http://github.com/vojtechtrefny/blivet-gui
 
 %description
