@@ -141,6 +141,38 @@ class UnmountErrorDialog(Gtk.MessageDialog):
 		self.run()
 		self.destroy()
 
+class ConfirmDialog(Gtk.Dialog):
+	""" General confirmation dialog
+	"""
+	
+	def __init__(self, parent_window, title, msg):
+		"""
+		
+			:param parent_window: parent window
+			:type parent_window: Gtk.Window
+			:param device_name: name of partition (device) to delete
+			:type device_name: str
+		
+        """
+		
+		self.parent_window = parent_window
+		self.title = title
+		self.msg = msg
+		
+		Gtk.Dialog.__init__(self, self.title, None, 0,
+			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+			Gtk.STOCK_OK, Gtk.ResponseType.OK))
+		
+		self.set_transient_for(self.parent_window)
+		
+		self.set_default_size(175, 110)
+
+		label = Gtk.Label(self.msg)
+
+		box = self.get_content_area()
+		box.add(label)
+		self.show_all()
+
 class ConfirmDeleteDialog(Gtk.Dialog):
 	""" Confirmation dialog for device deletion
 	"""

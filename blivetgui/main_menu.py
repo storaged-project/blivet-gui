@@ -84,6 +84,16 @@ class main_menu():
 		file_menu = Gtk.Menu()
 		file_menu_item.set_submenu(file_menu)
 		
+		reload_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_REFRESH , self.agr)
+		reload_item.set_label(_("Reload"))
+		key, mod = Gtk.accelerator_parse("<Control>R")
+		reload_item.add_accelerator("activate", self.agr,
+											key, mod, Gtk.AccelFlags.VISIBLE)
+		
+		reload_item.connect("activate", self.on_reload_item)
+		
+		file_menu.add(reload_item)
+		
 		quit_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_QUIT, self.agr)
 		quit_item.set_label(_("Quit"))
 		key, mod = Gtk.accelerator_parse("<Control>Q")
@@ -374,6 +384,10 @@ class main_menu():
 		"""
 		
 		self.list_partitions.quit()
+	
+	def on_reload_item(self, event):
+		
+		self.list_partitions.reload()
 		
 	def on_pv_item(self, event):
 		

@@ -671,6 +671,10 @@ class BlivetUtils():
 		
 		self.storage.reset()
 	
+	def blivet_reload(self):
+		
+		self.storage.reset()
+	
 	def blivet_do_it(self):
 		""" Blivet.doIt()
 		"""

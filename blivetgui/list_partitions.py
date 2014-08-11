@@ -302,12 +302,13 @@ class ListPartitions():
 			if partition.name == _("free space"):
 					self.partitions_list.append(parent,[partition,partition.name,"--","--",
 								 str(partition.size), None])
-			elif type(partition) == blivet.devices.PartitionDevice and partition.isExtended:
+			elif partition.type == "partition" and partition.isExtended:
 				extended_iter = self.partitions_list.append(None,[partition,partition.name,_("extended"),"--",
 								 str(partition.size), None])
-			elif partition._type == "lvmvg":
+			elif partition.type == "lvmvg":
 				self.partitions_list.append(parent,[partition,partition.name,_("lvmvg"),"--",
 								 str(partition.size), None])
+				
 			elif partition.format.mountable:
 				
 				if partition.format.mountpoint != None:
@@ -428,7 +429,6 @@ class ListPartitions():
 			
 			if hasattr(partition, "isLogical") and partition.isLogical:
 				num_logical += 1
-				pass
 			
 			else:
 				total_size += partition.size.convertTo(spec="MiB")
@@ -505,7 +505,7 @@ class ListPartitions():
 		
 		if extended:
 			
-			#print "extended_x", extended_x, "extended_width", extended_width
+			# extended partition preset -> draw logical partitions
 			
 			extended_end = extended_x + extended_width
 			
@@ -1220,6 +1220,39 @@ class ListPartitions():
 			self.activate_action_buttons(model[treeiter])
 			self.selected_partition = model[treeiter]
 	
+	def reload(self):
+		""" Quit blivet-gui
+		"""
+		
+		if self.actions != 0:
+			# There are queued actions we don't want do quit now
+			
+			title = _("Confirm reload storage")
+			msg = _("There are pending operations. Are you sure you want to continue?")
+			
+			dialog = ConfirmDialog(self.main_window, title, msg)
+			response = dialog.run()
+
+			if response == Gtk.ResponseType.OK:
+				
+				self.b.blivet_reload()
+				
+				self.history.clear_history()
+		
+				self.list_devices.update_devices_view("all", None, None)
+				self.update_partitions_view(self.disk)
+				self.update_partitions_image(self.disk)
+			
+			dialog.destroy()
+		
+		else:
+			self.b.blivet_reload()
+			self.history.clear_history()
+		
+			self.list_devices.update_devices_view("all", None, None)
+			self.update_partitions_view(self.disk)
+			self.update_partitions_image(self.disk)
+			
 	def quit(self):
 		""" Quit blivet-gui
 		"""
