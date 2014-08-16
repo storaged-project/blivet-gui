@@ -94,10 +94,6 @@ class ListDevices():
 		
 		self.partitions_list = ListPartitions(self.main_window, self, self.b,self.builder, kickstart_mode=self.kickstart_mode)
 		
-		self.actions_view = self.partitions_list.get_actions_view
-		self.partitions_view = self.partitions_list.get_partitions_view
-		self.partitions_image = self.partitions_list.create_partitions_image()
-		
 		self.disks_view = self.create_devices_view()
 		
 		self.select = self.disks_view.get_selection()
@@ -105,6 +101,8 @@ class ListDevices():
 		
 		self.on_disk_selection_changed(self.select)
 		self.selection_signal = self.select.connect("changed", self.on_disk_selection_changed)
+		
+		self.builder.get_object("disks_viewport").add(self.disks_view)
 	
 	def load_disks(self):
 		""" Load disks
@@ -167,17 +165,8 @@ class ListDevices():
 		self.load_lvm_physical_volumes()
 		self.load_lvm_volume_groups()
 	
-	def update_devices_view(self, action, parent_device, changed_device):
+	def update_devices_view(self):
 		""" Update device view
-		
-			:param action: reason to update (delete/add/all)
-			:type action: str
-			:param parent_device: parent device for device to change
-			:type parent device: str
-			:param device_changed: added/deleted device
-			:type device_changed: str
-			
-			#FIXME: deprecated parametres action/parent_device/changed_device
 		"""
 		
 		# remember previously selected device name
@@ -253,15 +242,6 @@ class ListDevices():
 		
 	def return_device_list(self):
 		return self.device_list
-	
-	def return_actions_view(self):
-		return self.actions_view
-	
-	def return_partitions_view(self):
-		return self.partitions_view
-	
-	def return_partitions_image(self):
-		return self.partitions_image
 	
 	def get_disks_view(self):
 		return self.disks_view

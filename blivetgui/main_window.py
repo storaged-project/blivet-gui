@@ -62,18 +62,7 @@ def main_window(kickstart = False):
 	MainWindow = builder.get_object("MainWindow")
 	MainWindow.connect("delete-event", Gtk.main_quit)
 
-	dlist = ListDevices(MainWindow, builder, kickstart)
-
-	builder.get_object("disks_viewport").add(dlist.get_disks_view())
-
-	builder.get_object("partitions_viewport").add(dlist.return_partitions_view())
-
-	builder.get_object("actions_viewport").add(dlist.return_actions_view())
-
-	builder.get_object("image_window").add(dlist.return_partitions_image())
-
-	builder.get_object("vbox").add(dlist.get_partions_list().get_main_menu)
-	builder.get_object("vbox").add(dlist.get_partions_list().get_toolbar)
+	ListDevices(MainWindow, builder, kickstart)
 	
 	return MainWindow
 
@@ -95,16 +84,6 @@ def embeded_window(kickstart=False):
 	vbox = builder.get_object("vbox")
 	vbox.reparent(plug)
 
-	dlist = ListDevices(plug, builder)
-
-	builder.get_object("disks_viewport").add(dlist.get_disks_view())
-
-	builder.get_object("partitions_viewport").add(dlist.return_partitions_view())
-
-	builder.get_object("actions_viewport").add(dlist.return_actions_view())
-
-	builder.get_object("image_window").add(dlist.return_partitions_image())
-
-	builder.get_object("vbox").add(dlist.get_partions_list().get_toolbar)
+	ListDevices(plug, builder, kickstart)
 	
 	return plug
