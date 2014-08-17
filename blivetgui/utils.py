@@ -24,8 +24,6 @@
 
 from blivet import *
 
-from dialogs import *
-
 import gettext
 
 import os, subprocess, copy

@@ -22,11 +22,9 @@
 #
 #------------------------------------------------------------------------------#
 
-import sys, os, signal
+import os
 
 from gi.repository import Gtk, GdkPixbuf, Gdk, GLib
-
-import blivet
 
 import gettext
 

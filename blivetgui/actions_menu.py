@@ -27,10 +27,6 @@ import gettext
 
 import os
 
-from utils import *
-
-from dialogs import *
-
 #------------------------------------------------------------------------------#
 
 APP_NAME = "blivet-gui"

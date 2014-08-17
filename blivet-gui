@@ -1,5 +1,3 @@
 #!/bin/sh
 
-echo $*
-
 python2 /usr/lib/python2.7/site-packages/blivetgui/main.py $*

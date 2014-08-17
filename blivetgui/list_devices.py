@@ -26,15 +26,11 @@ import sys, os, signal
 
 from gi.repository import Gtk, GdkPixbuf
 
-import blivet
-
 import gettext
-
-import cairo
 
 from utils import *
 
-from dialogs import *
+from dialogs import KickstartSelectDevicesDialog
 
 from list_partitions import *
 

@@ -26,7 +26,7 @@ import gettext
 
 from gi.repository import Gtk, GdkPixbuf
 
-from dialogs import *
+from dialogs import AboutDialog
 
 import os, subprocess
 

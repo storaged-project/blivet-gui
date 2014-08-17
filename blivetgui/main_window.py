@@ -26,17 +26,9 @@ import sys, os, signal, logging
 
 from gi.repository import Gtk, GdkPixbuf
 
-import blivet
-
 import gettext
 
-import cairo
-
-from utils import *
-
-from dialogs import *
-
-from list_devices import *
+from list_devices import ListDevices
 
 #------------------------------------------------------------------------------#
 
