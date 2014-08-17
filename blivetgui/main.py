@@ -22,21 +22,11 @@
 #
 #------------------------------------------------------------------------------#
 
-import sys, os, signal, logging, optparse
-
-from gi.repository import Gtk, GdkPixbuf
-
-import blivet
+import sys, optparse
 
 import gettext
 
-import cairo
-
-from utils import *
-
 from dialogs import *
-
-from list_devices import *
 
 from main_window import *
 
@@ -70,17 +60,20 @@ def parse_options():
 	return options
 
 def main(options=None):	
-	if os.geteuid() != 0:
+	
+	if options == None:
+			options = parse_options()
+		
+	if options.version:
+		print APP_NAME, "version", APP_VERSION
+		sys.exit(0)
+	
+	elif os.geteuid() != 0:
 		# root privileges are required for blivet
 		RootTestDialog()
 		sys.exit(0)
 	
 	else:
-		if options == None:
-			options = parse_options()
-		
-		if options.version:
-			print APP_NAME, "version", APP_VERSION
 		
 		if options.embeded:
 			if options.kickstart:
@@ -90,7 +83,7 @@ def main(options=None):
 			MainWindow.show_all()
 			Gtk.main()
 		
-		if options.kickstart:
+		elif options.kickstart:
 			MainWindow = main_window(kickstart=True)
 			MainWindow.set_position(Gtk.WindowPosition.CENTER)
 			MainWindow.show_all()

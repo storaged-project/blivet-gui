@@ -1,23 +1,5 @@
-#!/usr/bin/python2 
+#!/bin/sh
 
-import optparse
+echo $*
 
-import blivetgui.main
-
-def parse_options():
-	"""
-	Parses command-line arguments passed to blivet_gui
-	"""
-	parser = optparse.OptionParser()
-	parser.add_option("-v", "--version", action="store_true", dest="version", 
-				   default=False,help="show version information")
-	parser.add_option("-e", "--embeded", action="store_true", dest="embeded", 
-				   default=False,help="embed this application")
-	parser.add_option("-k", "--kickstart", action="store_true", dest="kickstart", 
-				   default=False,help="run blivet-gui in kickstart mode")
-	
-	(options, args) = parser.parse_args()
-	
-	return options
-
-blivetgui.main.main(parse_options())
+python2 /usr/lib/python2.7/site-packages/blivetgui/main.py $*
