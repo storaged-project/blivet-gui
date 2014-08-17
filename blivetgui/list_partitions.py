@@ -163,51 +163,28 @@ class ListPartitions():
 		if self.disk:
 			self.device_info()
 		
+		def childs_loop(childs, parent):
+			for child in childs:
+				
+				if hasattr(child, "isExtended") and child.isExtended:
+					extended_iter = self.add_partition_to_view(child, parent)
+				
+				elif hasattr(child, "isLogical") and child.isLogical:
+					self.add_partition_to_view(child, extended_iter)
+					
+				elif child.kids != 0:
+					
+					parent_iter = self.add_partition_to_view(child, parent)
+					
+					childs_loop(self.b.get_partitions(child), parent_iter)
+				
+				else:
+					self.add_partition_to_view(child, parent)
+		
 		self.partitions_list.clear()
 		partitions = self.b.get_partitions(self.disk)
 		
-		extended_iter = None
-		
-		for partition in partitions:
-			
-			if hasattr(partition, "isLogical") and partition.isLogical:
-				parent = extended_iter
-			
-			else:
-				parent = None
-			
-			if partition.name == _("free space"):
-					self.partitions_list.append(parent,[partition,partition.name,"--","--",
-								 str(partition.size), None])
-			elif partition.type == "partition" and partition.isExtended:
-				extended_iter = self.partitions_list.append(None,[partition,partition.name,_("extended"),"--",
-								 str(partition.size), None])
-			elif partition.type == "lvmvg":
-				self.partitions_list.append(parent,[partition,partition.name,_("lvmvg"),"--",
-								 str(partition.size), None])
-				
-			elif partition.format.mountable:
-				
-				if partition.format.mountpoint != None:
-					self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
-								 partition.format.mountpoint,str(partition.size), None])
-				
-				elif partition.format.mountpoint == None and self.kickstart_mode:
-					
-					if partition.format.uuid in self.list_devices.old_mountpoints.keys():
-						old_mnt = self.list_devices.old_mountpoints[partition.format.uuid]
-					else:
-						old_mnt = None
-					
-					self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
-								 partition.format.mountpoint,str(partition.size), old_mnt])
-				
-				else:
-					self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
-								 partition_mounted(partition.path),str(partition.size), None])
-			else:
-				self.partitions_list.append(parent,[partition,partition.name,partition.format.type,"--",
-								 str(partition.size), None])
+		childs_loop(partitions, None)
 		
 		# select first line in partitions view
 		self.select = self.partitions_view.get_selection()
@@ -216,6 +193,46 @@ class ListPartitions():
 		# expand all expanders
 		
 		self.partitions_view.expand_all()
+		
+	def add_partition_to_view(self, partition, parent):
+		""" Add partition into partition_list
+		
+		"""
+		
+		if partition.name == _("free space"):
+			iter_added = self.partitions_list.append(parent,[partition,partition.name,"--","--",
+								 str(partition.size), None])
+		elif partition.type == "partition" and partition.isExtended:
+			iter_added = self.partitions_list.append(None,[partition,partition.name,_("extended"),"--",
+								str(partition.size), None])
+		elif partition.type == "lvmvg":
+			iter_added = self.partitions_list.append(parent,[partition,partition.name,_("lvmvg"),"--",
+								str(partition.size), None])
+			
+		elif partition.format.mountable:
+			
+			if partition.format.mountpoint != None:
+				iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
+								partition.format.mountpoint,str(partition.size), None])
+			
+			elif partition.format.mountpoint == None and self.kickstart_mode:
+				
+				if partition.format.uuid in self.list_devices.old_mountpoints.keys():
+					old_mnt = self.list_devices.old_mountpoints[partition.format.uuid]
+				else:
+					old_mnt = None
+				
+				iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
+								partition.format.mountpoint,str(partition.size), old_mnt])
+			
+			else:
+				iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
+								partition_mounted(partition.path),str(partition.size), None])
+		else:
+			iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,"--",
+								str(partition.size), None])
+		
+		return iter_added
 		
 	def create_partitions_view(self):
 		""" Create Gtk.TreeView for device children (partitions)

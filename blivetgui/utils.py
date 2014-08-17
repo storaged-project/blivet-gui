@@ -132,6 +132,8 @@ class FreeSpaceDevice():
 		self.isFreeSpace = True
 		
 		self.format = None
+		self.type = "free space"
+		self.kids = 0
 		
 class BlivetUtils():
 	""" Class with utils directly working with blivet itselves
