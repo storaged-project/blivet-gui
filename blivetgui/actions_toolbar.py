@@ -60,7 +60,7 @@ class actions_toolbar():
         """
 		
 		button_add = Gtk.ToolButton()
-		button_add.set_icon_name("gtk-add")
+		button_add.set_icon_name("list-add-symbolic")
 		button_add.set_sensitive(False)
 		button_add.set_tooltip_text(_("Create new device"))
 		self.toolbar.insert(button_add, 0)
@@ -68,7 +68,7 @@ class actions_toolbar():
 		button_add.connect("clicked", self.on_add_clicked)
 		
 		button_delete = Gtk.ToolButton()
-		button_delete.set_icon_name("gtk-delete")
+		button_delete.set_icon_name("edit-delete-symbolic")
 		button_delete.set_sensitive(False)
 		button_delete.set_tooltip_text(_("Delete selected device"))		
 		self.toolbar.insert(button_delete, 1)
@@ -78,7 +78,7 @@ class actions_toolbar():
 		self.toolbar.insert(Gtk.SeparatorToolItem(), 2)
 		
 		button_edit = Gtk.ToolButton()
-		button_edit.set_icon_name("gtk-edit")
+		button_edit.set_icon_name("edit-select-all-symbolic")
 		button_edit.set_sensitive(False)
 		button_edit.set_tooltip_text(_("Edit or resize device"))
 		self.toolbar.insert(button_edit, 3)
@@ -86,7 +86,7 @@ class actions_toolbar():
 		button_edit.connect("clicked", self.on_edit_clicked)
 		
 		button_umount = Gtk.ToolButton()
-		button_umount.set_icon_name("emblem-readonly")
+		button_umount.set_icon_name("media-eject-symbolic")
 		button_umount.set_sensitive(False)
 		button_umount.set_tooltip_text(_("Unmount selected device"))
 		self.toolbar.insert(button_umount, 4)
@@ -94,7 +94,7 @@ class actions_toolbar():
 		button_umount.connect("clicked", self.on_umount_clicked)
 		
 		button_decrypt = Gtk.ToolButton()
-		button_decrypt.set_icon_name("dialog-password")
+		button_decrypt.set_icon_name("dialog-password-symbolic")
 		button_decrypt.set_sensitive(False)
 		button_decrypt.set_tooltip_text(_("Decrypt selected device"))
 		self.toolbar.insert(button_decrypt, 5)
@@ -104,7 +104,7 @@ class actions_toolbar():
 		self.toolbar.insert(Gtk.SeparatorToolItem(), 6)
 		
 		button_apply = Gtk.ToolButton()
-		button_apply.set_icon_name("gtk-apply")
+		button_apply.set_icon_name("object-select-symbolic")
 		button_apply.set_sensitive(False)
 		button_apply.set_tooltip_text(_("Apply queued actions"))
 		self.toolbar.insert(button_apply, 7)
@@ -112,7 +112,7 @@ class actions_toolbar():
 		button_apply.connect("clicked", self.on_apply_clicked)
 		
 		button_clear = Gtk.ToolButton()
-		button_clear.set_icon_name("gtk-clear")
+		button_clear.set_icon_name("edit-clear-all-symbolic")
 		button_clear.set_sensitive(False)
 		button_clear.set_tooltip_text(_("Clear queued actions"))
 		self.toolbar.insert(button_clear, 8)
@@ -122,7 +122,7 @@ class actions_toolbar():
 		self.toolbar.insert(Gtk.SeparatorToolItem(), 9)
 		
 		button_undo = Gtk.ToolButton()
-		button_undo.set_icon_name("edit-undo")
+		button_undo.set_icon_name("edit-undo-symbolic")
 		button_undo.set_sensitive(False)
 		button_undo.set_tooltip_text(_("Undo"))
 		self.toolbar.insert(button_undo, 10)
@@ -130,7 +130,7 @@ class actions_toolbar():
 		button_undo.connect("clicked", self.on_undo_clicked)
 		
 		button_redo = Gtk.ToolButton()
-		button_redo.set_icon_name("edit-redo")
+		button_redo.set_icon_name("edit-redo-symbolic")
 		button_redo.set_sensitive(False)
 		button_redo.set_tooltip_text(_("Redo"))
 		self.toolbar.insert(button_redo, 11)

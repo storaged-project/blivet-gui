@@ -3,6 +3,7 @@ README.txt
 blivet-gui
 setup.py
 blivetgui/__init__.py
+blivetgui/actions_history.py
 blivetgui/actions_menu.py
 blivetgui/actions_toolbar.py
 blivetgui/dialogs.py
