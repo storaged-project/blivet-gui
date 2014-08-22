@@ -288,14 +288,12 @@ class ListPartitions():
 		
 		if event.button == 3:
 			
-			selection = treeview.get_path_at_pos(int(event.x), int(event.y))
+			selection = treeview.get_selection()
 			
 			if selection == None:
 				return False
 			
-			path = selection[0]
-			treemodel = treeview.get_model()
-			treeiter = treemodel.get_iter(path)
+			model, treeiter = selection.get_selected()
 			
 			self.popup_menu.get_menu.popup(None, None, None, None, event.button, event.time)
 			
