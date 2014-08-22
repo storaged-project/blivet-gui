@@ -44,6 +44,8 @@ from processing_window import *
 
 from actions_history import *
 
+from devicevisualization.device_canvas import device_canvas
+
 #------------------------------------------------------------------------------#
 
 APP_NAME = "blivet-gui"
@@ -74,7 +76,7 @@ class ListPartitions():
 		self.main_window = main_window
 		
 		# ListStores for partitions and actions
-		self.partitions_list = Gtk.TreeStore(object,str,str,str,str,str,str)
+		self.partitions_list = Gtk.TreeStore(object,str,str,str,str,str,str,object)
 		self.actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf,str)
 		
 		self.partitions_view = self.create_partitions_view()
@@ -86,8 +88,7 @@ class ListPartitions():
 		self.info_label = Gtk.Label()
 		self.builder.get_object("pv_viewport").add(self.info_label)
 		
-		self.darea = Gtk.DrawingArea()
-		self.darea.connect('draw', self.draw_event)
+		self.darea = device_canvas(blivet_utils=self.b)
 		self.builder.get_object("image_window").add(self.darea)
 		
 		self.main_menu = main_menu(self.main_window,self,self.list_devices)	
@@ -182,6 +183,7 @@ class ListPartitions():
 					self.add_partition_to_view(child, parent)
 		
 		self.partitions_list.clear()
+		
 		partitions = self.b.get_partitions(self.disk)
 		
 		childs_loop(partitions, None)
@@ -192,6 +194,10 @@ class ListPartitions():
 		
 		# expand all expanders
 		self.partitions_view.expand_all()
+
+		# update partitions image
+
+		self.darea.visualize_device(partitions, self.partitions_list)
 		
 	def add_partition_to_view(self, partition, parent):
 		""" Add partition into partition_list
@@ -201,13 +207,13 @@ class ListPartitions():
 
 		if partition.name == _("free space"):
 			iter_added = self.partitions_list.append(parent,[partition,partition.name,"--","--",
-								 str(partition.size),"--", None])
+								 str(partition.size),"--", None, []])
 		elif partition.type == "partition" and partition.isExtended:
 			iter_added = self.partitions_list.append(None,[partition,partition.name,_("extended"),"--",
-								str(partition.size),"--", None])
+								str(partition.size),"--", None, []])
 		elif partition.type == "lvmvg":
 			iter_added = self.partitions_list.append(parent,[partition,partition.name,_("lvmvg"),"--",
-								str(partition.size),"--", None])
+								str(partition.size),"--", None, []])
 		
 		elif partition.format.mountable:
 
@@ -217,7 +223,7 @@ class ListPartitions():
 			
 			if partition.format.mountpoint != None:
 				iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
-								partition.format.mountpoint,str(partition.size),str(resize_size), None])
+								partition.format.mountpoint,str(partition.size),str(resize_size), None, []])
 			
 			elif partition.format.mountpoint == None and self.kickstart_mode:
 				
@@ -227,14 +233,14 @@ class ListPartitions():
 					old_mnt = None
 				
 				iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
-								partition.format.mountpoint,str(partition.size),str(resize_size), old_mnt])
+								partition.format.mountpoint,str(partition.size),str(resize_size), old_mnt, []])
 			
 			else:
 				iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
-								partition_mounted(partition.path),str(partition.size),str(resize_size), None])
+								partition_mounted(partition.path),str(partition.size),str(resize_size), None, []])
 		else:
 			iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,"--",
-								str(partition.size),str(resize_size), None])
+								str(partition.size),str(resize_size), None, []])
 		
 		return iter_added
 		
@@ -294,181 +300,6 @@ class ListPartitions():
 			self.popup_menu.get_menu.popup(None, None, None, None, event.button, event.time)
 			
 			return True
-	
-	def draw_event(self, da, cairo_ctx):
-		""" Drawing event for partition visualisation
-		
-			:param da: drawing area
-			:type da: Gtk.DrawingArea
-			:param cairo_ctx: Cairo context
-			:type cairo_ctx: Cairo.Context
-			
-		"""
-		
-		# completely new visualisation tool is in progress, this one is really bad
-		        
-		width = da.get_allocated_width()
-		height = da.get_allocated_height()
-		
-		total_size = 0
-		num_parts = 0
-		num_logical = 0
-		
-		cairo_ctx.set_source_rgb(1,1,1)
-		cairo_ctx.paint()
-		
-		extended = False
-		
-		partitions = self.b.get_partitions(self.disk)
-		
-		for partition in partitions:
-			
-			if hasattr(partition, "isExtended") and partition.isExtended:
-				extended = True # there is extended partition
-			
-			if hasattr(partition, "isLogical") and partition.isLogical:
-				num_logical += 1
-			
-			else:
-				total_size += partition.size.convertTo(spec="MiB")
-				num_parts += 1
-			
-		#print "total size:", total_size, "num parts:", num_parts
-		
-		# Colors for partitions
-		colors = [[0.451,0.824,0.086],
-			[0.961,0.474,0],
-			[0.204,0.396,0.643]]
-		
-		i = 0
-		
-		shrink = 0
-		x = 0
-		y = 0
-		
-		for partition in partitions:
-			
-			if hasattr(partition, "isLogical") and partition.isLogical:
-				continue
-			
-			elif hasattr(partition, "isExtended") and partition.isExtended:
-				extended_x = x
-				extended_size = partition.size.convertTo(spec="MiB")
-				cairo_ctx.set_source_rgb(0,1,1)
-			
-			elif hasattr(partition, "isFreeSpace") and partition.isFreeSpace:
-				cairo_ctx.set_source_rgb(0.75, 0.75, 0.75)
-				# Grey color for unallocated space
-			
-			else:
-				cairo_ctx.set_source_rgb(colors[i % 3][0] , colors[i % 3][1], colors[i % 3][2])
-				# Colors for other partitions/devices
-			
-			part_width = int(partition.size.convertTo(spec="MiB"))*(width - 2*shrink)/total_size
-			
-			#print part_width, partition[1]
-			
-			# Every partition need some minimum size in the drawing area
-			# Minimum size = number of partitions*2 / width of draving area
-			
-			if part_width < width / (num_parts*2):
-				part_width = width / (num_parts*2)
-			
-			elif part_width > width - ((num_parts-1)* (width / (num_parts*2))):
-				part_width = width - (num_parts-1) * (width / (num_parts*2))
-			
-			if x + part_width > width:
-				part_width = width - x
-				
-			if hasattr(partition, "isExtended") and partition.isExtended:
-				extended_width = part_width
-			
-			#print "printing partition from", x, "to", x+part_width
-			cairo_ctx.rectangle(x, shrink, part_width, height - 2*shrink)
-			cairo_ctx.fill()
-			
-			cairo_ctx.set_source_rgb(0, 0, 0)
-			cairo_ctx.select_font_face ("Sans",cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL);
-			cairo_ctx.set_font_size(10)
-			
-			# Print name of partition
-			cairo_ctx.move_to(x + 12, height/2)
-			cairo_ctx.show_text(partition.name)
-			
-			# Print size of partition
-			cairo_ctx.move_to(x + 12 , height/2 + 12)
-			cairo_ctx.show_text(str(partition.size))
-			
-			x += part_width
-			i += 1
-		
-		if extended:
-			
-			# extended partition preset -> draw logical partitions
-			
-			extended_end = extended_x + extended_width
-			
-			# "border" space
-			extended_x += 5
-			extended_width -= 10
-			
-			#print "num_logical:", num_logical
-			
-			for partition in partitions:
-				
-				if hasattr(partition, "isFreeSpace") and partition.isFreeSpace:
-					cairo_ctx.set_source_rgb(0.75, 0.75, 0.75)
-					# Grey color for unallocated space
-				
-				else:
-					cairo_ctx.set_source_rgb(colors[i % 3][0] , colors[i % 3][1], colors[i % 3][2])
-					# Colors for other partitions/devices
-				
-				if hasattr(partition, "isLogical") and partition.isLogical:
-					
-					part_width = int(partition.size.convertTo(spec="MiB"))*(extended_width )/extended_size
-					
-					if part_width < (extended_width) / (num_logical*2):
-						part_width = (extended_width) / (num_logical*2)
-					
-					elif part_width > (extended_width) - ((num_logical-1)* ((extended_width) / (num_logical*2))):
-						part_width = (extended_width) - (num_logical-1) * ((extended_width) / (num_logical*2))
-					
-					if extended_x + part_width > extended_end:
-						part_width = extended_end - extended_x - 5
-						
-					cairo_ctx.rectangle(extended_x, 5, part_width, height - 10)
-					cairo_ctx.fill()
-					
-					cairo_ctx.set_source_rgb(0, 0, 0)
-					cairo_ctx.select_font_face ("Sans",cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL);
-					cairo_ctx.set_font_size(10)
-					
-					# Print name of partition
-					cairo_ctx.move_to(extended_x + 12, height/2)
-					cairo_ctx.show_text(partition.name)
-					
-					# Print size of partition
-					cairo_ctx.move_to(extended_x + 12 , height/2 + 12)
-					cairo_ctx.show_text(str(partition.size))
-					
-					extended_x += part_width
-					i += 1
-		
-		return True
-	
-	def update_partitions_image(self,device):
-		""" Update drawing area for newly selected device
-		
-			:param device: selected device
-			:param type: str
-			
-		"""
-		
-		self.disk = device
-		partitions = self.partitions_list
-		
-		self.darea.queue_draw()
 		
 	def create_actions_view(self):
 		""" Create treeview for actions
@@ -505,7 +336,6 @@ class ListPartitions():
 		self.deactivate_options(["apply", "clear"])
 		
 		self.update_partitions_view(self.disk)
-		self.update_partitions_image(self.disk)
 	
 	def update_actions_view(self,action_type=None,action_desc=None):
 		""" Update list of scheduled actions
@@ -650,7 +480,6 @@ class ListPartitions():
 		dialog.destroy()
 		
 		self.update_partitions_view(self.disk)
-		self.update_partitions_image(self.disk)
 		
 		self.list_devices.update_devices_view()
 	
@@ -722,11 +551,9 @@ class ListPartitions():
 					self.list_devices.update_devices_view()
 						
 					self.update_partitions_view(self.disk)
-					self.update_partitions_image(self.disk)
 				
 				else:
 					self.update_partitions_view(self.disk)
-					self.update_partitions_image(self.disk)
 				
 				dialog.destroy()
 			
@@ -756,11 +583,9 @@ class ListPartitions():
 							self.list_devices.update_devices_view()
 							
 					self.update_partitions_view(self.disk)
-					self.update_partitions_image(self.disk)
 				
 				else:
 					self.update_partitions_view(self.disk)
-					self.update_partitions_image(self.disk)
 				
 				dialog.destroy()
 				
@@ -802,11 +627,9 @@ class ListPartitions():
 						self.update_actions_view("add","add " + str(selected_size) + " " + user_input[2] + " partition")
 						
 					self.update_partitions_view(self.disk)
-					self.update_partitions_image(self.disk)
 				
 				else:
 					self.update_partitions_view(self.disk)
-					self.update_partitions_image(self.disk)
 				
 				dialog.destroy()
 			
@@ -869,7 +692,6 @@ class ListPartitions():
 		self.history.clear_history()
 		
 		self.update_partitions_view(self.disk)
-		self.update_partitions_image(self.disk)
 	
 	def apply_event(self):
 		""" Apply event for main menu/toolbar
@@ -922,7 +744,6 @@ class ListPartitions():
 		
 		if os_umount_partition(mountpoint):
 			self.update_partitions_view(self.disk)
-			self.update_partitions_image(self.disk)
 			
 		else:
 			UnmountErrorDialog(self.selected_partition[0], self.main_window)
@@ -950,7 +771,6 @@ class ListPartitions():
 		
 		self.list_devices.update_devices_view()
 		self.update_partitions_view(self.disk)
-		self.update_partitions_image(self.disk)
 	
 	def edit_partition(self):
 		""" Edit selected partition
@@ -989,12 +809,9 @@ class ListPartitions():
 				if ret:
 					
 					self.update_actions_view("edit","edit " + self.selected_partition[0].name + " partition")
-					self.update_partitions_view(self.disk)
-					self.update_partitions_image(self.disk)
-				
+					self.update_partitions_view(self.disk)				
 				else:
 					self.update_partitions_view(self.disk)
-					self.update_partitions_image(self.disk)
 			
 				dialog.destroy()
 			
@@ -1014,7 +831,6 @@ class ListPartitions():
 		
 		self.list_devices.update_devices_view()
 		self.update_partitions_view(self.disk)
-		self.update_partitions_image(self.disk)
 		
 	def actions_redo(self):
 		""" Redo last action
@@ -1024,7 +840,6 @@ class ListPartitions():
 		
 		self.list_devices.update_devices_view()
 		self.update_partitions_view(self.disk)
-		self.update_partitions_image(self.disk)
 		
 		return
 	
@@ -1036,9 +851,7 @@ class ListPartitions():
 		
 		self.list_devices.update_devices_view()
 		
-		self.update_partitions_view(self.disk)
-		self.update_partitions_image(self.disk)
-		
+		self.update_partitions_view(self.disk)		
 		return
 	
 	def on_partition_selection_changed(self,selection):
@@ -1075,7 +888,6 @@ class ListPartitions():
 		
 				self.list_devices.update_devices_view()
 				self.update_partitions_view(self.disk)
-				self.update_partitions_image(self.disk)
 			
 			dialog.destroy()
 		
@@ -1085,7 +897,6 @@ class ListPartitions():
 		
 			self.list_devices.update_devices_view()
 			self.update_partitions_view(self.disk)
-			self.update_partitions_image(self.disk)
 			
 	def quit(self):
 		""" Quit blivet-gui

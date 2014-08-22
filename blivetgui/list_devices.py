@@ -234,7 +234,6 @@ class ListDevices():
 				disk = model[treeiter][0]
 			
 				self.partitions_list.update_partitions_view(disk)
-				self.partitions_list.update_partitions_image(disk)
 		
 	def return_device_list(self):
 		return self.device_list
