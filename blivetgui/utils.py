@@ -24,6 +24,8 @@
 
 from blivet import *
 
+from blivetgui.dialogs import BlivetError
+
 import gettext
 
 import os, subprocess, copy
@@ -616,6 +618,7 @@ class BlivetUtils():
 		for mountpoint in self.storage.mountpoints.values():
 			old_mountpoints[mountpoint.format.uuid] = mountpoint.format.mountpoint
 			mountpoint.format.mountpoint = None
+			mountpoint.format._mountpoint = None
 		
 		return old_mountpoints
 	

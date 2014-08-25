@@ -207,13 +207,13 @@ class ListPartitions():
 
 		if partition.name == _("free space"):
 			iter_added = self.partitions_list.append(parent,[partition,partition.name,"--","--",
-								 str(partition.size),"--", None, []])
-		elif partition.type == "partition" and partition.isExtended:
+								 str(partition.size),"--", None, None])
+ 		elif partition.type == "partition" and partition.isExtended:
 			iter_added = self.partitions_list.append(None,[partition,partition.name,_("extended"),"--",
-								str(partition.size),"--", None, []])
+								str(partition.size),"--", None, None])
 		elif partition.type == "lvmvg":
 			iter_added = self.partitions_list.append(parent,[partition,partition.name,_("lvmvg"),"--",
-								str(partition.size),"--", None, []])
+								str(partition.size),"--", None, None])
 		
 		elif partition.format.mountable:
 
@@ -223,7 +223,7 @@ class ListPartitions():
 			
 			if partition.format.mountpoint != None:
 				iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
-								partition.format.mountpoint,str(partition.size),str(resize_size), None, []])
+								partition.format.mountpoint,str(partition.size),str(resize_size), None, None])
 			
 			elif partition.format.mountpoint == None and self.kickstart_mode:
 				
@@ -233,14 +233,14 @@ class ListPartitions():
 					old_mnt = None
 				
 				iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
-								partition.format.mountpoint,str(partition.size),str(resize_size), old_mnt, []])
+								partition.format.mountpoint,str(partition.size),str(resize_size), old_mnt, None])
 			
 			else:
 				iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
-								partition_mounted(partition.path),str(partition.size),str(resize_size), None, []])
+								partition_mounted(partition.path),str(partition.size),str(resize_size), None, None])
 		else:
 			iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,"--",
-								str(partition.size),str(resize_size), None, []])
+								str(partition.size),str(resize_size), None, None])
 		
 		return iter_added
 		
