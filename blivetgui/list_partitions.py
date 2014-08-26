@@ -197,7 +197,7 @@ class ListPartitions():
 
 		# update partitions image
 
-		self.darea.visualize_device(partitions, self.partitions_list)
+		self.darea.visualize_device(partitions, self.partitions_list, self.disk)
 		
 	def add_partition_to_view(self, partition, parent):
 		""" Add partition into partition_list
