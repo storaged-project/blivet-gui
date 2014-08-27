@@ -76,10 +76,12 @@ class cairo_rectangle():
 
 class device_canvas(Gtk.DrawingArea):
 	
-	def __init__(self, blivet_utils):
+	def __init__(self, blivet_utils, list_partitions):
 		Gtk.DrawingArea.__init__(self)
 
 		self.b = blivet_utils
+		self.list_partitions = list_partitions
+
 		self.connect('draw', self.draw_event)
 		self.connect('button-press-event', self.button_press_event)
 
@@ -197,22 +199,6 @@ class device_canvas(Gtk.DrawingArea):
 		r = cairo_rectangle(x, depth, part_width, height - 2*depth, self.pick_color(partition))
 
 		return r
-			
-		# #print "printing partition from", x, "to", x+part_width
-		# cairo_ctx.rectangle(x, 0, part_width, height)
-		# cairo_ctx.fill()
-		
-		# cairo_ctx.set_source_rgb(0, 0, 0)
-		# cairo_ctx.select_font_face ("Sans",cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL);
-		# cairo_ctx.set_font_size(10)
-		
-		# # Print name of partition
-		# cairo_ctx.move_to(x + 12, height/2)
-		# cairo_ctx.show_text(partition.name)
-		
-		# # Print size of partition
-		# cairo_ctx.move_to(x + 12 , height/2 + 12)
-		# cairo_ctx.show_text(str(partition.size))
 
 	def draw_selected_rectangle(self, cairo_ctx, r):
 
@@ -248,6 +234,22 @@ class device_canvas(Gtk.DrawingArea):
 		cairo_ctx.set_source_rgb(*r.color)
 		cairo_ctx.rectangle(r.x, r.y, r.width, r.height)
 		cairo_ctx.fill()
+
+	def draw_info(self, cairo_ctx, r, name, size):
+
+		#FIXME: centering, long names
+
+		cairo_ctx.set_source_rgb(0, 0, 0)
+		cairo_ctx.select_font_face ("Sans",cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL);
+		cairo_ctx.set_font_size(10)
+		
+		# name of partition
+		cairo_ctx.move_to(r.x + 12, r.y + r.height/2)
+		cairo_ctx.show_text(name)
+		
+		# size of partition
+		cairo_ctx.move_to(r.x + 12 , r.y + r.height/2 + 12)
+		cairo_ctx.show_text(size)
 
 	def draw_event(self, da, cairo_ctx):
 		""" Drawing event for partition visualisation
@@ -293,6 +295,8 @@ class device_canvas(Gtk.DrawingArea):
 				else:
 					self.draw_rectangle(cairo_ctx, rectangle)
 
+				self.draw_info(cairo_ctx, rectangle, self.partitions_list[treeiter][0].name, str(self.partitions_list[treeiter][0].size))
+
 				if self.partitions_list.iter_has_child(treeiter):
 					childiter = self.partitions_list.iter_children(treeiter)
 					draw_loop(self, childiter, start, depth + 5, self.partitions_list[treeiter][0], rectangle.width)
@@ -326,5 +330,8 @@ class device_canvas(Gtk.DrawingArea):
 
 			self.partitions_view.set_cursor(path)
 			self.queue_draw()
+
+		if event.button == 3:
+			self.list_partitions.popup_menu.get_menu.popup(None, None, None, None, event.button, event.time)
 		
 		return True

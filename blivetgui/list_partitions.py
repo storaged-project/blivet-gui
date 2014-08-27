@@ -88,7 +88,7 @@ class ListPartitions():
 		self.info_label = Gtk.Label()
 		self.builder.get_object("pv_viewport").add(self.info_label)
 		
-		self.darea = device_canvas(blivet_utils=self.b)
+		self.darea = device_canvas(blivet_utils=self.b, list_partitions=self)
 		self.builder.get_object("image_window").add(self.darea)
 		
 		self.main_menu = main_menu(self.main_window,self,self.list_devices)	
