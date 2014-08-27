@@ -51,6 +51,29 @@ class cairo_rectangle():
 		self.height = height
 		self.color = color
 
+	def is_in(self, p_x, p_y):
+		""" Is point [p_x, p_y] inside this rectangle
+
+			:param p_x: point x coordinate
+			:type p_x: int
+			:param p_y: point y coordinate
+			:type p_y: int
+
+		"""
+
+		return (p_x >= self.x and p_x <= self.x + self.width and
+			p_y >= self.y and p_y <= self.y + self.height)
+
+	def __gt__(self, other):
+
+		return (self.height > other.height)
+
+	def __lt__(self, other):
+
+		print "self.height", self.height, "other.height", other.height
+
+		return (self.height < other.height)
+
 class device_canvas(Gtk.DrawingArea):
 	
 	def __init__(self, blivet_utils):
@@ -58,15 +81,30 @@ class device_canvas(Gtk.DrawingArea):
 
 		self.b = blivet_utils
 		self.connect('draw', self.draw_event)
-		self.rectangles = []
+		self.connect('button-press-event', self.button_press_event)
 
+		self.set_events(self.get_events()
+				| Gdk.EventMask.LEAVE_NOTIFY_MASK
+				| Gdk.EventMask.BUTTON_PRESS_MASK
+				| Gdk.EventMask.POINTER_MOTION_MASK
+				| Gdk.EventMask.POINTER_MOTION_HINT_MASK)
+		
+		# dict rectangles-partitions_list treeiters
+		self.rectangles = {}
 		self.color = 0
 
-	def visualize_device(self, partitions, partitions_list, parent_device):
+	def visualize_device(self, partitions_list, partitions_view, parent_device):
 
-		self.partitions = partitions
 		self.partitions_list = partitions_list
+		self.partitions_view = partitions_view
 		self.parent = parent_device
+
+		self.rectangles = {} # delete old rectangles-treeiters
+
+		self.queue_draw()
+
+	def update_visualisation(self):
+
 		self.queue_draw()
 
 	def detect_extended(self):
@@ -176,12 +214,40 @@ class device_canvas(Gtk.DrawingArea):
 		# cairo_ctx.move_to(x + 12 , height/2 + 12)
 		# cairo_ctx.show_text(str(partition.size))
 
-	def draw_rectangle(self, cairo_ctx, r):
+	def draw_selected_rectangle(self, cairo_ctx, r):
 
 		cairo_ctx.set_source_rgb(*r.color)
 		cairo_ctx.rectangle(r.x, r.y, r.width, r.height)
 		cairo_ctx.fill()
 
+		cairo_ctx.set_source_rgb(1,0.98,0.18)
+		cairo_ctx.set_line_width(2)
+
+		cairo_ctx.set_dash([2.0, 2.0])
+		
+		# top line
+		cairo_ctx.move_to(r.x + 2, r.y + 2)
+		cairo_ctx.line_to(r.x + r.width - 2, r.y + 2)
+
+		# bottom line
+		cairo_ctx.move_to(r.x + 2, r.y + r.height - 2)
+		cairo_ctx.line_to(r.x + r.width - 2, r.y + r.height - 2)
+
+		# left line
+		cairo_ctx.move_to(r.x + 2, r.y + 2)
+		cairo_ctx.line_to(r.x + 2, r.y + r.height - 2)
+
+		# right line
+		cairo_ctx.move_to(r.x + r.width - 2, r.y + 2)
+		cairo_ctx.line_to(r.x + r.width - 2, r.y + r.height - 2)
+
+		cairo_ctx.stroke()
+
+	def draw_rectangle(self, cairo_ctx, r):
+
+		cairo_ctx.set_source_rgb(*r.color)
+		cairo_ctx.rectangle(r.x, r.y, r.width, r.height)
+		cairo_ctx.fill()
 
 	def draw_event(self, da, cairo_ctx):
 		""" Drawing event for partition visualisation
@@ -193,6 +259,9 @@ class device_canvas(Gtk.DrawingArea):
 			
 		"""
 		
+		self.color = 0
+		self.cairo_ctx = cairo_ctx
+
 		# paint the canvas     
 		cairo_ctx.set_source_rgb(1,1,1)
 		cairo_ctx.paint()
@@ -200,6 +269,10 @@ class device_canvas(Gtk.DrawingArea):
 		# cavas size
 		width = da.get_allocated_width()
 		height = da.get_allocated_height()
+
+		# get selected line
+		selection = self.partitions_view.get_selection()
+		model, selected_treeiter = selection.get_selected()
 
 		def draw_loop(self, treeiter, start, depth, parent, parent_size):
 
@@ -212,7 +285,13 @@ class device_canvas(Gtk.DrawingArea):
 
 			while treeiter != None:
 				rectangle = self.compute_rectangles_size(self.partitions_list[treeiter][0], parent, parent_size, height, num_parts, start, depth)
-				self.draw_rectangle(cairo_ctx, rectangle)
+				self.rectangles[rectangle] = treeiter
+
+				if self.partitions_list.get_path(treeiter) == self.partitions_list.get_path(selected_treeiter):
+					self.draw_selected_rectangle(cairo_ctx, rectangle)
+				
+				else:
+					self.draw_rectangle(cairo_ctx, rectangle)
 
 				if self.partitions_list.iter_has_child(treeiter):
 					childiter = self.partitions_list.iter_children(treeiter)
@@ -228,3 +307,24 @@ class device_canvas(Gtk.DrawingArea):
 
 		return True
 		
+	def button_press_event(self, da, event):
+		""" Button press event for partition image
+		"""
+		
+		result = None
+
+		for rectangle in self.rectangles:
+			if rectangle.is_in(event.x, event.y):
+				if not result:
+					result = rectangle
+				elif result > rectangle:
+					result = rectangle
+
+		if result:
+
+			path = self.partitions_list.get_path(self.rectangles[result])
+
+			self.partitions_view.set_cursor(path)
+			self.queue_draw()
+		
+		return True

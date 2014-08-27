@@ -197,7 +197,7 @@ class ListPartitions():
 
 		# update partitions image
 
-		self.darea.visualize_device(partitions, self.partitions_list, self.disk)
+		self.darea.visualize_device(self.partitions_list, self.partitions_view, self.disk)
 		
 	def add_partition_to_view(self, partition, parent):
 		""" Add partition into partition_list
@@ -864,6 +864,7 @@ class ListPartitions():
 			
 			self.activate_action_buttons(model[treeiter])
 			self.selected_partition = model[treeiter]
+			self.darea.update_visualisation()
 	
 	def reload(self):
 		""" Quit blivet-gui
