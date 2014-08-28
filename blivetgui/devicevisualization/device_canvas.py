@@ -70,8 +70,6 @@ class cairo_rectangle():
 
 	def __lt__(self, other):
 
-		print "self.height", self.height, "other.height", other.height
-
 		return (self.height < other.height)
 
 class device_canvas(Gtk.DrawingArea):
@@ -93,9 +91,21 @@ class device_canvas(Gtk.DrawingArea):
 		
 		# dict rectangles-partitions_list treeiters
 		self.rectangles = {}
+
+		# color changing for partitions
 		self.color = 0
 
 	def visualize_device(self, partitions_list, partitions_view, parent_device):
+		""" Visualize selected device
+
+			:param partitions_list: list of device children
+			:type partitions_list: Gtk.TreeStore
+			:param partitions_view: view associated with partitions_list
+			:type partitions_view: Gtk.TreeView
+			:param parent_device: parent device
+			:type parent_device: blivet.Device
+
+		"""
 
 		self.partitions_list = partitions_list
 		self.partitions_view = partitions_view
@@ -106,6 +116,8 @@ class device_canvas(Gtk.DrawingArea):
 		self.queue_draw()
 
 	def update_visualisation(self):
+		""" Redraw image
+		"""
 
 		self.queue_draw()
 
@@ -152,9 +164,9 @@ class device_canvas(Gtk.DrawingArea):
 		""" Compute sizes (in px) of partition rectangle
 
 			:param partition: partition
-			:type partition: TBD
+			:type partition: blivet.Device
 			:param parent: parent device
-			:type parent: TBD
+			:type parent: blivet.Device
 			:param parent_width: size of parent 'element' (in px)
 			:type parent_width: int
 			:param height: canvas height
@@ -201,6 +213,8 @@ class device_canvas(Gtk.DrawingArea):
 		return r
 
 	def draw_selected_rectangle(self, cairo_ctx, r):
+		""" Draw rectangle with selection
+		"""
 
 		cairo_ctx.set_source_rgb(*r.color)
 		cairo_ctx.rectangle(r.x, r.y, r.width, r.height)
@@ -234,6 +248,8 @@ class device_canvas(Gtk.DrawingArea):
 		cairo_ctx.stroke()
 
 	def draw_rectangle(self, cairo_ctx, r):
+		""" Draw rectangle
+		"""
 
 		cairo_ctx.set_source_rgb(*r.color)
 		cairo_ctx.rectangle(r.x, r.y, r.width, r.height)
@@ -248,7 +264,7 @@ class device_canvas(Gtk.DrawingArea):
 		#FIXME: centering, long names
 
 		cairo_ctx.set_source_rgb(0, 0, 0)
-		cairo_ctx.select_font_face ("Sans",cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL);
+		cairo_ctx.select_font_face ("Sans",cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL); #FIXME system font
 		cairo_ctx.set_font_size(10)
 		
 		# name of partition
@@ -330,6 +346,7 @@ class device_canvas(Gtk.DrawingArea):
 				if not result:
 					result = rectangle
 				elif result > rectangle:
+					# there is another rectangle (device) over previously selected
 					result = rectangle
 
 		if result:
@@ -339,6 +356,7 @@ class device_canvas(Gtk.DrawingArea):
 			self.partitions_view.set_cursor(path)
 			self.queue_draw()
 
+		# right button popup menu
 		if event.button == 3:
 			self.list_partitions.popup_menu.get_menu.popup(None, None, None, None, event.button, event.time)
 		
