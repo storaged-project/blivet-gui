@@ -24,7 +24,7 @@
 
 import os
 
-from gi.repository import Gtk, GdkPixbuf, Gdk, GLib
+from gi.repository import Gtk, GdkPixbuf, Gdk, GLib, Gio
 
 import gettext
 
@@ -182,7 +182,7 @@ class device_canvas(Gtk.DrawingArea):
 
 		"""
 
-		total_size = parent.size.convertTo(spec="MiB")
+		total_size = round(parent.size.convertTo(spec="MiB"))
 		
 		if depth != 0:
 			# 5px at the end for non-root devices (10 px = 5px for start + 5px for end)
@@ -193,7 +193,7 @@ class device_canvas(Gtk.DrawingArea):
 		
 		x = start + depth
 			
-		part_width = int(partition.size.convertTo(spec="MiB"))*(width)/total_size
+		part_width = round(partition.size.convertTo(spec="MiB"))*(width)/total_size
 		
 		# Every partition need some minimum size in the drawing area
 		# Minimum size = number of partitions*2 / width of draving area
@@ -208,7 +208,7 @@ class device_canvas(Gtk.DrawingArea):
 			part_width = width
 
 		# [x, y, width, height, [r,g,b]]
-		r = cairo_rectangle(x, depth, part_width, height - 2*depth, self.pick_color(partition))
+		r = cairo_rectangle(round(x), depth, round(part_width), height - 2*depth, self.pick_color(partition))
 
 		return r
 
@@ -261,11 +261,12 @@ class device_canvas(Gtk.DrawingArea):
 
 	def draw_info(self, cairo_ctx, r, name, size):
 
-		#FIXME: centering, long names
+		# default system font
+		settings = Gio.Settings('org.gnome.desktop.interface')
+		font_name = settings.get_string('font-name')
 
 		cairo_ctx.set_source_rgb(0, 0, 0)
-		cairo_ctx.select_font_face ("Sans",cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL); #FIXME system font
-		cairo_ctx.set_font_size(10)
+		cairo_ctx.select_font_face (font_name, cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL)
 		
 		while cairo_ctx.text_extents(name)[-2] > r.width - 20:
 			name = name[:-1]
@@ -273,15 +274,16 @@ class device_canvas(Gtk.DrawingArea):
 				name = name[:-3] + "..."
 
 		# name of partition
-		cairo_ctx.move_to(r.x + 10, r.y + r.height/2)
+		cairo_ctx.move_to(r.x + r.width/2 - cairo_ctx.text_extents(name)[-2]/2, r.y + r.height/2)
 		cairo_ctx.show_text(name)
 
 		while cairo_ctx.text_extents(size)[-2] > r.width - 20:
 			size = size[:-1]
 			if len(size) > 3:
 				size = size[:-3] + "..."
+
 		# size of partition
-		cairo_ctx.move_to(r.x + 10, r.y + r.height/2 + 10)
+		cairo_ctx.move_to(r.x + r.width/2 - cairo_ctx.text_extents(size)[-2]/2, r.y + r.height/2 + 10)
 		cairo_ctx.show_text(size)
 
 	def draw_event(self, da, cairo_ctx):
