@@ -642,6 +642,10 @@ class BlivetUtils():
 			old_mountpoints[mountpoint.format.uuid] = mountpoint.format.mountpoint
 			mountpoint.format.mountpoint = None
 			mountpoint.format._mountpoint = None
+
+		# FIXME set swaps to non-existent in order to set their status to False
+		for swap in self.storage.swaps:
+			swap.format.exists = False
 		
 		return old_mountpoints
 	
