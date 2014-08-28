@@ -316,9 +316,10 @@ class device_canvas(Gtk.DrawingArea):
 			# count number of partitions on current level
 			num_parts = 0
 			it = treeiter
+
 			while it:
 				num_parts += 1
-				it = self.partitions_list.iter_next(it)
+				it = self.partitions_list.iter_next(it) 
 
 			while treeiter != None:
 				rectangle = self.compute_rectangles_size(self.partitions_list[treeiter][0], parent, parent_size, height, num_parts, start, depth)

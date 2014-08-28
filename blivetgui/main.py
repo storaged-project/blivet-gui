@@ -26,9 +26,13 @@ import sys, optparse
 
 import gettext
 
+from gi.repository import GObject
+
 from dialogs import *
 
 from main_window import *
+
+from udisks_loop import udisks_thread
 
 APP_NAME = "blivet-gui"
 APP_VERSION = "0.1.0"
@@ -49,17 +53,17 @@ def parse_options():
 	"""
 	parser = optparse.OptionParser()
 	parser.add_option("-v", "--version", action="store_true", dest="version", 
-				   default=False,help=_("show version information"))
+				   default=False, help=_("show version information"))
 	parser.add_option("-e", "--embeded", action="store_true", dest="embeded", 
-				   default=False,help=_("embed this application"))
+				   default=False, help=_("embed this application"))
 	parser.add_option("-k", "--kickstart", action="store_true", dest="kickstart", 
-				   default=False,help=_("run blivet-gui in kickstart mode"))
+				   default=False, help=_("run blivet-gui in kickstart mode"))
 
 	(options, args) = parser.parse_args()
 	
 	return options
 
-def main(options=None):	
+def main(options=None):
 	
 	if options == None:
 			options = parse_options()
@@ -81,19 +85,18 @@ def main(options=None):
 			else:
 				MainWindow = embeded_window()
 			MainWindow.show_all()
-			Gtk.main()
 		
 		elif options.kickstart:
 			MainWindow = main_window(kickstart=True)
 			MainWindow.set_position(Gtk.WindowPosition.CENTER)
 			MainWindow.show_all()
-			Gtk.main()
-		
+
 		else:
 			MainWindow = main_window()
 			MainWindow.set_position(Gtk.WindowPosition.CENTER)
 			MainWindow.show_all()
-			Gtk.main()
+
+		Gtk.main()
 
 if  __name__ =='__main__':main()
 

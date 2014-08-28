@@ -30,6 +30,8 @@ import gettext
 
 from list_devices import ListDevices
 
+from udisks_loop import udisks_thread
+
 #------------------------------------------------------------------------------#
 
 APP_NAME = "blivet-gui"
@@ -54,7 +56,10 @@ def main_window(kickstart = False):
 	MainWindow = builder.get_object("MainWindow")
 	MainWindow.connect("delete-event", Gtk.main_quit)
 
-	ListDevices(MainWindow, builder, kickstart)
+	l = ListDevices(MainWindow, builder, kickstart)
+
+	u = udisks_thread(l)
+	u.start()
 	
 	return MainWindow
 
