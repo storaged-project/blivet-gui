@@ -173,7 +173,7 @@ class ListPartitions():
 				elif hasattr(child, "isLogical") and child.isLogical:
 					self.add_partition_to_view(child, extended_iter)
 					
-				elif child.kids != 0:
+				elif len(self.b.get_partitions(child)) != 0:
 					
 					parent_iter = self.add_partition_to_view(child, parent)
 					
@@ -485,9 +485,15 @@ class ListPartitions():
 		""" Add new partition
 		"""
 		
-		device_type = self.b.get_device_type(self.disk)
+		# parent device; free space has always only one parent #FIXME
+		parent_device = self.selected_partition[0].parents[0]
 		
-		if device_type == "disk" and self.b.has_disklabel(self.disk) != True:
+		parent_device_type = parent_device.type
+
+		if parent_device_type == "partition" and parent_device.format.type == "lvmpv":
+			parent_device_type = "lvmpv"
+		
+		if parent_device_type == "disk" and self.b.has_disklabel(self.disk) != True:
 			
 			dialog = AddLabelDialog(self.disk, self.main_window)
 			
@@ -513,9 +519,9 @@ class ListPartitions():
 			
 			return
 		
-		dialog = AddDialog(self.main_window, device_type, self.disk, self.selected_partition[1],
+		dialog = AddDialog(self.main_window, parent_device_type, parent_device, self.selected_partition[1],
 					 self.selected_partition[0].size, self.b.get_free_pvs_info(), self.kickstart_mode)
-		
+
 		response = dialog.run()
 		
 		selection = dialog.get_selection()
@@ -560,7 +566,7 @@ class ListPartitions():
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
 				
-				ret1 = self.b.add_device(parent_devices=[self.disk], device_type="LVM2 Physical Volume",
+				ret1 = self.b.add_device(parent_devices=[parent_device], device_type="LVM2 Physical Volume",
 							 fs_type=user_input[2], target_size=selected_size, name=user_input[3],
 							 label=user_input[4])
 				
@@ -609,7 +615,7 @@ class ListPartitions():
 				
 				# user_input = [device, size, fs, name, label, mountpoint]
 				
-				ret = self.b.add_device(parent_devices=[self.disk], device_type=user_input[0],
+				ret = self.b.add_device(parent_devices=[parent_device], device_type=user_input[0],
 							fs_type=user_input[2], target_size=selected_size, name=user_input[3],
 							label=user_input[4], mountpoint=user_input[5], encrypt=user_input[6], encrypt_args=user_input[7])
 

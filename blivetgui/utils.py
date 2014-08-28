@@ -117,11 +117,13 @@ class FreeSpaceDevice():
 		(blivet doesn't have class/device to represent free space)
 	"""
 	
-	def __init__(self, free_size, logical=False):
+	def __init__(self, free_size, parents, logical=False):
 		"""
 		
 		:param free_size: size of free space
 		:type free_size: blivet.Size
+		:param parents: list of parent devices
+		:type parents: list #FIXME blivet.devices.ParentList
 		:param logical: is this free space inside extended partition
 		:type logical: bool
 		
@@ -136,6 +138,7 @@ class FreeSpaceDevice():
 		self.format = None
 		self.type = "free space"
 		self.kids = 0
+		self.parents = parents
 		
 class BlivetUtils():
 	""" Class with utils directly working with blivet itselves
@@ -267,10 +270,10 @@ class BlivetUtils():
 					
 					if hasattr(partition, "partedPartition") and free.start < partition.partedPartition.geometry.start:
 						if extended and extended.partedPartition.geometry.start <= free.start and extended.partedPartition.geometry.end >= free.end:
-							partitions.insert(partitions.index(partition),FreeSpaceDevice(free_size, True))
+							partitions.insert(partitions.index(partition),FreeSpaceDevice(free_size, [blivet_device], True))
 						
 						else:
-							partitions.insert(partitions.index(partition),FreeSpaceDevice(free_size, False))
+							partitions.insert(partitions.index(partition),FreeSpaceDevice(free_size, [blivet_device], False))
 						
 						added = True
 						break
@@ -281,14 +284,14 @@ class BlivetUtils():
 						partitions.append(FreeSpaceDevice(free_size, True))
 						
 					else:
-						partitions.append(FreeSpaceDevice(free_size, False))
+						partitions.append(FreeSpaceDevice(free_size, [blivet_device], False))
 			
 			return partitions
 			
 		elif blivet_device._type == "lvmvg":
 			
 			if blivet_device.freeSpace > 0:
-				partitions.append(FreeSpaceDevice(blivet_device.freeSpace))
+				partitions.append(FreeSpaceDevice(blivet_device.freeSpace, [blivet_device]))
 			
 			return partitions
 		
@@ -296,14 +299,14 @@ class BlivetUtils():
 			# empty physical volume
 			
 			if blivet_device.format.type == "lvmpv" and blivet_device.kids == 0:
-				partitions.append(FreeSpaceDevice(blivet_device.size))
+				partitions.append(FreeSpaceDevice(blivet_device.size, [blivet_device]))
 			
 			return partitions
 		
 		elif blivet_device._type == "luks/dm-crypt" and blivet_device.kids == 0:
 			# empty luks encrypted physical volume
 			
-			partitions.append(FreeSpaceDevice(blivet_device.size))
+			partitions.append(FreeSpaceDevice(blivet_device.size, [blivet_device]))
 			
 			return partitions
 		
@@ -456,7 +459,7 @@ class BlivetUtils():
 			
 			else:
 				name = self.storage.safeDeviceName(name)
-			
+
 			new_part = self.storage.newLV(size=target_size, parents=parent_devices, name=name)
 			
 			device_id = new_part.id
@@ -489,7 +492,7 @@ class BlivetUtils():
 				fmt = formats.getFormat(fmt_type="luks", passphrase=encrypt_args["passphrase"], device=dev.path)
 				self.storage.formatDevice(dev, fmt)
 				
-				luks_dev = LUKSDevice("luks-%s" % dev.name, format=getFormat("lvmpv", device=dev.path), size=dev.size, parents=[dev])
+				luks_dev = devices.LUKSDevice("luks-%s" % dev.name, fmt=getFormat("lvmpv", device=dev.path), size=dev.size, parents=[dev])
 				
 				self.storage.createDevice(luks_dev)
 				

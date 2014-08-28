@@ -94,6 +94,12 @@ class ProcessingActions(Gtk.Dialog):
 		self.progressbar.set_fraction(1)
 		self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
 		self.button.set_sensitive(True)
+
+	def error_end(self):
+		self.pulse = False
+		self.progressbar.set_fraction(1)
+		self.label.set_markup(_("<b>Queued actions couldn't be finished due to an unexpected error.</b>"))
+		self.button.set_sensitive(True)
 	
 	def on_timeout(self, user_data):
 		
@@ -105,5 +111,10 @@ class ProcessingActions(Gtk.Dialog):
 			return False
 		
 def do_it(window,list_partitions):
-	list_partitions.b.blivet_do_it()
-	window.end()
+	try:
+		list_partitions.b.blivet_do_it()
+		window.end()
+
+	except:
+		list_partitions.b.blivet_reset()
+		window.error_end()
