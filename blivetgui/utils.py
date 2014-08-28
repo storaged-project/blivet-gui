@@ -282,7 +282,7 @@ class BlivetUtils():
 							partitions.insert(partitions.index(partition)+1,FreeSpaceDevice(free_size, [blivet_device], True))
 							added = True
 							break
-							
+
 				if not added:
 					# free space is at the end of device
 					if extended and extended.partedPartition.geometry.start <= free.start and extended.partedPartition.geometry.end >= free.end:
@@ -308,7 +308,7 @@ class BlivetUtils():
 			
 			return partitions
 		
-		elif blivet_device._type == "luks/dm-crypt" and blivet_device.kids == 0:
+		elif blivet_device._type == "luks/dm-crypt" and blivet_device.format.type == "lvmpv" and blivet_device.kids == 0:
 			# empty luks encrypted physical volume
 			
 			partitions.append(FreeSpaceDevice(blivet_device.size, [blivet_device]))
@@ -449,13 +449,28 @@ class BlivetUtils():
 		device_id = None
 		
 		if device_type == _("Partition"):
-			new_part = self.storage.newPartition(size=target_size, parents=parent_devices)
-			self.storage.createDevice(new_part)
-			
-			device_id = new_part.id
-			
-			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label, mountpoint=mountpoint)
-			self.storage.formatDevice(new_part, new_fmt)
+
+			if encrypt:
+				dev = self.storage.newPartition(size=target_size, parents=parent_devices)
+				self.storage.createDevice(dev)
+				
+				fmt = formats.getFormat(fmt_type="luks", passphrase=encrypt_args["passphrase"], device=dev.path)
+				self.storage.formatDevice(dev, fmt)
+				
+				luks_dev = devices.LUKSDevice("luks-%s" % dev.name, fmt=getFormat(fs_type, device=dev.path), size=dev.size, parents=[dev])
+				
+				self.storage.createDevice(luks_dev)
+				
+				device_id = luks_dev.id
+
+			else:
+				new_part = self.storage.newPartition(size=target_size, parents=parent_devices)
+				self.storage.createDevice(new_part)
+				
+				device_id = new_part.id
+				
+				new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label, mountpoint=mountpoint)
+				self.storage.formatDevice(new_part, new_fmt)
 			
 		elif device_type == _("LVM2 Logical Volume"):
 			

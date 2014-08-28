@@ -14,8 +14,12 @@ blivetgui/main.py
 blivetgui/main_menu.py
 blivetgui/main_window.py
 blivetgui/processing_window.py
+blivetgui/udisks_loop.py
 blivetgui/utils.py
 blivetgui/data/ui/blivet-gui.ui
+blivetgui/data/ui/blivet-gui.ui~
+blivetgui/devicevisualization/__init__.py
+blivetgui/devicevisualization/device_canvas.py
 blivetgui/doc/Makefile
 blivetgui/doc/actions_menu.rst
 blivetgui/doc/actions_toolbar.rst

@@ -680,12 +680,12 @@ class AddDialog(Gtk.Dialog):
 		self.encrypt_label = Gtk.Label()
 		self.encrypt_label.set_text(_("Encrypt:"))
 		self.grid.attach(self.encrypt_label, 0, 10, 1, 1)
-		self.encrypt_label.set_sensitive(False)
+		self.encrypt_label.set_sensitive(True)
 		
 		self.encrypt_check = Gtk.CheckButton()
 		self.grid.attach(self.encrypt_check, 1, 10, 1, 1)
 		self.encrypt_check.connect("toggled", self.on_encrypt_changed)
-		self.encrypt_check.set_sensitive(False)
+		self.encrypt_check.set_sensitive(True)
 		
 		self.passphrase_label = Gtk.Label()
 		self.passphrase_label.set_text(_("Passphrase:"))
@@ -710,9 +710,9 @@ class AddDialog(Gtk.Dialog):
 		if self.device_type not in ["lvmvg", "disk"]:
 			self.label_label.set_sensitive(False)
 			self.label_entry.set_sensitive(False)
-			
+
 	def on_encrypt_changed(self, event):
-		
+
 		self.passphrase_entry.set_sensitive(not self.passphrase_entry.get_sensitive())
 		self.passphrase_label.set_sensitive(not self.passphrase_label.get_sensitive())
 	
@@ -734,8 +734,8 @@ class AddDialog(Gtk.Dialog):
 				self.filesystems_combo.set_sensitive(True)
 				self.label_fs.set_sensitive(True)
 				
-				self.encrypt_label.set_sensitive(False)
-				self.encrypt_check.set_sensitive(False)
+				self.encrypt_label.set_sensitive(True)
+				self.encrypt_check.set_sensitive(True)
 				
 				if self.kickstart:
 					self.mountpoint_label.set_sensitive(True)
