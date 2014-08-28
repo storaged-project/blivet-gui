@@ -274,10 +274,15 @@ class BlivetUtils():
 						
 						else:
 							partitions.insert(partitions.index(partition),FreeSpaceDevice(free_size, [blivet_device], False))
-						
 						added = True
 						break
-					
+
+					elif hasattr(partition, "partedPartition") and free.start > partition.partedPartition.geometry.start:
+						if extended and extended.partedPartition.geometry.start <= free.start and extended.partedPartition.geometry.end >= free.end:
+							partitions.insert(partitions.index(partition)+1,FreeSpaceDevice(free_size, [blivet_device], True))
+							added = True
+							break
+							
 				if not added:
 					# free space is at the end of device
 					if extended and extended.partedPartition.geometry.start <= free.start and extended.partedPartition.geometry.end >= free.end:
