@@ -267,12 +267,21 @@ class device_canvas(Gtk.DrawingArea):
 		cairo_ctx.select_font_face ("Sans",cairo.FONT_SLANT_NORMAL,cairo.FONT_WEIGHT_NORMAL); #FIXME system font
 		cairo_ctx.set_font_size(10)
 		
+		while cairo_ctx.text_extents(name)[-2] > r.width - 20:
+			name = name[:-1]
+			if len(name) > 3:
+				name = name[:-3] + "..."
+
 		# name of partition
-		cairo_ctx.move_to(r.x + 12, r.y + r.height/2)
+		cairo_ctx.move_to(r.x + 10, r.y + r.height/2)
 		cairo_ctx.show_text(name)
-		
+
+		while cairo_ctx.text_extents(size)[-2] > r.width - 20:
+			size = size[:-1]
+			if len(size) > 3:
+				size = size[:-3] + "..."
 		# size of partition
-		cairo_ctx.move_to(r.x + 12 , r.y + r.height/2 + 12)
+		cairo_ctx.move_to(r.x + 10, r.y + r.height/2 + 10)
 		cairo_ctx.show_text(size)
 
 	def draw_event(self, da, cairo_ctx):
