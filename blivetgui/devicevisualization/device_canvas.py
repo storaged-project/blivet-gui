@@ -206,6 +206,10 @@ class device_canvas(Gtk.DrawingArea):
 		cairo_ctx.rectangle(r.x, r.y, r.width, r.height)
 		cairo_ctx.fill()
 
+		cairo_ctx.set_source_rgb(1,1,1)
+		cairo_ctx.rectangle(r.x + 5, r.y + 5, r.width - 10, r.height - 10)
+		cairo_ctx.fill()
+
 		cairo_ctx.set_source_rgb(1,0.98,0.18)
 		cairo_ctx.set_line_width(2)
 
@@ -233,6 +237,10 @@ class device_canvas(Gtk.DrawingArea):
 
 		cairo_ctx.set_source_rgb(*r.color)
 		cairo_ctx.rectangle(r.x, r.y, r.width, r.height)
+		cairo_ctx.fill()
+
+		cairo_ctx.set_source_rgb(1,1,1)
+		cairo_ctx.rectangle(r.x + 5, r.y + 5, r.width - 10, r.height - 10)
 		cairo_ctx.fill()
 
 	def draw_info(self, cairo_ctx, r, name, size):

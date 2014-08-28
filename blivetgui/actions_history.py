@@ -38,7 +38,7 @@ class actions_history():
 		self.undo_items = 0
 		self.redo_items = 0
 	
-	def add_undo(self, devicetree):
+	def add_undo(self, devicetree, clear_redo=True):
 		
 		self.list_partitions.activate_options(["undo"])
 		
@@ -49,6 +49,12 @@ class actions_history():
 		self.undo_list.append(cp.deepcopy(devicetree))
 		
 		self.undo_items += 1
+
+		if clear_redo:
+			# clear redo list after adding new action
+			self.redo_list = []
+			self.redo_items = 0
+			self.list_partitions.deactivate_options(["redo"])
 		
 		return
 	
@@ -80,7 +86,7 @@ class actions_history():
 	
 	def redo(self):
 		
-		self.add_undo(cp.deepcopy(self.list_partitions.b.storage.devicetree))
+		self.add_undo(cp.deepcopy(self.list_partitions.b.storage.devicetree), False)
 		
 		self.redo_items -= 1
 		
