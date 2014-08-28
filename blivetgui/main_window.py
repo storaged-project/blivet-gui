@@ -58,8 +58,8 @@ def main_window(kickstart = False):
 
 	l = ListDevices(MainWindow, builder, kickstart)
 
-	u = udisks_thread(l)
-	u.start()
+	# u = udisks_thread()
+	# u.start()
 	
 	return MainWindow
 

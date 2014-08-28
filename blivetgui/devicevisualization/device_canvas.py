@@ -148,16 +148,18 @@ class device_canvas(Gtk.DrawingArea):
 			return [0.75, 0.75, 0.75]
 
 		elif partition.format and partition.format.type == "lvmpv":
-			return [0.8,0.6,0.4]
+			return [0.921,0.694,0.239]
 		elif partition.type == "lvmvg":
-			return [0.38,0.35,0.5]
+			return [0.874,0.258,0.117]
 		elif partition.format and partition.format.type == "luks":
-			return [0,0,0]
+			return [0.25,0.25,0.25]
 		else:
 			self.color += 1
-			return [[0.451,0.824,0.086],
-			[0.961,0.474,0],
-			[0.204,0.396,0.643]][self.color % 3]
+			# return [[0.451,0.824,0.086],
+			# [0.961,0.474,0],
+			# [0.204,0.396,0.643]][self.color % 3]
+			return [[0.239,0.921,0.353],
+			[0.239,0.467,0.921]][self.color % 2]
 
 
 	def compute_rectangles_size(self, partition, parent, parent_width, height, num_parts, start, depth):

@@ -5,8 +5,7 @@ import dbus
 from dbus.mainloop.glib import DBusGMainLoop
 
 class udisks_thread(Thread):
-	def __init__(self, l):
-		self.l = l
+	def __init__(self):
 		Thread.__init__(self)
 		DBusGMainLoop(set_as_default=True)
 
