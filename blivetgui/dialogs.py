@@ -506,7 +506,11 @@ class AddDialog(Gtk.Dialog):
 		self.label_devices.set_text(_("Device type:"))
 		self.grid.attach(self.label_devices, 0, 0, 1, 1)
 		
-		devices = map_type_devices[self.device_type]
+		if self.device_type == "disk" and self.free_device.isLogical:
+			devices = [_("Partition")]
+
+		else:
+			devices = map_type_devices[self.device_type]
 		
 		devices_store = Gtk.ListStore(str)
 		
