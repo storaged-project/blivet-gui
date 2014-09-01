@@ -165,13 +165,22 @@ class ListPartitions():
 			self.device_info()
 		
 		def childs_loop(childs, parent):
+
+			extended_iter = None
+			unadded_logical = []
+
 			for child in childs:
 				
 				if hasattr(child, "isExtended") and child.isExtended:
 					extended_iter = self.add_partition_to_view(child, parent)
 				
 				elif hasattr(child, "isLogical") and child.isLogical:
-					self.add_partition_to_view(child, extended_iter)
+
+					if not extended_iter:
+						unadded_logical.append(child)
+
+					else:
+						self.add_partition_to_view(child, extended_iter)
 					
 				elif len(self.b.get_partitions(child)) != 0:
 					
@@ -181,6 +190,12 @@ class ListPartitions():
 				
 				else:
 					self.add_partition_to_view(child, parent)
+
+			if len(unadded_logical) != 0 and extended_iter:
+				# if blivet creates extended partition it is sometimes huges mess
+				# and we need to be sure they are added in proper way
+				for logical in unadded_logical:
+					self.add_partition_to_view(logical, extended_iter)
 		
 		self.partitions_list.clear()
 		

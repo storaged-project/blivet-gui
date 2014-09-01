@@ -327,7 +327,7 @@ class device_canvas(Gtk.DrawingArea):
 				rectangle = self.compute_rectangles_size(self.partitions_list[treeiter][0], parent, parent_size, height, num_parts, start, depth)
 				self.rectangles[rectangle] = treeiter
 
-				if self.partitions_list.get_path(treeiter) == self.partitions_list.get_path(selected_treeiter):
+				if selected_treeiter and self.partitions_list.get_path(treeiter) == self.partitions_list.get_path(selected_treeiter):
 					self.draw_selected_rectangle(cairo_ctx, rectangle)
 				
 				else:

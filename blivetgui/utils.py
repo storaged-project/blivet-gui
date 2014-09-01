@@ -464,6 +464,25 @@ class BlivetUtils():
 				device_id = luks_dev.id
 
 			else:
+
+				# extreme situation -- we have 3 primary partitions and trying to add 4th
+				# partition with same size as current free space on disk, blivet creates
+				# extened partition and tries to create logical partition with same size 
+				# and fails -- in this situation we need to reserve 2 MiB for the extended 
+				# partition
+
+				extended = False
+				size_diff = self.storage.getFreeSpace(disks=[parent_devices[0]])[parent_devices[0].name][0] - target_size
+
+				if parent_devices[0].kids == 3 and size_diff < Size("2 MiB"):
+					for child in self.storage.devicetree.getChildren(parent_devices[0]):
+						if hasattr(child, "isExtended") and child.isExtended:
+							extended = True
+							break
+
+					if not extended:
+						target_size = target_size - Size("2 MiB")
+
 				new_part = self.storage.newPartition(size=target_size, parents=parent_devices)
 				self.storage.createDevice(new_part)
 				
