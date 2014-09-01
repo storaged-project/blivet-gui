@@ -534,7 +534,7 @@ class ListPartitions():
 			
 			return
 		
-		dialog = AddDialog(self.main_window, parent_device_type, parent_device, self.selected_partition[1],
+		dialog = AddDialog(self.main_window, parent_device_type, parent_device, self.selected_partition[0],
 					 self.selected_partition[0].size, self.b.get_free_pvs_info(), self.kickstart_mode)
 
 		response = dialog.run()

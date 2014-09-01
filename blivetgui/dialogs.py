@@ -441,17 +441,17 @@ class AddDialog(Gtk.Dialog):
 	"""
 	
 	#FIXME add mountpoint validation -- os.path.isabs(path)
-	def __init__(self, parent_window, device_type, parent_device, partition_name, free_space, free_pvs, kickstart=False):
+	def __init__(self, parent_window, device_type, parent_device, free_device, free_space, free_pvs, kickstart=False):
 		"""
 			
 			:param device_type: type of parent device
 			:type device_type: str
 			:parama parent_device: parent device
 			:type parent_device: blivet.Device
-			:param partition_name: name of device
-			:type partition_name: str
 			:param free_device: free device
-			:type free_space: FreeSpaceDevice
+			:type free_device: FreeSpaceDevice
+			:param free_space: free device
+			:type free_space: blivet.Size
 			:param free_pvs: list PVs with no VG
 			:type free_pvs: list
 			:param kickstart: kickstart mode
@@ -459,7 +459,7 @@ class AddDialog(Gtk.Dialog):
 			
         """
         
-		self.partition_name = partition_name
+		self.free_device = free_device
 		self.free_space = free_space
 		self.device_type = device_type
 		self.parent_device = parent_device
@@ -680,12 +680,18 @@ class AddDialog(Gtk.Dialog):
 		self.encrypt_label = Gtk.Label()
 		self.encrypt_label.set_text(_("Encrypt:"))
 		self.grid.attach(self.encrypt_label, 0, 10, 1, 1)
-		self.encrypt_label.set_sensitive(True)
 		
 		self.encrypt_check = Gtk.CheckButton()
 		self.grid.attach(self.encrypt_check, 1, 10, 1, 1)
 		self.encrypt_check.connect("toggled", self.on_encrypt_changed)
-		self.encrypt_check.set_sensitive(True)
+		
+		if self.parent_device.type != "disk" or self.free_device.isLogical:
+			self.encrypt_label.set_sensitive(False)
+			self.encrypt_check.set_sensitive(False)
+
+		else:
+			self.encrypt_label.set_sensitive(True)
+			self.encrypt_check.set_sensitive(True)
 		
 		self.passphrase_label = Gtk.Label()
 		self.passphrase_label.set_text(_("Passphrase:"))
