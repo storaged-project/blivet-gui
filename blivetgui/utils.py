@@ -237,7 +237,7 @@ class BlivetUtils():
 		if blivet_device.isDisk and blivet_device.format.type == None:
 			# empty disk without disk label
 			
-			partitions.append(FreeSpaceDevice(blivet_device.size, blivet_device, False))
+			partitions.append(FreeSpaceDevice(blivet_device.size, [blivet_device], False))
 			
 			return partitions
 		
@@ -515,7 +515,16 @@ class BlivetUtils():
 			
 			else:
 				name = self.storage.safeDeviceName(name)
-			
+
+			if name in self.storage.names:
+				for i in range(100):
+					if name + "-" + str(i) not in self.storage.names:
+						name = name + "-" + str(i)
+						break
+
+			if name in self.storage.names:
+				name = self.storage.suggestDeviceName(parent=parent_devices,swap=False)
+				
 			new_part = self.storage.newVG(size=target_size, parents=parent_devices, name=name)
 			
 			device_id = new_part.id
