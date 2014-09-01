@@ -237,7 +237,7 @@ class BlivetUtils():
 		if blivet_device.isDisk and blivet_device.format.type == None:
 			# empty disk without disk label
 			
-			partitions.append(FreeSpaceDevice(blivet_device.size))
+			partitions.append(FreeSpaceDevice(blivet_device.size, blivet_device, False))
 			
 			return partitions
 		
