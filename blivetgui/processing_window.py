@@ -65,6 +65,8 @@ class ProcessingActions(Gtk.Dialog):
 		
 		self.label = Gtk.Label()
 		self.grid.attach(self.label, 0, 0, 2, 1)
+
+		self.label.set_markup(_("<b>Queued actions are being proccessed.</b>"))
 		
 		self.progressbar = Gtk.ProgressBar()
 		self.grid.attach(self.progressbar, 0, 1, 2, 1)
@@ -77,29 +79,25 @@ class ProcessingActions(Gtk.Dialog):
 		
 		self.timeout_id = GObject.timeout_add(50, self.on_timeout, None)
 			
-		threading.Thread(target=do_it, args=[self, self.list_partitions]).start()
+		self.thread = threading.Thread(target=self.do_it)
 		
 		self.show_all()
-		self.start()
+		self.thread.start()
 
 	def close_window(self, event):
 		self.destroy()
 	
-	def start(self):
-		self.progressbar.pulse()
-		self.label.set_markup(_("<b>Queued actions are being proccessed.</b>"))
-	
-	def end(self):
+	def end(self, error=None):
+		self.thread.join()
 		self.pulse = False
 		self.progressbar.set_fraction(1)
-		self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
 		self.button.set_sensitive(True)
 
-	def error_end(self, exception):
-		self.pulse = False
-		self.progressbar.set_fraction(1)
-		self.label.set_markup(_("<b>Queued actions couldn't be finished due to an unexpected error.</b>\n\n%(exception)s." % locals()))
-		self.button.set_sensitive(True)
+		if error:
+			self.label.set_markup(_("<b>Queued actions couldn't be finished due to an unexpected error.</b>\n\n%(error)s." % locals()))	
+		
+		else:
+			self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
 	
 	def on_timeout(self, user_data):
 		
@@ -110,11 +108,11 @@ class ProcessingActions(Gtk.Dialog):
 		else:
 			return False
 		
-def do_it(window,list_partitions):
-	try:
-		list_partitions.b.blivet_do_it()
-		window.end()
+	def do_it(self):
+		try:
+			self.list_partitions.b.blivet_do_it()
+			GObject.idle_add(self.end)
 
-	except Exception as e:
-		list_partitions.b.blivet_reset()
-		window.error_end(e)
+		except Exception as e:
+			self.list_partitions.b.blivet_reset()
+			GObject.idle_add(self.error_end(error=e))
