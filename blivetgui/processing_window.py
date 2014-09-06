@@ -115,4 +115,4 @@ class ProcessingActions(Gtk.Dialog):
 
 		except Exception as e:
 			self.list_partitions.b.blivet_reset()
-			GObject.idle_add(self.error_end(error=e))
+			GObject.idle_add(self.end(error=e))
