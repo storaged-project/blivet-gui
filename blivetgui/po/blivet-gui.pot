@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-13 08:32+0200\n"
+"POT-Creation-Date: 2014-09-06 09:51+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,166 +17,187 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: main_menu.py:81
+#: ../main_menu.py:82
 msgid "File"
 msgstr ""
 
-#: main_menu.py:87
+#: ../main_menu.py:88
+msgid "Reload"
+msgstr ""
+
+#: ../main_menu.py:98
 msgid "Quit"
 msgstr ""
 
-#: main_menu.py:103 main_menu.py:173 actions_menu.py:79
+#: ../main_menu.py:114 ../main_menu.py:198 ../actions_menu.py:75
 msgid "Edit"
 msgstr ""
 
-#: main_menu.py:108
+#: ../main_menu.py:119
 msgid "Undo Last Action"
 msgstr ""
 
-#: main_menu.py:118
+#: ../main_menu.py:131
+msgid "Redo Last Action"
+msgstr ""
+
+#: ../main_menu.py:143
 msgid "Clear Queued Actions"
 msgstr ""
 
-#: main_menu.py:127
+#: ../main_menu.py:152
 msgid "Apply Queued Actions"
 msgstr ""
 
-#: main_menu.py:144 dialogs.py:408
+#: ../main_menu.py:169 ../dialogs.py:560
 msgid "Device"
 msgstr ""
 
-#: main_menu.py:149 actions_menu.py:61
+#: ../main_menu.py:174 ../actions_menu.py:57
 msgid "New"
 msgstr ""
 
-#: main_menu.py:161 actions_menu.py:70
+#: ../main_menu.py:186 ../actions_menu.py:66
 msgid "Delete"
 msgstr ""
 
-#: main_menu.py:184 actions_menu.py:90
+#: ../main_menu.py:209 ../actions_menu.py:86
 msgid "Unmount"
 msgstr ""
 
-#: main_menu.py:198
+#: ../main_menu.py:218 ../actions_menu.py:95
+msgid "Decrypt"
+msgstr ""
+
+#: ../main_menu.py:232
 msgid "LVM"
 msgstr ""
 
-#: main_menu.py:203
+#: ../main_menu.py:237
 msgid "Create LVM Physical Volume"
 msgstr ""
 
-#: main_menu.py:210
+#: ../main_menu.py:244
 msgid "Create LVM Volume Group"
 msgstr ""
 
-#: main_menu.py:222
+#: ../main_menu.py:256
 msgid "Help"
 msgstr ""
 
-#: main_menu.py:227
+#: ../main_menu.py:261
 msgid "Contents"
 msgstr ""
 
-#: main_menu.py:236
+#: ../main_menu.py:270
 msgid "About"
 msgstr ""
 
-#: utils.py:105 list_partitions.py:115 list_partitions.py:184
-#: list_partitions.py:314 list_partitions.py:483 list_partitions.py:489
+#: ../utils.py:132 ../list_partitions.py:223 ../list_partitions.py:426
+#: ../list_partitions.py:430
 msgid "free space"
 msgstr ""
 
-#: utils.py:197
-msgid "unallocated"
-msgstr ""
-
-#: utils.py:376 list_partitions.py:221 dialogs.py:354 dialogs.py:537
+#: ../utils.py:451 ../list_partitions.py:278 ../dialogs.py:499
+#: ../dialogs.py:510 ../dialogs.py:737
 msgid "Partition"
 msgstr ""
 
-#: utils.py:385 dialogs.py:356
+#: ../utils.py:494 ../dialogs.py:501
 msgid "LVM2 Logical Volume"
 msgstr ""
 
-#: utils.py:402 dialogs.py:355
+#: ../utils.py:511 ../dialogs.py:500 ../dialogs.py:502
 msgid "LVM2 Volume Group"
 msgstr ""
 
-#: utils.py:417 dialogs.py:354 dialogs.py:544
+#: ../utils.py:534 ../dialogs.py:499 ../dialogs.py:754
 msgid "LVM2 Physical Volume"
 msgstr ""
 
-#: actions_toolbar.py:71
+#: ../actions_toolbar.py:65 ../dialogs.py:470
 msgid "Create new device"
 msgstr ""
 
-#: actions_toolbar.py:79
+#: ../actions_toolbar.py:73
 msgid "Delete selected device"
 msgstr ""
 
-#: actions_toolbar.py:89
+#: ../actions_toolbar.py:83
 msgid "Edit or resize device"
 msgstr ""
 
-#: actions_toolbar.py:98
+#: ../actions_toolbar.py:91
 msgid "Unmount selected device"
 msgstr ""
 
-#: actions_toolbar.py:108
+#: ../actions_toolbar.py:99
+msgid "Decrypt selected device"
+msgstr ""
+
+#: ../actions_toolbar.py:109
 msgid "Apply queued actions"
 msgstr ""
 
-#: actions_toolbar.py:116
+#: ../actions_toolbar.py:117
 msgid "Clear queued actions"
 msgstr ""
 
-#: processing_window.py:48
+#: ../actions_toolbar.py:127
+msgid "Undo"
+msgstr ""
+
+#: ../actions_toolbar.py:135
+msgid "Redo"
+msgstr ""
+
+#: ../processing_window.py:51
 msgid "Proccessing"
 msgstr ""
 
-#: processing_window.py:83
+#: ../processing_window.py:69
 msgid "<b>Queued actions are being proccessed.</b>"
 msgstr ""
 
-#: processing_window.py:88
+#: ../processing_window.py:97
+#, python-format
+msgid ""
+"<b>Queued actions couldn't be finished due to an unexpected error.</b>\n"
+"\n"
+"%(error)s."
+msgstr ""
+
+#: ../processing_window.py:100
 msgid "<b>All queued actions have been processed.</b>"
 msgstr ""
 
-#: list_partitions.py:99 list_partitions.py:438 list_partitions.py:468
+#: ../list_partitions.py:109 ../list_partitions.py:346
+#: ../list_partitions.py:374
 #, python-brace-format
 msgid "Pending actions ({0})"
 msgstr ""
 
-#: list_partitions.py:102
+#: ../list_partitions.py:112
 msgid "Partitions"
 msgstr ""
 
-#: list_partitions.py:119 list_partitions.py:188 list_partitions.py:281
-#: list_partitions.py:308 list_partitions.py:499
-msgid "extended"
-msgstr ""
-
-#: list_partitions.py:122 list_partitions.py:191 list_partitions.py:509
-msgid "lvmvg"
-msgstr ""
-
-#: list_partitions.py:140
+#: ../list_partitions.py:127
 #, python-brace-format
 msgid ""
 "<b>LVM2 Volume group <i>{0}</i> occupying {1} physical volume(s):</b>\n"
 "\n"
 msgstr ""
 
-#: list_partitions.py:143
+#: ../list_partitions.py:130
 #, python-brace-format
 msgid "\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> disk.\n"
 msgstr ""
 
-#: list_partitions.py:149
+#: ../list_partitions.py:136
 msgid "<b>LVM2 Physical Volume</b>"
 msgstr ""
 
-#: list_partitions.py:158
+#: ../list_partitions.py:145
 #, python-brace-format
 msgid ""
 "<b>Hard disk</b> <i>{0}</i>\n"
@@ -185,63 +206,94 @@ msgid ""
 "\t• Model: <i>{2}</i>\n"
 msgstr ""
 
-#: list_partitions.py:222
+#: ../list_partitions.py:227
+msgid "extended"
+msgstr ""
+
+#: ../list_partitions.py:230
+msgid "lvmvg"
+msgstr ""
+
+#: ../list_partitions.py:279
 msgid "Filesystem"
 msgstr ""
 
-#: list_partitions.py:223
+#: ../list_partitions.py:280
 msgid "Mountpoint"
 msgstr ""
 
-#: list_partitions.py:224 dialogs.py:410
+#: ../list_partitions.py:281 ../dialogs.py:562
 msgid "Size"
 msgstr ""
 
-#: list_partitions.py:519
-msgid "lvmpv"
+#: ../list_partitions.py:282
+msgid "Used"
 msgstr ""
 
-#: list_partitions.py:567
+#: ../list_partitions.py:283
+msgid "Current Mountpoint"
+msgstr ""
+
+#: ../list_partitions.py:486
 #, python-brace-format
 msgid "delete partition {0}"
 msgstr ""
 
-#: list_devices.py:67
-msgid "<b>Disks</b>"
-msgstr ""
-
-#: list_devices.py:70
-msgid "<b>LVM2 Physical Volumes</b>"
-msgstr ""
-
-#: list_devices.py:73 list_devices.py:183 list_devices.py:247
-msgid "<b>LVM2 Volume Groups</b>"
-msgstr ""
-
-#: main.py:62
-msgid "show version information"
-msgstr ""
-
-#: main.py:64
-msgid "embed this application"
-msgstr ""
-
-#: dialogs.py:54
-msgid "Root privileges required"
-msgstr ""
-
-#: dialogs.py:56
-msgid "Root privileges are required for running blivet-gui."
-msgstr ""
-
-#: dialogs.py:72
+#: ../list_partitions.py:553
 msgid ""
 "Error:\n"
 "\n"
 "Filesystem type must be specified when creating new partition."
 msgstr ""
 
-#: dialogs.py:93
+#: ../list_partitions.py:626
+msgid ""
+"Error:\n"
+"\n"
+"Passphrase not specified."
+msgstr ""
+
+#: ../list_partitions.py:897
+msgid "Confirm reload storage"
+msgstr ""
+
+#: ../list_partitions.py:898
+msgid "There are pending operations. Are you sure you want to continue?"
+msgstr ""
+
+#: ../list_devices.py:107
+msgid "<b>Disks</b>"
+msgstr ""
+
+#: ../list_devices.py:128
+msgid "<b>LVM2 Physical Volumes</b>"
+msgstr ""
+
+#: ../list_devices.py:144
+msgid "<b>LVM2 Volume Groups</b>"
+msgstr ""
+
+#: ../main.py:56
+msgid "show version information"
+msgstr ""
+
+#: ../main.py:58
+msgid "embed this application"
+msgstr ""
+
+#: ../main.py:60
+msgid "run blivet-gui in kickstart mode"
+msgstr ""
+
+#: ../dialogs.py:58
+msgid "Root privileges required"
+msgstr ""
+
+#: ../dialogs.py:60
+msgid "Root privileges are required for running blivet-gui."
+msgstr ""
+
+#: ../dialogs.py:106
 #, python-format
 msgid ""
 "Error:\n"
@@ -251,7 +303,7 @@ msgid ""
 "%(exception)s."
 msgstr ""
 
-#: dialogs.py:114
+#: ../dialogs.py:134
 #, python-format
 msgid ""
 "Unmount failed.\n"
@@ -259,95 +311,107 @@ msgid ""
 "Are you sure '%(device_name)s' is not in use?"
 msgstr ""
 
-#: dialogs.py:132
+#: ../dialogs.py:192
 msgid "Confirm delete operation"
 msgstr ""
 
-#: dialogs.py:138
+#: ../dialogs.py:200
 #, python-format
 msgid "Are you sure you want to delete device %(device_name)s?"
 msgstr ""
 
-#: dialogs.py:149
+#: ../dialogs.py:214
 msgid "Confirm scheduled actions"
 msgstr ""
 
-#: dialogs.py:155
+#: ../dialogs.py:222
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr ""
 
-#: dialogs.py:172
+#: ../dialogs.py:245
 msgid "Are you sure you want to quit?"
 msgstr ""
 
-#: dialogs.py:178
+#: ../dialogs.py:253
 msgid ""
 "There are unapplied queued actions. Are you sure you want to quit blivet-gui "
 "now?"
 msgstr ""
 
-#: dialogs.py:201
+#: ../dialogs.py:284
 msgid "Edit device"
 msgstr ""
 
-#: dialogs.py:230 dialogs.py:460
+#: ../dialogs.py:330 ../dialogs.py:614
 msgid "Volume size:"
 msgstr ""
 
-#: dialogs.py:241 dialogs.py:471 dialogs.py:485
-msgid "MB"
+#: ../dialogs.py:341 ../dialogs.py:625 ../dialogs.py:639
+msgid "MiB"
 msgstr ""
 
-#: dialogs.py:246
+#: ../dialogs.py:346
 msgid "<b>This device cannot be resized.</b>"
 msgstr ""
 
-#: dialogs.py:255 dialogs.py:491
+#: ../dialogs.py:355
+msgid "Format?:"
+msgstr ""
+
+#: ../dialogs.py:363 ../dialogs.py:645
 msgid "Filesystem:"
 msgstr ""
 
-#: dialogs.py:277 dialogs.py:507
+#: ../dialogs.py:384 ../dialogs.py:660
 msgid "Label:"
 msgstr ""
 
-#: dialogs.py:288
+#: ../dialogs.py:393 ../dialogs.py:714
+msgid "Mountpoint:"
+msgstr ""
+
+#: ../dialogs.py:417
 #, python-brace-format
 msgid "<b>Warning: This will delete all data on {0}!</b>"
 msgstr ""
 
-#: dialogs.py:331
-msgid "Create new partition"
-msgstr ""
-
-#: dialogs.py:354 dialogs.py:554
+#: ../dialogs.py:499 ../dialogs.py:771
 msgid "LVM2 Storage"
 msgstr ""
 
-#: dialogs.py:360
+#: ../dialogs.py:506
 msgid "Device type:"
 msgstr ""
 
-#: dialogs.py:409
+#: ../dialogs.py:561
 msgid "Type"
 msgstr ""
 
-#: dialogs.py:433
+#: ../dialogs.py:585
 msgid "Available devices:"
 msgstr ""
 
-#: dialogs.py:475
+#: ../dialogs.py:629
 msgid "Free space after:"
 msgstr ""
 
-#: dialogs.py:518
+#: ../dialogs.py:671
 msgid "Name:"
 msgstr ""
 
-#: dialogs.py:615
+#: ../dialogs.py:685
+msgid "Encrypt:"
+msgstr ""
+
+#: ../dialogs.py:701 ../dialogs.py:1188
+msgid "Passphrase:"
+msgstr ""
+
+#: ../dialogs.py:850
 msgid "No partition table found on disk"
 msgstr ""
 
-#: dialogs.py:635
+#: ../dialogs.py:872
 #, python-brace-format
 msgid ""
 "A partition table is required before partitions can be added.\n"
@@ -355,14 +419,66 @@ msgid ""
 "<b>Warning: This will delete all data on {0}!</b>"
 msgstr ""
 
-#: dialogs.py:656
+#: ../dialogs.py:893
 msgid "Select new partition table type:"
 msgstr ""
 
-#: dialogs.py:690
-msgid "Create new LVM2 PV"
+#: ../dialogs.py:936
+msgid "Copyright © 2014 Red Hat Inc."
 msgstr ""
 
-#: dialogs.py:716
-msgid "Copyright © 2014 Red Hat Inc."
+#: ../dialogs.py:957
+msgid "Please choose a folder"
+msgstr ""
+
+#: ../dialogs.py:960
+msgid "Select"
+msgstr ""
+
+#: ../dialogs.py:984
+msgid "Select devices"
+msgstr ""
+
+#: ../dialogs.py:1038
+msgid "Please select at least one of shown devices:"
+msgstr ""
+
+#: ../dialogs.py:1050
+msgid "Install bootloader?:"
+msgstr ""
+
+#: ../dialogs.py:1058
+msgid "Device to install bootloader:"
+msgstr ""
+
+#: ../dialogs.py:1105
+msgid "Following disk will be ignored"
+msgstr ""
+
+#: ../dialogs.py:1141
+msgid "Duplicate mountpoint detected"
+msgstr ""
+
+#: ../dialogs.py:1149
+#, python-brace-format
+msgid ""
+"Selected mountpoint \"{0}\" is already used for \"{1}\" device. Do you want "
+"to remove this mountpoint?"
+msgstr ""
+
+#: ../dialogs.py:1173
+#, python-brace-format
+msgid "Enter passphrase to decrypt {0}"
+msgstr ""
+
+#: ../data/ui/blivet-gui.ui:136
+msgid "Partitions"
+msgstr ""
+
+#: ../data/ui/blivet-gui.ui:165
+msgid "Pending actions"
+msgstr ""
+
+#: ../data/ui/blivet-gui.ui:9
+msgid "blivet-gui"
 msgstr ""
