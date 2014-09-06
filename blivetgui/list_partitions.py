@@ -632,7 +632,8 @@ class ListPartitions():
 				
 				ret = self.b.add_device(parent_devices=[parent_device], device_type=user_input[0],
 							fs_type=user_input[2], target_size=selected_size, name=user_input[3],
-							label=user_input[4], mountpoint=user_input[5], encrypt=user_input[6], encrypt_args=user_input[7])
+							label=user_input[4], mountpoint=user_input[5], encrypt=user_input[6], 
+							encrypt_args=user_input[7])
 
 				if ret != None:
 					
