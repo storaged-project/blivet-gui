@@ -64,6 +64,27 @@ class RootTestDialog(Gtk.MessageDialog):
 		self.connect("delete-event", Gtk.main_quit)
 		self.run()
 		self.destroy()
+
+class WarningDialog(Gtk.MessageDialog):
+	""" Custom warning dialog
+	"""
+
+	def __init__(self, parent_window, warn_msg):
+
+		self.parent_window = parent_window
+
+		Gtk.MessageDialog.__init__(self, None, 0,
+			Gtk.MessageType.WARNING,
+			Gtk.ButtonsType.OK,
+			warn_msg)
+
+		self.set_transient_for(self.parent_window)
+
+		self.show_all()
+
+		self.connect("delete-event", Gtk.main_quit)
+		self.run()
+		self.destroy()
 		
 class AddErrorDialog(Gtk.MessageDialog):
 	""" Dialog window informing user he/she need to specify fs type to create new partition

@@ -30,7 +30,7 @@ import gettext
 
 from utils import *
 
-from dialogs import KickstartSelectDevicesDialog
+from dialogs import KickstartSelectDevicesDialog, WarningDialog
 
 from list_partitions import *
 
@@ -67,7 +67,15 @@ class ListDevices():
 		self.kickstart_mode = kickstart
 		
 		if self.kickstart_mode:
-			dialog = KickstartSelectDevicesDialog(self.main_window, self.b.get_disks())
+
+			disks = self.b.get_disks()
+
+			if len(disks) == 0:
+				msg = _("blivet-gui failed to find at least one storage device to work with.\n\nPlease connect a storage device to your computer and re-run blivet-gui.")
+				WarningDialog(self.main_window, msg)
+				sys.exit(0)
+
+			dialog = KickstartSelectDevicesDialog(self.main_window, disks)
 			response = dialog.run()
 			
 			if response == Gtk.ResponseType.OK:
@@ -86,31 +94,41 @@ class ListDevices():
 			self.old_mountpoints = self.b.kickstart_mountpoints()
 		
 		self.device_list = Gtk.ListStore(object, GdkPixbuf.Pixbuf, str)
-		self.load_devices()
+		num_devices = self.load_devices()
+
 		
-		self.partitions_list = ListPartitions(self.main_window, self, self.b,self.builder, kickstart_mode=self.kickstart_mode)
-		
-		self.disks_view = self.create_devices_view()
-		
-		self.select = self.disks_view.get_selection()
-		self.path = self.select.select_path("1")
-		
-		self.on_disk_selection_changed(self.select)
-		self.selection_signal = self.select.connect("changed", self.on_disk_selection_changed)
-		
-		self.builder.get_object("disks_viewport").add(self.disks_view)
+		if num_devices:
+
+			self.partitions_list = ListPartitions(self.main_window, self, self.b,self.builder, kickstart_mode=self.kickstart_mode)
+			self.disks_view = self.create_devices_view()
+
+			self.select = self.disks_view.get_selection()
+			self.path = self.select.select_path("1")
+
+			self.on_disk_selection_changed(self.select)
+			self.selection_signal = self.select.connect("changed", self.on_disk_selection_changed)
+
+			self.builder.get_object("disks_viewport").add(self.disks_view)
+
+		else:
+
+			msg = _("blivet-gui failed to find at least one storage device to work with.\n\nPlease connect a storage device to your computer and re-run blivet-gui.")
+			WarningDialog(self.main_window, msg)
+			sys.exit(0)
+
 	
 	def load_disks(self):
 		""" Load disks
 		"""
-		
-		self.device_list.append([None,None,_("<b>Disks</b>")])
 		
 		icon_theme = Gtk.IconTheme.get_default()
 		icon_disk = Gtk.IconTheme.load_icon (icon_theme,"drive-harddisk",32, 0)
 		icon_disk_usb = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
 		
 		disks = self.b.get_disks()
+
+		if disks:
+			self.device_list.append([None,None,_("<b>Disks</b>")])
 		
 		for disk in disks:
 			
@@ -120,30 +138,36 @@ class ListDevices():
 			else:
 				self.device_list.append([disk,icon_disk,str(disk.name +
 										   "\n<i><small>" + disk.model + "</small></i>")])
+		
+		return len(disks)
 				
 	def load_lvm_physical_volumes(self):
 		""" Load LVM2 PVs
 		"""
 		
-		self.device_list.append([None,None,_("<b>LVM2 Physical Volumes</b>")])
-		
 		icon_theme = Gtk.IconTheme.get_default()
 		icon_physical = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
 		
 		pdevices = self.b.get_physical_devices()
+
+		if pdevices:
+			self.device_list.append([None,None,_("<b>LVM2 Physical Volumes</b>")])
 		
 		for device in pdevices:
 			
 			self.device_list.append([device,icon_physical,str(device.name +
 											  "\n<i><small>LVM2 PV</small></i>")])
-	
+		
+		return len(pdevices)
+
 	def load_lvm_volume_groups(self):
 		""" Load LVM2 VGs
 		"""
 		
-		self.device_list.append([None,None,_("<b>LVM2 Volume Groups</b>")])
-		
 		gdevices = self.b.get_group_devices()
+
+		if gdevices:
+			self.device_list.append([None,None,_("<b>LVM2 Volume Groups</b>")])
 		
 		icon_theme = Gtk.IconTheme.get_default()
 		icon_group = Gtk.IconTheme.load_icon (icon_theme,"drive-removable-media",32, 0)
@@ -151,15 +175,21 @@ class ListDevices():
 		for device in gdevices:
 			self.device_list.append([device,icon_group,str(device.name +
 										   "\n<i><small>LVM2 VG</small></i>")])
-	
+		
+		return len(gdevices)
+
 	def load_devices(self):
 		""" Load all devices
 		"""
 		self.device_list.clear()
 		
-		self.load_disks()
-		self.load_lvm_physical_volumes()
-		self.load_lvm_volume_groups()
+		devices = 0
+
+		devices += self.load_disks()
+		devices += self.load_lvm_physical_volumes()
+		devices += self.load_lvm_volume_groups()
+
+		return devices
 	
 	def update_devices_view(self):
 		""" Update device view
