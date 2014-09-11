@@ -240,6 +240,11 @@ class BlivetUtils():
 			partitions.append(FreeSpaceDevice(blivet_device.size, [blivet_device], False))
 			
 			return partitions
+
+		elif blivet_device.isDisk and blivet_device.format.type == "iso9660":
+			# LiveUSB
+
+			return partitions
 		
 		elif blivet_device.isDisk:
 			

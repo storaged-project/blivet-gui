@@ -880,7 +880,7 @@ class ListPartitions():
 		
 		model, treeiter = selection.get_selected()
 		
-		self.toolbar.deactivate_all()
+		self.deactivate_all_options()
 		
 		if treeiter != None:
 			
