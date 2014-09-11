@@ -364,15 +364,31 @@ class ListPartitions():
 		icon_add = Gtk.IconTheme.load_icon (icon_theme,"gtk-add",16, 0)
 		icon_delete = Gtk.IconTheme.load_icon (icon_theme,"gtk-delete",16, 0)
 		icon_edit = Gtk.IconTheme.load_icon (icon_theme,"gtk-edit",16, 0)
+		icon_undo = Gtk.IconTheme.load_icon (icon_theme,"edit-undo",16, 0)
+		icon_redo = Gtk.IconTheme.load_icon (icon_theme,"edit-redo",16, 0)
 		
-		action_icons = {"add" : icon_add, "delete" : icon_delete, "edit" : icon_edit}
+		action_icons = {"add" : icon_add, "delete" : icon_delete, "edit" : icon_edit,
+		"redo" : icon_redo, "undo" : icon_undo }
+
+		if action_type not in ["undo", "redo"]:
 		
-		self.actions_list.append([action_icons[action_type], action_desc])
-		
-		# Update number of actions on actions card label
-		self.actions += 1
+			self.actions_list.append([action_icons[action_type], action_desc])
+			
+			# Update number of actions on actions card label
+			self.actions += 1
+
+		else:
+
+			self.actions_list.append([action_icons[action_type], action_desc])
+
+			if action_type == "undo":
+				self.actions -= 1
+
+			if action_type == "redo":
+				self.actions += 1
+
 		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
-		
+
 		self.activate_options(["apply", "clear"])
 	
 	def activate_options(self, activate_list):
@@ -496,7 +512,7 @@ class ListPartitions():
 		
 		self.list_devices.update_devices_view()
 	
-	def add_partition(self):
+	def add_partition(self, ):
 		""" Add new partition
 		"""
 		
@@ -860,6 +876,8 @@ class ListPartitions():
 		
 		self.list_devices.update_devices_view()
 		self.update_partitions_view(self.disk)
+
+		self.update_actions_view("redo", "redo")
 		
 		return
 	
@@ -871,7 +889,13 @@ class ListPartitions():
 		
 		self.list_devices.update_devices_view()
 		
-		self.update_partitions_view(self.disk)		
+		self.update_partitions_view(self.disk)
+
+		self.update_actions_view("undo", "undo")
+
+		if self.actions == 0:
+			self.deactivate_options(["clear", "apply"])
+
 		return
 	
 	def on_partition_selection_changed(self,selection):
