@@ -162,7 +162,7 @@ class device_canvas(Gtk.DrawingArea):
 			[0.239,0.467,0.921]][self.color % 2]
 
 
-	def compute_rectangles_size(self, partition, parent, parent_width, height, num_parts, start, depth):
+	def compute_rectangles_size(self, partition, parent, parent_width, height, num_parts, parts_left, start, depth):
 		""" Compute sizes (in px) of partition rectangle
 
 			:param partition: partition
@@ -175,6 +175,8 @@ class device_canvas(Gtk.DrawingArea):
 			:type height: int
 			:param num_parts: number of partitions (children) for current parent
 			:type num_parts: int
+			:param parts_left: number of partitions (children) currently not drawn
+			:type parts_left: int
 			:param start: starting x-coordinate
 			:type start: int
 			:param depth: current tree depth
@@ -186,7 +188,8 @@ class device_canvas(Gtk.DrawingArea):
 
 		total_size = round(parent.size.convertTo(spec="MiB"))
 		
-		if depth != 0:
+		if depth != 0 and parts_left == 1:
+			# drawing last partition, we need to left space for parents
 			# 5px at the end for non-root devices (10 px = 5px for start + 5px for end)
 			width = parent_width - 10
 		
@@ -197,17 +200,17 @@ class device_canvas(Gtk.DrawingArea):
 			
 		part_width = round(partition.size.convertTo(spec="MiB"))*(width)/total_size
 		
-		# Every partition need some minimum size in the drawing area
-		# Minimum size = number of partitions*2 / width of draving area
+		# last partition gets all space left
+		if parts_left == 1:
+			part_width = width
 		
-		if part_width < width / (num_parts*2):
+		# size of partition rect must be at least 'width / (num_parts*2)'
+		elif part_width < width / (num_parts*2):
 			part_width = width / (num_parts*2)
 		
+		# we need to left space for smaller partition (at least 'width / (num_parts*2)', see above)
 		elif part_width > width - ((num_parts-1)* (width / (num_parts*2))):
 			part_width = width - (num_parts-1) * (width / (num_parts*2))
-		
-		if part_width > width:
-			part_width = width
 
 		# [x, y, width, height, [r,g,b]]
 		r = cairo_rectangle(round(x), depth, round(part_width), height - 2*depth, self.pick_color(partition))
@@ -314,6 +317,20 @@ class device_canvas(Gtk.DrawingArea):
 		model, selected_treeiter = selection.get_selected()
 
 		def draw_loop(self, treeiter, start, depth, parent, parent_size):
+			""" Recursive function to draw rectangles
+
+				:param treeiter: iter pointing at root
+				:type treeiter: Gtk.TreeIter
+				:param start: point to start width drawing (end of last drawn rect)
+				:type start: int
+				:param depth: depth in tree*5 (5 px is visible part of parent rect)
+				:type depth: int
+				:param parent: parent device
+				:type parent: blivet.Device
+				:param parent_size: current size of parent rect in px
+				:type parent_size: int
+
+			"""
 
 			# count number of partitions on current level
 			num_parts = 0
@@ -321,11 +338,16 @@ class device_canvas(Gtk.DrawingArea):
 
 			while it:
 				num_parts += 1
-				it = self.partitions_list.iter_next(it) 
+				it = self.partitions_list.iter_next(it)
+
+			parts_left = num_parts
 
 			while treeiter != None:
-				rectangle = self.compute_rectangles_size(self.partitions_list[treeiter][0], parent, parent_size, height, num_parts, start, depth)
+				rectangle = self.compute_rectangles_size(self.partitions_list[treeiter][0], parent, parent_size, height, num_parts, parts_left, start, depth)
 				self.rectangles[rectangle] = treeiter
+				
+				parent_size -= rectangle.width
+				parts_left -= 1
 
 				if selected_treeiter and self.partitions_list.get_path(treeiter) == self.partitions_list.get_path(selected_treeiter):
 					self.draw_selected_rectangle(cairo_ctx, rectangle)
