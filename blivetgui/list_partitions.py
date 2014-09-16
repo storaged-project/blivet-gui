@@ -223,7 +223,7 @@ class ListPartitions():
 		if partition.name == _("free space"):
 			iter_added = self.partitions_list.append(parent,[partition,partition.name,"--","--",
 								 str(partition.size),"--", None, None])
- 		elif partition.type == "partition" and partition.isExtended:
+ 		elif partition.type == "partition" and hasattr(partition, "isExtended") and partition.isExtended:
 			iter_added = self.partitions_list.append(None,[partition,partition.name,_("extended"),"--",
 								str(partition.size),"--", None, None])
 		elif partition.type == "lvmvg":

@@ -251,7 +251,7 @@ class BlivetUtils():
 			extended = None
 			
 			for partition in partitions:
-				if partition.isExtended:
+				if hasattr(partition, "isExtended") and partition.isExtended:
 					extended = partition
 					break
 			
@@ -676,13 +676,9 @@ class BlivetUtils():
 			mountpoint.format.mountpoint = None
 			mountpoint.format._mountpoint = None
 
-		# set swaps to non-existent in order to set their status to False
+		# FIXME set swaps to non-existent in order to set their status to False
 		for swap in self.storage.swaps:
 			swap.format.exists = False
-
-		for device in self.storage.devices:
-			if device.format and device.format.type == "luks":
-				device.format.exists = False
 		
 		return old_mountpoints
 	
@@ -694,6 +690,8 @@ class BlivetUtils():
 		self.storage.ksdata = self.ksparser.handler
 		
 		self.storage.reset()
+		
+		# ignore existing mountpoints
 	
 	def luks_decrypt(self, blivet_device, passphrase):
 		""" Decrypt selected luks device
