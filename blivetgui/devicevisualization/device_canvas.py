@@ -153,11 +153,10 @@ class device_canvas(Gtk.DrawingArea):
 			return [0.874,0.258,0.117]
 		elif partition.format and partition.format.type == "luks":
 			return [0.25,0.25,0.25]
+		elif partition.type == "btrfs volume":
+			return [0.921,0.694,0.239]
 		else:
 			self.color += 1
-			# return [[0.451,0.824,0.086],
-			# [0.961,0.474,0],
-			# [0.204,0.396,0.643]][self.color % 3]
 			return [[0.239,0.921,0.353],
 			[0.239,0.467,0.921]][self.color % 2]
 
