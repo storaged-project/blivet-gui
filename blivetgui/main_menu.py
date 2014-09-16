@@ -72,7 +72,6 @@ class main_menu():
 		self.menu_bar.add(self.add_file_menu())
 		self.menu_bar.add(self.add_edit_menu())
 		self.menu_bar.add(self.add_partition_menu())
-		#self.menu_bar.add(self.add_lvm_menu())
 		self.menu_bar.add(self.add_help_menu())
 	
 	def add_file_menu(self):
@@ -84,7 +83,7 @@ class main_menu():
 		file_menu = Gtk.Menu()
 		file_menu_item.set_submenu(file_menu)
 		
-		reload_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_REFRESH , self.agr)
+		reload_item = Gtk.MenuItem()
 		reload_item.set_label(_("Reload"))
 		key, mod = Gtk.accelerator_parse("<Control>R")
 		reload_item.add_accelerator("activate", self.agr,
@@ -94,7 +93,7 @@ class main_menu():
 		
 		file_menu.add(reload_item)
 		
-		quit_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_QUIT, self.agr)
+		quit_item = Gtk.MenuItem()
 		quit_item.set_label(_("Quit"))
 		key, mod = Gtk.accelerator_parse("<Control>Q")
 		quit_item.add_accelerator("activate", self.agr,
@@ -111,11 +110,11 @@ class main_menu():
 		""" Menu item 'Edit'
 		"""
 		
-		edit_menu_item = Gtk.MenuItem(_("Edit"))
+		edit_menu_item = Gtk.MenuItem(label=_("Edit"))
 		edit_menu = Gtk.Menu()
 		edit_menu_item.set_submenu(edit_menu)
 		
-		undo_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_UNDO, self.agr)
+		undo_item = Gtk.MenuItem()
 		undo_item.set_label(_("Undo Last Action"))
 		key, mod = Gtk.accelerator_parse("<Control>Z")
 		undo_item.add_accelerator("activate", self.agr,
@@ -127,7 +126,7 @@ class main_menu():
 		
 		self.menu_items["undo"] = undo_item
 		
-		redo_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_REDO, self.agr)
+		redo_item = Gtk.MenuItem()
 		redo_item.set_label(_("Redo Last Action"))
 		key, mod = Gtk.accelerator_parse("<Control><Shift>Z")
 		redo_item.add_accelerator("activate", self.agr,
@@ -139,7 +138,7 @@ class main_menu():
 		
 		self.menu_items["redo"] = redo_item
 		
-		clear_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_CLEAR, self.agr)
+		clear_item = Gtk.MenuItem()
 		clear_item.set_label(_("Clear Queued Actions"))
 		
 		clear_item.connect("activate", self.on_clear_item)
@@ -148,7 +147,7 @@ class main_menu():
 		
 		self.menu_items["clear"] = clear_item
 		
-		apply_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_APPLY, self.agr)
+		apply_item = Gtk.MenuItem()
 		apply_item.set_label(_("Apply Queued Actions"))
 		key, mod = Gtk.accelerator_parse("<Control>A")
 		apply_item.add_accelerator("activate", self.agr,
@@ -166,11 +165,11 @@ class main_menu():
 		""" Menu item 'Partition' #FIXME: 'device' menu now
 		"""
 		
-		partition_menu_item = Gtk.MenuItem(_("Device"))
+		partition_menu_item = Gtk.MenuItem(label=_("Device"))
 		partition_menu = Gtk.Menu()
 		partition_menu_item.set_submenu(partition_menu)
 		
-		add_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_ADD, self.agr)
+		add_item = Gtk.MenuItem()
 		add_item.set_label(_("New"))
 		key, mod = Gtk.accelerator_parse("Insert")
 		add_item.add_accelerator("activate", self.agr,
@@ -182,7 +181,7 @@ class main_menu():
 		
 		self.menu_items["add"] = add_item
 		
-		delete_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_DELETE, self.agr)
+		delete_item = Gtk.MenuItem()
 		delete_item.set_label(_("Delete"))
 		key, mod = Gtk.accelerator_parse("Delete")
 		delete_item.add_accelerator("activate", self.agr,
@@ -194,7 +193,7 @@ class main_menu():
 		
 		self.menu_items["delete"] = delete_item
 		
-		edit_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_EDIT, self.agr)
+		edit_item = Gtk.MenuItem()
 		edit_item.set_label(_("Edit"))
 		
 		edit_item.connect("activate", self.on_edit_item)
@@ -224,40 +223,16 @@ class main_menu():
 		self.menu_items["decrypt"] = decrypt_item
 		
 		return partition_menu_item
-	
-	def add_lvm_menu(self):
-		""" Menu item 'LVM'
-		"""
-		
-		lvm_menu_item = Gtk.MenuItem(_("LVM"))
-		lvm_menu = Gtk.Menu()
-		lvm_menu_item.set_submenu(lvm_menu)
-		
-		pv_item = Gtk.ImageMenuItem()
-		pv_item.set_label(_("Create LVM Physical Volume"))
-		
-		pv_item.connect("activate", self.on_pv_item)
-		pv_item.set_sensitive(True)
-		lvm_menu.add(pv_item)
-		
-		vg_item = Gtk.ImageMenuItem()
-		vg_item.set_label(_("Create LVM Volume Group"))
-		
-		vg_item.connect("activate", self.on_vg_item)
-		vg_item.set_sensitive(True)
-		lvm_menu.add(vg_item)
-		
-		return lvm_menu_item
 
 	def add_help_menu(self):
 		""" Menu item 'Help'
 		"""
 		
-		help_menu_item = Gtk.MenuItem(_("Help"))
+		help_menu_item = Gtk.MenuItem(label=_("Help"))
 		help_menu = Gtk.Menu()
 		help_menu_item.set_submenu(help_menu)
 		
-		help_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_HELP, self.agr)
+		help_item = Gtk.MenuItem()
 		help_item.set_label(_("Contents"))
 		key, mod = Gtk.accelerator_parse("F1")
 		help_item.add_accelerator("activate", self.agr,
@@ -266,7 +241,7 @@ class main_menu():
 		help_item.connect("activate", self.on_help_item)
 		help_menu.add(help_item)
 		
-		about_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_ABOUT, self.agr)
+		about_item = Gtk.MenuItem()
 		about_item.set_label(_("About"))
 		
 		about_item.connect("activate", self.on_about_item)
@@ -319,10 +294,12 @@ class main_menu():
 		
 		try:
 			FNULL = open(os.devnull, "w")
-			subprocess.Popen(["yelp", dirname + "/help/C/index.page"],stdout=FNULL, stderr=subprocess.STDOUT)
+			subprocess.Popen(["yelp", dirname + "/help/C/index.page"],stdout=FNULL, 
+				stderr=subprocess.STDOUT)
 		
 		except Exception as e:
-			BlivetError("You need \"Yelp\" to see the documentation.\n" + str(e) + "\n\nOnline version of documentation is available at http://vojtechtrefny.github.io/")
+			BlivetError("You need \"Yelp\" to see the documentation.\n" + str(e) + 
+				"\n\nOnline version of documentation is available at http://vojtechtrefny.github.io/")
 	
 	def on_undo_item(self, event):
 		""" Onselect action for 'Undo Last Action'

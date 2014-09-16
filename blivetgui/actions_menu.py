@@ -53,7 +53,7 @@ class actions_menu():
 		""" Create popup menu
 		"""
 		
-		add_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_ADD, None)
+		add_item = Gtk.MenuItem()
 		add_item.set_label(_("New"))
 		
 		add_item.connect("activate", self.on_add_item)
@@ -62,7 +62,7 @@ class actions_menu():
 		
 		self.menu_items["add"] = add_item
 		
-		delete_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_DELETE, None)
+		delete_item = Gtk.MenuItem()
 		delete_item.set_label(_("Delete"))
 		
 		delete_item.connect("activate", self.on_delete_item)
@@ -71,7 +71,7 @@ class actions_menu():
 		
 		self.menu_items["delete"] = delete_item
 		
-		edit_item = Gtk.ImageMenuItem.new_from_stock(Gtk.STOCK_EDIT, None)
+		edit_item = Gtk.MenuItem()
 		edit_item.set_label(_("Edit"))
 		
 		edit_item.connect("activate", self.on_edit_item)
