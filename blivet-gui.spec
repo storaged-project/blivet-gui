@@ -1,7 +1,7 @@
 %define name blivet-gui
 %define version 0.1.8
 %define unmangled_version 0.1.8
-%define release 6
+%define release 7
 %define build_timestamp %(date +"%Y%m%d")
 
 Summary: Tool for data storages configuration

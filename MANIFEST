@@ -17,7 +17,6 @@ blivetgui/processing_window.py
 blivetgui/udisks_loop.py
 blivetgui/utils.py
 blivetgui/data/ui/blivet-gui.ui
-blivetgui/data/ui/blivet-gui.ui~
 blivetgui/devicevisualization/__init__.py
 blivetgui/devicevisualization/device_canvas.py
 blivetgui/doc/Makefile
@@ -157,8 +156,6 @@ blivetgui/help/C/images/new-lvm2-vg.png
 blivetgui/help/C/images/new-partition.png
 blivetgui/help/C/images/partition-table.png
 blivetgui/help/C/images/pending-actions.png
-blivetgui/po/LOCALE=cs_CZ.po
 blivetgui/po/blivet-gui.pot
 blivetgui/po/cs.po
-blivetgui/po/en_US.po
 blivetgui/po/generate.sh
