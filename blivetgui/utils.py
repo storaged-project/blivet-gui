@@ -426,6 +426,36 @@ class BlivetUtils():
 			BlivetError(e, self.main_window)
 			
 			return False
+
+	def _pick_device_name(self, name, parent_devices):
+		""" Pick name for device. If user choosed a name, check it and (if necessary) change it
+
+			:param name: name selected by user
+			:type name: str
+			:param parent_devices: list of parent devices
+			:type parent_devices: list of blivet.Device
+			:returns: new (valid) name
+			:rtype: str
+
+		"""
+
+		if name == None:
+				name = self.storage.suggestDeviceName(parent=parent_devices,swap=False)
+			
+		else:
+			name = self.storage.safeDeviceName(name)
+
+		if name in self.storage.names:
+			for i in range(100):
+				if name + "-" + str(i) not in self.storage.names:
+					name = name + "-" + str(i)
+					break
+
+		if name in self.storage.names:
+			name = self.storage.suggestDeviceName(parent=parent_devices,swap=False)
+
+		return name
+
 	
 	def add_device(self, parent_devices, device_type, fs_type, target_size, name=None, label=None, mountpoint=None, encrypt=False, encrypt_args={}, flags=[]):
 		""" Create new device
@@ -498,13 +528,9 @@ class BlivetUtils():
 			
 		elif device_type == _("LVM2 Logical Volume"):
 			
-			if name == None:
-				name = self.storage.suggestDeviceName(parent=parent_devices[0],swap=False)
-			
-			else:
-				name = self.storage.safeDeviceName(name)
+			device_name = self._pick_device_name(name, parent_devices)
 
-			new_part = self.storage.newLV(size=target_size, parents=parent_devices, name=name)
+			new_part = self.storage.newLV(size=target_size, parents=parent_devices, name=device_name)
 			
 			device_id = new_part.id
 			
@@ -515,22 +541,9 @@ class BlivetUtils():
 		
 		elif device_type == _("LVM2 Volume Group"):
 			
-			if name == None:
-				name = self.storage.suggestDeviceName(parent=parent_devices,swap=False)
-			
-			else:
-				name = self.storage.safeDeviceName(name)
-
-			if name in self.storage.names:
-				for i in range(100):
-					if name + "-" + str(i) not in self.storage.names:
-						name = name + "-" + str(i)
-						break
-
-			if name in self.storage.names:
-				name = self.storage.suggestDeviceName(parent=parent_devices,swap=False)
+			device_name = self._pick_device_name(name, parent_devices)
 				
-			new_part = self.storage.newVG(size=target_size, parents=parent_devices, name=name)
+			new_part = self.storage.newVG(size=target_size, parents=parent_devices, name=device_name)
 			
 			device_id = new_part.id
 			
@@ -560,6 +573,31 @@ class BlivetUtils():
 				
 				new_fmt = formats.getFormat("lvmpv", device=new_part.path)
 				self.storage.formatDevice(new_part, new_fmt)
+
+		elif device_type == _("Btrfs Volume"):
+
+			device_name = self._pick_device_name(name, parent_devices)
+
+			new_part = self.storage.newPartition(size=target_size, parents=parent_devices)				
+			self.storage.createDevice(new_part)
+
+			new_fmt = formats.getFormat("btrfs", device=new_part.path)
+			self.storage.formatDevice(new_part, new_fmt)
+
+			new_btrfs = self.storage.newBTRFS(size=new_part.size, parents=[new_part], name=device_name)
+			self.storage.createDevice(new_btrfs)
+
+			device_id = new_btrfs.id
+
+		elif device_type == _("Btrfs Subvolume"):
+
+			device_name = self._pick_device_name(name, parent_devices)
+			
+			new_btrfs = self.storage.newBTRFSSubVolume(parents=parent_devices, name=device_name)
+			self.storage.createDevice(new_btrfs)
+
+			device_id = new_btrfs.id
+
 			
 		try:
 			

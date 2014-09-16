@@ -517,10 +517,11 @@ class AddDialog(Gtk.Dialog):
 	def add_device_chooser(self):
 		
 		map_type_devices = {
-			"disk" : [_("Partition"), _("LVM2 Storage"), _("LVM2 Physical Volume")],
+			"disk" : [_("Partition"), _("LVM2 Storage"), _("LVM2 Physical Volume"), _("Btrfs Volume")],
 			"lvmpv" : [_("LVM2 Volume Group")],
 			"lvmvg" : [_("LVM2 Logical Volume")],
-			"luks/dm-crypt" : [_("LVM2 Volume Group")]
+			"luks/dm-crypt" : [_("LVM2 Volume Group")],
+			"btrfs volume" : [_("Btrfs Subvolume")]
 			}
 		
 		self.label_devices = Gtk.Label()
@@ -546,7 +547,7 @@ class AddDialog(Gtk.Dialog):
 		if len(devices) == 1:
 			self.devices_combo.set_sensitive(False)
 		
-		if self.device_type in ["lvmpv", "luks/dm-crypt"]:
+		if self.device_type in ["lvmpv", "luks/dm-crypt", "btrfs volume"]:
 			self.filesystems_combo.set_sensitive(False)
 			self.label_fs.set_sensitive(False)
 			self.label_size.set_sensitive(False)
@@ -569,8 +570,6 @@ class AddDialog(Gtk.Dialog):
 		self.parents_store = Gtk.ListStore(object, bool, str, str, str)
 		
 		self.parents = Gtk.TreeView(model=self.parents_store)
-		#self.parents.set_vexpand(True)
-		#self.parents.set_hexpand(True)
 		
 		renderer_toggle = Gtk.CellRendererToggle()
 		renderer_toggle.connect("toggled", self.on_cell_toggled)
@@ -772,7 +771,7 @@ class AddDialog(Gtk.Dialog):
 					self.mountpoint_label.set_sensitive(True)
 					self.mountpoint_entry.set_sensitive(True)
 				
-			if device == _("LVM2 Physical Volume"):
+			elif device == _("LVM2 Physical Volume"):
 				self.label_label.set_sensitive(False)
 				self.label_entry.set_sensitive(False)
 				
@@ -789,7 +788,7 @@ class AddDialog(Gtk.Dialog):
 					self.mountpoint_label.set_sensitive(False)
 					self.mountpoint_entry.set_sensitive(False)
 			
-			if device == _("LVM2 Storage"):
+			elif device == _("LVM2 Storage"):
 				self.label_label.set_sensitive(False)
 				self.label_entry.set_sensitive(False)
 				
@@ -804,6 +803,23 @@ class AddDialog(Gtk.Dialog):
 				
 				if self.kickstart:
 					self.mountpoint_label.set_sensitive(False)
+					self.mountpoint_entry.set_sensitive(False)
+
+			elif device == _("Btrfs Volume"):
+				self.label_label.set_sensitive(False)
+				self.label_entry.set_sensitive(False)
+				
+				self.name_label.set_sensitive(True)
+				self.name_entry.set_sensitive(True)
+				
+				self.filesystems_combo.set_sensitive(False)
+				self.label_fs.set_sensitive(False)
+				
+				self.encrypt_label.set_sensitive(False)
+				self.encrypt_check.set_sensitive(False)
+				
+				if self.kickstart:
+					self.mountpoint_label.set_sensitive(False) #FIXME!
 					self.mountpoint_entry.set_sensitive(False)
 	
 	def scale_moved(self,event):

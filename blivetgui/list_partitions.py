@@ -464,6 +464,9 @@ class ListPartitions():
 					
 			if partition_device.format.type == "luks" and not partition_device.format.status:
 				self.activate_options(["decrypt"])
+
+			if partition_device.type == "btrfs volume":
+				self.activate_options(["add"])
 			
 			if self.kickstart_mode:
 			
@@ -518,6 +521,12 @@ class ListPartitions():
 		
 		# parent device; free space has always only one parent #FIXME
 		parent_device = self.selected_partition[0].parents[0]
+
+		# btrfs volume has no special free space device -- parent device for newly
+		# created subvolume is not parent of selected device but device (btrfs volume)
+		# itself
+		if self.selected_partition[0].type == "btrfs volume":
+			parent_device = self.selected_partition[0]
 		
 		parent_device_type = parent_device.type
 
@@ -564,7 +573,7 @@ class ListPartitions():
 			selected_size = Size(str(user_input[1]) + "MiB")
 			
 			if selection[2] == None and selection[0] not in ["LVM2 Physical Volume",
-													"LVM2 Volume Group", "LVM2 Storage"]:
+				"LVM2 Volume Group", "LVM2 Storage", "Btrfs Volume", "Btrfs Subvolume"]:
 				# If fs is not selected, show error window and re-run add dialog
 				msg = _("Error:\n\nFilesystem type must be specified when creating new partition.")
 				AddErrorDialog(dialog, msg)
