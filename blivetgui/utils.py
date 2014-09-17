@@ -223,12 +223,15 @@ class BlivetUtils():
 		""" Returns list of disks with free space
 		"""
 
-		free_space = self.storage.getFreeSpace()
 		free_disks = []
 
-		for disk in free_space.keys():
-			if free_space[disk][0] > Size("2 MiB"):
-				free_disks.append((self.storage.devicetree.getDeviceByName(disk),free_space[disk][0]))
+		for disk in self.storage.disks:
+			free_space = partitioning.getFreeRegions([disk])
+			for free in free_space:
+				free_size = Size(free.length * free.device.sectorSize)
+
+				if free_size > Size("2 MiB"):
+					free_disks.append((disk,free_size))
 
 		return free_disks
 
@@ -607,6 +610,15 @@ class BlivetUtils():
 
 				new_fmt = formats.getFormat("btrfs", device=new_part.path)
 				self.storage.formatDevice(new_part, new_fmt)
+
+				# we need to try to create partitions immediately, if something fails, fail now
+				try:
+					partitioning.doPartitioning(self.storage)
+
+				except errors.PartitioningError as e:
+					BlivetError(e, self.main_window)
+			
+					return None
 
 				btrfs_parents.append(new_part)
 

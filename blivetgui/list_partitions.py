@@ -605,6 +605,9 @@ class ListPartitions():
 				dialog.destroy()
 			
 			elif selection[0] == "LVM2 Storage":
+
+				# FIXME: move both steps into utils
+				# TODO: choosing of devices, same as for btrfs volumes
 				
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
