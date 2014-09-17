@@ -551,7 +551,7 @@ class ListPartitions():
 				
 				dialog.destroy()
 			
-			elif response == Gtk.ResponseType.CANCEL:		
+			elif response == Gtk.ResponseType.CANCEL:
 			
 				dialog.destroy()
 			
@@ -560,11 +560,14 @@ class ListPartitions():
 			return
 		
 		dialog = AddDialog(self.main_window, parent_device_type, parent_device, self.selected_partition[0],
-					 self.selected_partition[0].size, self.b.get_free_pvs_info(), self.kickstart_mode)
+					 self.selected_partition[0].size, self.b.get_free_pvs_info(), self.b.get_free_disks_info(), self.kickstart_mode)
 
 		response = dialog.run()
 		
 		selection = dialog.get_selection()
+
+		# FIXME: new way of passing arguments (named tuple or new class) and get rid of all of
+		# this and just do all this utils
 		
 		if response == Gtk.ResponseType.OK:
 			
@@ -655,7 +658,7 @@ class ListPartitions():
 				
 				# user_input = [device, size, fs, name, label, mountpoint]
 				
-				ret = self.b.add_device(parent_devices=[parent_device], device_type=user_input[0],
+				ret = self.b.add_device(parent_devices=user_input[8], device_type=user_input[0],
 							fs_type=user_input[2], target_size=selected_size, name=user_input[3],
 							label=user_input[4], mountpoint=user_input[5], encrypt=user_input[6], 
 							encrypt_args=user_input[7])

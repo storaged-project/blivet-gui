@@ -218,6 +218,20 @@ class BlivetUtils():
 				free_pvs.append(pv)
 		
 		return free_pvs
+
+	def get_free_disks_info(self):
+		""" Returns list of disks with free space
+		"""
+
+		free_space = self.storage.getFreeSpace()
+		free_disks = []
+
+		for disk in free_space.keys():
+			if free_space[disk][0] > Size("2 MiB"):
+				free_disks.append((self.storage.devicetree.getDeviceByName(disk),free_space[disk][0]))
+
+		return free_disks
+
 	
 	def get_free_space(self, blivet_device, partitions):
 		""" Find free space on device
@@ -578,13 +592,25 @@ class BlivetUtils():
 
 			device_name = self._pick_device_name(name, parent_devices)
 
-			new_part = self.storage.newPartition(size=target_size, parents=parent_devices)				
-			self.storage.createDevice(new_part)
+			# for btrfs we need to create parents first -- currently selected "parents" are
+			# disks but "real parents" for subvolume are btrfs formatted partitions
+			btrfs_parents = []
+			for parent in parent_devices:
 
-			new_fmt = formats.getFormat("btrfs", device=new_part.path)
-			self.storage.formatDevice(new_part, new_fmt)
+				# FIXME: size of parent btrfs partitions -- now I know the size is total size / 
+				# number of parents, because the same size of parents (partitions) is hardcoded
+				# but this will change in future -- it is neccessary to redisign whole arguments
+				# passing from dialog to lists_partitions to here (named tuple or class)
 
-			new_btrfs = self.storage.newBTRFS(size=new_part.size, parents=[new_part], name=device_name)
+				new_part = self.storage.newPartition(size=target_size/len(parent_devices), parents=[parent])				
+				self.storage.createDevice(new_part)
+
+				new_fmt = formats.getFormat("btrfs", device=new_part.path)
+				self.storage.formatDevice(new_part, new_fmt)
+
+				btrfs_parents.append(new_part)
+
+			new_btrfs = self.storage.newBTRFS(size=new_part.size, parents=btrfs_parents, name=device_name)
 			self.storage.createDevice(new_btrfs)
 
 			device_id = new_btrfs.id
@@ -592,7 +618,7 @@ class BlivetUtils():
 		elif device_type == _("Btrfs Subvolume"):
 
 			device_name = self._pick_device_name(name, parent_devices)
-			
+
 			new_btrfs = self.storage.newBTRFSSubVolume(parents=parent_devices, name=device_name)
 			self.storage.createDevice(new_btrfs)
 

@@ -462,7 +462,7 @@ class AddDialog(Gtk.Dialog):
 	"""
 	
 	#FIXME add mountpoint validation -- os.path.isabs(path)
-	def __init__(self, parent_window, device_type, parent_device, free_device, free_space, free_pvs, kickstart=False):
+	def __init__(self, parent_window, device_type, parent_device, free_device, free_space, free_pvs, free_disks, kickstart=False):
 		"""
 			
 			:param device_type: type of parent device
@@ -471,7 +471,7 @@ class AddDialog(Gtk.Dialog):
 			:type parent_device: blivet.Device
 			:param free_device: free device
 			:type free_device: FreeSpaceDevice
-			:param free_space: free device
+			:param free_space: free device size
 			:type free_space: blivet.Size
 			:param free_pvs: list PVs with no VG
 			:type free_pvs: list
@@ -485,6 +485,7 @@ class AddDialog(Gtk.Dialog):
 		self.device_type = device_type
 		self.parent_device = parent_device
 		self.free_pvs = free_pvs
+		self.free_disks = free_disks
 		self.parent_window = parent_window
 		self.kickstart = kickstart
 		        
@@ -502,12 +503,12 @@ class AddDialog(Gtk.Dialog):
 		box = self.get_content_area()
 		box.add(self.grid)
 		
-		self.add_size_scale()
+		self.add_size_scale(self.free_space)
 		self.add_fs_chooser()
 		self.add_name_chooser()
-		self.add_parent_list()
 		self.add_encrypt_chooser()
-		self.add_device_chooser() #!important
+		self.add_device_chooser()
+		self.add_parent_list()
 		
 		if kickstart and self.device_type in ["disk", "lvmvg"]:
 			self.add_mountpoint()
@@ -588,24 +589,53 @@ class AddDialog(Gtk.Dialog):
 		
 		self.parents.set_headers_visible(True)
 		
-		if self.device_type == "lvmpv":
-			for pv in self.free_pvs:
-				if pv.name == self.parent_device.name:
-					self.parents_store.append([self.parent_device, True, self.parent_device.name, self.device_type, str(self.free_space)])
-				else:
-					self.parents_store.append([pv, False, pv.name, "lvmpv", str(pv.size)])
-			
-			self.parents.set_sensitive(True)
-		
-		else:
-			self.parents_store.append([self.parent_device, True, self.parent_device.name, self.device_type, str(self.free_space)])
-			self.parents.set_sensitive(False)
-		
 		self.label_list = Gtk.Label()
 		self.label_list.set_text(_("Available devices:"))
 		
 		self.grid.attach(self.label_list, 0, 1, 1, 1)
 		self.grid.attach(self.parents, 1, 1, 4, 4)
+
+		self.update_parent_list()
+
+	def update_parent_list(self):
+
+		self.parents_store.clear()
+
+		tree_iter = self.devices_combo.get_active_iter()
+		
+		if tree_iter != None:
+			model = self.devices_combo.get_model()
+			device = model[tree_iter][0]
+
+			if device == "LVM2 Volume Group":
+
+				for pv in self.free_pvs:
+					if pv.name == self.parent_device.name:
+						self.parents_store.append([self.parent_device, True, self.parent_device.name, self.device_type, str(self.free_space)])
+					else:
+						self.parents_store.append([pv, False, pv.name, "lvmpv", str(pv.size)])
+				
+				self.parents.set_sensitive(True)
+
+			elif device == "Btrfs Volume":
+
+				# add selected device
+				self.parents_store.append([self.parent_device, True, self.parent_device.name, self.device_type, str(self.free_space)])
+				self.parents.set_sensitive(True)
+
+				for disk, free in self.free_disks:
+
+					# skip selected device -- already added
+					if disk.name == self.parent_device.name:
+						pass
+
+					else:
+						self.parents_store.append([disk, False, disk.name, "disk", str(free)])
+			
+			else:
+				self.parents_store.append([self.parent_device, True, self.parent_device.name, self.device_type, str(self.free_space)])
+				self.parents.set_sensitive(False)
+
 	
 	def on_cell_toggled(self, event, path):
 		
@@ -613,11 +643,61 @@ class AddDialog(Gtk.Dialog):
 			pass
 		
 		else:
-			self.parents_store[path][1] = not self.parents_store[path][1]		
-	
-	def add_size_scale(self):
+			self.parents_store[path][1] = not self.parents_store[path][1]
+
+			self.remove_size_scale() # remove scale -- it has wrong size (not possible to update)
+
+			tree_iter = self.devices_combo.get_active_iter()
 		
-		self.up_limit = int(floor(self.free_space.convertTo("KiB")/1024)) # see edit dialog for explanation
+			if tree_iter != None:
+				model = self.devices_combo.get_model()
+				device = model[tree_iter][0]
+
+			# re-add delete scale and show it
+			self.add_size_scale(self.compute_size_scale(device))
+			self.show_size_scale()
+
+	def compute_size_scale(self, device_type):
+		""" Computes size (upper limit) for our Gtk.Scale and Gtk.SpinButtons
+			--> if user chooses more than one parent device, we need to allow him
+				to choose size for new device to be size of both devices (or twice
+				size of smaller smaller device for raids)
+				
+				#FIXME: size based on raid type, btrfs see: https://btrfs.wiki.kernel.org/index.php/Using_Btrfs_with_Multiple_Devices
+
+			:param device_type: type of created device (raid, lvmvg, btrfs)
+			:type device_type: str
+			:returns: size upper limit for newly created device
+			:rtype: blivet.Size
+		"""
+
+		size = Size("0 MiB")
+		num_selected = 0
+
+		for row in self.parents_store:
+			if row[1] == True:
+
+				num_selected += 1
+
+				if device_type == "LVM2 Volume Group":
+					size += Size(row[4])
+
+				elif device_type == "Btrfs Volume":
+					if size == 0:
+						size = Size(row[4])
+
+					elif Size(row[4]) < size:
+						size = Size(row[4])
+
+		if device_type == "LVM2 Volume Group":
+			return size
+
+		elif device_type == "Btrfs Volume":
+			return size*num_selected
+
+	def add_size_scale(self, up_limit):
+		
+		self.up_limit = int(floor(up_limit.convertTo("KiB")/1024)) # see edit dialog for explanation # FIXME (up_limit)
 		
 		self.scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=Gtk.Adjustment(0, 1, self.up_limit, 1, 10, 0))
 		self.scale.set_hexpand(True)
@@ -658,6 +738,24 @@ class AddDialog(Gtk.Dialog):
 		self.label_mb2 = Gtk.Label()
 		self.label_mb2.set_text(_("MiB"))
 		self.grid.attach(self.label_mb2, 5, 7, 1, 1) #left-top-width-height
+
+	def remove_size_scale(self):
+		self.scale.destroy()
+		self.label_size.destroy()
+		self.spin_size.destroy()
+		self.label_mb.destroy()
+		self.label_free.destroy()
+		self.spin_free.destroy()
+		self.label_mb2.destroy()
+
+	def show_size_scale(self):
+		self.scale.show()
+		self.label_size.show()
+		self.spin_size.show()
+		self.label_mb.show()
+		self.label_free.show()
+		self.spin_free.show()
+		self.label_mb2.show()
 		
 	def add_fs_chooser(self):
 		
@@ -821,6 +919,8 @@ class AddDialog(Gtk.Dialog):
 				if self.kickstart:
 					self.mountpoint_label.set_sensitive(False) #FIXME!
 					self.mountpoint_entry.set_sensitive(False)
+
+		self.update_parent_list()
 	
 	def scale_moved(self,event):
 		
@@ -843,20 +943,25 @@ class AddDialog(Gtk.Dialog):
 		if tree_iter != None:
 			model = self.devices_combo.get_model()
 			device = model[tree_iter][0]
-		
-		if device == "LVM2 Volume Group":
-			parents = []
-			size = 0
-			
-			for row in self.parents_store:
+
+		parents = []
+
+		for row in self.parents_store:
 				if row[1]:
 					parents.append(row[0])
-					size += row[0].size
-			
-			return (device, int(size.convertTo("MiB")), self.filesystems_combo.get_active_text(), 
-				self.name_entry.get_text(), self.label_entry.get_text(), parents)
 		
-		if self.kickstart:
+		if device == "LVM2 Volume Group":
+			
+			return (device, self.spin_size.get_value(), self.filesystems_combo.get_active_text(), 
+				self.name_entry.get_text(), self.label_entry.get_text(), parents)
+
+		elif device == "Btrfs Volume":
+			
+			return (device, self.spin_size.get_value(),
+				None, self.name_entry.get_text(), self.label_entry.get_text(),
+				None, False, None, parents)
+		
+		elif self.kickstart:
 			return (device, self.spin_size.get_value(),
 				self.filesystems_combo.get_active_text(), self.name_entry.get_text(), 
 				self.label_entry.get_text(), self.mountpoint_entry.get_text(), 
@@ -865,7 +970,7 @@ class AddDialog(Gtk.Dialog):
 		else:
 			return (device, self.spin_size.get_value(),
 				self.filesystems_combo.get_active_text(), self.name_entry.get_text(), 
-				self.label_entry.get_text(), None, self.encrypt_check.get_active(), {"passphrase" : self.passphrase_entry.get_text()})
+				self.label_entry.get_text(), None, self.encrypt_check.get_active(), {"passphrase" : self.passphrase_entry.get_text()}, parents)
 	
 class AddLabelDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add disklabel to disk
