@@ -28,7 +28,7 @@ import gettext
 
 from gi.repository import GObject
 
-from dialogs import *
+from dialogs import message_dialogs
 
 from main_window import *
 
@@ -74,7 +74,10 @@ def main(options=None):
 	
 	elif os.geteuid() != 0:
 		# root privileges are required for blivet
-		RootTestDialog()
+
+		title = _("Root privileges required")
+		msg = _("Root privileges are required for running blivet-gui.")
+		message_dialogs.ErrorDialog(None, title, msg)
 		sys.exit(0)
 	
 	else:

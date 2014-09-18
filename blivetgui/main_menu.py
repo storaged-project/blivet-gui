@@ -26,7 +26,8 @@ import gettext
 
 from gi.repository import Gtk, GdkPixbuf
 
-from dialogs import AboutDialog
+from dialogs.other_dialogs import AboutDialog
+from dialogs.message_dialogs import ErrorDialog
 
 import os, subprocess
 
@@ -298,8 +299,10 @@ class main_menu():
 				stderr=subprocess.STDOUT)
 		
 		except Exception as e:
-			BlivetError("You need \"Yelp\" to see the documentation.\n" + str(e) + 
+			title = _("Error:")
+			msg = _("You need \"Yelp\" to see the documentation.\n" + str(e) + 
 				"\n\nOnline version of documentation is available at http://vojtechtrefny.github.io/")
+			ErrorDialog(self.main_window, title, msg)
 	
 	def on_undo_item(self, event):
 		""" Onselect action for 'Undo Last Action'

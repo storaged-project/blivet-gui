@@ -24,7 +24,7 @@
 
 from blivet import *
 
-from blivetgui.dialogs import BlivetError
+from dialogs import message_dialogs
 
 import gettext
 
@@ -372,7 +372,10 @@ class BlivetUtils():
 		try:	
 			self.storage.destroyDevice(blivet_device)
 		except Exception as e:
-			BlivetError(e, self.main_window)
+
+			title = _("Error:")
+			msg = _("Unknown error appeared:\n\n{0}.").format(e)
+			message_dialogs.ErrorDialog(self.main_window, title, msg)
 	
 	def device_resizable(self,blivet_device):
 		""" Is given device resizable
@@ -437,10 +440,16 @@ class BlivetUtils():
 			return True
 		
 		except PartitioningError as e:
-			BlivetError(e, self.main_window)
+			title = _("Error:")
+			msg = _("Unknown error appeared:\n\n{0}.").format(e)
+			message_dialogs.ErrorDialog(self.main_window, title, msg)
+
+			return False
 		
 		except _ped.PartitionException as e:
-			BlivetError(e, self.main_window)
+			title = _("Error:")
+			msg = _("Unknown error appeared:\n\n{0}.").format(e)
+			message_dialogs.ErrorDialog(self.main_window, title, msg)
 			
 			return False
 
@@ -616,7 +625,9 @@ class BlivetUtils():
 					partitioning.doPartitioning(self.storage)
 
 				except errors.PartitioningError as e:
-					BlivetError(e, self.main_window)
+					title = _("Error:")
+					msg = _("Unknown error appeared:\n\n{0}.").format(e)
+					message_dialogs.ErrorDialog(self.main_window, title, msg)
 			
 					return None
 
@@ -644,7 +655,9 @@ class BlivetUtils():
 			return self.storage.devicetree.getDeviceByID(device_id)
 		
 		except errors.PartitioningError as e:
-			BlivetError(e, self.main_window)
+			title = _("Error:")
+			msg = _("Unknown error appeared:\n\n{0}.").format(e)
+			message_dialogs.ErrorDialog(self.main_window, title, msg)
 			
 			return None
 	

@@ -30,7 +30,7 @@ import gettext
 
 from utils import *
 
-from dialogs import KickstartSelectDevicesDialog, WarningDialog
+from dialogs import kickstart_dialogs, message_dialogs
 
 from list_partitions import *
 
@@ -71,11 +71,12 @@ class ListDevices():
 			disks = self.b.get_disks()
 
 			if len(disks) == 0:
-				msg = _("blivet-gui failed to find at least one storage device to work with.\n\nPlease connect a storage device to your computer and re-run blivet-gui.")
-				WarningDialog(self.main_window, msg)
+				msg = _("blivet-gui failed to find at least one storage device to work with.\
+					\n\nPlease connect a storage device to your computer and re-run blivet-gui.")
+				message_dialogs.WarningDialog(self.main_window, msg)
 				sys.exit(0)
 
-			dialog = KickstartSelectDevicesDialog(self.main_window, disks)
+			dialog = kickstart_dialogs.KickstartSelectDevicesDialog(self.main_window, disks)
 			response = dialog.run()
 			
 			if response == Gtk.ResponseType.OK:
@@ -112,8 +113,9 @@ class ListDevices():
 
 		else:
 
-			msg = _("blivet-gui failed to find at least one storage device to work with.\n\nPlease connect a storage device to your computer and re-run blivet-gui.")
-			WarningDialog(self.main_window, msg)
+			msg = _("blivet-gui failed to find at least one storage device to work with.\
+				\n\nPlease connect a storage device to your computer and re-run blivet-gui.")
+			message_dialogs.WarningDialog(self.main_window, msg)
 			sys.exit(0)
 
 	

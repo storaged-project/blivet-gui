@@ -491,8 +491,11 @@ class ListPartitions():
 		"""
 		
 		deleted_device = self.selected_partition[0]
+
+		title = _("Confirm delete operation")
+		msg = _("Are you sure you want to delete device {0}?").format(self.selected_partition[0].name)
 		
-		dialog = ConfirmDeleteDialog(self.selected_partition[0].name, self.main_window)
+		dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
 		response = dialog.run()
 
 		if response == Gtk.ResponseType.OK:
@@ -535,7 +538,7 @@ class ListPartitions():
 		
 		if parent_device_type == "disk" and self.b.has_disklabel(self.disk) != True:
 			
-			dialog = AddLabelDialog(self.disk, self.main_window)
+			dialog = add_dialog.AddLabelDialog(self.disk, self.main_window)
 			
 			response = dialog.run()
 			
@@ -559,7 +562,7 @@ class ListPartitions():
 			
 			return
 		
-		dialog = AddDialog(self.main_window, parent_device_type, parent_device, self.selected_partition[0],
+		dialog = add_dialog.AddDialog(self.main_window, parent_device_type, parent_device, self.selected_partition[0],
 					 self.selected_partition[0].size, self.b.get_free_pvs_info(), self.b.get_free_disks_info(), self.kickstart_mode)
 
 		response = dialog.run()
@@ -578,8 +581,11 @@ class ListPartitions():
 			if selection[2] == None and selection[0] not in ["LVM2 Physical Volume",
 				"LVM2 Volume Group", "LVM2 Storage", "Btrfs Volume", "Btrfs Subvolume"]:
 				# If fs is not selected, show error window and re-run add dialog
-				msg = _("Error:\n\nFilesystem type must be specified when creating new partition.")
-				AddErrorDialog(dialog, msg)
+				
+				title = _("Error:")
+				msg = _("Filesystem type must be specified when creating new partition.")
+				message_dialogs.ErrorDialog(dialog, title, msg)
+				
 				dialog.destroy()
 				self.add_partition()
 			
@@ -654,8 +660,9 @@ class ListPartitions():
 				self.main_menu.activate_menu_items(["undo"])
 				
 				if user_input[6] and not user_input[7]["passphrase"]:
-					msg = _("Error:\n\nPassphrase not specified.")
-					AddErrorDialog(dialog, msg)
+					title = _("Error:")
+					msg = _("Passphrase not specified.")
+					message_dialogs.ErrorDialog(dialog,title, msg)
 					dialog.destroy()
 					self.add_partition()
 				
@@ -709,7 +716,7 @@ class ListPartitions():
 			
 			old_device = self.b.storage.mountpoints[mountpoint]
 			
-			dialog = KickstartDuplicateMountpointDialog(self.main_window, mountpoint, old_device.name)
+			dialog = kickstart_dialogs.KickstartDuplicateMountpointDialog(self.main_window, mountpoint, old_device.name)
 		
 			response = dialog.run()
 		
@@ -755,7 +762,7 @@ class ListPartitions():
 		"""
 		if self.kickstart_mode:
 			
-			dialog = KickstartFileSaveDialog(self.main_window)
+			dialog = kickstart_dialogs.KickstartFileSaveDialog(self.main_window)
 			
 			response = dialog.run()
 			
@@ -773,7 +780,11 @@ class ListPartitions():
 			self.history.clear_history()
 		
 		else:
-			dialog = ConfirmPerformActions(self.main_window)
+
+			title = _("Confirm scheduled actions")
+			msg = _("Are you sure you want to perform scheduled actions?")
+
+			dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
 			
 			response = dialog.run()
 			
@@ -797,13 +808,16 @@ class ListPartitions():
 			self.update_partitions_view(self.disk)
 			
 		else:
-			UnmountErrorDialog(self.selected_partition[0], self.main_window)
+
+			title = _("Unmount failed.")
+			msg = _("Are you sure {0} is not in use?").format(self.selected_partition[0].name)
+			message_dialogs.ErrorDialog(self.main_window, title, msg)
 	
 	def decrypt_device(self):
 		""" Decrypt selected device
 		"""
 		
-		dialog = LuksPassphraseDialog(self.main_window, self.selected_partition[0].name)
+		dialog = other_dialogs.LuksPassphraseDialog(self.main_window, self.selected_partition[0].name)
 			
 		response = dialog.run()
 		
@@ -812,7 +826,11 @@ class ListPartitions():
 			ret = self.b.luks_decrypt(self.selected_partition[0], dialog.get_selection())
 			
 			if ret:
-				BlivetError(self.main_window, ret)
+
+				title = _("Error:")
+				msg = _("Unknown error appeared:\n\n{0}.").format(ret)
+				message_dialogs.ErrorDialog(self.main_window, title, msg)
+
 				return
 			
 		elif response == Gtk.ResponseType.CANCEL:
@@ -829,7 +847,7 @@ class ListPartitions():
 		
 		resizable = self.b.device_resizable(self.selected_partition[0])
 		
-		dialog = EditDialog(self.main_window, self.selected_partition[0], resizable, self.kickstart_mode)
+		dialog = edit_dialog.EditDialog(self.main_window, self.selected_partition[0], resizable, self.kickstart_mode)
 		dialog.connect("delete-event", Gtk.main_quit)
 		
 		response = dialog.run()
@@ -937,7 +955,7 @@ class ListPartitions():
 			title = _("Confirm reload storage")
 			msg = _("There are pending operations. Are you sure you want to continue?")
 			
-			dialog = ConfirmDialog(self.main_window, title, msg)
+			dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
 			response = dialog.run()
 
 			if response == Gtk.ResponseType.OK:
@@ -964,7 +982,11 @@ class ListPartitions():
 		
 		if self.actions != 0:
 			# There are queued actions we don't want do quit now
-			dialog = ConfirmQuitDialog(self.main_window, self.actions)
+
+			title = _("Are you sure you want to quit?")
+			msg = _("There are unapplied queued actions. Are you sure you want to quit blivet-gui now?")
+
+			dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
 			response = dialog.run()
 
 			if response == Gtk.ResponseType.OK:
