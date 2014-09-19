@@ -28,7 +28,7 @@ from dialogs import message_dialogs
 
 import gettext
 
-import os, subprocess, copy
+import os, subprocess, copy, traceback
 
 import pykickstart.parser
 from pykickstart.version import makeVersion
@@ -373,9 +373,7 @@ class BlivetUtils():
 			self.storage.destroyDevice(blivet_device)
 		except Exception as e:
 
-			title = _("Error:")
-			msg = _("Unknown error appeared:\n\n{0}.").format(e)
-			message_dialogs.ErrorDialog(self.main_window, title, msg)
+			message_dialogs.ExceptionDialog(self.main_window, str(e), traceback.format_exc())
 	
 	def device_resizable(self,blivet_device):
 		""" Is given device resizable
@@ -439,18 +437,10 @@ class BlivetUtils():
 			partitioning.doPartitioning(self.storage)
 			return True
 		
-		except PartitioningError as e:
-			title = _("Error:")
-			msg = _("Unknown error appeared:\n\n{0}.").format(e)
-			message_dialogs.ErrorDialog(self.main_window, title, msg)
-
-			return False
-		
-		except _ped.PartitionException as e:
-			title = _("Error:")
-			msg = _("Unknown error appeared:\n\n{0}.").format(e)
-			message_dialogs.ErrorDialog(self.main_window, title, msg)
+		except Exception as e:
 			
+			message_dialogs.ExceptionDialog(self.main_window, str(e), traceback.format_exc())
+
 			return False
 
 	def _pick_device_name(self, name, parent_devices):
@@ -649,9 +639,8 @@ class BlivetUtils():
 					partitioning.doPartitioning(self.storage)
 
 				except errors.PartitioningError as e:
-					title = _("Error:")
-					msg = _("Unknown error appeared:\n\n{0}.").format(e)
-					message_dialogs.ErrorDialog(self.main_window, title, msg)
+					
+					message_dialogs.ExceptionDialog(self.main_window, str(e), traceback.format_exc())
 			
 					return None
 
@@ -679,9 +668,8 @@ class BlivetUtils():
 			return self.storage.devicetree.getDeviceByID(device_id)
 		
 		except Exception as e:
-			title = _("Error:")
-			msg = _("Unknown error appeared:\n\n{0}.").format(e)
-			message_dialogs.ErrorDialog(self.main_window, title, msg)
+
+			message_dialogs.ExceptionDialog(self.main_window, str(e), traceback.format_exc())
 			
 			return None
 	

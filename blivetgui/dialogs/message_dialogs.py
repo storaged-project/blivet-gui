@@ -91,6 +91,24 @@ class ErrorDialog(Gtk.MessageDialog):
 		self.run()
 		self.destroy()
 
+class ExceptionDialog():
+
+	def __init__(self, parent_window, msg, traceback):
+
+		builder = Gtk.Builder()
+		builder.add_from_file(dirname + '/../data/ui/exception_dialog.ui')
+		dialog = builder.get_object("exception_dialog")
+
+		dialog.set_transient_for(parent_window)
+		dialog.format_secondary_text(msg)
+
+		exception_label = builder.get_object("exception_label")
+		exception_label.set_text(traceback)
+
+		dialog.show_all()
+		dialog.run()
+		dialog.destroy()
+
 class ConfirmDialog(Gtk.Dialog):
 	""" General confirmation dialog
 	"""
