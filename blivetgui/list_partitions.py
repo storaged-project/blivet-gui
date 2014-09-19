@@ -584,8 +584,10 @@ class ListPartitions():
 				
 				dialog.destroy()
 				self.add_partition() #TODO pass previously entered input and prefill the dialog
+
+			dialog.destroy()
 			
-			elif user_input.device_type == "LVM2 Volume Group":
+			if user_input.device_type == "LVM2 Volume Group":
 				
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
@@ -601,8 +603,6 @@ class ListPartitions():
 				
 				else:
 					self.update_partitions_view(self.disk)
-				
-				dialog.destroy()
 			
 			elif user_input.device_type == "LVM2 Storage":
 
@@ -624,8 +624,6 @@ class ListPartitions():
 				else:
 					self.update_partitions_view(self.disk)
 				
-				dialog.destroy()
-				
 			else:
 				
 				# kickstart mode
@@ -634,7 +632,6 @@ class ListPartitions():
 					if self.check_mountpoint(user_input.mountpoint):
 						pass
 					else:
-						dialog.destroy()
 						return
 				
 				self.history.add_undo(self.b.return_devicetree)
@@ -664,8 +661,6 @@ class ListPartitions():
 				
 				else:
 					self.update_partitions_view(self.disk)
-				
-				dialog.destroy()
 			
 		elif response == Gtk.ResponseType.CANCEL:		
 			
