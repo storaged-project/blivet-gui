@@ -483,25 +483,11 @@ class BlivetUtils():
 		return name
 
 	
-	def add_device(self, parent_devices, device_type, fs_type, target_size, name=None, label=None, mountpoint=None, encrypt=False, encrypt_args={}, flags=[]):
+	def add_device(self, user_input):
 		""" Create new device
 		
-			:param parent_devices: parent devices
-			:type parent_devices: list of blivet.Device
-			:param device_type: type of device to create
-			:type device_type: str
-			:param fs_type: filesystem
-			:type fs_type: str
-			:param target_size: target size
-			:type target_size: int
-			:param name: device name
-			:type name: str
-			:param label: device label
-			:type label: str
-			:param mountpoint: mountpoint
-			:type mountpoint: str
-			:param flags: device flags
-			:type flags: list of str
+			:param user_input: selected parameters from AddDialog
+			:type user_input: class UserInput
 			:returns: new device name
 			:rtype: str
 			
@@ -509,16 +495,16 @@ class BlivetUtils():
 		
 		device_id = None
 		
-		if device_type == _("Partition"):
+		if user_input.device_type == _("Partition"):
 
-			if encrypt:
-				dev = self.storage.newPartition(size=target_size, parents=parent_devices)
+			if user_input.encrypt:
+				dev = self.storage.newPartition(size=user_input.size, parents=user_input.parents)
 				self.storage.createDevice(dev)
 				
-				fmt = formats.getFormat(fmt_type="luks", passphrase=encrypt_args["passphrase"], device=dev.path)
+				fmt = formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
 				self.storage.formatDevice(dev, fmt)
 				
-				luks_dev = devices.LUKSDevice("luks-%s" % dev.name, fmt=getFormat(fs_type, device=dev.path), size=dev.size, parents=[dev])
+				luks_dev = devices.LUKSDevice("luks-%s" % dev.name, fmt=getFormat(user_input.filesystem, device=dev.path), size=dev.size, parents=[dev])
 				
 				self.storage.createDevice(luks_dev)
 				
@@ -533,10 +519,10 @@ class BlivetUtils():
 				# partition
 
 				extended = False
-				size_diff = self.storage.getFreeSpace(disks=[parent_devices[0]])[parent_devices[0].name][0] - target_size
+				size_diff = self.storage.getFreeSpace(disks=[user_input.parents[0]])[user_input.parents[0].name][0] - user_input.size
 
-				if parent_devices[0].kids == 3 and size_diff < Size("2 MiB"):
-					for child in self.storage.devicetree.getChildren(parent_devices[0]):
+				if user_input.parents[0].kids == 3 and size_diff < Size("2 MiB"):
+					for child in self.storage.devicetree.getChildren(user_input.parents[0]):
 						if hasattr(child, "isExtended") and child.isExtended:
 							extended = True
 							break
@@ -544,44 +530,76 @@ class BlivetUtils():
 					if not extended:
 						target_size = target_size - Size("2 MiB")
 
-				new_part = self.storage.newPartition(size=target_size, parents=parent_devices)
+				new_part = self.storage.newPartition(size=user_input.size, parents=user_input.parents)
 				self.storage.createDevice(new_part)
 				
 				device_id = new_part.id
 				
-				new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label, mountpoint=mountpoint)
+				new_fmt = formats.getFormat(user_input.filesystem, device=new_part.path, label=user_input.label, mountpoint=user_input.mountpoint)
 				self.storage.formatDevice(new_part, new_fmt)
-			
-		elif device_type == _("LVM2 Logical Volume"):
-			
-			device_name = self._pick_device_name(name, parent_devices)
 
-			new_part = self.storage.newLV(size=target_size, parents=parent_devices, name=device_name)
-			
-			device_id = new_part.id
-			
-			self.storage.createDevice(new_part)
-			
-			new_fmt = formats.getFormat(fs_type, device=new_part.path, label=label, mountpoint=mountpoint)
-			self.storage.formatDevice(new_part, new_fmt)
-		
-		elif device_type == _("LVM2 Volume Group"):
-			
-			device_name = self._pick_device_name(name, parent_devices)
-				
-			new_part = self.storage.newVG(size=target_size, parents=parent_devices, name=device_name)
-			
-			device_id = new_part.id
-			
-			self.storage.createDevice(new_part)
-			
-		elif device_type == _("LVM2 Physical Volume"):
-			
-			if encrypt:
-				dev = self.storage.newPartition(size=target_size, parents=parent_devices)
+		elif user_input.device_type == "LVM2 Storage":
+
+			device_name = self._pick_device_name(user_input.name, user_input.parents)
+
+			if user_input.encrypt:
+				dev = self.storage.newPartition(size=user_input.size, parents=user_input.parents)
 				self.storage.createDevice(dev)
 				
-				fmt = formats.getFormat(fmt_type="luks", passphrase=encrypt_args["passphrase"], device=dev.path)
+				fmt = formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
+				self.storage.formatDevice(dev, fmt)
+				
+				luks_dev = devices.LUKSDevice("luks-%s" % dev.name, fmt=getFormat("lvmpv", device=dev.path), size=dev.size, parents=[dev])
+				
+				self.storage.createDevice(luks_dev)
+
+				new_vg = self.storage.newVG(size=luks_dev.size, parents=[luks_dev], name=device_name)
+				self.storage.createDevice(new_vg)
+			
+				device_id = new_vg.id
+				
+			else:			
+				new_part = self.storage.newPartition(size=user_input.size, parents=user_input.parents)				
+				self.storage.createDevice(new_part)
+				
+				new_fmt = formats.getFormat("lvmpv", device=new_part.path)
+				self.storage.formatDevice(new_part, new_fmt)
+
+				new_vg = self.storage.newVG(size=new_part.size, parents=[new_part], name=device_name)
+				self.storage.createDevice(new_vg)
+			
+				device_id = new_vg.id
+
+		elif user_input.device_type == _("LVM2 Logical Volume"):
+			
+			device_name = self._pick_device_name(user_input.name, user_input.parents)
+
+			new_part = self.storage.newLV(size=user_input.size, parents=user_input.parents, name=device_name)
+			
+			device_id = new_part.id
+			
+			self.storage.createDevice(new_part)
+			
+			new_fmt = formats.getFormat(user_input.filesystem, device=new_part.path, label=user_input.label, mountpoint=user_input.mountpoint)
+			self.storage.formatDevice(new_part, new_fmt)
+		
+		elif user_input.device_type == _("LVM2 Volume Group"):
+			
+			device_name = self._pick_device_name(user_input.name, user_input.parents)
+				
+			new_part = self.storage.newVG(size=user_input.size, parents=user_input.parents, name=device_name)
+			
+			device_id = new_part.id
+			
+			self.storage.createDevice(new_part)
+			
+		elif user_input.device_type == _("LVM2 Physical Volume"):
+			
+			if user_input.encrypt:
+				dev = self.storage.newPartition(size=user_input.size, parents=user_input.parents)
+				self.storage.createDevice(dev)
+				
+				fmt = formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
 				self.storage.formatDevice(dev, fmt)
 				
 				luks_dev = devices.LUKSDevice("luks-%s" % dev.name, fmt=getFormat("lvmpv", device=dev.path), size=dev.size, parents=[dev])
@@ -591,7 +609,7 @@ class BlivetUtils():
 				device_id = luks_dev.id
 				
 			else:			
-				new_part = self.storage.newPartition(size=target_size, parents=parent_devices)
+				new_part = self.storage.newPartition(size=user_input.size, parents=user_input.parents)
 				
 				device_id = new_part.id
 				
@@ -600,25 +618,31 @@ class BlivetUtils():
 				new_fmt = formats.getFormat("lvmpv", device=new_part.path)
 				self.storage.formatDevice(new_part, new_fmt)
 
-		elif device_type == _("Btrfs Volume"):
+		elif user_input.device_type == _("Btrfs Volume"):
 
-			device_name = self._pick_device_name(name, parent_devices)
+			device_name = self._pick_device_name(user_input.name, user_input.parents)
 
 			# for btrfs we need to create parents first -- currently selected "parents" are
 			# disks but "real parents" for subvolume are btrfs formatted partitions
 			btrfs_parents = []
-			for parent in parent_devices:
+
+			# exact total size of newly created partitions (future parents)
+			total_size = Size("0 MiB")
+
+			for parent in user_input.parents:
 
 				# FIXME: size of parent btrfs partitions -- now I know the size is total size / 
 				# number of parents, because the same size of parents (partitions) is hardcoded
 				# but this will change in future -- it is neccessary to redisign whole arguments
 				# passing from dialog to lists_partitions to here (named tuple or class)
 
-				new_part = self.storage.newPartition(size=target_size/len(parent_devices), parents=[parent])				
+				new_part = self.storage.newPartition(size=user_input.size/len(user_input.parents), parents=[parent])				
 				self.storage.createDevice(new_part)
 
 				new_fmt = formats.getFormat("btrfs", device=new_part.path)
 				self.storage.formatDevice(new_part, new_fmt)
+
+				total_size += new_part.size
 
 				# we need to try to create partitions immediately, if something fails, fail now
 				try:
@@ -633,16 +657,16 @@ class BlivetUtils():
 
 				btrfs_parents.append(new_part)
 
-			new_btrfs = self.storage.newBTRFS(size=new_part.size, parents=btrfs_parents, name=device_name)
+			new_btrfs = self.storage.newBTRFS(size=total_size, parents=btrfs_parents, name=device_name)
 			self.storage.createDevice(new_btrfs)
 
 			device_id = new_btrfs.id
 
-		elif device_type == _("Btrfs Subvolume"):
+		elif user_input.device_type == _("Btrfs Subvolume"):
 
-			device_name = self._pick_device_name(name, parent_devices)
+			device_name = self._pick_device_name(user_input.name, user_input.parents)
 
-			new_btrfs = self.storage.newBTRFSSubVolume(parents=parent_devices, name=device_name)
+			new_btrfs = self.storage.newBTRFSSubVolume(parents=user_input.parents, name=device_name)
 			self.storage.createDevice(new_btrfs)
 
 			device_id = new_btrfs.id
@@ -654,7 +678,7 @@ class BlivetUtils():
 			
 			return self.storage.devicetree.getDeviceByID(device_id)
 		
-		except errors.PartitioningError as e:
+		except Exception as e:
 			title = _("Error:")
 			msg = _("Unknown error appeared:\n\n{0}.").format(e)
 			message_dialogs.ErrorDialog(self.main_window, title, msg)

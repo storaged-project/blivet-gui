@@ -45,7 +45,20 @@ gettext.bindtextdomain('blivetgui', dirname + '/i18n')
 gettext.textdomain('blivetgui')
 _ = gettext.gettext
 
-#------------------------------------------------------------------------------# 
+#------------------------------------------------------------------------------#
+
+class UserSelection(object):
+	def __init__(self, device_type, size, filesystem, name, label, mountpoint, encrypt, passphrase, parents):
+		self.device_type = device_type
+		self.size = size
+		self.filesystem = filesystem
+		self.name = name
+		self.label = label
+		self.mountpoint = mountpoint
+		self.encrypt = encrypt
+		self.passphrase = passphrase
+		self.parents = parents
+
 
 class AddDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add new partition including selecting size, fs, label etc.
@@ -93,11 +106,11 @@ class AddDialog(Gtk.Dialog):
 		box = self.get_content_area()
 		box.add(self.grid)
 		
+		self.add_device_chooser()
 		self.add_size_scale(self.free_space)
 		self.add_fs_chooser()
 		self.add_name_chooser()
 		self.add_encrypt_chooser()
-		self.add_device_chooser()
 		self.add_parent_list()
 		
 		if kickstart and self.device_type in ["disk", "lvmvg"]:
@@ -137,17 +150,6 @@ class AddDialog(Gtk.Dialog):
 		
 		if len(devices) == 1:
 			self.devices_combo.set_sensitive(False)
-		
-		if self.device_type in ["lvmpv", "luks/dm-crypt", "btrfs volume"]:
-			self.filesystems_combo.set_sensitive(False)
-			self.label_fs.set_sensitive(False)
-			self.label_size.set_sensitive(False)
-			self.label_free.set_sensitive(False)
-			self.scale.set_sensitive(False)
-			self.spin_size.set_sensitive(False)
-			self.spin_free.set_sensitive(False)
-			self.name_entry.set_sensitive(True)
-			self.name_label.set_sensitive(True)
 		
 		self.grid.attach(self.devices_combo,1,0,2,1)
 		
@@ -329,6 +331,21 @@ class AddDialog(Gtk.Dialog):
 		self.label_mb2.set_text(_("MiB"))
 		self.grid.attach(self.label_mb2, 5, 7, 1, 1) #left-top-width-height
 
+		if self._get_selected_device_type in ["LVM2 Volume Group", "Btrfs Subvolume"]:
+			self.label_size.set_sensitive(False)
+			self.label_free.set_sensitive(False)
+			self.scale.set_sensitive(False)
+			self.spin_size.set_sensitive(False)
+			self.spin_free.set_sensitive(False)
+
+		else:
+			self.label_size.set_sensitive(True)
+			self.label_free.set_sensitive(True)
+			self.scale.set_sensitive(True)
+			self.spin_size.set_sensitive(True)
+			self.spin_free.set_sensitive(True)
+
+
 	def remove_size_scale(self):
 		self.scale.destroy()
 		self.label_size.destroy()
@@ -361,6 +378,14 @@ class AddDialog(Gtk.Dialog):
 			self.filesystems_combo.append_text(fs)
 		
 		self.grid.attach(self.filesystems_combo,1,8,2,1)
+
+		if self._get_selected_device_type in ["Partition", "LVM2 Logical Volume"]:
+			self.filesystems_combo.set_sensitive(True)
+			self.label_fs.set_sensitive(True)
+
+		else:
+			self.filesystems_combo.set_sensitive(False)
+			self.label_fs.set_sensitive(False)
 		
 	def add_name_chooser(self):
 		
@@ -380,12 +405,23 @@ class AddDialog(Gtk.Dialog):
 		self.grid.attach(self.name_label, 3, 9, 1, 1)
 		
 		self.name_entry = Gtk.Entry()
+		self.grid.attach(self.name_entry,4,9,2,1)
 		
-		if self.device_type not in ["lvmvg", "lvmpv"]:
+		if self._get_selected_device_type in ["Partition", "LVM2 Physical Volume"]:
 			self.name_label.set_sensitive(False)
 			self.name_entry.set_sensitive(False)
-		
-		self.grid.attach(self.name_entry,4,9,2,1)
+
+		else:
+			self.name_label.set_sensitive(True)
+			self.label_entry.set_sensitive(True)
+
+		if self._get_selected_device_type not in ["Partition"]:
+			self.label_label.set_sensitive(False)
+			self.label_entry.set_sensitive(False)
+
+		else:
+			self.label_label.set_sensitive(True)
+			self.name_entry.set_sensitive(True)
 	
 	def add_encrypt_chooser(self):
 		
@@ -436,79 +472,75 @@ class AddDialog(Gtk.Dialog):
 	
 	def on_devices_combo_changed(self, event):
 		
-		tree_iter = self.devices_combo.get_active_iter()
+		device_type = self._get_selected_device_type
+			
+		if device_type == _("Partition"):
+			self.label_label.set_sensitive(True)
+			self.label_entry.set_sensitive(True)
+			
+			self.name_label.set_sensitive(False)
+			self.name_entry.set_sensitive(False)
+			
+			self.filesystems_combo.set_sensitive(True)
+			self.label_fs.set_sensitive(True)
+			
+			self.encrypt_label.set_sensitive(True)
+			self.encrypt_check.set_sensitive(True)
+			
+			if self.kickstart:
+				self.mountpoint_label.set_sensitive(True)
+				self.mountpoint_entry.set_sensitive(True)
+			
+		elif device_type == _("LVM2 Physical Volume"):
+			self.label_label.set_sensitive(False)
+			self.label_entry.set_sensitive(False)
+			
+			self.name_label.set_sensitive(False)
+			self.name_entry.set_sensitive(False)
+			
+			self.filesystems_combo.set_sensitive(False)
+			self.label_fs.set_sensitive(False)
+			
+			self.encrypt_label.set_sensitive(True)
+			self.encrypt_check.set_sensitive(True)
+			
+			if self.kickstart:
+				self.mountpoint_label.set_sensitive(False)
+				self.mountpoint_entry.set_sensitive(False)
 		
-		if tree_iter != None:
-			model = self.devices_combo.get_model()
-			device = model[tree_iter][0]
+		elif device_type == _("LVM2 Storage"):
+			self.label_label.set_sensitive(False)
+			self.label_entry.set_sensitive(False)
 			
-			if device == _("Partition"):
-				self.label_label.set_sensitive(True)
-				self.label_entry.set_sensitive(True)
-				
-				self.name_label.set_sensitive(False)
-				self.name_entry.set_sensitive(False)
-				
-				self.filesystems_combo.set_sensitive(True)
-				self.label_fs.set_sensitive(True)
-				
-				self.encrypt_label.set_sensitive(True)
-				self.encrypt_check.set_sensitive(True)
-				
-				if self.kickstart:
-					self.mountpoint_label.set_sensitive(True)
-					self.mountpoint_entry.set_sensitive(True)
-				
-			elif device == _("LVM2 Physical Volume"):
-				self.label_label.set_sensitive(False)
-				self.label_entry.set_sensitive(False)
-				
-				self.name_label.set_sensitive(False)
-				self.name_entry.set_sensitive(False)
-				
-				self.filesystems_combo.set_sensitive(False)
-				self.label_fs.set_sensitive(False)
-				
-				self.encrypt_label.set_sensitive(True)
-				self.encrypt_check.set_sensitive(True)
-				
-				if self.kickstart:
-					self.mountpoint_label.set_sensitive(False)
-					self.mountpoint_entry.set_sensitive(False)
+			self.name_label.set_sensitive(True)
+			self.name_entry.set_sensitive(True)
 			
-			elif device == _("LVM2 Storage"):
-				self.label_label.set_sensitive(False)
-				self.label_entry.set_sensitive(False)
-				
-				self.name_label.set_sensitive(True)
-				self.name_entry.set_sensitive(True)
-				
-				self.filesystems_combo.set_sensitive(False)
-				self.label_fs.set_sensitive(False)
-				
-				self.encrypt_label.set_sensitive(False)
-				self.encrypt_check.set_sensitive(False)
-				
-				if self.kickstart:
-					self.mountpoint_label.set_sensitive(False)
-					self.mountpoint_entry.set_sensitive(False)
+			self.filesystems_combo.set_sensitive(False)
+			self.label_fs.set_sensitive(False)
+			
+			self.encrypt_label.set_sensitive(True)
+			self.encrypt_check.set_sensitive(True)
+			
+			if self.kickstart:
+				self.mountpoint_label.set_sensitive(False)
+				self.mountpoint_entry.set_sensitive(False)
 
-			elif device == _("Btrfs Volume"):
-				self.label_label.set_sensitive(False)
-				self.label_entry.set_sensitive(False)
-				
-				self.name_label.set_sensitive(True)
-				self.name_entry.set_sensitive(True)
-				
-				self.filesystems_combo.set_sensitive(False)
-				self.label_fs.set_sensitive(False)
-				
-				self.encrypt_label.set_sensitive(False)
-				self.encrypt_check.set_sensitive(False)
-				
-				if self.kickstart:
-					self.mountpoint_label.set_sensitive(False) #FIXME!
-					self.mountpoint_entry.set_sensitive(False)
+		elif device_type == _("Btrfs Volume"):
+			self.label_label.set_sensitive(False)
+			self.label_entry.set_sensitive(False)
+			
+			self.name_label.set_sensitive(True)
+			self.name_entry.set_sensitive(True)
+			
+			self.filesystems_combo.set_sensitive(False)
+			self.label_fs.set_sensitive(False)
+			
+			self.encrypt_label.set_sensitive(False)
+			self.encrypt_check.set_sensitive(False)
+			
+			if self.kickstart:
+				self.mountpoint_label.set_sensitive(False) #FIXME!
+				self.mountpoint_entry.set_sensitive(False)
 
 		self.update_parent_list()
 	
@@ -526,41 +558,45 @@ class AddDialog(Gtk.Dialog):
 		
 		self.scale.set_value(self.up_limit - self.spin_free.get_value())
 		self.spin_size.set_value(self.up_limit - self.spin_free.get_value())
-	
-	def get_selection(self):
+
+	@property
+	def _get_selected_device_type(self):
 		tree_iter = self.devices_combo.get_active_iter()
 		
 		if tree_iter != None:
 			model = self.devices_combo.get_model()
-			device = model[tree_iter][0]
+			device_type = model[tree_iter][0]
+
+			return device_type
+
+		else:
+			return None
+	
+	def get_selection(self):
+		
+		device_type = self._get_selected_device_type
 
 		parents = []
 
 		for row in self.parents_store:
 				if row[1]:
 					parents.append(row[0])
-		
-		if device == "LVM2 Volume Group":
-			
-			return (device, self.spin_size.get_value(), self.filesystems_combo.get_active_text(), 
-				self.name_entry.get_text(), self.label_entry.get_text(), parents)
 
-		elif device == "Btrfs Volume":
-			
-			return (device, self.spin_size.get_value(),
-				None, self.name_entry.get_text(), self.label_entry.get_text(),
-				None, False, None, parents)
-		
-		elif self.kickstart:
-			return (device, self.spin_size.get_value(),
-				self.filesystems_combo.get_active_text(), self.name_entry.get_text(), 
-				self.label_entry.get_text(), self.mountpoint_entry.get_text(), 
-				self.encrypt_check.get_active(), {"passphrase" : self.passphrase_entry.get_text()})
-		
+		if self.kickstart:
+			mountpoint = self.mountpoint_entry.get_text()
+
 		else:
-			return (device, self.spin_size.get_value(),
-				self.filesystems_combo.get_active_text(), self.name_entry.get_text(), 
-				self.label_entry.get_text(), None, self.encrypt_check.get_active(), {"passphrase" : self.passphrase_entry.get_text()}, parents)
+			mountpoint = None
+
+		return UserSelection(device_type=device_type, 
+			size=Size(str(self.spin_size.get_value()) + "MiB"), 
+			filesystem=self.filesystems_combo.get_active_text(), 
+			name=self.name_entry.get_text(), 
+			label=self.label_entry.get_text(), 
+			mountpoint=mountpoint, 
+			encrypt=self.encrypt_check.get_active(), 
+			passphrase=self.passphrase_entry.get_text(), 
+			parents=parents)
 
 class AddLabelDialog(Gtk.Dialog):
 	""" Dialog window allowing user to add disklabel to disk
@@ -601,7 +637,8 @@ class AddLabelDialog(Gtk.Dialog):
 	def add_labels(self):
 		
 		self.info_label = Gtk.Label()
-		self.info_label.set_markup(_("A partition table is required before partitions can be added.\n\n<b>Warning: This will delete all data on {0}!</b>").format(self.disk_name))
+		self.info_label.set_markup(_("A partition table is required before partitions can be added.\
+			\n\n<b>Warning: This will delete all data on {0}!</b>").format(self.disk_name))
 		
 		self.grid.attach(self.info_label, 0, 0, 4, 1) #left-top-width-height
 		
@@ -639,7 +676,7 @@ class AddLabelDialog(Gtk.Dialog):
 		
 		if tree_iter != None:
 			model = self.devices_combo.get_model()
-			device = model[tree_iter][0]
+			device = model[tree_iter][0]	
 		
 	def get_selection(self):
 		tree_iter = self.pts_combo.get_active_iter()

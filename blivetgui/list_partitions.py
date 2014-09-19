@@ -566,8 +566,6 @@ class ListPartitions():
 					 self.selected_partition[0].size, self.b.get_free_pvs_info(), self.b.get_free_disks_info(), self.kickstart_mode)
 
 		response = dialog.run()
-		
-		selection = dialog.get_selection()
 
 		# FIXME: new way of passing arguments (named tuple or new class) and get rid of all of
 		# this and just do all this utils
@@ -576,9 +574,7 @@ class ListPartitions():
 			
 			user_input = dialog.get_selection()
 			
-			selected_size = Size(str(user_input[1]) + "MiB")
-			
-			if selection[2] == None and selection[0] not in ["LVM2 Physical Volume",
+			if user_input.filesystem == None and user_input.device_type not in ["LVM2 Physical Volume",
 				"LVM2 Volume Group", "LVM2 Storage", "Btrfs Volume", "Btrfs Subvolume"]:
 				# If fs is not selected, show error window and re-run add dialog
 				
@@ -587,20 +583,18 @@ class ListPartitions():
 				message_dialogs.ErrorDialog(dialog, title, msg)
 				
 				dialog.destroy()
-				self.add_partition()
+				self.add_partition() #TODO pass previously entered input and prefill the dialog
 			
-			elif selection[0] == "LVM2 Volume Group":
+			elif user_input.device_type == "LVM2 Volume Group":
 				
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
 				
-				ret = self.b.add_device(parent_devices=user_input[5], device_type=user_input[0],
-							fs_type=user_input[2], target_size=selected_size, name=user_input[3],
-							label=user_input[4])
+				ret = self.b.add_device(user_input)
 				
 				if ret != None:
 					
-					self.update_actions_view("add","add " + str(selected_size) + " " + user_input[0] + " device")
+					self.update_actions_view("add","add " + str(user_input.size) + " " + user_input.device_type + " device")
 					self.list_devices.update_devices_view()
 						
 					self.update_partitions_view(self.disk)
@@ -610,7 +604,7 @@ class ListPartitions():
 				
 				dialog.destroy()
 			
-			elif selection[0] == "LVM2 Storage":
+			elif user_input.device_type == "LVM2 Storage":
 
 				# FIXME: move both steps into utils
 				# TODO: choosing of devices, same as for btrfs volumes
@@ -618,26 +612,13 @@ class ListPartitions():
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
 				
-				ret1 = self.b.add_device(parent_devices=[parent_device], device_type="LVM2 Physical Volume",
-							 fs_type=user_input[2], target_size=selected_size, name=user_input[3],
-							 label=user_input[4])
+				ret = self.b.add_device(user_input)
 				
-				if ret1 != None:
-					
-					if user_input[2] == None:
-						self.list_devices.update_devices_view()
-					
-					ret2 = self.b.add_device(parent_devices=[ret1], device_type="LVM2 Volume Group",
-							 fs_type=user_input[2], target_size=ret1.size, name=user_input[3],
-							 label=user_input[4])
-				
-					if ret2 != None:
-						
-						if user_input[2] == None:
+				if ret != None:
 							
-							self.update_actions_view("add","add " + str(selected_size) + " " + user_input[0] + " device")
-							self.list_devices.update_devices_view()
-							
+					self.update_actions_view("add","add " + str(user_input.size) + " " + user_input.device_type + " device")
+					
+					self.list_devices.update_devices_view()
 					self.update_partitions_view(self.disk)
 				
 				else:
@@ -650,7 +631,7 @@ class ListPartitions():
 				# kickstart mode
 				
 				if self.kickstart_mode:
-					if self.check_mountpoint(user_input[5]):
+					if self.check_mountpoint(user_input.mountpoint):
 						pass
 					else:
 						dialog.destroy()
@@ -659,30 +640,25 @@ class ListPartitions():
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
 				
-				if user_input[6] and not user_input[7]["passphrase"]:
+				if user_input.encrypt and not user_input.passphrase:
 					title = _("Error:")
 					msg = _("Passphrase not specified.")
 					message_dialogs.ErrorDialog(dialog,title, msg)
 					dialog.destroy()
 					self.add_partition()
 				
-				# user_input = [device, size, fs, name, label, mountpoint]
-				
-				ret = self.b.add_device(parent_devices=user_input[8], device_type=user_input[0],
-							fs_type=user_input[2], target_size=selected_size, name=user_input[3],
-							label=user_input[4], mountpoint=user_input[5], encrypt=user_input[6], 
-							encrypt_args=user_input[7])
+				ret = self.b.add_device(user_input)
 
 				if ret != None:
 					
-					if user_input[2] == None:
+					if user_input.filesystem == None:
 					
-						self.update_actions_view("add","add " + str(selected_size) + " " + user_input[0] + " device")
+						self.update_actions_view("add","add " + str(user_input.size) + " " + user_input.device_type + " device")
 						self.list_devices.update_devices_view()
 						
 					else:
 					
-						self.update_actions_view("add","add " + str(selected_size) + " " + user_input[2] + " partition")
+						self.update_actions_view("add","add " + str(user_input.size) + " " + user_input.filesystem + " partition")
 						
 					self.update_partitions_view(self.disk)
 				
