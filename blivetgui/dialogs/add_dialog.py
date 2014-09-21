@@ -245,7 +245,7 @@ class AddDialog(Gtk.Dialog):
 				model = self.devices_combo.get_model()
 				device = model[tree_iter][0]
 
-			# re-add delete scale and show it
+			# re-add deleted size scale and show it
 			self.add_size_scale(self.compute_size_scale(device))
 			self.show_size_scale()
 
@@ -461,7 +461,7 @@ class AddDialog(Gtk.Dialog):
 		self.mountpoint_entry = Gtk.Entry()
 		self.grid.attach(self.mountpoint_entry,1,11,2,1)
 		
-		if self.device_type not in ["lvmvg", "disk"]:
+		if self.device_type in ["Partition"]:
 			self.label_label.set_sensitive(False)
 			self.label_entry.set_sensitive(False)
 

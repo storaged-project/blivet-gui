@@ -574,8 +574,7 @@ class ListPartitions():
 			
 			user_input = dialog.get_selection()
 			
-			if user_input.filesystem == None and user_input.device_type not in ["LVM2 Physical Volume",
-				"LVM2 Volume Group", "LVM2 Storage", "Btrfs Volume", "Btrfs Subvolume"]:
+			if user_input.filesystem == None and user_input.device_type in ["Partition", "LVM2 Logical Volume"]:
 				# If fs is not selected, show error window and re-run add dialog
 				
 				title = _("Error:")
@@ -585,50 +584,21 @@ class ListPartitions():
 				dialog.destroy()
 				self.add_partition() #TODO pass previously entered input and prefill the dialog
 
-			dialog.destroy()
-			
-			if user_input.device_type == "LVM2 Volume Group":
+			elif user_input.encrypt and not user_input.passphrase:
 				
-				self.history.add_undo(self.b.return_devicetree)
-				self.main_menu.activate_menu_items(["undo"])
+				title = _("Error:")
+				msg = _("Passphrase not specified.")
+				message_dialogs.ErrorDialog(dialog,title, msg)
 				
-				ret = self.b.add_device(user_input)
-				
-				if ret != None:
-					
-					self.update_actions_view("add","add " + str(user_input.size) + " " + user_input.device_type + " device")
-					self.list_devices.update_devices_view()
-						
-					self.update_partitions_view(self.disk)
-				
-				else:
-					self.update_partitions_view(self.disk)
-			
-			elif user_input.device_type == "LVM2 Storage":
+				dialog.destroy()
+				self.add_partition()
 
-				# FIXME: move both steps into utils
-				# TODO: choosing of devices, same as for btrfs volumes
-				
-				self.history.add_undo(self.b.return_devicetree)
-				self.main_menu.activate_menu_items(["undo"])
-				
-				ret = self.b.add_device(user_input)
-				
-				if ret != None:
-							
-					self.update_actions_view("add","add " + str(user_input.size) + " " + user_input.device_type + " device")
-					
-					self.list_devices.update_devices_view()
-					self.update_partitions_view(self.disk)
-				
-				else:
-					self.update_partitions_view(self.disk)
-				
 			else:
 				
-				# kickstart mode
-				
-				if self.kickstart_mode:
+				dialog.destroy()
+					
+
+				if self.kickstart_mode and user_input.mountpoint:
 					if self.check_mountpoint(user_input.mountpoint):
 						pass
 					else:
@@ -637,31 +607,19 @@ class ListPartitions():
 				self.history.add_undo(self.b.return_devicetree)
 				self.main_menu.activate_menu_items(["undo"])
 				
-				if user_input.encrypt and not user_input.passphrase:
-					title = _("Error:")
-					msg = _("Passphrase not specified.")
-					message_dialogs.ErrorDialog(dialog,title, msg)
-					dialog.destroy()
-					self.add_partition()
-				
 				ret = self.b.add_device(user_input)
 
 				if ret != None:
 					
 					if user_input.filesystem == None:
-					
 						self.update_actions_view("add","add " + str(user_input.size) + " " + user_input.device_type + " device")
-						self.list_devices.update_devices_view()
-						
+
 					else:
-					
 						self.update_actions_view("add","add " + str(user_input.size) + " " + user_input.filesystem + " partition")
-						
-					self.update_partitions_view(self.disk)
-				
-				else:
-					self.update_partitions_view(self.disk)
-			
+					
+				self.list_devices.update_devices_view()
+				self.update_partitions_view(self.disk)
+		
 		elif response == Gtk.ResponseType.CANCEL:		
 			
 			dialog.destroy()
