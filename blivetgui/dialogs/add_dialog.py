@@ -60,7 +60,6 @@ class UserSelection(object):
         self.passphrase = passphrase
         self.parents = parents
 
-
 class AddDialog(Gtk.Dialog):
     """ Dialog window allowing user to add new partition including selecting
          size, fs, label etc.
@@ -620,18 +619,21 @@ class AddLabelDialog(Gtk.Dialog):
     """ Dialog window allowing user to add disklabel to disk
     """
 
-    def __init__(self, disk_name, parent_window):
+    def __init__(self, parent_window, disk_device, disklabels):
         """
 
             :param parent_window: parent window
             :type parent_window: Gtk.Window
-            :param disk_name: name of the disk
-            :type disk_name: str
+            :param disk_device: disk
+            :type disk_device: blivet.DiskDevice
+            :param disklabels: available disklabel types
+            :type disklabels: list of str
 
         """
 
-        self.disk_name = disk_name
+        self.disk_name = disk_device.name
         self.parent_window = parent_window
+        self.disklabels = disklabels
 
         Gtk.Dialog.__init__(self, _("No partition table found on disk"), None,
             0, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -656,9 +658,9 @@ class AddLabelDialog(Gtk.Dialog):
     def add_labels(self):
 
         self.info_label = Gtk.Label()
-        self.info_label.set_markup(_("A partition table is required before \
-            partitions can be added.\n\n<b>Warning: This will delete all data \
-            on {0}!</b>").format(self.disk_name))
+        self.info_label.set_markup(_("A partition table is required before " \
+            "partitions can be added.\n\n<b>Warning: This will delete all " \
+            "data on {0}!</b>").format(self.disk_name))
 
         self.grid.attach(self.info_label, 0, 0, 4, 1) #left-top-width-height
 
@@ -666,17 +668,19 @@ class AddLabelDialog(Gtk.Dialog):
 
         self.pts_store = Gtk.ListStore(str)
 
-        pt_list = ["msdos"]
-
-        for pt in pt_list:
-            self.pts_store.append([pt])
+        for label in self.disklabels:
+            self.pts_store.append([label])
 
         self.pts_combo = Gtk.ComboBox.new_with_model(self.pts_store)
 
         self.pts_combo.set_entry_text_column(0)
         self.pts_combo.set_active(0)
 
-        self.pts_combo.set_sensitive(False)
+        if len(self.disklabels) > 1:
+            self.pts_combo.set_sensitive(True)
+
+        else:
+            self.pts_combo.set_sensitive(False)
 
         self.label_list = Gtk.Label()
         self.label_list.set_text(_("Select new partition table type:"))
@@ -703,6 +707,6 @@ class AddLabelDialog(Gtk.Dialog):
 
         if tree_iter != None:
             model = self.pts_combo.get_model()
-            pt = model[tree_iter][0]
+            label = model[tree_iter][0]
 
-        return [pt]
+        return label
