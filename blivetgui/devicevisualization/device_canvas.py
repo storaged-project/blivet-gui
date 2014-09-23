@@ -72,6 +72,10 @@ class cairo_rectangle():
 
 		return (self.height < other.height)
 
+	def __str__(self):
+		return "Cairo rectangle object\nStarting point: [" + self.x + "|" + \
+				self.y + "]\nwidth: " + self.width + " height: " + self.height
+
 class device_canvas(Gtk.DrawingArea):
 	
 	def __init__(self, blivet_utils, list_partitions):
@@ -161,7 +165,8 @@ class device_canvas(Gtk.DrawingArea):
 			[0.239,0.467,0.921]][self.color % 2]
 
 
-	def compute_rectangles_size(self, partition, parent, parent_width, height, num_parts, parts_left, start, depth):
+	def compute_rectangles_size(self, partition, parent, parent_width, height, 
+		num_parts, parts_size, parts_left, size_left, start, depth):
 		""" Compute sizes (in px) of partition rectangle
 
 			:param partition: partition
@@ -184,32 +189,33 @@ class device_canvas(Gtk.DrawingArea):
 			:rtype: class:cairo_rectangle
 
 		"""
-
-		total_size = round(parent.size.convertTo(spec="MiB"))
-		
-		if depth != 0 and parts_left == 1:
-			# drawing last partition, we need to left space for parents
-			# 5px at the end for non-root devices (10 px = 5px for start + 5px for end)
-			width = parent_width - 10
-		
+		if parts_size > parent.size:
+			total_size = round(parts_size.convertTo(spec="MiB"))
 		else:
-			width = parent_width
+			total_size = round(parent.size.convertTo(spec="MiB"))
 		
 		x = start + depth
 			
-		part_width = round(partition.size.convertTo(spec="MiB"))*(width)/total_size
+		part_width = round(partition.size.convertTo(spec="MiB"))*(parent_width)/total_size
 		
 		# last partition gets all space left
 		if parts_left == 1:
-			part_width = width
+			part_width = size_left
+			print "LAST partition '", partition.name, "' original size:", part_width
 		
-		# size of partition rect must be at least 'width / (num_parts*2)'
-		elif part_width < width / (num_parts*2):
-			part_width = width / (num_parts*2)
+		# size of partition rect must be at least 'parent_width / (num_parts*2)'
+		elif part_width < parent_width / (num_parts*2):
+			print "SMALL partition '", partition.name, "' original size:", part_width, "new size:", parent_width / (num_parts*2)
+			part_width = parent_width / (num_parts*2)
 		
 		# we need to left space for smaller partition (at least 'width / (num_parts*2)', see above)
-		elif part_width > width - ((num_parts-1)* (width / (num_parts*2))):
-			part_width = width - (num_parts-1) * (width / (num_parts*2))
+		elif part_width > parent_width - ((num_parts-1)* (parent_width / (num_parts*2))):
+
+			print "BIG partition '", partition.name, "' original size:", part_width, "new size:", parent_width - (num_parts-1) * (parent_width/ (num_parts*2))
+			part_width = parent_width - (num_parts-1) * (parent_width/ (num_parts*2))
+
+		else:
+			print "NORMAL partition '", partition.name, "' original size:", part_width
 
 		# [x, y, width, height, [r,g,b]]
 		r = cairo_rectangle(round(x), depth, round(part_width), height - 2*depth, self.pick_color(partition))
@@ -333,19 +339,24 @@ class device_canvas(Gtk.DrawingArea):
 
 			# count number of partitions on current level
 			num_parts = 0
+			parts_size = 0
 			it = treeiter
 
 			while it:
 				num_parts += 1
+				parts_size += self.partitions_list[treeiter][0].size
 				it = self.partitions_list.iter_next(it)
 
+			if depth != 0:
+				parent_size -= 10
 			parts_left = num_parts
+			size_left = parent_size
 
 			while treeiter != None:
-				rectangle = self.compute_rectangles_size(self.partitions_list[treeiter][0], parent, parent_size, height, num_parts, parts_left, start, depth)
+				rectangle = self.compute_rectangles_size(self.partitions_list[treeiter][0], parent, parent_size, height, num_parts, parts_size, parts_left, size_left, start, depth)
 				self.rectangles[rectangle] = treeiter
 				
-				parent_size -= rectangle.width
+				size_left -= rectangle.width
 				parts_left -= 1
 
 				if selected_treeiter and self.partitions_list.get_path(treeiter) == self.partitions_list.get_path(selected_treeiter):
