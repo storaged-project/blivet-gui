@@ -60,877 +60,906 @@ _ = gettext.gettext
 
 class ListPartitions():
 
-	def __init__(self, main_window, ListDevices, BlivetUtils, Builder, kickstart_mode=False, disk=None):
+    def __init__(self, main_window, list_devices, blivet_utils, builder,
+        kickstart_mode=False, disk=None):
 
-		GLib.threads_init()
-		Gdk.threads_init()
-		Gdk.threads_enter()
+        GLib.threads_init()
+        Gdk.threads_init()
+        Gdk.threads_enter()
 
-		self.list_devices = ListDevices
-		self.b = BlivetUtils
-		self.builder = Builder
+        self.list_devices = list_devices
+        self.b = blivet_utils
+        self.builder = builder
 
-		self.kickstart_mode = kickstart_mode
+        self.kickstart_mode = kickstart_mode
 
-		self.disk = disk
-		self.main_window = main_window
+        self.disk = disk
+        self.main_window = main_window
 
-		# ListStores for partitions and actions
-		self.partitions_list = Gtk.TreeStore(object,str,str,str,str,str,str,object)
-		self.actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf,str)
+        # ListStores for partitions and actions
+        self.partitions_list = Gtk.TreeStore(object, str, str, str, str, str,
+            str, object)
 
-		self.partitions_view = self.create_partitions_view()
-		self.builder.get_object("partitions_viewport").add(self.partitions_view)
+        self.actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
 
-		self.actions_view = self.create_actions_view()
-		self.builder.get_object("actions_viewport").add(self.actions_view)
+        self.partitions_view = self.create_partitions_view()
+        self.builder.get_object("partitions_viewport").add(self.partitions_view)
 
-		self.info_label = Gtk.Label()
-		self.builder.get_object("pv_viewport").add(self.info_label)
+        self.actions_view = self.create_actions_view()
+        self.builder.get_object("actions_viewport").add(self.actions_view)
 
-		self.darea = device_canvas(blivet_utils=self.b, list_partitions=self)
-		self.builder.get_object("image_window").add(self.darea)
+        self.info_label = Gtk.Label()
+        self.builder.get_object("pv_viewport").add(self.info_label)
 
-		self.main_menu = main_menu(self.main_window,self,self.list_devices)
-		self.builder.get_object("vbox").add(self.main_menu.get_main_menu)
+        self.darea = device_canvas(blivet_utils=self.b, list_partitions=self)
+        self.builder.get_object("image_window").add(self.darea)
 
-		self.popup_menu = actions_menu(self)
-		self.toolbar = actions_toolbar(self, self.main_window)
-		self.builder.get_object("vbox").add(self.toolbar.get_toolbar)
+        self.main_menu = main_menu(self.main_window, self, self.list_devices)
+        self.builder.get_object("vbox").add(self.main_menu.get_main_menu)
 
-		self.select = self.partitions_view.get_selection()
-		self.path = self.select.select_path("1")
+        self.popup_menu = actions_menu(self)
+        self.toolbar = actions_toolbar(self, self.main_window)
+        self.builder.get_object("vbox").add(self.toolbar.get_toolbar)
 
-		self.on_partition_selection_changed(self.select)
-		self.selection_signal = self.select.connect("changed", self.on_partition_selection_changed)
+        self.select = self.partitions_view.get_selection()
+        self.path = self.select.select_path("1")
 
-		self.actions = 0
-		self.actions_label = self.builder.get_object("actions_page")
-		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
+        self.on_partition_selection_changed(self.select)
+        self.selection_signal = self.select.connect("changed",
+            self.on_partition_selection_changed)
 
-		self.partitions_label = self.builder.get_object("partitions_page")
-		self.partitions_label.set_text(_("Partitions").format(self.actions))
+        self.actions = 0
+        self.actions_label = self.builder.get_object("actions_page")
+        self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 
-		self.selected_partition = None
+        self.partitions_label = self.builder.get_object("partitions_page")
+        self.partitions_label.set_text(_("Partitions").format(self.actions))
 
-		self.history = actions_history(self)
+        self.selected_partition = None
 
-	def device_info(self):
-		""" Basic information for selected device
-		"""
+        self.history = actions_history(self)
 
-		device_type = self.b.get_device_type(self.disk)
+    def device_info(self):
+        """ Basic information for selected device
+        """
 
-		if device_type == "lvmvg":
-			pvs = self.b.get_parent_pvs(self.disk)
+        device_type = self.b.get_device_type(self.disk)
 
-			info_str = _("<b>LVM2 Volume group <i>{0}</i> occupying {1} physical volume(s):</b>\n\n").format(self.disk.name, len(pvs))
+        if device_type == "lvmvg":
+            pvs = self.b.get_parent_pvs(self.disk)
 
-			for pv in pvs:
-				info_str += _("\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> disk.\n").format(pv.name, str(pv.size), pv.disks[0].name)
+            info_str = _("<b>LVM2 Volume group <i>{0}</i> occupying {1} " \
+                "physical volume(s):</b>\n\n").format(self.disk.name, len(pvs))
 
-		elif device_type in ["lvmpv", "luks/dm-crypt"]:
-			blivet_device = self.disk
+            for pv in pvs:
+                info_str += _("\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> " \
+                    "disk.\n").format(pv.name, str(pv.size), pv.disks[0].name)
 
-			if blivet_device.format.type == "lvmpv":
-				info_str = _("<b>LVM2 Physical Volume</b>").format()
+        elif device_type in ["lvmpv", "luks/dm-crypt"]:
+            blivet_device = self.disk
 
-			else:
-				info_str = ""
+            if blivet_device.format.type == "lvmpv":
+                info_str = _("<b>LVM2 Physical Volume</b>").format()
 
-		elif device_type == "disk":
+            else:
+                info_str = ""
 
-			blivet_disk = self.disk
+        elif device_type == "disk":
 
-			info_str = _("<b>Hard disk</b> <i>{0}</i>\n\n\t• Size: <i>{1}</i>\n\t• Model: <i>{2}</i>\n").format(blivet_disk.path, str(blivet_disk.size), blivet_disk.model)
+            blivet_disk = self.disk
 
-		else:
-			info_str = ""
+            info_str = _("<b>Hard disk</b> <i>{0}</i>\n\n\t• Size: <i>{1}</i>" \
+                "\n\t• Model: <i>{2}</i>\n").format(blivet_disk.path,
+                str(blivet_disk.size), blivet_disk.model)
 
-		self.info_label.set_markup(info_str)
+        else:
+            info_str = ""
 
-		return
+        self.info_label.set_markup(info_str)
 
-	def update_partitions_view(self,selected_device):
-		""" Update partition view with selected disc children (partitions)
+        return
 
-			:param selected_device: selected device from list (eg. disk or VG)
-			:type device_name: blivet.Device
+    def update_partitions_view(self, selected_device):
+        """ Update partition view with selected disc children (partitions)
 
-		"""
+            :param selected_device: selected device from list (eg. disk or VG)
+            :type device_name: blivet.Device
 
-		self.disk = selected_device
+        """
 
-		if self.disk:
-			self.device_info()
+        self.disk = selected_device
 
-		def childs_loop(childs, parent):
+        if self.disk:
+            self.device_info()
 
-			extended_iter = None
-			unadded_logical = []
+        def childs_loop(childs, parent):
 
-			for child in childs:
+            extended_iter = None
+            unadded_logical = []
 
-				if hasattr(child, "isExtended") and child.isExtended:
-					extended_iter = self.add_partition_to_view(child, parent)
+            for child in childs:
 
-				elif hasattr(child, "isLogical") and child.isLogical:
+                if hasattr(child, "isExtended") and child.isExtended:
+                    extended_iter = self.add_partition_to_view(child, parent)
 
-					if not extended_iter:
-						unadded_logical.append(child)
+                elif hasattr(child, "isLogical") and child.isLogical:
 
-					else:
-						self.add_partition_to_view(child, extended_iter)
+                    if not extended_iter:
+                        unadded_logical.append(child)
 
-				elif len(self.b.get_partitions(child)) != 0:
+                    else:
+                        self.add_partition_to_view(child, extended_iter)
 
-					parent_iter = self.add_partition_to_view(child, parent)
+                elif len(self.b.get_partitions(child)) != 0:
 
-					childs_loop(self.b.get_partitions(child), parent_iter)
+                    parent_iter = self.add_partition_to_view(child, parent)
 
-				else:
-					self.add_partition_to_view(child, parent)
+                    childs_loop(self.b.get_partitions(child), parent_iter)
 
-			if len(unadded_logical) != 0 and extended_iter:
-				# if blivet creates extended partition it is sometimes huges mess
-				# and we need to be sure they are added in proper way
-				for logical in unadded_logical:
-					self.add_partition_to_view(logical, extended_iter)
+                else:
+                    self.add_partition_to_view(child, parent)
 
-		self.partitions_list.clear()
+            if len(unadded_logical) != 0 and extended_iter:
+                # if blivet creates extended partition it is sometimes huges mess
+                # and we need to be sure they are added in proper way
+                for logical in unadded_logical:
+                    self.add_partition_to_view(logical, extended_iter)
 
-		partitions = self.b.get_partitions(self.disk)
+        self.partitions_list.clear()
 
-		childs_loop(partitions, None)
+        partitions = self.b.get_partitions(self.disk)
 
-		# select first line in partitions view
-		self.select = self.partitions_view.get_selection()
-		self.path = self.select.select_path("0")
+        childs_loop(partitions, None)
 
-		# expand all expanders
-		self.partitions_view.expand_all()
+        # select first line in partitions view
+        self.select = self.partitions_view.get_selection()
+        self.path = self.select.select_path("0")
 
-		# update partitions image
+        # expand all expanders
+        self.partitions_view.expand_all()
 
-		self.darea.visualize_device(self.partitions_list, self.partitions_view, self.disk)
+        # update partitions image
 
-	def add_partition_to_view(self, partition, parent):
-		""" Add partition into partition_list
+        self.darea.visualize_device(self.partitions_list, self.partitions_view,
+            self.disk)
 
-		"""
-		resize_size = "--"
+    def add_partition_to_view(self, partition, parent):
+        """ Add partition into partition_list
 
-		if partition.name == _("free space"):
-			iter_added = self.partitions_list.append(parent,[partition,partition.name,"--","--",
-								 str(partition.size),"--", None, None])
- 		elif partition.type == "partition" and hasattr(partition, "isExtended") and partition.isExtended:
-			iter_added = self.partitions_list.append(None,[partition,partition.name,_("extended"),"--",
-								str(partition.size),"--", None, None])
-		elif partition.type == "lvmvg":
-			iter_added = self.partitions_list.append(parent,[partition,partition.name,_("lvmvg"),"--",
-								str(partition.size),"--", None, None])
+        """
+        resize_size = "--"
 
-		elif partition.format.mountable:
+        if partition.name == _("free space"):
+            iter_added = self.partitions_list.append(parent, [partition,
+                partition.name, "--", "--", str(partition.size), "--", None,
+                None])
+        elif partition.type == "partition" and hasattr(partition, "isExtended") and partition.isExtended:
+            iter_added = self.partitions_list.append(None, [partition,
+                partition.name, _("extended"), "--", str(partition.size), "--",
+                None, None])
+        elif partition.type == "lvmvg":
+            iter_added = self.partitions_list.append(parent, [partition,
+                partition.name, _("lvmvg"), "--", str(partition.size), "--",
+                None, None])
 
-			if partition.format.resizable:
-				partition.format.updateSizeInfo()
-				resize_size = partition.format.minSize
+        elif partition.format.mountable:
 
-			if partition.format.mountpoint != None:
-				iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
-								partition.format.mountpoint,str(partition.size),str(resize_size), None, None])
+            if partition.format.resizable:
+                partition.format.updateSizeInfo()
+                resize_size = partition.format.minSize
 
-			elif partition.format.mountpoint == None and self.kickstart_mode:
+            if partition.format.mountpoint != None:
+                iter_added = self.partitions_list.append(parent, [partition,
+                    partition.name, partition.format.type,
+                    partition.format.mountpoint, str(partition.size),
+                    str(resize_size), None, None])
 
-				if partition.format.uuid in self.list_devices.old_mountpoints.keys():
-					old_mnt = self.list_devices.old_mountpoints[partition.format.uuid]
-				else:
-					old_mnt = None
+            elif partition.format.mountpoint == None and self.kickstart_mode:
 
-				iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
-								partition.format.mountpoint,str(partition.size),str(resize_size), old_mnt, None])
+                if partition.format.uuid in self.list_devices.old_mountpoints.keys():
+                    old_mnt = self.list_devices.old_mountpoints[partition.format.uuid]
+                else:
+                    old_mnt = None
 
-			else:
-				iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,
-								partition_mounted(partition.path),str(partition.size),str(resize_size), None, None])
-		else:
-			iter_added = self.partitions_list.append(parent,[partition,partition.name,partition.format.type,"--",
-								str(partition.size),str(resize_size), None, None])
+                iter_added = self.partitions_list.append(parent, [partition,
+                    partition.name, partition.format.type, partition.format.mountpoint,
+                    str(partition.size), str(resize_size), old_mnt, None])
 
-		return iter_added
+            else:
+                iter_added = self.partitions_list.append(parent, [partition,
+                    partition.name, partition.format.type, partition_mounted(partition.path),
+                    str(partition.size), str(resize_size), None, None])
+        else:
+            iter_added = self.partitions_list.append(parent, [partition,
+                partition.name, partition.format.type, "--",
+                str(partition.size), str(resize_size), None, None])
 
-	def create_partitions_view(self):
-		""" Create Gtk.TreeView for device children (partitions)
-		"""
+        return iter_added
 
-		if self.disk == None:
-			partitions = self.partitions_list
+    def create_partitions_view(self):
+        """ Create Gtk.TreeView for device children (partitions)
+        """
 
-		else:
-			self.load_partitions()
-			partitions = self.partitions_list
+        partitions = self.partitions_list
 
-		treeview = Gtk.TreeView(model=partitions)
-		treeview.set_vexpand(True)
+        treeview = Gtk.TreeView(model=partitions)
+        treeview.set_vexpand(True)
 
-		renderer_text = Gtk.CellRendererText()
+        renderer_text = Gtk.CellRendererText()
 
-		column_text1 = Gtk.TreeViewColumn(_("Partition"), renderer_text, text=1)
-		column_text2 = Gtk.TreeViewColumn(_("Filesystem"), renderer_text, text=2)
-		column_text3 = Gtk.TreeViewColumn(_("Mountpoint"), renderer_text, text=3)
-		column_text4 = Gtk.TreeViewColumn(_("Size"), renderer_text, text=4)
-		column_text5 = Gtk.TreeViewColumn(_("Used"), renderer_text, text=5)
-		column_text6 = Gtk.TreeViewColumn(_("Current Mountpoint"), renderer_text, text=6)
+        column_text1 = Gtk.TreeViewColumn(_("Partition"), renderer_text, text=1)
+        column_text2 = Gtk.TreeViewColumn(_("Filesystem"), renderer_text, text=2)
+        column_text3 = Gtk.TreeViewColumn(_("Mountpoint"), renderer_text, text=3)
+        column_text4 = Gtk.TreeViewColumn(_("Size"), renderer_text, text=4)
+        column_text5 = Gtk.TreeViewColumn(_("Used"), renderer_text, text=5)
+        column_text6 = Gtk.TreeViewColumn(_("Current Mountpoint"), renderer_text, text=6)
 
-		treeview.append_column(column_text1)
-		treeview.append_column(column_text2)
-		treeview.append_column(column_text3)
-		treeview.append_column(column_text4)
-		treeview.append_column(column_text5)
+        treeview.append_column(column_text1)
+        treeview.append_column(column_text2)
+        treeview.append_column(column_text3)
+        treeview.append_column(column_text4)
+        treeview.append_column(column_text5)
 
-		if self.kickstart_mode:
-			treeview.append_column(column_text6)
+        if self.kickstart_mode:
+            treeview.append_column(column_text6)
 
-		treeview.set_headers_visible(True)
+        treeview.set_headers_visible(True)
 
-		treeview.connect("button-release-event" , self.on_right_click_event)
+        treeview.connect("button-release-event", self.on_right_click_event)
 
-		return treeview
+        return treeview
 
-	def on_right_click_event(self,treeview, event):
-		""" Right click event on partition treeview
-		"""
+    def on_right_click_event(self, treeview, event):
+        """ Right click event on partition treeview
+        """
 
-		if event.button == 3:
+        if event.button == 3:
 
-			selection = treeview.get_selection()
+            selection = treeview.get_selection()
 
-			if selection == None:
-				return False
+            if selection == None:
+                return False
 
-			model, treeiter = selection.get_selected()
+            model, treeiter = selection.get_selected()
 
-			self.popup_menu.get_menu.popup(None, None, None, None, event.button, event.time)
+            self.popup_menu.get_menu.popup(None, None, None, None, event.button,
+                event.time)
 
-			return True
+            return True
 
-	def create_actions_view(self):
-		""" Create treeview for actions
+    def create_actions_view(self):
+        """ Create treeview for actions
 
-			:returns: treeview
-			:rtype: Gtk.TreeView
+            :returns: treeview
+            :rtype: Gtk.TreeView
 
-		"""
+        """
 
-		treeview = Gtk.TreeView(model=self.actions_list)
-		treeview.set_vexpand(True)
-		treeview.set_hexpand(True)
+        treeview = Gtk.TreeView(model=self.actions_list)
+        treeview.set_vexpand(True)
+        treeview.set_hexpand(True)
 
-		renderer_pixbuf = Gtk.CellRendererPixbuf()
-		column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, pixbuf=0)
-		treeview.append_column(column_pixbuf)
+        renderer_pixbuf = Gtk.CellRendererPixbuf()
+        column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, pixbuf=0)
+        treeview.append_column(column_pixbuf)
 
-		renderer_text = Gtk.CellRendererText()
-		column_text = Gtk.TreeViewColumn(None, renderer_text, text=1)
-		treeview.append_column(column_text)
+        renderer_text = Gtk.CellRendererText()
+        column_text = Gtk.TreeViewColumn(None, renderer_text, text=1)
+        treeview.append_column(column_text)
 
-		treeview.set_headers_visible(False)
+        treeview.set_headers_visible(False)
 
-		return treeview
+        return treeview
 
-	def clear_actions_view(self):
-		""" Delete all actions in actions view
-		"""
+    def clear_actions_view(self):
+        """ Delete all actions in actions view
+        """
 
-		self.actions = 0
-		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
-		self.actions_list.clear()
+        self.actions = 0
+        self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
+        self.actions_list.clear()
 
-		self.deactivate_options(["apply", "clear"])
+        self.deactivate_options(["apply", "clear"])
 
-		self.update_partitions_view(self.disk)
+        self.update_partitions_view(self.disk)
 
-	def update_actions_view(self,action_type=None,action_desc=None):
-		""" Update list of scheduled actions
+    def update_actions_view(self, action_type=None, action_desc=None):
+        """ Update list of scheduled actions
 
-			:param action_type: type of action (delete/add/edit)
-			:type action_type: str
-			:param action_desc: description of scheduled action
-			:type partition_name: str
+            :param action_type: type of action (delete/add/edit)
+            :type action_type: str
+            :param action_desc: description of scheduled action
+            :type partition_name: str
 
-		"""
+        """
 
-		icon_theme = Gtk.IconTheme.get_default()
-		icon_add = Gtk.IconTheme.load_icon (icon_theme,"gtk-add",16, 0)
-		icon_delete = Gtk.IconTheme.load_icon (icon_theme,"gtk-delete",16, 0)
-		icon_edit = Gtk.IconTheme.load_icon (icon_theme,"gtk-edit",16, 0)
-		icon_undo = Gtk.IconTheme.load_icon (icon_theme,"edit-undo",16, 0)
-		icon_redo = Gtk.IconTheme.load_icon (icon_theme,"edit-redo",16, 0)
+        icon_theme = Gtk.IconTheme.get_default()
+        icon_add = Gtk.IconTheme.load_icon(icon_theme, "gtk-add", 16, 0)
+        icon_delete = Gtk.IconTheme.load_icon (icon_theme, "gtk-delete", 16, 0)
+        icon_edit = Gtk.IconTheme.load_icon(icon_theme, "gtk-edit", 16, 0)
+        icon_undo = Gtk.IconTheme.load_icon(icon_theme, "edit-undo", 16, 0)
+        icon_redo = Gtk.IconTheme.load_icon(icon_theme, "edit-redo", 16, 0)
 
-		action_icons = {"add" : icon_add, "delete" : icon_delete, "edit" : icon_edit,
-		"redo" : icon_redo, "undo" : icon_undo }
+        action_icons = {"add" : icon_add, "delete" : icon_delete,
+        "edit" : icon_edit, "redo" : icon_redo, "undo" : icon_undo}
 
-		if action_type not in ["undo", "redo"]:
+        if action_type not in ["undo", "redo"]:
 
-			self.actions_list.append([action_icons[action_type], action_desc])
+            self.actions_list.append([action_icons[action_type], action_desc])
 
-			# Update number of actions on actions card label
-			self.actions += 1
+            # Update number of actions on actions card label
+            self.actions += 1
 
-		else:
+        else:
 
-			self.actions_list.append([action_icons[action_type], action_desc])
+            self.actions_list.append([action_icons[action_type], action_desc])
 
-			if action_type == "undo":
-				self.actions -= 1
+            if action_type == "undo":
+                self.actions -= 1
 
-			if action_type == "redo":
-				self.actions += 1
+            if action_type == "redo":
+                self.actions += 1
 
-		self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
+        self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 
-		self.activate_options(["apply", "clear"])
+        self.activate_options(["apply", "clear"])
 
-	def activate_options(self, activate_list):
-		""" Activate toolbar buttons and menu items
+    def activate_options(self, activate_list):
+        """ Activate toolbar buttons and menu items
 
-			:param activate_list: list of items to activate
-			:type activate_list: list of str
+            :param activate_list: list of items to activate
+            :type activate_list: list of str
 
-		"""
+        """
 
-		for item in activate_list:
-			self.toolbar.activate_buttons([item])
-			self.main_menu.activate_menu_items([item])
+        for item in activate_list:
+            self.toolbar.activate_buttons([item])
+            self.main_menu.activate_menu_items([item])
 
-			if item not in ["apply", "clear", "undo", "redo"]:
-				self.popup_menu.activate_menu_items([item])
+            if item not in ["apply", "clear", "undo", "redo"]:
+                self.popup_menu.activate_menu_items([item])
 
-	def deactivate_options(self, deactivate_list):
-		""" Deactivate toolbar buttons and menu items
+    def deactivate_options(self, deactivate_list):
+        """ Deactivate toolbar buttons and menu items
 
-			:param deactivate_list: list of items to deactivate
-			:type deactivate_list: list of str
+            :param deactivate_list: list of items to deactivate
+            :type deactivate_list: list of str
 
-		"""
+        """
 
-		for item in deactivate_list:
-			self.toolbar.deactivate_buttons([item])
-			self.main_menu.deactivate_menu_items([item])
+        for item in deactivate_list:
+            self.toolbar.deactivate_buttons([item])
+            self.main_menu.deactivate_menu_items([item])
 
-			if item not in ["apply", "clear", "undo", "redo"]:
-				self.popup_menu.deactivate_menu_items([item])
+            if item not in ["apply", "clear", "undo", "redo"]:
+                self.popup_menu.deactivate_menu_items([item])
 
-	def deactivate_all_options(self):
-		""" Deactivate all partition-based buttons/menu items
-		"""
+    def deactivate_all_options(self):
+        """ Deactivate all partition-based buttons/menu items
+        """
 
-		self.toolbar.deactivate_all()
-		self.main_menu.deactivate_all()
-		self.popup_menu.deactivate_all()
+        self.toolbar.deactivate_all()
+        self.main_menu.deactivate_all()
+        self.popup_menu.deactivate_all()
 
-	def activate_action_buttons(self,selected_partition):
-		""" Activate buttons in toolbar based on selected partition
+    def activate_action_buttons(self, selected_partition):
+        """ Activate buttons in toolbar based on selected partition
 
-			:param selected_partition: Selected partition
-			:type selected_partition: Gtk.TreeModelRow
+            :param selected_partition: Selected partition
+            :type selected_partition: Gtk.TreeModelRow
 
-		"""
+        """
 
-		partition_device = selected_partition[0]
+        partition_device = selected_partition[0]
 
-		if partition_device == None and selected_partition[1] != _("free space"):
-			self.deactivate_all_options()
-			return
+        if partition_device == None and selected_partition[1] != _("free space"):
+            self.deactivate_all_options()
+            return
 
-		elif selected_partition[1] == _("free space"):
+        elif selected_partition[1] == _("free space"):
 
-			self.deactivate_all_options()
-			self.activate_options(["add"])
+            self.deactivate_all_options()
+            self.activate_options(["add"])
 
-		elif selected_partition[2] in ["extended", "lvmvg", "lvmpv"] and partition_device.isleaf:
+        elif selected_partition[2] in ["extended", "lvmvg", "lvmpv"] and partition_device.isleaf:
 
-			self.deactivate_all_options()
-			self.activate_options(["delete"])
+            self.deactivate_all_options()
+            self.activate_options(["delete"])
 
-		else:
-			self.deactivate_all_options()
+        else:
+            self.deactivate_all_options()
 
-			if partition_device.format.type == None and selected_partition[2] not in ["extended", "lvmvg"]:
-				self.activate_options(["delete"])
+            if partition_device.format.type == None and selected_partition[2] not in ["extended", "lvmvg"]:
+                self.activate_options(["delete"])
 
-			if partition_device.format.type == "luks" and partition_device.kids == 0:
-				self.activate_options(["delete"])
+            if partition_device.format.type == "luks" and partition_device.kids == 0:
+                self.activate_options(["delete"])
 
-			if partition_device.format.type == "luks" and not partition_device.format.status:
-				self.activate_options(["decrypt"])
+            if partition_device.format.type == "luks" and not partition_device.format.status:
+                self.activate_options(["decrypt"])
 
-			if partition_device.type == "btrfs volume":
-				self.activate_options(["add"])
+            if partition_device.type == "btrfs volume":
+                self.activate_options(["add"])
 
-			if self.kickstart_mode:
+            if self.kickstart_mode:
 
-				if partition_device.format.mountable:
-					self.activate_options(["delete", "edit"])
+                if partition_device.format.mountable:
+                    self.activate_options(["delete", "edit"])
 
-				if partition_device.format.type == "swap":
-					self.activate_options(["delete"])
+                if partition_device.format.type == "swap":
+                    self.activate_options(["delete"])
 
-			else:
-				if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
-					if partition_device.type == "btrfs volume":
-						self.activate_options(["delete"])
+            else:
+                if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
+                    if partition_device.type == "btrfs volume":
+                        self.activate_options(["delete"])
 
-					else:
-						self.activate_options(["delete", "edit"])
+                    else:
+                        self.activate_options(["delete", "edit"])
 
-				if partition_device.format.type == "swap" and swap_is_on(partition_device.sysfsPath) == False:
-					self.activate_options(["delete"])
+                if partition_device.format.type == "swap" and swap_is_on(partition_device.sysfsPath) == False:
+                    self.activate_options(["delete"])
 
-				if partition_device.format.mountable and partition_mounted(partition_device.path) != None:
-					self.activate_options(["unmount"])
+                if partition_device.format.mountable and partition_mounted(partition_device.path) != None:
+                    self.activate_options(["unmount"])
 
-	def delete_selected_partition(self):
-		""" Delete selected partition
-		"""
+    def delete_selected_partition(self):
+        """ Delete selected partition
+        """
 
-		deleted_device = self.selected_partition[0]
+        deleted_device = self.selected_partition[0]
 
-		title = _("Confirm delete operation")
-		msg = _("Are you sure you want to delete device {0}?").format(self.selected_partition[0].name)
+        title = _("Confirm delete operation")
+        msg = _("Are you sure you want to delete device {0}?").format(self.selected_partition[0].name)
 
-		dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
-		response = dialog.run()
+        dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
+        response = dialog.run()
 
-		if response == Gtk.ResponseType.OK:
+        if response == Gtk.ResponseType.OK:
 
-			self.history.add_undo(self.b.return_devicetree)
-			self.main_menu.activate_menu_items(["undo"])
+            self.history.add_undo(self.b.return_devicetree)
+            self.main_menu.activate_menu_items(["undo"])
 
-			self.b.delete_device(self.selected_partition[0])
+            self.b.delete_device(self.selected_partition[0])
 
-			self.update_actions_view("delete",_("delete partition {0}").format(self.selected_partition[0].name))
+            self.update_actions_view("delete", _("delete partition {0}").format(self.selected_partition[0].name))
 
-			self.selected_partition = None
+            self.selected_partition = None
 
-		elif response == Gtk.ResponseType.CANCEL:
-			pass
+        elif response == Gtk.ResponseType.CANCEL:
+            pass
 
-		dialog.destroy()
+        dialog.destroy()
 
-		self.update_partitions_view(self.disk)
+        self.update_partitions_view(self.disk)
 
-		self.list_devices.update_devices_view()
+        self.list_devices.update_devices_view()
 
-	def add_partition(self, ):
-		""" Add new partition
-		"""
+    def add_partition(self, ):
+        """ Add new partition
+        """
 
-		# parent device; free space has always only one parent #FIXME
-		parent_device = self.selected_partition[0].parents[0]
+        # parent device; free space has always only one parent #FIXME
+        parent_device = self.selected_partition[0].parents[0]
 
-		# btrfs volume has no special free space device -- parent device for newly
-		# created subvolume is not parent of selected device but device (btrfs volume)
-		# itself
-		if self.selected_partition[0].type == "btrfs volume":
-			parent_device = self.selected_partition[0]
+        # btrfs volume has no special free space device -- parent device for newly
+        # created subvolume is not parent of selected device but device (btrfs volume)
+        # itself
+        if self.selected_partition[0].type == "btrfs volume":
+            parent_device = self.selected_partition[0]
 
-		parent_device_type = parent_device.type
+        parent_device_type = parent_device.type
 
-		if parent_device_type == "partition" and parent_device.format.type == "lvmpv":
-			parent_device_type = "lvmpv"
+        if parent_device_type == "partition" and parent_device.format.type == "lvmpv":
+            parent_device_type = "lvmpv"
 
-		if parent_device_type == "disk" and self.b.has_disklabel(self.disk) != True:
+        if parent_device_type == "disk" and self.b.has_disklabel(self.disk) != True:
 
-			dialog = add_dialog.AddLabelDialog(self.main_window, self.disk, self.b.get_available_disklabels())
+            dialog = add_dialog.AddLabelDialog(self.main_window, self.disk,
+                self.b.get_available_disklabels())
 
-			response = dialog.run()
+            response = dialog.run()
 
-			if response == Gtk.ResponseType.OK:
+            if response == Gtk.ResponseType.OK:
 
-				selection = dialog.get_selection()
+                selection = dialog.get_selection()
 
-				self.history.add_undo(self.b.return_devicetree)
-				self.main_menu.activate_menu_items(["undo"])
+                self.history.add_undo(self.b.return_devicetree)
+                self.main_menu.activate_menu_items(["undo"])
 
-				self.b.create_disk_label(self.disk, dialog.get_selection())
-				self.update_actions_view("add","create new disklabel on " + str(self.disk.name) + " device")
+                self.b.create_disk_label(self.disk, dialog.get_selection())
+                self.update_actions_view("add", "create new disklabel on " + str(self.disk.name) + " device")
 
-				dialog.destroy()
-				self.update_partitions_view(self.disk)
+                dialog.destroy()
+                self.update_partitions_view(self.disk)
 
-			elif response == Gtk.ResponseType.CANCEL:
+            elif response == Gtk.ResponseType.CANCEL:
 
-				dialog.destroy()
+                dialog.destroy()
 
-				return
+                return
 
-			return
+            return
 
-		dialog = add_dialog.AddDialog(self.main_window, parent_device_type, parent_device, self.selected_partition[0],
-					 self.selected_partition[0].size, self.b.get_free_pvs_info(), self.b.get_free_disks_info(), self.kickstart_mode)
+        dialog = add_dialog.AddDialog(self.main_window, parent_device_type,
+            parent_device, self.selected_partition[0],
+            self.selected_partition[0].size, self.b.get_free_pvs_info(),
+            self.b.get_free_disks_info(), self.kickstart_mode)
 
-		response = dialog.run()
+        response = dialog.run()
 
-		# FIXME: new way of passing arguments (named tuple or new class) and get rid of all of
-		# this and just do all this utils
+        # FIXME: new way of passing arguments (named tuple or new class) and get rid of all of
+        # this and just do all this utils
 
-		if response == Gtk.ResponseType.OK:
+        if response == Gtk.ResponseType.OK:
 
-			user_input = dialog.get_selection()
+            user_input = dialog.get_selection()
 
-			if user_input.filesystem == None and user_input.device_type in ["Partition", "LVM2 Logical Volume"]:
-				# If fs is not selected, show error window and re-run add dialog
+            if user_input.filesystem == None and user_input.device_type in ["Partition", "LVM2 Logical Volume"]:
+                # If fs is not selected, show error window and re-run add dialog
 
-				title = _("Error:")
-				msg = _("Filesystem type must be specified when creating new partition.")
-				message_dialogs.ErrorDialog(dialog, title, msg)
+                title = _("Error:")
+                msg = _("Filesystem type must be specified when creating new partition.")
+                message_dialogs.ErrorDialog(dialog, title, msg)
 
-				dialog.destroy()
-				self.add_partition() #TODO pass previously entered input and prefill the dialog
+                dialog.destroy()
+                self.add_partition() #TODO pass previously entered input and prefill the dialog
 
-			elif user_input.encrypt and not user_input.passphrase:
+            elif user_input.encrypt and not user_input.passphrase:
 
-				title = _("Error:")
-				msg = _("Passphrase not specified.")
-				message_dialogs.ErrorDialog(dialog,title, msg)
+                title = _("Error:")
+                msg = _("Passphrase not specified.")
+                message_dialogs.ErrorDialog(dialog, title, msg)
 
-				dialog.destroy()
-				self.add_partition()
+                dialog.destroy()
+                self.add_partition()
 
-			else:
+            else:
 
-				dialog.destroy()
+                dialog.destroy()
 
+                if self.kickstart_mode and user_input.mountpoint:
+                    if self.check_mountpoint(user_input.mountpoint):
+                        pass
+                    else:
+                        return
 
-				if self.kickstart_mode and user_input.mountpoint:
-					if self.check_mountpoint(user_input.mountpoint):
-						pass
-					else:
-						return
+                self.history.add_undo(self.b.return_devicetree)
+                self.main_menu.activate_menu_items(["undo"])
 
-				self.history.add_undo(self.b.return_devicetree)
-				self.main_menu.activate_menu_items(["undo"])
+                ret = self.b.add_device(user_input)
 
-				ret = self.b.add_device(user_input)
+                if ret != None:
 
-				if ret != None:
+                    if user_input.filesystem == None:
+                        self.update_actions_view("add", "add " + str(user_input.size) +
+                            " " + user_input.device_type + " device")
 
-					if user_input.filesystem == None:
-						self.update_actions_view("add","add " + str(user_input.size) + " " + user_input.device_type + " device")
+                    else:
+                        self.update_actions_view("add", "add " + str(user_input.size) +
+                            " " + user_input.filesystem + " partition")
 
-					else:
-						self.update_actions_view("add","add " + str(user_input.size) + " " + user_input.filesystem + " partition")
+                self.list_devices.update_devices_view()
+                self.update_partitions_view(self.disk)
 
-				self.list_devices.update_devices_view()
-				self.update_partitions_view(self.disk)
+        elif response == Gtk.ResponseType.CANCEL:
 
-		elif response == Gtk.ResponseType.CANCEL:
+            dialog.destroy()
 
-			dialog.destroy()
+            return
 
-			return
+    def check_mountpoint(self, mountpoint):
+        """ Kickstart mode; check for duplicate mountpoints
 
-	def check_mountpoint(self, mountpoint):
-		""" Kickstart mode; check for duplicate mountpoints
+            :param mountpoint: mountpoint selected by user
+            :type mountpoint: str
+            :returns: mountpoint validity
+            :rtype: bool
+        """
 
-			:param mountpoint: mountpoint selected by user
-			:type mountpoint: str
-			:returns: mountpoint validity
-			:rtype: bool
-		"""
+        if mountpoint == None:
+            return True
 
-		if mountpoint == None:
-			return True
+        elif mountpoint not in self.b.storage.mountpoints.keys():
+            return True
 
-		elif mountpoint not in self.b.storage.mountpoints.keys():
-			return True
+        else:
 
-		else:
+            old_device = self.b.storage.mountpoints[mountpoint]
 
-			old_device = self.b.storage.mountpoints[mountpoint]
+            title = _("Duplicate mountpoint detected")
+            msg = _("Selected mountpoint \"{0}\" is already used for \"{1}\" " \
+                "device. Do you want to remove this mountpoint?").format(mountpoint, old_device)
 
-			dialog = kickstart_dialogs.KickstartDuplicateMountpointDialog(self.main_window, mountpoint, old_device.name)
+            dialog = message_dialogs.WarningDialog(self.main_window, title, msg)
 
-			response = dialog.run()
+            response = dialog.run()
 
-			if response == Gtk.ResponseType.OK:
-				old_device.format.mountpoint = None
+            if response == Gtk.ResponseType.OK:
+                old_device.format.mountpoint = None
 
-				dialog.destroy()
-				return True
-			else:
-				dialog.destroy()
-				return False
+                dialog.destroy()
+                return True
+            else:
+                dialog.destroy()
+                return False
 
 
-	def perform_actions(self):
-		""" Perform queued actions
+    def perform_actions(self):
+        """ Perform queued actions
 
-		.. note::
-				New window creates separate thread to run blivet.doIt()
+        .. note::
+                New window creates separate thread to run blivet.doIt()
 
-		"""
+        """
 
-		dialog = ProcessingActions(self, self.main_window)
+        dialog = ProcessingActions(self, self.main_window)
 
-		response = dialog.run()
+        response = dialog.run()
 
-		Gdk.threads_leave()
+        Gdk.threads_leave()
 
-		dialog.destroy()
+        dialog.destroy()
 
-		self.clear_actions_view()
-		self.history.clear_history()
+        self.clear_actions_view()
+        self.history.clear_history()
 
-		self.update_partitions_view(self.disk)
+        self.update_partitions_view(self.disk)
 
-	def apply_event(self):
-		""" Apply event for main menu/toolbar
+    def apply_event(self):
+        """ Apply event for main menu/toolbar
 
-		.. note::
-				This is neccessary because of kickstart mode -- in "standard" mode
-				we need only simple confirmation dialog, but in kickstart mode it
-				is neccessary to create file choosing dialog for kickstart file save.
+        .. note::
+                This is neccessary because of kickstart mode -- in "standard" mode
+                we need only simple confirmation dialog, but in kickstart mode it
+                is neccessary to create file choosing dialog for kickstart file save.
 
-		"""
-		if self.kickstart_mode:
+        """
+        if self.kickstart_mode:
 
-			dialog = kickstart_dialogs.KickstartFileSaveDialog(self.main_window)
+            dialog = kickstart_dialogs.KickstartFileSaveDialog(self.main_window)
 
-			response = dialog.run()
+            response = dialog.run()
 
-			if response == Gtk.ResponseType.OK:
+            if response == Gtk.ResponseType.OK:
 
-				self.clear_actions_view()
-				self.b.create_kickstart_file(dialog.get_filename())
+                self.clear_actions_view()
+                self.b.create_kickstart_file(dialog.get_filename())
 
-			elif response == Gtk.ResponseType.CANCEL:
-				dialog.destroy()
+            elif response == Gtk.ResponseType.CANCEL:
+                dialog.destroy()
 
-			dialog.destroy()
+            dialog.destroy()
 
-			self.clear_actions_view()
-			self.history.clear_history()
+            self.clear_actions_view()
+            self.history.clear_history()
 
-		else:
+        else:
 
-			title = _("Confirm scheduled actions")
-			msg = _("Are you sure you want to perform scheduled actions?")
+            title = _("Confirm scheduled actions")
+            msg = _("Are you sure you want to perform scheduled actions?")
 
-			dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
+            dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
 
-			response = dialog.run()
+            response = dialog.run()
 
-			if response == Gtk.ResponseType.OK:
+            if response == Gtk.ResponseType.OK:
 
-				dialog.destroy()
+                dialog.destroy()
 
-				self.perform_actions()
+                self.perform_actions()
 
-			elif response == Gtk.ResponseType.CANCEL:
-				dialog.destroy()
+            elif response == Gtk.ResponseType.CANCEL:
+                dialog.destroy()
 
 
-	def umount_partition(self):
-		""" Unmount selected partition
-		"""
+    def umount_partition(self):
+        """ Unmount selected partition
+        """
 
-		mountpoint = self.selected_partition[3]
+        mountpoint = self.selected_partition[3]
 
-		if os_umount_partition(mountpoint):
-			self.update_partitions_view(self.disk)
+        if os_umount_partition(mountpoint):
+            self.update_partitions_view(self.disk)
 
-		else:
+        else:
 
-			title = _("Unmount failed.")
-			msg = _("Are you sure {0} is not in use?").format(self.selected_partition[0].name)
-			message_dialogs.ErrorDialog(self.main_window, title, msg)
+            title = _("Unmount failed.")
+            msg = _("Are you sure {0} is not in use?").format(self.selected_partition[0].name)
+            message_dialogs.ErrorDialog(self.main_window, title, msg)
 
-	def decrypt_device(self):
-		""" Decrypt selected device
-		"""
+    def decrypt_device(self):
+        """ Decrypt selected device
+        """
 
-		dialog = other_dialogs.LuksPassphraseDialog(self.main_window, self.selected_partition[0].name)
+        dialog = other_dialogs.LuksPassphraseDialog(self.main_window,
+            self.selected_partition[0].name)
 
-		response = dialog.run()
+        response = dialog.run()
 
-		if response == Gtk.ResponseType.OK:
+        if response == Gtk.ResponseType.OK:
 
-			ret = self.b.luks_decrypt(self.selected_partition[0], dialog.get_selection())
+            ret = self.b.luks_decrypt(self.selected_partition[0],
+                dialog.get_selection())
 
-			if ret:
+            if ret:
 
-				title = _("Error:")
-				msg = _("Unknown error appeared:\n\n{0}.").format(ret)
-				message_dialogs.ErrorDialog(self.main_window, title, msg)
+                title = _("Error:")
+                msg = _("Unknown error appeared:\n\n{0}.").format(ret)
+                message_dialogs.ErrorDialog(self.main_window, title, msg)
 
-				return
+                return
 
-		elif response == Gtk.ResponseType.CANCEL:
-			pass
+        elif response == Gtk.ResponseType.CANCEL:
+            pass
 
-		dialog.destroy()
+        dialog.destroy()
 
-		self.list_devices.update_devices_view()
-		self.update_partitions_view(self.disk)
+        self.list_devices.update_devices_view()
+        self.update_partitions_view(self.disk)
 
-	def edit_partition(self):
-		""" Edit selected partition
-		"""
+    def edit_partition(self):
+        """ Edit selected partition
+        """
 
-		resizable = self.b.device_resizable(self.selected_partition[0])
+        resizable = self.b.device_resizable(self.selected_partition[0])
 
-		dialog = edit_dialog.EditDialog(self.main_window, self.selected_partition[0], resizable, self.kickstart_mode)
-		dialog.connect("delete-event", Gtk.main_quit)
+        dialog = edit_dialog.EditDialog(self.main_window, self.selected_partition[0],
+            resizable, self.kickstart_mode)
 
-		response = dialog.run()
+        dialog.connect("delete-event", Gtk.main_quit)
 
-		selection = dialog.get_selection()
+        response = dialog.run()
 
-		if response == Gtk.ResponseType.OK:
+        selection = dialog.get_selection()
 
-			user_input = dialog.get_selection()
+        if response == Gtk.ResponseType.OK:
 
-			if user_input[0] == False and user_input[2] == None and user_input[3] == None:
-				dialog.destroy()
+            user_input = dialog.get_selection()
 
-			else:
+            if user_input[0] == False and user_input[2] == None and user_input[3] == None:
+                dialog.destroy()
 
-				if self.kickstart_mode:
-					if self.check_mountpoint(user_input[3]):
-						pass
-					else:
-						dialog.destroy()
-						return
+            else:
 
-				self.history.add_undo(self.b.return_devicetree)
-				self.main_menu.activate_menu_items(["undo"])
+                if self.kickstart_mode:
+                    if self.check_mountpoint(user_input[3]):
+                        pass
+                    else:
+                        dialog.destroy()
+                        return
 
-				ret = self.b.edit_partition_device(self.selected_partition[0], user_input)
+                self.history.add_undo(self.b.return_devicetree)
+                self.main_menu.activate_menu_items(["undo"])
 
-				if ret:
+                ret = self.b.edit_partition_device(self.selected_partition[0],
+                    user_input)
 
-					self.update_actions_view("edit","edit " + self.selected_partition[0].name + " partition")
-					self.update_partitions_view(self.disk)
-				else:
-					self.update_partitions_view(self.disk)
+                if ret:
 
-				dialog.destroy()
+                    self.update_actions_view("edit", "edit " +
+                        self.selected_partition[0].name + " partition")
+                    self.update_partitions_view(self.disk)
+                else:
+                    self.update_partitions_view(self.disk)
 
-		elif response == Gtk.ResponseType.CANCEL:
+                dialog.destroy()
 
-			dialog.destroy()
+        elif response == Gtk.ResponseType.CANCEL:
 
-			return
+            dialog.destroy()
 
-	def clear_actions(self):
-		""" Clear all scheduled actions
-		"""
+            return
 
-		self.b.blivet_reset()
+    def clear_actions(self):
+        """ Clear all scheduled actions
+        """
 
-		self.history.clear_history()
+        self.b.blivet_reset()
 
-		self.list_devices.update_devices_view()
-		self.update_partitions_view(self.disk)
+        self.history.clear_history()
 
-	def actions_redo(self):
-		""" Redo last action
-		"""
+        self.list_devices.update_devices_view()
+        self.update_partitions_view(self.disk)
 
-		self.b.override_devicetree(self.history.redo())
+    def actions_redo(self):
+        """ Redo last action
+        """
 
-		self.list_devices.update_devices_view()
-		self.update_partitions_view(self.disk)
+        self.b.override_devicetree(self.history.redo())
 
-		self.update_actions_view("redo", "redo")
+        self.list_devices.update_devices_view()
+        self.update_partitions_view(self.disk)
 
-		return
+        self.update_actions_view("redo", "redo")
 
-	def actions_undo(self):
-		""" Undo last action
-		"""
+        return
 
-		self.b.override_devicetree(self.history.undo())
+    def actions_undo(self):
+        """ Undo last action
+        """
 
-		self.list_devices.update_devices_view()
+        self.b.override_devicetree(self.history.undo())
 
-		self.update_partitions_view(self.disk)
+        self.list_devices.update_devices_view()
 
-		self.update_actions_view("undo", "undo")
+        self.update_partitions_view(self.disk)
 
-		if self.actions == 0:
-			self.deactivate_options(["clear", "apply"])
+        self.update_actions_view("undo", "undo")
 
-		return
+        if self.actions == 0:
+            self.deactivate_options(["clear", "apply"])
 
-	def on_partition_selection_changed(self,selection):
-		""" On selected partition action
-		"""
+        return
 
-		model, treeiter = selection.get_selected()
+    def on_partition_selection_changed(self, selection):
+        """ On selected partition action
+        """
 
-		self.deactivate_all_options()
+        model, treeiter = selection.get_selected()
 
-		if treeiter != None:
+        self.deactivate_all_options()
 
-			self.activate_action_buttons(model[treeiter])
-			self.selected_partition = model[treeiter]
-			self.darea.update_visualisation()
+        if treeiter != None:
 
-	def reload(self):
-		""" Quit blivet-gui
-		"""
+            self.activate_action_buttons(model[treeiter])
+            self.selected_partition = model[treeiter]
+            self.darea.update_visualisation()
 
-		if self.actions != 0:
-			# There are queued actions we don't want do quit now
+    def reload(self):
+        """ Quit blivet-gui
+        """
 
-			title = _("Confirm reload storage")
-			msg = _("There are pending operations. Are you sure you want to continue?")
+        if self.actions != 0:
+            # There are queued actions we don't want do quit now
 
-			dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
-			response = dialog.run()
+            title = _("Confirm reload storage")
+            msg = _("There are pending operations. Are you sure you want to " \
+            "continue?")
 
-			if response == Gtk.ResponseType.OK:
+            dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
+            response = dialog.run()
 
-				self.b.blivet_reload()
+            if response == Gtk.ResponseType.OK:
 
-				self.history.clear_history()
+                self.b.blivet_reload()
 
-				self.list_devices.update_devices_view()
-				self.update_partitions_view(self.disk)
+                self.history.clear_history()
 
-			dialog.destroy()
+                self.list_devices.update_devices_view()
+                self.update_partitions_view(self.disk)
 
-		else:
-			self.b.blivet_reload()
-			self.history.clear_history()
+            dialog.destroy()
 
-			self.list_devices.update_devices_view()
-			self.update_partitions_view(self.disk)
+        else:
+            self.b.blivet_reload()
+            self.history.clear_history()
 
-	def quit(self):
-		""" Quit blivet-gui
-		"""
+            self.list_devices.update_devices_view()
+            self.update_partitions_view(self.disk)
 
-		if self.actions != 0:
-			# There are queued actions we don't want do quit now
+    def quit(self):
+        """ Quit blivet-gui
+        """
 
-			title = _("Are you sure you want to quit?")
-			msg = _("There are unapplied queued actions. Are you sure you want to quit blivet-gui now?")
+        if self.actions != 0:
+            # There are queued actions we don't want do quit now
 
-			dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
-			response = dialog.run()
+            title = _("Are you sure you want to quit?")
+            msg = _("There are unapplied queued actions. Are you sure you want " \
+                " to quit blivet-gui now?")
 
-			if response == Gtk.ResponseType.OK:
+            dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
+            response = dialog.run()
 
-				Gtk.main_quit()
+            if response == Gtk.ResponseType.OK:
 
-			elif response == Gtk.ResponseType.CANCEL:
-				pass
+                Gtk.main_quit()
 
-			dialog.destroy()
+            elif response == Gtk.ResponseType.CANCEL:
+                pass
 
-		else:
-			Gtk.main_quit()
+            dialog.destroy()
+
+        else:
+            Gtk.main_quit()
