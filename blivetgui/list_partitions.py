@@ -478,7 +478,11 @@ class ListPartitions():
 			
 			else:
 				if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
-					self.activate_options(["delete", "edit"])
+					if partition_device.type == "btrfs volume":
+						self.activate_options(["delete"])
+
+					else:
+						self.activate_options(["delete", "edit"])
 				
 				if partition_device.format.type == "swap" and swap_is_on(partition_device.sysfsPath) == False:
 					self.activate_options(["delete"])

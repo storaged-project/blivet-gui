@@ -226,6 +226,10 @@ class BlivetUtils():
 		free_disks = []
 
 		for disk in self.storage.disks:
+
+			if disk.format.type in ["iso9660", "btrfs"]:
+				continue
+
 			free_space = partitioning.getFreeRegions([disk])
 			for free in free_space:
 				free_size = Size(free.length * free.device.sectorSize)
@@ -258,8 +262,8 @@ class BlivetUtils():
 			
 			return partitions
 
-		elif blivet_device.isDisk and blivet_device.format.type == "iso9660":
-			# LiveUSB
+		elif blivet_device.isDisk and blivet_device.format.type in ["iso9660", "btrfs"]:
+			# LiveUSB or btrfs partition table
 
 			return partitions
 		
