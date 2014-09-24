@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # embeded.py
 # Example of blivet-gui embeded in another window
-# 
+#
 # Copyright (C) 2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -22,13 +22,13 @@
 #
 #------------------------------------------------------------------------------#
 
-import sys, os, signal
+import os
 
-import subprocess, time
+import subprocess
 
 import gettext
 
-from gi.repository import Gtk, GdkPixbuf, Gdk, GLib
+from gi.repository import Gtk
 
 #------------------------------------------------------------------------------#
 
@@ -41,31 +41,31 @@ _ = gettext.gettext
 #------------------------------------------------------------------------------#
 
 class SocketWindow(Gtk.Window):
-	""" Example Gtk.Window for blivet-gui embedding test
-	"""
-	
-	def __init__(self):
-		Gtk.Window.__init__(self, title="Embeded Window Example")
-		
-		self.set_default_size(800, 600)
-		
-		socket = Gtk.Socket()
-		self.add(socket)
-		
-		socket_id = None
-		
-		process = subprocess.Popen(["python2",  dirname + "/main.py", "-e"])
+    """ Example Gtk.Window for blivet-gui embedding test
+    """
 
-		socket_id = raw_input("Enter the ID printed above:\n")
-		socket.add_id(int(socket_id))
-		
-		self.connect("destroy", lambda w: Gtk.main_quit())
-		socket.connect("plug-added", self.plugged_event)
-		
-		self.show_all()
-	
-	def plugged_event(self, widget):
-		print "A plug has been inserted."
+    def __init__(self):
+        Gtk.Window.__init__(self, title="Embeded Window Example")
+
+        self.set_default_size(800, 600)
+
+        socket = Gtk.Socket()
+        self.add(socket)
+
+        socket_id = None
+
+        process = subprocess.Popen(["python2", dirname + "/main.py", "-e"])
+
+        socket_id = raw_input("Enter the ID printed above:\n")
+        socket.add_id(int(socket_id))
+
+        self.connect("destroy", lambda w: Gtk.main_quit())
+        socket.connect("plug-added", self.plugged_event)
+
+        self.show_all()
+
+    def plugged_event(self, widget):
+        print "A plug has been inserted."
 
 window = SocketWindow()
 Gtk.main()

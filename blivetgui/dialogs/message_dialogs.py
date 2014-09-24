@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # message_dialogs.py
 # misc Gtk.MessageDialogs
-# 
+#
 # Copyright (C) 2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -21,12 +21,12 @@
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
 #------------------------------------------------------------------------------#
- 
+
 import os
 
 import gettext
 
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import Gtk
 
 #------------------------------------------------------------------------------#
 
@@ -44,99 +44,99 @@ _ = gettext.gettext
 #------------------------------------------------------------------------------#
 
 class WarningDialog(Gtk.MessageDialog):
-	""" Custom warning dialog
-	"""
+    """ Custom warning dialog
+    """
 
-	def __init__(self, parent_window, title, msg):
+    def __init__(self, parent_window, title, msg):
 
-		self.parent_window = parent_window
-		self.title = title
-		self.msg = msg
+        self.parent_window = parent_window
+        self.title = title
+        self.msg = msg
 
-		Gtk.MessageDialog.__init__(self, None, 0,
-			Gtk.MessageType.WARNING,
-			Gtk.ButtonsType.OK,
-			self.title)
+        Gtk.MessageDialog.__init__(self, None, 0,
+            Gtk.MessageType.WARNING,
+            Gtk.ButtonsType.OK,
+            self.title)
 
-		self.format_secondary_text(self.msg)
+        self.format_secondary_text(self.msg)
 
-		self.set_transient_for(self.parent_window)
-		self.show_all()
+        self.set_transient_for(self.parent_window)
+        self.show_all()
 
-		self.connect("delete-event", Gtk.main_quit)
-		self.run()
-		self.destroy()
+        self.connect("delete-event", Gtk.main_quit)
+        self.run()
+        self.destroy()
 
 class ErrorDialog(Gtk.MessageDialog):
-	""" Custom error dialog
-	"""
+    """ Custom error dialog
+    """
 
-	def __init__(self, parent_window, title, msg):
+    def __init__(self, parent_window, title, msg):
 
-		self.parent_window = parent_window
-		self.title = title
-		self.msg = msg
+        self.parent_window = parent_window
+        self.title = title
+        self.msg = msg
 
-		Gtk.MessageDialog.__init__(self, None, 0,
-			Gtk.MessageType.ERROR,
-			Gtk.ButtonsType.OK,
-			self.title)
+        Gtk.MessageDialog.__init__(self, None, 0,
+            Gtk.MessageType.ERROR,
+            Gtk.ButtonsType.OK,
+            self.title)
 
-		self.format_secondary_text(self.msg)
+        self.format_secondary_text(self.msg)
 
-		self.set_transient_for(self.parent_window)
-		self.show_all()
+        self.set_transient_for(self.parent_window)
+        self.show_all()
 
-		self.connect("delete-event", Gtk.main_quit)
-		self.run()
-		self.destroy()
+        self.connect("delete-event", Gtk.main_quit)
+        self.run()
+        self.destroy()
 
 class ExceptionDialog():
 
-	def __init__(self, parent_window, msg, traceback):
+    def __init__(self, parent_window, msg, traceback):
 
-		builder = Gtk.Builder()
-		builder.add_from_file(dirname + '/../data/ui/exception_dialog.ui')
-		dialog = builder.get_object("exception_dialog")
+        builder = Gtk.Builder()
+        builder.add_from_file(dirname + '/../data/ui/exception_dialog.ui')
+        dialog = builder.get_object("exception_dialog")
 
-		dialog.set_transient_for(parent_window)
-		dialog.format_secondary_text(msg)
+        dialog.set_transient_for(parent_window)
+        dialog.format_secondary_text(msg)
 
-		exception_label = builder.get_object("exception_label")
-		exception_label.set_text(traceback)
+        exception_label = builder.get_object("exception_label")
+        exception_label.set_text(traceback)
 
-		dialog.show_all()
-		dialog.run()
-		dialog.destroy()
+        dialog.show_all()
+        dialog.run()
+        dialog.destroy()
 
 class ConfirmDialog(Gtk.Dialog):
-	""" General confirmation dialog
-	"""
+    """ General confirmation dialog
+    """
 
-	def __init__(self, parent_window, title, msg):
-		"""
+    def __init__(self, parent_window, title, msg):
+        """
 
-			:param parent_window: parent window
-			:type parent_window: Gtk.Window
-			:param device_name: name of partition (device) to delete
-			:type device_name: str
+            :param parent_window: parent window
+            :type parent_window: Gtk.Window
+            :param device_name: name of partition (device) to delete
+            :type device_name: str
 
-		"""
+        """
 
-		self.parent_window = parent_window
-		self.title = title
-		self.msg = msg
+        self.parent_window = parent_window
+        self.title = title
+        self.msg = msg
 
-		Gtk.Dialog.__init__(self, self.title, None, 0,
-			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-			Gtk.STOCK_OK, Gtk.ResponseType.OK))
+        Gtk.Dialog.__init__(self, self.title, None, 0,
+            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+            Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
-		self.set_transient_for(self.parent_window)
+        self.set_transient_for(self.parent_window)
 
-		self.set_default_size(175, 110)
+        self.set_default_size(175, 110)
 
-		label = Gtk.Label(self.msg)
+        label = Gtk.Label(self.msg)
 
-		box = self.get_content_area()
-		box.add(label)
-		self.show_all()
+        box = self.get_content_area()
+        box.add(label)
+        self.show_all()

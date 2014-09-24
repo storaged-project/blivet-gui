@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # actions_menu.py
 # Toolbar class
-# 
+#
 # Copyright (C) 2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -21,7 +21,7 @@
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #------------------------------------------------------------------------------#
 
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import Gtk
 
 import gettext
 
@@ -39,124 +39,124 @@ _ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
-class actions_menu():
-	def __init__(self,list_partitions):
-		self.list_partitions = list_partitions
-		self.menu = Gtk.Menu()
-		
-		# Dict to translate menu item names (str) to menu items (Gtk.MenuItem)
-		self.menu_items = {}
-		
-		self.create_menu()
-	
-	def create_menu(self):
-		""" Create popup menu
-		"""
-		
-		add_item = Gtk.MenuItem()
-		add_item.set_label(_("New"))
-		
-		add_item.connect("activate", self.on_add_item)
-		add_item.set_sensitive(False)
-		self.menu.add(add_item)
-		
-		self.menu_items["add"] = add_item
-		
-		delete_item = Gtk.MenuItem()
-		delete_item.set_label(_("Delete"))
-		
-		delete_item.connect("activate", self.on_delete_item)
-		delete_item.set_sensitive(False)
-		self.menu.add(delete_item)
-		
-		self.menu_items["delete"] = delete_item
-		
-		edit_item = Gtk.MenuItem()
-		edit_item.set_label(_("Edit"))
-		
-		edit_item.connect("activate", self.on_edit_item)
-		edit_item.set_sensitive(False)
-		self.menu.add(edit_item)
-		
-		self.menu_items["edit"] = edit_item
-		
-		self.menu.append(Gtk.SeparatorMenuItem())
-		
-		umount_item = Gtk.MenuItem()
-		umount_item.set_label(_("Unmount"))
-		
-		umount_item.connect("activate", self.on_umount_item)
-		umount_item.set_sensitive(False)
-		self.menu.add(umount_item)
-		
-		self.menu_items["unmount"] = umount_item
-		
-		decrypt_item = Gtk.MenuItem()
-		decrypt_item.set_label(_("Decrypt"))
-		
-		decrypt_item.connect("activate", self.on_decrypt_item)
-		decrypt_item.set_sensitive(False)
-		self.menu.add(decrypt_item)
-		
-		self.menu_items["decrypt"] = decrypt_item
-		
-		self.menu.show_all()
+class ActionsMenu():
+    def __init__(self, list_partitions):
+        self.list_partitions = list_partitions
+        self.menu = Gtk.Menu()
 
-	def activate_menu_items(self,menu_item_names):
-		""" Activate selected menu items
-		
-			:param menu_item_names: names of menu items to activate
-			:type button_names: list of str
-			
-		"""
-		
-		for item in menu_item_names:
-			self.menu_items[item].set_sensitive(True)
-		
-	def deactivate_menu_items(self,menu_item_names):
-		""" Deactivate selected buttons
-		
-			:param menu_item_names: names of menu items to activate
-			:type button_names: list of str
-			
-		"""
-		
-		for item in menu_item_names:
-			self.menu_items[item].set_sensitive(True)
-			
-	def deactivate_all(self):
-		""" Deactivate all partition based buttons
-		"""
-		
-		for item in self.menu_items:
-			self.menu_items[item].set_sensitive(False)
-	
-	def on_add_item(self, event):
-		""" Onselect action for add item
-		"""
-		self.list_partitions.add_partition()
-	
-	def on_delete_item(self, event):
-		""" Onselect action for delete item
-		"""
-		self.list_partitions.delete_selected_partition()
-	
-	def on_edit_item(self, event):
-		""" Onselect action for edit item
-		"""
-		self.list_partitions.edit_partition()
-	
-	def on_umount_item(self, event):
-		""" Onselect action for umount item
-		"""
-		self.list_partitions.umount_partition()
-		
-	def on_decrypt_item(self, event):
-		""" Onselect action for 'Decrypt'
-		"""
-		
-		self.list_partitions.decrypt_device()
-	
-	@property
-	def get_menu(self):
-		return self.menu
+        # Dict to translate menu item names (str) to menu items (Gtk.MenuItem)
+        self.menu_items = {}
+
+        self.create_menu()
+
+    def create_menu(self):
+        """ Create popup menu
+        """
+
+        add_item = Gtk.MenuItem()
+        add_item.set_label(_("New"))
+
+        add_item.connect("activate", self.on_add_item)
+        add_item.set_sensitive(False)
+        self.menu.add(add_item)
+
+        self.menu_items["add"] = add_item
+
+        delete_item = Gtk.MenuItem()
+        delete_item.set_label(_("Delete"))
+
+        delete_item.connect("activate", self.on_delete_item)
+        delete_item.set_sensitive(False)
+        self.menu.add(delete_item)
+
+        self.menu_items["delete"] = delete_item
+
+        edit_item = Gtk.MenuItem()
+        edit_item.set_label(_("Edit"))
+
+        edit_item.connect("activate", self.on_edit_item)
+        edit_item.set_sensitive(False)
+        self.menu.add(edit_item)
+
+        self.menu_items["edit"] = edit_item
+
+        self.menu.append(Gtk.SeparatorMenuItem())
+
+        umount_item = Gtk.MenuItem()
+        umount_item.set_label(_("Unmount"))
+
+        umount_item.connect("activate", self.on_umount_item)
+        umount_item.set_sensitive(False)
+        self.menu.add(umount_item)
+
+        self.menu_items["unmount"] = umount_item
+
+        decrypt_item = Gtk.MenuItem()
+        decrypt_item.set_label(_("Decrypt"))
+
+        decrypt_item.connect("activate", self.on_decrypt_item)
+        decrypt_item.set_sensitive(False)
+        self.menu.add(decrypt_item)
+
+        self.menu_items["decrypt"] = decrypt_item
+
+        self.menu.show_all()
+
+    def activate_menu_items(self, menu_item_names):
+        """ Activate selected menu items
+
+            :param menu_item_names: names of menu items to activate
+            :type button_names: list of str
+
+        """
+
+        for item in menu_item_names:
+            self.menu_items[item].set_sensitive(True)
+
+    def deactivate_menu_items(self, menu_item_names):
+        """ Deactivate selected buttons
+
+            :param menu_item_names: names of menu items to activate
+            :type button_names: list of str
+
+        """
+
+        for item in menu_item_names:
+            self.menu_items[item].set_sensitive(True)
+
+    def deactivate_all(self):
+        """ Deactivate all partition based buttons
+        """
+
+        for item in self.menu_items:
+            self.menu_items[item].set_sensitive(False)
+
+    def on_add_item(self, event):
+        """ Onselect action for add item
+        """
+        self.list_partitions.add_partition()
+
+    def on_delete_item(self, event):
+        """ Onselect action for delete item
+        """
+        self.list_partitions.delete_selected_partition()
+
+    def on_edit_item(self, event):
+        """ Onselect action for edit item
+        """
+        self.list_partitions.edit_partition()
+
+    def on_umount_item(self, event):
+        """ Onselect action for umount item
+        """
+        self.list_partitions.umount_partition()
+
+    def on_decrypt_item(self, event):
+        """ Onselect action for 'Decrypt'
+        """
+
+        self.list_partitions.decrypt_device()
+
+    @property
+    def get_menu(self):
+        return self.menu

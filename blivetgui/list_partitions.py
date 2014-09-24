@@ -94,10 +94,10 @@ class ListPartitions():
         self.darea = device_canvas(blivet_utils=self.b, list_partitions=self)
         self.builder.get_object("image_window").add(self.darea)
 
-        self.main_menu = main_menu(self.main_window, self, self.list_devices)
+        self.main_menu = MainMenu(self.main_window, self, self.list_devices)
         self.builder.get_object("vbox").add(self.main_menu.get_main_menu)
 
-        self.popup_menu = actions_menu(self)
+        self.popup_menu = ActionsMenu(self)
         self.toolbar = actions_toolbar(self, self.main_window)
         self.builder.get_object("vbox").add(self.toolbar.get_toolbar)
 

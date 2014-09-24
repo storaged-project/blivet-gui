@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # main.py
 # Main
-# 
+#
 # Copyright (C) 2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -48,58 +48,57 @@ _ = gettext.gettext
 #------------------------------------------------------------------------------#
 
 def parse_options():
-	"""
-	Parses command-line arguments passed to blivet_gui
-	"""
-	parser = optparse.OptionParser()
-	parser.add_option("-v", "--version", action="store_true", dest="version", 
-				   default=False, help=_("show version information"))
-	parser.add_option("-e", "--embeded", action="store_true", dest="embeded", 
-				   default=False, help=_("embed this application"))
-	parser.add_option("-k", "--kickstart", action="store_true", dest="kickstart", 
-				   default=False, help=_("run blivet-gui in kickstart mode"))
+    """
+    Parses command-line arguments passed to blivet_gui
+    """
+    parser = optparse.OptionParser()
+    parser.add_option("-v", "--version", action="store_true", dest="version",
+                   default=False, help=_("show version information"))
+    parser.add_option("-e", "--embeded", action="store_true", dest="embeded",
+                   default=False, help=_("embed this application"))
+    parser.add_option("-k", "--kickstart", action="store_true", dest="kickstart",
+                   default=False, help=_("run blivet-gui in kickstart mode"))
 
-	(options, args) = parser.parse_args()
-	
-	return options
+    (options, args) = parser.parse_args()
+
+    return options
 
 def main(options=None):
-	
-	if options == None:
-			options = parse_options()
-		
-	if options.version:
-		print APP_NAME, "version", APP_VERSION
-		sys.exit(0)
-	
-	elif os.geteuid() != 0:
-		# root privileges are required for blivet
 
-		title = _("Root privileges required")
-		msg = _("Root privileges are required for running blivet-gui.")
-		message_dialogs.ErrorDialog(None, title, msg)
-		sys.exit(0)
-	
-	else:
-		
-		if options.embeded:
-			if options.kickstart:
-				MainWindow = embeded_window(kickstart=True)
-			else:
-				MainWindow = embeded_window()
-			MainWindow.show_all()
-		
-		elif options.kickstart:
-			MainWindow = main_window(kickstart=True)
-			MainWindow.set_position(Gtk.WindowPosition.CENTER)
-			MainWindow.show_all()
+    if options == None:
+        options = parse_options()
 
-		else:
-			MainWindow = main_window()
-			MainWindow.set_position(Gtk.WindowPosition.CENTER)
-			MainWindow.show_all()
+    if options.version:
+        print APP_NAME, "version", APP_VERSION
+        sys.exit(0)
 
-		Gtk.main()
+    elif os.geteuid() != 0:
+        # root privileges are required for blivet
 
-if  __name__ =='__main__':main()
+        title = _("Root privileges required")
+        msg = _("Root privileges are required for running blivet-gui.")
+        message_dialogs.ErrorDialog(None, title, msg)
+        sys.exit(0)
 
+    else:
+
+        if options.embeded:
+            if options.kickstart:
+                MainWindow = embeded_window(kickstart=True)
+            else:
+                MainWindow = embeded_window()
+            MainWindow.show_all()
+
+        elif options.kickstart:
+            MainWindow = main_window(kickstart=True)
+            MainWindow.set_position(Gtk.WindowPosition.CENTER)
+            MainWindow.show_all()
+
+        else:
+            MainWindow = main_window()
+            MainWindow.set_position(Gtk.WindowPosition.CENTER)
+            MainWindow.show_all()
+
+        Gtk.main()
+
+if  __name__ == '__main__': main()

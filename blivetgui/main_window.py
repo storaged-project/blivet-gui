@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # main_window.py
 # blivet-gui Main Window
-# 
+#
 # Copyright (C) 2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -22,9 +22,9 @@
 #
 #------------------------------------------------------------------------------#
 
-import sys, os, signal, logging
+import os, signal
 
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import Gtk
 
 import gettext
 
@@ -45,42 +45,42 @@ _ = gettext.gettext
 #------------------------------------------------------------------------------#
 
 def main_window(kickstart = False):
-	""" Create main window from Glade UI file
-	"""
-	
-	builder = Gtk.Builder()
-	builder.add_from_file(dirname + '/data/ui/blivet-gui.ui')
+    """ Create main window from Glade UI file
+    """
 
-	signal.signal(signal.SIGINT, signal.SIG_DFL)
+    builder = Gtk.Builder()
+    builder.add_from_file(dirname + '/data/ui/blivet-gui.ui')
 
-	MainWindow = builder.get_object("MainWindow")
-	MainWindow.connect("delete-event", Gtk.main_quit)
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
 
-	l = ListDevices(MainWindow, builder, kickstart)
+    MainWindow = builder.get_object("MainWindow")
+    MainWindow.connect("delete-event", Gtk.main_quit)
 
-	# u = udisks_thread()
-	# u.start()
-	
-	return MainWindow
+    l = ListDevices(MainWindow, builder, kickstart)
+
+    # u = udisks_thread()
+    # u.start()
+
+    return MainWindow
 
 def embeded_window(kickstart=False):
-	""" Create Gtk.Plug widget
-	"""
-	
-	window_id = 0
-	plug = Gtk.Plug(window_id)
-	
-	#FIXME
-	print plug.get_id()
-	
-	builder = Gtk.Builder()
-	builder.add_from_file(dirname + '/data/ui/blivet-gui.ui')
+    """ Create Gtk.Plug widget
+    """
 
-	signal.signal(signal.SIGINT, signal.SIG_DFL)
+    window_id = 0
+    plug = Gtk.Plug(window_id)
 
-	vbox = builder.get_object("vbox")
-	vbox.reparent(plug)
+    #FIXME
+    print plug.get_id()
 
-	ListDevices(plug, builder, kickstart)
-	
-	return plug
+    builder = Gtk.Builder()
+    builder.add_from_file(dirname + '/data/ui/blivet-gui.ui')
+
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+
+    vbox = builder.get_object("vbox")
+    vbox.reparent(plug)
+
+    ListDevices(plug, builder, kickstart)
+
+    return plug

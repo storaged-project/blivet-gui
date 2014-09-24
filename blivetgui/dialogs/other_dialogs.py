@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # other_dialogs.py
 # misc Gtk.Dialog classes
-# 
+#
 # Copyright (C) 2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
@@ -21,12 +21,12 @@
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
 #------------------------------------------------------------------------------#
- 
+
 import os
 
 import gettext
 
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import Gtk
 
 #------------------------------------------------------------------------------#
 
@@ -44,81 +44,82 @@ _ = gettext.gettext
 #------------------------------------------------------------------------------#
 
 class AboutDialog(Gtk.AboutDialog):
-	""" Standard 'about application' dialog
-	"""
-	
-	def __init__(self, parent_window):
-		Gtk.AboutDialog.__init__(self)
-		
-		self.parent_window = parent_window
-		
-		self.set_transient_for(self.parent_window)
-		
-		authors = ["Vojtech Trefny <vtrefny@redhat.com>"]
-		documenters = ["Vojtech Trefny <vtrefny@redhat.com>"]
+    """ Standard 'about application' dialog
+    """
 
-		self.set_program_name(APP_NAME)
-		self.set_copyright(_("Copyright \xc2\xa9 2014 Red Hat Inc."))
-		self.set_authors(authors)
-		self.set_documenters(documenters)
-		self.set_website("https://github.com/vojtechtrefny/blivet-gui")
-		self.set_website_label("blivet-gui Website")
-		self.set_license_type(Gtk.License.GPL_3_0)
+    def __init__(self, parent_window):
+        Gtk.AboutDialog.__init__(self)
 
-		self.set_title("")
+        self.parent_window = parent_window
 
-		self.connect("response", self.on_close)
+        self.set_transient_for(self.parent_window)
 
-		self.show()
+        authors = ["Vojtech Trefny <vtrefny@redhat.com>"]
+        documenters = ["Vojtech Trefny <vtrefny@redhat.com>"]
 
-	def on_close(self, action, par):
-		self.destroy()
-		
+        self.set_program_name(APP_NAME)
+        self.set_copyright(_("Copyright \xc2\xa9 2014 Red Hat Inc."))
+        self.set_authors(authors)
+        self.set_documenters(documenters)
+        self.set_website("https://github.com/vojtechtrefny/blivet-gui")
+        self.set_website_label("blivet-gui Website")
+        self.set_license_type(Gtk.License.GPL_3_0)
+
+        self.set_title("")
+
+        self.connect("response", self.on_close)
+
+        self.show()
+
+    def on_close(self, action, par):
+        self.destroy()
+
 
 class LuksPassphraseDialog(Gtk.Dialog):
-	""" Dialog window allowing user to enter passphrase to decrypt 
-	"""
-	
-	def __init__(self, parent_window, device_name):
-		"""
-		
-			:param parent_window: parent window
-			:type parent_window: Gtk.Window
-			:param device_name: name of device to decrypt
-			:type device_name: str
-			
-		"""
-		
-		self.parent_window = parent_window
-		self.device_name = device_name
-		
-		Gtk.Dialog.__init__(self, _("Enter passphrase to decrypt {0}").format(self.device_name), None, 0,
-			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-			Gtk.STOCK_OK, Gtk.ResponseType.OK))
-		
-		self.set_transient_for(self.parent_window)
-		
-		self.set_default_size(250, 100)
-		self.set_border_width(10)
-		
-		self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
-		
-		box = self.get_content_area()
-		box.add(self.grid)
-		
-		self.pass_label = Gtk.Label()
-		self.pass_label.set_markup(_("Passphrase:"))
-		
-		self.grid.attach(self.pass_label, 0, 0, 1, 1) #left-top-width-height
-		
-		self.pass_entry = Gtk.Entry()
-		self.pass_entry.set_visibility(False)
-		self.pass_entry.set_property("caps-lock-warning", True)
-		
-		self.grid.attach(self.pass_entry, 1, 0, 2, 1)
-		
-		self.show_all()
-		
-	def get_selection(self):
-		
-		return self.pass_entry.get_text()
+    """ Dialog window allowing user to enter passphrase to decrypt
+    """
+
+    def __init__(self, parent_window, device_name):
+        """
+
+            :param parent_window: parent window
+            :type parent_window: Gtk.Window
+            :param device_name: name of device to decrypt
+            :type device_name: str
+
+        """
+
+        self.parent_window = parent_window
+        self.device_name = device_name
+
+        Gtk.Dialog.__init__(self, _("Enter passphrase to decrypt {0}").format(self.device_name),
+            None, 0, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                Gtk.STOCK_OK, Gtk.ResponseType.OK))
+
+        self.set_transient_for(self.parent_window)
+
+        self.set_default_size(250, 100)
+        self.set_border_width(10)
+
+        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
+            column_spacing=5)
+
+        box = self.get_content_area()
+        box.add(self.grid)
+
+        self.pass_label = Gtk.Label()
+        self.pass_label.set_markup(_("Passphrase:"))
+
+        self.grid.attach(self.pass_label, 0, 0, 1, 1) #left-top-width-height
+
+        self.pass_entry = Gtk.Entry()
+        self.pass_entry.set_visibility(False)
+        self.pass_entry.set_property("caps-lock-warning", True)
+
+        self.grid.attach(self.pass_entry, 1, 0, 2, 1)
+
+        self.show_all()
+
+    def get_selection(self):
+
+        return self.pass_entry.get_text()
