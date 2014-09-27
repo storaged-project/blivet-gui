@@ -28,7 +28,7 @@ from dialogs import message_dialogs
 
 import gettext
 
-import os, subprocess, copy, traceback
+import os, subprocess, copy, traceback, socket
 
 import pykickstart.parser
 from pykickstart.version import makeVersion
@@ -455,33 +455,42 @@ class BlivetUtils():
 
             return False
 
-    def _pick_device_name(self, name, parent_devices):
+    def _pick_device_name(self, name, parent_device=None):
         """ Pick name for device.
             If user choosed a name, check it and (if necessary) change it
 
             :param name: name selected by user
             :type name: str
-            :param parent_devices: list of parent devices
-            :type parent_devices: list of blivet.Device
+            :param parent_device: parent device
+            :type parent_device: blivet.Device
             :returns: new (valid) name
             :rtype: str
 
         """
 
-        if name == None:
-            name = self.storage.suggestDeviceName(parent=parent_devices, swap=False)
+        if not name:
+
+            if parent_device:
+                name = self.storage.suggestDeviceName(parent=parent_device,
+                    swap=False)
+
+            else:
+                name = self.storage.suggestContainerName(
+                    hostname=socket.gethostname())
 
         else:
             name = self.storage.safeDeviceName(name)
 
-        if name in self.storage.names:
-            for i in range(100):
-                if name + "-" + str(i) not in self.storage.names:
-                    name = name + "-" + str(i)
-                    break
+            # if name exists add -XX suffix
+            if name in self.storage.names:
+                for i in range(100):
+                    if name + "-" + str(i) not in self.storage.names:
+                        name = name + "-" + str(i)
+                        break
 
-        if name in self.storage.names:
-            name = self.storage.suggestDeviceName(parent=parent_devices, swap=False)
+            # if still exists let blivet pick it
+            if name in self.storage.names:
+                name = _pick_device_name(name=None, parent_device=parent_device)
 
         return name
 
@@ -556,7 +565,7 @@ class BlivetUtils():
 
         elif user_input.device_type == "LVM2 Storage":
 
-            device_name = self._pick_device_name(user_input.name, user_input.parents)
+            device_name = self._pick_device_name(user_input.name)
 
             if user_input.encrypt:
                 dev = self.storage.newPartition(size=user_input.size,
@@ -601,7 +610,7 @@ class BlivetUtils():
         elif user_input.device_type == _("LVM2 Logical Volume"):
 
             device_name = self._pick_device_name(user_input.name,
-                user_input.parents)
+                user_input.parents[0])
 
             new_part = self.storage.newLV(size=user_input.size,
                 parents=user_input.parents, name=device_name)
@@ -618,8 +627,7 @@ class BlivetUtils():
 
         elif user_input.device_type == _("LVM2 Volume Group"):
 
-            device_name = self._pick_device_name(user_input.name,
-                user_input.parents)
+            device_name = self._pick_device_name(user_input.name)
 
             new_part = self.storage.newVG(size=user_input.size,
                 parents=user_input.parents, name=device_name)
@@ -662,7 +670,7 @@ class BlivetUtils():
 
         elif user_input.device_type == _("Btrfs Volume"):
 
-            device_name = self._pick_device_name(user_input.name, user_input.parents)
+            device_name = self._pick_device_name(user_input.name)
 
             # for btrfs we need to create parents first -- currently selected "parents" are
             # disks but "real parents" for subvolume are btrfs formatted partitions
@@ -711,7 +719,8 @@ class BlivetUtils():
 
         elif user_input.device_type == _("Btrfs Subvolume"):
 
-            device_name = self._pick_device_name(user_input.name, user_input.parents)
+            device_name = self._pick_device_name(user_input.name,
+                user_input.parents[0])
 
             new_btrfs = self.storage.newBTRFSSubVolume(parents=user_input.parents,
                 name=device_name)
