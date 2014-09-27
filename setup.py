@@ -10,7 +10,8 @@ setup(
 	url = "http://github.com/vojtechtrefny/blivet-gui",
 	package_dir = {'blivetgui' : 'blivetgui'},
 	package_data = {'blivetgui' : ['data/ui/*.ui', 'help/C/*.page',
-			'help/C/*.xml', 'help/C/icons/*', 'help/C/images/*', 'devicevisualization/*.py']},
+			'help/C/*.xml', 'help/C/icons/*', 'help/C/images/*',
+			'devicevisualization/*.py'], 'dialogs/*.py'},
 	classifiers = [
 		'Development Status :: 4 - Beta',
 		'Environment :: X11 Applications :: GTK',
