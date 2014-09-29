@@ -22,7 +22,7 @@
 #
 #------------------------------------------------------------------------------#
 
-import os, threading
+import os, threading, traceback
 
 import gettext
 
@@ -115,5 +115,6 @@ class ProcessingActions(Gtk.Dialog):
             GObject.idle_add(self.end)
 
         except Exception as e:
+            print traceback.format_exc()
             self.list_partitions.b.blivet_reset()
-            GObject.idle_add(self.end(error=e))
+            GObject.idle_add(self.end, e)
