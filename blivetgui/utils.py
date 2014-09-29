@@ -384,6 +384,12 @@ class BlivetUtils():
             message_dialogs.ExceptionDialog(self.main_window, str(e),
                 traceback.format_exc())
 
+        # for btrfs volumes delete parents partition after deleting volume
+        if blivet_device.type == "btrfs volume":
+            for parent in blivet_device.parents:
+                if parent.type == "partition":
+                    self.delete_device(parent)
+
     def device_resizable(self, blivet_device):
         """ Is given device resizable
 
@@ -916,6 +922,7 @@ class BlivetUtils():
         """
 
         self.storage.doIt()
+        self.storage.reset()
 
     def create_kickstart_file(self, fname):
         """ Create kickstart config file
