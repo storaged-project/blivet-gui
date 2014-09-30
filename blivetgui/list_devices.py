@@ -151,6 +151,26 @@ class ListDevices():
 
         return len(disks)
 
+    def load_btrfs_volumes(self):
+        """ Load Btrfs Volumes
+        """
+
+        icon_theme = Gtk.IconTheme.get_default()
+        icon_btrfs = Gtk.IconTheme.load_icon(icon_theme,
+            "drive-removable-media", 32, 0)
+
+        bdevices = self.b.get_btrfs_volumes()
+
+        if bdevices:
+            self.device_list.append([None, None, _("<b>Btrfs Volumes</b>")])
+
+        for device in bdevices:
+
+            self.device_list.append([device, icon_btrfs, str(device.name +
+                "\n<i><small>Btrfs Volume</small></i>")])
+
+        return len(bdevices)
+
     def load_lvm_physical_volumes(self):
         """ Load LVM2 PVs
         """
@@ -198,7 +218,6 @@ class ListDevices():
         devices = 0
 
         devices += self.load_disks()
-        devices += self.load_lvm_physical_volumes()
         devices += self.load_lvm_volume_groups()
 
         return devices

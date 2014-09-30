@@ -201,6 +201,16 @@ class BlivetUtils():
 
         return self.storage.pvs
 
+    def get_btrfs_volumes(self):
+        """ Return list of Btrfs Volumes
+
+            :returns: list of btrfs volumes
+            :rtype: list
+
+        """
+
+        return self.storage.btrfsVolumes
+
     def get_free_pvs_info(self):
         """ Return list of PVs without VGs
 
