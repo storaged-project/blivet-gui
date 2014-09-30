@@ -298,12 +298,11 @@ class MainMenu():
                 stdout=FNULL, stderr=subprocess.STDOUT)
 
         except Exception as e:
-            title = _("Error:")
             msg = _("You need \"Yelp\" to see the documentation.\n" + str(e) +
                 "\n\nOnline version of documentation is available at " \
                 "http://vojtechtrefny.github.io/")
 
-            ErrorDialog(self.main_window, title, msg)
+            ErrorDialog(self.main_window, msg)
 
     def on_undo_item(self, event):
         """ Onselect action for 'Undo Last Action'

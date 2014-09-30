@@ -75,9 +75,8 @@ def main(options=None):
     elif os.geteuid() != 0:
         # root privileges are required for blivet
 
-        title = _("Root privileges required")
         msg = _("Root privileges are required for running blivet-gui.")
-        message_dialogs.ErrorDialog(None, title, msg)
+        message_dialogs.ErrorDialog(None, msg)
         sys.exit(0)
 
     else:

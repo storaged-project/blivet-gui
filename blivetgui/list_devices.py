@@ -75,7 +75,7 @@ class ListDevices():
                     "to work with.\n\nPlease connect a storage device to your " \
                     "computer and re-run blivet-gui.")
 
-                message_dialogs.WarningDialog(self.main_window, msg)
+                message_dialogs.ErrorDialog(self.main_window, msg)
                 sys.exit(0)
 
             dialog = kickstart_dialogs.KickstartSelectDevicesDialog(self.main_window, disks)
@@ -121,7 +121,7 @@ class ListDevices():
 
             msg = _("blivet-gui failed to find at least one storage device to work with.\
                 \n\nPlease connect a storage device to your computer and re-run blivet-gui.")
-            message_dialogs.WarningDialog(self.main_window, msg)
+            message_dialogs.ErrorDialog(self.main_window, msg)
             sys.exit(0)
 
 

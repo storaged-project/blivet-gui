@@ -515,7 +515,7 @@ class ListPartitions():
         dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
         response = dialog.run()
 
-        if response == Gtk.ResponseType.OK:
+        if response :
 
             self.history.add_undo(self.b.return_devicetree)
             self.main_menu.activate_menu_items(["undo"])
@@ -525,11 +525,6 @@ class ListPartitions():
             self.update_actions_view("delete", _("delete partition {0}").format(self.selected_partition[0].name))
 
             self.selected_partition = None
-
-        elif response == Gtk.ResponseType.CANCEL:
-            pass
-
-        dialog.destroy()
 
         self.update_partitions_view(self.disk)
 
@@ -598,18 +593,16 @@ class ListPartitions():
             if user_input.filesystem == None and user_input.device_type in ["Partition", "LVM2 Logical Volume"]:
                 # If fs is not selected, show error window and re-run add dialog
 
-                title = _("Error:")
                 msg = _("Filesystem type must be specified when creating new partition.")
-                message_dialogs.ErrorDialog(dialog, title, msg)
+                message_dialogs.ErrorDialog(dialog, msg)
 
                 dialog.destroy()
                 self.add_partition() #TODO pass previously entered input and prefill the dialog
 
             elif user_input.encrypt and not user_input.passphrase:
 
-                title = _("Error:")
                 msg = _("Passphrase not specified.")
-                message_dialogs.ErrorDialog(dialog, title, msg)
+                message_dialogs.ErrorDialog(dialog, msg)
 
                 dialog.destroy()
                 self.add_partition()
@@ -669,21 +662,17 @@ class ListPartitions():
 
             title = _("Duplicate mountpoint detected")
             msg = _("Selected mountpoint \"{0}\" is already used for \"{1}\" " \
-                "device. Do you want to remove this mountpoint?").format(mountpoint, old_device)
+                "device. Do you want to remove this mountpoint?").format(mountpoint,
+                old_device.name)
 
-            dialog = message_dialogs.WarningDialog(self.main_window, title, msg)
+            dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
 
             response = dialog.run()
 
-            if response == Gtk.ResponseType.OK:
+            if response:
                 old_device.format.mountpoint = None
 
-                dialog.destroy()
-                return True
-            else:
-                dialog.destroy()
-                return False
-
+            return response
 
     def perform_actions(self):
         """ Perform queued actions
@@ -743,15 +732,8 @@ class ListPartitions():
 
             response = dialog.run()
 
-            if response == Gtk.ResponseType.OK:
-
-                dialog.destroy()
-
+            if response:
                 self.perform_actions()
-
-            elif response == Gtk.ResponseType.CANCEL:
-                dialog.destroy()
-
 
     def umount_partition(self):
         """ Unmount selected partition
@@ -764,9 +746,8 @@ class ListPartitions():
 
         else:
 
-            title = _("Unmount failed.")
-            msg = _("Are you sure {0} is not in use?").format(self.selected_partition[0].name)
-            message_dialogs.ErrorDialog(self.main_window, title, msg)
+            msg = _("Unmount failed. Are you sure {0} is not in use?").format(self.selected_partition[0].name)
+            message_dialogs.ErrorDialog(self.main_window, msg)
 
     def decrypt_device(self):
         """ Decrypt selected device
@@ -784,9 +765,8 @@ class ListPartitions():
 
             if ret:
 
-                title = _("Error:")
                 msg = _("Unknown error appeared:\n\n{0}.").format(ret)
-                message_dialogs.ErrorDialog(self.main_window, title, msg)
+                message_dialogs.ErrorDialog(self.main_window, msg)
 
                 return
 
@@ -920,16 +900,13 @@ class ListPartitions():
             dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
             response = dialog.run()
 
-            if response == Gtk.ResponseType.OK:
+            if response:
 
                 self.b.blivet_reload()
-
                 self.history.clear_history()
 
                 self.list_devices.update_devices_view()
                 self.update_partitions_view(self.disk)
-
-            dialog.destroy()
 
         else:
             self.b.blivet_reload()
@@ -952,14 +929,8 @@ class ListPartitions():
             dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
             response = dialog.run()
 
-            if response == Gtk.ResponseType.OK:
-
+            if response:
                 Gtk.main_quit()
-
-            elif response == Gtk.ResponseType.CANCEL:
-                pass
-
-            dialog.destroy()
 
         else:
             Gtk.main_quit()

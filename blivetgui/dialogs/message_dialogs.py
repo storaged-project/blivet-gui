@@ -43,53 +43,39 @@ _ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
-class WarningDialog(Gtk.MessageDialog):
+class WarningDialog():
     """ Custom warning dialog
     """
 
-    def __init__(self, parent_window, title, msg):
+    def __init__(self, parent_window, msg):
 
-        self.parent_window = parent_window
-        self.title = title
-        self.msg = msg
+        builder = Gtk.Builder()
+        builder.add_from_file(dirname + '/../data/ui/warning_dialog.ui')
+        dialog = builder.get_object("warning_dialog")
 
-        Gtk.MessageDialog.__init__(self, None, 0,
-            Gtk.MessageType.WARNING,
-            Gtk.ButtonsType.OK,
-            self.title)
+        dialog.set_transient_for(parent_window)
+        dialog.format_secondary_text(msg)
 
-        self.format_secondary_text(self.msg)
+        dialog.show_all()
+        dialog.run()
+        dialog.destroy()
 
-        self.set_transient_for(self.parent_window)
-        self.show_all()
-
-        self.connect("delete-event", Gtk.main_quit)
-        self.run()
-        self.destroy()
-
-class ErrorDialog(Gtk.MessageDialog):
+class ErrorDialog():
     """ Custom error dialog
     """
 
-    def __init__(self, parent_window, title, msg):
+    def __init__(self, parent_window, msg):
 
-        self.parent_window = parent_window
-        self.title = title
-        self.msg = msg
+        builder = Gtk.Builder()
+        builder.add_from_file(dirname + '/../data/ui/error_dialog.ui')
+        dialog = builder.get_object("error_dialog")
 
-        Gtk.MessageDialog.__init__(self, None, 0,
-            Gtk.MessageType.ERROR,
-            Gtk.ButtonsType.OK,
-            self.title)
+        dialog.set_transient_for(parent_window)
+        dialog.format_secondary_text(msg)
 
-        self.format_secondary_text(self.msg)
-
-        self.set_transient_for(self.parent_window)
-        self.show_all()
-
-        self.connect("delete-event", Gtk.main_quit)
-        self.run()
-        self.destroy()
+        dialog.show_all()
+        dialog.run()
+        dialog.destroy()
 
 class ExceptionDialog():
 
@@ -109,34 +95,26 @@ class ExceptionDialog():
         dialog.run()
         dialog.destroy()
 
-class ConfirmDialog(Gtk.Dialog):
+class ConfirmDialog():
     """ General confirmation dialog
     """
 
     def __init__(self, parent_window, title, msg):
-        """
 
-            :param parent_window: parent window
-            :type parent_window: Gtk.Window
-            :param device_name: name of partition (device) to delete
-            :type device_name: str
+        builder = Gtk.Builder()
+        builder.add_from_file(dirname + '/../data/ui/confirm_dialog.ui')
+        self.dialog = builder.get_object("confirm_dialog")
 
-        """
+        self.dialog.set_transient_for(parent_window)
+        self.dialog.set_markup("<b>" + title + "</b>")
+        self.dialog.format_secondary_text(msg)
 
-        self.parent_window = parent_window
-        self.title = title
-        self.msg = msg
+        self.dialog.show_all()
 
-        Gtk.Dialog.__init__(self, self.title, None, 0,
-            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-            Gtk.STOCK_OK, Gtk.ResponseType.OK))
+    def run(self):
 
-        self.set_transient_for(self.parent_window)
+        response = self.dialog.run()
 
-        self.set_default_size(175, 110)
+        self.dialog.destroy()
 
-        label = Gtk.Label(self.msg)
-
-        box = self.get_content_area()
-        box.add(label)
-        self.show_all()
+        return response == Gtk.ResponseType.OK
