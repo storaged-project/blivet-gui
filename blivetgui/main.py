@@ -22,6 +22,8 @@
 #
 #------------------------------------------------------------------------------#
 
+from __future__ import print_function
+
 import sys, optparse
 
 import gettext
@@ -33,6 +35,8 @@ from dialogs import message_dialogs
 from main_window import *
 
 from udisks_loop import udisks_thread
+
+#------------------------------------------------------------------------------#
 
 APP_NAME = "blivet-gui"
 APP_VERSION = "0.1.0"
@@ -65,7 +69,7 @@ def main(options=None):
         options = parse_options()
 
     if options.version:
-        print APP_NAME, "version", APP_VERSION
+        print(APP_NAME, "version", APP_VERSION)
         sys.exit(0)
 
     elif os.geteuid() != 0:
