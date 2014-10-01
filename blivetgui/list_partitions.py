@@ -48,13 +48,7 @@ from devicevisualization.device_canvas import device_canvas
 
 #------------------------------------------------------------------------------#
 
-APP_NAME = "blivet-gui"
-
-dirname, filename = os.path.split(os.path.abspath(__file__))
-
-gettext.bindtextdomain('blivetgui', dirname + '/i18n')
-gettext.textdomain('blivetgui')
-_ = gettext.gettext
+_ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 

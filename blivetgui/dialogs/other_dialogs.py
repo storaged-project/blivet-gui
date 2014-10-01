@@ -30,16 +30,7 @@ from gi.repository import Gtk
 
 #------------------------------------------------------------------------------#
 
-APP_NAME = "blivet-gui"
-
-dirname, filename = os.path.split(os.path.abspath(__file__))
-
-#t = gettext.translation('messages', dirname + '/i18n')
-#_ = t.gettext
-
-gettext.bindtextdomain('blivetgui', dirname + '/i18n')
-gettext.textdomain('blivetgui')
-_ = gettext.gettext
+_ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 

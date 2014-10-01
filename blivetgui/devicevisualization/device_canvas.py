@@ -26,19 +26,7 @@ import os
 
 from gi.repository import Gtk, Gdk, Gio
 
-import gettext
-
 import cairo
-
-#------------------------------------------------------------------------------#
-
-APP_NAME = "blivet-gui"
-
-dirname, filename = os.path.split(os.path.abspath(__file__))
-
-gettext.bindtextdomain('blivetgui', dirname + '/i18n')
-gettext.textdomain('blivetgui')
-_ = gettext.gettext
 
 #------------------------------------------------------------------------------#
 
