@@ -1,6 +1,8 @@
 *.py[cod]
 *.sw[po]
 
+po/*.po
+
 # Packages
 *.egg
 *.egg-info
@@ -8,6 +10,8 @@ dist
 build
 sdist
 _build
+
+doc/_build
 
 *.sqlite3
 
