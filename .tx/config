@@ -2,7 +2,7 @@
 host = https://www.transifex.com
 
 [blivet-gui.blivet-guipot]
-file_filter = translations/blivet-gui.blivet-guipot/<lang>.po
+file_filter = po/<lang>.po
 source_file = po/blivet-gui.pot
 source_lang = en
 type = PO
