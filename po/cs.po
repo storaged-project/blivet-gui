@@ -1,0 +1,575 @@
+# Language LOCALE=cs translations for PACKAGE package.
+# Copyright (C) 2014 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Vojtěch Trefný <vtrefny@redhat.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-01 14:20+0200\n"
+"PO-Revision-Date: 2014-04-05 22:10+0200\n"
+"Last-Translator: Vojtch Trefn <vtrefny@redhat.com>\n"
+"Language-Team: Language LOCALE=cs\n"
+"Language: LOCALE=cs_CZ\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../blivetgui/utils.py:132 ../blivetgui/list_partitions.py:232
+#: ../blivetgui/list_partitions.py:455 ../blivetgui/list_partitions.py:459
+msgid "free space"
+msgstr "volné místo"
+
+#: ../blivetgui/utils.py:525 ../blivetgui/list_partitions.py:290
+#: ../blivetgui/dialogs/add_dialog.py:127
+#: ../blivetgui/dialogs/add_dialog.py:140
+#: ../blivetgui/dialogs/add_dialog.py:497
+msgid "Partition"
+msgstr "Oddíl"
+
+#: ../blivetgui/utils.py:625 ../blivetgui/dialogs/add_dialog.py:130
+msgid "LVM2 Logical Volume"
+msgstr "LVM2 Logical Volume"
+
+#: ../blivetgui/utils.py:643 ../blivetgui/dialogs/add_dialog.py:129
+#: ../blivetgui/dialogs/add_dialog.py:131
+msgid "LVM2 Volume Group"
+msgstr "LVM2 Volume Group"
+
+#: ../blivetgui/utils.py:654 ../blivetgui/dialogs/add_dialog.py:128
+#: ../blivetgui/dialogs/add_dialog.py:514
+msgid "LVM2 Physical Volume"
+msgstr "LVM2 Physical Volume"
+
+#: ../blivetgui/utils.py:686 ../blivetgui/dialogs/add_dialog.py:128
+#: ../blivetgui/dialogs/add_dialog.py:548
+msgid "Btrfs Volume"
+msgstr ""
+
+#: ../blivetgui/utils.py:735 ../blivetgui/dialogs/add_dialog.py:132
+msgid "Btrfs Subvolume"
+msgstr ""
+
+#: ../blivetgui/list_devices.py:74
+msgid ""
+"blivet-gui failed to find at least one storage device to work with.\n"
+"\n"
+"Please connect a storage device to your computer and re-run blivet-gui."
+msgstr ""
+
+#: ../blivetgui/list_devices.py:122
+msgid ""
+"blivet-gui failed to find at least one storage device to work "
+"with.                \n"
+"\n"
+"Please connect a storage device to your computer and re-run blivet-gui."
+msgstr ""
+
+#: ../blivetgui/list_devices.py:141
+msgid "<b>Disks</b>"
+msgstr "<b>Disky</b>"
+
+#: ../blivetgui/list_devices.py:165
+#, fuzzy
+msgid "<b>Btrfs Volumes</b>"
+msgstr "<b>LVM2 Physical Volumes</b>"
+
+#: ../blivetgui/list_devices.py:185
+msgid "<b>LVM2 Physical Volumes</b>"
+msgstr "<b>LVM2 Physical Volumes</b>"
+
+#: ../blivetgui/list_devices.py:201
+msgid "<b>LVM2 Volume Groups</b>"
+msgstr "<b>LVM2 Volume Groups</b>"
+
+#: ../blivetgui/processing_window.py:50
+msgid "Proccessing"
+msgstr "Zpracování probíhá"
+
+#: ../blivetgui/processing_window.py:69
+msgid "<b>Queued actions are being proccessed.</b>"
+msgstr "<b>Naplánované akce jsou právě zpracovávány.</b>"
+
+#: ../blivetgui/processing_window.py:97
+#, python-format
+msgid ""
+"<b>Queued actions couldn't be finished due to an unexpected error.</b>\n"
+"\n"
+"%(error)s."
+msgstr ""
+
+#: ../blivetgui/processing_window.py:101
+msgid "<b>All queued actions have been processed.</b>"
+msgstr "<b>Všechny naplánované akce byly provedeny.</b>"
+
+#: ../blivetgui/list_partitions.py:113 ../blivetgui/list_partitions.py:359
+#: ../blivetgui/list_partitions.py:403
+#, python-brace-format
+msgid "Pending actions ({0})"
+msgstr "Čekající akce ({0})"
+
+#: ../blivetgui/list_partitions.py:116 tmp/blivet-gui.ui.h:2
+msgid "Partitions"
+msgstr "Oddíly"
+
+#: ../blivetgui/list_partitions.py:131
+#, python-brace-format
+msgid ""
+"<b>LVM2 Volume group <i>{0}</i> occupying {1} physical volume(s):</b>\n"
+"\n"
+msgstr ""
+"<b>LVM2 Volume group <i>{0}</i> umístěný na {1} fyzických zařízeních:</b>\n"
+"\n"
+
+#: ../blivetgui/list_partitions.py:135
+#, python-brace-format
+msgid "\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> disk.\n"
+msgstr "\t• PV <i>{0}</i>, velikost: {1} na disku <i>{2}</i>.\n"
+
+#: ../blivetgui/list_partitions.py:142
+msgid "<b>LVM2 Physical Volume</b>"
+msgstr "<b>LVM2 Physical Volume</b>"
+
+#: ../blivetgui/list_partitions.py:151
+#, python-brace-format
+msgid ""
+"<b>Hard disk</b> <i>{0}</i>\n"
+"\n"
+"\t• Size: <i>{1}</i>\n"
+"\t• Model: <i>{2}</i>\n"
+msgstr ""
+"<b>Pevný disk</b> <i>{0}</i>\n"
+"\n"
+"\t• Velikost: <i>{1}</i>\n"
+"\t• Model: <i>{2}</i>\n"
+
+#: ../blivetgui/list_partitions.py:238
+msgid "extended"
+msgstr "rozšířený"
+
+#: ../blivetgui/list_partitions.py:242
+msgid "lvmvg"
+msgstr "lvmvg"
+
+#: ../blivetgui/list_partitions.py:291
+msgid "Filesystem"
+msgstr "Souborový systém"
+
+#: ../blivetgui/list_partitions.py:292
+msgid "Mountpoint"
+msgstr "Přípojný bod"
+
+#: ../blivetgui/list_partitions.py:293 ../blivetgui/dialogs/add_dialog.py:179
+msgid "Size"
+msgstr "Velikost"
+
+#: ../blivetgui/list_partitions.py:294
+msgid "Used"
+msgstr ""
+
+#: ../blivetgui/list_partitions.py:295
+#, fuzzy
+msgid "Current Mountpoint"
+msgstr "Přípojný bod"
+
+#: ../blivetgui/list_partitions.py:512
+msgid "Confirm delete operation"
+msgstr "Potvrzení mazání"
+
+#: ../blivetgui/list_partitions.py:513
+#, fuzzy, python-brace-format
+msgid "Are you sure you want to delete device {0}?"
+msgstr "Jste si jisti, že chcete smazat zařízení %(device_name)s?"
+
+#: ../blivetgui/list_partitions.py:525
+#, python-brace-format
+msgid "delete partition {0}"
+msgstr "smazat oddíl {0}"
+
+#. If fs is not selected, show error window and re-run add dialog
+#: ../blivetgui/list_partitions.py:596
+#, fuzzy
+msgid "Filesystem type must be specified when creating new partition."
+msgstr ""
+"Chyba:\n"
+"\n"
+"Při vytváření nového oddílu musíte specifikovat souborový systém."
+
+#: ../blivetgui/list_partitions.py:604
+msgid "Passphrase not specified."
+msgstr ""
+
+#: ../blivetgui/list_partitions.py:663
+#: ../blivetgui/dialogs/kickstart_dialogs.py:236
+msgid "Duplicate mountpoint detected"
+msgstr ""
+
+#: ../blivetgui/list_partitions.py:664
+#: ../blivetgui/dialogs/kickstart_dialogs.py:244
+#, python-brace-format
+msgid ""
+"Selected mountpoint \"{0}\" is already used for \"{1}\" device. Do you want "
+"to remove this mountpoint?"
+msgstr ""
+
+#: ../blivetgui/list_partitions.py:728
+msgid "Confirm scheduled actions"
+msgstr "Potvrzení naplánovaných akcí"
+
+#: ../blivetgui/list_partitions.py:729
+msgid "Are you sure you want to perform scheduled actions?"
+msgstr "Jste si jisti, že chcete provést naplánované akce?"
+
+#: ../blivetgui/list_partitions.py:749
+#, fuzzy, python-brace-format
+msgid "Unmount failed. Are you sure {0} is not in use?"
+msgstr ""
+"Odpojení se nezdařilo.\n"
+"\n"
+"Jste si jisti, že '%(device_name)s' není používáno?"
+
+#: ../blivetgui/list_partitions.py:768
+#, fuzzy, python-brace-format
+msgid ""
+"Unknown error appeared:\n"
+"\n"
+"{0}."
+msgstr ""
+"Chyba:\n"
+"\n"
+"Objevila se neznámá chyba:\n"
+"\n"
+"%(exception)s."
+
+#. There are queued actions we don't want do quit now
+#: ../blivetgui/list_partitions.py:896
+#, fuzzy
+msgid "Confirm reload storage"
+msgstr "Potvrzení mazání"
+
+#: ../blivetgui/list_partitions.py:897
+#, fuzzy
+msgid "There are pending operations. Are you sure you want to continue?"
+msgstr ""
+"Existují naplánované nepotvrzené akce. Jste si jisti, že chcete blivet-gui "
+"nyní ukočit?"
+
+#. There are queued actions we don't want do quit now
+#: ../blivetgui/list_partitions.py:925
+msgid "Are you sure you want to quit?"
+msgstr "Jste si jisti, že chce ukočit aplikaci?"
+
+#: ../blivetgui/list_partitions.py:926
+#, fuzzy
+msgid ""
+"There are unapplied queued actions. Are you sure you want  to quit blivet-"
+"gui now?"
+msgstr ""
+"Existují naplánované nepotvrzené akce. Jste si jisti, že chcete blivet-gui "
+"nyní ukočit?"
+
+#: ../blivetgui/actions_toolbar.py:65 ../blivetgui/dialogs/add_dialog.py:97
+msgid "Create new device"
+msgstr "Vytvořit nové zařízení"
+
+#: ../blivetgui/actions_toolbar.py:73
+msgid "Delete selected device"
+msgstr "Smazat vybrané zařízení"
+
+#: ../blivetgui/actions_toolbar.py:83
+msgid "Edit or resize device"
+msgstr "Upravit vybrané zařízení"
+
+#: ../blivetgui/actions_toolbar.py:91
+msgid "Unmount selected device"
+msgstr "Odpojit vybrané zařízení"
+
+#: ../blivetgui/actions_toolbar.py:99
+#, fuzzy
+msgid "Decrypt selected device"
+msgstr "Smazat vybrané zařízení"
+
+#: ../blivetgui/actions_toolbar.py:109
+msgid "Apply queued actions"
+msgstr "Provést naplánované akce"
+
+#: ../blivetgui/actions_toolbar.py:117
+msgid "Clear queued actions"
+msgstr "Smazat naplánované akce"
+
+#: ../blivetgui/actions_toolbar.py:127
+msgid "Undo"
+msgstr ""
+
+#: ../blivetgui/actions_toolbar.py:135
+msgid "Redo"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:82
+msgid "File"
+msgstr "Soubor"
+
+#: ../blivetgui/main_menu.py:88
+msgid "Reload"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:98
+msgid "Quit"
+msgstr "Ukončit"
+
+#: ../blivetgui/main_menu.py:114 ../blivetgui/main_menu.py:198
+#: ../blivetgui/actions_menu.py:75
+msgid "Edit"
+msgstr "Upravit"
+
+#: ../blivetgui/main_menu.py:119
+msgid "Undo Last Action"
+msgstr "Vrátit poslední akci"
+
+#: ../blivetgui/main_menu.py:131
+#, fuzzy
+msgid "Redo Last Action"
+msgstr "Vrátit poslední akci"
+
+#: ../blivetgui/main_menu.py:143
+msgid "Clear Queued Actions"
+msgstr "Zrušit naplánované akce"
+
+#: ../blivetgui/main_menu.py:152
+msgid "Apply Queued Actions"
+msgstr "Provést naplánované akce"
+
+#: ../blivetgui/main_menu.py:169 ../blivetgui/dialogs/add_dialog.py:177
+msgid "Device"
+msgstr "Zařízení"
+
+#: ../blivetgui/main_menu.py:174 ../blivetgui/actions_menu.py:57
+msgid "New"
+msgstr "Nové"
+
+#: ../blivetgui/main_menu.py:186 ../blivetgui/actions_menu.py:66
+msgid "Delete"
+msgstr "Smazat"
+
+#: ../blivetgui/main_menu.py:209 ../blivetgui/actions_menu.py:86
+msgid "Unmount"
+msgstr "Odpojit"
+
+#: ../blivetgui/main_menu.py:218 ../blivetgui/actions_menu.py:95
+msgid "Decrypt"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:232
+msgid "Help"
+msgstr "Nápověda"
+
+#: ../blivetgui/main_menu.py:237
+msgid "Contents"
+msgstr "Obsah"
+
+#: ../blivetgui/main_menu.py:246
+msgid "About"
+msgstr "O blivet-gui"
+
+#: ../blivetgui/main_menu.py:301
+msgid "You need \"Yelp\" to see the documentation.\n"
+msgstr ""
+
+#: ../blivetgui/main.py:56
+msgid "show version information"
+msgstr "zobrazit informace o verzi"
+
+#: ../blivetgui/main.py:58
+msgid "embed this application"
+msgstr "embedovat tuto aplikaci"
+
+#: ../blivetgui/main.py:60
+msgid "run blivet-gui in kickstart mode"
+msgstr ""
+
+#. root privileges are required for blivet
+#: ../blivetgui/main.py:78
+msgid "Root privileges are required for running blivet-gui."
+msgstr "Pro spouštění blivet-gui jsou vyžadována rootovská práva."
+
+#: ../blivetgui/dialogs/edit_dialog.py:77
+msgid "Edit device"
+msgstr "Upravit zařízení"
+
+#: ../blivetgui/dialogs/edit_dialog.py:128
+#: ../blivetgui/dialogs/add_dialog.py:325
+msgid "Volume size:"
+msgstr "Velikost"
+
+#: ../blivetgui/dialogs/edit_dialog.py:141
+#: ../blivetgui/dialogs/add_dialog.py:338
+#: ../blivetgui/dialogs/add_dialog.py:354
+#, fuzzy
+msgid "MiB"
+msgstr "MB"
+
+#: ../blivetgui/dialogs/edit_dialog.py:146
+msgid "<b>This device cannot be resized.</b>"
+msgstr "<b>U tohoto zařízení nelze změnit velikost.</b>"
+
+#: ../blivetgui/dialogs/edit_dialog.py:155
+msgid "Format?:"
+msgstr ""
+
+#: ../blivetgui/dialogs/edit_dialog.py:163
+#: ../blivetgui/dialogs/add_dialog.py:393
+msgid "Filesystem:"
+msgstr "Souborový systém:"
+
+#: ../blivetgui/dialogs/edit_dialog.py:184
+#: ../blivetgui/dialogs/add_dialog.py:417
+msgid "Label:"
+msgstr "Label:"
+
+#: ../blivetgui/dialogs/edit_dialog.py:193
+#: ../blivetgui/dialogs/add_dialog.py:480
+#, fuzzy
+msgid "Mountpoint:"
+msgstr "Přípojný bod"
+
+#: ../blivetgui/dialogs/edit_dialog.py:217
+#, fuzzy, python-brace-format
+msgid "<b>Warning: This will delete all  data on {0}!</b>"
+msgstr "<b>Varování: Tímto smažete všechna data na {0}!</b>"
+
+#: ../blivetgui/dialogs/other_dialogs.py:61
+msgid "Copyright © 2014 Red Hat Inc."
+msgstr "Copyright © 2014 Red Hat Inc."
+
+#: ../blivetgui/dialogs/other_dialogs.py:95
+#, python-brace-format
+msgid "Enter passphrase to decrypt {0}"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:111
+#: ../blivetgui/dialogs/add_dialog.py:468
+msgid "Passphrase:"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:127
+#: ../blivetgui/dialogs/add_dialog.py:531
+msgid "LVM2 Storage"
+msgstr "LVM2 Storage"
+
+#: ../blivetgui/dialogs/add_dialog.py:136
+msgid "Device type:"
+msgstr "Typ zařízení:"
+
+#: ../blivetgui/dialogs/add_dialog.py:178
+msgid "Type"
+msgstr "Typ"
+
+#: ../blivetgui/dialogs/add_dialog.py:189
+msgid "Available devices:"
+msgstr "Dostupná zařízení:"
+
+#: ../blivetgui/dialogs/add_dialog.py:342
+msgid "Free space after:"
+msgstr "Volné místo za:"
+
+#: ../blivetgui/dialogs/add_dialog.py:428
+msgid "Name:"
+msgstr "Jméno:"
+
+#: ../blivetgui/dialogs/add_dialog.py:452
+msgid "Encrypt:"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:638
+msgid "No partition table found on disk"
+msgstr "Na disku nebyla nalezena tabulka oddílů"
+
+#: ../blivetgui/dialogs/add_dialog.py:661
+#, python-brace-format
+msgid ""
+"A partition table is required before partitions can be added.\n"
+"\n"
+"<b>Warning: This will delete all data on {0}!</b>"
+msgstr ""
+"Tabulka oddílů musí být vytvořena před vytvořením dalších oddílů.\n"
+"\n"
+"<b>Varování: Tímto smažete všechna data na {0}!</b>"
+
+#: ../blivetgui/dialogs/add_dialog.py:686
+msgid "Select new partition table type:"
+msgstr "Vyberte novou tabulku oddílů:"
+
+#: ../blivetgui/dialogs/kickstart_dialogs.py:51
+msgid "Please choose a folder"
+msgstr ""
+
+#: ../blivetgui/dialogs/kickstart_dialogs.py:53
+msgid "Select"
+msgstr ""
+
+#: ../blivetgui/dialogs/kickstart_dialogs.py:78
+#, fuzzy
+msgid "Select devices"
+msgstr "Smazat vybrané zařízení"
+
+#: ../blivetgui/dialogs/kickstart_dialogs.py:131
+msgid "Please select at least one of shown devices:"
+msgstr ""
+
+#: ../blivetgui/dialogs/kickstart_dialogs.py:143
+msgid "Install bootloader?:"
+msgstr ""
+
+#: ../blivetgui/dialogs/kickstart_dialogs.py:151
+msgid "Device to install bootloader:"
+msgstr ""
+
+#: ../blivetgui/dialogs/kickstart_dialogs.py:199
+msgid "Following disk will be ignored"
+msgstr ""
+
+#: tmp/blivet-gui.ui.h:1
+msgid "blivet-gui"
+msgstr ""
+
+#: tmp/blivet-gui.ui.h:3
+#, fuzzy
+msgid "Pending actions"
+msgstr "Čekající akce ({0})"
+
+#: tmp/error_dialog.ui.h:1
+msgid "<b>Error:</b>"
+msgstr ""
+
+#: tmp/exception_dialog.ui.h:1
+msgid "Error"
+msgstr ""
+
+#: tmp/exception_dialog.ui.h:2
+msgid "<b>Show traceback</b>"
+msgstr ""
+
+#~ msgid "LVM"
+#~ msgstr "LVM"
+
+#~ msgid "Create LVM Physical Volume"
+#~ msgstr "Vytvořit LVM Physical Volume"
+
+#~ msgid "Create LVM Volume Group"
+#~ msgstr "Vytvořit LVM Volume Group"
+
+#~ msgid "Root privileges required"
+#~ msgstr "Jsou vyžadována práva roota"
+
+#~ msgid "unallocated"
+#~ msgstr "nealokováno"
+
+#~ msgid "lvmpv"
+#~ msgstr "lvmpv"
+
+#~ msgid "Create new partition"
+#~ msgstr "Vytvořit nový oddíl"
+
+#~ msgid "Create new LVM2 PV"
+#~ msgstr "Vytvořit nový LVM2 PV"
