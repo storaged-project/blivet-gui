@@ -115,12 +115,12 @@ class AddDialog(Gtk.Dialog):
     def add_device_chooser(self):
 
         map_type_devices = {
-            "disk" : [_("Partition"), _("LVM2 Storage"),
-            _("LVM2 Physical Volume"), _("Btrfs Volume")],
-            "lvmpv" : [_("LVM2 Volume Group")],
-            "lvmvg" : [_("LVM2 Logical Volume")],
-            "luks/dm-crypt" : [_("LVM2 Volume Group")],
-            "btrfs volume" : [_("Btrfs Subvolume")]
+            "disk" : [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
+            (_("LVM2 Physical Volume"), "lvmpv"), (_("Btrfs Volume"), "btrfs volume")],
+            "lvmpv" : [(_("LVM2 Volume Group"), "lvmvg")],
+            "lvmvg" : [(_("LVM2 Logical Volume"), "lvmlv")],
+            "luks/dm-crypt" : [(_("LVM2 Volume Group"), "lvmvg")],
+            "btrfs volume" : [(_("Btrfs Subvolume"), "btrfs subvolume")]
             }
 
         self.label_devices = Gtk.Label()
@@ -128,15 +128,15 @@ class AddDialog(Gtk.Dialog):
         self.grid.attach(self.label_devices, 0, 0, 1, 1)
 
         if self.device_type == "disk" and self.free_device.isLogical:
-            devices = [_("Partition")]
+            devices = [(_("Partition"), "partition")]
 
         else:
             devices = map_type_devices[self.device_type]
 
-        devices_store = Gtk.ListStore(str)
+        devices_store = Gtk.ListStore(str, str)
 
         for device in devices:
-            devices_store.append([device])
+            devices_store.append([device[0], device[1]])
 
         self.devices_combo = Gtk.ComboBox.new_with_model(devices_store)
 
@@ -192,9 +192,9 @@ class AddDialog(Gtk.Dialog):
 
         if tree_iter != None:
             model = self.devices_combo.get_model()
-            device = model[tree_iter][0]
+            device = model[tree_iter][1]
 
-            if device == "LVM2 Volume Group":
+            if device == "lvmvg":
 
                 for pv in self.free_pvs:
                     if pv.name == self.parent_device.name:
@@ -207,7 +207,7 @@ class AddDialog(Gtk.Dialog):
 
                 self.parents.set_sensitive(True)
 
-            elif device == "Btrfs Volume":
+            elif device == "btrfs volume":
 
                 # add selected device
                 self.parents_store.append([self.parent_device, True,
@@ -276,20 +276,20 @@ class AddDialog(Gtk.Dialog):
 
                 num_selected += 1
 
-                if device_type == "LVM2 Volume Group":
+                if device_type == "lvmvg":
                     size += Size(row[4])
 
-                elif device_type == "Btrfs Volume":
+                elif device_type == "btrfs volume":
                     if size == 0:
                         size = Size(row[4])
 
                     elif Size(row[4]) < size:
                         size = Size(row[4])
 
-        if device_type == "LVM2 Volume Group":
+        if device_type == "lvmvg":
             return size
 
-        elif device_type == "Btrfs Volume":
+        elif device_type == "btrfs volume":
             return size*num_selected
 
     def add_size_scale(self, up_limit):
@@ -345,8 +345,7 @@ class AddDialog(Gtk.Dialog):
         self.label_mb2.set_text(_("MiB"))
         self.grid.attach(self.label_mb2, 5, 7, 1, 1) #left-top-width-height
 
-        if self._get_selected_device_type in ["LVM2 Volume Group",
-            "Btrfs Subvolume"]:
+        if self._get_selected_device_type in ["lvmvg", "btrfs subvolume"]:
 
             self.label_size.set_sensitive(False)
             self.label_free.set_sensitive(False)
@@ -395,7 +394,7 @@ class AddDialog(Gtk.Dialog):
 
         self.grid.attach(self.filesystems_combo, 1, 8, 2, 1)
 
-        if self._get_selected_device_type in ["Partition", "LVM2 Logical Volume"]:
+        if self._get_selected_device_type in ["partition", "lvmlv"]:
             self.filesystems_combo.set_sensitive(True)
             self.label_fs.set_sensitive(True)
 
@@ -422,7 +421,7 @@ class AddDialog(Gtk.Dialog):
         self.name_entry = Gtk.Entry()
         self.grid.attach(self.name_entry, 4, 9, 2, 1)
 
-        if self._get_selected_device_type in ["Partition", "LVM2 Physical Volume"]:
+        if self._get_selected_device_type in ["partition", "lvmpv"]:
             self.name_label.set_sensitive(False)
             self.name_entry.set_sensitive(False)
 
@@ -430,7 +429,7 @@ class AddDialog(Gtk.Dialog):
             self.name_label.set_sensitive(True)
             self.label_entry.set_sensitive(True)
 
-        if self._get_selected_device_type not in ["Partition"]:
+        if self._get_selected_device_type not in ["partition"]:
             self.label_label.set_sensitive(False)
             self.label_entry.set_sensitive(False)
 
@@ -474,7 +473,7 @@ class AddDialog(Gtk.Dialog):
         self.mountpoint_entry = Gtk.Entry()
         self.grid.attach(self.mountpoint_entry, 1, 11, 2, 1)
 
-        if self.device_type in ["Partition"]:
+        if self.device_type in ["partition"]:
             self.label_label.set_sensitive(False)
             self.label_entry.set_sensitive(False)
 
@@ -485,7 +484,7 @@ class AddDialog(Gtk.Dialog):
     def on_devices_combo_changed(self, event):
         device_type = self._get_selected_device_type
 
-        if device_type == _("Partition"):
+        if device_type == "partition":
             self.label_label.set_sensitive(True)
             self.label_entry.set_sensitive(True)
 
@@ -502,7 +501,7 @@ class AddDialog(Gtk.Dialog):
                 self.mountpoint_label.set_sensitive(True)
                 self.mountpoint_entry.set_sensitive(True)
 
-        elif device_type == _("LVM2 Physical Volume"):
+        elif device_type == "lvmpv":
             self.label_label.set_sensitive(False)
             self.label_entry.set_sensitive(False)
 
@@ -519,7 +518,7 @@ class AddDialog(Gtk.Dialog):
                 self.mountpoint_label.set_sensitive(False)
                 self.mountpoint_entry.set_sensitive(False)
 
-        elif device_type == _("LVM2 Storage"):
+        elif device_type == "lvm":
             self.label_label.set_sensitive(False)
             self.label_entry.set_sensitive(False)
 
@@ -536,7 +535,7 @@ class AddDialog(Gtk.Dialog):
                 self.mountpoint_label.set_sensitive(False)
                 self.mountpoint_entry.set_sensitive(False)
 
-        elif device_type == _("Btrfs Volume"):
+        elif device_type == "btrfs volume":
             self.label_label.set_sensitive(False)
             self.label_entry.set_sensitive(False)
 
@@ -573,7 +572,7 @@ class AddDialog(Gtk.Dialog):
 
         if tree_iter != None:
             model = self.devices_combo.get_model()
-            device_type = model[tree_iter][0]
+            device_type = model[tree_iter][1]
 
             return device_type
 

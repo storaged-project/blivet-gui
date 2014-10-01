@@ -516,7 +516,7 @@ class BlivetUtils():
 
         device_id = None
 
-        if user_input.device_type == _("Partition"):
+        if user_input.device_type == "partition":
 
             if user_input.encrypt:
                 dev = self.storage.newPartition(size=user_input.size,
@@ -572,7 +572,7 @@ class BlivetUtils():
 
                 self.storage.formatDevice(new_part, new_fmt)
 
-        elif user_input.device_type == "LVM2 Storage":
+        elif user_input.device_type == "lvm":
 
             device_name = self._pick_device_name(user_input.name)
 
@@ -616,7 +616,7 @@ class BlivetUtils():
 
                 device_id = new_vg.id
 
-        elif user_input.device_type == _("LVM2 Logical Volume"):
+        elif user_input.device_type == "lvmlv":
 
             device_name = self._pick_device_name(user_input.name,
                 user_input.parents[0])
@@ -634,7 +634,7 @@ class BlivetUtils():
 
             self.storage.formatDevice(new_part, new_fmt)
 
-        elif user_input.device_type == _("LVM2 Volume Group"):
+        elif user_input.device_type == "lvmvg":
 
             device_name = self._pick_device_name(user_input.name)
 
@@ -645,7 +645,7 @@ class BlivetUtils():
 
             self.storage.createDevice(new_part)
 
-        elif user_input.device_type == _("LVM2 Physical Volume"):
+        elif user_input.device_type == "lvmpv":
 
             if user_input.encrypt:
                 dev = self.storage.newPartition(size=user_input.size,
@@ -677,7 +677,7 @@ class BlivetUtils():
                 new_fmt = blivet.formats.getFormat("lvmpv", device=new_part.path)
                 self.storage.formatDevice(new_part, new_fmt)
 
-        elif user_input.device_type == _("Btrfs Volume"):
+        elif user_input.device_type == "btrfs volume":
 
             device_name = self._pick_device_name(user_input.name)
 
@@ -726,7 +726,7 @@ class BlivetUtils():
 
             device_id = new_btrfs.id
 
-        elif user_input.device_type == _("Btrfs Subvolume"):
+        elif user_input.device_type == "btrfs subvolume":
 
             device_name = self._pick_device_name(user_input.name,
                 user_input.parents[0])

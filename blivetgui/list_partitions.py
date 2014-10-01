@@ -223,7 +223,7 @@ class ListPartitions():
         """
         resize_size = "--"
 
-        if partition.name == _("free space"):
+        if partition.type == "free space":
             iter_added = self.partitions_list.append(parent, [partition,
                 partition.name, "--", "--", str(partition.size), "--", None,
                 None])
@@ -436,6 +436,66 @@ class ListPartitions():
         self.main_menu.deactivate_all()
         self.popup_menu.deactivate_all()
 
+    def _allow_delete_device(self, device):
+        """ Is this device deletable?
+
+            :param device: selected device
+            :type device: blivet.Device
+            :returns: device possible to delete
+            :rtype: bool
+
+        """
+
+        if device.type == "free space":
+            return False
+
+        elif not device.isleaf:
+            return False
+
+        else:
+            if self.kickstart_mode:
+                return True
+
+            elif not device.format.type:
+                return True
+
+            elif device.format.type == "swap" and swap_is_on(device.sysfsPath):
+                return False
+
+            else:
+                if not device.format.mountable:
+                    return True
+
+                else:
+                    # partition_mounted returns true for mounted partitions
+                    # we need to return false, because mounted partitions
+                    # cannot be deleted
+                    return not partition_mounted(device.path)
+
+    def _allow_edit_device(self, device):
+        """ Is this device editable?
+
+            :param device: selected device
+            :type device: blivet.Device
+            :returns: device possible to edit
+            :rtype: bool
+
+        """
+
+        if device.type == "free space":
+            return False
+
+        elif self.kickstart_mode:
+            return device.format.mountable
+
+        else:
+            if not device.format.mountable:
+                return False
+
+            else:
+                return not partition_mounted(device.path)
+
+
     def activate_action_buttons(self, selected_partition):
         """ Activate buttons in toolbar based on selected partition
 
@@ -446,56 +506,23 @@ class ListPartitions():
 
         partition_device = selected_partition[0]
 
-        if partition_device == None and selected_partition[1] != _("free space"):
-            self.deactivate_all_options()
-            return
+        self.deactivate_all_options()
 
-        elif selected_partition[1] == _("free space"):
-
-            self.deactivate_all_options()
-            self.activate_options(["add"])
-
-        elif selected_partition[2] in ["extended", "lvmvg", "lvmpv"] and partition_device.isleaf:
-
-            self.deactivate_all_options()
+        if self._allow_delete_device(partition_device):
             self.activate_options(["delete"])
 
-        else:
-            self.deactivate_all_options()
+        if self._allow_edit_device(partition_device):
+            self.activate_options(["edit"])
 
-            if partition_device.format.type == None and selected_partition[2] not in ["extended", "lvmvg"]:
-                self.activate_options(["delete"])
+        if partition_device.type in ["free space", "btrfs volume"]:
+            self.activate_options(["add"])
 
-            if partition_device.format.type == "luks" and partition_device.kids == 0:
-                self.activate_options(["delete"])
-
+        if partition_device.format:
             if partition_device.format.type == "luks" and not partition_device.format.status:
                 self.activate_options(["decrypt"])
 
-            if partition_device.type == "btrfs volume":
-                self.activate_options(["add"])
-
-            if self.kickstart_mode:
-
-                if partition_device.format.mountable:
-                    self.activate_options(["delete", "edit"])
-
-                if partition_device.format.type == "swap":
-                    self.activate_options(["delete"])
-
-            else:
-                if partition_device.format.mountable and partition_mounted(partition_device.path) == None:
-                    if partition_device.type == "btrfs volume":
-                        self.activate_options(["delete"])
-
-                    else:
-                        self.activate_options(["delete", "edit"])
-
-                if partition_device.format.type == "swap" and swap_is_on(partition_device.sysfsPath) == False:
-                    self.activate_options(["delete"])
-
-                if partition_device.format.mountable and partition_mounted(partition_device.path) != None:
-                    self.activate_options(["unmount"])
+            elif partition_device.format.mountable and partition_mounted(partition_device.path):
+                self.activate_options(["unmount"])
 
     def delete_selected_partition(self):
         """ Delete selected partition
