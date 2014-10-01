@@ -551,8 +551,11 @@ class ListPartitions():
 
         self.list_devices.update_devices_view()
 
-    def add_partition(self, ):
+    def add_partition(self, old_input=None):
         """ Add new partition
+
+            :param old_input: stored user input from previous (incomplete) run
+            :type old_input: UserSelection
         """
 
         # parent device; free space has always only one parent #FIXME
@@ -600,25 +603,22 @@ class ListPartitions():
         dialog = add_dialog.AddDialog(self.main_window, parent_device_type,
             parent_device, self.selected_partition[0],
             self.selected_partition[0].size, self.b.get_free_pvs_info(),
-            self.b.get_free_disks_info(), self.kickstart_mode)
+            self.b.get_free_disks_info(), self.kickstart_mode, old_input)
 
         response = dialog.run()
-
-        # FIXME: new way of passing arguments (named tuple or new class) and get rid of all of
-        # this and just do all this utils
 
         if response == Gtk.ResponseType.OK:
 
             user_input = dialog.get_selection()
 
-            if user_input.filesystem == None and user_input.device_type in ["Partition", "LVM2 Logical Volume"]:
+            if user_input.filesystem == None and user_input.device_type in ["partition", "lvmpv"]:
                 # If fs is not selected, show error window and re-run add dialog
 
                 msg = _("Filesystem type must be specified when creating new partition.")
                 message_dialogs.ErrorDialog(dialog, msg)
 
                 dialog.destroy()
-                self.add_partition() #TODO pass previously entered input and prefill the dialog
+                self.add_partition(old_input=user_input)
 
             elif user_input.encrypt and not user_input.passphrase:
 
@@ -626,7 +626,7 @@ class ListPartitions():
                 message_dialogs.ErrorDialog(dialog, msg)
 
                 dialog.destroy()
-                self.add_partition()
+                self.add_partition(old_input=user_input)
 
             else:
 

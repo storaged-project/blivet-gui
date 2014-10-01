@@ -58,7 +58,7 @@ class AddDialog(Gtk.Dialog):
 
     #FIXME add mountpoint validation -- os.path.isabs(path)
     def __init__(self, parent_window, device_type, parent_device, free_device,
-        free_space, free_pvs, free_disks, kickstart=False):
+        free_space, free_pvs, free_disks, kickstart=False, old_input=None):
         """
 
             :param device_type: type of parent device
@@ -84,6 +84,7 @@ class AddDialog(Gtk.Dialog):
         self.free_disks = free_disks
         self.parent_window = parent_window
         self.kickstart = kickstart
+        self.old_input = old_input
 
         Gtk.Dialog.__init__(self, _("Create new device"), None, 0,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -110,6 +111,9 @@ class AddDialog(Gtk.Dialog):
         if kickstart and self.device_type in ["disk", "lvmvg"]:
             self.add_mountpoint()
 
+        if old_input:
+            self.fill_dialog()
+
         self.show_all()
 
     def add_device_chooser(self):
@@ -128,14 +132,14 @@ class AddDialog(Gtk.Dialog):
         self.grid.attach(self.label_devices, 0, 0, 1, 1)
 
         if self.device_type == "disk" and self.free_device.isLogical:
-            devices = [(_("Partition"), "partition")]
+            self.devices = [(_("Partition"), "partition")]
 
         else:
-            devices = map_type_devices[self.device_type]
+            self.devices = map_type_devices[self.device_type]
 
         devices_store = Gtk.ListStore(str, str)
 
-        for device in devices:
+        for device in self.devices:
             devices_store.append([device[0], device[1]])
 
         self.devices_combo = Gtk.ComboBox.new_with_model(devices_store)
@@ -143,7 +147,7 @@ class AddDialog(Gtk.Dialog):
         self.devices_combo.set_entry_text_column(0)
         self.devices_combo.set_active(0)
 
-        if len(devices) == 1:
+        if len(self.devices) == 1:
             self.devices_combo.set_sensitive(False)
 
         self.grid.attach(self.devices_combo, 1, 0, 2, 1)
@@ -553,6 +557,28 @@ class AddDialog(Gtk.Dialog):
                 self.mountpoint_entry.set_sensitive(False)
 
         self.update_parent_list()
+
+    def fill_dialog(self):
+        """ Fill in dialog with user's previous selection
+        """
+
+        if self.old_input.encrypt:
+            self.encrypt_check.set_active(True)
+            self.passphrase_entry.set_text(self.old_input.passphrase)
+
+        # not neccessary if user actually filled these, we can set text to None
+        self.label_entry.set_text(self.old_input.label)
+        self.name_entry.set_text(self.old_input.name)
+
+        if self.kickstart:
+            self.mountpoint_entry.set_text(self.old_input.mountpoint)
+
+        # we know user selected 'something', just set scale to it
+        self.scale.set_value(int(self.old_input.size.convertTo("MiB")))
+
+        # self.device_type = device_type
+        # self.filesystem = filesystem
+        # self.parents = parents
 
     def scale_moved(self, event):
         self.spin_size.set_value(self.scale.get_value())
