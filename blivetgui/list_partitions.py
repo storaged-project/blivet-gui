@@ -611,7 +611,7 @@ class ListPartitions():
 
             user_input = dialog.get_selection()
 
-            if user_input.filesystem == None and user_input.device_type in ["partition", "lvmpv"]:
+            if user_input.filesystem == None and user_input.device_type in ["partition", "lvmlv"]:
                 # If fs is not selected, show error window and re-run add dialog
 
                 msg = _("Filesystem type must be specified when creating new partition.")

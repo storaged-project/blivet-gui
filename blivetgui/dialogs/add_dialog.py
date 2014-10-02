@@ -38,6 +38,10 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
+SUPPORTED_FS = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap", "vfat"]
+
+#------------------------------------------------------------------------------#
+
 class UserSelection(object):
     def __init__(self, device_type, size, filesystem, name, label, mountpoint,
         encrypt, passphrase, parents):
@@ -387,13 +391,10 @@ class AddDialog(Gtk.Dialog):
         self.label_fs.set_text(_("Filesystem:"))
         self.grid.attach(self.label_fs, 0, 8, 1, 1)
 
-        filesystems = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap",
-            "vfat"]
-
         self.filesystems_combo = Gtk.ComboBoxText()
         self.filesystems_combo.set_entry_text_column(0)
 
-        for fs in filesystems:
+        for fs in SUPPORTED_FS:
             self.filesystems_combo.append_text(fs)
 
         self.grid.attach(self.filesystems_combo, 1, 8, 2, 1)
@@ -562,6 +563,30 @@ class AddDialog(Gtk.Dialog):
         """ Fill in dialog with user's previous selection
         """
 
+        # select parents
+
+        # it = self.parents.get_iter_first()
+        # FIXME: multiple parents can have same names (eg. more free space
+        # devices on sigle disk for btrfs volumes)
+
+
+        # set device type from Gtk.ComboBox
+        i = 0
+        for device in self.devices:
+            if device[1] == self.old_input.device_type:
+                self.devices_combo.set_active(i)
+                break
+            i += 1
+
+        # set fs type from Gtk.ComboBox
+        i = 0
+        for fs in SUPPORTED_FS:
+            if fs == self.old_input.filesystem:
+                self.filesystems_combo.set_active(i)
+                break
+            i += 1
+
+
         if self.old_input.encrypt:
             self.encrypt_check.set_active(True)
             self.passphrase_entry.set_text(self.old_input.passphrase)
@@ -576,8 +601,6 @@ class AddDialog(Gtk.Dialog):
         # we know user selected 'something', just set scale to it
         self.scale.set_value(int(self.old_input.size.convertTo("MiB")))
 
-        # self.device_type = device_type
-        # self.filesystem = filesystem
         # self.parents = parents
 
     def scale_moved(self, event):
