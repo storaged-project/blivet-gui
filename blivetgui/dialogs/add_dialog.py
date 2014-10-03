@@ -62,7 +62,6 @@ class AddDialog(Gtk.Dialog):
          size, fs, label etc.
     """
 
-    #FIXME add mountpoint validation -- os.path.isabs(path)
     def __init__(self, parent_window, device_type, parent_device, free_device,
         free_space, free_pvs, free_disks, kickstart=False, old_input=None):
         """
@@ -123,12 +122,12 @@ class AddDialog(Gtk.Dialog):
         self.up_limit = int(floor(self.free_space.convertTo("KiB")/1024))
         self.scale, self.spin_size, self.spin_free = self.add_size_scale(self.up_limit)
 
+        if kickstart:
+            self.mountpoint_entry = self.add_mountpoint()
+
         self.devices_combo = self.add_device_chooser()
         self.devices_combo.connect("changed", self.on_devices_combo_changed)
         self.devices_combo.set_active(0)
-
-        if kickstart and self.device_type in ["disk", "lvmvg"]:
-            self.mountpoint_entry = self.add_mountpoint()
 
         if old_input:
             self.fill_dialog()

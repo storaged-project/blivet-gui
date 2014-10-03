@@ -628,6 +628,14 @@ class ListPartitions():
                 dialog.destroy()
                 self.add_partition(old_input=user_input)
 
+            elif user_input.mountpoint and not os.path.isabs(user_input.mountpoint):
+
+                msg = _("\"{0}\" is not a valid mountpoint.").format(user_input.mountpoint)
+                message_dialogs.ErrorDialog(dialog, msg)
+
+                dialog.destroy()
+                self.add_partition(old_input=user_input)
+
             else:
 
                 dialog.destroy()
