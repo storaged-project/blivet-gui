@@ -38,12 +38,15 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
+SUPPORTED_FS = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap", "vfat"]
+
+#------------------------------------------------------------------------------#
+
 class EditDialog(Gtk.Dialog):
     """ Dialog window allowing user to edit partition including selecting size,
         fs, label etc.
     """
 
-    #FIXME add mountpoint validation -- os.path.isabs(path)
     def __init__(self, parent_window, partition_name, resizable, kickstart=False):
         """
 
@@ -154,14 +157,13 @@ class EditDialog(Gtk.Dialog):
         self.label_fs.set_text(_("Filesystem:"))
         self.grid.attach(self.label_fs, 0, 4, 1, 1)
 
-        filesystems = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "vfat"]
         self.filesystems_combo = Gtk.ComboBoxText()
         self.filesystems_combo.set_entry_text_column(0)
         self.filesystems_combo.set_sensitive(False)
 
         self.filesystems_combo.connect("changed", self.filesystems_combo_changed)
 
-        for fs in filesystems:
+        for fs in SUPPORTED_FS:
             self.filesystems_combo.append_text(fs)
 
         self.grid.attach(self.filesystems_combo, 1, 4, 2, 1)

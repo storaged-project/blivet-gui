@@ -304,9 +304,11 @@ class AddDialog(Gtk.Dialog):
 
         for row in self.parents_store:
             if row[1] == True:
-                up_limit += row[0].size
-                if row[0].size > down_limit:
-                    down_limit = Size("1 MiB") + row[0].size
+                size = Size(row[4])
+                print("size:", size)
+                up_limit += size
+                if size > down_limit:
+                    down_limit = Size("1 MiB") + size
 
         return (up_limit, down_limit)
 
