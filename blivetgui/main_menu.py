@@ -37,6 +37,10 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
+dirname, filename = os.path.split(os.path.abspath(__file__)) #FIXME
+
+#------------------------------------------------------------------------------#
+
 class MainMenu():
     """ Main menu for blivet-gui
     """
@@ -315,7 +319,6 @@ class MainMenu():
         """
 
         self.list_partitions.clear_actions()
-        self.list_partitions.clear_actions_view()
 
     def on_apply_item(self, event):
         """ Onselect action for 'Apply Queued Actions'

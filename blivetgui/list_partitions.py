@@ -867,6 +867,7 @@ class ListPartitions():
         self.b.blivet_reset()
 
         self.history.clear_history()
+        self.clear_actions_view()
 
         self.list_devices.update_devices_view()
         self.update_partitions_view(self.disk)
@@ -933,6 +934,7 @@ class ListPartitions():
 
                 self.b.blivet_reload()
                 self.history.clear_history()
+                self.clear_actions_view()
 
                 self.list_devices.update_devices_view()
                 self.update_partitions_view(self.disk)
@@ -940,6 +942,7 @@ class ListPartitions():
         else:
             self.b.blivet_reload()
             self.history.clear_history()
+            self.clear_actions_view()
 
             self.list_devices.update_devices_view()
             self.update_partitions_view(self.disk)
