@@ -106,6 +106,31 @@ def os_umount_partition(mountpoint):
 
     return True
 
+class ISO9660Device():
+    """ Special class to represent disk with iso9660 format
+    """
+
+    def __init__(self, size, fmt, disk):
+
+        self.size = size
+
+        self.isLogical = False
+        self.isFreeSpace = False
+        self.isDisk = False
+        self.isleaf = True
+
+        self.format = fmt
+        self.type = "iso9660"
+
+        self.kids = 0
+        self.parents = [disk]
+
+        if self.format.label:
+            self.name = self.format.label
+
+        else:
+            self.name = _("ISO9660 Disklabel")
+
 class FreeSpaceDevice():
     """ Special class to represent free space on disk (device)
         (blivet doesn't have class/device to represent free space)
@@ -376,7 +401,10 @@ class BlivetUtils():
         if blivet_device == None:
             return []
 
-        blivet_device = self.storage.devicetree.getDeviceByName(blivet_device.name)
+        if blivet_device.isDisk and blivet_device.format and blivet_device.format.type == "iso9660":
+            # special occasion -- LiveUSB
+            return [ISO9660Device(size=blivet_device.size, fmt=blivet_device.format,
+                disk=blivet_device)]
 
         partitions = []
         partitions = self.storage.devicetree.getChildren(blivet_device)
@@ -391,6 +419,21 @@ class BlivetUtils():
             :type blivet_device: blivet.Device
 
         """
+
+        if blivet_device.type == "iso9660":
+            # iso9660 disklabel, not going to delete device but destroy disk
+            # format instead
+
+            try:
+                action = blivet.deviceaction.ActionDestroyFormat(blivet_device.parents[0])
+                self.storage.devicetree.registerAction(action)
+
+            except Exception as e:
+
+                message_dialogs.ExceptionDialog(self.main_window, str(e),
+                    traceback.format_exc())
+
+            return
 
         try:
             self.storage.destroyDevice(blivet_device)
