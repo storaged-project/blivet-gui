@@ -32,7 +32,7 @@ from gi.repository import Gtk
 
 from blivet import Size
 
-from math import floor
+from math import floor, ceil
 
 #------------------------------------------------------------------------------#
 
@@ -120,7 +120,9 @@ class AddDialog(Gtk.Dialog):
         self.parents_store = self.add_parent_list()
 
         self.up_limit = int(floor(self.free_space.convertTo("KiB")/1024))
-        self.scale, self.spin_size, self.spin_free = self.add_size_scale(self.up_limit)
+        self.down_limit = 1
+        self.scale, self.spin_size, self.spin_free = self.add_size_scale(self.up_limit,
+            self.down_limit)
 
         if kickstart:
             self.mountpoint_entry = self.add_mountpoint()
@@ -265,8 +267,9 @@ class AddDialog(Gtk.Dialog):
             device = model[tree_iter][1]
 
         # re-add deleted size scale and show it
-        self.up_limit = int(floor(self.compute_size_scale(device).convertTo("MiB")))
-        self.scale, self.spin_size, self.spin_free = self.add_size_scale(self.up_limit)
+        self.up_limit = int(floor(self.compute_size_scale(device)[0].convertTo("MiB")))
+        self.down_limit = int(ceil(self.compute_size_scale(device)[1].convertTo("MiB")))
+        self.scale, self.spin_size, self.spin_free = self.add_size_scale(self.up_limit, self.down_limit)
         self.show_size_scale()
 
     def on_cell_toggled(self, event, path):
@@ -280,54 +283,43 @@ class AddDialog(Gtk.Dialog):
             self.recalculate_size_scale()
 
     def compute_size_scale(self, device_type):
-        """ Computes size (upper limit) for our Gtk.Scale and Gtk.SpinButtons
+        """ Computes size for our Gtk.Scale and Gtk.SpinButtons
             --> if user chooses more than one parent device, we need to allow
                 him to choose size for new device to be size of both devices
-                (or twice size of smaller smaller device for raids)
+                (or twice size of smaller smaller device for raids) and not allow
+                him to choose smaller size than size of largest selected device
 
                 #FIXME: size based on raid type, btrfs see: https://btrfs.wiki.kernel.org/index.php/Using_Btrfs_with_Multiple_Devices
 
             :param device_type: type of created device (raid, lvmvg, btrfs...)
             :type device_type: str
-            :returns: size upper limit for newly created device
-            :rtype: blivet.Size
+            :returns: tuple (up_limit, down_limit)
+            :rtype: tuple of blivet.Size
 
         """
 
-        size = Size("0 MiB")
+        up_limit = Size("0 MiB")
+        down_limit = Size("1 MiB")
         num_selected = 0
 
         for row in self.parents_store:
             if row[1] == True:
+                up_limit += row[0].size
+                if row[0].size > down_limit:
+                    down_limit = Size("1 MiB") + row[0].size
 
-                num_selected += 1
+        return (up_limit, down_limit)
 
-                if device_type == "btrfs volume":
-                    if size == 0:
-                        size = Size(row[4])
-
-                    elif Size(row[4]) < size:
-                        size = Size(row[4])
-
-                else:
-                    size += Size(row[4])
-
-        if device_type == "btrfs volume":
-            return size*num_selected
-
-        else:
-            return size
-
-    def add_size_scale(self, up_limit):
+    def add_size_scale(self, up_limit, down_limit):
 
         scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL,
-            adjustment=Gtk.Adjustment(0, 1, up_limit, 1, 10, 0))
+            adjustment=Gtk.Adjustment(0, down_limit, up_limit, 1, 10, 0))
 
         scale.set_hexpand(True)
         scale.set_valign(Gtk.Align.START)
         scale.set_digits(0)
         scale.set_value(up_limit)
-        scale.add_mark(0, Gtk.PositionType.BOTTOM, str(1))
+        scale.add_mark(0, Gtk.PositionType.BOTTOM, str(down_limit))
         scale.add_mark(up_limit, Gtk.PositionType.BOTTOM, str(up_limit))
         scale.connect("value-changed", self.scale_moved)
 
@@ -336,7 +328,7 @@ class AddDialog(Gtk.Dialog):
         label_size = Gtk.Label(_("Volume size:"), xalign=1)
         self.grid.attach(label_size, 0, 7, 1, 1) #left-top-width-height
 
-        spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 1,
+        spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, down_limit,
             up_limit, 1, 10, 0))
 
         spin_size.set_numeric(True)
@@ -353,7 +345,7 @@ class AddDialog(Gtk.Dialog):
         self.grid.attach(label_free, 3, 7, 1, 1) #left-top-width-height
 
         spin_free = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 0,
-            up_limit, 1, 10, 0))
+            up_limit - down_limit, 1, 10, 0))
 
         spin_free.set_numeric(True)
 
@@ -673,25 +665,25 @@ class AddLabelDialog(Gtk.Dialog):
         self.grid.attach(self.label_list, 0, 1, 3, 1)
         self.grid.attach(self.pts_combo, 3, 1, 1, 1)
 
-        self.pts_combo.connect("changed", self.on_devices_combo_changed)
+        self.pts_combo.connect("changed", self.on_pt_combo_changed)
         renderer_text = Gtk.CellRendererText()
         self.pts_combo.pack_start(renderer_text, True)
         self.pts_combo.add_attribute(renderer_text, "text", 0)
 
 
-    def on_devices_combo_changed(self, event):
+    def on_pt_combo_changed(self, event):
 
         tree_iter = self.pts_combo.get_active_iter()
 
         if tree_iter != None:
             model = self.pts_combo.get_model()
-            device = model[tree_iter][1]
+            device = model[tree_iter][0]
 
     def get_selection(self):
         tree_iter = self.pts_combo.get_active_iter()
 
         if tree_iter != None:
             model = self.pts_combo.get_model()
-            label = model[tree_iter][1]
+            label = model[tree_iter][0]
 
         return label
