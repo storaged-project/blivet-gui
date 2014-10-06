@@ -184,7 +184,7 @@ class ListPartitions():
                     else:
                         self.add_partition_to_view(child, extended_iter)
 
-                elif len(self.b.get_partitions(child)) != 0:
+                elif child.type != "free space" and len(self.b.get_partitions(child)) != 0:
 
                     parent_iter = self.add_partition_to_view(child, parent)
 

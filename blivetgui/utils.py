@@ -234,8 +234,20 @@ class BlivetUtils():
             if not disk.format.type or disk.format.type in ["iso9660", "btrfs"]:
                 continue
 
+            extended = None
+
+            for partition in self.storage.devicetree.getChildren(disk):
+                if partition.type == "partition" and partition.isExtended:
+                    extended = (partition.partedPartition.geometry.start,
+                        partition.partedPartition.geometry.end)
+
             free_space = blivet.partitioning.getFreeRegions([disk])
             for free in free_space:
+                if extended and free.start >= extended[0] and free.end <= extended[1]:
+                    #empty space inside extended partition -> not usable for btrfs
+                    #volumes or lvmpv
+                    continue
+
                 free_size = blivet.Size(free.length * free.device.sectorSize)
 
                 if free_size > blivet.Size("2 MiB"):
@@ -503,6 +515,24 @@ class BlivetUtils():
 
         return name
 
+    def _recalculate_parents_sizes(self, user_input):
+        """ Recalculate sizes of parent devices accordingly to selected total
+            size. (Eg. 2 parent devices with total size 2 GB, but user selected
+            total size for container to be 1.5 GB and wants 0.5 GB free space)
+        """
+
+        assert len(user_input.parents) > 1
+
+        total_size = 0
+
+        for device in user_input.parents:
+            total_size += device[1]
+
+        if total_size > user_input.size:
+            # decrease size of last parent
+            user_input.parents[-1][1] -= (total_size - user_input.size)
+
+        return user_input
 
     def add_device(self, user_input):
         """ Create new device
@@ -516,11 +546,14 @@ class BlivetUtils():
 
         device_id = None
 
+        if len(user_input.parents) > 1:
+            user_input = self._recalculate_parents_sizes(user_input)
+
         if user_input.device_type == "partition":
 
             if user_input.encrypt:
                 dev = self.storage.newPartition(size=user_input.size,
-                    parents=user_input.parents)
+                    parents=[i[0] for i in user_input.parents])
 
                 self.storage.createDevice(dev)
 
@@ -547,11 +580,11 @@ class BlivetUtils():
 
                 extended = False
 
-                disk = user_input.parents[0]
+                disk = user_input.parents[0][0]
                 size_diff = self.storage.getFreeSpace(disks=[disk])[disk.name][0] - user_input.size
 
-                if user_input.parents[0].kids == 3 and size_diff < blivet.Size("2 MiB"):
-                    for child in self.storage.devicetree.getChildren(user_input.parents[0]):
+                if user_input.parents[0][0].kids == 3 and size_diff < blivet.Size("2 MiB"):
+                    for child in self.storage.devicetree.getChildren(user_input.parents[0][0]):
                         if hasattr(child, "isExtended") and child.isExtended:
                             extended = True
                             break
@@ -560,7 +593,7 @@ class BlivetUtils():
                         user_input.size = user_input.size - blivet.Size("2 MiB")
 
                 new_part = self.storage.newPartition(size=user_input.size,
-                    parents=user_input.parents)
+                    parents=[i[0] for i in user_input.parents])
 
                 self.storage.createDevice(new_part)
 
@@ -572,13 +605,61 @@ class BlivetUtils():
 
                 self.storage.formatDevice(new_part, new_fmt)
 
-        elif user_input.device_type == "lvm":
+        elif user_input.device_type == "lvm" and not user_input.encrypt:
 
             device_name = self._pick_device_name(user_input.name)
 
-            if user_input.encrypt:
-                dev = self.storage.newPartition(size=user_input.size,
-                    parents=user_input.parents)
+            pvs = []
+
+            # exact total size of newly created pvs (future parents)
+            total_size = blivet.Size("0 MiB")
+
+            for parent, size in user_input.parents:
+
+                new_part = self.storage.newPartition(size=size,
+                    parents=[parent])
+
+                self.storage.createDevice(new_part)
+
+                new_fmt = blivet.formats.getFormat("lvmpv", device=new_part.path)
+                self.storage.formatDevice(new_part, new_fmt)
+
+                total_size += new_part.size
+
+                # we need to try to create pvs immediately, if something
+                # fails, fail now
+                try:
+                    blivet.partitioning.doPartitioning(self.storage)
+
+                except blivet.errors.PartitioningError as e:
+
+                    message_dialogs.ExceptionDialog(self.main_window,
+                        str(e), traceback.format_exc())
+
+                    return None
+
+                pvs.append(new_part)
+
+            new_vg = self.storage.newVG(size=total_size, parents=pvs,
+                name=device_name)
+
+            self.storage.createDevice(new_vg)
+
+            device_id = new_vg.id
+
+        elif user_input.device_type == "lvm" and user_input.encrypt:
+
+            device_name = self._pick_device_name(user_input.name)
+
+            lukses = []
+
+            # exact total size of newly created pvs (future parents)
+            total_size = blivet.Size("0 MiB")
+
+            for parent, size in user_input.parents:
+
+                dev = self.storage.newPartition(size=size,
+                    parents=parent)
 
                 self.storage.createDevice(dev)
 
@@ -593,36 +674,36 @@ class BlivetUtils():
 
                 self.storage.createDevice(luks_dev)
 
-                new_vg = self.storage.newVG(size=luks_dev.size,
-                    parents=[luks_dev], name=device_name)
+                total_size += luks_dev.size
 
-                self.storage.createDevice(new_vg)
+                # we need to try to create pvs immediately, if something
+                # fails, fail now
+                try:
+                    blivet.partitioning.doPartitioning(self.storage)
 
-                device_id = new_vg.id
+                except blivet.errors.PartitioningError as e:
 
-            else:
-                new_part = self.storage.newPartition(size=user_input.size,
-                    parents=user_input.parents)
+                    message_dialogs.ExceptionDialog(self.main_window,
+                        str(e), traceback.format_exc())
 
-                self.storage.createDevice(new_part)
+                    return None
 
-                new_fmt = blivet.formats.getFormat("lvmpv", device=new_part.path)
-                self.storage.formatDevice(new_part, new_fmt)
+                lukses.append(luks_dev)
 
-                new_vg = self.storage.newVG(size=new_part.size,
-                    parents=[new_part], name=device_name)
+            new_vg = self.storage.newVG(size=total_size, parents=lukses,
+                name=device_name)
 
-                self.storage.createDevice(new_vg)
+            self.storage.createDevice(new_vg)
 
-                device_id = new_vg.id
+            device_id = new_vg.id
 
         elif user_input.device_type == "lvmlv":
 
             device_name = self._pick_device_name(user_input.name,
-                user_input.parents[0])
+                user_input.parents[0][0])
 
             new_part = self.storage.newLV(size=user_input.size,
-                parents=user_input.parents, name=device_name)
+                parents=[i[0] for i in user_input.parents], name=device_name)
 
             device_id = new_part.id
 
@@ -639,7 +720,7 @@ class BlivetUtils():
             device_name = self._pick_device_name(user_input.name)
 
             new_part = self.storage.newVG(size=user_input.size,
-                parents=user_input.parents, name=device_name)
+                parents=[i[0] for i in user_input.parents], name=device_name)
 
             device_id = new_part.id
 
@@ -649,7 +730,7 @@ class BlivetUtils():
 
             if user_input.encrypt:
                 dev = self.storage.newPartition(size=user_input.size,
-                    parents=user_input.parents)
+                    parents=[i[0] for i in user_input.parents])
 
                 self.storage.createDevice(dev)
 
@@ -668,7 +749,7 @@ class BlivetUtils():
 
             else:
                 new_part = self.storage.newPartition(size=user_input.size,
-                    parents=user_input.parents)
+                    parents=[i[0] for i in user_input.parents])
 
                 device_id = new_part.id
 
@@ -688,15 +769,9 @@ class BlivetUtils():
             # exact total size of newly created partitions (future parents)
             total_size = blivet.Size("0 MiB")
 
-            for parent in user_input.parents:
+            for parent, size in user_input.parents:
 
-                # FIXME: size of parent btrfs partitions -- now I know the size is total size /
-                # number of parents, because the same size of parents (partitions) is hardcoded
-                # but this will change in future -- it is neccessary to redisign whole arguments
-                # passing from dialog to lists_partitions to here (named tuple or class)
-
-                new_part = self.storage.newPartition(size=user_input.size/len(user_input.parents),
-                    parents=[parent])
+                new_part = self.storage.newPartition(size=size,parents=[parent])
 
                 self.storage.createDevice(new_part)
 
@@ -729,9 +804,9 @@ class BlivetUtils():
         elif user_input.device_type == "btrfs subvolume":
 
             device_name = self._pick_device_name(user_input.name,
-                user_input.parents[0])
+                user_input.parents[0][0])
 
-            new_btrfs = self.storage.newBTRFSSubVolume(parents=user_input.parents,
+            new_btrfs = self.storage.newBTRFSSubVolume(parents=[i[0] for i in user_input.parents],
                 name=device_name)
 
             self.storage.createDevice(new_btrfs)

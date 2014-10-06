@@ -229,7 +229,7 @@ class AddDialog(Gtk.Dialog):
 
                 self.parents.set_sensitive(True)
 
-            elif device == "btrfs volume":
+            elif device in ["btrfs volume", "lvm"]:
 
                 # add selected device
                 self.parents_store.append([self.parent_device, True,
@@ -286,8 +286,7 @@ class AddDialog(Gtk.Dialog):
         """ Computes size for our Gtk.Scale and Gtk.SpinButtons
             --> if user chooses more than one parent device, we need to allow
                 him to choose size for new device to be size of both devices
-                (or twice size of smaller smaller device for raids) and not allow
-                him to choose smaller size than size of largest selected device
+                (or twice size of smaller smaller device for raids)
 
                 #FIXME: size based on raid type, btrfs see: https://btrfs.wiki.kernel.org/index.php/Using_Btrfs_with_Multiple_Devices
 
@@ -304,11 +303,16 @@ class AddDialog(Gtk.Dialog):
 
         for row in self.parents_store:
             if row[1] == True:
+
+                num_selected += 1
                 size = Size(row[4])
-                print("size:", size)
+
                 up_limit += size
-                if size > down_limit:
-                    down_limit = Size("1 MiB") + size
+                down_limit += size
+
+        # explanation: for multiple parent devices, user can left free space
+        # only from last device up to its size minus 1 MiB
+        down_limit = down_limit - size + Size("1 MiB")
 
         return (up_limit, down_limit)
 
@@ -576,7 +580,8 @@ class AddDialog(Gtk.Dialog):
 
         for row in self.parents_store:
             if row[1]:
-                parents.append(row[0])
+                size = Size(row[4]).convertTo("MiB")
+                parents.append([row[0], Size(str(size) + "MiB")])
 
         if self.kickstart:
             mountpoint = self.mountpoint_entry.get_text()
