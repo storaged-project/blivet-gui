@@ -282,9 +282,7 @@ class MainMenu():
         """ Onselect action for 'About'
         """
 
-        dialog = AboutDialog(self.main_window)
-
-        dialog.run()
+        AboutDialog(self.main_window)
 
     def on_help_item(self, event):
         """ Onselect action for 'Help'

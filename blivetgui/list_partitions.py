@@ -787,7 +787,7 @@ class ListPartitions():
 
         response = dialog.run()
 
-        if response == Gtk.ResponseType.OK:
+        if response:
 
             ret = self.b.luks_decrypt(self.selected_partition[0],
                 dialog.get_selection())
@@ -798,11 +798,6 @@ class ListPartitions():
                 message_dialogs.ErrorDialog(self.main_window, msg)
 
                 return
-
-        elif response == Gtk.ResponseType.CANCEL:
-            pass
-
-        dialog.destroy()
 
         self.list_devices.update_devices_view()
         self.update_partitions_view(self.disk)

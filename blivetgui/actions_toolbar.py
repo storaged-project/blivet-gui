@@ -198,7 +198,6 @@ class actions_toolbar():
         """
 
         self.list_partitions.clear_actions()
-        self.list_partitions.clear_actions_view()
 
     def on_undo_clicked(self, event):
         """ Onselect action for 'Undo' button

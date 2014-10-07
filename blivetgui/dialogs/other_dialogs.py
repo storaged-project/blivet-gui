@@ -34,36 +34,25 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
-class AboutDialog(Gtk.AboutDialog):
+dirname, filename = os.path.split(os.path.abspath(__file__)) #FIXME
+
+#------------------------------------------------------------------------------#
+
+class AboutDialog():
     """ Standard 'about application' dialog
     """
 
     def __init__(self, parent_window):
-        Gtk.AboutDialog.__init__(self)
 
-        self.parent_window = parent_window
+        builder = Gtk.Builder()
+        builder.add_from_file(dirname + '/../data/ui/about_dialog.ui')
+        dialog = builder.get_object("about_dialog")
 
-        self.set_transient_for(self.parent_window)
+        dialog.set_transient_for(parent_window)
 
-        authors = ["Vojtech Trefny <vtrefny@redhat.com>"]
-        documenters = ["Vojtech Trefny <vtrefny@redhat.com>"]
-
-        self.set_program_name(APP_NAME)
-        self.set_copyright(_("Copyright \xc2\xa9 2014 Red Hat Inc."))
-        self.set_authors(authors)
-        self.set_documenters(documenters)
-        self.set_website("https://github.com/vojtechtrefny/blivet-gui")
-        self.set_website_label("blivet-gui Website")
-        self.set_license_type(Gtk.License.GPL_3_0)
-
-        self.set_title("")
-
-        self.connect("response", self.on_close)
-
-        self.show()
-
-    def on_close(self, action, par):
-        self.destroy()
+        dialog.show_all()
+        dialog.run( )
+        dialog.destroy()
 
 
 class LuksPassphraseDialog(Gtk.Dialog):
@@ -80,37 +69,23 @@ class LuksPassphraseDialog(Gtk.Dialog):
 
         """
 
-        self.parent_window = parent_window
-        self.device_name = device_name
+        builder = Gtk.Builder()
+        builder.add_from_file(dirname + '/../data/ui/luks_passphrase_dialog.ui')
+        self.dialog = builder.get_object("dialog")
 
-        Gtk.Dialog.__init__(self, _("Enter passphrase to decrypt {0}").format(self.device_name),
-            None, 0, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                Gtk.STOCK_OK, Gtk.ResponseType.OK))
+        self.dialog.set_transient_for(parent_window)
 
-        self.set_transient_for(self.parent_window)
+        self.entry_passphrase = builder.get_object("entry_passphrase")
+        self.dialog.show_all()
 
-        self.set_default_size(250, 100)
-        self.set_border_width(10)
+    def run(self):
 
-        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
-            column_spacing=5)
+        response = self.dialog.run()
 
-        box = self.get_content_area()
-        box.add(self.grid)
+        if response == Gtk.ResponseType.OK:
+            return self.entry_passphrase.get_text()
 
-        self.pass_label = Gtk.Label()
-        self.pass_label.set_markup(_("Passphrase:"))
+        else:
+            return None
 
-        self.grid.attach(self.pass_label, 0, 0, 1, 1) #left-top-width-height
-
-        self.pass_entry = Gtk.Entry()
-        self.pass_entry.set_visibility(False)
-        self.pass_entry.set_property("caps-lock-warning", True)
-
-        self.grid.attach(self.pass_entry, 1, 0, 2, 1)
-
-        self.show_all()
-
-    def get_selection(self):
-
-        return self.pass_entry.get_text()
+        self.dialog.destroy()
