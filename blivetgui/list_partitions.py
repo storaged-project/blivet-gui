@@ -735,19 +735,14 @@ class ListPartitions():
         """
         if self.kickstart_mode:
 
-            dialog = kickstart_dialogs.KickstartFileSaveDialog(self.main_window)
+            dialog = other_dialogs.KickstartFileSaveDialog(self.main_window)
 
             response = dialog.run()
 
-            if response == Gtk.ResponseType.OK:
+            if response:
 
                 self.clear_actions_view()
                 self.b.create_kickstart_file(dialog.get_filename())
-
-            elif response == Gtk.ResponseType.CANCEL:
-                dialog.destroy()
-
-            dialog.destroy()
 
             self.clear_actions_view()
             self.history.clear_history()

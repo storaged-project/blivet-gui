@@ -30,7 +30,7 @@ import gettext
 
 from utils import *
 
-from dialogs import kickstart_dialogs, message_dialogs
+from dialogs import other_dialogs, message_dialogs
 
 from list_partitions import *
 
@@ -72,7 +72,7 @@ class ListDevices():
                 message_dialogs.ErrorDialog(self.main_window, msg)
                 sys.exit(0)
 
-            dialog = kickstart_dialogs.KickstartSelectDevicesDialog(self.main_window, disks)
+            dialog = other_dialogs.KickstartSelectDevicesDialog(self.main_window, disks)
             response = dialog.run()
 
             if response == Gtk.ResponseType.OK:
