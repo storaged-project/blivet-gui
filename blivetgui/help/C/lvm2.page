@@ -50,12 +50,10 @@
   <media type="image" src="images/lvm2-vg.png" width="600" />
 </figure>
 
-	<p>Volume groups and physical volumes are displayed in their specific section in device list at the left side of
-	blivet-gui window.</p>
+	<p>Volume groups in the specific section in the device list at the left side of blivet-gui window.</p>
 	<p>Physical volumes can contain one volume group, volume groups can contain (in theory) infinite number of logical volumes.</p>
 	
-	<p>In the image shown above, there are two volume groups - <em>fedora</em> placed on sda2 physical volume and <em>fedora-lvm</em>
-	placed on two physical volumes - sdb1 and sdc1.</p>
+	<p>In the image shown above, there is one volume groups - <em>fedora</em> placed on two physical volumes - sda2 and sdb1.</p>
 </section>
 
 
@@ -63,11 +61,6 @@
     <title>Creating LVM2 Storages</title>
 
 <p>LVM2 Storage represents whole LVM2 "ecosystem" - by creating it you will create physical volume with volume group.</p>
-
-<note style="tip">
-  <p>This option currently doesn't support create storage with multiple physical volumes. If you need this setup, you'll need
-  to create multiple physical volumes first and then create new volume group.</p>
-</note>
 
 <steps>
   <item><p>Select a disk with free space from the list of <gui>Disks</gui>.</p></item>
@@ -84,8 +77,10 @@
 
 <steps>
    <item><p>Set <gui>Device type</gui> to <gui>LVM2 Storage</gui>.</p></item>
+   <item><p>From list of <gui>Available devices</gui> select at least one free space (the one selected in previous steps will pre-selected).</p></item>
    <item><p>Set size for your storage.</p></item>
    <item><p>Set <gui>Name</gui> for your volume group (if left blank, system will choose name based on machine <em>hostname</em>).</p></item>
+   <item><p>It's possible to create encrypted LVM using LUKS/dm-crypt. Check <gui>Encrypt</gui> option and fill in passphrase.</p></item>
   <item><p>Hit <gui style="button">OK</gui> to create volume.</p></item>
 </steps>
 
@@ -99,8 +94,8 @@
     <title>Creating LVM2 Volume Groups</title>
     
 <steps>
-  <item><p>Select a physical volume without volume group from the list of <gui>LVM2 Physical Volume</gui>.</p></item>
-  <item><p>From <gui>Partitions</gui> tab select <em>free space</em> line.</p></item>
+  <item><p>Select a disk with an empty physical volume from the list of <gui>Disks</gui>.</p></item>
+  <item><p>From <gui>Partitions</gui> tab select <em>free space</em> in this volume.</p></item>
   <item><p>Click on <gui>Add</gui> button in toolbar or just press <key>Insert</key>.</p></item>
 </steps> 
 
@@ -189,9 +184,9 @@ LVM2 logical volumes, then delete the volume group and at last delete all physic
 <steps>
   <item><p>From list of devices in section <gui>LVM2 Volume Groups</gui> select storage you would like to delete and delete all logical volumes
   on it. (Use the same process as when deleting partition. See <link xref="partitioning"/> for more information.)</p></item>
-  <item><p>From list of devices in section <gui>LVM2 Physical Volumes</gui> select one of the volumes hosting volume group you'd like to delete.
+  <item><p>From list of devices in section <gui>Disks</gui> select one of the disks hosting volumes with the volume group you'd like to delete.
   (It doesn't matter which one.)</p></item>
-  <item><p>From list of devices in section <gui>Disks</gui> select disk with physical volume and delete it.</p></item>
+  <item><p>Select the physical volume and delete it.</p></item>
   <item><p>Repeat previous for all physical volumes you'd like to delete.</p></item>
 </steps> 
 

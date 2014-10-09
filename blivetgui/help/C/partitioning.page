@@ -52,6 +52,7 @@ create one. See <link xref="disklabel"/>.</p>
   <item><p>Set <gui>Device type</gui> to <gui>Partition</gui> (it should be preselected).</p></item>
   <item><p>Set size for your new partition.</p></item>
   <item><p>Choose <gui>Filesystem</gui>. Optionally you can set <gui>Label</gui> too.</p></item>
+  <item><p>It's possible to create encrypted partition using LUKS/dm-crypt. Check the <gui>Encrypt</gui> option and fill in passphrase.</p></item>
   <item><p>Hit <gui style="button">OK</gui> to create partition.</p></item>
 </steps>
 

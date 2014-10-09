@@ -101,7 +101,7 @@
     <title>Devices</title>
     
     <p>On the left site of blivet-gui window is located list of "root" devices currently present in your computer. This list contains list of <em>Disks</em>
-    and <em>LVM2 Storages</em>.</p>
+    and <em>LVM2 Volume Groups</em>.</p>
     
     <p>Selecting one of these devices will display more information about it, including list of child devices (partitions) and its visualisation.</p>
 </section>
@@ -111,9 +111,6 @@
     
     <p>Right side of the window is reserved for information about partitions (child devices). Upper part hosts simple visualisation of "situation" on the selected device presenting its child devices (partitions) with their names and sizes.</p>
     
-    <note>
-  <p>Partitions visualisation is not interactive. This feature is planned for blivet-gui 0.2.0.</p>
-</note>
 </section>
 
 <section id="list">

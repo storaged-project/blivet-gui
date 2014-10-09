@@ -30,10 +30,13 @@ All scheduled changes will be made. According to number and type of actions and 
 
 <p>To cancel all queued actions, click <gui>Clear</gui> button on the toolbar.
 All scheduled changes will be dropped.</p> 
+</section>
 
-<note>
-  <p>Currently is not possible to delete/undo last action or to manage actions in more detailed way. This feature is planned for blivet-gui 0.2.0.</p>
-</note>
+<section id="undoredo">
+    <title>Undo/Redo last action</title>
+
+<p>To undo previous actions, click on <gui>Undo</gui> button on the toolbar. Undo memory is limited to five steps. Undoed actions can be restored using <gui>Redo</gui> button.</p> 
+
     
 </section>
 
