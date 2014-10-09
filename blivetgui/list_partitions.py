@@ -368,9 +368,9 @@ class ListPartitions():
         """
 
         icon_theme = Gtk.IconTheme.get_default()
-        icon_add = Gtk.IconTheme.load_icon(icon_theme, "gtk-add", 16, 0)
-        icon_delete = Gtk.IconTheme.load_icon (icon_theme, "gtk-delete", 16, 0)
-        icon_edit = Gtk.IconTheme.load_icon(icon_theme, "gtk-edit", 16, 0)
+        icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
+        icon_delete = Gtk.IconTheme.load_icon (icon_theme, "edit-delete", 16, 0)
+        icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all", 16, 0)
         icon_undo = Gtk.IconTheme.load_icon(icon_theme, "edit-undo", 16, 0)
         icon_redo = Gtk.IconTheme.load_icon(icon_theme, "edit-redo", 16, 0)
 
