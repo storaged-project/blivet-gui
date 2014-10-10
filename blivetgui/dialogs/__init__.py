@@ -1,1 +1,1 @@
-__all__ = ["add_dialog", "edit_dialog", "kickstart_dialogs", "message_dialogs", "other_dialogs"]
+__all__ = ["add_dialog", "edit_dialog", "message_dialogs", "other_dialogs"]

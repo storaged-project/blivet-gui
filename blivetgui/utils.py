@@ -1043,7 +1043,6 @@ class BlivetUtils():
         """
 
         self.storage.doIt()
-        self.storage.reset()
 
     def create_kickstart_file(self, fname):
         """ Create kickstart config file

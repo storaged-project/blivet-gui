@@ -373,8 +373,14 @@ class AddDialog(Gtk.Dialog):
             widget.destroy()
 
     def show_size_scale(self):
+
+        device_type = self._get_selected_device_type
+
         for widget in self.widgets_dict["size"]:
             widget.show()
+
+            if device_type in ["lvmvg"]:
+                widget.set_sensitive(False)
 
     def add_fs_chooser(self):
         label_fs = Gtk.Label(_("Filesystem:"), xalign=1)
