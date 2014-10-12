@@ -10,6 +10,7 @@ dist
 build
 sdist
 _build
+.zanata-cache
 
 doc/_build
 

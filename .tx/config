@@ -1,9 +1,0 @@
-[main]
-host = https://www.transifex.com
-
-[blivet-gui.blivet-guipot]
-file_filter = po/<lang>.po
-source_file = po/blivet-gui.pot
-source_lang = en
-type = PO
-
