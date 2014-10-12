@@ -26,10 +26,13 @@ Url: http://github.com/vojtechtrefny/blivet-gui
 		 ...
 
 %prep
-%setup -n %{name}-%{unmangled_version}
+%setup -q
 
 %build
-python2 setup.py build
+make
+
+%check
+make test
 
 %install
 mkdir -p %{buildroot}%{_datadir}/polkit-1/actions/
@@ -39,13 +42,15 @@ desktop-file-install                                    \
 --dir=${RPM_BUILD_ROOT}%{_datadir}/applications         \
 %{SOURCE2}
 
-python2 setup.py install -O1 --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
-
+make DESTDIR=%{buildroot} install
+%find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
-%files -f INSTALLED_FILES
+%files -f %{name}.lang
 %defattr(-,root,root)
 /usr/share/applications/blivet-gui.desktop
 /usr/share/polkit-1/actions/org.fedoraproject.pkexec.blivet-gui.policy
+/usr/share/blivet-gui
+/usr/share/help/blivet-gui
