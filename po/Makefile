@@ -25,7 +25,7 @@ MSGFMT		= msgfmt --statistics --verbose
 POFILES		= $(wildcard *.po)
 MOFILES		= $(patsubst %.po,%.mo,$(POFILES))
 PYSRC		= $(wildcard ../blivetgui/*.py ../blivetgui/*/*.py)
-GLADEFILES 	= $(wildcard ../blivetgui/data/ui/*.ui)
+GLADEFILES 	= $(wildcard ../data/ui/*.ui)
 
 all::update-po $(MOFILES)
 	@rm -rf tmp
