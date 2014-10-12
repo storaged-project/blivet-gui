@@ -113,8 +113,8 @@ class ListDevices():
 
         else:
 
-            msg = _("blivet-gui failed to find at least one storage device to work with.\
-                \n\nPlease connect a storage device to your computer and re-run blivet-gui.")
+            msg = _("blivet-gui failed to find at least one storage device to work with." \
+                "\n\nPlease connect a storage device to your computer and re-run blivet-gui.")
             message_dialogs.ErrorDialog(self.main_window, msg)
             sys.exit(0)
 

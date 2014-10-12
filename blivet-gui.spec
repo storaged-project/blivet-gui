@@ -18,7 +18,7 @@ Prefix: %{_prefix}
 BuildArch: noarch
 Vendor: Vojtech Trefny <vtrefny@redhat.com>
 BuildRequires: python2-devel, desktop-file-utils
-Requires: python, pygobject3, gettext, yelp, python-blivet >= 0.61, gtk3, gnome-icon-theme, polkit-gnome
+Requires: python, pygobject3, gettext, yelp, python-blivet >= 0.61, gtk3, gnome-icon-theme, polkit-gnome, python-pyudev
 Provides: blivetgui
 Url: http://github.com/vojtechtrefny/blivet-gui
 
