@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-12 21:27+0200\n"
+"POT-Creation-Date: 2014-10-13 15:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -252,73 +252,85 @@ msgstr ""
 msgid "Redo"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:80
+#: ../blivetgui/main_menu.py:76
 msgid "File"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:86
+#: ../blivetgui/main_menu.py:82
 msgid "Reload"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:96
+#: ../blivetgui/main_menu.py:92
 msgid "Quit"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:112 ../blivetgui/main_menu.py:196
+#: ../blivetgui/main_menu.py:108 ../blivetgui/main_menu.py:192
 #: ../blivetgui/actions_menu.py:69
 msgid "Edit"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:117
+#: ../blivetgui/main_menu.py:113
 msgid "Undo Last Action"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:129
+#: ../blivetgui/main_menu.py:125
 msgid "Redo Last Action"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:141
+#: ../blivetgui/main_menu.py:137
 msgid "Clear Queued Actions"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:150
+#: ../blivetgui/main_menu.py:146
 msgid "Apply Queued Actions"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:167 ../blivetgui/dialogs/add_dialog.py:190
+#: ../blivetgui/main_menu.py:163 ../blivetgui/dialogs/add_dialog.py:190
 msgid "Device"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:172 ../blivetgui/actions_menu.py:51
+#: ../blivetgui/main_menu.py:168 ../blivetgui/actions_menu.py:51
 msgid "New"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:184 ../blivetgui/actions_menu.py:60
+#: ../blivetgui/main_menu.py:180 ../blivetgui/actions_menu.py:60
 msgid "Delete"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:207 ../blivetgui/actions_menu.py:80
+#: ../blivetgui/main_menu.py:203 ../blivetgui/actions_menu.py:80
 msgid "Unmount"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:216 ../blivetgui/actions_menu.py:89
+#: ../blivetgui/main_menu.py:212 ../blivetgui/actions_menu.py:89
 msgid "Decrypt"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:230
+#: ../blivetgui/main_menu.py:226
 msgid "Help"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:235
+#: ../blivetgui/main_menu.py:231
 msgid "Contents"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:244
+#: ../blivetgui/main_menu.py:240
 msgid "About"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:297
-msgid "You need \"Yelp\" to see the documentation.\n"
+#: ../blivetgui/main_menu.py:288
+msgid ""
+"Documentation for blivet-gui hasn't been found.\n"
+"\n"
+"Online version of documentation is available at http://vojtechtrefny.github."
+"io/blivet-gui"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:308
+msgid ""
+"You need \"Yelp\" to see the documentation.\n"
+"\n"
+"Online version of documentation is available at http://vojtechtrefny.github."
+"io/blivet-gui"
 msgstr ""
 
 #: ../blivetgui/main.py:56
@@ -452,19 +464,19 @@ msgstr ""
 msgid "Select new partition table type:"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:133
+#: ../blivetgui/dialogs/other_dialogs.py:129
 msgid "Select devices"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:186
+#: ../blivetgui/dialogs/other_dialogs.py:182
 msgid "Please select at least one of shown devices:"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:198
+#: ../blivetgui/dialogs/other_dialogs.py:194
 msgid "Install bootloader?:"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:206
+#: ../blivetgui/dialogs/other_dialogs.py:202
 msgid "Device to install bootloader:"
 msgstr ""
 

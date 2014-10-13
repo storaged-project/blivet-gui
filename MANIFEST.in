@@ -1,3 +1,4 @@
-include blivet-gui README.txt
+include blivet-gui README.txt Makefile
 recursive-include help *
 recursive-include data *
+recursive-include po *

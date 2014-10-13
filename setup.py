@@ -4,6 +4,7 @@ import glob
 data_files = []
 ui_files = glob.glob("data/ui/*.ui")
 help_files = glob.glob("help/C/*.page")
+help_files += glob.glob("help/C/*.xml")
 image_files = glob.glob("help/C/images/*.png")
 icon_files = glob.glob("help/C/icons/*.png")
 data_files.append(("/usr/share/blivet-gui/ui", ui_files))
@@ -16,7 +17,7 @@ print data_files
 setup(
 	name = "blivet-gui",
 	packages = ["blivetgui"],
-	version = "0.1.8",
+	version = "0.1.9",
 	description = "Tool for data storages configuration",
 	author = "Vojtech Trefny",
 	author_email = "vtrefny@redhat.com",

@@ -1,7 +1,7 @@
 %define name blivet-gui
-%define version 0.1.8
-%define unmangled_version 0.1.8
-%define release 7
+%define version 0.1.9
+%define unmangled_version 0.1.9
+%define release 1
 %define build_timestamp %(date +"%Y%m%d")
 
 Summary: Tool for data storages configuration
@@ -31,9 +31,6 @@ Url: http://github.com/vojtechtrefny/blivet-gui
 %build
 make
 
-%check
-make test
-
 %install
 mkdir -p %{buildroot}%{_datadir}/polkit-1/actions/
 cp %{SOURCE1} %{buildroot}%{_datadir}/polkit-1/actions/
@@ -49,8 +46,10 @@ make DESTDIR=%{buildroot} install
 rm -rf %{buildroot}
 
 %files -f %{name}.lang
-%defattr(-,root,root)
+%defattr(-,root,root,-)
+%{python_sitelib}/*
 /usr/share/applications/blivet-gui.desktop
 /usr/share/polkit-1/actions/org.fedoraproject.pkexec.blivet-gui.policy
 /usr/share/blivet-gui
-/usr/share/help/blivet-gui
+/usr/share/help/C/blivet-gui
+/usr/bin/blivet-gui
