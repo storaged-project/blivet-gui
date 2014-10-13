@@ -22,19 +22,27 @@
 #
 #------------------------------------------------------------------------------#
 
-import os
-
 import gettext
 
 from gi.repository import Gtk
 
 #------------------------------------------------------------------------------#
 
-dirname, filename = os.path.split(os.path.abspath(__file__)) #FIXME
+_ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
-_ = lambda x: gettext.ldgettext("blivet-gui", x)
+def locate_ui_file(filename):
+
+    path = [os.path.split(os.path.abspath(__file__))[0] + '../data/ui/',
+        '/usr/share/blivet-gui/ui/']
+
+    for folder in path:
+        fn = folder + filename
+        if os.access(fn, os.R_OK):
+            return fn
+
+    raise RuntimeError("Unable to find glade file %s" % file)
 
 #------------------------------------------------------------------------------#
 
@@ -45,7 +53,7 @@ class WarningDialog():
     def __init__(self, parent_window, msg):
 
         builder = Gtk.Builder()
-        builder.add_from_file(dirname + '/../data/ui/warning_dialog.ui')
+        builder.add_from_file(locate_ui_file('warning_dialog.ui'))
         dialog = builder.get_object("warning_dialog")
 
         dialog.set_transient_for(parent_window)
@@ -62,7 +70,7 @@ class ErrorDialog():
     def __init__(self, parent_window, msg):
 
         builder = Gtk.Builder()
-        builder.add_from_file(dirname + '/../data/ui/error_dialog.ui')
+        builder.add_from_file(locate_ui_file('error_dialog.ui'))
         dialog = builder.get_object("error_dialog")
 
         dialog.set_transient_for(parent_window)
@@ -77,7 +85,7 @@ class ExceptionDialog():
     def __init__(self, parent_window, msg, traceback):
 
         builder = Gtk.Builder()
-        builder.add_from_file(dirname + '/../data/ui/exception_dialog.ui')
+        builder.add_from_file(locate_ui_file('exception_dialog.ui'))
         dialog = builder.get_object("exception_dialog")
 
         dialog.set_transient_for(parent_window)
@@ -97,7 +105,7 @@ class ConfirmDialog():
     def __init__(self, parent_window, title, msg):
 
         builder = Gtk.Builder()
-        builder.add_from_file(dirname + '/../data/ui/confirm_dialog.ui')
+        builder.add_from_file(locate_ui_file('confirm_dialog.ui'))
         self.dialog = builder.get_object("confirm_dialog")
 
         self.dialog.set_transient_for(parent_window)

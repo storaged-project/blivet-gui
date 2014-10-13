@@ -22,19 +22,15 @@
 #
 #------------------------------------------------------------------------------#
 
-import os
-
 import gettext
 
 from gi.repository import Gtk, GdkPixbuf
 
+from message_dialogs import locate_ui_file
+
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
-
-#------------------------------------------------------------------------------#
-
-dirname, filename = os.path.split(os.path.abspath(__file__)) #FIXME
 
 #------------------------------------------------------------------------------#
 
@@ -45,7 +41,7 @@ class AboutDialog():
     def __init__(self, parent_window):
 
         builder = Gtk.Builder()
-        builder.add_from_file(dirname + '/../data/ui/about_dialog.ui')
+        builder.add_from_file(locate_ui_file('about_dialog.ui'))
         dialog = builder.get_object("about_dialog")
 
         dialog.set_transient_for(parent_window)
@@ -70,7 +66,7 @@ class LuksPassphraseDialog(Gtk.Dialog):
         """
 
         builder = Gtk.Builder()
-        builder.add_from_file(dirname + '/../data/ui/luks_passphrase_dialog.ui')
+        builder.add_from_file(locate_ui_file('luks_passphrase_dialog.ui'))
         self.dialog = builder.get_object("dialog")
 
         self.dialog.set_transient_for(parent_window)
@@ -96,7 +92,7 @@ class KickstartFileSaveDialog():
     def __init__(self, parent_window):
 
         builder = Gtk.Builder()
-        builder.add_from_file(dirname + '/../data/ui/kickstart_filesave_dialog.ui')
+        builder.add_from_file(locate_ui_file('kickstart_filesave_dialog.ui'))
         self.dialog = builder.get_object("kickstart_filesave_dialog")
 
         self.dialog.set_transient_for(parent_window)

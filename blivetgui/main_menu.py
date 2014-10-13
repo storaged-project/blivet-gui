@@ -37,10 +37,6 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
-dirname, filename = os.path.split(os.path.abspath(__file__)) #FIXME
-
-#------------------------------------------------------------------------------#
-
 class MainMenu():
     """ Main menu for blivet-gui
     """
@@ -288,15 +284,30 @@ class MainMenu():
         """ Onselect action for 'Help'
         """
 
+        if not os.access('/usr/share/help/C/blivet-gui/index.page', os.R_OK):
+            msg = _("Documentation for blivet-gui hasn't been found.\n\n" \
+                "Online version of documentation is available at " \
+                "http://vojtechtrefny.github.io/blivet-gui")
+
+            InfoDialog(self.main_window, msg)
+
         try:
             FNULL = open(os.devnull, "w")
-            subprocess.Popen(["yelp", dirname + "/help/C/index.page"],
-                stdout=FNULL, stderr=subprocess.STDOUT)
 
-        except Exception as e:
-            msg = _("You need \"Yelp\" to see the documentation.\n" + str(e) +
-                "\n\nOnline version of documentation is available at " \
-                "http://vojtechtrefny.github.io/")
+            user = os.getenv("PKEXEC_UID")
+
+            if user:
+                subprocess.Popen(["yelp", "/usr/share/help/C/blivet-gui/index.page"],
+                    stdout=FNULL, stderr=subprocess.STDOUT, preexec_fn=os.setuid(int(user)))
+
+            else:
+                subprocess.Popen(["yelp", "/usr/share/help/C/blivet-gui/index.page"],
+                    stdout=FNULL, stderr=subprocess.STDOUT)
+
+        except OSError as e:
+            msg = _("You need \"Yelp\" to see the documentation.\n\n" \
+                "Online version of documentation is available at " \
+                "http://vojtechtrefny.github.io/blivet-gui")
 
             ErrorDialog(self.main_window, msg)
 

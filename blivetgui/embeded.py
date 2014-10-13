@@ -32,10 +32,6 @@ from gi.repository import Gtk
 
 #------------------------------------------------------------------------------#
 
-dirname, filename = os.path.split(os.path.abspath(__file__)) #FIXME
-
-#------------------------------------------------------------------------------#
-
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
@@ -54,7 +50,7 @@ class SocketWindow(Gtk.Window):
 
         socket_id = None
 
-        process = subprocess.Popen(["python2", dirname + "/main.py", "-e"])
+        process = subprocess.Popen(["blivet-gui", "-e"])
 
         socket_id = raw_input("Enter the ID printed above:\n")
         socket.add_id(int(socket_id))

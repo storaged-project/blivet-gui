@@ -22,6 +22,8 @@
 #
 #------------------------------------------------------------------------------#
 
+from __future__ import print_function
+
 import os, signal
 
 from gi.repository import Gtk
@@ -34,27 +36,35 @@ from udisks_loop import udisks_thread
 
 #------------------------------------------------------------------------------#
 
-dirname, filename = os.path.split(os.path.abspath(__file__)) #FIXME
-
-#------------------------------------------------------------------------------#
-
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
-def main_window(kickstart = False):
+def locate_ui_file(filename):
+
+    path = [os.path.split(os.path.abspath(__file__))[0] + '../data/ui/',
+        '/usr/share/blivet-gui/ui/']
+
+    for folder in path:
+        fn = folder + filename
+        if os.access(fn, os.R_OK):
+            return fn
+
+    raise RuntimeError("Unable to find glade file %s" % file)
+
+def main_window(kickstart=False):
     """ Create main window from Glade UI file
     """
 
     builder = Gtk.Builder()
-    builder.add_from_file(dirname + '/data/ui/blivet-gui.ui')
+    builder.add_from_file(locate_ui_file('blivet-gui.ui'))
 
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
     MainWindow = builder.get_object("MainWindow")
     MainWindow.connect("delete-event", Gtk.main_quit)
 
-    l = ListDevices(MainWindow, builder, kickstart)
+    ListDevices(MainWindow, builder, kickstart)
 
     # u = udisks_thread()
     # u.start()
@@ -72,7 +82,7 @@ def embeded_window(kickstart=False):
     print(plug.get_id())
 
     builder = Gtk.Builder()
-    builder.add_from_file(dirname + '/data/ui/blivet-gui.ui')
+    builder.add_from_file(locate_ui_file('blivet-gui.ui'))
 
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
