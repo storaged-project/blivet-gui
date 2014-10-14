@@ -2,6 +2,9 @@
 *.sw[po]
 
 po/*.po
+po/*.mo
+
+MANIFEST
 
 # Packages
 *.egg
@@ -17,5 +20,4 @@ doc/_build
 *.sqlite3
 
 tests
-bak
 .directory

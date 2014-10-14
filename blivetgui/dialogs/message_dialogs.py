@@ -22,6 +22,8 @@
 #
 #------------------------------------------------------------------------------#
 
+import os
+
 import gettext
 
 from gi.repository import Gtk
