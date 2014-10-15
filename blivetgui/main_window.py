@@ -78,8 +78,7 @@ def embeded_window(kickstart=False):
     window_id = 0
     plug = Gtk.Plug(window_id)
 
-    #FIXME
-    print(plug.get_id())
+    print(str(plug.get_id()) + "\n")
 
     builder = Gtk.Builder()
     builder.add_from_file(locate_ui_file('blivet-gui.ui'))

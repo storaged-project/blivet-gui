@@ -548,14 +548,93 @@ class ListPartitions():
             self.selected_partition = None
 
         self.update_partitions_view(self.disk)
-
         self.list_devices.update_devices_view()
 
-    def add_partition(self, old_input=None):
+    def validate_add_dialog_input(self, user_input, add_dialog):
+        """ Validate data from input dialog
+
+            :param user_input: user input
+            :type user_input: add_dialog.UserInput
+            :param add_dialog: add dialog
+            :type add_dialog: add_dialog.AddDialog
+            :returns: data validity
+            :rtype: bool
+
+        """
+
+        if user_input.filesystem == None and user_input.device_type in ["partition", "lvmlv"]:
+            # If fs is not selected, show error window and re-run add dialog
+
+            msg = _("Filesystem type must be specified when creating new partition.")
+            message_dialogs.ErrorDialog(add_dialog, msg)
+
+            return False
+
+        elif user_input.encrypt and not user_input.passphrase:
+
+            msg = _("Passphrase not specified.")
+            message_dialogs.ErrorDialog(add_dialog, msg)
+
+            return False
+
+        elif user_input.mountpoint and not os.path.isabs(user_input.mountpoint):
+
+            msg = _("\"{0}\" is not a valid mountpoint.").format(user_input.mountpoint)
+            message_dialogs.ErrorDialog(add_dialog, msg)
+
+            return False
+
+        elif self.kickstart_mode and user_input.mountpoint:
+            if self.check_mountpoint(user_input.mountpoint):
+                return True
+
+            else:
+                return False
+
+        elif user_input.device_type == "btrfs volume" and user_input.btrfs_type == "disks":
+
+            delete_labels = []
+
+            for parent, size in user_input.parents:
+                if parent.format.type:
+                    delete_labels.append(parent)
+
+            if len(delete_labels) == 0:
+                return True
+
+            title = _("Confirm partition table override")
+            msg = _("You have selected to create Btrfs Volume on top of disks. " \
+                "At least one of the disks, you've selected currently have an " \
+                "active disklabel (partition table). It is neccessary to " \
+                "delete it now.\n\nTHIS ACTION COULDN'T BE UNDONE! Do you " \
+                "want to continue?\n\n")
+            msg += _("List of disks with existing disklabel:\n")
+
+            for disk in delete_labels:
+                msg += _("\t• model: {0}, path: {1}, size: {2}, curent disklabel: "\
+                    "{3}").format(disk.model, disk.path, str(disk.size), disk.format.type)
+
+            dialog = message_dialogs.ConfirmDialog(add_dialog, title, msg)
+
+            response = dialog.run()
+
+            if response:
+                return True
+
+            else:
+                return False
+
+        else:
+            return True
+
+    def add_partition(self, old_input=None, btrfs_pt=False):
         """ Add new partition
 
             :param old_input: stored user input from previous (incomplete) run
             :type old_input: UserSelection
+            :param btrfs_pt: create btrfs as partition table
+            :type btrfs_pt: bool
+
         """
 
         # parent device; free space has always only one parent #FIXME
@@ -572,7 +651,8 @@ class ListPartitions():
         if parent_device_type == "partition" and parent_device.format.type == "lvmpv":
             parent_device_type = "lvmpv"
 
-        if parent_device_type == "disk" and self.b.has_disklabel(self.disk) != True:
+        if parent_device_type == "disk" and self.b.has_disklabel(self.disk) != True \
+            and btrfs_pt == False:
 
             dialog = add_dialog.AddLabelDialog(self.main_window, self.disk,
                 self.b.get_available_disklabels())
@@ -583,68 +663,36 @@ class ListPartitions():
 
                 selection = dialog.get_selection()
 
+                if selection == "btrfs":
+                    dialog.destroy()
+                    self.add_partition(btrfs_pt=True)
+                    return
+
                 self.history.add_undo(self.b.return_devicetree)
                 self.main_menu.activate_menu_items(["undo"])
 
-                self.b.create_disk_label(self.disk, dialog.get_selection())
+                self.b.create_disk_label(self.disk, selection)
                 self.update_actions_view("add", "create new disklabel on " + str(self.disk.name) + " device")
 
-                dialog.destroy()
                 self.update_partitions_view(self.disk)
 
-            elif response == Gtk.ResponseType.CANCEL:
-
-                dialog.destroy()
-
-                return
-
+            dialog.destroy()
             return
 
         dialog = add_dialog.AddDialog(self.main_window, parent_device_type,
             parent_device, self.selected_partition[0],
             self.selected_partition[0].size, self.b.get_free_pvs_info(),
-            self.b.get_free_disks_info(), self.kickstart_mode, old_input)
+            self.b.get_free_disks_regions(), self.b.get_empty_disks(),
+            self.kickstart_mode, old_input)
 
         response = dialog.run()
 
         if response == Gtk.ResponseType.OK:
 
             user_input = dialog.get_selection()
+            dialog.destroy()
 
-            if user_input.filesystem == None and user_input.device_type in ["partition", "lvmlv"]:
-                # If fs is not selected, show error window and re-run add dialog
-
-                msg = _("Filesystem type must be specified when creating new partition.")
-                message_dialogs.ErrorDialog(dialog, msg)
-
-                dialog.destroy()
-                self.add_partition(old_input=user_input)
-
-            elif user_input.encrypt and not user_input.passphrase:
-
-                msg = _("Passphrase not specified.")
-                message_dialogs.ErrorDialog(dialog, msg)
-
-                dialog.destroy()
-                self.add_partition(old_input=user_input)
-
-            elif user_input.mountpoint and not os.path.isabs(user_input.mountpoint):
-
-                msg = _("\"{0}\" is not a valid mountpoint.").format(user_input.mountpoint)
-                message_dialogs.ErrorDialog(dialog, msg)
-
-                dialog.destroy()
-                self.add_partition(old_input=user_input)
-
-            else:
-
-                dialog.destroy()
-
-                if self.kickstart_mode and user_input.mountpoint:
-                    if self.check_mountpoint(user_input.mountpoint):
-                        pass
-                    else:
-                        return
+            if self.validate_add_dialog_input(user_input, dialog):
 
                 self.history.add_undo(self.b.return_devicetree)
                 self.main_menu.activate_menu_items(["undo"])
@@ -664,10 +712,12 @@ class ListPartitions():
                 self.list_devices.update_devices_view()
                 self.update_partitions_view(self.disk)
 
+            else:
+                self.add_partition(old_input=user_input)
+
         elif response == Gtk.ResponseType.CANCEL:
 
             dialog.destroy()
-
             return
 
     def check_mountpoint(self, mountpoint):

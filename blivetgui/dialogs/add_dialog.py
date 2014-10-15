@@ -46,7 +46,7 @@ SUPPORTED_FS = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap", "vfat"]
 
 class UserSelection(object):
     def __init__(self, device_type, size, filesystem, name, label, mountpoint,
-        encrypt, passphrase, parents):
+        encrypt, passphrase, parents, btrfs_type):
         self.device_type = device_type
         self.size = size
         self.filesystem = filesystem
@@ -56,6 +56,7 @@ class UserSelection(object):
         self.encrypt = encrypt
         self.passphrase = passphrase
         self.parents = parents
+        self.btrfs_type = btrfs_type
 
 class AddDialog(Gtk.Dialog):
     """ Dialog window allowing user to add new partition including selecting
@@ -63,7 +64,8 @@ class AddDialog(Gtk.Dialog):
     """
 
     def __init__(self, parent_window, device_type, parent_device, free_device,
-        free_space, free_pvs, free_disks, kickstart=False, old_input=None):
+        free_space, free_pvs, free_disks_regions, empty_disks, kickstart=False,
+        old_input=None):
         """
 
             :param device_type: type of parent device
@@ -76,6 +78,10 @@ class AddDialog(Gtk.Dialog):
             :type free_space: blivet.Size
             :param free_pvs: list PVs with no VG
             :type free_pvs: list
+            :param free_disks_regions: list of free regions on non-empty disks
+            :type free_disks_regions: list of blivetgui.utils.FreeSpaceDevice
+            :param empty_disks: list of empty disks
+            :type empty_disks: list of blivet.DiskDevice
             :param kickstart: kickstart mode
             :type kickstart: bool
 
@@ -86,7 +92,8 @@ class AddDialog(Gtk.Dialog):
         self.device_type = device_type
         self.parent_device = parent_device
         self.free_pvs = free_pvs
-        self.free_disks = free_disks
+        self.empty_disks = empty_disks
+        self.free_disks_regions = free_disks_regions
         self.parent_window = parent_window
         self.kickstart = kickstart
         self.old_input = old_input
@@ -113,6 +120,9 @@ class AddDialog(Gtk.Dialog):
         # is changed but then changes device_type to parition => scale has same
         # (wrong now) size as for btrfs with multiple parents
         self.scale_readded = False
+
+        # do we have free_type_chooser?
+        self.free_type_chooser = None
 
         self.filesystems_combo = self.add_fs_chooser()
         self.label_entry, self.name_entry = self.add_name_chooser()
@@ -147,12 +157,15 @@ class AddDialog(Gtk.Dialog):
             "btrfs volume" : [(_("Btrfs Subvolume"), "btrfs subvolume")]
             }
 
-        label_devices = Gtk.Label(_("Device type:"), xalign=1)
+        label_devices = Gtk.Label(label=_("Device type:"), xalign=1)
         label_devices.get_style_context().add_class("dim-label")
         self.grid.attach(label_devices, 0, 0, 1, 1)
 
         if self.device_type == "disk" and self.free_device.isLogical:
             self.devices = [(_("Partition"), "partition")]
+
+        elif self.device_type == "disk" and not self.parent_device.format.type:
+            self.devices = [(_("Btrfs Volume"), "btrfs volume")]
 
         else:
             self.devices = map_type_devices[self.device_type]
@@ -177,36 +190,88 @@ class AddDialog(Gtk.Dialog):
 
     def add_parent_list(self):
 
-        parents_store = Gtk.ListStore(object, bool, str, str, str)
+        parents_store = Gtk.ListStore(object, object, bool, str, str, str)
 
-        self.parents = Gtk.TreeView(model=parents_store)
+        parents_view = Gtk.TreeView(model=parents_store)
 
         renderer_toggle = Gtk.CellRendererToggle()
         renderer_toggle.connect("toggled", self.on_cell_toggled)
 
         renderer_text = Gtk.CellRendererText()
 
-        column_toggle = Gtk.TreeViewColumn(None, renderer_toggle, active=1)
-        column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=2)
-        column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=3)
-        column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=4)
+        column_toggle = Gtk.TreeViewColumn(None, renderer_toggle, active=2)
+        column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=3)
+        column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=4)
+        column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=5)
 
-        self.parents.append_column(column_toggle)
-        self.parents.append_column(column_name)
-        self.parents.append_column(column_type)
-        self.parents.append_column(column_size)
+        parents_view.append_column(column_toggle)
+        parents_view.append_column(column_name)
+        parents_view.append_column(column_type)
+        parents_view.append_column(column_size)
 
-        self.parents.set_headers_visible(True)
+        parents_view.set_headers_visible(True)
 
-        label_list = Gtk.Label(_("Available devices:"), xalign=1)
+        label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
         label_list.get_style_context().add_class("dim-label")
 
         self.grid.attach(label_list, 0, 1, 1, 1)
-        self.grid.attach(self.parents, 1, 1, 4, 4)
+        self.grid.attach(parents_view, 1, 1, 4, 4)
 
         return parents_store
 
-    def update_parent_list(self):
+    def on_free_space_type_toggled(self, button, name):
+        if button.get_active():
+            self.update_parent_list(parent_type=name)
+
+            if name == "disks":
+                self.set_widgets_unsensitive(["size"])
+
+            else:
+                self.set_widgets_sensitive(["size"])
+
+    def add_free_type_chooser(self):
+
+        label_empty_type = Gtk.Label(label=_("Volumes based on:"), xalign=1)
+        label_empty_type.get_style_context().add_class("dim-label")
+        self.grid.attach(label_empty_type, 0, 5, 1, 1)
+
+        button1 = Gtk.RadioButton.new_with_label_from_widget(None, _("Disks"))
+        button1.connect("toggled", self.on_free_space_type_toggled, "disks")
+        self.grid.attach(button1, 1, 5, 1, 1)
+
+        button2 = Gtk.RadioButton.new_with_label_from_widget(button1, _("Partitions"))
+        button2.connect("toggled", self.on_free_space_type_toggled, "partitions")
+        self.grid.attach(button2, 2, 5, 1, 1)
+
+        label_empty_type.show()
+        button1.show()
+        button2.show()
+
+        if self.free_device.isUnitializedDisk:
+            button1.toggled()
+            button1.set_sensitive(False)
+            button2.set_sensitive(False)
+
+        elif self.free_device.isFreeRegion:
+            button2.set_active(True)
+            button1.set_sensitive(False)
+            button2.set_sensitive(False)
+
+        else:
+            # button1 is always pre-selected and re-selecting it using
+            # button1.set_active(True) doesn't emit the toggled signal
+            button1.toggled()
+
+        self.free_type_chooser = (label_empty_type, button1, button2)
+
+    def remove_free_type_chooser(self):
+
+        for widget in self.free_type_chooser:
+            widget.destroy()
+
+        self.free_type_chooser = None
+
+    def update_parent_list(self, parent_type=None):
 
         self.parents_store.clear()
 
@@ -220,40 +285,73 @@ class AddDialog(Gtk.Dialog):
 
                 for pv in self.free_pvs:
                     if pv.name == self.parent_device.name:
-                        self.parents_store.append([self.parent_device, True,
+                        self.parents_store.append([self.parent_device, None, True,
                             self.parent_device.name, self.device_type,
                             str(self.free_space)])
                     else:
-                        self.parents_store.append([pv, False, pv.name, "lvmpv",
+                        self.parents_store.append([pv, None, False, pv.name, "lvmpv",
                             str(pv.size)])
 
-                self.parents.set_sensitive(True)
+            elif device == "btrfs volume":
+                if parent_type == "partitions":
+                    for free in self.free_disks_regions:
 
-            elif device in ["btrfs volume", "lvm"]:
+                        disk = free.parents[0]
 
-                # add selected device
-                self.parents_store.append([self.parent_device, True,
-                    self.parent_device.name, self.device_type,
-                    str(self.free_space)])
+                        # select 'device' selected by user from list of partitions
+                        if self.free_device.isFreeRegion and self.free_device.start == free.start:
+                            self.parents_store.append([disk, free, True, disk.name,
+                                "disk region", str(free.size)])
 
-                self.parents.set_sensitive(True)
+                        else:
+                            self.parents_store.append([disk, free, False, disk.name,
+                                "disk region", str(free.size)])
 
-                for disk, free in self.free_disks:
+                # empty disks are shown everytime
+                for disk, disk_size in self.empty_disks:
+                    # select 'device' selected by user from list of partitions
+                    if not self.free_device.isFreeRegion and disk.name == self.parent_device.name:
+                        self.parents_store.append([disk, None, True, disk.name,
+                            "disk", str(disk_size)])
 
-                    # skip selected device -- already added
-                    if disk.name == self.parent_device.name:
+                    # in 'partition' mode doesn't allow to select unitialized disks
+                    elif not disk.format.type and parent_type == "partitions":
                         pass
 
                     else:
-                        self.parents_store.append([disk, False, disk.name,
-                            "disk", str(free)])
+                        self.parents_store.append([disk, None, False, disk.name,
+                            "disk", str(disk_size)])
+
+            elif device == "lvm":
+
+                for free in self.free_disks_regions:
+
+                    disk = free.parents[0]
+
+                    # select 'device' selected by user from list of partitions
+                    if self.free_device.isFreeRegion and self.free_device.start == free.start:
+                        self.parents_store.append([disk, free, True, disk.name,
+                            "disk region", str(free.size)])
+
+                    else:
+                        self.parents_store.append([disk, free, False, disk.name,
+                            "disk region", str(free.size)])
+
+                for disk, free_size in self.empty_disks:
+
+                    # select 'device' selected by user from list of partitions
+                    if not self.free_device.isFreeRegion and disk.name == self.parent_device.name:
+                        self.parents_store.append([disk, None, True, disk.name,
+                            "disk", str(free_size)])
+
+                    else:
+                        self.parents_store.append([disk, None, False, disk.name,
+                            "disk", str(free.size)])
 
             else:
-                self.parents_store.append([self.parent_device, True,
+                self.parents_store.append([self.parent_device, None, True,
                     self.parent_device.name, self.device_type,
-                    str(self.free_space)])
-
-                self.parents.set_sensitive(False)
+                    str(self.free_device.size)])
 
     def recalculate_size_scale(self):
 
@@ -274,11 +372,14 @@ class AddDialog(Gtk.Dialog):
 
     def on_cell_toggled(self, event, path):
 
-        if self.parents_store[path][2] == self.parent_device.name:
+        if self.parents_store[path][1] and self.free_device.start == self.parents_store[path][1].start:
+            pass
+
+        elif not self.parents_store[path][1] and self.parents_store[path][3] == self.parent_device.name:
             pass
 
         else:
-            self.parents_store[path][1] = not self.parents_store[path][1]
+            self.parents_store[path][2] = not self.parents_store[path][2]
 
             self.recalculate_size_scale()
 
@@ -302,10 +403,10 @@ class AddDialog(Gtk.Dialog):
         num_selected = 0
 
         for row in self.parents_store:
-            if row[1] == True:
+            if row[2] == True:
 
                 num_selected += 1
-                size = Size(row[4])
+                size = Size(row[5])
 
                 up_limit += size
                 down_limit += size
@@ -331,7 +432,7 @@ class AddDialog(Gtk.Dialog):
 
         self.grid.attach(scale, 0, 6, 6, 1) #left-top-width-height
 
-        label_size = Gtk.Label(_("Volume size:"), xalign=1)
+        label_size = Gtk.Label(label=_("Volume size:"), xalign=1)
         self.grid.attach(label_size, 0, 7, 1, 1) #left-top-width-height
 
         spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, down_limit,
@@ -343,11 +444,10 @@ class AddDialog(Gtk.Dialog):
         self.grid.attach(spin_size, 1, 7, 1, 1) #left-top-width-height
         spin_size.connect("value-changed", self.spin_size_moved)
 
-        label_mb = Gtk.Label()
-        label_mb.set_text(_("MiB"))
+        label_mb = Gtk.Label(label=_("MiB"))
         self.grid.attach(label_mb, 2, 7, 1, 1) #left-top-width-height
 
-        label_free = Gtk.Label(_("Free space after:"), xalign=1)
+        label_free = Gtk.Label(label=_("Free space after:"), xalign=1)
         self.grid.attach(label_free, 3, 7, 1, 1) #left-top-width-height
 
         spin_free = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 0,
@@ -358,8 +458,7 @@ class AddDialog(Gtk.Dialog):
         self.grid.attach(spin_free, 4, 7, 1, 1) #left-top-width-height
         spin_free.connect("value-changed", self.spin_free_moved)
 
-        label_mb2 = Gtk.Label()
-        label_mb2.set_text(_("MiB"))
+        label_mb2 = Gtk.Label(label=_("MiB"))
         self.grid.attach(label_mb2, 5, 7, 1, 1) #left-top-width-height
 
         self.widgets_dict["size"] = [scale, label_size, spin_size, label_mb,
@@ -379,11 +478,12 @@ class AddDialog(Gtk.Dialog):
         for widget in self.widgets_dict["size"]:
             widget.show()
 
-            if device_type in ["lvmvg"]:
+            if device_type in ["lvmvg"] or (device_type == "btrfs volume" \
+                and self.free_type_chooser[1].get_active()):
                 widget.set_sensitive(False)
 
     def add_fs_chooser(self):
-        label_fs = Gtk.Label(_("Filesystem:"), xalign=1)
+        label_fs = Gtk.Label(label=_("Filesystem:"), xalign=1)
         self.grid.attach(label_fs, 0, 8, 1, 1)
 
         filesystems_combo = Gtk.ComboBoxText()
@@ -399,7 +499,7 @@ class AddDialog(Gtk.Dialog):
         return filesystems_combo
 
     def add_name_chooser(self):
-        label_label = Gtk.Label(_("Label:"), xalign=1)
+        label_label = Gtk.Label(label=_("Label:"), xalign=1)
         self.grid.attach(label_label, 0, 9, 1, 1)
 
         label_entry = Gtk.Entry()
@@ -407,7 +507,7 @@ class AddDialog(Gtk.Dialog):
 
         self.widgets_dict["label"] = [label_label, label_entry]
 
-        name_label = Gtk.Label(_("Name:"), xalign=1)
+        name_label = Gtk.Label(label=_("Name:"), xalign=1)
         self.grid.attach(name_label, 3, 9, 1, 1)
 
         name_entry = Gtk.Entry()
@@ -418,7 +518,7 @@ class AddDialog(Gtk.Dialog):
         return label_entry, name_entry
 
     def add_encrypt_chooser(self):
-        encrypt_label = Gtk.Label(_("Encrypt:"), xalign=1)
+        encrypt_label = Gtk.Label(label=_("Encrypt:"), xalign=1)
         self.grid.attach(encrypt_label, 0, 10, 1, 1)
 
         encrypt_check = Gtk.CheckButton()
@@ -426,7 +526,7 @@ class AddDialog(Gtk.Dialog):
 
         self.widgets_dict["encrypt"] = [encrypt_label, encrypt_check]
 
-        pass_label = Gtk.Label(_("Passphrase:"), xalign=1)
+        pass_label = Gtk.Label(label=_("Passphrase:"), xalign=1)
         self.grid.attach(pass_label, 3, 10, 1, 1)
         pass_label.set_sensitive(False)
 
@@ -442,7 +542,7 @@ class AddDialog(Gtk.Dialog):
         return encrypt_check, pass_entry
 
     def add_mountpoint(self):
-        mountpoint_label = Gtk.Label(_("Mountpoint:"), xalign=1)
+        mountpoint_label = Gtk.Label(label=_("Mountpoint:"), xalign=1)
         self.grid.attach(mountpoint_label, 0, 11, 1, 1)
 
         mountpoint_entry = Gtk.Entry()
@@ -479,6 +579,9 @@ class AddDialog(Gtk.Dialog):
             self.scale_readded = False
             self.recalculate_size_scale()
 
+        if self.free_type_chooser and device_type != "btrfs volume":
+            self.remove_free_type_chooser()
+
         if device_type == "partition":
             self.set_widgets_sensitive(["label", "fs", "encrypt", "mountpoint", "size"])
             self.set_widgets_unsensitive(["name"])
@@ -505,6 +608,7 @@ class AddDialog(Gtk.Dialog):
         elif device_type == "btrfs volume":
             self.set_widgets_sensitive(["name", "size"])
             self.set_widgets_unsensitive(["label", "fs", "mountpoint", "encrypt"])
+            self.add_free_type_chooser()
 
         elif device_type == "btrfs subvolume":
             self.set_widgets_sensitive(["name"])
@@ -585,9 +689,18 @@ class AddDialog(Gtk.Dialog):
         parents = []
 
         for row in self.parents_store:
-            if row[1]:
-                size = Size(row[4]).convertTo("MiB")
+            if row[2]:
+                size = Size(row[5]).convertTo("MiB")
                 parents.append([row[0], Size(str(size) + "MiB")])
+
+        if self.free_type_chooser:
+            if self.free_type_chooser[1].get_active():
+                btrfs_type = "disks"
+            elif self.free_type_chooser[2].get_active():
+                btrfs_type = "partitions"
+
+        else:
+            btrfs_type = None
 
         if self.kickstart:
             mountpoint = self.mountpoint_entry.get_text()
@@ -603,7 +716,8 @@ class AddDialog(Gtk.Dialog):
             mountpoint=mountpoint,
             encrypt=self.encrypt_check.get_active(),
             passphrase=self.pass_entry.get_text(),
-            parents=parents)
+            parents=parents,
+            btrfs_type=btrfs_type)
 
 class AddLabelDialog(Gtk.Dialog):
     """ Dialog window allowing user to add disklabel to disk
@@ -631,7 +745,6 @@ class AddLabelDialog(Gtk.Dialog):
 
         self.set_transient_for(self.parent_window)
 
-        self.set_default_size(550, 200)
         self.set_border_width(10)
 
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
@@ -647,10 +760,8 @@ class AddLabelDialog(Gtk.Dialog):
 
     def add_labels(self):
 
-        self.info_label = Gtk.Label()
-        self.info_label.set_markup(_("A partition table is required before " \
-            "partitions can be added.\n\n<b>Warning: This will delete all " \
-            "data on {0}!</b>").format(self.disk_name))
+        self.info_label = Gtk.Label(label=_("A partition table is required " \
+            "before partitions can be added.").format(self.disk_name))
 
         self.grid.attach(self.info_label, 0, 0, 4, 1) #left-top-width-height
 
@@ -660,6 +771,8 @@ class AddLabelDialog(Gtk.Dialog):
 
         for label in self.disklabels:
             self.pts_store.append([label])
+
+        self.pts_store.append(["btrfs"])
 
         self.pts_combo = Gtk.ComboBox.new_with_model(self.pts_store)
 
@@ -672,11 +785,10 @@ class AddLabelDialog(Gtk.Dialog):
         else:
             self.pts_combo.set_sensitive(False)
 
-        self.label_list = Gtk.Label()
-        self.label_list.set_text(_("Select new partition table type:"))
+        self.label_list = Gtk.Label(label=_("Select new partition table type:"))
 
-        self.grid.attach(self.label_list, 0, 1, 3, 1)
-        self.grid.attach(self.pts_combo, 3, 1, 1, 1)
+        self.grid.attach(self.label_list, 0, 1, 2, 1)
+        self.grid.attach(self.pts_combo, 2, 1, 1, 1)
 
         self.pts_combo.connect("changed", self.on_pt_combo_changed)
         renderer_text = Gtk.CellRendererText()
