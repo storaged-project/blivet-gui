@@ -57,10 +57,6 @@ class ListPartitions():
     def __init__(self, main_window, list_devices, blivet_utils, builder,
         kickstart_mode=False, disk=None):
 
-        GLib.threads_init()
-        Gdk.threads_init()
-        Gdk.threads_enter()
-
         self.list_devices = list_devices
         self.b = blivet_utils
         self.builder = builder
@@ -690,7 +686,6 @@ class ListPartitions():
         if response == Gtk.ResponseType.OK:
 
             user_input = dialog.get_selection()
-            dialog.destroy()
 
             if self.validate_add_dialog_input(user_input, dialog):
 
@@ -712,7 +707,10 @@ class ListPartitions():
                 self.list_devices.update_devices_view()
                 self.update_partitions_view(self.disk)
 
+                dialog.destroy()
+
             else:
+                dialog.destroy()
                 self.add_partition(old_input=user_input)
 
         elif response == Gtk.ResponseType.CANCEL:
