@@ -679,7 +679,7 @@ class ListPartitions():
             parent_device, self.selected_partition[0],
             self.selected_partition[0].size, self.b.get_free_pvs_info(),
             self.b.get_free_disks_regions(), self.b.get_empty_disks(),
-            self.kickstart_mode, old_input)
+            self.b.get_available_raid_levels(), self.kickstart_mode, old_input)
 
         response = dialog.run()
 

@@ -468,9 +468,7 @@ class BlivetUtils():
         try:
             disk_device.format.teardown()
             action = blivet.deviceaction.ActionDestroyFormat(disk_device)
-            # self.storage.devicetree.registerAction(action)
             # TODO: this looks just wrong
-            # FIXME: definitely warn user before doing this!
             action.apply()
             action.execute()
 
@@ -1018,6 +1016,18 @@ class BlivetUtils():
 
         """
         return blivet.platform.getPlatform().diskLabelTypes
+
+    def get_available_raid_levels(self):
+        """ Return dict of supported raid levels for device types
+        """
+
+        rl = {}
+        rl["btrfs volume"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_BTRFS)
+        rl["mdraid"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_MD)
+        rl["lvm"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_LVM)
+        rl["lvmvg"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_LVM)
+
+        return rl
 
     def create_disk_label(self, blivet_device, label_type):
         """ Create disklabel

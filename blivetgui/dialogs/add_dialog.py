@@ -49,7 +49,7 @@ SUPPORTED_UNITS = ["B", "kB", "MB", "GB", "TB", "kiB", "MiB", "GiB", "TiB"]
 
 class UserSelection(object):
     def __init__(self, device_type, size, unit, filesystem, name, label,
-        mountpoint, encrypt, passphrase, parents, btrfs_type):
+        mountpoint, encrypt, passphrase, parents, btrfs_type, raid_level):
         self.device_type = device_type
         self.size = size
         self.unit = unit
@@ -61,6 +61,7 @@ class UserSelection(object):
         self.passphrase = passphrase
         self.parents = parents
         self.btrfs_type = btrfs_type
+        self.raid_level = raid_level
 
 class AddDialog(Gtk.Dialog):
     """ Dialog window allowing user to add new partition including selecting
@@ -68,8 +69,8 @@ class AddDialog(Gtk.Dialog):
     """
 
     def __init__(self, parent_window, device_type, parent_device, free_device,
-        free_space, free_pvs, free_disks_regions, empty_disks, kickstart=False,
-        old_input=None):
+        free_space, free_pvs, free_disks_regions, empty_disks, supported_raids,
+        kickstart=False, old_input=None):
         """
 
             :param device_type: type of parent device
@@ -101,6 +102,7 @@ class AddDialog(Gtk.Dialog):
         self.parent_window = parent_window
         self.kickstart = kickstart
         self.old_input = old_input
+        self.supported_raids = supported_raids
 
         Gtk.Dialog.__init__(self, _("Create new device"), None, 0,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -132,17 +134,19 @@ class AddDialog(Gtk.Dialog):
         (self.scale, self.spin_size, self.spin_free, self.unit_chooser,
             self.label_unit) = self.add_size_scale(up_limit, down_limit)
 
+        self.raid_combo = self.add_raid_type_chooser()
+
         if kickstart:
             self.mountpoint_entry = self.add_mountpoint()
 
         self.devices_combo = self.add_device_chooser()
         self.devices_combo.connect("changed", self.on_devices_combo_changed)
-        self.devices_combo.set_active(0)
 
         if old_input:
             self.fill_dialog()
 
         self.show_all()
+        self.devices_combo.set_active(0)
 
     def add_device_chooser(self):
 
@@ -213,9 +217,61 @@ class AddDialog(Gtk.Dialog):
         label_list.get_style_context().add_class("dim-label")
 
         self.grid.attach(label_list, 0, 1, 1, 1)
-        self.grid.attach(parents_view, 1, 1, 4, 4)
+        self.grid.attach(parents_view, 1, 1, 4, 3)
 
         return parents_store
+
+    def update_raid_type_chooser(self):
+
+        device_type = self._get_selected_device_type()
+
+        if device_type not in self.supported_raids.keys():
+            for widget in self.widgets_dict["raid"]:
+                widget.hide()
+
+            return
+
+        else:
+            # save previously selected raid type
+            selected = self.raid_combo.get_active_text()
+
+            self.raid_combo.remove_all()
+            num_parents = self._get_number_selected_parents()
+
+            for raid in self.supported_raids[device_type]:
+                if num_parents >= raid.min_members:
+                    self.raid_combo.append_text(raid.name)
+
+            for widget in self.widgets_dict["raid"]:
+                widget.show()
+
+            if selected:
+                if self.raid_combo.set_active_id(selected):
+                    # set_active_id returns bool
+                    return
+
+            if device_type == "btrfs volume":
+                self.raid_combo.set_active_id("single")
+
+            else:
+                self.raid_combo.set_active_id("linear")
+
+        return
+
+    def add_raid_type_chooser(self):
+
+        label_raid = Gtk.Label(label=_("RAID Level:"), xalign=1)
+        self.grid.attach(label_raid, 0, 5, 1, 1)
+
+        raid_combo = Gtk.ComboBoxText()
+        raid_combo.set_entry_text_column(0)
+        raid_combo.set_id_column(0)
+
+        self.grid.attach(raid_combo, 1, 5, 1, 1)
+
+        self.widgets_dict["raid"] = [label_raid, raid_combo]
+
+        return raid_combo
 
     def on_free_space_type_toggled(self, button, name):
         if button.get_active():
@@ -231,15 +287,15 @@ class AddDialog(Gtk.Dialog):
 
         label_empty_type = Gtk.Label(label=_("Volumes based on:"), xalign=1)
         label_empty_type.get_style_context().add_class("dim-label")
-        self.grid.attach(label_empty_type, 0, 5, 1, 1)
+        self.grid.attach(label_empty_type, 0, 4, 1, 1)
 
         button1 = Gtk.RadioButton.new_with_label_from_widget(None, _("Disks"))
         button1.connect("toggled", self.on_free_space_type_toggled, "disks")
-        self.grid.attach(button1, 1, 5, 1, 1)
+        self.grid.attach(button1, 1, 4, 1, 1)
 
         button2 = Gtk.RadioButton.new_with_label_from_widget(button1, _("Partitions"))
         button2.connect("toggled", self.on_free_space_type_toggled, "partitions")
-        self.grid.attach(button2, 2, 5, 1, 1)
+        self.grid.attach(button2, 2, 4, 1, 1)
 
         label_empty_type.show()
         button1.show()
@@ -362,8 +418,9 @@ class AddDialog(Gtk.Dialog):
         else:
             self.parents_store[path][2] = not self.parents_store[path][2]
 
-            up_limit, down_limit = self.compute_size_scale(self._get_selected_device_type)
+            up_limit, down_limit = self.compute_size_scale(self._get_selected_device_type())
             self.adjust_size_scale(up_limit, down_limit, up_limit, self.get_selected_size_unit())
+            self.update_raid_type_chooser()
 
     def compute_size_scale(self, device_type=None):
         """ Computes size for our Gtk.Scale and Gtk.SpinButtons
@@ -614,7 +671,7 @@ class AddDialog(Gtk.Dialog):
 
     def on_devices_combo_changed(self, event):
 
-        device_type = self._get_selected_device_type
+        device_type = self._get_selected_device_type()
         self.update_parent_list()
 
         if self.free_type_chooser and device_type != "btrfs volume":
@@ -654,6 +711,7 @@ class AddDialog(Gtk.Dialog):
 
         up_limit, down_limit = self.compute_size_scale(device_type)
         self.adjust_size_scale(up_limit, down_limit, up_limit, self.get_selected_size_unit())
+        self.update_raid_type_chooser()
 
     def fill_dialog(self):
         """ Fill in dialog with user's previous selection
@@ -715,7 +773,6 @@ class AddDialog(Gtk.Dialog):
         self.scale.set_value(up_limit - self.spin_free.get_value())
         self.spin_size.set_value(up_limit - self.spin_free.get_value())
 
-    @property
     def _get_selected_device_type(self):
         tree_iter = self.devices_combo.get_active_iter()
 
@@ -728,9 +785,19 @@ class AddDialog(Gtk.Dialog):
         else:
             return None
 
+    def _get_number_selected_parents(self):
+
+        num = 0
+
+        for row in self.parents_store:
+            if row[2]:
+                num += 1
+
+        return num
+
     def get_selection(self):
 
-        device_type = self._get_selected_device_type
+        device_type = self._get_selected_device_type()
 
         parents = []
 
@@ -748,6 +815,12 @@ class AddDialog(Gtk.Dialog):
         else:
             btrfs_type = None
 
+        if device_type in ["btrfs volume, lvm, lvmvg"]:
+            raid_level = self.raid_combo.get_active_text()
+
+        else:
+            raid_level = None
+
         if self.kickstart:
             mountpoint = self.mountpoint_entry.get_text()
 
@@ -764,7 +837,8 @@ class AddDialog(Gtk.Dialog):
             encrypt=self.encrypt_check.get_active(),
             passphrase=self.pass_entry.get_text(),
             parents=parents,
-            btrfs_type=btrfs_type)
+            btrfs_type=btrfs_type,
+            raid_level=raid_level)
 
 class AddLabelDialog(Gtk.Dialog):
     """ Dialog window allowing user to add disklabel to disk
