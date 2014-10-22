@@ -48,11 +48,11 @@ SUPPORTED_UNITS = ["B", "kB", "MB", "GB", "TB", "kiB", "MiB", "GiB", "TiB"]
 #------------------------------------------------------------------------------#
 
 class UserSelection(object):
-    def __init__(self, device_type, size, unit, filesystem, name, label,
-        mountpoint, encrypt, passphrase, parents, btrfs_type, raid_level):
+    def __init__(self, device_type, size, filesystem, name, label, mountpoint,
+        encrypt, passphrase, parents, btrfs_type, raid_level):
+
         self.device_type = device_type
         self.size = size
-        self.unit = unit
         self.filesystem = filesystem
         self.name = name
         self.label = label
@@ -62,6 +62,179 @@ class UserSelection(object):
         self.parents = parents
         self.btrfs_type = btrfs_type
         self.raid_level = raid_level
+
+class SizeChooserArea(object):
+
+    def __init__(self, parent_device, free_device, max_size, min_size):
+        """
+            :param device_device: device the free space is on
+            :type device_device: blivet.Device
+            :param free_device: free space
+            :type free_device: blivetgui.utils.FreeSpaceDevice
+            :param max_size: maximum size that user can choose
+            :type max_size: blivet.Size
+            :param min_size: minimum size that user can choose (e.g. min size
+                for this device/format type)
+            :type min_size: blivet.Size
+
+        """
+
+        self.parent_device = parent_device
+        self.free_device = free_device
+        self.max_size = max_size
+        self.min_size = min_size
+
+        self.widgets = []
+
+        self.selected_unit = None
+
+        self.frame = Gtk.Frame()
+        self.frame.set_label(self.parent_device.name)
+
+        self.frame_grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
+            column_spacing=5)
+
+        self.frame.add(self.frame_grid)
+
+        self.widgets.extend([self.frame, self.frame_grid])
+
+        self.scale, self.spin_size = self.add_size_widgets()
+
+    def add_size_widgets(self, unit="MiB"):
+
+        scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL,
+            adjustment=Gtk.Adjustment(0, self.min_size.convertTo(unit),
+                self.max_size.convertTo(unit), 1, 10, 0))
+
+        scale.set_margin_left(10)
+        scale.set_margin_bottom(5)
+
+        scale.set_hexpand(True)
+        scale.set_valign(Gtk.Align.START)
+        scale.set_digits(0)
+        scale.set_value(self.max_size.convertTo(unit))
+        scale.add_mark(self.min_size.convertTo(unit), Gtk.PositionType.BOTTOM,
+            str(self.min_size))
+        scale.add_mark(self.max_size.convertTo(unit), Gtk.PositionType.BOTTOM,
+            str(self.max_size))
+
+        self.frame_grid .attach(scale, 0, 0, 4, 3)
+
+        label_size = Gtk.Label(label=_("Volume size:"), xalign=1)
+        self.frame_grid .attach(label_size, 4, 1, 1, 1)
+
+        spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0,
+            self.min_size.convertTo(unit), self.max_size.convertTo(unit), 1, 10, 0))
+
+        spin_size.set_numeric(True)
+        spin_size.set_value(self.max_size.convertTo(unit))
+
+        self.frame_grid .attach(spin_size, 5, 1, 1, 1)
+
+        unit_chooser = self.add_unit_chooser(unit)
+        self.frame_grid .attach(unit_chooser, 6, 1, 1, 1)
+
+        scale.connect("value-changed", self.scale_moved, spin_size)
+        spin_size.connect("value-changed", self.spin_size_moved, scale)
+
+        self.widgets.extend([scale, label_size, spin_size, unit_chooser])
+
+        return scale, spin_size
+
+    def add_unit_chooser(self, default_unit):
+
+        unit_chooser = Gtk.ComboBoxText()
+        unit_chooser.set_margin_right(10)
+
+        for unit in SUPPORTED_UNITS:
+            unit_chooser.append_text(unit)
+
+        self.selected_unit = default_unit
+
+        unit_chooser.set_active(SUPPORTED_UNITS.index(default_unit))
+        unit_chooser.connect("changed", self.on_unit_combo_changed)
+
+        return unit_chooser
+
+    def adjust_size_scale(self, selected_size, unit="MiB"):
+
+        self.scale.set_range(self.min_size.convertTo(unit), self.max_size.convertTo(unit))
+        self.scale.clear_marks()
+
+        increment, digits = self.get_size_precision(self.min_size.convertTo(unit),
+            self.max_size.convertTo(unit), unit)
+        self.scale.set_increments(increment, increment*10)
+        self.scale.set_digits(digits)
+
+        self.scale.add_mark(0, Gtk.PositionType.BOTTOM,
+            format(self.min_size.convertTo(unit), "." + str(digits) + "f"))
+        self.scale.add_mark(float(self.max_size.convertTo(unit)), Gtk.PositionType.BOTTOM,
+            format(self.max_size.convertTo(unit), "." + str(digits) + "f"))
+
+        self.spin_size.set_range(self.min_size.convertTo(unit), self.max_size.convertTo(unit))
+        self.spin_size.set_increments(increment, increment*10)
+        self.spin_size.set_digits(digits)
+
+        self.scale.set_value(selected_size.convertTo(unit))
+
+    def get_size_precision(self, down_limit, up_limit, unit):
+
+        step = 1.0
+        digits = 0
+
+        while True:
+            if down_limit >= 1.0:
+                break
+
+            down_limit *= 10
+            step /= 10
+            digits += 1
+
+        # always offer at least 10 steps to adjust size
+        if up_limit - down_limit < 10*step:
+            step /= 10
+            digits += 1
+
+        return step, digits
+
+    def on_unit_combo_changed(self, combo):
+
+        new_unit = combo.get_active_text()
+        old_unit = self.selected_unit
+        self.selected_unit = new_unit
+
+        selected_size = Size(str(self.scale.get_value()) + old_unit)
+
+        self.adjust_size_scale(selected_size, new_unit)
+        return
+
+    def scale_moved(self, scale, spin_size):
+        spin_size.set_value(scale.get_value())
+
+    def spin_size_moved(self, spin_size, scale):
+        scale.set_value(spin_size.get_value())
+
+    def destroy(self):
+        for widget in self.widgets:
+            widget.hide()
+            widget.destroy()
+
+    def show(self):
+        for widget in self.widgets:
+            widget.show()
+
+    def set_sensitive(self, sensitivity):
+        for widget in self.widgets:
+            widget.set_sensitive(sensitivity)
+
+    def get_selection(self):
+
+        size = Size(str(self.scale.get_value()) + self.selected_unit)
+
+        if size > self.free_device.size:
+            size = self.free_device.size
+
+        return [self.parent_device, size]
 
 class AddDialog(Gtk.Dialog):
     """ Dialog window allowing user to add new partition including selecting
@@ -109,15 +282,14 @@ class AddDialog(Gtk.Dialog):
             Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
-
-        self.set_border_width(10)
-        self.set_default_size(600, 300)
+        self.set_resizable(False) # auto shrink after removing widgets
 
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
             column_spacing=5)
+        self.grid.set_border_width(10)
 
-        box = self.get_content_area()
-        box.add(self.grid)
+        self.box = self.get_content_area()
+        self.box.add(self.grid)
 
         self.widgets_dict = {}
 
@@ -129,10 +301,8 @@ class AddDialog(Gtk.Dialog):
         self.encrypt_check, self.pass_entry = self.add_encrypt_chooser()
         self.parents_store = self.add_parent_list()
 
-        up_limit, down_limit = self.compute_size_scale()
-
-        (self.scale, self.spin_size, self.spin_free, self.unit_chooser,
-            self.label_unit) = self.add_size_scale(up_limit, down_limit)
+        self.size_areas = []
+        self.add_size_areas()
 
         self.raid_combo = self.add_raid_type_chooser()
 
@@ -224,8 +394,9 @@ class AddDialog(Gtk.Dialog):
     def update_raid_type_chooser(self):
 
         device_type = self._get_selected_device_type()
+        num_parents = self._get_number_selected_parents()
 
-        if device_type not in self.supported_raids.keys():
+        if device_type not in self.supported_raids.keys() or num_parents == 1:
             for widget in self.widgets_dict["raid"]:
                 widget.hide()
 
@@ -236,7 +407,6 @@ class AddDialog(Gtk.Dialog):
             selected = self.raid_combo.get_active_text()
 
             self.raid_combo.remove_all()
-            num_parents = self._get_number_selected_parents()
 
             for raid in self.supported_raids[device_type]:
                 if num_parents >= raid.min_members:
@@ -261,6 +431,7 @@ class AddDialog(Gtk.Dialog):
     def add_raid_type_chooser(self):
 
         label_raid = Gtk.Label(label=_("RAID Level:"), xalign=1)
+        label_raid.get_style_context().add_class("dim-label")
         self.grid.attach(label_raid, 0, 5, 1, 1)
 
         raid_combo = Gtk.ComboBoxText()
@@ -339,7 +510,7 @@ class AddDialog(Gtk.Dialog):
 
                 for pv in self.free_pvs:
                     if pv.name == self.parent_device.name:
-                        self.parents_store.append([self.parent_device, None, True,
+                        self.parents_store.append([self.parent_device, self.free_device, True,
                             self.parent_device.name, self.device_type,
                             str(self.free_space)])
                     else:
@@ -365,7 +536,7 @@ class AddDialog(Gtk.Dialog):
                 for disk, disk_size in self.empty_disks:
                     # select 'device' selected by user from list of partitions
                     if not self.free_device.isFreeRegion and disk.name == self.parent_device.name:
-                        self.parents_store.append([disk, None, True, disk.name,
+                        self.parents_store.append([disk, self.free_device, True, disk.name,
                             "disk", str(disk_size)])
 
                     # in 'partition' mode doesn't allow to select unitialized disks
@@ -373,7 +544,7 @@ class AddDialog(Gtk.Dialog):
                         pass
 
                     else:
-                        self.parents_store.append([disk, None, False, disk.name,
+                        self.parents_store.append([disk, self.free_device, False, disk.name,
                             "disk", str(disk_size)])
 
             elif device == "lvm":
@@ -395,15 +566,18 @@ class AddDialog(Gtk.Dialog):
 
                     # select 'device' selected by user from list of partitions
                     if not self.free_device.isFreeRegion and disk.name == self.parent_device.name:
-                        self.parents_store.append([disk, None, True, disk.name,
+                        self.parents_store.append([disk, self.free_device, True, disk.name,
                             "disk", str(free_size)])
 
+                    elif not disk.format.type:
+                        continue
+
                     else:
-                        self.parents_store.append([disk, None, False, disk.name,
+                        self.parents_store.append([disk, self.free_device, False, disk.name,
                             "disk", str(free_size)])
 
             else:
-                self.parents_store.append([self.parent_device, None, True,
+                self.parents_store.append([self.parent_device, self.free_device, True,
                     self.parent_device.name, self.device_type,
                     str(self.free_device.size)])
 
@@ -418,168 +592,41 @@ class AddDialog(Gtk.Dialog):
         else:
             self.parents_store[path][2] = not self.parents_store[path][2]
 
-            up_limit, down_limit = self.compute_size_scale(self._get_selected_device_type())
-            self.adjust_size_scale(up_limit, down_limit, up_limit, self.get_selected_size_unit())
+            self.size_grid = self.add_size_areas()
             self.update_raid_type_chooser()
 
-    def compute_size_scale(self, device_type=None):
-        """ Computes size for our Gtk.Scale and Gtk.SpinButtons
-            --> if user chooses more than one parent device, we need to allow
-                him to choose size for new device to be size of both devices
-                (or twice size of smaller smaller device for raids)
+    def add_size_areas(self):
 
-                #FIXME: size based on raid type, btrfs see: https://btrfs.wiki.kernel.org/index.php/Using_Btrfs_with_Multiple_Devices
+        self.widgets_dict["size"] = []
 
-            :param device_type: type of created device (raid, lvmvg, btrfs...)
-            :type device_type: str
-            :returns: tuple (up_limit, down_limit)
-            :rtype: tuple of blivet.Size
+        if self.size_areas:
+            for area in self.size_areas:
+                area.destroy()
 
-        """
+            self.size_areas = []
 
-        up_limit = Size("0 MiB")
-        size = Size("0 MiB")
-        down_limit = Size("1 MiB")
-        num_selected = 0
+        size_grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
+            column_spacing=5)
+        self.grid.attach(size_grid, 0, 6, 6, 1)
+        size_grid.show()
+
+        posititon = 0
 
         for row in self.parents_store:
-            if row[2] == True:
-                num_selected += 1
-                size = Size(row[5])
+            if row[2]:
 
-                up_limit += size
-                down_limit += size
+                area = SizeChooserArea(parent_device=row[0], free_device=row[1],
+                    max_size=row[1].size, min_size=Size("1 MiB"))
 
-        # explanation: for multiple parent devices, user can left free space
-        # only from last device up to its size minus 1 MiB
-        down_limit = down_limit - size + Size("1 MiB")
+                size_grid.attach(area.frame, 0, posititon, 1, 1)
 
-        return (up_limit, down_limit)
+                self.widgets_dict["size"].append(area)
+                self.size_areas.append(area)
 
-    def on_unit_combo_changed(self, combo):
+                posititon += 1
 
-        new_unit = self.get_selected_size_unit()
-        old_unit = self.label_unit.get_label()
-        selected_size = Size(str(self.scale.get_value()) + old_unit)
-
-        self.label_unit.set_label(new_unit)
-        up_limit, down_limit = self.compute_size_scale()
-
-        self.adjust_size_scale(up_limit, down_limit, selected_size, new_unit)
-        return
-
-    def get_selected_size_unit(self):
-
-        return self.unit_chooser.get_active_text()
-
-    def add_unit_chooser(self, default_unit):
-
-        unit_chooser = Gtk.ComboBoxText()
-
-        for unit in SUPPORTED_UNITS:
-            unit_chooser.append_text(unit)
-
-        unit_chooser.set_active(SUPPORTED_UNITS.index(default_unit))
-        unit_chooser.connect("changed", self.on_unit_combo_changed)
-
-        return unit_chooser
-
-    def add_size_scale(self, up_limit, down_limit, unit="MiB"):
-
-        scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL,
-            adjustment=Gtk.Adjustment(0, down_limit.convertTo(unit),
-                up_limit.convertTo(unit), 1, 10, 0))
-
-        scale.set_hexpand(True)
-        scale.set_valign(Gtk.Align.START)
-        scale.set_digits(0)
-        scale.set_value(up_limit.convertTo(unit))
-        scale.add_mark(down_limit.convertTo(unit), Gtk.PositionType.BOTTOM,
-            str(down_limit))
-        scale.add_mark(up_limit.convertTo(unit), Gtk.PositionType.BOTTOM,
-            str(up_limit))
-        scale.connect("value-changed", self.scale_moved)
-
-        self.grid.attach(scale, 0, 6, 6, 1) #left-top-width-height
-
-        label_size = Gtk.Label(label=_("Volume size:"), xalign=1)
-        self.grid.attach(label_size, 0, 7, 1, 1) #left-top-width-height
-
-        spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0,
-            down_limit.convertTo(unit), up_limit.convertTo(unit), 1, 10, 0))
-
-        spin_size.set_numeric(True)
-        spin_size.set_value(up_limit.convertTo(unit))
-
-        self.grid.attach(spin_size, 1, 7, 1, 1) #left-top-width-height
-        spin_size.connect("value-changed", self.spin_size_moved)
-
-        unit_chooser = self.add_unit_chooser(unit)
-        self.grid.attach(unit_chooser, 2, 7, 1, 1) #left-top-width-height
-
-        label_free = Gtk.Label(label=_("Free space after:"), xalign=1)
-        self.grid.attach(label_free, 3, 7, 1, 1) #left-top-width-height
-
-        spin_free = Gtk.SpinButton(adjustment=Gtk.Adjustment(0, 0,
-            (up_limit - down_limit).convertTo(unit), 1, 10, 0))
-
-        spin_free.set_numeric(True)
-
-        self.grid.attach(spin_free, 4, 7, 1, 1) #left-top-width-height
-        spin_free.connect("value-changed", self.spin_free_moved)
-
-        label_unit = Gtk.Label(label=unit)
-        self.grid.attach(label_unit, 5, 7, 1, 1) #left-top-width-height
-
-        self.widgets_dict["size"] = [scale, label_size, spin_size, unit_chooser,
-        label_free, spin_free, label_unit]
-
-        return scale, spin_size, spin_free, unit_chooser, label_unit
-
-    def adjust_size_scale(self, up_limit, down_limit, selected_size, unit="MiB"):
-
-        self.scale.set_range(down_limit.convertTo(unit), up_limit.convertTo(unit))
-        self.scale.clear_marks()
-
-        increment, digits = self.get_size_precision(down_limit.convertTo(unit),
-            up_limit.convertTo(unit), unit)
-        self.scale.set_increments(increment, increment*10)
-        self.scale.set_digits(digits)
-
-        self.scale.add_mark(0, Gtk.PositionType.BOTTOM,
-            format(down_limit.convertTo(unit), "." + str(digits) + "f"))
-        self.scale.add_mark(float(up_limit.convertTo(unit)), Gtk.PositionType.BOTTOM,
-            format(up_limit.convertTo(unit), "." + str(digits) + "f"))
-
-        self.spin_size.set_range(down_limit.convertTo(unit), up_limit.convertTo(unit))
-        self.spin_size.set_increments(increment, increment*10)
-        self.spin_size.set_digits(digits)
-
-        self.spin_free.set_range(0, (up_limit - down_limit).convertTo(unit))
-        self.spin_free.set_increments(increment, increment*10)
-        self.spin_free.set_digits(digits)
-
-        self.scale.set_value(selected_size.convertTo(unit))
-
-    def get_size_precision(self, down_limit, up_limit, unit):
-
-        step = 1.0
-        digits = 0
-
-        while True:
-            if down_limit >= 1.0:
-                break
-
-            down_limit *= 10
-            step /= 10
-            digits += 1
-
-        # always offer at least 10 steps to adjust size
-        if up_limit - down_limit < 10*step:
-            step /= 10
-            digits += 1
-
-        return step, digits
+        for area in self.size_areas:
+            area.show()
 
     def add_fs_chooser(self):
         label_fs = Gtk.Label(label=_("Filesystem:"), xalign=1)
@@ -673,6 +720,7 @@ class AddDialog(Gtk.Dialog):
 
         device_type = self._get_selected_device_type()
         self.update_parent_list()
+        self.size_grid = self.add_size_areas()
 
         if self.free_type_chooser and device_type != "btrfs volume":
             self.remove_free_type_chooser()
@@ -709,8 +757,6 @@ class AddDialog(Gtk.Dialog):
             self.set_widgets_sensitive(["name"])
             self.set_widgets_unsensitive(["label", "fs", "mountpoint", "encrypt", "size"])
 
-        up_limit, down_limit = self.compute_size_scale(device_type)
-        self.adjust_size_scale(up_limit, down_limit, up_limit, self.get_selected_size_unit())
         self.update_raid_type_chooser()
 
     def fill_dialog(self):
@@ -753,25 +799,10 @@ class AddDialog(Gtk.Dialog):
 
         # we know user selected 'something', just set scale to it
 
-        self.unit_chooser.set_active(SUPPORTED_UNITS.index(self.old_input.unit))
-        self.scale.set_value(self.old_input.size.convertTo(self.old_input.unit))
+        # self.unit_chooser.set_active(SUPPORTED_UNITS.index(self.old_input.unit))
+        # self.scale.set_value(self.old_input.size.convertTo(self.old_input.unit))
 
         # self.parents = parents
-
-    def scale_moved(self, event):
-        up_limit = self.spin_size.get_range()[1]
-        self.spin_size.set_value(self.scale.get_value())
-        self.spin_free.set_value(up_limit - self.scale.get_value())
-
-    def spin_size_moved(self, event):
-        up_limit = self.spin_size.get_range()[1]
-        self.scale.set_value(self.spin_size.get_value())
-        self.spin_free.set_value(up_limit - self.scale.get_value())
-
-    def spin_free_moved(self, event):
-        up_limit = self.spin_size.get_range()[1]
-        self.scale.set_value(up_limit - self.spin_free.get_value())
-        self.spin_size.set_value(up_limit - self.spin_free.get_value())
 
     def _get_selected_device_type(self):
         tree_iter = self.devices_combo.get_active_iter()
@@ -800,11 +831,11 @@ class AddDialog(Gtk.Dialog):
         device_type = self._get_selected_device_type()
 
         parents = []
+        total_size = 0
 
-        for row in self.parents_store:
-            if row[2]:
-                size = Size(row[5])
-                parents.append([row[0], size])
+        for size_area in self.size_areas:
+            parents.append(size_area.get_selection())
+            total_size += size_area.get_selection()[1]
 
         if self.free_type_chooser:
             if self.free_type_chooser[1].get_active():
@@ -828,8 +859,7 @@ class AddDialog(Gtk.Dialog):
             mountpoint = None
 
         return UserSelection(device_type=device_type,
-            size=Size(str(self.spin_size.get_value()) + self.get_selected_size_unit()),
-            unit=self.get_selected_size_unit(),
+            size=total_size,
             filesystem=self.filesystems_combo.get_active_text(),
             name=self.name_entry.get_text(),
             label=self.label_entry.get_text(),
