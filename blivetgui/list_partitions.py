@@ -678,8 +678,8 @@ class ListPartitions():
         dialog = add_dialog.AddDialog(self.main_window, parent_device_type,
             parent_device, self.selected_partition[0],
             self.selected_partition[0].size, self.b.get_free_pvs_info(),
-            self.b.get_free_disks_regions(), self.b.get_empty_disks(),
-            self.b.get_available_raid_levels(), self.kickstart_mode, old_input)
+            self.b.get_free_disks_regions(), self.b.get_available_raid_levels(),
+            self.kickstart_mode, old_input)
 
         response = dialog.run()
 

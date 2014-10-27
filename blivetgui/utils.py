@@ -270,21 +270,10 @@ class BlivetUtils():
 
         for pv in pvs:
             if pv.kids == 0:
-                free_pvs.append(pv)
+                free_pvs.append(pv, FreeSpaceDevice(blivet_device.freeSpace,
+                    None, None, [blivet_device]))
 
         return free_pvs
-
-    def get_empty_disks(self):
-        """ Returns list of empty disks and its free space
-        """
-
-        empty_disks = []
-
-        for disk in self.storage.disks:
-            if disk.kids == 0 and disk.format.type not in ["iso9660"]:
-                empty_disks.append((disk, self.storage.getFreeSpace([disk])[disk.name][0]))
-
-        return empty_disks
 
     def get_free_disks_regions(self):
         """ Returns list of non-empty disks with free space
@@ -294,7 +283,7 @@ class BlivetUtils():
 
         for disk in self.storage.disks:
 
-            if disk.format.type in ["iso9660", "None", "btrfs"] or disk.kids == 0:
+            if disk.format.type in ["iso9660"]:
                 continue
 
             extended = None

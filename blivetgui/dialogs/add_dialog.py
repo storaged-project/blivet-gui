@@ -115,8 +115,14 @@ class SizeChooserArea(object):
         scale.set_value(self.max_size.convertTo(unit))
         scale.add_mark(self.min_size.convertTo(unit), Gtk.PositionType.BOTTOM,
             str(self.min_size))
-        scale.add_mark(self.max_size.convertTo(unit), Gtk.PositionType.BOTTOM,
-            str(self.max_size))
+
+        if self.max_size < self.free_device.size:
+            scale.add_mark(self.max_size.convertTo(unit), Gtk.PositionType.BOTTOM,
+                str(self.max_size) + " of " + str(self.free_device.size))
+
+        else:
+            scale.add_mark(self.max_size.convertTo(unit), Gtk.PositionType.BOTTOM,
+                str(self.max_size))
 
         self.frame_grid .attach(scale, 0, 0, 4, 3)
 
@@ -242,7 +248,7 @@ class AddDialog(Gtk.Dialog):
     """
 
     def __init__(self, parent_window, device_type, parent_device, free_device,
-        free_space, free_pvs, free_disks_regions, empty_disks, supported_raids,
+        free_space, free_pvs, free_disks_regions, supported_raids,
         kickstart=False, old_input=None):
         """
 
@@ -258,8 +264,6 @@ class AddDialog(Gtk.Dialog):
             :type free_pvs: list
             :param free_disks_regions: list of free regions on non-empty disks
             :type free_disks_regions: list of blivetgui.utils.FreeSpaceDevice
-            :param empty_disks: list of empty disks
-            :type empty_disks: list of blivet.DiskDevice
             :param kickstart: kickstart mode
             :type kickstart: bool
 
@@ -270,7 +274,6 @@ class AddDialog(Gtk.Dialog):
         self.device_type = device_type
         self.parent_device = parent_device
         self.free_pvs = free_pvs
-        self.empty_disks = empty_disks
         self.free_disks_regions = free_disks_regions
         self.parent_window = parent_window
         self.kickstart = kickstart
@@ -301,9 +304,6 @@ class AddDialog(Gtk.Dialog):
         self.encrypt_check, self.pass_entry = self.add_encrypt_chooser()
         self.parents_store = self.add_parent_list()
 
-        self.size_areas = []
-        self.add_size_areas()
-
         self.raid_combo = self.add_raid_type_chooser()
 
         if kickstart:
@@ -311,6 +311,9 @@ class AddDialog(Gtk.Dialog):
 
         self.devices_combo = self.add_device_chooser()
         self.devices_combo.connect("changed", self.on_devices_combo_changed)
+
+        self.size_areas = []
+        self.add_size_areas()
 
         if old_input:
             self.fill_dialog()
@@ -362,7 +365,7 @@ class AddDialog(Gtk.Dialog):
 
     def add_parent_list(self):
 
-        parents_store = Gtk.ListStore(object, object, bool, str, str, str)
+        parents_store = Gtk.ListStore(object, object, bool, bool, str, str, str)
 
         parents_view = Gtk.TreeView(model=parents_store)
 
@@ -371,10 +374,10 @@ class AddDialog(Gtk.Dialog):
 
         renderer_text = Gtk.CellRendererText()
 
-        column_toggle = Gtk.TreeViewColumn(None, renderer_toggle, active=2)
-        column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=3)
-        column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=4)
-        column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=5)
+        column_toggle = Gtk.TreeViewColumn(None, renderer_toggle, active=3)
+        column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=4)
+        column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=5)
+        column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=6)
 
         parents_view.append_column(column_toggle)
         parents_view.append_column(column_name)
@@ -428,6 +431,10 @@ class AddDialog(Gtk.Dialog):
 
         return
 
+    def on_raid_type_changed(self, event):
+
+        self.size_grid = self.add_size_areas()
+
     def add_raid_type_chooser(self):
 
         label_raid = Gtk.Label(label=_("RAID Level:"), xalign=1)
@@ -437,6 +444,8 @@ class AddDialog(Gtk.Dialog):
         raid_combo = Gtk.ComboBoxText()
         raid_combo.set_entry_text_column(0)
         raid_combo.set_id_column(0)
+
+        raid_combo.connect("changed", self.on_raid_type_changed)
 
         self.grid.attach(raid_combo, 1, 5, 1, 1)
 
@@ -496,104 +505,86 @@ class AddDialog(Gtk.Dialog):
 
         self.free_type_chooser = None
 
+    def select_selected_free_region(self):
+        """ In parent list select the free region user selected checkbox as checked
+        """
+
+        for row in self.parents_store:
+            dev = row[0]
+            free = row[1]
+
+            if dev.name == self.parent_device.name and \
+                (not self.free_device.start or self.free_device.start == free.start):
+                row[2] = row[3] = True
+
+        # TODO move selected iter at the top of the list
+
     def update_parent_list(self, parent_type=None):
 
         self.parents_store.clear()
 
-        tree_iter = self.devices_combo.get_active_iter()
+        device_type = self._get_selected_device_type()
 
-        if tree_iter != None:
-            model = self.devices_combo.get_model()
-            device = model[tree_iter][1]
+        if device_type == "lvmvg":
+            for pv, free in self.free_pvs:
+                self.parents_store.append([pv, free, False, False, pv.name,
+                    "lvmpv", str(free.size)])
 
-            if device == "lvmvg":
+        elif device_type in ["btrfs volume", "lvm"]:
 
-                for pv in self.free_pvs:
-                    if pv.name == self.parent_device.name:
-                        self.parents_store.append([self.parent_device, self.free_device, True,
-                            self.parent_device.name, self.device_type,
-                            str(self.free_space)])
-                    else:
-                        self.parents_store.append([pv, None, False, pv.name, "lvmpv",
-                            str(pv.size)])
+            for free in self.free_disks_regions:
 
-            elif device == "btrfs volume":
-                if parent_type == "partitions":
-                    for free in self.free_disks_regions:
+                disk = free.parents[0]
 
-                        disk = free.parents[0]
+                if free.isFreeRegion and (parent_type == "partitions" or device_type == "lvm"):
+                    self.parents_store.append([disk, free, False, False, disk.name,
+                        "disk region", str(free.size)])
 
-                        # select 'device' selected by user from list of partitions
-                        if self.free_device.isFreeRegion and self.free_device.start == free.start:
-                            self.parents_store.append([disk, free, True, disk.name,
-                                "disk region", str(free.size)])
+                elif not free.isFreeRegion:
+                    self.parents_store.append([disk, free, False, False, disk.name,
+                        "disk", str(free.size)])
 
-                        else:
-                            self.parents_store.append([disk, free, False, disk.name,
-                                "disk region", str(free.size)])
+        else:
+            self.parents_store.append([self.parent_device, self.free_device, False, False,
+                self.parent_device.name, "disk", str(self.free_device.size)])
 
-                # empty disks are shown everytime
-                for disk, disk_size in self.empty_disks:
-                    # select 'device' selected by user from list of partitions
-                    if not self.free_device.isFreeRegion and disk.name == self.parent_device.name:
-                        self.parents_store.append([disk, self.free_device, True, disk.name,
-                            "disk", str(disk_size)])
-
-                    # in 'partition' mode doesn't allow to select unitialized disks
-                    elif not disk.format.type and parent_type == "partitions":
-                        pass
-
-                    else:
-                        self.parents_store.append([disk, self.free_device, False, disk.name,
-                            "disk", str(disk_size)])
-
-            elif device == "lvm":
-
-                for free in self.free_disks_regions:
-
-                    disk = free.parents[0]
-
-                    # select 'device' selected by user from list of partitions
-                    if self.free_device.isFreeRegion and self.free_device.start == free.start:
-                        self.parents_store.append([disk, free, True, disk.name,
-                            "disk region", str(free.size)])
-
-                    else:
-                        self.parents_store.append([disk, free, False, disk.name,
-                            "disk region", str(free.size)])
-
-                for disk, free_size in self.empty_disks:
-
-                    # select 'device' selected by user from list of partitions
-                    if not self.free_device.isFreeRegion and disk.name == self.parent_device.name:
-                        self.parents_store.append([disk, self.free_device, True, disk.name,
-                            "disk", str(free_size)])
-
-                    elif not disk.format.type:
-                        continue
-
-                    else:
-                        self.parents_store.append([disk, self.free_device, False, disk.name,
-                            "disk", str(free_size)])
-
-            else:
-                self.parents_store.append([self.parent_device, self.free_device, True,
-                    self.parent_device.name, self.device_type,
-                    str(self.free_device.size)])
+        self.select_selected_free_region()
 
     def on_cell_toggled(self, event, path):
 
-        if self.parents_store[path][1] and self.free_device.start == self.parents_store[path][1].start:
-            pass
-
-        elif not self.parents_store[path][1] and self.parents_store[path][3] == self.parent_device.name:
+        if self.parents_store[path][2]:
             pass
 
         else:
-            self.parents_store[path][2] = not self.parents_store[path][2]
+            self.parents_store[path][3] = not self.parents_store[path][3]
 
             self.size_grid = self.add_size_areas()
             self.update_raid_type_chooser()
+
+    def raid_member_max_size(self):
+
+        device_type = self._get_selected_device_type()
+        num_parents = self._get_number_selected_parents()
+
+        if device_type not in self.supported_raids.keys() or num_parents == 1:
+            return (False, None)
+
+        elif self.raid_combo.get_active_text() in ["linear", "single"]:
+            return (False, None)
+
+        else:
+            max_size = None
+
+            for row in self.parents_store:
+
+                if row[3]:
+                    if not max_size:
+                        max_size = row[1].size
+
+                    elif row[1].size < max_size:
+                        max_size = row[1].size
+
+            return (True, max_size)
 
     def add_size_areas(self):
 
@@ -612,11 +603,16 @@ class AddDialog(Gtk.Dialog):
 
         posititon = 0
 
+        raid, max_size = self.raid_member_max_size()
+
         for row in self.parents_store:
-            if row[2]:
+            if row[3]:
+
+                if not raid:
+                    max_size = row[1].size
 
                 area = SizeChooserArea(parent_device=row[0], free_device=row[1],
-                    max_size=row[1].size, min_size=Size("1 MiB"))
+                    max_size=max_size, min_size=Size("1 MiB"))
 
                 size_grid.attach(area.frame, 0, posititon, 1, 1)
 
@@ -821,7 +817,7 @@ class AddDialog(Gtk.Dialog):
         num = 0
 
         for row in self.parents_store:
-            if row[2]:
+            if row[3]:
                 num += 1
 
         return num
