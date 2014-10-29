@@ -34,7 +34,7 @@ from blivet import Size
 
 from math import floor, ceil
 
-import pdb
+from dialogs import message_dialogs
 
 #------------------------------------------------------------------------------#
 
@@ -259,8 +259,7 @@ class AddDialog(Gtk.Dialog):
     """
 
     def __init__(self, parent_window, device_type, parent_device, free_device,
-        free_space, free_pvs, free_disks_regions, supported_raids,
-        kickstart=False, old_input=None):
+        free_space, free_pvs, free_disks_regions, supported_raids, kickstart=False):
         """
 
             :param device_type: type of parent device
@@ -288,7 +287,6 @@ class AddDialog(Gtk.Dialog):
         self.free_disks_regions = free_disks_regions
         self.parent_window = parent_window
         self.kickstart = kickstart
-        self.old_input = old_input
         self.supported_raids = supported_raids
 
         Gtk.Dialog.__init__(self, _("Create new device"), None, 0,
@@ -326,11 +324,11 @@ class AddDialog(Gtk.Dialog):
         self.size_areas = []
         self.add_size_areas()
 
-        if old_input:
-            self.fill_dialog()
-
         self.show_all()
         self.devices_combo.set_active(0)
+
+        ok_button = self.get_widget_for_response(Gtk.ResponseType.OK)
+        ok_button.connect("clicked", self.on_ok_clicked)
 
     def add_device_chooser(self):
 
@@ -794,51 +792,6 @@ class AddDialog(Gtk.Dialog):
 
         self.update_raid_type_chooser()
 
-    def fill_dialog(self):
-        """ Fill in dialog with user's previous selection
-        """
-
-        # select parents
-
-        # it = self.parents.get_iter_first()
-        # FIXME: multiple parents can have same names (eg. more free space
-        # devices on sigle disk for btrfs volumes)
-
-
-        # set device type from Gtk.ComboBox
-        i = 0
-        for device in self.devices:
-            if device[1] == self.old_input.device_type:
-                self.devices_combo.set_active(i)
-                break
-            i += 1
-
-        # set fs type from Gtk.ComboBox
-        i = 0
-        for fs in SUPPORTED_FS:
-            if fs == self.old_input.filesystem:
-                self.filesystems_combo.set_active(i)
-                break
-            i += 1
-
-        if self.old_input.encrypt:
-            self.encrypt_check.set_active(True)
-            self.pass_entry.set_text(self.old_input.passphrase)
-
-        # not neccessary if user actually filled these, we can set text to None
-        self.label_entry.set_text(self.old_input.label)
-        self.name_entry.set_text(self.old_input.name)
-
-        if self.kickstart:
-            self.mountpoint_entry.set_text(self.old_input.mountpoint)
-
-        # we know user selected 'something', just set scale to it
-
-        # self.unit_chooser.set_active(SUPPORTED_UNITS.index(self.old_input.unit))
-        # self.scale.set_value(self.old_input.size.convertTo(self.old_input.unit))
-
-        # self.parents = parents
-
     def _get_selected_device_type(self):
         tree_iter = self.devices_combo.get_active_iter()
 
@@ -860,6 +813,82 @@ class AddDialog(Gtk.Dialog):
                 num += 1
 
         return num
+
+    def validate_user_input(self):
+        """ Validate data input
+        """
+
+        user_input = self.get_selection()
+
+        if user_input.filesystem == None and user_input.device_type in ["partition", "lvmlv"]:
+            # If fs is not selected, show error window and re-run add dialog
+
+            msg = _("Filesystem type must be specified when creating new partition.")
+            message_dialogs.ErrorDialog(self, msg)
+
+            return False
+
+        elif user_input.encrypt and not user_input.passphrase:
+
+            msg = _("Passphrase not specified.")
+            message_dialogs.ErrorDialog(self, msg)
+
+            return False
+
+        elif user_input.mountpoint and not os.path.isabs(user_input.mountpoint):
+
+            msg = _("\"{0}\" is not a valid mountpoint.").format(user_input.mountpoint)
+            message_dialogs.ErrorDialog(self, msg)
+
+            return False
+
+        elif self.kickstart and user_input.mountpoint:
+            if self.check_mountpoint(user_input.mountpoint):
+                return True
+
+            else:
+                return False
+
+        elif user_input.device_type == "btrfs volume" and user_input.btrfs_type == "disks":
+
+            delete_labels = []
+
+            for parent, size in user_input.parents:
+                if parent.format.type:
+                    delete_labels.append(parent)
+
+            if len(delete_labels) == 0:
+                return True
+
+            title = _("Confirm partition table override")
+            msg = _("You have selected to create Btrfs Volume on top of disks. " \
+                "At least one of the disks, you've selected currently have an " \
+                "active disklabel (partition table). It is neccessary to " \
+                "delete it now.\n\nTHIS ACTION COULDN'T BE UNDONE! Do you " \
+                "want to continue?\n\n")
+            msg += _("List of disks with existing disklabel:\n")
+
+            for disk in delete_labels:
+                msg += _("\t• model: {0}, path: {1}, size: {2}, curent disklabel: "\
+                    "{3}").format(disk.model, disk.path, str(disk.size), disk.format.type)
+
+            dialog = message_dialogs.ConfirmDialog(self, title, msg)
+
+            response = dialog.run()
+
+            if response:
+                return True
+
+            else:
+                return False
+
+        else:
+            return True
+
+    def on_ok_clicked(self, event):
+
+        if not self.validate_user_input():
+            self.run()
 
     def get_selection(self):
 
