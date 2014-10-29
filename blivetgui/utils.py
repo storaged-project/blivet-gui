@@ -488,7 +488,7 @@ class BlivetUtils():
                 traceback.format_exc())
 
         # for btrfs volumes delete parents partition after deleting volume
-        if blivet_device.type == "btrfs volume":
+        if blivet_device.type in ["btrfs volume", "mdarray"]:
             for parent in blivet_device.parents:
                 if parent.type == "partition":
                     self.delete_device(parent)
