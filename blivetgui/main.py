@@ -24,22 +24,20 @@
 
 from __future__ import print_function
 
-import sys, optparse
+import os, sys, optparse
 
 import gettext
 
-from gi.repository import GObject
+from gi.repository import Gtk
 
 from dialogs import message_dialogs
 
-from main_window import *
-
-from udisks_loop import udisks_thread
+from main_window import main_window, embeded_window
 
 #------------------------------------------------------------------------------#
 
 APP_NAME = "blivet-gui"
-APP_VERSION = "0.1.0"
+APP_VERSION = "0.1.9"
 
 #------------------------------------------------------------------------------#
 

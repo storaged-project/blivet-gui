@@ -787,11 +787,14 @@ class BlivetUtils():
 
         elif user_input.device_type == "lvmlv":
 
+            print("user_input.raid_level", user_input.raid_level)
+
             device_name = self._pick_device_name(user_input.name,
                 user_input.parents[0][0])
 
             new_part = self.storage.newLV(size=user_input.size,
-                parents=[i[0] for i in user_input.parents], name=device_name)
+                parents=[i[0] for i in user_input.parents], name=device_name,
+                segType=user_input.raid_level)
 
             device_id = new_part.id
 
@@ -924,6 +927,49 @@ class BlivetUtils():
 
             device_id = new_btrfs.id
 
+        elif user_input.device_type == "mdraid":
+            device_name = self._pick_device_name(user_input.name)
+
+            parts = []
+
+            # exact total size of newly created pvs (future parents)
+            total_size = blivet.Size("0 MiB")
+
+            for parent, size in user_input.parents:
+
+                new_part = self.storage.newPartition(size=size,
+                    parents=[parent])
+
+                self.storage.createDevice(new_part)
+
+                new_fmt = blivet.formats.getFormat("mdmember", device=new_part.path)
+                self.storage.formatDevice(new_part, new_fmt)
+
+                total_size += new_part.size
+
+                # we need to try to create pvs immediately, if something
+                # fails, fail now
+                try:
+                    blivet.partitioning.doPartitioning(self.storage)
+
+                except blivet.errors.PartitioningError as e:
+
+                    message_dialogs.ExceptionDialog(self.main_window,
+                        str(e), traceback.format_exc())
+
+                    return None
+
+                parts.append(new_part)
+
+            new_md = self.storage.newMDArray(size=total_size, parents=parts,
+                name=device_name, level=user_input.raid_level,
+                fmt_type=user_input.filesystem, memberDevices=len(parts),
+                totalDevices=len(parts))
+
+            self.storage.createDevice(new_md)
+
+            device_id = new_md.id
+
 
         try:
 
@@ -1013,8 +1059,7 @@ class BlivetUtils():
         rl = {}
         rl["btrfs volume"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_BTRFS)
         rl["mdraid"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_MD)
-        rl["lvm"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_LVM)
-        rl["lvmvg"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_LVM)
+        rl["lvmlv"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_LVM)
 
         return rl
 

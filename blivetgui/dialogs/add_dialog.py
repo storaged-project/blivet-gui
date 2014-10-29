@@ -65,8 +65,11 @@ class UserSelection(object):
 
 class SizeChooserArea(object):
 
-    def __init__(self, parent_device, free_device, max_size, min_size):
+    def __init__(self, add_dialog, parent_device, free_device, max_size, min_size):
         """
+
+            :param add_dialog: AddDialog instanace
+            :type add_dialog: blivetgui.add_dialog.AddDialog
             :param device_device: device the free space is on
             :type device_device: blivet.Device
             :param free_device: free space
@@ -79,6 +82,7 @@ class SizeChooserArea(object):
 
         """
 
+        self.add_dialog = add_dialog
         self.parent_device = parent_device
         self.free_device = free_device
         self.max_size = max_size
@@ -183,6 +187,10 @@ class SizeChooserArea(object):
 
         self.scale.set_value(selected_size.convertTo(unit))
 
+    def set_selected_size(self, size):
+
+        self.scale.set_value(size.convertTo(self.selected_unit))
+
     def get_size_precision(self, down_limit, up_limit, unit):
 
         step = 1.0
@@ -216,6 +224,9 @@ class SizeChooserArea(object):
 
     def scale_moved(self, scale, spin_size):
         spin_size.set_value(scale.get_value())
+
+        selected_size = Size(str(self.scale.get_value()) + self.selected_unit)
+        self.add_dialog.update_size_areas(selected_size)
 
     def spin_size_moved(self, spin_size, scale):
         scale.set_value(spin_size.get_value())
@@ -325,7 +336,8 @@ class AddDialog(Gtk.Dialog):
 
         map_type_devices = {
             "disk" : [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
-            (_("LVM2 Physical Volume"), "lvmpv"), (_("Btrfs Volume"), "btrfs volume")],
+            (_("LVM2 Physical Volume"), "lvmpv"), (_("Btrfs Volume"), "btrfs volume"),
+            (_("Software RAID"), "mdraid")],
             "lvmpv" : [(_("LVM2 Volume Group"), "lvmvg")],
             "lvmvg" : [(_("LVM2 Logical Volume"), "lvmlv")],
             "luks/dm-crypt" : [(_("LVM2 Volume Group"), "lvmvg")],
@@ -399,6 +411,9 @@ class AddDialog(Gtk.Dialog):
         device_type = self._get_selected_device_type()
         num_parents = self._get_number_selected_parents()
 
+        if device_type == "lvmlv":
+            num_parents = len(self.parent_device.parents)
+
         if device_type not in self.supported_raids.keys() or num_parents == 1:
             for widget in self.widgets_dict["raid"]:
                 widget.hide()
@@ -456,6 +471,8 @@ class AddDialog(Gtk.Dialog):
     def on_free_space_type_toggled(self, button, name):
         if button.get_active():
             self.update_parent_list(parent_type=name)
+
+            self.size_grid = self.add_size_areas()
 
             if name == "disks":
                 self.set_widgets_unsensitive(["size"])
@@ -530,13 +547,13 @@ class AddDialog(Gtk.Dialog):
                 self.parents_store.append([pv, free, False, False, pv.name,
                     "lvmpv", str(free.size)])
 
-        elif device_type in ["btrfs volume", "lvm"]:
+        elif device_type in ["btrfs volume", "lvm", "mdraid"]:
 
             for free in self.free_disks_regions:
 
                 disk = free.parents[0]
 
-                if free.isFreeRegion and (parent_type == "partitions" or device_type == "lvm"):
+                if free.isFreeRegion and (parent_type == "partitions" or device_type in ["lvm", "mdraid"]):
                     self.parents_store.append([disk, free, False, False, disk.name,
                         "disk region", str(free.size)])
 
@@ -586,6 +603,24 @@ class AddDialog(Gtk.Dialog):
 
             return (True, max_size)
 
+    def update_size_areas(self, size):
+        """ Update all size areas to selected size
+            (used for raids where all parents has same size)
+        """
+
+        device_type = self._get_selected_device_type()
+        num_parents = self._get_number_selected_parents()
+
+        if device_type not in self.supported_raids.keys() or num_parents == 1:
+            return
+
+        elif self.raid_combo.get_active_text() in ["linear", "single"]:
+            return
+
+        else:
+            for area in self.size_areas:
+                area.set_selected_size(size)
+
     def add_size_areas(self):
 
         self.widgets_dict["size"] = []
@@ -611,8 +646,8 @@ class AddDialog(Gtk.Dialog):
                 if not raid:
                     max_size = row[1].size
 
-                area = SizeChooserArea(parent_device=row[0], free_device=row[1],
-                    max_size=max_size, min_size=Size("1 MiB"))
+                area = SizeChooserArea(add_dialog=self, parent_device=row[0],
+                    free_device=row[1], max_size=max_size, min_size=Size("1 MiB"))
 
                 size_grid.attach(area.frame, 0, posititon, 1, 1)
 
@@ -753,6 +788,10 @@ class AddDialog(Gtk.Dialog):
             self.set_widgets_sensitive(["name"])
             self.set_widgets_unsensitive(["label", "fs", "mountpoint", "encrypt", "size"])
 
+        elif device_type == "mdraid":
+            self.set_widgets_sensitive(["name", "size", "mountpoint", "fs"])
+            self.set_widgets_unsensitive(["label", "encrypt"])
+
         self.update_raid_type_chooser()
 
     def fill_dialog(self):
@@ -842,7 +881,7 @@ class AddDialog(Gtk.Dialog):
         else:
             btrfs_type = None
 
-        if device_type in ["btrfs volume, lvm, lvmvg"]:
+        if device_type in ["btrfs volume", "lvmlv", "mdraid"]:
             raid_level = self.raid_combo.get_active_text()
 
         else:
