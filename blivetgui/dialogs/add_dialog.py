@@ -131,6 +131,7 @@ class SizeChooserArea(object):
         self.frame_grid .attach(scale, 0, 0, 4, 3)
 
         label_size = Gtk.Label(label=_("Volume size:"), xalign=1)
+        label_size.get_style_context().add_class("dim-label")
         self.frame_grid .attach(label_size, 4, 1, 1, 1)
 
         spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0,
@@ -146,6 +147,9 @@ class SizeChooserArea(object):
 
         scale.connect("value-changed", self.scale_moved, spin_size)
         spin_size.connect("value-changed", self.spin_size_moved, scale)
+
+        scale.set_size_request(250, -1)
+        scale.set_margin_right(18)
 
         self.widgets.extend([scale, label_size, spin_size, unit_chooser])
 
@@ -240,6 +244,10 @@ class SizeChooserArea(object):
         for widget in self.widgets:
             widget.show()
 
+    def hide(self):
+        for widget in self.widgets:
+            widget.hide()
+
     def set_sensitive(self, sensitivity):
         for widget in self.widgets:
             widget.set_sensitive(sensitivity)
@@ -294,6 +302,7 @@ class AddDialog(Gtk.Dialog):
             Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
+
         self.set_resizable(False) # auto shrink after removing widgets
 
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
@@ -322,7 +331,7 @@ class AddDialog(Gtk.Dialog):
         self.devices_combo.connect("changed", self.on_devices_combo_changed)
 
         self.size_areas = []
-        self.add_size_areas()
+        self.size_grid = self.add_size_areas()
 
         self.show_all()
         self.devices_combo.set_active(0)
@@ -473,10 +482,10 @@ class AddDialog(Gtk.Dialog):
             self.size_grid = self.add_size_areas()
 
             if name == "disks":
-                self.set_widgets_unsensitive(["size"])
+                self.hide_widgets(["size"])
 
             else:
-                self.set_widgets_sensitive(["size"])
+                self.show_widgets(["size"])
 
     def add_free_type_chooser(self):
 
@@ -629,9 +638,18 @@ class AddDialog(Gtk.Dialog):
 
             self.size_areas = []
 
+        # size_scroll = Gtk.ScrolledWindow() # FIXME
+        # size_scroll.set_min_content_height(125)
+        # size_scroll.set_min_content_width(550)
+
+        # self.grid.attach(size_scroll, 0, 6, 6, 1)
+        # size_scroll.show()
+
         size_grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
             column_spacing=5)
+
         self.grid.attach(size_grid, 0, 6, 6, 1)
+        # size_scroll.add(size_grid)
         size_grid.show()
 
         posititon = 0
@@ -657,9 +675,12 @@ class AddDialog(Gtk.Dialog):
         for area in self.size_areas:
             area.show()
 
+        return size_grid
+
     def add_fs_chooser(self):
         label_fs = Gtk.Label(label=_("Filesystem:"), xalign=1)
-        self.grid.attach(label_fs, 0, 8, 1, 1)
+        label_fs.get_style_context().add_class("dim-label")
+        self.grid.attach(label_fs, 0, 7, 1, 1)
 
         filesystems_combo = Gtk.ComboBoxText()
         filesystems_combo.set_entry_text_column(0)
@@ -667,7 +688,7 @@ class AddDialog(Gtk.Dialog):
         for fs in SUPPORTED_FS:
             filesystems_combo.append_text(fs)
 
-        self.grid.attach(filesystems_combo, 1, 8, 2, 1)
+        self.grid.attach(filesystems_combo, 1, 7, 2, 1)
 
         self.widgets_dict["fs"] = [label_fs, filesystems_combo]
 
@@ -675,25 +696,40 @@ class AddDialog(Gtk.Dialog):
 
     def add_name_chooser(self):
         label_label = Gtk.Label(label=_("Label:"), xalign=1)
-        self.grid.attach(label_label, 0, 9, 1, 1)
+        label_label.get_style_context().add_class("dim-label")
+        self.grid.attach(label_label, 0, 8, 1, 1)
 
         label_entry = Gtk.Entry()
-        self.grid.attach(label_entry, 1, 9, 2, 1)
+        self.grid.attach(label_entry, 1, 8, 2, 1)
 
         self.widgets_dict["label"] = [label_label, label_entry]
 
         name_label = Gtk.Label(label=_("Name:"), xalign=1)
-        self.grid.attach(name_label, 3, 9, 1, 1)
+        name_label.get_style_context().add_class("dim-label")
+        self.grid.attach(name_label, 0, 8, 1, 1)
 
         name_entry = Gtk.Entry()
-        self.grid.attach(name_entry, 4, 9, 2, 1)
+        self.grid.attach(name_entry, 1, 8, 2, 1)
 
         self.widgets_dict["name"] = [name_label, name_entry]
 
         return label_entry, name_entry
 
+    def add_mountpoint(self):
+        mountpoint_label = Gtk.Label(label=_("Mountpoint:"), xalign=1)
+        mountpoint_label.get_style_context().add_class("dim-label")
+        self.grid.attach(mountpoint_label, 0, 9, 1, 1)
+
+        mountpoint_entry = Gtk.Entry()
+        self.grid.attach(mountpoint_entry, 1, 9, 2, 1)
+
+        self.widgets_dict["mountpoint"] = [mountpoint_label, mountpoint_entry]
+
+        return mountpoint_entry
+
     def add_encrypt_chooser(self):
         encrypt_label = Gtk.Label(label=_("Encrypt:"), xalign=1)
+        encrypt_label.get_style_context().add_class("dim-label")
         self.grid.attach(encrypt_label, 0, 10, 1, 1)
 
         encrypt_check = Gtk.CheckButton()
@@ -702,48 +738,48 @@ class AddDialog(Gtk.Dialog):
         self.widgets_dict["encrypt"] = [encrypt_label, encrypt_check]
 
         pass_label = Gtk.Label(label=_("Passphrase:"), xalign=1)
-        self.grid.attach(pass_label, 3, 10, 1, 1)
-        pass_label.set_sensitive(False)
+        pass_label.get_style_context().add_class("dim-label")
+        self.grid.attach(pass_label, 0, 11, 1, 1)
 
         pass_entry = Gtk.Entry()
         pass_entry.set_visibility(False)
         pass_entry.set_property("caps-lock-warning", True)
-        self.grid.attach(pass_entry, 4, 10, 2, 1)
-        pass_entry.set_sensitive(False)
+        self.grid.attach(pass_entry, 1, 11, 2, 1)
 
-        encrypt_check.connect("toggled", lambda event: [pass_entry.set_sensitive(not pass_entry.get_sensitive()),
-            pass_label.set_sensitive(not pass_label.get_sensitive())])
+        self.widgets_dict["passphrase"] = [pass_label, pass_entry]
+
+        encrypt_check.connect("toggled", lambda event: [pass_entry.set_visible(not pass_entry.get_visible()),
+            pass_label.set_visible(not pass_label.get_visible())])
 
         return encrypt_check, pass_entry
 
-    def add_mountpoint(self):
-        mountpoint_label = Gtk.Label(label=_("Mountpoint:"), xalign=1)
-        self.grid.attach(mountpoint_label, 0, 11, 1, 1)
-
-        mountpoint_entry = Gtk.Entry()
-        self.grid.attach(mountpoint_entry, 1, 11, 2, 1)
-
-        self.widgets_dict["mountpoint"] = [mountpoint_label, mountpoint_entry]
-
-        return mountpoint_entry
-
-    def set_widgets_sensitive(self, widget_types):
+    def show_widgets(self, widget_types):
 
         for widget_type in widget_types:
             if widget_type == "mountpoint" and not self.kickstart:
                 continue
 
-            for widget in self.widgets_dict[widget_type]:
-                widget.set_sensitive(True)
+            elif widget_type == "size":
+                for widget in self.widgets_dict[widget_type]:
+                    widget.set_sensitive(True)
 
-    def set_widgets_unsensitive(self, widget_types):
+            else:
+                for widget in self.widgets_dict[widget_type]:
+                    widget.show()
+
+    def hide_widgets(self, widget_types):
 
         for widget_type in widget_types:
             if widget_type == "mountpoint" and not self.kickstart:
                 continue
 
-            for widget in self.widgets_dict[widget_type]:
-                widget.set_sensitive(False)
+            elif widget_type == "size":
+                for widget in self.widgets_dict[widget_type]:
+                    widget.set_sensitive(False)
+
+            else:
+                for widget in self.widgets_dict[widget_type]:
+                    widget.hide()
 
     def on_devices_combo_changed(self, event):
 
@@ -755,40 +791,43 @@ class AddDialog(Gtk.Dialog):
             self.remove_free_type_chooser()
 
         if device_type == "partition":
-            self.set_widgets_sensitive(["label", "fs", "encrypt", "mountpoint", "size"])
-            self.set_widgets_unsensitive(["name"])
+            self.show_widgets(["label", "fs", "encrypt", "mountpoint", "size"])
+            self.hide_widgets(["name", "passphrase"])
 
             if self.free_device.isLogical:
-                self.set_widgets_unsensitive(["encrypt"])
+                self.hide_widgets(["encrypt", "passphrase"])
 
         elif device_type == "lvmpv":
-            self.set_widgets_sensitive(["encrypt", "size"])
-            self.set_widgets_unsensitive(["name", "label", "fs", "mountpoint"])
+            self.show_widgets(["encrypt", "size"])
+            self.hide_widgets(["name", "label", "fs", "mountpoint", "passphrase"])
 
         elif device_type == "lvm":
-            self.set_widgets_sensitive(["encrypt", "name", "size"])
-            self.set_widgets_unsensitive(["label", "fs", "mountpoint"])
+            self.show_widgets(["encrypt", "name", "size"])
+            self.hide_widgets(["label", "fs", "mountpoint", "passphrase"])
 
         elif device_type == "lvmvg":
-            self.set_widgets_sensitive(["name"])
-            self.set_widgets_unsensitive(["label", "fs", "mountpoint", "encrypt", "size"])
+            self.show_widgets(["name"])
+            self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size",
+                "passphrase"])
 
         elif device_type == "lvmlv":
-            self.set_widgets_sensitive(["name", "fs", "mountpoint", "size"])
-            self.set_widgets_unsensitive(["label", "encrypt"])
+            self.show_widgets(["name", "fs", "mountpoint", "size"])
+            self.hide_widgets(["label", "encrypt", "passphrase"])
 
         elif device_type == "btrfs volume":
-            self.set_widgets_sensitive(["name", "size"])
-            self.set_widgets_unsensitive(["label", "fs", "mountpoint", "encrypt"])
+            self.show_widgets(["name", "size"])
+            self.hide_widgets(["label", "fs", "mountpoint", "encrypt",
+                "passphrase"])
             self.add_free_type_chooser()
 
         elif device_type == "btrfs subvolume":
-            self.set_widgets_sensitive(["name"])
-            self.set_widgets_unsensitive(["label", "fs", "mountpoint", "encrypt", "size"])
+            self.show_widgets(["name"])
+            self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size",
+                "passphrase"])
 
         elif device_type == "mdraid":
-            self.set_widgets_sensitive(["name", "size", "mountpoint", "fs"])
-            self.set_widgets_unsensitive(["label", "encrypt"])
+            self.show_widgets(["name", "size", "mountpoint", "fs"])
+            self.hide_widgets(["label", "encrypt", "passphrase"])
 
         self.update_raid_type_chooser()
 
