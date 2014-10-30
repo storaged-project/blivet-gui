@@ -44,12 +44,13 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 SUPPORTED_FS = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap", "vfat"]
 SUPPORTED_UNITS = ["B", "kB", "MB", "GB", "TB", "kiB", "MiB", "GiB", "TiB"]
+SUPPORTED_PESIZE = ["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"]
 
 #------------------------------------------------------------------------------#
 
 class UserSelection(object):
     def __init__(self, device_type, size, filesystem, name, label, mountpoint,
-        encrypt, passphrase, parents, btrfs_type, raid_level):
+        encrypt, passphrase, parents, btrfs_type, raid_level, advanced):
 
         self.device_type = device_type
         self.size = size
@@ -62,6 +63,7 @@ class UserSelection(object):
         self.parents = parents
         self.btrfs_type = btrfs_type
         self.raid_level = raid_level
+        self.advanced = advanced
 
 class SizeChooserArea(object):
 
@@ -261,6 +263,66 @@ class SizeChooserArea(object):
 
         return [self.parent_device, size]
 
+class AdvancedOptions(object):
+
+    def __init__(self, device_type):
+
+        self.device_type = device_type
+
+        self.expander = Gtk.Expander(label=_("Show advanced options"))
+        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
+            column_spacing=5)
+        self.grid.set_border_width(15)
+        self.expander.add(self.grid)
+
+        self.widgets = [self.expander, self.grid]
+
+        if self.device_type in ["lvm", "lvmvg"]:
+            self.pesize_combo = self.lvm_options()
+
+    def lvm_options(self):
+
+        label_pesize = Gtk.Label(label=_("PE Size:"), xalign=1)
+        label_pesize.get_style_context().add_class("dim-label")
+        self.grid.attach(label_pesize, 0, 0, 1, 1)
+
+        pesize_combo = Gtk.ComboBoxText()
+        pesize_combo.set_entry_text_column(0)
+        pesize_combo.set_id_column(0)
+
+        for size in SUPPORTED_PESIZE:
+            pesize_combo.append_text(size)
+
+        pesize_combo.set_active_id("4 MiB")
+
+        self.grid.attach(pesize_combo, 1, 0, 2, 1)
+
+        self.widgets.extend([label_pesize, pesize_combo])
+
+        return pesize_combo
+
+    def destroy(self):
+        for widget in self.widgets:
+            widget.hide()
+            widget.destroy()
+
+    def show(self):
+        for widget in self.widgets:
+            widget.show()
+
+    def hide(self):
+        for widget in self.widgets:
+            widget.hide()
+
+    def set_sensitive(self, sensitivity):
+        for widget in self.widgets:
+            widget.set_sensitive(sensitivity)
+
+    def get_selection(self):
+
+        if self.device_type in ["lvm", "lvmvg"]:
+            return {"pesize" : Size(self.pesize_combo.get_active_text())}
+
 class AddDialog(Gtk.Dialog):
     """ Dialog window allowing user to add new partition including selecting
          size, fs, label etc.
@@ -332,6 +394,8 @@ class AddDialog(Gtk.Dialog):
 
         self.size_areas = []
         self.size_grid = self.add_size_areas()
+
+        self.advanced = None
 
         self.show_all()
         self.devices_combo.set_active(0)
@@ -753,6 +817,22 @@ class AddDialog(Gtk.Dialog):
 
         return encrypt_check, pass_entry
 
+    def add_advanced_options(self):
+
+        device_type = self._get_selected_device_type()
+
+        if self.advanced:
+            self.advanced.destroy()
+
+        if device_type in ["lvm", "lvmvg"]:
+            self.advanced = AdvancedOptions(device_type)
+            self.widgets_dict["advanced"] = [self.advanced]
+
+            self.grid.attach(self.advanced.expander, 0, 12, 6, 1)
+
+        else:
+            self.widgets_dict["advanced"] = []
+
     def show_widgets(self, widget_types):
 
         for widget_type in widget_types:
@@ -785,6 +865,7 @@ class AddDialog(Gtk.Dialog):
 
         device_type = self._get_selected_device_type()
         self.update_parent_list()
+        self.add_advanced_options()
         self.size_grid = self.add_size_areas()
 
         if self.free_type_chooser and device_type != "btrfs volume":
@@ -792,42 +873,43 @@ class AddDialog(Gtk.Dialog):
 
         if device_type == "partition":
             self.show_widgets(["label", "fs", "encrypt", "mountpoint", "size"])
-            self.hide_widgets(["name", "passphrase"])
+            self.hide_widgets(["name", "passphrase", "advanced"])
 
             if self.free_device.isLogical:
                 self.hide_widgets(["encrypt", "passphrase"])
 
         elif device_type == "lvmpv":
             self.show_widgets(["encrypt", "size"])
-            self.hide_widgets(["name", "label", "fs", "mountpoint", "passphrase"])
+            self.hide_widgets(["name", "label", "fs", "mountpoint", "passphrase",
+                "advanced"])
 
         elif device_type == "lvm":
-            self.show_widgets(["encrypt", "name", "size"])
+            self.show_widgets(["encrypt", "name", "size", "advanced"])
             self.hide_widgets(["label", "fs", "mountpoint", "passphrase"])
 
         elif device_type == "lvmvg":
-            self.show_widgets(["name"])
+            self.show_widgets(["name", "advanced"])
             self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size",
                 "passphrase"])
 
         elif device_type == "lvmlv":
             self.show_widgets(["name", "fs", "mountpoint", "size"])
-            self.hide_widgets(["label", "encrypt", "passphrase"])
+            self.hide_widgets(["label", "encrypt", "passphrase", "advanced"])
 
         elif device_type == "btrfs volume":
             self.show_widgets(["name", "size"])
             self.hide_widgets(["label", "fs", "mountpoint", "encrypt",
-                "passphrase"])
+                "passphrase", "advanced"])
             self.add_free_type_chooser()
 
         elif device_type == "btrfs subvolume":
             self.show_widgets(["name"])
             self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size",
-                "passphrase"])
+                "passphrase", "advanced"])
 
         elif device_type == "mdraid":
             self.show_widgets(["name", "size", "mountpoint", "fs"])
-            self.hide_widgets(["label", "encrypt", "passphrase"])
+            self.hide_widgets(["label", "encrypt", "passphrase", "advanced"])
 
         self.update_raid_type_chooser()
 
@@ -961,6 +1043,11 @@ class AddDialog(Gtk.Dialog):
         else:
             mountpoint = None
 
+        if self.advanced:
+            advanced = self.advanced.get_selection()
+        else:
+            advanced = None
+
         return UserSelection(device_type=device_type,
             size=total_size,
             filesystem=self.filesystems_combo.get_active_text(),
@@ -971,7 +1058,8 @@ class AddDialog(Gtk.Dialog):
             passphrase=self.pass_entry.get_text(),
             parents=parents,
             btrfs_type=btrfs_type,
-            raid_level=raid_level)
+            raid_level=raid_level,
+            advanced=advanced)
 
 class AddLabelDialog(Gtk.Dialog):
     """ Dialog window allowing user to add disklabel to disk

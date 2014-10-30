@@ -270,8 +270,8 @@ class BlivetUtils():
 
         for pv in pvs:
             if pv.kids == 0:
-                free_pvs.append(pv, FreeSpaceDevice(blivet_device.freeSpace,
-                    None, None, [blivet_device]))
+                free_pvs.append((pv, FreeSpaceDevice(pv.size, None, None,
+                    pv.parents)))
 
         return free_pvs
 
@@ -729,7 +729,7 @@ class BlivetUtils():
                 pvs.append(new_part)
 
             new_vg = self.storage.newVG(size=total_size, parents=pvs,
-                name=device_name)
+                name=device_name, peSize=user_input.advanced["pesize"])
 
             self.storage.createDevice(new_vg)
 
@@ -779,7 +779,7 @@ class BlivetUtils():
                 lukses.append(luks_dev)
 
             new_vg = self.storage.newVG(size=total_size, parents=lukses,
-                name=device_name)
+                name=device_name, peSize=user_input.advanced["pesize"])
 
             self.storage.createDevice(new_vg)
 
@@ -811,7 +811,8 @@ class BlivetUtils():
             device_name = self._pick_device_name(user_input.name)
 
             new_part = self.storage.newVG(size=user_input.size,
-                parents=[i[0] for i in user_input.parents], name=device_name)
+                parents=[i[0] for i in user_input.parents], name=device_name,
+                peSize=user_input.advanced["pesize"])
 
             device_id = new_part.id
 
