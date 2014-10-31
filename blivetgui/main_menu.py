@@ -294,11 +294,11 @@ class MainMenu():
         try:
             FNULL = open(os.devnull, "w")
 
-            user = int(os.getenv("PKEXEC_UID"))
+            user = os.getenv("PKEXEC_UID")
 
             if user:
                 subprocess.Popen(["yelp", "/usr/share/help/C/blivet-gui/index.page"],
-                    stdout=FNULL, stderr=subprocess.STDOUT, preexec_fn=lambda : (os.setuid(user)))
+                    stdout=FNULL, stderr=subprocess.STDOUT, preexec_fn=lambda : (os.setuid(int(user))))
 
             else:
                 subprocess.Popen(["yelp", "/usr/share/help/C/blivet-gui/index.page"],
