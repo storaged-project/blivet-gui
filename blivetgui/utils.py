@@ -286,6 +286,11 @@ class BlivetUtils():
             if disk.format.type in ["iso9660"]:
                 continue
 
+            elif not disk.format.type:
+                free_disks.append(FreeSpaceDevice(disk.size, 0,
+                    disk.partedDevice.length, [disk]))
+                continue
+
             extended = None
 
             for partition in self.storage.devicetree.getChildren(disk):
@@ -492,6 +497,8 @@ class BlivetUtils():
             for parent in blivet_device.parents:
                 if parent.type == "partition":
                     self.delete_device(parent)
+                elif parent.type == "disk":
+                    self.delete_disk_label(parent)
 
     def device_resizable(self, blivet_device):
         """ Is given device resizable
