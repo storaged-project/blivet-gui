@@ -482,9 +482,6 @@ class AddDialog(Gtk.Dialog):
         device_type = self._get_selected_device_type()
         num_parents = self._get_number_selected_parents()
 
-        if device_type == "lvmlv":
-            num_parents = len(self.parent_device.parents)
-
         if device_type not in self.supported_raids.keys() or num_parents == 1:
             for widget in self.widgets_dict["raid"]:
                 widget.hide()

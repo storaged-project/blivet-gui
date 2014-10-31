@@ -794,14 +794,11 @@ class BlivetUtils():
 
         elif user_input.device_type == "lvmlv":
 
-            print("user_input.raid_level", user_input.raid_level)
-
             device_name = self._pick_device_name(user_input.name,
                 user_input.parents[0][0])
 
             new_part = self.storage.newLV(size=user_input.size,
-                parents=[i[0] for i in user_input.parents], name=device_name,
-                segType=user_input.raid_level)
+                parents=[i[0] for i in user_input.parents], name=device_name)
 
             device_id = new_part.id
 
@@ -1067,7 +1064,6 @@ class BlivetUtils():
         rl = {}
         rl["btrfs volume"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_BTRFS)
         rl["mdraid"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_MD)
-        rl["lvmlv"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_LVM)
 
         return rl
 
