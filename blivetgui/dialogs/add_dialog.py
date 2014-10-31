@@ -696,6 +696,8 @@ class AddDialog(Gtk.Dialog):
 
     def add_size_areas(self):
 
+        device_type = self._get_selected_device_type()
+
         self.widgets_dict["size"] = []
 
         if self.size_areas:
@@ -740,6 +742,9 @@ class AddDialog(Gtk.Dialog):
 
         for area in self.size_areas:
             area.show()
+
+            if device_type in ["lvmvg", "btrfs subvolume"]:
+                area.set_sensitive(False)
 
         return size_grid
 
