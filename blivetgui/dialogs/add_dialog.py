@@ -397,6 +397,8 @@ class AddDialog(Gtk.Dialog):
 
         self.advanced = None
 
+        self.md_type_combo = self.add_md_type_chooser()
+
         self.show_all()
         self.devices_combo.set_active(0)
 
@@ -407,11 +409,11 @@ class AddDialog(Gtk.Dialog):
 
         map_type_devices = {
             "disk" : [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
-            (_("LVM2 Physical Volume"), "lvmpv"), (_("Btrfs Volume"), "btrfs volume"),
-            (_("Software RAID"), "mdraid")],
+            (_("LVM2 Physical Volume"), "lvmpv"), (_("Btrfs Volume"), "btrfs volume")],
             "lvmpv" : [(_("LVM2 Volume Group"), "lvmvg")],
             "lvmvg" : [(_("LVM2 Logical Volume"), "lvmlv")],
             "luks/dm-crypt" : [(_("LVM2 Volume Group"), "lvmvg")],
+            "mdarray" : [(_("LVM2 Volume Group"), "lvmvg")],
             "btrfs volume" : [(_("Btrfs Subvolume"), "btrfs subvolume")]
             }
 
@@ -427,6 +429,9 @@ class AddDialog(Gtk.Dialog):
 
         else:
             self.devices = map_type_devices[self.device_type]
+
+            if self.device_type == "disk" and len(self.free_disks_regions) > 1:
+                self.devices.append((_("Software RAID"), "mdraid"))
 
         devices_store = Gtk.ListStore(str, str)
 
@@ -738,10 +743,45 @@ class AddDialog(Gtk.Dialog):
 
         return size_grid
 
+    def add_md_type_chooser(self):
+        label_md_type = Gtk.Label(label=_("MDArray type:"), xalign=1)
+        label_md_type.get_style_context().add_class("dim-label")
+        self.grid.attach(label_md_type, 0, 7, 1, 1)
+
+        md_type_store = Gtk.ListStore(str, str)
+
+        for md_type in [(_("Partition"), "partition"),
+            (_("LVM Physical Volume"), "lvmpv")]:
+            md_type_store.append(md_type)
+
+        md_type_combo = Gtk.ComboBox.new_with_model(md_type_store)
+        md_type_combo.set_entry_text_column(0)
+
+        self.grid.attach(md_type_combo, 1, 7, 2, 1)
+        renderer_text = Gtk.CellRendererText()
+        md_type_combo.pack_start(renderer_text, True)
+        md_type_combo.add_attribute(renderer_text, "text", 0)
+        md_type_combo.set_id_column(1)
+
+        md_type_combo.set_active_id("partition")
+        md_type_combo.connect("changed", self.on_md_type_changed)
+
+        self.widgets_dict["mdraid"] = [label_md_type, md_type_combo]
+
+        return md_type_combo
+
+    def on_md_type_changed(self, event):
+
+        if self.md_type_combo.get_active_iter() == "partition":
+            self.show_widgets(["fs"])
+
+        else:
+            self.hide_widgets(["fs"])
+
     def add_fs_chooser(self):
         label_fs = Gtk.Label(label=_("Filesystem:"), xalign=1)
         label_fs.get_style_context().add_class("dim-label")
-        self.grid.attach(label_fs, 0, 7, 1, 1)
+        self.grid.attach(label_fs, 0, 8, 1, 1)
 
         filesystems_combo = Gtk.ComboBoxText()
         filesystems_combo.set_entry_text_column(0)
@@ -749,7 +789,7 @@ class AddDialog(Gtk.Dialog):
         for fs in SUPPORTED_FS:
             filesystems_combo.append_text(fs)
 
-        self.grid.attach(filesystems_combo, 1, 7, 2, 1)
+        self.grid.attach(filesystems_combo, 1, 8, 2, 1)
 
         self.widgets_dict["fs"] = [label_fs, filesystems_combo]
 
@@ -758,19 +798,19 @@ class AddDialog(Gtk.Dialog):
     def add_name_chooser(self):
         label_label = Gtk.Label(label=_("Label:"), xalign=1)
         label_label.get_style_context().add_class("dim-label")
-        self.grid.attach(label_label, 0, 8, 1, 1)
+        self.grid.attach(label_label, 0, 9, 1, 1)
 
         label_entry = Gtk.Entry()
-        self.grid.attach(label_entry, 1, 8, 2, 1)
+        self.grid.attach(label_entry, 1, 9, 2, 1)
 
         self.widgets_dict["label"] = [label_label, label_entry]
 
         name_label = Gtk.Label(label=_("Name:"), xalign=1)
         name_label.get_style_context().add_class("dim-label")
-        self.grid.attach(name_label, 0, 8, 1, 1)
+        self.grid.attach(name_label, 0, 9, 1, 1)
 
         name_entry = Gtk.Entry()
-        self.grid.attach(name_entry, 1, 8, 2, 1)
+        self.grid.attach(name_entry, 1, 9, 2, 1)
 
         self.widgets_dict["name"] = [name_label, name_entry]
 
@@ -779,10 +819,10 @@ class AddDialog(Gtk.Dialog):
     def add_mountpoint(self):
         mountpoint_label = Gtk.Label(label=_("Mountpoint:"), xalign=1)
         mountpoint_label.get_style_context().add_class("dim-label")
-        self.grid.attach(mountpoint_label, 0, 9, 1, 1)
+        self.grid.attach(mountpoint_label, 0, 10, 1, 1)
 
         mountpoint_entry = Gtk.Entry()
-        self.grid.attach(mountpoint_entry, 1, 9, 2, 1)
+        self.grid.attach(mountpoint_entry, 1, 10, 2, 1)
 
         self.widgets_dict["mountpoint"] = [mountpoint_label, mountpoint_entry]
 
@@ -791,21 +831,21 @@ class AddDialog(Gtk.Dialog):
     def add_encrypt_chooser(self):
         encrypt_label = Gtk.Label(label=_("Encrypt:"), xalign=1)
         encrypt_label.get_style_context().add_class("dim-label")
-        self.grid.attach(encrypt_label, 0, 10, 1, 1)
+        self.grid.attach(encrypt_label, 0, 11, 1, 1)
 
         encrypt_check = Gtk.CheckButton()
-        self.grid.attach(encrypt_check, 1, 10, 1, 1)
+        self.grid.attach(encrypt_check, 1, 11, 1, 1)
 
         self.widgets_dict["encrypt"] = [encrypt_label, encrypt_check]
 
         pass_label = Gtk.Label(label=_("Passphrase:"), xalign=1)
         pass_label.get_style_context().add_class("dim-label")
-        self.grid.attach(pass_label, 0, 11, 1, 1)
+        self.grid.attach(pass_label, 0, 12, 1, 1)
 
         pass_entry = Gtk.Entry()
         pass_entry.set_visibility(False)
         pass_entry.set_property("caps-lock-warning", True)
-        self.grid.attach(pass_entry, 1, 11, 2, 1)
+        self.grid.attach(pass_entry, 1, 12, 2, 1)
 
         self.widgets_dict["passphrase"] = [pass_label, pass_entry]
 
@@ -825,7 +865,7 @@ class AddDialog(Gtk.Dialog):
             self.advanced = AdvancedOptions(device_type)
             self.widgets_dict["advanced"] = [self.advanced]
 
-            self.grid.attach(self.advanced.expander, 0, 12, 6, 1)
+            self.grid.attach(self.advanced.expander, 0, 13, 6, 1)
 
         else:
             self.widgets_dict["advanced"] = []
@@ -870,7 +910,7 @@ class AddDialog(Gtk.Dialog):
 
         if device_type == "partition":
             self.show_widgets(["label", "fs", "encrypt", "mountpoint", "size"])
-            self.hide_widgets(["name", "passphrase", "advanced"])
+            self.hide_widgets(["name", "passphrase", "advanced", "mdraid"])
 
             if self.free_device.isLogical:
                 self.hide_widgets(["encrypt", "passphrase"])
@@ -878,34 +918,34 @@ class AddDialog(Gtk.Dialog):
         elif device_type == "lvmpv":
             self.show_widgets(["encrypt", "size"])
             self.hide_widgets(["name", "label", "fs", "mountpoint", "passphrase",
-                "advanced"])
+                "advanced", "mdraid"])
 
         elif device_type == "lvm":
             self.show_widgets(["encrypt", "name", "size", "advanced"])
-            self.hide_widgets(["label", "fs", "mountpoint", "passphrase"])
+            self.hide_widgets(["label", "fs", "mountpoint", "passphrase", "mdraid"])
 
         elif device_type == "lvmvg":
             self.show_widgets(["name", "advanced"])
             self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size",
-                "passphrase"])
+                "passphrase", "mdraid"])
 
         elif device_type == "lvmlv":
             self.show_widgets(["name", "fs", "mountpoint", "size"])
-            self.hide_widgets(["label", "encrypt", "passphrase", "advanced"])
+            self.hide_widgets(["label", "encrypt", "passphrase", "advanced", "mdraid"])
 
         elif device_type == "btrfs volume":
             self.show_widgets(["name", "size"])
             self.hide_widgets(["label", "fs", "mountpoint", "encrypt",
-                "passphrase", "advanced"])
+                "passphrase", "advanced", "mdraid"])
             self.add_free_type_chooser()
 
         elif device_type == "btrfs subvolume":
             self.show_widgets(["name"])
             self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size",
-                "passphrase", "advanced"])
+                "passphrase", "advanced", "mdraid"])
 
         elif device_type == "mdraid":
-            self.show_widgets(["name", "size", "mountpoint", "fs"])
+            self.show_widgets(["name", "size", "mountpoint", "fs", "mdraid"])
             self.hide_widgets(["label", "encrypt", "passphrase", "advanced"])
 
         self.update_raid_type_chooser()
@@ -956,6 +996,13 @@ class AddDialog(Gtk.Dialog):
         elif user_input.mountpoint and not os.path.isabs(user_input.mountpoint):
 
             msg = _("\"{0}\" is not a valid mountpoint.").format(user_input.mountpoint)
+            message_dialogs.ErrorDialog(self, msg)
+
+            return False
+
+        elif user_input.device_type == "mdraid" and len(user_input.parents) == 1:
+
+            msg = _("Please select at least two parent devices.")
             message_dialogs.ErrorDialog(self, msg)
 
             return False
@@ -1045,9 +1092,15 @@ class AddDialog(Gtk.Dialog):
         else:
             advanced = None
 
+        if device_type == "mdraid" and self.md_type_combo.get_active_id() == "lvmpv":
+            filesystem = "lvmpv"
+
+        else:
+            filesystem = self.filesystems_combo.get_active_text()
+
         return UserSelection(device_type=device_type,
             size=total_size,
-            filesystem=self.filesystems_combo.get_active_text(),
+            filesystem=filesystem,
             name=self.name_entry.get_text(),
             label=self.label_entry.get_text(),
             mountpoint=mountpoint,

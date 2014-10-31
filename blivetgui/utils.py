@@ -417,7 +417,7 @@ class BlivetUtils():
                 partitions.append(FreeSpaceDevice(blivet_device.freeSpace, None, None,
                     [blivet_device]))
 
-        elif blivet_device.type in ["partition", "luks/dm-crypt"]:
+        elif blivet_device.type in ["partition", "luks/dm-crypt", "mdarray"]:
             # empty (encrypted) physical volume
 
             if blivet_device.format.type == "lvmpv" and blivet_device.kids == 0:
