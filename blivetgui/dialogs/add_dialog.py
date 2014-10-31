@@ -599,6 +599,11 @@ class AddDialog(Gtk.Dialog):
         """ In parent list select the free region user selected checkbox as checked
         """
 
+        # for devices with only one parent just select the first (and only) one
+        if len(self.parents_store) == 1:
+            self.parents_store[0][3] = True
+            return
+
         for row in self.parents_store:
             dev = row[0]
             free = row[1]
@@ -906,6 +911,7 @@ class AddDialog(Gtk.Dialog):
     def on_devices_combo_changed(self, event):
 
         device_type = self._get_selected_device_type()
+
         self.update_parent_list()
         self.add_advanced_options()
         self.size_grid = self.add_size_areas()
