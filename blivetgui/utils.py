@@ -29,12 +29,19 @@ import gettext
 
 import os, subprocess, copy, traceback, socket
 
+import parted
+
 import pykickstart.parser
 from pykickstart.version import makeVersion
 
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
+
+#------------------------------------------------------------------------------#
+
+PARTITION_TYPE = {"primary" : parted.PARTITION_NORMAL, "logical" : parted.PARTITION_LOGICAL,
+    "extended" : parted.PARTITION_EXTENDED}
 
 #------------------------------------------------------------------------------#
 
@@ -688,17 +695,22 @@ class BlivetUtils():
                         user_input.size = user_input.size - blivet.Size("2 MiB")
 
                 new_part = self.storage.newPartition(size=user_input.size,
-                    parents=[i[0] for i in user_input.parents])
+                    parents=[i[0] for i in user_input.parents],
+                    partType=PARTITION_TYPE[user_input.advanced["parttype"]])
 
                 self.storage.createDevice(new_part)
 
                 device_id = new_part.id
 
-                new_fmt = blivet.formats.getFormat(user_input.filesystem,
-                    device=new_part.path, label=user_input.label,
-                    mountpoint=user_input.mountpoint)
+                if user_input.advanced["parttype"] == "extended":
+                    pass
 
-                self.storage.formatDevice(new_part, new_fmt)
+                else:
+                    new_fmt = blivet.formats.getFormat(user_input.filesystem,
+                        device=new_part.path, label=user_input.label,
+                        mountpoint=user_input.mountpoint)
+
+                    self.storage.formatDevice(new_part, new_fmt)
 
         elif user_input.device_type == "lvm" and not user_input.encrypt:
 
@@ -1033,6 +1045,19 @@ class BlivetUtils():
         assert blivet_device.type == "lvmvg"
 
         return blivet_device.pvs
+
+    def has_extended_partition(self, blivet_device):
+
+        if not blivet_device.isDisk:
+            return False
+
+        extended = False
+
+        for child in self.storage.devicetree.getChildren(blivet_device):
+            if child.type == "partition" and child.isExtended:
+                extended = True
+
+        return extended
 
     def has_disklabel(self, blivet_device):
         """ Has this disk device disklabel
