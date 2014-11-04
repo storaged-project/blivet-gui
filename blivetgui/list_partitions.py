@@ -769,45 +769,24 @@ class ListPartitions():
 
         response = dialog.run()
 
-        selection = dialog.get_selection()
-
         if response == Gtk.ResponseType.OK:
 
             user_input = dialog.get_selection()
 
-            if user_input[0] == False and user_input[2] == None and user_input[3] == None:
-                dialog.destroy()
+            ret = self.b.edit_partition_device(user_input)
 
-            else:
-
-                if self.kickstart_mode:
-                    if self.check_mountpoint(user_input[3]):
-                        pass
-                    else:
-                        dialog.destroy()
-                        return
+            if ret:
 
                 self.history.add_undo(self.b.return_devicetree)
                 self.main_menu.activate_menu_items(["undo"])
 
-                ret = self.b.edit_partition_device(self.selected_partition[0],
-                    user_input)
+                self.update_actions_view("edit", "edit " +
+                    self.selected_partition[0].name + " partition")
 
-                if ret:
+            self.update_partitions_view(self.disk)
 
-                    self.update_actions_view("edit", "edit " +
-                        self.selected_partition[0].name + " partition")
-                    self.update_partitions_view(self.disk)
-                else:
-                    self.update_partitions_view(self.disk)
-
-                dialog.destroy()
-
-        elif response == Gtk.ResponseType.CANCEL:
-
-            dialog.destroy()
-
-            return
+        dialog.destroy()
+        return
 
     def clear_actions(self):
         """ Clear all scheduled actions

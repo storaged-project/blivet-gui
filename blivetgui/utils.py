@@ -530,42 +530,42 @@ class BlivetUtils():
                 blivet_device.size)
 
 
-    def edit_partition_device(self, blivet_device, settings):
+    def edit_partition_device(self, user_input):
         """ Edit device
 
             :param blivet_device: blivet.Device
             :type blivet_device: blivet.Device
-            :param settings: resize, target_size, target_fs
-            :type settings: tuple
+            :param user_input: user selection
+            :type settings: tclass dialogs.edit_dialog.UserSelection
             :returns: success
             :rtype: bool
 
         """
 
-        resize = settings[0]
-        target_size = blivet.Size(str(settings[1]) + "MiB")
-        target_fs = settings[2]
-        mountpoint = settings[3]
+        blivet_device = user_input.edit_device
 
-        if resize == False and target_fs == None:
+        if user_input.mountpoint:
+            blivet_device.format.mountpoint = user_input.mountpoint
 
-            if mountpoint == None:
-                return False
+        if not user_input.resize and not user_input.format:
+            return False
 
-            else:
-                blivet_device.format.mountpoint = mountpoint
-
-        elif resize == False and target_fs != None:
-            new_fmt = blivet.formats.getFormat(target_fs, device=blivet_device.path)
+        elif not user_input.resize and user_input.format:
+            new_fmt = blivet.formats.getFormat(user_input.filesystem,
+                device=blivet_device.path)
             self.storage.formatDevice(blivet_device, new_fmt)
 
-        elif resize == True and target_fs == None:
-            self.storage.resizeDevice(blivet_device, target_size)
+        elif user_input.resize  and not user_input.format:
+            self.storage.resizeDevice(blivet_device, user_input.size)
 
         else:
-            self.storage.resizeDevice(blivet_device, target_size)
-            new_fmt = blivet.formats.getFormat(target_fs, device=blivet_device.path)
+            self.storage.resizeDevice(blivet_device, user_input.size)
+            new_fmt = blivet.formats.getFormat(user_input.filesystem,
+                device=blivet_device.path)
             self.storage.formatDevice(blivet_device, new_fmt)
+
+        if user_input.mountpoint:
+            blivet_device.format.mountpoint = user_input.mountpoint
 
         try:
             blivet.partitioning.doPartitioning(self.storage)
@@ -617,25 +617,6 @@ class BlivetUtils():
 
         return name
 
-    def _recalculate_parents_sizes(self, user_input):
-        """ Recalculate sizes of parent devices accordingly to selected total
-            size. (Eg. 2 parent devices with total size 2 GB, but user selected
-            total size for container to be 1.5 GB and wants 0.5 GB free space)
-        """
-
-        assert len(user_input.parents) > 1
-
-        total_size = 0
-
-        for device in user_input.parents:
-            total_size += device[1]
-
-        if total_size > user_input.size:
-            # decrease size of last parent
-            user_input.parents[-1][1] -= (total_size - user_input.size)
-
-        return user_input
-
     def add_device(self, user_input):
         """ Create new device
 
@@ -647,9 +628,6 @@ class BlivetUtils():
         """
 
         device_id = None
-
-        if len(user_input.parents) > 1:
-            user_input = self._recalculate_parents_sizes(user_input)
 
         if user_input.device_type == "partition":
 

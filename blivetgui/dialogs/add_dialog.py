@@ -67,11 +67,12 @@ class UserSelection(object):
 
 class SizeChooserArea(object):
 
-    def __init__(self, add_dialog, parent_device, free_device, max_size, min_size):
+    def __init__(self, dialog, dialog_type, parent_device, max_size, min_size,
+        free_device=None, edited_device=None):
         """
 
-            :param add_dialog: AddDialog instanace
-            :type add_dialog: blivetgui.add_dialog.AddDialog
+            :param dialog: AddDialog or EditDialog instanace
+            :type dialog: blivetgui.add_dialog.AddDialog/EditDialog
             :param device_device: device the free space is on
             :type device_device: blivet.Device
             :param free_device: free space
@@ -84,9 +85,11 @@ class SizeChooserArea(object):
 
         """
 
-        self.add_dialog = add_dialog
+        self.dialog = dialog
+        self.dialog_type = dialog_type
         self.parent_device = parent_device
         self.free_device = free_device
+        self.edited_device = edited_device
         self.max_size = max_size
         self.min_size = min_size
 
@@ -94,8 +97,15 @@ class SizeChooserArea(object):
 
         self.selected_unit = None
 
+        self.resize = False
+
         self.frame = Gtk.Frame()
-        self.frame.set_label(self.parent_device.name)
+
+        if self.dialog_type == "add":
+            self.frame.set_label(self.parent_device.name)
+
+        elif self.dialog_type == "edit":
+            self.frame.set_label(self.edited_device.name)
 
         self.frame_grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
             column_spacing=5)
@@ -118,15 +128,29 @@ class SizeChooserArea(object):
         scale.set_hexpand(True)
         scale.set_valign(Gtk.Align.START)
         scale.set_digits(0)
-        scale.set_value(self.max_size.convertTo(unit))
         scale.add_mark(self.min_size.convertTo(unit), Gtk.PositionType.BOTTOM,
             str(self.min_size))
 
-        if self.max_size < self.free_device.size:
-            scale.add_mark(self.max_size.convertTo(unit), Gtk.PositionType.BOTTOM,
-                str(self.max_size) + " of " + str(self.free_device.size))
+        if self.dialog_type == "add":
 
-        else:
+            scale.set_value(self.max_size.convertTo(unit))
+
+            if self.max_size < self.free_device.size:
+                scale.add_mark(self.max_size.convertTo(unit), Gtk.PositionType.BOTTOM,
+                    str(self.max_size) + " of " + str(self.free_device.size))
+
+            else:
+                scale.add_mark(self.max_size.convertTo(unit), Gtk.PositionType.BOTTOM,
+                    str(self.max_size))
+
+        if self.dialog_type == "edit":
+
+            scale.set_value(self.edited_device.size.convertTo(unit))
+
+            if self.edited_device.size not in [self.min_size, self.max_size]:
+                scale.add_mark(self.edited_device.size.convertTo(unit), Gtk.PositionType.BOTTOM,
+                    str(self.edited_device.size))
+
             scale.add_mark(self.max_size.convertTo(unit), Gtk.PositionType.BOTTOM,
                 str(self.max_size))
 
@@ -187,6 +211,10 @@ class SizeChooserArea(object):
         self.scale.add_mark(float(self.max_size.convertTo(unit)), Gtk.PositionType.BOTTOM,
             format(self.max_size.convertTo(unit), "." + str(digits) + "f"))
 
+        if self.dialog_type == "edit":
+            self.scale.add_mark(float(self.edited_device.size.convertTo(unit)), Gtk.PositionType.BOTTOM,
+            format(self.max_size.convertTo(unit), "." + str(digits) + "f"))
+
         self.spin_size.set_range(self.min_size.convertTo(unit), self.max_size.convertTo(unit))
         self.spin_size.set_increments(increment, increment*10)
         self.spin_size.set_digits(digits)
@@ -229,10 +257,13 @@ class SizeChooserArea(object):
         return
 
     def scale_moved(self, scale, spin_size):
+
+        self.resize = True and self.dialog_type == "edit"
+
         spin_size.set_value(scale.get_value())
 
         selected_size = Size(str(self.scale.get_value()) + self.selected_unit)
-        self.add_dialog.update_size_areas(selected_size)
+        self.dialog.update_size_areas(selected_size)
 
     def spin_size_moved(self, spin_size, scale):
         scale.set_value(spin_size.get_value())
@@ -258,10 +289,15 @@ class SizeChooserArea(object):
 
         size = Size(str(self.scale.get_value()) + self.selected_unit)
 
-        if size > self.free_device.size:
-            size = self.free_device.size
+        if self.dialog_type == "add":
+            if size > self.free_device.size:
+                size = self.free_device.size
 
-        return [self.parent_device, size]
+            return [self.parent_device, size]
+
+        if self.dialog_type == "edit":
+
+            return (self.resize, size)
 
 class AdvancedOptions(object):
 
@@ -796,8 +832,9 @@ class AddDialog(Gtk.Dialog):
                 if not raid:
                     max_size = row[1].size
 
-                area = SizeChooserArea(add_dialog=self, parent_device=row[0],
-                    free_device=row[1], max_size=max_size, min_size=Size("1 MiB"))
+                area = SizeChooserArea(dialog=self, parent_device=row[0],
+                    free_device=row[1], max_size=max_size, min_size=Size("1 MiB"),
+                    dialog_type="add")
 
                 size_grid.attach(area.frame, 0, posititon, 1, 1)
 

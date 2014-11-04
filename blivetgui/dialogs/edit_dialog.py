@@ -28,9 +28,7 @@ import gettext
 
 from gi.repository import Gtk
 
-from blivet import Size
-
-from math import floor, ceil
+from add_dialog import SizeChooserArea
 
 #------------------------------------------------------------------------------#
 
@@ -42,12 +40,22 @@ SUPPORTED_FS = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap", "vfat"]
 
 #------------------------------------------------------------------------------#
 
+class UserSelection(object):
+    def __init__(self, edit_device, resize, size, format, filesystem, mountpoint):
+
+        self.edit_device = edit_device
+        self.resize = resize
+        self.size = size
+        self.format = format
+        self.filesystem = filesystem
+        self.mountpoint = mountpoint
+
 class EditDialog(Gtk.Dialog):
     """ Dialog window allowing user to edit partition including selecting size,
         fs, label etc.
     """
 
-    def __init__(self, parent_window, partition_name, resizable, kickstart=False):
+    def __init__(self, parent_window, edited_device, resizable, kickstart=False):
         """
 
             :param parent_window: parent window
@@ -61,11 +69,9 @@ class EditDialog(Gtk.Dialog):
 
         """
 
-        self.partition_name = partition_name
+        self.edited_device = edited_device
         self.resizable = resizable
-        self.resize = False
         self.kickstart = kickstart
-
         self.parent_window = parent_window
 
         Gtk.Dialog.__init__(self, _("Edit device"), None, 0,
@@ -73,163 +79,141 @@ class EditDialog(Gtk.Dialog):
             Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
-        self.set_default_size(550, 200)
+        self.set_resizable(False) # auto shrink after removing/hiding widgets
+
+        self.widgets_dict = {}
 
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
             column_spacing=5)
+        self.grid.set_border_width(10)
 
         box = self.get_content_area()
         box.add(self.grid)
 
-        self.add_size_scale()
-        self.add_fs_chooser()
-
-        if kickstart:
-            self.add_mountpoint()
-
         self.show_all()
 
-    def add_size_scale(self):
+        self.size_area = self.add_size_chooser()
 
-        # blivet.Size cuts fractional part: Size('2000 KiB').convertTo('MiB') = 1 MiB
-        # so the down limit for resizing would be 1 MiB even though it is not
-        # possible to resize the partition to less than 2 MiB (rounded to MiBs)
-        self.down_limit = int(ceil(self.resizable[1].convertTo("KiB")/1024))
-        self.up_limit = int(floor(self.resizable[2].convertTo("KiB")/1024))
-        self.current_size = int(self.resizable[3].convertTo("MiB"))
+        self.format_check, self.filesystems_combo = self.add_fs_chooser()
 
-        self.scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL,
-            adjustment=Gtk.Adjustment(0, self.down_limit, self.up_limit, 1, 10, 0))
+        self.mountpoint_entry = self.add_mountpoint()
 
-        self.scale.set_hexpand(True)
-        self.scale.set_valign(Gtk.Align.START)
-        self.scale.set_digits(0)
-        self.scale.set_value(self.current_size)
-        self.scale.add_mark(self.down_limit, Gtk.PositionType.BOTTOM,
-            (str(self.down_limit)))
-        self.scale.add_mark(self.up_limit, Gtk.PositionType.BOTTOM,
-            str(self.up_limit))
+        if self.resizable[0]:
+            self.show_widgets(["size"])
 
-        if self.current_size not in [self.down_limit, self.up_limit]:
-            self.scale.add_mark(self.current_size, Gtk.PositionType.BOTTOM,
-                str(self.current_size))
+        if self.kickstart:
+            self.show_widgets(["mountpoint"])
 
-        self.scale.connect("value-changed", self.scale_moved)
+        self.show_widgets(["fs"])
 
-        self.grid.attach(self.scale, 0, 1, 6, 1) #left-top-width-height
+    def add_size_chooser(self):
 
-        self.label_size = Gtk.Label()
-        self.label_size.set_text(_("Volume size:"))
-        self.grid.attach(self.label_size, 0, 2, 1, 1)
+        size_area = SizeChooserArea(dialog=self, dialog_type="edit", parent_device=None,
+            max_size=self.resizable[2], min_size=self.resizable[1],
+            edited_device=self.edited_device)
 
-        self.spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0,
-            self.down_limit, self.up_limit, 1, 10, 0))
+        self.grid.attach(size_area.frame, 0, 0, 6, 1)
 
-        self.spin_size.set_numeric(True)
-        self.spin_size.set_value(self.current_size)
-        self.spin_size.connect("value-changed", self.spin_size_moved)
+        self.widgets_dict["size"] = [size_area]
 
-        self.grid.attach(self.spin_size, 1, 2, 1, 1)
-
-        self.label_mb = Gtk.Label()
-        self.label_mb.set_text(_("MiB"))
-        self.grid.attach(self.label_mb, 2, 2, 1, 1)
-
-        if self.resizable[0] == False or self.down_limit == self.up_limit:
-            self.label_resize = Gtk.Label()
-            self.label_resize.set_markup(_("<b>This device cannot be resized.</b>"))
-            self.grid.attach(self.label_resize, 0, 0, 6, 1)
-
-            self.scale.set_sensitive(False)
-            self.spin_size.set_sensitive(False)
+        return size_area
 
     def add_fs_chooser(self):
 
-        self.label_format = Gtk.Label()
-        self.label_format.set_text(_("Format?:"))
-        self.grid.attach(self.label_format, 0, 3, 1, 1)
+        label_format = Gtk.Label(label=_("Format?:"), xalign=1)
+        label_format.get_style_context().add_class("dim-label")
+        self.grid.attach(label_format, 0, 1, 1, 1)
 
-        self.format_check = Gtk.CheckButton()
-        self.grid.attach(self.format_check, 1, 3, 1, 1)
-        self.format_check.connect("toggled", self.on_format_changed)
+        format_check = Gtk.CheckButton()
+        self.grid.attach(format_check, 1, 1, 1, 1)
+        format_check.connect("toggled", self.on_format_changed)
 
-        self.label_fs = Gtk.Label()
-        self.label_fs.set_text(_("Filesystem:"))
-        self.grid.attach(self.label_fs, 0, 4, 1, 1)
+        label_fs = Gtk.Label(label=_("Filesystem:"), xalign=1)
+        label_fs.get_style_context().add_class("dim-label")
+        self.grid.attach(label_fs, 0, 2, 1, 1)
 
-        self.filesystems_combo = Gtk.ComboBoxText()
-        self.filesystems_combo.set_entry_text_column(0)
-        self.filesystems_combo.set_sensitive(False)
+        filesystems_combo = Gtk.ComboBoxText()
+        filesystems_combo.set_entry_text_column(0)
+        filesystems_combo.set_sensitive(False)
 
-        self.filesystems_combo.connect("changed", self.filesystems_combo_changed)
+        self.widgets_dict["fs"] = [label_format, format_check, label_fs,
+            filesystems_combo]
 
         for fs in SUPPORTED_FS:
-            self.filesystems_combo.append_text(fs)
+            filesystems_combo.append_text(fs)
 
-        self.grid.attach(self.filesystems_combo, 1, 4, 2, 1)
+        self.grid.attach(filesystems_combo, 1, 2, 2, 1)
 
-        self.label_warn = Gtk.Label()
-        self.grid.attach(self.label_warn, 0, 6, 6, 1)
-
-    def add_name_chooser(self):
-
-        self.label_entry = Gtk.Label()
-        self.label_entry.set_text(_("Label:"))
-        self.grid.attach(self.label_entry, 0, 4, 1, 1)
-
-        self.name_entry = Gtk.Entry()
-        self.grid.attach(self.name_entry, 1, 4, 2, 1)
+        return (format_check, filesystems_combo)
 
     def add_mountpoint(self):
 
-        self.mountpoint_label = Gtk.Label()
-        self.mountpoint_label.set_text(_("Mountpoint:"))
-        self.grid.attach(self.mountpoint_label, 0, 5, 1, 1)
+        label_mountpoint = Gtk.Label(label=_("Mountpoint:"), xalign=1)
+        label_mountpoint.get_style_context().add_class("dim-label")
+        self.grid.attach(label_mountpoint, 0, 3, 1, 1)
 
-        self.mountpoint_entry = Gtk.Entry()
-        self.grid.attach(self.mountpoint_entry, 1, 5, 2, 1)
+        mountpoint_entry = Gtk.Entry()
+        self.grid.attach(mountpoint_entry, 1, 3, 2, 1)
 
-    def filesystems_combo_changed(self, event):
+        self.widgets_dict["mountpoint"] = [label_mountpoint, mountpoint_entry]
 
-        pass
-
-    def scale_moved(self, event):
-
-        self.resize = True
-        self.spin_size.set_value(self.scale.get_value())
-
-    def spin_size_moved(self,event):
-
-        self.resize = True
-        self.scale.set_value(self.spin_size.get_value())
+        return mountpoint_entry
 
     def on_format_changed(self, event):
 
         if self.format_check.get_active():
             self.filesystems_combo.set_sensitive(True)
-            self.label_warn.set_markup(_("<b>Warning: This will delete all " \
-                " data on {0}!</b>").format(self.partition_name))
 
         else:
             self.filesystems_combo.set_sensitive(False)
-            self.label_warn.set_markup("")
+
+    def update_size_areas(self, size):
+        """ Update all size areas to selected size
+            (used for raids where all parents has same size)
+
+            .. note:: Copied from AddDialog for future use
+        """
+
+        pass
+
+    def show_widgets(self, widget_types):
+
+        for widget_type in widget_types:
+            if widget_type == "mountpoint" and not self.kickstart:
+                continue
+
+            else:
+                for widget in self.widgets_dict[widget_type]:
+                    widget.show()
+
+    def hide_widgets(self, widget_types):
+
+        for widget_type in widget_types:
+            if widget_type == "mountpoint" and not self.kickstart:
+                continue
+
+            else:
+                for widget in self.widgets_dict[widget_type]:
+                    widget.hide()
 
     def get_selection(self):
 
-        if self.format_check.get_active():
-            if self.kickstart:
-                return (self.resize, self.spin_size.get_value(),
-                    self.filesystems_combo.get_active_text(),
-                    self.mountpoint_entry.get_text())
-
-            else:
-                return (self.resize, self.spin_size.get_value(),
-                    self.filesystems_combo.get_active_text(), None)
+        if self.kickstart:
+            mountpoint = self.mountpoint_entry.get_text()
 
         else:
-            if self.kickstart:
-                return (self.resize, self.spin_size.get_value(), None,
-                    self.mountpoint_entry.get_text())
+            mountpoint = None
 
-            else:
-                return (self.resize, self.spin_size.get_value(), None, None)
+        if self.resizable[0]:
+            resize, size = self.size_area.get_selection()
+
+        else:
+            resize = False
+            size = None
+
+        return UserSelection(edit_device=self.edited_device,
+            resize=resize,
+            size=size,
+            format=self.format_check.get_active(),
+            filesystem=self.filesystems_combo.get_active_text(),
+            mountpoint=mountpoint)
