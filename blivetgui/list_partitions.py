@@ -674,8 +674,6 @@ class ListPartitions():
 
         response = dialog.run()
 
-        Gdk.threads_leave()
-
         dialog.destroy()
 
         self.clear_actions_view()
@@ -710,8 +708,10 @@ class ListPartitions():
 
             title = _("Confirm scheduled actions")
             msg = _("Are you sure you want to perform scheduled actions?")
+            actions = self.b.get_actions()
 
-            dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
+            dialog = message_dialogs.ConfirmActionsDialog(self.main_window, title,
+                msg, actions)
 
             response = dialog.run()
 

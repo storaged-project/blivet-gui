@@ -1024,6 +1024,16 @@ class BlivetUtils():
 
         return blivet_device.pvs
 
+    def get_actions(self):
+        """ Return list of currently registered actions
+
+            :returns: list of actions
+            :rtype: list of class blivet.deviceaction.DeviceAction
+
+        """
+
+        return self.storage.devicetree.findActions()
+
     def has_extended_partition(self, blivet_device):
 
         if not blivet_device.isDisk:
