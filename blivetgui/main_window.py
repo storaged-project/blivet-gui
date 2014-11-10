@@ -42,7 +42,7 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 def locate_ui_file(filename):
 
-    path = [os.path.split(os.path.abspath(__file__))[0] + '../data/ui/',
+    path = [os.path.split(os.path.abspath(__file__))[0] + '/../data/ui/',
         '/usr/share/blivet-gui/ui/']
 
     for folder in path:
