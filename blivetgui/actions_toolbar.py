@@ -174,7 +174,7 @@ class actions_toolbar():
     def on_edit_clicked(self, button):
         """ Onclick action for edit button
         """
-        self.list_partitions.edit_partition()
+        self.list_partitions.edit_device()
 
     def on_umount_clicked(self, button):
         """ Onclick action for umount button

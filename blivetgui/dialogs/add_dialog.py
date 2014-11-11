@@ -211,7 +211,7 @@ class SizeChooserArea(object):
         self.scale.add_mark(float(self.max_size.convertTo(unit)), Gtk.PositionType.BOTTOM,
             format(self.max_size.convertTo(unit), "." + str(digits) + "f"))
 
-        if self.dialog_type == "edit":
+        if self.dialog_type == "edit" and self.edited_device.size not in [self.min_size, self.max_size]:
             self.scale.add_mark(float(self.edited_device.size.convertTo(unit)), Gtk.PositionType.BOTTOM,
             format(self.max_size.convertTo(unit), "." + str(digits) + "f"))
 

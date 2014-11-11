@@ -485,7 +485,10 @@ class ListPartitions():
             return device.format.mountable
 
         else:
-            if not device.format.mountable:
+            if device.type in ["lvmvg"]:
+                return True
+
+            elif not device.format.mountable:
                 return False
 
             else:
@@ -756,14 +759,20 @@ class ListPartitions():
         self.list_devices.update_devices_view()
         self.update_partitions_view(self.disk)
 
-    def edit_partition(self):
-        """ Edit selected partition
+    def edit_device(self):
+        """ Edit selected device
         """
 
-        resizable = self.b.device_resizable(self.selected_partition[0])
+        device = self.selected_partition[0]
 
-        dialog = edit_dialog.EditDialog(self.main_window, self.selected_partition[0],
-            resizable, self.kickstart_mode)
+        if device.type in ["partition", "lvmlv"]:
+            dialog = edit_dialog.PartitionEditDialog(self.main_window, device,
+                self.b.device_resizable(device), self.kickstart_mode)
+
+        elif device.type in ["lvmvg"]:
+            dialog = edit_dialog.LVMEditDialog(self.main_window, device,
+                self.b.get_free_pvs_info(), self.b.get_free_disks_regions(),
+                self.b.get_removable_pvs_info(device))
 
         dialog.connect("delete-event", Gtk.main_quit)
 
@@ -773,7 +782,11 @@ class ListPartitions():
 
             user_input = dialog.get_selection()
 
-            ret = self.b.edit_partition_device(user_input)
+            if device.type in ["partition", "lvmlv"]:
+                ret = self.b.edit_partition_device(user_input)
+
+            elif device.type in ["lvmvg"]:
+                ret = self.b.edit_lvmvg_device(user_input)
 
             if ret:
 
@@ -781,7 +794,7 @@ class ListPartitions():
                 self.main_menu.activate_menu_items(["undo"])
 
                 self.update_actions_view("edit", "edit " +
-                    self.selected_partition[0].name + " partition")
+                    device.name + " " + device.type)
 
             self.update_partitions_view(self.disk)
 

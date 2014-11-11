@@ -138,7 +138,7 @@ class ActionsMenu():
     def on_edit_item(self, event):
         """ Onselect action for edit item
         """
-        self.list_partitions.edit_partition()
+        self.list_partitions.edit_device()
 
     def on_umount_item(self, event):
         """ Onselect action for umount item

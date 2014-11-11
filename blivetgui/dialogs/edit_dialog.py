@@ -40,20 +40,21 @@ SUPPORTED_FS = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap", "vfat"]
 
 #------------------------------------------------------------------------------#
 
-class UserSelection(object):
-    def __init__(self, edit_device, resize, size, format, filesystem, mountpoint):
 
-        self.edit_device = edit_device
-        self.resize = resize
-        self.size = size
-        self.format = format
-        self.filesystem = filesystem
-        self.mountpoint = mountpoint
-
-class EditDialog(Gtk.Dialog):
+class PartitionEditDialog(Gtk.Dialog):
     """ Dialog window allowing user to edit partition including selecting size,
         fs, label etc.
     """
+
+    class UserSelection(object):
+        def __init__(self, edit_device, resize, size, format, filesystem, mountpoint):
+
+            self.edit_device = edit_device
+            self.resize = resize
+            self.size = size
+            self.format = format
+            self.filesystem = filesystem
+            self.mountpoint = mountpoint
 
     def __init__(self, parent_window, edited_device, resizable, kickstart=False):
         """
@@ -90,16 +91,16 @@ class EditDialog(Gtk.Dialog):
         box = self.get_content_area()
         box.add(self.grid)
 
-        self.show_all()
-
         self.size_area = self.add_size_chooser()
+
+        self.show_all()
 
         self.format_check, self.filesystems_combo = self.add_fs_chooser()
 
         self.mountpoint_entry = self.add_mountpoint()
 
-        if self.resizable[0]:
-            self.show_widgets(["size"])
+        if not self.resizable[0]:
+            self.hide_widgets(["size"])
 
         if self.kickstart:
             self.show_widgets(["mountpoint"])
@@ -182,6 +183,10 @@ class EditDialog(Gtk.Dialog):
             if widget_type == "mountpoint" and not self.kickstart:
                 continue
 
+            elif widget_type == "size":
+                for widget in self.widgets_dict[widget_type]:
+                    widget.set_sensitive(True)
+
             else:
                 for widget in self.widgets_dict[widget_type]:
                     widget.show()
@@ -191,6 +196,10 @@ class EditDialog(Gtk.Dialog):
         for widget_type in widget_types:
             if widget_type == "mountpoint" and not self.kickstart:
                 continue
+
+            elif widget_type == "size":
+                for widget in self.widgets_dict[widget_type]:
+                    widget.set_sensitive(False)
 
             else:
                 for widget in self.widgets_dict[widget_type]:
@@ -211,9 +220,224 @@ class EditDialog(Gtk.Dialog):
             resize = False
             size = None
 
-        return UserSelection(edit_device=self.edited_device,
+        return self.UserSelection(edit_device=self.edited_device,
             resize=resize,
             size=size,
             format=self.format_check.get_active(),
             filesystem=self.filesystems_combo.get_active_text(),
             mountpoint=mountpoint)
+
+class LVMEditDialog(Gtk.Dialog):
+    """ Dialog window allowing user to edit lvmvg
+    """
+
+    class UserSelection(object):
+        def __init__(self, edit_device, action_type, parents_list):
+
+            self.edit_device = edit_device
+            self.action_type = action_type
+            self.parents_list = parents_list
+
+    def __init__(self, parent_window, edited_device, free_pvs, free_disks_regions,
+        removable_pvs):
+        """
+
+            :param parent_window: parent window
+            :type parent_window: Gtk.Window
+            :param edited_device: device selected to edit
+            :type edited_device: class blivet.Device
+
+        """
+
+        self.edited_device = edited_device
+        self.parent_window = parent_window
+        self.free_pvs = free_pvs
+        self.free_disks_regions = free_disks_regions
+        self.removable_pvs = removable_pvs
+
+        Gtk.Dialog.__init__(self, _("Edit device"), None, 0,
+            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+            Gtk.STOCK_OK, Gtk.ResponseType.OK))
+
+        self.set_transient_for(self.parent_window)
+        self.set_resizable(False) # auto shrink after removing/hiding widgets
+
+        self.widgets_dict = {}
+
+        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
+            column_spacing=5)
+        self.grid.set_border_width(10)
+
+        box = self.get_content_area()
+        box.add(self.grid)
+
+        self.add_parent_list()
+        self.button_add, self.button_remove = self.add_toggle_buttons()
+
+        self.show_all()
+
+        self.add_store = self.add_parents()
+        self.remove_store = self.remove_parents()
+
+    def add_parent_list(self):
+
+        parents_store = Gtk.ListStore(str, str, str)
+
+        for parent in self.edited_device.parents:
+            parents_store.append([parent.name, "lvmpv", str(parent.size)])
+
+        parents_view = Gtk.TreeView(model=parents_store)
+        renderer_text = Gtk.CellRendererText()
+
+        column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=0)
+        column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=1)
+        column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=2)
+
+        parents_view.append_column(column_name)
+        parents_view.append_column(column_type)
+        parents_view.append_column(column_size)
+
+        parents_view.set_headers_visible(True)
+
+        label_list = Gtk.Label(label=_("Parent devices:"), xalign=1)
+        label_list.get_style_context().add_class("dim-label")
+
+        self.grid.attach(label_list, 0, 1, 1, 1)
+        self.grid.attach(parents_view, 1, 1, 3, 3)
+
+    def add_toggle_buttons(self):
+
+        button_add = Gtk.ToggleButton(_("Add parent"))
+        self.grid.attach(button_add, 0, 4, 1, 1)
+
+        button_remove = Gtk.ToggleButton(_("Remove parent"))
+        self.grid.attach(button_remove, 1, 4, 1, 1)
+
+        button_add.connect("toggled", self.on_button_toggled, "add", button_remove)
+        button_remove.connect("toggled", self.on_button_toggled, "remove", button_add)
+
+        return button_add, button_remove
+
+    def add_parents(self):
+
+        if len(self.free_disks_regions) + len(self.free_pvs) == 0:
+            label_none = Gtk.Label(label=_("There are currently no empty physical "\
+                "volume or disks with enough empty space to create one."))
+            self.grid.attach(label_none, 0, 5, 4, 1)
+
+            self.widgets_dict["add"] = [label_none]
+
+            return None
+
+        else:
+            parents_store = Gtk.ListStore(object, object, bool, str, str, str)
+            parents_view = Gtk.TreeView(model=parents_store)
+
+            renderer_toggle = Gtk.CellRendererToggle()
+            renderer_toggle.connect("toggled", self.on_cell_toggled, parents_store)
+
+            renderer_text = Gtk.CellRendererText()
+
+            column_toggle = Gtk.TreeViewColumn(None, renderer_toggle, active=2)
+            column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=3)
+            column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=4)
+            column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=5)
+
+            parents_view.append_column(column_toggle)
+            parents_view.append_column(column_name)
+            parents_view.append_column(column_type)
+            parents_view.append_column(column_size)
+
+            parents_view.set_headers_visible(True)
+
+            label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
+            label_list.get_style_context().add_class("dim-label")
+
+            self.grid.attach(label_list, 0, 5, 1, 1)
+            self.grid.attach(parents_view, 1, 5, 4, 3)
+
+            for pv, free in self.free_pvs:
+                parents_store.append([pv, free, False, pv.name,
+                    "lvmpv", str(free.size)])
+
+            for free in self.free_disks_regions:
+
+                disk = free.parents[0]
+
+                if free.isFreeRegion:
+                    parents_store.append([disk, free, False, disk.name,
+                        "disk region", str(free.size)])
+
+                else:
+                    parents_store.append([disk, free, False, disk.name,
+                        "disk", str(free.size)])
+
+            self.widgets_dict["add"] = [label_list, parents_view]
+
+            return parents_store
+
+    def on_cell_toggled(self, toggle, path, store):
+        store[path][2] = not store[path][2]
+
+    def remove_parents(self):
+
+        if len(self.removable_pvs) == 0:
+            label_none = Gtk.Label(label=_("It's currently not possible to remove "\
+                "a physical volume from existing volume group."))
+            self.grid.attach(label_none, 0, 5, 4, 1)
+
+            self.widgets_dict["remove"] = [label_none]
+
+            return None
+
+    def on_button_toggled(self, clicked_button, button_type, other_button):
+
+        if clicked_button.get_active():
+            other_button.set_active(False)
+            self.show_widgets([button_type])
+
+        else:
+            self.hide_widgets([button_type])
+
+    def show_widgets(self, widget_types):
+
+        for widget_type in widget_types:
+            for widget in self.widgets_dict[widget_type]:
+                widget.show()
+
+    def hide_widgets(self, widget_types):
+
+        for widget_type in widget_types:
+            for widget in self.widgets_dict[widget_type]:
+                widget.hide()
+
+    def get_selection(self):
+
+        parents_list = []
+
+        if self.button_add.get_active():
+            action_type = "add"
+
+            if self.add_store:
+                for row in self.add_store:
+                    if row[2] and row[0].type == "lvmpv":
+                        parents_list.append(row[0])
+
+                    if row[2] and row[0].type == "disk":
+                        parents_list.append(row[1])
+
+        elif self.button_remove.get_active():
+            action_type = "remove"
+            if self.remove_store:
+                for row in self.remove_store:
+                    if row[2]:
+                        parents_list.append(row[0])
+
+        else:
+            action_type = None
+
+        return self.UserSelection(
+            edit_device=self.edited_device,
+            action_type=action_type,
+            parents_list=parents_list
+            )

@@ -351,7 +351,7 @@ class MainMenu():
         """ Onselect action for 'Edit'
         """
 
-        self.list_partitions.edit_partition()
+        self.list_partitions.edit_device()
 
     def on_umount_item(self, event):
         """ Onselect action for 'Unmount'

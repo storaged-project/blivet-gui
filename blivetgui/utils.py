@@ -320,6 +320,13 @@ class BlivetUtils():
 
         return free_disks
 
+    def get_removable_pvs_info(self, blivet_device):
+
+        #TODO
+
+        assert blivet_device.type == "lvmvg"
+
+        return []
 
     def get_free_space(self, blivet_device, partitions):
         """ Find free space on device
@@ -536,7 +543,7 @@ class BlivetUtils():
             :param blivet_device: blivet.Device
             :type blivet_device: blivet.Device
             :param user_input: user selection
-            :type settings: tclass dialogs.edit_dialog.UserSelection
+            :type user_input: class dialogs.edit_dialog.UserSelection
             :returns: success
             :rtype: bool
 
@@ -577,6 +584,20 @@ class BlivetUtils():
                 traceback.format_exc())
 
             return False
+
+    def edit_lvmvg_device(self, user_input):
+
+        if user_input.action_type == "add":
+            for parent in user_input.parents_list:
+                self.add_lvmvg_parent(user_input.edit_device, parent)
+
+        elif user_input.action_type == "remove":
+            pass #TODO
+
+        else:
+            return False
+
+        return True
 
     def _pick_device_name(self, name, parent_device=None):
         """ Pick name for device.
@@ -978,6 +999,40 @@ class BlivetUtils():
                 traceback.format_exc())
 
             return None
+
+    def add_lvmvg_parent(self, container, parent):
+        """ Add new parent to existing lvmg
+
+            :param container: existing lvmvg
+            :type container: class blivet.LVMVolumeGroupDevice
+            :param parent: new parent -- existing device or free space
+            :type parent: class blivet.Device or class blivetgui.utils.FreeSpaceDevice
+
+        """
+
+        assert container.type == "lvmvg"
+
+        if parent.type == "free space":
+            new_part = self.storage.newPartition(size=parent.size,
+                    parents=parent.parents)
+
+            self.storage.createDevice(new_part)
+
+            new_fmt = blivet.formats.getFormat("lvmpv", device=new_part.path)
+            self.storage.formatDevice(new_part, new_fmt)
+
+            blivet.partitioning.doPartitioning(self.storage)
+
+            parent = new_part
+
+        try:
+            ac = blivet.deviceaction.ActionAddMember(container, parent)
+            self.storage.devicetree.registerAction(ac)
+
+        except Exception as e:
+
+            message_dialogs.ExceptionDialog(self.main_window, str(e),
+                traceback.format_exc())
 
     def get_device_type(self, blivet_device):
         """ Get device type
