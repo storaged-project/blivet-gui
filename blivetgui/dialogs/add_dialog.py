@@ -880,7 +880,7 @@ class AddDialog(Gtk.Dialog):
 
     def on_md_type_changed(self, event):
 
-        if self.md_type_combo.get_active_iter() == "partition":
+        if self.md_type_combo.get_active_id() == "partition":
             self.show_widgets(["fs"])
 
         else:
