@@ -204,6 +204,8 @@ class BlivetUtils():
         else:
             self.storage = blivet.Blivet()
 
+        blivet.formats.fs.NTFS._formattable = True
+
         self.storage.reset()
 
         self.main_window = main_window
