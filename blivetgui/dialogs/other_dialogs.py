@@ -79,12 +79,12 @@ class LuksPassphraseDialog(Gtk.Dialog):
         response = self.dialog.run()
 
         if response == Gtk.ResponseType.OK:
+            self.dialog.destroy()
             return self.entry_passphrase.get_text()
 
         else:
+            self.dialog.destroy()
             return None
-
-        self.dialog.destroy()
 
 class KickstartFileSaveDialog():
     """ File choose dialog for kickstart file save
