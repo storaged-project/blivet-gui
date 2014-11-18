@@ -495,32 +495,33 @@ class ListPartitions():
                 return not partition_mounted(device.path)
 
 
-    def activate_action_buttons(self, selected_partition):
-        """ Activate buttons in toolbar based on selected partition
+    def activate_action_buttons(self, selected_device):
+        """ Activate buttons in toolbar based on selected device
 
-            :param selected_partition: Selected partition
-            :type selected_partition: Gtk.TreeModelRow
+            :param selected_device: Selected partition
+            :type selected_device: Gtk.TreeModelRow
 
         """
 
-        partition_device = selected_partition[0]
+        device = selected_device[0]
 
         self.deactivate_all_options()
 
-        if self._allow_delete_device(partition_device):
+        if self._allow_delete_device(device):
             self.activate_options(["delete"])
 
-        if self._allow_edit_device(partition_device):
+        if self._allow_edit_device(device):
             self.activate_options(["edit"])
 
-        if partition_device.type in ["free space", "btrfs volume"]:
+        if device.type in ["free space", "btrfs volume"]:
             self.activate_options(["add"])
 
-        if partition_device.format:
-            if partition_device.format.type == "luks" and not partition_device.format.status:
+        if device.format:
+            if device.format.type == "luks" and not device.format.status \
+                and device.format.exists:
                 self.activate_options(["decrypt"])
 
-            elif partition_device.format.mountable and partition_mounted(partition_device.path):
+            elif device.format.mountable and partition_mounted(device.path):
                 self.activate_options(["unmount"])
 
     def delete_selected_partition(self):
