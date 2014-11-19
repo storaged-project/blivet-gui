@@ -506,7 +506,7 @@ class AddDialog(Gtk.Dialog):
 
         map_type_devices = {
             "disk" : [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
-            (_("LVM2 Physical Volume"), "lvmpv"), (_("Btrfs Volume"), "btrfs volume")],
+            (_("LVM2 Physical Volume"), "lvmpv")],
             "lvmpv" : [(_("LVM2 Volume Group"), "lvmvg")],
             "lvmvg" : [(_("LVM2 Logical Volume"), "lvmlv")],
             "luks/dm-crypt" : [(_("LVM2 Volume Group"), "lvmvg")],
@@ -521,7 +521,8 @@ class AddDialog(Gtk.Dialog):
         if self.device_type == "disk" and self.free_device.isLogical:
             self.devices = [(_("Partition"), "partition")]
 
-        elif self.device_type == "disk" and not self.parent_device.format.type:
+        elif self.device_type == "disk" and not self.parent_device.format.type \
+            and self.free_device.size > Size("256 MiB"):
             self.devices = [(_("Btrfs Volume"), "btrfs volume")]
 
         else:
@@ -529,6 +530,9 @@ class AddDialog(Gtk.Dialog):
 
             if self.device_type == "disk" and len(self.free_disks_regions) > 1:
                 self.devices.append((_("Software RAID"), "mdraid"))
+
+            if self.device_type == "disk" and self.free_device.size > Size("256 MiB"):
+                self.devices.append((_("Btrfs Volume"), "btrfs volume"))
 
         devices_store = Gtk.ListStore(str, str)
 
@@ -826,6 +830,12 @@ class AddDialog(Gtk.Dialog):
 
         raid, max_size = self.raid_member_max_size()
 
+        min_size = Size("1 MiB")
+        if device_type in ["lvmpv", "lvm"]:
+            min_size = Size("8 MiB")
+        elif device_type == "btrfs volume":
+            min_size = Size("256 MiB")
+
         for row in self.parents_store:
             if row[3]:
 
@@ -833,7 +843,7 @@ class AddDialog(Gtk.Dialog):
                     max_size = row[1].size
 
                 area = SizeChooserArea(dialog=self, parent_device=row[0],
-                    free_device=row[1], max_size=max_size, min_size=Size("1 MiB"),
+                    free_device=row[1], max_size=max_size, min_size=min_size,
                     dialog_type="add")
 
                 size_grid.attach(area.frame, 0, posititon, 1, 1)
