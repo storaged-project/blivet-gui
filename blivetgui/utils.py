@@ -669,15 +669,6 @@ class BlivetUtils():
                 device_id = luks_dev.id
 
             else:
-
-                new_part = self.storage.newPartition(size=user_input.size,
-                    parents=[i[0] for i in user_input.parents],
-                    partType=PARTITION_TYPE[user_input.advanced["parttype"]])
-
-                self.storage.createDevice(new_part)
-
-                device_id = new_part.id
-
                 if user_input.advanced["parttype"] == "extended":
                     new_part = self.storage.newPartition(size=user_input.size,
                     parents=[i[0] for i in user_input.parents],
@@ -690,6 +681,9 @@ class BlivetUtils():
                     fmt_type=user_input.filesystem,
                     fmt_args={"label" : user_input.label},
                     mountpoint=user_input.mountpoint)
+
+                self.storage.createDevice(new_part)
+                device_id = new_part.id
 
         elif user_input.device_type == "lvm" and not user_input.encrypt:
 
