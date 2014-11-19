@@ -1125,39 +1125,6 @@ class AddDialog(Gtk.Dialog):
             else:
                 return False
 
-        elif user_input.device_type == "btrfs volume" and user_input.btrfs_type == "disks":
-
-            delete_labels = []
-
-            for parent, size in user_input.parents:
-                if parent.format.type:
-                    delete_labels.append(parent)
-
-            if len(delete_labels) == 0:
-                return True
-
-            title = _("Confirm partition table override")
-            msg = _("You have selected to create Btrfs Volume on top of disks. " \
-                "At least one of the disks, you've selected currently have an " \
-                "active disklabel (partition table). It is neccessary to " \
-                "delete it now.\n\nTHIS ACTION COULDN'T BE UNDONE! Do you " \
-                "want to continue?\n\n")
-            msg += _("List of disks with existing disklabel:\n")
-
-            for disk in delete_labels:
-                msg += _("\t• model: {0}, path: {1}, size: {2}, curent disklabel: "\
-                    "{3}").format(disk.model, disk.path, str(disk.size), disk.format.type)
-
-            dialog = message_dialogs.ConfirmDialog(self, title, msg)
-
-            response = dialog.run()
-
-            if response:
-                return True
-
-            else:
-                return False
-
         else:
             return True
 

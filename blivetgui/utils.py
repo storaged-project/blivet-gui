@@ -478,9 +478,7 @@ class BlivetUtils():
         try:
             disk_device.format.teardown()
             action = blivet.deviceaction.ActionDestroyFormat(disk_device)
-            # TODO: this looks just wrong
-            action.apply()
-            action.execute()
+            self.storage.devicetree.registerAction(action)
 
         except Exception as e:
             message_dialogs.ExceptionDialog(self.main_window, str(e),
@@ -845,9 +843,6 @@ class BlivetUtils():
                 if user_input.btrfs_type == "disks":
                     assert parent.isDisk
 
-                    if parent.format:
-                        self.delete_disk_label(parent)
-
                     new_label = blivet.formats.getFormat("btrfs", device=parent.path)
 
                     try:
@@ -940,9 +935,7 @@ class BlivetUtils():
                 totalDevices=len(parts))
 
             self.storage.createDevice(new_md)
-
             device_id = new_md.id
-
 
         try:
 
