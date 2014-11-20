@@ -965,23 +965,35 @@ class BlivetUtils():
 
         assert container.type == "lvmvg"
 
-        if parent.type == "free space":
-            new_part = self.storage.newPartition(size=parent.size,
-                    parents=parent.parents, fmt_type="lvmpv")
-            self.storage.createDevice(new_part)
+        actions = []
 
+        if parent.type == "free space":
+            dev = PartitionDevice(name="req%d" % self.storage.nextID,
+                size=parent.size, parents=parent.parents)
+            ac_part = blivet.deviceaction.ActionCreateDevice(dev)
+
+            fmt = blivet.formats.getFormat(fmt_type="lvmpv")
+            ac_fmt = blivet.deviceaction.ActionCreateFormat(dev, fmt)
+
+            actions.extend([ac_part, ac_fmt])
+
+            [self.storage.devicetree.registerAction(ac) for ac in (ac_part, ac_fmt)]
             blivet.partitioning.doPartitioning(self.storage)
 
-            parent = new_part
+            parent = dev
 
         try:
-            ac = blivet.deviceaction.ActionAddMember(container, parent)
-            self.storage.devicetree.registerAction(ac)
+            ac_add = blivet.deviceaction.ActionAddMember(container, parent)
+            self.storage.devicetree.registerAction(ac_add)
+
+            actions.append(ac_add)
 
         except Exception as e:
 
             message_dialogs.ExceptionDialog(self.main_window, str(e),
                 traceback.format_exc())
+
+        return actions
 
     def get_device_type(self, blivet_device):
         """ Get device type

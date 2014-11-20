@@ -420,7 +420,7 @@ class LVMEditDialog(Gtk.Dialog):
 
             if self.add_store:
                 for row in self.add_store:
-                    if row[2] and row[0].type == "lvmpv":
+                    if row[2] and row[0].type == "partition":
                         parents_list.append(row[0])
 
                     if row[2] and row[0].type == "disk":
