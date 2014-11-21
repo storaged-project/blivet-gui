@@ -70,7 +70,7 @@ class ListPartitions():
         self.partitions_list = Gtk.TreeStore(object, str, str, str, str, str,
             str, object)
 
-        self.actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
+        self.actions_list = Gtk.TreeStore(GdkPixbuf.Pixbuf, str)
 
         self.partitions_view = self.create_partitions_view()
         self.builder.get_object("partitions_viewport").add(self.partitions_view)
@@ -353,7 +353,7 @@ class ListPartitions():
 
         self.update_partitions_view(self.disk)
 
-    def update_actions_view(self, action_type=None, action_desc=None):
+    def update_actions_view(self, action_type=None, action_desc=None, blivet_actions=None):
         """ Update list of scheduled actions
 
             :param action_type: type of action (delete/add/edit)
@@ -375,14 +375,17 @@ class ListPartitions():
 
         if action_type not in ["undo", "redo"]:
 
-            self.actions_list.append([action_icons[action_type], action_desc])
+            parent_iter = self.actions_list.append(None, [action_icons[action_type], action_desc])
+
+            for action in blivet_actions:
+                self.actions_list.append(parent_iter, [None, str(action)])
 
             # Update number of actions on actions card label
             self.actions += 1
 
         else:
 
-            self.actions_list.append([action_icons[action_type], action_desc])
+            self.actions_list.append(None, [action_icons[action_type], action_desc])
 
             if action_type == "undo":
                 self.actions -= 1
@@ -390,6 +393,7 @@ class ListPartitions():
             if action_type == "redo":
                 self.actions += 1
 
+        self.actions_view.expand_all()
         self.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 
         self.activate_options(["apply", "clear"])
@@ -541,11 +545,12 @@ class ListPartitions():
             self.history.add_undo(self.b.return_devicetree)
             self.main_menu.activate_menu_items(["undo"])
 
-            self.b.delete_device(self.selected_partition[0])
+            actions = self.b.delete_device(self.selected_partition[0])
 
-            self.update_actions_view("delete", _("delete partition {0}").format(self.selected_partition[0].name))
-
-            self.selected_partition = None
+            if actions:
+                self.update_actions_view("delete", _("delete partition {0}").format(self.selected_partition[0].name),
+                    actions)
+                self.selected_partition = None
 
         self.update_partitions_view(self.disk)
         self.list_devices.update_devices_view()
@@ -592,8 +597,10 @@ class ListPartitions():
                 self.history.add_undo(self.b.return_devicetree)
                 self.main_menu.activate_menu_items(["undo"])
 
-                self.b.create_disk_label(self.disk, selection)
-                self.update_actions_view("add", "create new disklabel on " + str(self.disk.name) + " device")
+                actions = self.b.create_disk_label(self.disk, selection)
+                if actions:
+                    self.update_actions_view("add", "create new disklabel on " + str(self.disk.name) + " device",
+                        actions)
 
                 self.update_partitions_view(self.disk)
 
@@ -615,17 +622,16 @@ class ListPartitions():
             self.history.add_undo(self.b.return_devicetree)
             self.main_menu.activate_menu_items(["undo"])
 
-            ret = self.b.add_device(user_input)
+            actions = self.b.add_device(user_input)
 
-            if ret != None:
-
+            if actions:
                 if user_input.filesystem == None:
                     self.update_actions_view("add", "add " + str(user_input.size) +
-                        " " + user_input.device_type + " device")
+                        " " + user_input.device_type + " device", actions)
 
                 else:
                     self.update_actions_view("add", "add " + str(user_input.size) +
-                        " " + user_input.filesystem + " partition")
+                        " " + user_input.filesystem + " partition", actions)
 
             self.list_devices.update_devices_view()
             self.update_partitions_view(self.disk)
@@ -784,18 +790,17 @@ class ListPartitions():
             user_input = dialog.get_selection()
 
             if device.type in ["partition", "lvmlv"]:
-                ret = self.b.edit_partition_device(user_input)
+                actions = self.b.edit_partition_device(user_input)
 
             elif device.type in ["lvmvg"]:
-                ret = self.b.edit_lvmvg_device(user_input)
+                actions = self.b.edit_lvmvg_device(user_input)
 
-            if ret:
-
+            if actions:
                 self.history.add_undo(self.b.return_devicetree)
                 self.main_menu.activate_menu_items(["undo"])
 
                 self.update_actions_view("edit", "edit " +
-                    device.name + " " + device.type)
+                    device.name + " " + device.type, actions)
 
             self.update_partitions_view(self.disk)
 
