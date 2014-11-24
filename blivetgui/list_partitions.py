@@ -22,13 +22,9 @@
 #
 #------------------------------------------------------------------------------#
 
-import os
-
-from gi.repository import Gtk, GdkPixbuf, Gdk, GLib
+from gi.repository import Gtk, GdkPixbuf
 
 import gettext
-
-import cairo
 
 from utils import *
 
@@ -308,8 +304,6 @@ class ListPartitions():
             if selection == None:
                 return False
 
-            model, treeiter = selection.get_selected()
-
             self.popup_menu.get_menu.popup(None, None, None, None, event.button,
                 event.time)
 
@@ -363,7 +357,7 @@ class ListPartitions():
 
         icon_theme = Gtk.IconTheme.get_default()
         icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
-        icon_delete = Gtk.IconTheme.load_icon (icon_theme, "edit-delete", 16, 0)
+        icon_delete = Gtk.IconTheme.load_icon(icon_theme, "edit-delete", 16, 0)
         icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all", 16, 0)
 
         action_icons = {"add" : icon_add, "delete" : icon_delete, "edit" : icon_edit}
@@ -427,17 +421,11 @@ class ListPartitions():
 
         """
 
-        if device.type == "free space":
-            return False
-
-        elif not device.isleaf:
+        if device.type == "free space" or not device.isleaf:
             return False
 
         else:
-            if self.kickstart_mode:
-                return True
-
-            elif not device.format.type:
+            if self.kickstart_mode or not device.format.type:
                 return True
 
             elif device.format.type == "swap" and swap_is_on(device.sysfsPath):
@@ -655,11 +643,7 @@ class ListPartitions():
 
         """
 
-        dialog = ProcessingActions(self, self.main_window)
-
-        response = dialog.run()
-
-        dialog.destroy()
+        ProcessingActions(self, self.main_window)
 
         self.clear_actions_view()
         self.clear_undo_actions()
@@ -682,9 +666,8 @@ class ListPartitions():
             response = dialog.run()
 
             if response:
-
                 self.clear_actions_view()
-                self.b.create_kickstart_file(dialog.get_filename())
+                self.b.create_kickstart_file(response)
 
             self.clear_actions_view()
             self.clear_undo_actions()
@@ -727,12 +710,10 @@ class ListPartitions():
         response = dialog.run()
 
         if response:
-
             ret = self.b.luks_decrypt(self.selected_partition[0],
-                dialog.get_selection())
+                response)
 
             if ret:
-
                 msg = _("Unknown error appeared:\n\n{0}.").format(ret)
                 message_dialogs.ErrorDialog(self.main_window, msg)
 
@@ -858,9 +839,8 @@ class ListPartitions():
             response = dialog.run()
 
             if response:
-
                 self.b.blivet_reload()
-                self.history.clear_history()
+                self.clear_undo_actions()
                 self.clear_actions_view()
 
                 self.list_devices.update_devices_view()
@@ -868,7 +848,7 @@ class ListPartitions():
 
         else:
             self.b.blivet_reload()
-            self.history.clear_history()
+            self.clear_undo_actions()
             self.clear_actions_view()
 
             self.list_devices.update_devices_view()

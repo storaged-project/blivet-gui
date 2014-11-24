@@ -78,6 +78,9 @@ class ProcessingActions(Gtk.Dialog):
         self.show_all()
         self.thread.start()
 
+        self.run()
+        self.destroy()
+
     def close_window(self, event):
         self.destroy()
 

@@ -100,13 +100,15 @@ class KickstartFileSaveDialog():
     def run(self):
 
         response = self.dialog.run()
-        self.dialog.destroy()
 
-        if response == Gtk.ResponseType.OK:
-            return True
+        if response == 1:
+            filename = self.dialog.get_filename()
+            self.dialog.destroy()
+            return filename
 
         else:
-            return False
+            self.dialog.destroy()
+            return
 
 class KickstartSelectDevicesDialog(Gtk.Dialog):
     """ Dialog window allowing user to select which devices will be used in
