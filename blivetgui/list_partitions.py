@@ -42,8 +42,6 @@ from main_menu import *
 
 from processing_window import *
 
-from actions_history import *
-
 from devicevisualization.device_canvas import device_canvas
 
 #------------------------------------------------------------------------------#
