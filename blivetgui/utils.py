@@ -1188,9 +1188,11 @@ class BlivetUtils():
 
         return self.storage.devicetree
 
-    def override_devicetree(self, devicetree):
+    def blivet_cancel_actions(self, actions):
+        actions.reverse()
 
-        self.storage.devicetree = copy.deepcopy(devicetree)
+        for action in actions:
+            self.storage.devicetree.cancelAction(action)
 
     def blivet_reset(self):
         """ Blivet.reset()

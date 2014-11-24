@@ -105,31 +105,21 @@ class actions_toolbar():
         self.buttons["apply"] = button_apply
         button_apply.connect("clicked", self.on_apply_clicked)
 
-        button_clear = Gtk.ToolButton()
-        button_clear.set_icon_name("edit-clear-all-symbolic")
-        button_clear.set_sensitive(False)
-        button_clear.set_tooltip_text(_("Clear queued actions"))
-        self.toolbar.insert(button_clear, 8)
-        self.buttons["clear"] = button_clear
-        button_clear.connect("clicked", self.on_clear_clicked)
-
-        self.toolbar.insert(Gtk.SeparatorToolItem(), 9)
-
         button_undo = Gtk.ToolButton()
         button_undo.set_icon_name("edit-undo-symbolic")
         button_undo.set_sensitive(False)
         button_undo.set_tooltip_text(_("Undo"))
-        self.toolbar.insert(button_undo, 10)
+        self.toolbar.insert(button_undo, 8)
         self.buttons["undo"] = button_undo
         button_undo.connect("clicked", self.on_undo_clicked)
 
-        button_redo = Gtk.ToolButton()
-        button_redo.set_icon_name("edit-redo-symbolic")
-        button_redo.set_sensitive(False)
-        button_redo.set_tooltip_text(_("Redo"))
-        self.toolbar.insert(button_redo, 11)
-        self.buttons["redo"] = button_redo
-        button_redo.connect("clicked", self.on_redo_clicked)
+        button_clear = Gtk.ToolButton()
+        button_clear.set_icon_name("edit-clear-all-symbolic")
+        button_clear.set_sensitive(False)
+        button_clear.set_tooltip_text(_("Clear queued actions"))
+        self.toolbar.insert(button_clear, 9)
+        self.buttons["clear"] = button_clear
+        button_clear.connect("clicked", self.on_clear_clicked)
 
     def activate_buttons(self, button_names):
         """ Activate selected buttons
@@ -204,12 +194,6 @@ class actions_toolbar():
         """
 
         self.list_partitions.actions_undo()
-
-    def on_redo_clicked(self, event):
-        """ Onselect action for 'Redo' button
-        """
-
-        self.list_partitions.actions_redo()
 
     @property
     def get_toolbar(self):
