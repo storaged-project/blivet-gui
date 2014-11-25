@@ -99,6 +99,8 @@ class ListPartitions():
         self.partitions_label = self.builder.get_object("partitions_page")
         self.partitions_label.set_text(_("Partitions").format(self.actions))
 
+        self.main_window.connect("delete-event", self.quit)
+
         self.selected_partition = None
 
         self.history = []
@@ -854,7 +856,7 @@ class ListPartitions():
             self.list_devices.update_devices_view()
             self.update_partitions_view(self.disk)
 
-    def quit(self):
+    def quit(self, event=None, widget=None):
         """ Quit blivet-gui
         """
 
@@ -873,3 +875,5 @@ class ListPartitions():
 
         else:
             Gtk.main_quit()
+
+        return True

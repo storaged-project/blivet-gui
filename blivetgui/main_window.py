@@ -59,10 +59,7 @@ def main_window(kickstart=False):
     builder = Gtk.Builder()
     builder.add_from_file(locate_ui_file('blivet-gui.ui'))
 
-    signal.signal(signal.SIGINT, signal.SIG_DFL)
-
     MainWindow = builder.get_object("MainWindow")
-    MainWindow.connect("delete-event", Gtk.main_quit)
 
     ListDevices(MainWindow, builder, kickstart)
 
