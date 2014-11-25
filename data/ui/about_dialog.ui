@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.1 -->
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="3.10"/>
+  <requires lib="gtk+" version="3.12"/>
   <object class="GtkAboutDialog" id="about_dialog">
     <property name="can_focus">False</property>
     <property name="destroy_with_parent">True</property>
@@ -11,6 +11,7 @@
     <property name="website">https://github.com/vojtechtrefny/blivet-gui</property>
     <property name="authors">Vojtech Trefny &lt;vtrefny@redhat.com&gt;</property>
     <property name="documenters">Vojtech Trefny &lt;vtrefny@redhat.com&gt;</property>
+    <property name="logo_icon_name">image-missing</property>
     <property name="license_type">gpl-3-0</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="aboutdialog-vbox">
