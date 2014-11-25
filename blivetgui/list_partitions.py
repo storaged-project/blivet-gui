@@ -579,7 +579,8 @@ class ListPartitions():
             parent_device, self.selected_partition[0],
             self.selected_partition[0].size, self.b.get_free_pvs_info(),
             self.b.get_free_disks_regions(), self.b.get_available_raid_levels(),
-            self.b.has_extended_partition(self.disk), self.kickstart_mode)
+            self.b.has_extended_partition(self.disk), self.b.storage.mountpoints,
+            self.kickstart_mode)
 
         response = dialog.run()
 
@@ -603,39 +604,6 @@ class ListPartitions():
 
         dialog.destroy()
         return
-
-    def check_mountpoint(self, mountpoint):
-        """ Kickstart mode; check for duplicate mountpoints
-
-            :param mountpoint: mountpoint selected by user
-            :type mountpoint: str
-            :returns: mountpoint validity
-            :rtype: bool
-        """
-
-        if mountpoint == None:
-            return True
-
-        elif mountpoint not in self.b.storage.mountpoints.keys():
-            return True
-
-        else:
-
-            old_device = self.b.storage.mountpoints[mountpoint]
-
-            title = _("Duplicate mountpoint detected")
-            msg = _("Selected mountpoint \"{0}\" is already used for \"{1}\" " \
-                "device. Do you want to remove this mountpoint?").format(mountpoint,
-                old_device.name)
-
-            dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
-
-            response = dialog.run()
-
-            if response:
-                old_device.format.mountpoint = None
-
-            return response
 
     def perform_actions(self):
         """ Perform queued actions

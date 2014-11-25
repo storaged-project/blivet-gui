@@ -48,6 +48,47 @@ SUPPORTED_PESIZE = ["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"]
 
 #------------------------------------------------------------------------------#
 
+def check_mountpoint(parent_window, used_mountpoints, mountpoint):
+        """ Kickstart mode; check for duplicate mountpoints
+
+            :param used_mountpoints: list of mountpoints currently in use
+            :type used_mountpoints: list of str
+            :param mountpoint: mountpoint selected by user
+            :type mountpoint: str
+            :returns: mountpoint validity
+            :rtype: bool
+        """
+
+        if not mountpoint:
+            return True
+
+        elif not os.path.isabs(mountpoint):
+
+            msg = _("{0} is not a valid mountpoint.").format(mountpoint)
+            message_dialogs.ErrorDialog(parent_window, msg)
+
+
+        elif mountpoint not in used_mountpoints.keys():
+            return True
+
+        else:
+
+            old_device = used_mountpoints[mountpoint]
+
+            title = _("Duplicate mountpoint detected")
+            msg = _("Selected mountpoint \"{0}\" is already used for \"{1}\" " \
+                "device. Do you want to remove this mountpoint?").format(mountpoint,
+                old_device.name)
+
+            dialog = message_dialogs.ConfirmDialog(parent_window, title, msg)
+
+            response = dialog.run()
+
+            if response:
+                old_device.format.mountpoint = None
+
+            return response
+
 class UserSelection(object):
     def __init__(self, device_type, size, filesystem, name, label, mountpoint,
         encrypt, passphrase, parents, btrfs_type, raid_level, advanced):
@@ -425,7 +466,7 @@ class AddDialog(Gtk.Dialog):
 
     def __init__(self, parent_window, device_type, parent_device, free_device,
         free_space, free_pvs, free_disks_regions, supported_raids, has_extended,
-        kickstart=False):
+        mountpoints, kickstart=False):
         """
 
             :param device_type: type of parent device
@@ -440,6 +481,8 @@ class AddDialog(Gtk.Dialog):
             :type free_pvs: list
             :param free_disks_regions: list of free regions on non-empty disks
             :type free_disks_regions: list of blivetgui.utils.FreeSpaceDevice
+            :param mountpoints: list of mountpoints in current devicetree
+            :type mountpoints: list of str
             :param kickstart: kickstart mode
             :type kickstart: bool
 
@@ -455,6 +498,7 @@ class AddDialog(Gtk.Dialog):
         self.kickstart = kickstart
         self.supported_raids = supported_raids
         self.has_extended = has_extended
+        self.mountpoints = mountpoints
 
         Gtk.Dialog.__init__(self, _("Create new device"), None, 0,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -1136,7 +1180,7 @@ class AddDialog(Gtk.Dialog):
             return False
 
         elif self.kickstart and user_input.mountpoint:
-            if self.check_mountpoint(user_input.mountpoint):
+            if check_mountpoint(self, self.mountpoints, user_input.mountpoint):
                 return True
 
             else:
