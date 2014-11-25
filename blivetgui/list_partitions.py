@@ -463,6 +463,9 @@ class ListPartitions():
             if device.type in ["lvmvg"]:
                 return True
 
+            elif device.type == "partition" and not device.format.type:
+                return True
+
             elif not device.format.mountable:
                 return False
 

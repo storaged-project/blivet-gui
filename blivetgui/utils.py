@@ -578,7 +578,7 @@ class BlivetUtils():
         if user_input.resize:
             actions.append(blivet.deviceaction.ActionResizeDevice(blivet_device, user_input.size))
 
-        if nuser_input.format:
+        if user_input.format:
             new_fmt = blivet.formats.getFormat(user_input.filesystem)
             actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_fmt))
 
