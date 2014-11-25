@@ -24,7 +24,7 @@
 
 from __future__ import print_function
 
-import os, sys, optparse
+import os, sys, optparse, signal
 
 import gettext
 
@@ -98,4 +98,6 @@ def main(options=None):
 
         Gtk.main()
 
-if  __name__ == '__main__': main()
+if  __name__ == '__main__':
+    signal.signal(signal.SIGINT, signal.SIG_DFL)
+    main()

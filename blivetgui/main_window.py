@@ -24,7 +24,7 @@
 
 from __future__ import print_function
 
-import os, signal
+import os
 
 from gi.repository import Gtk
 
