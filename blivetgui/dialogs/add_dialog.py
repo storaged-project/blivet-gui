@@ -702,7 +702,7 @@ class AddDialog(Gtk.Dialog):
 
         # for devices with only one parent just select the first (and only) one
         if len(self.parents_store) == 1:
-            self.parents_store[0][3] = True
+            self.parents_store[0][2] = self.parents_store[0][3] = True
             return
 
         for row in self.parents_store:
