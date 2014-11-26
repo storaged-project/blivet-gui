@@ -710,8 +710,6 @@ class ListPartitions():
                 self.b.get_free_pvs_info(), self.b.get_free_disks_regions(),
                 self.b.get_removable_pvs_info(device))
 
-        dialog.connect("delete-event", Gtk.main_quit)
-
         response = dialog.run()
 
         if response == Gtk.ResponseType.OK:

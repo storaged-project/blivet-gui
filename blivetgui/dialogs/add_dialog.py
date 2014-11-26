@@ -1031,6 +1031,7 @@ class AddDialog(Gtk.Dialog):
             self.grid.attach(self.advanced.expander, 0, 13, 6, 1)
 
         else:
+            self.advanced = None
             self.widgets_dict["advanced"] = []
 
     def show_widgets(self, widget_types):

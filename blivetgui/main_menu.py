@@ -27,7 +27,7 @@ import gettext
 from gi.repository import Gtk
 
 from dialogs.other_dialogs import AboutDialog
-from dialogs.message_dialogs import ErrorDialog
+from dialogs.message_dialogs import ErrorDialog, WarningDialog
 
 import os, subprocess
 
@@ -277,7 +277,8 @@ class MainMenu():
                 "Online version of documentation is available at " \
                 "http://vojtechtrefny.github.io/blivet-gui")
 
-            InfoDialog(self.main_window, msg)
+            WarningDialog(self.main_window, msg)
+            return
 
         try:
             FNULL = open(os.devnull, "w")

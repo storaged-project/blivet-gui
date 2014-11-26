@@ -541,16 +541,17 @@ class BlivetUtils():
 
         """
 
+        if not blivet_device.format.type:
+            return (False, blivet.Size("1 MiB"), blivet_device.size)
+
+        blivet_device.format.updateSizeInfo()
+
         if blivet_device.resizable and blivet_device.format.resizable:
-
-            blivet_device.format.updateSizeInfo()
-
             return (True, blivet_device.minSize, blivet_device.maxSize,
                 blivet_device.size)
 
         else:
-
-            return (False, blivet_device.size, blivet_device.size,
+            return (False, blivet.Size("1 MiB"), blivet_device.size,
                 blivet_device.size)
 
 
@@ -1111,7 +1112,7 @@ class BlivetUtils():
 
         actions = []
 
-        if blivet_device.format:
+        if blivet_device.format.type:
             actions.append(blivet.deviceaction.ActionDestroyFormat(blivet_device))
 
         new_label = blivet.formats.getFormat("disklabel",
