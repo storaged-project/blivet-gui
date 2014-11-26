@@ -41,13 +41,13 @@ class ProcessingActions(Gtk.Dialog):
         self.list_partitions = list_partitions
         self.parent_window = parent_window
 
-        Gtk.Dialog.__init__(self, _("Proccessing"), None, 0,
-            None)
+        Gtk.Dialog.__init__(self, _("Proccessing"), None, 0, None)
 
         self.set_transient_for(self.parent_window)
 
         self.set_border_width(8)
         self.set_position(Gtk.WindowPosition.CENTER)
+        self.set_resizable(False)
 
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
             column_spacing=5)
@@ -58,18 +58,18 @@ class ProcessingActions(Gtk.Dialog):
         self.pulse = True
 
         self.label = Gtk.Label()
-        self.grid.attach(self.label, 0, 0, 2, 1)
+        self.grid.attach(self.label, 0, 0, 3, 1)
 
         self.label.set_markup(_("<b>Queued actions are being proccessed.</b>"))
 
         self.progressbar = Gtk.ProgressBar()
-        self.grid.attach(self.progressbar, 0, 1, 2, 1)
+        self.grid.attach(self.progressbar, 0, 1, 3, 1)
 
         self.button = Gtk.Button(stock=Gtk.STOCK_OK)
         self.button.connect("clicked", self.close_window)
         self.button.set_sensitive(False)
 
-        self.grid.attach(self.button, 1, 2, 1, 1)
+        self.grid.attach(self.button, 2, 3, 1, 1)
 
         self.timeout_id = GObject.timeout_add(50, self.on_timeout, None)
 
@@ -84,7 +84,7 @@ class ProcessingActions(Gtk.Dialog):
     def close_window(self, event):
         self.destroy()
 
-    def end(self, error=None):
+    def end(self, error=None, traceback=None):
         self.thread.join()
         self.pulse = False
         self.progressbar.set_fraction(1)
@@ -93,6 +93,11 @@ class ProcessingActions(Gtk.Dialog):
         if error:
             self.label.set_markup(_("<b>Queued actions couldn't be finished due " \
                 "to an unexpected error.</b>\n\n%(error)s." % locals()))
+
+            expander = Gtk.Expander(label=_("Show traceback"))
+            self.grid.attach(expander, 0, 2, 3, 1)
+            expander.add(Gtk.Label(label=traceback))
+            self.show_all()
 
         else:
             self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
@@ -112,6 +117,5 @@ class ProcessingActions(Gtk.Dialog):
             GObject.idle_add(self.end)
 
         except Exception as e:
-            print traceback.format_exc()
             self.list_partitions.b.blivet_reset()
-            GObject.idle_add(self.end, e)
+            GObject.idle_add(self.end, e, traceback.format_exc())
