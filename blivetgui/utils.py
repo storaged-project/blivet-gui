@@ -506,7 +506,7 @@ class BlivetUtils():
             return action
 
         try:
-            if blivet_device.format.type:
+            if blivet_device.type in ["partition", "lvmlv"] and blivet_device.format.type:
                 ac_fmt = blivet.deviceaction.ActionDestroyFormat(blivet_device)
                 self.storage.devicetree.registerAction(ac_fmt)
                 actions.append(ac_fmt)
@@ -668,8 +668,7 @@ class BlivetUtils():
                     parents=[i[0] for i in user_input.parents])
                 actions.append(blivet.deviceaction.ActionCreateDevice(dev))
 
-                fmt = blivet.formats.getFormat(fmt_type="luks",
-                    fmt_args={"passphrase" : user_input.passphrase})
+                fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
                 actions.append(blivet.deviceaction.ActionCreateFormat(dev, fmt))
 
                 luks_dev = blivet.devices.LUKSDevice("luks-%s" % dev.name,
@@ -747,8 +746,7 @@ class BlivetUtils():
                     parents=[parent])
                 ac_part = blivet.deviceaction.ActionCreateDevice(dev)
 
-                fmt = blivet.formats.getFormat(fmt_type="luks",
-                    fmt_args={"passphrase" : user_input.passphrase})
+                fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
                 ac_fmt = blivet.deviceaction.ActionCreateFormat(dev, fmt)
 
                 luks_dev = blivet.devices.LUKSDevice("luks-%s" % dev.name,
@@ -813,8 +811,7 @@ class BlivetUtils():
                     parents=[i[0] for i in user_input.parents])
                 actions.append(blivet.deviceaction.ActionCreateDevice(dev))
 
-                fmt = blivet.formats.getFormat(fmt_type="luks",
-                    fmt_args={"passphrase" : user_input.passphrase})
+                fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
                 actions.append(blivet.deviceaction.ActionCreateFormat(dev, fmt))
 
                 luks_dev = blivet.devices.LUKSDevice("luks-%s" % dev.name,
