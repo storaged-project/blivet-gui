@@ -525,7 +525,7 @@ class BlivetUtils():
         if blivet_device.type in ["btrfs volume", "mdarray"]:
             for parent in blivet_device.parents:
                 if parent.type == "partition":
-                    actions.append(self.delete_device(parent))
+                    actions.extend(self.delete_device(parent))
                 elif parent.type == "disk":
                     actions.append(self.delete_disk_label(parent))
 
