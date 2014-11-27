@@ -453,7 +453,7 @@ class ListPartitions():
 
         """
 
-        if device.type == "free space":
+        if device.type not in ["partition", "lvmvg", "lvmlv"]:
             return False
 
         elif device.type == "partition" and device.isExtended:
@@ -466,11 +466,11 @@ class ListPartitions():
             if device.type in ["lvmvg"]:
                 return True
 
-            elif device.type == "partition" and not device.format.type:
-                return True
-
-            elif not device.format.mountable:
+            elif device.format.type == "btrfs":
                 return False
+
+            elif not device.format.type:
+                return True
 
             else:
                 return not partition_mounted(device.path)
