@@ -953,9 +953,20 @@ class AddDialog(Gtk.Dialog):
 
         self.grid.attach(filesystems_combo, 1, 8, 2, 1)
 
+        filesystems_combo.connect("changed", self.on_filesystems_combo_changed)
+
         self.widgets_dict["fs"] = [label_fs, filesystems_combo]
 
         return filesystems_combo
+
+    def on_filesystems_combo_changed(self, combo):
+        selection = combo.get_active_text()
+
+        if selection in ["swap"]:
+            self.hide_widgets(["label", "mountpoint"])
+
+        else:
+            self.show_widgets(["label", "mountpoint"])
 
     def add_name_chooser(self):
         label_label = Gtk.Label(label=_("Label:"), xalign=1)
