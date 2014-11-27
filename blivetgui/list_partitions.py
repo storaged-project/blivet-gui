@@ -619,11 +619,16 @@ class ListPartitions():
 
         """
 
-        ProcessingActions(self, self.main_window)
+        dialog = ProcessingActions(self, self.main_window)
+        success = dialog.start()
 
         self.clear_actions_view()
         self.clear_undo_actions()
 
+        if not success:
+            self.reload()
+
+        self.list_devices.update_devices_view()
         self.update_partitions_view(self.disk)
 
     def apply_event(self):

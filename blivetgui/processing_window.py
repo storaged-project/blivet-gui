@@ -41,13 +41,14 @@ class ProcessingActions(Gtk.Dialog):
         self.list_partitions = list_partitions
         self.parent_window = parent_window
 
-        Gtk.Dialog.__init__(self, _("Proccessing"), None, 0, None)
+        Gtk.Dialog.__init__(self, _("Proccessing"), None, 0, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
 
         self.set_border_width(8)
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_resizable(False)
+        self.set_response_sensitive(0, False)
 
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
             column_spacing=5)
@@ -56,6 +57,7 @@ class ProcessingActions(Gtk.Dialog):
         box.add(self.grid)
 
         self.pulse = True
+        self.success = False
 
         self.label = Gtk.Label()
         self.grid.attach(self.label, 0, 0, 3, 1)
@@ -65,30 +67,22 @@ class ProcessingActions(Gtk.Dialog):
         self.progressbar = Gtk.ProgressBar()
         self.grid.attach(self.progressbar, 0, 1, 3, 1)
 
-        self.button = Gtk.Button(stock=Gtk.STOCK_OK)
-        self.button.connect("clicked", self.close_window)
-        self.button.set_sensitive(False)
-
-        self.grid.attach(self.button, 2, 3, 1, 1)
-
         self.timeout_id = GObject.timeout_add(50, self.on_timeout, None)
-
         self.thread = threading.Thread(target=self.do_it)
-
         self.show_all()
         self.thread.start()
 
+    def start(self):
         self.run()
         self.destroy()
 
-    def close_window(self, event):
-        self.destroy()
+        return self.success
 
     def end(self, error=None, traceback=None):
         self.thread.join()
         self.pulse = False
         self.progressbar.set_fraction(1)
-        self.button.set_sensitive(True)
+        self.set_response_sensitive(0, True)
 
         if error:
             self.label.set_markup(_("<b>Queued actions couldn't be finished due " \
@@ -99,8 +93,12 @@ class ProcessingActions(Gtk.Dialog):
             expander.add(Gtk.Label(label=traceback))
             self.show_all()
 
+            self.success = False
+
         else:
             self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
+
+            self.success = True
 
     def on_timeout(self, user_data):
 
