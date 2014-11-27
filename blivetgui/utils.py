@@ -686,8 +686,7 @@ class BlivetUtils():
 
                 if user_input.advanced["parttype"] != "extended":
                     new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem,
-                        fmt_args={"label" : user_input.label},
-                        mountpoint=user_input.mountpoint)
+                        label=user_input.label, mountpoint=user_input.mountpoint)
 
                     actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
 
@@ -786,9 +785,7 @@ class BlivetUtils():
 
             actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
-            new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem,
-                fmt_args={"label" : user_input.label},
-                mountpoint=user_input.mountpoint)
+            new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem, mountpoint=user_input.mountpoint)
 
             actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
 

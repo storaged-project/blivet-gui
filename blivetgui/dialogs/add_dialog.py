@@ -981,7 +981,12 @@ class AddDialog(Gtk.Dialog):
             self.hide_widgets(["label", "mountpoint"])
 
         else:
-            self.show_widgets(["label", "mountpoint"])
+            device_type = self._get_selected_device_type()
+
+            if device_type == "partition":
+                self.show_widgets(["label", "mountpoint"])
+            else:
+                self.show_widgets(["mountpoint"])
 
     def add_name_chooser(self):
         label_label = Gtk.Label(label=_("Label:"), xalign=1)
