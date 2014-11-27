@@ -466,7 +466,7 @@ class ListPartitions():
             if device.type in ["lvmvg"]:
                 return True
 
-            elif device.format.type == "btrfs":
+            elif device.format.type in ["btrfs", "lvmpv", "luks"]:
                 return False
 
             elif not device.format.type:
