@@ -102,12 +102,11 @@ class ListDevices():
 
             self.disks_view = self.create_devices_view()
 
-            self.select = self.disks_view.get_selection()
-            self.path = self.select.select_path("1")
-
-            self.on_disk_selection_changed(self.select)
-            self.selection_signal = self.select.connect("changed",
+            selection = self.disks_view.get_selection()
+            self.selection_signal = selection.connect("changed",
                 self.on_disk_selection_changed)
+
+            self.disks_view.set_cursor(1)
 
             self.builder.get_object("disks_viewport").add(self.disks_view)
 
@@ -223,18 +222,22 @@ class ListDevices():
         # remember previously selected device name
         selection = self.disks_view.get_selection()
         model, treeiter = selection.get_selected()
-        if treeiter != None and model != None:
+        if treeiter and model:
             selected_device = model[treeiter][0].name
 
         # reload devices
+        # adding new devices into TreeStore causing "changed" signal being
+        # emitted, causing pointless reloading partitions views on all existing
+        # devices -> block the selection_signal for now to avoid this
+        selection.handler_block(self.selection_signal)
         self.load_devices()
+        selection.handler_unblock(self.selection_signal)
 
         # if the device still exists, select it; else select first device in list
         i = 0
         selected = False
 
         for device in self.device_list:
-
             if device[0] != None and device[0].name == selected_device:
                 self.disks_view.set_cursor(i)
                 selected = True
@@ -271,7 +274,7 @@ class ListDevices():
 
         model, treeiter = selection.get_selected()
 
-        if treeiter != None and model != None:
+        if treeiter and model:
 
             # 'Disks', 'LVM2 Volume Groups' and 'LVM2 Physical Volumes' are just
             # labels. If user select one of these, we need to unselect this and
@@ -288,7 +291,6 @@ class ListDevices():
 
             if self.device_list.iter_is_valid(treeiter):
                 disk = model[treeiter][0]
-
                 self.partitions_list.update_partitions_view(disk)
 
     def return_device_list(self):
