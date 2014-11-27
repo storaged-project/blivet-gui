@@ -456,6 +456,9 @@ class ListPartitions():
         if device.type == "free space":
             return False
 
+        elif device.type == "partition" and device.isExtended:
+            return device.format.resizable
+
         elif self.kickstart_mode:
             return device.format.mountable
 

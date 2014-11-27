@@ -101,6 +101,11 @@ class PartitionEditDialog(Gtk.Dialog):
 
         if not self.resizable[0]:
             self.hide_widgets(["size"])
+            self.size_area.frame.set_tooltip_text(_("This device cannot be resized."))
+
+        if self.edited_device.type == "partition" and self.edited_device.isExtended:
+            self.set_widgets_sensitive(["fs"], False)
+            self.format_check.set_tooltip_text(_("Extended partitions cannot be formatted."))
 
         if self.kickstart:
             self.show_widgets(["mountpoint"])
@@ -204,6 +209,12 @@ class PartitionEditDialog(Gtk.Dialog):
             else:
                 for widget in self.widgets_dict[widget_type]:
                     widget.hide()
+
+    def set_widgets_sensitive(self, widget_types, sensitivity):
+
+        for widget_type in widget_types:
+            for widget in self.widgets_dict[widget_type]:
+                widget.set_sensitive(sensitivity)
 
     def get_selection(self):
 
