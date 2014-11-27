@@ -292,10 +292,26 @@ class SizeChooserArea(object):
         old_unit = self.selected_unit
         self.selected_unit = new_unit
 
-        selected_size = Size(str(self.scale.get_value()) + old_unit)
+        selected_size = self.convert_to_size(self.scale.get_value(), old_unit)
 
         self.adjust_size_scale(selected_size, new_unit)
         return
+
+    def convert_to_size(self, size, unit):
+        """ Convert floats from scale to Size
+
+            .. note:: Neccesary for floats in form 1e-10
+
+        """
+
+        str_size = str(size)
+
+        if "e" in str_size:
+            exp = abs(int(str_size.split("e")[-1]))
+            dec = len(str_size.split("e")[0].split(".")[-1])
+            str_size = format(size, "." + str(exp+dec) + "f")
+
+        return Size(str_size + unit)
 
     def scale_moved(self, scale, spin_size):
 
@@ -303,8 +319,7 @@ class SizeChooserArea(object):
 
         spin_size.set_value(scale.get_value())
 
-        selected_size = Size(str(self.scale.get_value()) + self.selected_unit)
-        self.dialog.update_size_areas(selected_size)
+        self.dialog.update_size_areas(self.convert_to_size(self.scale.get_value(), self.selected_unit))
 
     def spin_size_moved(self, spin_size, scale):
         scale.set_value(spin_size.get_value())
@@ -328,7 +343,7 @@ class SizeChooserArea(object):
 
     def get_selection(self):
 
-        size = Size(str(self.scale.get_value()) + self.selected_unit)
+        size = self.convert_to_size(self.scale.get_value(), self.selected_unit)
 
         if self.dialog_type == "add":
             if size > self.free_device.size:
