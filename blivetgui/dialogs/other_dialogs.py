@@ -51,7 +51,7 @@ class AboutDialog():
         dialog.destroy()
 
 
-class LuksPassphraseDialog(Gtk.Dialog):
+class LuksPassphraseDialog():
     """ Dialog window allowing user to enter passphrase to decrypt
     """
 
@@ -77,13 +77,13 @@ class LuksPassphraseDialog(Gtk.Dialog):
     def run(self):
 
         response = self.dialog.run()
+        passphrase = self.entry_passphrase.get_text()
+        self.dialog.destroy()
 
         if response == Gtk.ResponseType.OK:
-            self.dialog.destroy()
-            return self.entry_passphrase.get_text()
+            return passphrase
 
         else:
-            self.dialog.destroy()
             return None
 
 class KickstartFileSaveDialog():
