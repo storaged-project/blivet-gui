@@ -516,10 +516,25 @@ class BlivetUtils():
             actions.append(ac_dev)
 
         except Exception as e:
-
             message_dialogs.ExceptionDialog(self.main_window, str(e),
                 traceback.format_exc())
             return
+
+        # for encrypted partitions/lvms delete the luks-formatted partition too
+        if blivet_device.type in ["luks/dm-crypt"]:
+            for parent in blivet_device.parents:
+                assert parent.type == "partition" and parent.format.type == "luks"
+
+                # teardown parent before
+                try:
+                    parent.teardown()
+
+                except blivet.errors.CryptoError:
+                    msg = _("Failed to remove device {0}. Are you sure it is not in use?").format(parent.name)
+                    message_dialogs.ErrorDialog(self.main_window, msg)
+                    return
+
+                actions.extend(self.delete_device(parent))
 
         # for btrfs volumes delete parents partition after deleting volume
         if blivet_device.type in ["btrfs volume", "mdarray"]:
