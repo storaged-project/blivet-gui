@@ -49,7 +49,7 @@ def locate_ui_file(filename):
 #------------------------------------------------------------------------------#
 
 class WarningDialog():
-    """ Custom warning dialog
+    """ Basic warning dialog
     """
 
     def __init__(self, parent_window, msg):
@@ -66,7 +66,7 @@ class WarningDialog():
         dialog.destroy()
 
 class ErrorDialog():
-    """ Custom error dialog
+    """ Basic error dialog
     """
 
     def __init__(self, parent_window, msg):
@@ -74,6 +74,23 @@ class ErrorDialog():
         builder = Gtk.Builder()
         builder.add_from_file(locate_ui_file('error_dialog.ui'))
         dialog = builder.get_object("error_dialog")
+
+        dialog.set_transient_for(parent_window)
+        dialog.format_secondary_text(msg)
+
+        dialog.show_all()
+        dialog.run()
+        dialog.destroy()
+
+class InfoDialog():
+    """ Basic error dialog
+    """
+
+    def __init__(self, parent_window, msg):
+
+        builder = Gtk.Builder()
+        builder.add_from_file(locate_ui_file('info_dialog.ui'))
+        dialog = builder.get_object("info_dialog")
 
         dialog.set_transient_for(parent_window)
         dialog.format_secondary_text(msg)

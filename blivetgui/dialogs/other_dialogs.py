@@ -102,9 +102,9 @@ class KickstartFileSaveDialog():
         response = self.dialog.run()
 
         if response == 1:
-            filename = self.dialog.get_filename()
+            filepath = self.dialog.get_filename()
             self.dialog.destroy()
-            return filename
+            return filepath
 
         else:
             self.dialog.destroy()
