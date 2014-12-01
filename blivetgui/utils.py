@@ -595,7 +595,7 @@ class BlivetUtils():
             actions.append(blivet.deviceaction.ActionResizeDevice(blivet_device, user_input.size))
 
         if user_input.format:
-            new_fmt = blivet.formats.getFormat(user_input.filesystem)
+            new_fmt = blivet.formats.getFormat(user_input.filesystem, mountpoint=user_input.mountpoint)
             actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_fmt))
 
         try:
@@ -687,8 +687,8 @@ class BlivetUtils():
                 actions.append(blivet.deviceaction.ActionCreateFormat(dev, fmt))
 
                 luks_dev = blivet.devices.LUKSDevice("luks-%s" % dev.name,
-                    fmt=blivet.formats.getFormat(user_input.filesystem,
-                        device=dev.path), size=dev.size, parents=[dev])
+                    fmt=blivet.formats.getFormat(user_input.filesystem, device=dev.path,
+                        mountpoint=user_input.mountpoint), size=dev.size, parents=[dev])
 
                 actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
 
