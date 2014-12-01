@@ -1160,16 +1160,13 @@ class BlivetUtils():
 
         return old_mountpoints
 
-    def kickstart_use_disks(self, disk_names):
+    def kickstart_hide_disks(self, disk_names):
 
         for name in disk_names:
-            self.ksparser.handler.ignoredisk.onlyuse.append(name)
+            disk_device = self.storage.devicetree.getDeviceByName(name)
+            self.storage.devicetree.hide(disk_device)
 
-        self.storage.ksdata = self.ksparser.handler
-
-        self.storage.reset()
-
-        # ignore existing mountpoints
+        self.storage.devicetree.populate()
 
     def luks_decrypt(self, blivet_device, passphrase):
         """ Decrypt selected luks device

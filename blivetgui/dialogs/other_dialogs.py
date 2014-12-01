@@ -226,7 +226,7 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
         selected_disks_names = []
 
         for row in self.disks_store:
-            if row[1]:
+            if not row[1]:
                 selected_disks_names.append(row[0].name)
 
         return (selected_disks_names, self.boot_device_combo.get_sensitive(),

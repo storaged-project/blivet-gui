@@ -87,7 +87,7 @@ class ListDevices():
                 dialog.destroy()
                 sys.exit(0)
 
-            self.b.kickstart_use_disks(self.use_disks)
+            self.b.kickstart_hide_disks(self.use_disks)
 
             self.old_mountpoints = self.b.kickstart_mountpoints()
 
