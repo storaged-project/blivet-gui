@@ -742,9 +742,7 @@ class AddDialog(Gtk.Dialog):
             button2.set_sensitive(False)
 
         else:
-            # button1 is always pre-selected and re-selecting it using
-            # button1.set_active(True) doesn't emit the toggled signal
-            button1.toggled()
+            button2.set_active(True)
 
         self.free_type_chooser = (label_empty_type, button1, button2)
 
