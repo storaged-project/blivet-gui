@@ -898,6 +898,7 @@ class BlivetUtils():
                     btrfs_parents.append(dev)
 
             new_btrfs = BTRFSVolumeDevice(device_name, size=total_size, parents=btrfs_parents)
+            new_btrfs.format = blivet.formats.getFormat("btrfs", label=device_name)
             actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
 
         elif user_input.device_type == "btrfs subvolume":
