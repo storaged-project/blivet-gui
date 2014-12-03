@@ -349,7 +349,7 @@ class LVMEditDialog(Gtk.Dialog):
 
             renderer_text = Gtk.CellRendererText()
 
-            column_toggle = Gtk.TreeViewColumn(None, renderer_toggle, active=2)
+            column_toggle = Gtk.TreeViewColumn("Add?", renderer_toggle, active=2)
             column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=3)
             column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=4)
             column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=5)
@@ -390,6 +390,10 @@ class LVMEditDialog(Gtk.Dialog):
     def on_cell_toggled(self, toggle, path, store):
         store[path][2] = not store[path][2]
 
+    def on_cell_radio_toggled(self, toggle, path, store):
+        for row in store:
+            row[2] = (row.path == Gtk.TreePath(path))
+
     def remove_parents(self):
 
         if len(self.removable_pvs) == 0:
@@ -400,6 +404,44 @@ class LVMEditDialog(Gtk.Dialog):
             self.widgets_dict["remove"] = [label_none]
 
             return None
+
+        else:
+            parents_store = Gtk.ListStore(object, object, bool, str, str, str)
+            parents_view = Gtk.TreeView(model=parents_store)
+
+            parents_view.set_tooltip_text(_("Currently is possible to remove only one parent at time."))
+
+            renderer_radio = Gtk.CellRendererToggle()
+            renderer_radio.connect("toggled", self.on_cell_radio_toggled, parents_store)
+            renderer_radio.set_radio(True)
+
+            renderer_text = Gtk.CellRendererText()
+
+            column_radio = Gtk.TreeViewColumn("Remove?", renderer_radio, active=2)
+            column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=3)
+            column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=4)
+            column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=5)
+
+            parents_view.append_column(column_radio)
+            parents_view.append_column(column_name)
+            parents_view.append_column(column_type)
+            parents_view.append_column(column_size)
+
+            parents_view.set_headers_visible(True)
+
+            label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
+            label_list.get_style_context().add_class("dim-label")
+
+            self.grid.attach(label_list, 0, 5, 1, 1)
+            self.grid.attach(parents_view, 1, 5, 4, 3)
+
+            for pv in self.removable_pvs:
+                parents_store.append([pv, None, False, pv.name,
+                    "lvmpv", str(pv.size)])
+
+            self.widgets_dict["remove"] = [label_list, parents_view]
+
+            return parents_store
 
     def on_button_toggled(self, clicked_button, button_type, other_button):
 

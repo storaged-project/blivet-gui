@@ -326,11 +326,15 @@ class BlivetUtils():
 
     def get_removable_pvs_info(self, blivet_device):
 
-        #TODO
-
         assert blivet_device.type == "lvmvg"
 
-        return []
+        pvs = []
+
+        for parent in blivet_device.parents:
+            if int((parent.size-parent.format.peStart) / blivet_device.peSize) <= blivet_device.freeExtents:
+                pvs.append(parent)
+
+        return pvs
 
     def get_free_space(self, blivet_device, partitions):
         """ Find free space on device
@@ -532,6 +536,9 @@ class BlivetUtils():
                 except blivet.errors.CryptoError:
                     msg = _("Failed to remove device {0}. Are you sure it is not in use?").format(parent.name)
                     message_dialogs.ErrorDialog(self.main_window, msg)
+
+                    # cancel destroy action for luks device
+                    self.blivet_cancel_actions(actions)
                     return
 
                 actions.extend(self.delete_device(parent))
@@ -610,18 +617,23 @@ class BlivetUtils():
             return
 
     def edit_lvmvg_device(self, user_input):
+        actions = []
 
         if user_input.action_type == "add":
-            actions = []
             for parent in user_input.parents_list:
                 action = self.add_lvmvg_parent(user_input.edit_device, parent)
 
                 if action:
                     actions.extend(action)
-                    return actions
 
         elif user_input.action_type == "remove":
-            return #TODO
+            for parent in user_input.parents_list:
+                action = self.remove_lvmvg_parent(user_input.edit_device, parent)
+
+                if action:
+                    actions.extend(action)
+
+        return actions
 
     def _pick_device_name(self, name, parent_device=None):
         """ Pick name for device.
@@ -963,6 +975,28 @@ class BlivetUtils():
             return
 
         return actions
+
+    def remove_lvmvg_parent(self, container, parent):
+        """ Add parent fromexisting lvmg
+
+            :param container: existing lvmvg
+            :type container: class blivet.LVMVolumeGroupDevice
+            :param parent: parent
+            :type parent: class blivet.Device
+
+        """
+
+        try:
+            ac_rm = blivet.deviceaction.ActionRemoveMember(container, parent)
+            self.storage.devicetree.registerAction(ac_rm)
+
+        except Exception as e:
+
+            message_dialogs.ExceptionDialog(self.main_window, str(e),
+                traceback.format_exc())
+            return
+
+        return [ac_rm]
 
     def add_lvmvg_parent(self, container, parent):
         """ Add new parent to existing lvmg
