@@ -158,11 +158,28 @@ class ConfirmActionsDialog():
         self.dialog.set_markup("<b>" + title + "</b>")
         self.dialog.format_secondary_text(msg)
 
-        self.show_actions(builder.get_object("scrolledwindow"))
+        scrolledwindow = builder.get_object("scrolledwindow")
+        treeview = self.show_actions(scrolledwindow)
 
         self.dialog.show_all()
 
-    def show_actions(self, viewport):
+        width = treeview.size_request().width
+        height = treeview.size_request().height
+        win_width = int(parent_window.get_allocated_width()*0.60)
+        win_height = int(parent_window.get_allocated_height()*0.60)
+
+        if width < win_width and height < win_height:
+            scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        elif width < win_width and height >= win_height:
+            scrolledwindow.set_size_request(width, win_height)
+            scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+        elif width >= win_width and height < win_height:
+            scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+        else:
+            scrolledwindow.set_size_request(win_width, win_height)
+            scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+
+    def show_actions(self, scrolledwindow):
 
         icon_theme = Gtk.IconTheme.get_default()
         icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
@@ -195,7 +212,9 @@ class ConfirmActionsDialog():
         column_text = Gtk.TreeViewColumn(None, renderer_text, text=1)
         treeview.append_column(column_text)
 
-        viewport.add(treeview)
+        scrolledwindow.add(treeview)
+
+        return treeview
 
     def on_action_clicked(self, selection):
 

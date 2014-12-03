@@ -36,6 +36,10 @@
           <object class="GtkScrolledWindow" id="scrolledwindow">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
+            <property name="margin_left">18</property>
+            <property name="margin_right">18</property>
+            <property name="margin_top">6</property>
+            <property name="margin_bottom">16</property>
             <property name="shadow_type">in</property>
             <child>
               <placeholder/>
