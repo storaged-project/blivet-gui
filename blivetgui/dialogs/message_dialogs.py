@@ -177,7 +177,7 @@ class ConfirmActionsDialog():
             elif action.isAdd or action.isCreate:
                 actions_list.append([icon_add, str(action)])
             else:
-                action_list.append([icon_edit, str(action)])
+                actions_list.append([icon_edit, str(action)])
 
         treeview = Gtk.TreeView(model=actions_list)
         treeview.set_headers_visible(False)
