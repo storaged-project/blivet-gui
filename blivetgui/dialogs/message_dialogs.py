@@ -158,7 +158,7 @@ class ConfirmActionsDialog():
         self.dialog.set_markup("<b>" + title + "</b>")
         self.dialog.format_secondary_text(msg)
 
-        self.show_actions(builder.get_object("viewport"))
+        self.show_actions(builder.get_object("scrolledwindow"))
 
         self.dialog.show_all()
 
