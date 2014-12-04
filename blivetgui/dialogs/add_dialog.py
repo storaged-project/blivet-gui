@@ -28,7 +28,7 @@ import os
 
 import gettext
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from blivet import Size
 
@@ -549,7 +549,7 @@ class AddDialog(Gtk.Dialog):
         self.devices_combo.connect("changed", self.on_devices_combo_changed)
 
         self.size_areas = []
-        self.size_grid = self.add_size_areas()
+        self.size_grid, self.size_scroll = self.add_size_areas()
 
         self.advanced = None
 
@@ -681,7 +681,7 @@ class AddDialog(Gtk.Dialog):
 
     def on_raid_type_changed(self, event):
 
-        self.size_grid = self.add_size_areas()
+        self.size_grid, self.size_scroll = self.add_size_areas()
 
     def add_raid_type_chooser(self):
 
@@ -705,7 +705,7 @@ class AddDialog(Gtk.Dialog):
         if button.get_active():
             self.update_parent_list(parent_type=name)
 
-            self.size_grid = self.add_size_areas()
+            self.size_grid, self.size_scroll = self.add_size_areas()
 
             if name == "disks":
                 self.hide_widgets(["size"])
@@ -811,7 +811,7 @@ class AddDialog(Gtk.Dialog):
         else:
             self.parents_store[path][3] = not self.parents_store[path][3]
 
-            self.size_grid = self.add_size_areas()
+            self.size_grid, self.size_scroll = self.add_size_areas()
             self.update_raid_type_chooser()
 
     def raid_member_max_size(self):
@@ -867,20 +867,20 @@ class AddDialog(Gtk.Dialog):
             for area in self.size_areas:
                 area.destroy()
 
+            self.size_scroll.destroy()
+            self.size_grid.destroy()
+
             self.size_areas = []
 
-        # size_scroll = Gtk.ScrolledWindow() # FIXME
-        # size_scroll.set_min_content_height(125)
-        # size_scroll.set_min_content_width(550)
-
-        # self.grid.attach(size_scroll, 0, 6, 6, 1)
-        # size_scroll.show()
+        size_scroll = Gtk.ScrolledWindow()
+        size_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+        self.grid.attach(size_scroll, 0, 6, 6, 1)
+        size_scroll.show()
 
         size_grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
             column_spacing=5)
 
-        self.grid.attach(size_grid, 0, 6, 6, 1)
-        # size_scroll.add(size_grid)
+        size_scroll.add(size_grid)
         size_grid.show()
 
         posititon = 0
@@ -916,7 +916,44 @@ class AddDialog(Gtk.Dialog):
             if device_type in ["lvmvg", "btrfs subvolume"]:
                 area.set_sensitive(False)
 
-        return size_grid
+        size_area_height = size_grid.size_request().height
+        size_area_width = size_grid.size_request().width
+        screen_height = Gdk.Screen.get_default().get_height()
+        screen_width = Gdk.Screen.get_default().get_width()
+        dialog_height = self.size_request().height
+
+        size_diff = int((screen_height*0.7) - dialog_height)
+
+        print("num areas", len(self.size_areas), "size_diff", size_diff, "dialog_height", dialog_height, "size_area_height", size_area_height)
+
+        if size_diff < 0:
+            # dialog is largen than 70 % of screen
+            areas_to_display = len(self.size_areas) - (abs(size_diff) / (size_area_height / len(self.size_areas)))
+
+            if areas_to_display < 1:
+                size_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+
+            else:
+                if size_area_height > screen_width*0.7:
+                    size_scroll.set_size_request(screen_width*0.7,
+                        int(size_area_height/len(self.size_areas))*areas_to_display)
+                    size_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+
+                else:
+                    size_scroll.set_size_request(size_area_width,
+                        int(size_area_height/len(self.size_areas))*areas_to_display)
+                    size_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+
+        else:
+            if size_area_width > screen_width*0.7:
+                size_scroll.set_size_request(screen_width*0.7, size_area_height)
+                size_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+
+            else:
+                size_grid.set_size_request(size_area_width, size_area_height + 20)
+                size_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+
+        return size_grid, size_scroll
 
     def add_md_type_chooser(self):
         label_md_type = Gtk.Label(label=_("MDArray type:"), xalign=1)
@@ -1097,7 +1134,7 @@ class AddDialog(Gtk.Dialog):
 
         self.update_parent_list()
         self.add_advanced_options()
-        self.size_grid = self.add_size_areas()
+        self.size_grid, self.size_scroll = self.add_size_areas()
 
         if self.free_type_chooser and device_type != "btrfs volume":
             self.remove_free_type_chooser()
