@@ -540,7 +540,7 @@ class AddDialog(Gtk.Dialog):
         self.encrypt_check, self.pass_entry = self.add_encrypt_chooser()
         self.parents_store = self.add_parent_list()
 
-        self.raid_combo = self.add_raid_type_chooser()
+        self.raid_combo, self.raid_changed_signal = self.add_raid_type_chooser()
 
         if kickstart:
             self.mountpoint_entry = self.add_mountpoint()
@@ -657,11 +657,14 @@ class AddDialog(Gtk.Dialog):
             # save previously selected raid type
             selected = self.raid_combo.get_active_text()
 
+            self.raid_combo.handler_block(self.raid_changed_signal)
             self.raid_combo.remove_all()
 
             for raid in self.supported_raids[device_type]:
                 if num_parents >= raid.min_members:
                     self.raid_combo.append_text(raid.name)
+
+            self.raid_combo.handler_unblock(self.raid_changed_signal)
 
             for widget in self.widgets_dict["raid"]:
                 widget.show()
@@ -680,7 +683,6 @@ class AddDialog(Gtk.Dialog):
         return
 
     def on_raid_type_changed(self, event):
-
         self.size_grid, self.size_scroll = self.add_size_areas()
 
     def add_raid_type_chooser(self):
@@ -693,13 +695,13 @@ class AddDialog(Gtk.Dialog):
         raid_combo.set_entry_text_column(0)
         raid_combo.set_id_column(0)
 
-        raid_combo.connect("changed", self.on_raid_type_changed)
+        raid_changed_signal = raid_combo.connect("changed", self.on_raid_type_changed)
 
         self.grid.attach(raid_combo, 1, 5, 1, 1)
 
         self.widgets_dict["raid"] = [label_raid, raid_combo]
 
-        return raid_combo
+        return raid_combo, raid_changed_signal
 
     def on_free_space_type_toggled(self, button, name):
         if button.get_active():
@@ -858,7 +860,6 @@ class AddDialog(Gtk.Dialog):
                 area.set_selected_size(size)
 
     def add_size_areas(self):
-
         device_type = self._get_selected_device_type()
 
         self.widgets_dict["size"] = []
@@ -923,8 +924,6 @@ class AddDialog(Gtk.Dialog):
         dialog_height = self.size_request().height
 
         size_diff = int((screen_height*0.7) - dialog_height)
-
-        print("num areas", len(self.size_areas), "size_diff", size_diff, "dialog_height", dialog_height, "size_area_height", size_area_height)
 
         if size_diff < 0:
             # dialog is largen than 70 % of screen
