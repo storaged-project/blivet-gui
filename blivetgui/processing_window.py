@@ -47,11 +47,11 @@ class ProcessingActions(Gtk.Dialog):
 
         self.set_border_width(8)
         self.set_position(Gtk.WindowPosition.CENTER)
-        self.set_resizable(False)
-        self.set_response_sensitive(0, False)
+        self.set_response_sensitive(Gtk.ResponseType.OK, False)
 
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
             column_spacing=5)
+        self.grid.set_margin_bottom(12)
 
         box = self.get_content_area()
         box.add(self.grid)
@@ -69,6 +69,8 @@ class ProcessingActions(Gtk.Dialog):
 
         self.timeout_id = GObject.timeout_add(50, self.on_timeout, None)
         self.thread = threading.Thread(target=self.do_it)
+
+        self.set_resizable(False)
         self.show_all()
         self.thread.start()
 
@@ -82,7 +84,7 @@ class ProcessingActions(Gtk.Dialog):
         self.thread.join()
         self.pulse = False
         self.progressbar.set_fraction(1)
-        self.set_response_sensitive(0, True)
+        self.set_response_sensitive(Gtk.ResponseType.OK, True)
 
         if error:
             self.label.set_markup(_("<b>Queued actions couldn't be finished due " \
