@@ -670,7 +670,8 @@ class BlivetUtils():
 
             # if still exists let blivet pick it
             if name in self.storage.names:
-                name = _pick_device_name(name=None, parent_device=parent_device)
+                name = self._pick_device_name(name=None,
+                    parent_device=parent_device)
 
         return name
 
@@ -684,7 +685,6 @@ class BlivetUtils():
 
         """
 
-        device_id = None
         actions = []
 
         if user_input.device_type == "partition":
@@ -698,7 +698,7 @@ class BlivetUtils():
                 fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
                 actions.append(blivet.deviceaction.ActionCreateFormat(dev, fmt))
 
-                luks_dev = blivet.devices.LUKSDevice("luks-%s" % dev.name,
+                luks_dev = LUKSDevice("luks-%s" % dev.name,
                     fmt=blivet.formats.getFormat(user_input.filesystem, device=dev.path,
                         mountpoint=user_input.mountpoint), size=dev.size, parents=[dev])
 
@@ -775,7 +775,7 @@ class BlivetUtils():
                 fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
                 ac_fmt = blivet.deviceaction.ActionCreateFormat(dev, fmt)
 
-                luks_dev = blivet.devices.LUKSDevice("luks-%s" % dev.name,
+                luks_dev = LUKSDevice("luks-%s" % dev.name,
                     fmt=blivet.formats.getFormat("lvmpv", device=dev.path),
                     size=dev.size, parents=[dev])
                 ac_luks = blivet.deviceaction.ActionCreateDevice(luks_dev)
@@ -838,7 +838,7 @@ class BlivetUtils():
                 fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
                 actions.append(blivet.deviceaction.ActionCreateFormat(dev, fmt))
 
-                luks_dev = blivet.devices.LUKSDevice("luks-%s" % dev.name,
+                luks_dev = LUKSDevice("luks-%s" % dev.name,
                     fmt=blivet.formats.getFormat("lvmpv", device=dev.path),
                     size=dev.size, parents=[dev])
                 actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))

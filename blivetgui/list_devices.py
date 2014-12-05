@@ -22,7 +22,7 @@
 #
 #------------------------------------------------------------------------------#
 
-import sys, os, signal
+import sys, signal
 
 from gi.repository import Gtk, GdkPixbuf
 

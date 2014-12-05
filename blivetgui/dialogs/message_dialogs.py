@@ -35,20 +35,22 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 #------------------------------------------------------------------------------#
 
 def locate_ui_file(filename):
+    """ Locate Glade ui files
+    """
 
     path = [os.path.split(os.path.abspath(__file__))[0] + '/../../data/ui/',
-        '/usr/share/blivet-gui/ui/']
+            '/usr/share/blivet-gui/ui/']
 
     for folder in path:
-        fn = folder + filename
-        if os.access(fn, os.R_OK):
-            return fn
+        filepath = folder + filename
+        if os.access(filepath, os.R_OK):
+            return filepath
 
     raise RuntimeError("Unable to find glade file %s" % filename)
 
 #------------------------------------------------------------------------------#
 
-class WarningDialog():
+class WarningDialog(object):
     """ Basic warning dialog
     """
 
@@ -65,7 +67,7 @@ class WarningDialog():
         dialog.run()
         dialog.destroy()
 
-class ErrorDialog():
+class ErrorDialog(object):
     """ Basic error dialog
     """
 
@@ -82,7 +84,7 @@ class ErrorDialog():
         dialog.run()
         dialog.destroy()
 
-class InfoDialog():
+class InfoDialog(object):
     """ Basic error dialog
     """
 
@@ -99,7 +101,9 @@ class InfoDialog():
         dialog.run()
         dialog.destroy()
 
-class ExceptionDialog():
+class ExceptionDialog(object):
+    """ Error dialog with traceback
+    """
 
     def __init__(self, parent_window, msg, traceback):
 
@@ -117,7 +121,7 @@ class ExceptionDialog():
         dialog.run()
         dialog.destroy()
 
-class ConfirmDialog():
+class ConfirmDialog(object):
     """ General confirmation dialog
     """
 
@@ -134,6 +138,8 @@ class ConfirmDialog():
         self.dialog.show_all()
 
     def run(self):
+        """ Run the dialog
+        """
 
         response = self.dialog.run()
 
@@ -142,7 +148,7 @@ class ConfirmDialog():
         return response == Gtk.ResponseType.OK
 
 
-class ConfirmActionsDialog():
+class ConfirmActionsDialog(object):
     """ Confirm execute actions
     """
 
@@ -159,31 +165,37 @@ class ConfirmActionsDialog():
         self.dialog.format_secondary_text(msg)
 
         scrolledwindow = builder.get_object("scrolledwindow")
-        treeview = self.show_actions(scrolledwindow)
+        self.treeview, self.selection_signal = self.show_actions(scrolledwindow)
 
         self.dialog.show_all()
 
-        width = treeview.size_request().width
-        height = treeview.size_request().height
+        width = self.treeview.size_request().width
+        height = self.treeview.size_request().height
         win_width = int(parent_window.get_allocated_width()*0.60)
         win_height = int(parent_window.get_allocated_height()*0.60)
 
         if width < win_width and height < win_height:
-            scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+            scrolledwindow.set_policy(Gtk.PolicyType.NEVER,
+                                      Gtk.PolicyType.NEVER)
         elif width < win_width and height >= win_height:
             scrolledwindow.set_size_request(width, win_height)
-            scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+            scrolledwindow.set_policy(Gtk.PolicyType.NEVER,
+                                      Gtk.PolicyType.AUTOMATIC)
         elif width >= win_width and height < win_height:
-            scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+            scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC,
+                                      Gtk.PolicyType.NEVER)
         else:
             scrolledwindow.set_size_request(win_width, win_height)
-            scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+            scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC,
+                                      Gtk.PolicyType.AUTOMATIC)
 
     def show_actions(self, scrolledwindow):
+        """ Show list of pending actions
+        """
 
         icon_theme = Gtk.IconTheme.get_default()
         icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
-        icon_delete = Gtk.IconTheme.load_icon (icon_theme, "edit-delete", 16, 0)
+        icon_delete = Gtk.IconTheme.load_icon(icon_theme, "edit-delete", 16, 0)
         icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all", 16, 0)
 
         actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
@@ -202,7 +214,7 @@ class ConfirmActionsDialog():
         treeview.set_hexpand(True)
 
         selection = treeview.get_selection()
-        self.selection_signal = selection.connect("changed", self.on_action_clicked)
+        selection_signal = selection.connect("changed", self.on_action_clicked)
 
         renderer_pixbuf = Gtk.CellRendererPixbuf()
         column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, pixbuf=0)
@@ -214,9 +226,11 @@ class ConfirmActionsDialog():
 
         scrolledwindow.add(treeview)
 
-        return treeview
+        return treeview, selection_signal
 
     def on_action_clicked(self, selection):
+        """ Onclick action for treeview
+        """
 
         model, treeiter = selection.get_selected()
 
@@ -226,6 +240,8 @@ class ConfirmActionsDialog():
             selection.handler_unblock(self.selection_signal)
 
     def run(self):
+        """ Run the dialog
+        """
 
         response = self.dialog.run()
 
