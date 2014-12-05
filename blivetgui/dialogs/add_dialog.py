@@ -661,6 +661,8 @@ class AddDialog(Gtk.Dialog):
             self.raid_combo.remove_all()
 
             for raid in self.supported_raids[device_type]:
+                if raid.name == "container":
+                    continue
                 if num_parents >= raid.min_members:
                     self.raid_combo.append_text(raid.name)
 
