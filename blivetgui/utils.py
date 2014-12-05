@@ -294,7 +294,7 @@ class BlivetUtils():
 
         for disk in self.storage.disks:
 
-            if disk.format.type in ["iso9660", "btrfs", "mdmember"]:
+            if disk.format.type in ["iso9660", "btrfs", "mdmember", "dmraidmember"]:
                 continue
 
             elif not disk.format.type:
@@ -357,7 +357,7 @@ class BlivetUtils():
             partitions.append(FreeSpaceDevice(blivet_device.size, 0,
                 blivet_device.partedDevice.length, [blivet_device], False))
 
-        elif blivet_device.isDisk and blivet_device.format.type in ["iso9660", "btrfs", "mdmember"]:
+        elif blivet_device.isDisk and blivet_device.format.type in ["iso9660", "btrfs", "mdmember", "dmraidmember"]:
             # LiveUSB or btrfs/mdraid partition table, no free space here
             pass
 
