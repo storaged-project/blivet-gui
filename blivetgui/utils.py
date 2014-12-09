@@ -47,27 +47,6 @@ PARTITION_TYPE = {"primary" : parted.PARTITION_NORMAL, "logical" : parted.PARTIT
 
 #------------------------------------------------------------------------------#
 
-def swap_is_on(sysfs_path):
-    """ Is selected swap in use?
-
-        :param sysfs_path: sysfs path for swap
-        :type sysfs_path: str
-
-    """
-
-    try:
-        swaps = open("/proc/swaps", "r")
-    except IOError:
-        return None
-
-    for line in swaps:
-        # /proc/swaps line fmt:
-        # Filename-Type-Size-Used-Priority
-        if line.split()[0].split("/")[-1] == sysfs_path.split("/")[-1]:
-            return True
-
-    return False
-
 class ISO9660Device():
     """ Special class to represent disk with iso9660 format
     """

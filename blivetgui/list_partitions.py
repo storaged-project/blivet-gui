@@ -430,15 +430,15 @@ class ListPartitions():
             if self.kickstart_mode or not device.format.type:
                 return True
 
-            elif device.format.type == "swap" and swap_is_on(device.sysfsPath):
-                return False
+            elif device.format.type == "swap":
+                return not device.format.status
 
             else:
                 if not device.format.mountable:
                     return True
 
                 else:
-                    return (device.format.mountpoint == None)
+                    return not device.format.status
 
     def _allow_edit_device(self, device):
         """ Is this device editable?
@@ -470,8 +470,7 @@ class ListPartitions():
                 return True
 
             else:
-                return (device.format.mountpoint == None)
-
+                return not device.format.status
 
     def activate_action_buttons(self, selected_device):
         """ Activate buttons in toolbar based on selected device
