@@ -672,15 +672,16 @@ class ListPartitions():
         """ Unmount selected partition
         """
 
-        mountpoint = self.selected_partition[3]
+        try:
+            self.selected_partition[0].format.unmount()
 
-        if os_umount_partition(mountpoint):
-            self.update_partitions_view(self.disk)
-
-        else:
-
+        except blivet.errors.FSError:
             msg = _("Unmount failed. Are you sure {0} is not in use?").format(self.selected_partition[0].name)
             message_dialogs.ErrorDialog(self.main_window, msg)
+
+        else:
+            self.selected_partition[0].format.mountpoint = None
+            self.update_partitions_view(self.disk)
 
     def decrypt_device(self):
         """ Decrypt selected device

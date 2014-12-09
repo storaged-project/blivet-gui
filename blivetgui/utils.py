@@ -68,30 +68,6 @@ def swap_is_on(sysfs_path):
 
     return False
 
-def os_umount_partition(mountpoint):
-    """ Umount selected partition
-
-        :param mountpoint: mountpoint (os.path)
-        :type mountpoint: str
-        :returns: success
-        :rtype: bool
-
-    """
-
-    if not os.path.ismount(mountpoint):
-        return False
-
-    FNULL = open(os.devnull, "w")
-    umount_proc = subprocess.Popen(["umount", mountpoint], stdout=FNULL,
-        stderr=subprocess.STDOUT)
-
-    ret = umount_proc.wait()
-
-    if ret != 0:
-        return False
-
-    return True
-
 class ISO9660Device():
     """ Special class to represent disk with iso9660 format
     """
@@ -1204,6 +1180,12 @@ class BlivetUtils():
             return e
 
         self.storage.devicetree.populate()
+
+    def update_mountpoints(self):
+        """ Update information about mounted devices
+        """
+
+        self.storage.devicetree.getActiveMounts()
 
     @property
     def return_devicetree(self):
