@@ -47,29 +47,6 @@ PARTITION_TYPE = {"primary" : parted.PARTITION_NORMAL, "logical" : parted.PARTIT
 
 #------------------------------------------------------------------------------#
 
-def partition_mounted(partition_path):
-    """ Is selected partition partition_mounted
-
-        :param partition_path: /dev path for partition
-        :param type: str
-        :returns: mountpoint
-        :rtype: str
-
-    """
-
-    try:
-        mounts = open("/proc/mounts", "r")
-    except IOError:
-        return None
-
-    for line in mounts:
-        # /proc/mounts line fmt:
-        # device-mountpoint-mountopts
-        if line.split()[0] == partition_path:
-            return line.split()[1]
-
-    return None
-
 def swap_is_on(sysfs_path):
     """ Is selected swap in use?
 
@@ -329,6 +306,9 @@ class BlivetUtils():
         assert blivet_device.type == "lvmvg"
 
         pvs = []
+
+        if len(blivet_device.parents) == 1:
+            return pvs
 
         for parent in blivet_device.parents:
             if int((parent.size-parent.format.peStart) / blivet_device.peSize) <= blivet_device.freeExtents:

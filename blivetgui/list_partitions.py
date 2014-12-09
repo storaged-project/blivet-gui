@@ -240,7 +240,7 @@ class ListPartitions():
                     partition.format.mountpoint, str(partition.size),
                     str(resize_size), None, None])
 
-            elif partition.format.mountpoint == None and self.kickstart_mode:
+            elif not partition.format.mountpoint and self.kickstart_mode:
 
                 if partition.format.uuid in self.list_devices.old_mountpoints.keys():
                     old_mnt = self.list_devices.old_mountpoints[partition.format.uuid]
@@ -253,7 +253,7 @@ class ListPartitions():
 
             else:
                 iter_added = self.partitions_list.append(parent, [partition,
-                    partition.name, partition.format.type, partition_mounted(partition.path),
+                    partition.name, partition.format.type, partition.format.mountpoint,
                     str(partition.size), str(resize_size), None, None])
         else:
             iter_added = self.partitions_list.append(parent, [partition,
@@ -438,10 +438,7 @@ class ListPartitions():
                     return True
 
                 else:
-                    # partition_mounted returns true for mounted partitions
-                    # we need to return false, because mounted partitions
-                    # cannot be deleted
-                    return not partition_mounted(device.path)
+                    return (device.format.mountpoint == None)
 
     def _allow_edit_device(self, device):
         """ Is this device editable?
@@ -473,7 +470,7 @@ class ListPartitions():
                 return True
 
             else:
-                return not partition_mounted(device.path)
+                return (device.format.mountpoint == None)
 
 
     def activate_action_buttons(self, selected_device):
@@ -502,7 +499,7 @@ class ListPartitions():
                 and device.format.exists:
                 self.activate_options(["decrypt"])
 
-            elif device.format.mountable and partition_mounted(device.path):
+            elif device.format.mountable and device.format.mountpoint :
                 self.activate_options(["unmount"])
 
     def delete_selected_partition(self):
