@@ -29,7 +29,7 @@ from dialogs import message_dialogs
 
 import gettext
 
-import os, subprocess, copy, traceback, socket
+import traceback, socket
 
 import parted
 
@@ -42,12 +42,13 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
-PARTITION_TYPE = {"primary" : parted.PARTITION_NORMAL, "logical" : parted.PARTITION_LOGICAL,
-    "extended" : parted.PARTITION_EXTENDED}
+PARTITION_TYPE = {"primary" : parted.PARTITION_NORMAL,
+                  "logical" : parted.PARTITION_LOGICAL,
+                  "extended" : parted.PARTITION_EXTENDED}
 
 #------------------------------------------------------------------------------#
 
-class ISO9660Device():
+class ISO9660Device(object):
     """ Special class to represent disk with iso9660 format
     """
 
@@ -72,7 +73,7 @@ class ISO9660Device():
         else:
             self.name = _("ISO9660 Disklabel")
 
-class FreeSpaceDevice():
+class FreeSpaceDevice(object):
     """ Special class to represent free space on disk (device)
         (blivet doesn't have class/device to represent free space)
     """
@@ -126,7 +127,7 @@ class FreeSpaceDevice():
         return "existing " + str(self.size) + " free space"
 
 
-class BlivetUtils():
+class BlivetUtils(object):
     """ Class with utils directly working with blivet itselves
     """
 
@@ -526,7 +527,8 @@ class BlivetUtils():
             actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_fmt))
 
         try:
-            [self.storage.devicetree.registerAction(ac) for ac in actions]
+            for ac in actions:
+                self.storage.devicetree.registerAction(ac)
             blivet.partitioning.doPartitioning(self.storage)
             return actions
 
@@ -537,6 +539,9 @@ class BlivetUtils():
             return
 
     def edit_lvmvg_device(self, user_input):
+        """ Edit LVM Volume group
+        """
+
         actions = []
 
         if user_input.action_type == "add":
@@ -662,7 +667,8 @@ class BlivetUtils():
                 # we need to try to create pvs immediately, if something
                 # fails, fail now
                 try:
-                    [self.storage.devicetree.registerAction(ac) for ac in (ac_part, ac_fmt)]
+                    for ac in (ac_part, ac_fmt):
+                        self.storage.devicetree.registerAction(ac)
 
                 except blivet.errors.PartitioningError as e:
 
@@ -707,7 +713,8 @@ class BlivetUtils():
                 # we need to try to create pvs immediately, if something
                 # fails, fail now
                 try:
-                    [self.storage.devicetree.registerAction(ac) for ac in (ac_part, ac_fmt, ac_luks)]
+                    for ac in (ac_part, ac_fmt, ac_luks):
+                        self.storage.devicetree.registerAction(ac)
 
                 except blivet.errors.PartitioningError as e:
 
@@ -819,7 +826,8 @@ class BlivetUtils():
                     # we need to try to create partitions immediately, if something
                     # fails, fail now
                     try:
-                        [self.storage.devicetree.registerAction(ac) for ac in (ac_part, ac_fmt)]
+                        for ac in (ac_part, ac_fmt):
+                            self.storage.devicetree.registerAction(ac)
 
                     except blivet.errors.PartitioningError as e:
 
@@ -865,7 +873,8 @@ class BlivetUtils():
                 # we need to try to create pvs immediately, if something
                 # fails, fail now
                 try:
-                    [self.storage.devicetree.registerAction(ac) for ac in (ac_part, ac_fmt)]
+                    for ac in (ac_part, ac_fmt):
+                        self.storage.devicetree.registerAction(ac)
 
                 except blivet.errors.PartitioningError as e:
 
@@ -884,7 +893,9 @@ class BlivetUtils():
             actions.append(blivet.deviceaction.ActionCreateFormat(new_md, fmt))
 
         try:
-            [self.storage.devicetree.registerAction(ac) for ac in actions if not ac._applied]
+            for ac in actions:
+                if not ac._applied:
+                    self.storage.devicetree.registerAction(ac)
 
             blivet.partitioning.doPartitioning(self.storage)
 
@@ -942,7 +953,9 @@ class BlivetUtils():
 
             actions.extend([ac_part, ac_fmt])
 
-            [self.storage.devicetree.registerAction(ac) for ac in (ac_part, ac_fmt)]
+            for ac in (ac_part, ac_fmt):
+                self.storage.devicetree.registerAction(ac)
+
             blivet.partitioning.doPartitioning(self.storage)
 
             parent = dev
@@ -1003,6 +1016,8 @@ class BlivetUtils():
         return self.storage.devicetree.findActions()
 
     def has_extended_partition(self, blivet_device):
+        """ Detect if disk has an extended partition
+        """
 
         if not blivet_device.isDisk:
             return False
@@ -1070,7 +1085,8 @@ class BlivetUtils():
 
         actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_label))
 
-        [self.storage.devicetree.registerAction(ac) for ac in actions]
+        for ac in actions:
+            self.storage.devicetree.registerAction(ac)
 
         return actions
 
@@ -1086,8 +1102,9 @@ class BlivetUtils():
         self.storage.ksdata = self.ksparser.handler
 
     def kickstart_mountpoints(self):
+        """ delete existing mountpoints from dt and save them for future use
+        """
 
-        # delete existing mountpoints from devicetree and save them for future use
         old_mountpoints = {}
 
         for mountpoint in self.storage.mountpoints.values():
@@ -1102,6 +1119,8 @@ class BlivetUtils():
         return old_mountpoints
 
     def kickstart_hide_disks(self, disk_names):
+        """ Hide disks not used in kickstart mode
+        """
 
         for name in disk_names:
             disk_device = self.storage.devicetree.getDeviceByName(name)
@@ -1138,6 +1157,9 @@ class BlivetUtils():
         self.storage.devicetree.getActiveMounts()
 
     def blivet_cancel_actions(self, actions):
+        """ Cancel scheduled actions
+        """
+
         actions.reverse()
 
         for action in actions:
