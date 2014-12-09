@@ -260,6 +260,7 @@ class device_canvas(Gtk.DrawingArea):
         cairo_ctx.select_font_face(font_name, cairo.FONT_SLANT_NORMAL,
             cairo.FONT_WEIGHT_NORMAL)
 
+        name = unicode(name, "utf-8")
         while cairo_ctx.text_extents(name)[-2] > r.width - 20:
             name = name[:-1]
             if len(name) > 3:
