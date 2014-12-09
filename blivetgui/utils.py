@@ -154,21 +154,6 @@ class BlivetUtils():
 
         return self.storage.disks
 
-    def get_disk_names(self):
-        """ Return list of names of all disk devices on current system
-
-            :returns: list of all "disk" devices names
-            :rtype: list
-
-        """
-
-        disk_names = []
-
-        for disk in self.storage.disks:
-            disk_names.append(disk.name)
-
-        return disk_names
-
     def get_group_devices(self):
         """ Return list of LVM2 Volume Group devices
 
@@ -993,20 +978,6 @@ class BlivetUtils():
 
         return blivet_device.type
 
-    def get_blivet_device(self, device_name):
-        """ Get blivet device by name
-
-            :param device_name: device name
-            :type device_name: str
-            :returns: blviet device
-            :rtype: blivet.StorageDevice
-
-        """
-
-        blivet_device = self.storage.devicetree.getDeviceByName(device_name)
-
-        return blivet_device
-
     def get_parent_pvs(self, blivet_device):
         """ Return list of LVM VG PVs
 
@@ -1166,11 +1137,6 @@ class BlivetUtils():
 
         self.storage.devicetree.getActiveMounts()
 
-    @property
-    def return_devicetree(self):
-
-        return self.storage.devicetree
-
     def blivet_cancel_actions(self, actions):
         actions.reverse()
 
@@ -1180,10 +1146,6 @@ class BlivetUtils():
     def blivet_reset(self):
         """ Blivet.reset()
         """
-
-        self.storage.reset()
-
-    def blivet_reload(self):
 
         self.storage.reset()
 
