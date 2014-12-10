@@ -260,6 +260,10 @@ class device_canvas(Gtk.DrawingArea):
         cairo_ctx.select_font_face(font_name, cairo.FONT_SLANT_NORMAL,
             cairo.FONT_WEIGHT_NORMAL)
 
+        if r.width - 20 < cairo_ctx.text_extents(u"...")[-2]:
+            # too small to print anything
+            return
+
         name = unicode(name, "utf-8")
         while cairo_ctx.text_extents(name)[-2] > r.width - 20:
             name = name[:-1]
@@ -337,6 +341,15 @@ class device_canvas(Gtk.DrawingArea):
             parts_left = num_parts
             size_left = parent_size
 
+            if num_parts*15 > parent_size:
+                # too many devices, too few space to draw
+                rectangle = cairo_rectangle(start + depth, depth, parent_size, height - 2*depth, [0.9, 0.9, 0.9])
+                self.rectangles[rectangle] = None
+                self.draw_rectangle(cairo_ctx, rectangle)
+                self.draw_info(cairo_ctx, rectangle, str(num_parts), u"devices")
+
+                return
+
             while treeiter != None:
                 rectangle = self.compute_rectangles_size(self.partitions_list[treeiter][0],
                     parent, parent_size, height, num_parts, parts_size, parts_left,
@@ -386,8 +399,12 @@ class device_canvas(Gtk.DrawingArea):
 
         if result:
 
-            path = self.partitions_list.get_path(self.rectangles[result])
+            device = self.rectangles[result]
 
+            if not device:
+                return False
+
+            path = self.partitions_list.get_path(self.rectangles[result])
             self.partitions_view.set_cursor(path)
             self.queue_draw()
 
