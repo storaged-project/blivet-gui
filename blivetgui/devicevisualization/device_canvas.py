@@ -190,12 +190,12 @@ class device_canvas(Gtk.DrawingArea):
             part_width = size_left
 
         # size of partition rect must be at least 'parent_width / (num_parts*2)'
-        elif part_width < parent_width / (num_parts*2):
-            part_width = parent_width / (num_parts*2)
+        elif part_width < parent_width // (num_parts*2):
+            part_width = parent_width // (num_parts*2)
 
         # we need to left space for smaller partition (at least 'width / (num_parts*2)', see above)
-        elif part_width > parent_width - ((num_parts-1)* (parent_width / (num_parts*2))):
-            part_width = parent_width - (num_parts-1) * (parent_width/ (num_parts*2))
+        elif part_width > parent_width - ((num_parts-1)* (parent_width // (num_parts*2))):
+            part_width = parent_width - (num_parts-1) * (parent_width // (num_parts*2))
 
         # [x, y, width, height, [r,g,b]]
         r = cairo_rectangle(round(x), depth, round(part_width), height - 2*depth,
@@ -267,8 +267,8 @@ class device_canvas(Gtk.DrawingArea):
                 name = name[:-3] + "..."
 
         # name of partition
-        cairo_ctx.move_to(r.x + r.width/2 - cairo_ctx.text_extents(name)[-2]/2,
-            r.y + r.height/2)
+        cairo_ctx.move_to(r.x + r.width//2 - cairo_ctx.text_extents(name)[-2]//2,
+            r.y + r.height//2)
         cairo_ctx.show_text(name)
 
         while cairo_ctx.text_extents(size)[-2] > r.width - 20:
@@ -277,8 +277,8 @@ class device_canvas(Gtk.DrawingArea):
                 size = size[:-3] + "..."
 
         # size of partition
-        cairo_ctx.move_to(r.x + r.width/2 - cairo_ctx.text_extents(size)[-2]/2,
-            r.y + r.height/2 + 10)
+        cairo_ctx.move_to(r.x + r.width//2 - cairo_ctx.text_extents(size)[-2]//2,
+            r.y + r.height//2 + 10)
         cairo_ctx.show_text(size)
 
     def draw_event(self, da, cairo_ctx):
