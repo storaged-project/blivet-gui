@@ -819,7 +819,7 @@ class ListPartitions():
             response = dialog.run()
 
             if response:
-                self.b.blivet_reload()
+                self.b.blivet_reset()
                 self.clear_undo_actions()
                 self.clear_actions_view()
 
@@ -827,7 +827,7 @@ class ListPartitions():
                 self.update_partitions_view(self.disk)
 
         else:
-            self.b.blivet_reload()
+            self.b.blivet_reset()
             self.clear_undo_actions()
             self.clear_actions_view()
 

@@ -142,6 +142,8 @@ class BlivetUtils(object):
         blivet.formats.fs.NTFS._formattable = True
 
         self.storage.reset()
+        self.storage.devicetree.populate()
+        self.storage.devicetree.getActiveMounts()
 
         self.main_window = main_window
 
@@ -1170,6 +1172,8 @@ class BlivetUtils(object):
         """
 
         self.storage.reset()
+        self.storage.devicetree.populate()
+        self.storage.devicetree.getActiveMounts()
 
     def blivet_do_it(self):
         """ Blivet.doIt()
