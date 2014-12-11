@@ -33,9 +33,9 @@ All scheduled changes will be dropped.</p>
 </section>
 
 <section id="undoredo">
-    <title>Undo/Redo last action</title>
+    <title>Undo last action</title>
 
-<p>To undo previous actions, click on <gui>Undo</gui> button on the toolbar. Undo memory is limited to five steps. Undoed actions can be restored using <gui>Redo</gui> button.</p> 
+<p>To undo previous actions, click on <gui>Undo</gui> button on the toolbar. Last action will be removed from list of queued actions.</p> 
 
     
 </section>

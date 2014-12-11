@@ -53,6 +53,7 @@ create one. See <link xref="disklabel"/>.</p>
   <item><p>Set size for your new partition.</p></item>
   <item><p>Choose <gui>Filesystem</gui>. Optionally you can set <gui>Label</gui> too.</p></item>
   <item><p>It's possible to create encrypted partition using LUKS/dm-crypt. Check the <gui>Encrypt</gui> option and fill in passphrase.</p></item>
+  <item><p>Under <gui>Advanced options</gui> is possible to select type of partition (<em>Primary</em>, <em>Extended</em> or <em>Logical</em>)</p></item>
   <item><p>Hit <gui style="button">OK</gui> to create partition.</p></item>
 </steps>
 

@@ -52,7 +52,6 @@
 
 	<p>Volume groups in the specific section in the device list at the left side of blivet-gui window.</p>
 	<p>Physical volumes can contain one volume group, volume groups can contain (in theory) infinite number of logical volumes.</p>
-	
 	<p>In the image shown above, there is one volume groups - <em>fedora</em> placed on two physical volumes - sda2 and sdb1.</p>
 </section>
 
@@ -78,10 +77,11 @@
 <steps>
    <item><p>Set <gui>Device type</gui> to <gui>LVM2 Storage</gui>.</p></item>
    <item><p>From list of <gui>Available devices</gui> select at least one free space (the one selected in previous steps will pre-selected).</p></item>
-   <item><p>Set size for your storage.</p></item>
+   <item><p>Select the amout of space used from every "parent" device selected in previous step.</p></item>
    <item><p>Set <gui>Name</gui> for your volume group (if left blank, system will choose name based on machine <em>hostname</em>).</p></item>
    <item><p>It's possible to create encrypted LVM using LUKS/dm-crypt. Check <gui>Encrypt</gui> option and fill in passphrase.</p></item>
-  <item><p>Hit <gui style="button">OK</gui> to create volume.</p></item>
+   <item><p>Under <gui>Advanced options</gui> is possible to select <em>physical extents</em> size.</p></item>
+  <item><p>Hit <gui style="button">OK</gui> to create the storage.</p></item>
 </steps>
 
 <note>
@@ -109,6 +109,7 @@
 <steps>
   <item><p>From list of <gui>Available devices</gui> select at least one free physical volume (the one selected in previous steps will pre-selected).</p></item>
   <item><p>Set <gui>Name</gui> for your volume group (if left blank, system will choose name based on machine <em>hostname</em>).</p></item>
+  <item><p>It's possible to create encrypted LVM using LUKS/dm-crypt. Check <gui>Encrypt</gui> option and fill in passphrase.</p></item>
   <item><p>Hit <gui style="button">OK</gui> to create volume.</p></item>
 </steps>
 
@@ -165,7 +166,7 @@
 
 <steps>
   <item><p>Set size for your new logical volume.</p></item>
-  <item><p>Choose <gui>Filesystem</gui>. Optionally you can set <gui>Label</gui> and <gui>Name</gui> too.</p></item>
+  <item><p>Choose <gui>Filesystem</gui>. Optionally you can set <gui>Name</gui> too.</p></item>
   <item><p>Hit <gui style="button">OK</gui> to create volume.</p></item>
 </steps>
 

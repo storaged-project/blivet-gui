@@ -80,18 +80,14 @@
     <p>Allows you to execute all scheduled actions. All changes will be written on disks.</p>
     <p>Is active only when there is at least one action scheduled.</p>
   </item>
-  <item>
-    <title><media type="image" src="icons/clear.png" width="24" />Clear queued actions</title>
-    <p>Allows you to cancel all scheduled actions.</p>
-    <p>Is active only when there is at least one action scheduled.</p>
-  </item>
-  <item>
+    <item>
     <title><media type="image" src="icons/undo.png" width="24" />Undo</title>
     <p>Undo last action.</p>
   </item>
   <item>
-    <title><media type="image" src="icons/redo.png" width="24" />Redo</title>
-    <p>Redo last action.</p>
+    <title><media type="image" src="icons/clear.png" width="24" />Clear queued actions</title>
+    <p>Allows you to cancel all scheduled actions.</p>
+    <p>Is active only when there is at least one action scheduled.</p>
   </item>
 </terms>
 
