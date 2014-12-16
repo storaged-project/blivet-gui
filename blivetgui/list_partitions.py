@@ -686,8 +686,7 @@ class ListPartitions():
         """ Decrypt selected device
         """
 
-        dialog = other_dialogs.LuksPassphraseDialog(self.main_window,
-            self.selected_partition[0].name)
+        dialog = other_dialogs.LuksPassphraseDialog(self.main_window)
 
         response = dialog.run()
 

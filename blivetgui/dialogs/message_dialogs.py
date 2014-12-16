@@ -147,7 +147,6 @@ class ConfirmDialog(object):
 
         return response == Gtk.ResponseType.OK
 
-
 class ConfirmActionsDialog(object):
     """ Confirm execute actions
     """
