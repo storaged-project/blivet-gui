@@ -22,8 +22,6 @@
 #
 #------------------------------------------------------------------------------#
 
-import os
-
 import gettext
 
 from gi.repository import Gtk
@@ -76,16 +74,15 @@ class PartitionEditDialog(Gtk.Dialog):
         self.parent_window = parent_window
 
         Gtk.Dialog.__init__(self, _("Edit device"), None, 0,
-            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-            Gtk.STOCK_OK, Gtk.ResponseType.OK))
+                            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                             Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
         self.set_resizable(False) # auto shrink after removing/hiding widgets
 
         self.widgets_dict = {}
 
-        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
-            column_spacing=5)
+        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
         self.grid.set_border_width(10)
 
         box = self.get_content_area()
@@ -115,8 +112,8 @@ class PartitionEditDialog(Gtk.Dialog):
     def add_size_chooser(self):
 
         size_area = SizeChooserArea(dialog=self, dialog_type="edit", parent_device=None,
-            max_size=self.resizable[2], min_size=self.resizable[1],
-            edited_device=self.edited_device)
+                                    max_size=self.resizable[2], min_size=self.resizable[1],
+                                    edited_device=self.edited_device)
 
         self.grid.attach(size_area.frame, 0, 0, 6, 1)
 
@@ -142,8 +139,7 @@ class PartitionEditDialog(Gtk.Dialog):
         filesystems_combo.set_entry_text_column(0)
         filesystems_combo.set_sensitive(False)
 
-        self.widgets_dict["fs"] = [label_format, format_check, label_fs,
-            filesystems_combo]
+        self.widgets_dict["fs"] = [label_format, format_check, label_fs, filesystems_combo]
 
         for fs in SUPPORTED_FS:
             filesystems_combo.append_text(fs)
@@ -232,11 +228,11 @@ class PartitionEditDialog(Gtk.Dialog):
             size = None
 
         return self.UserSelection(edit_device=self.edited_device,
-            resize=resize,
-            size=size,
-            format=self.format_check.get_active(),
-            filesystem=self.filesystems_combo.get_active_text(),
-            mountpoint=mountpoint)
+                                  resize=resize,
+                                  size=size,
+                                  format=self.format_check.get_active(),
+                                  filesystem=self.filesystems_combo.get_active_text(),
+                                  mountpoint=mountpoint)
 
 class LVMEditDialog(Gtk.Dialog):
     """ Dialog window allowing user to edit lvmvg
@@ -249,8 +245,7 @@ class LVMEditDialog(Gtk.Dialog):
             self.action_type = action_type
             self.parents_list = parents_list
 
-    def __init__(self, parent_window, edited_device, free_pvs, free_disks_regions,
-        removable_pvs):
+    def __init__(self, parent_window, edited_device, free_pvs, free_disks_regions, removable_pvs):
         """
 
             :param parent_window: parent window
@@ -267,16 +262,15 @@ class LVMEditDialog(Gtk.Dialog):
         self.removable_pvs = removable_pvs
 
         Gtk.Dialog.__init__(self, _("Edit device"), None, 0,
-            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-            Gtk.STOCK_OK, Gtk.ResponseType.OK))
+                            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                             Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
         self.set_resizable(False) # auto shrink after removing/hiding widgets
 
         self.widgets_dict = {}
 
-        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
-            column_spacing=5)
+        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
         self.grid.set_border_width(10)
 
         box = self.get_content_area()
@@ -332,8 +326,8 @@ class LVMEditDialog(Gtk.Dialog):
     def add_parents(self):
 
         if len(self.free_disks_regions) + len(self.free_pvs) == 0:
-            label_none = Gtk.Label(label=_("There are currently no empty physical "\
-                "volume or disks with enough empty space to create one."))
+            label_none = Gtk.Label(label=_("There are currently no empty physical volume or "\
+                                           "disks with enough empty space to create one."))
             self.grid.attach(label_none, 0, 5, 4, 1)
 
             self.widgets_dict["add"] = [label_none]
@@ -368,20 +362,18 @@ class LVMEditDialog(Gtk.Dialog):
             self.grid.attach(parents_view, 1, 5, 4, 3)
 
             for pv, free in self.free_pvs:
-                parents_store.append([pv, free, False, pv.name,
-                    "lvmpv", str(free.size)])
+                parents_store.append([pv, free, False, pv.name, "lvmpv", str(free.size)])
 
             for free in self.free_disks_regions:
 
                 disk = free.parents[0]
 
                 if free.isFreeRegion:
-                    parents_store.append([disk, free, False, disk.name,
-                        "disk region", str(free.size)])
+                    parents_store.append([disk, free, False, disk.name, "disk region",
+                                          str(free.size)])
 
                 else:
-                    parents_store.append([disk, free, False, disk.name,
-                        "disk", str(free.size)])
+                    parents_store.append([disk, free, False, disk.name, "disk", str(free.size)])
 
             self.widgets_dict["add"] = [label_list, parents_view]
 
@@ -398,7 +390,7 @@ class LVMEditDialog(Gtk.Dialog):
 
         if len(self.removable_pvs) == 0:
             label_none = Gtk.Label(label=_("It's currently not possible to remove "\
-                "a physical volume from existing volume group."))
+                                           "a physical volume from existing volume group."))
             self.grid.attach(label_none, 0, 5, 4, 1)
 
             self.widgets_dict["remove"] = [label_none]
@@ -409,7 +401,8 @@ class LVMEditDialog(Gtk.Dialog):
             parents_store = Gtk.ListStore(object, object, bool, str, str, str)
             parents_view = Gtk.TreeView(model=parents_store)
 
-            parents_view.set_tooltip_text(_("Currently is possible to remove only one parent at time."))
+            parents_view.set_tooltip_text(_("Currently is possible to remove only one parent "\
+                                            "at time."))
 
             renderer_radio = Gtk.CellRendererToggle()
             renderer_radio.connect("toggled", self.on_cell_radio_toggled, parents_store)
@@ -436,8 +429,7 @@ class LVMEditDialog(Gtk.Dialog):
             self.grid.attach(parents_view, 1, 5, 4, 3)
 
             for pv in self.removable_pvs:
-                parents_store.append([pv, None, False, pv.name,
-                    "lvmpv", str(pv.size)])
+                parents_store.append([pv, None, False, pv.name, "lvmpv", str(pv.size)])
 
             self.widgets_dict["remove"] = [label_list, parents_view]
 
@@ -489,8 +481,6 @@ class LVMEditDialog(Gtk.Dialog):
         else:
             action_type = None
 
-        return self.UserSelection(
-            edit_device=self.edited_device,
-            action_type=action_type,
-            parents_list=parents_list
-            )
+        return self.UserSelection(edit_device=self.edited_device,
+                                  action_type=action_type,
+                                  parents_list=parents_list)
