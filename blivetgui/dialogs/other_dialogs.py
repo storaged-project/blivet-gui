@@ -180,7 +180,7 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
         label_list.get_style_context().add_class("dim-label")
 
         self.grid.attach(label_list, 0, 1, 1, 1)
-        self.grid.attach(disks_view, 0, 2, 4, 4)
+        self.grid.attach(disks_view, 0, 2, 4, 2)
 
         return disks_store
 
@@ -189,22 +189,22 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
 
     def add_bootloader_chooser(self):
 
-        label_boot = Gtk.Label()
-        label_boot.set_text(_("Install bootloader?:"))
-        self.grid.attach(label_boot, 0, 7, 1, 1)
+        label_boot = Gtk.Label(label=_("Install bootloader?:"))
+        label_boot.get_style_context().add_class("dim-label")
+        self.grid.attach(label_boot, 0, 4, 1, 1)
 
         boot_check = Gtk.CheckButton()
-        self.grid.attach(self.boot_check, 1, 7, 1, 1)
-        boot_check.connect("changed", self.on_boot_changed)
+        self.grid.attach(boot_check, 1, 4, 1, 1)
+        boot_check.connect("clicked", self.on_boot_changed)
 
-        label_boot_device = Gtk.Label()
-        label_boot_device.set_text(_("Device to install bootloader:"))
-        self.grid.attach(label_boot_device, 0, 8, 1, 1)
+        label_boot_device = Gtk.Label(label=_("Device to install bootloader:"))
+        label_boot_device.get_style_context().add_class("dim-label")
+        self.grid.attach(label_boot_device, 0, 5, 1, 1)
 
         boot_device_combo = Gtk.ComboBoxText()
         boot_device_combo.set_entry_text_column(0)
         boot_device_combo.set_sensitive(False)
-        self.grid.attach(boot_device_combo, 1, 8, 2, 1)
+        self.grid.attach(boot_device_combo, 1, 5, 2, 1)
 
         for disk in self.blivet_disks:
             boot_device_combo.append_text(disk.name)
