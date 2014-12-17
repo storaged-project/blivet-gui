@@ -32,8 +32,6 @@ from gi.repository import Gtk, Gdk
 
 from blivet import Size
 
-from math import floor, ceil
-
 from dialogs import message_dialogs
 
 #------------------------------------------------------------------------------#
@@ -49,49 +47,48 @@ SUPPORTED_PESIZE = ["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"]
 #------------------------------------------------------------------------------#
 
 def check_mountpoint(parent_window, used_mountpoints, mountpoint):
-        """ Kickstart mode; check for duplicate mountpoints
+    """ Kickstart mode; check for duplicate mountpoints
 
-            :param used_mountpoints: list of mountpoints currently in use
-            :type used_mountpoints: list of str
-            :param mountpoint: mountpoint selected by user
-            :type mountpoint: str
-            :returns: mountpoint validity
-            :rtype: bool
-        """
+        :param used_mountpoints: list of mountpoints currently in use
+        :type used_mountpoints: list of str
+        :param mountpoint: mountpoint selected by user
+        :type mountpoint: str
+        :returns: mountpoint validity
+        :rtype: bool
+    """
 
-        if not mountpoint:
-            return True
+    if not mountpoint:
+        return True
 
-        elif not os.path.isabs(mountpoint):
+    elif not os.path.isabs(mountpoint):
 
-            msg = _("{0} is not a valid mountpoint.").format(mountpoint)
-            message_dialogs.ErrorDialog(parent_window, msg)
+        msg = _("{0} is not a valid mountpoint.").format(mountpoint)
+        message_dialogs.ErrorDialog(parent_window, msg)
 
 
-        elif mountpoint not in used_mountpoints.keys():
-            return True
+    elif mountpoint not in used_mountpoints.keys():
+        return True
 
-        else:
+    else:
 
-            old_device = used_mountpoints[mountpoint]
+        old_device = used_mountpoints[mountpoint]
 
-            title = _("Duplicate mountpoint detected")
-            msg = _("Selected mountpoint \"{0}\" is already used for \"{1}\" " \
-                "device. Do you want to remove this mountpoint?").format(mountpoint,
-                old_device.name)
+        title = _("Duplicate mountpoint detected")
+        msg = _("Selected mountpoint \"{0}\" is already used for \"{1}\" " \
+                "device. Do you want to remove this mountpoint?").format(mountpoint, old_device.name)
 
-            dialog = message_dialogs.ConfirmDialog(parent_window, title, msg)
+        dialog = message_dialogs.ConfirmDialog(parent_window, title, msg)
 
-            response = dialog.run()
+        response = dialog.run()
 
-            if response:
-                old_device.format.mountpoint = None
+        if response:
+            old_device.format.mountpoint = None
 
-            return response
+        return response
 
 class UserSelection(object):
-    def __init__(self, device_type, size, filesystem, name, label, mountpoint,
-        encrypt, passphrase, parents, btrfs_type, raid_level, advanced):
+    def __init__(self, device_type, size, filesystem, name, label, mountpoint, encrypt, passphrase, parents, btrfs_type,
+                 raid_level, advanced):
 
         self.device_type = device_type
         self.size = size
@@ -108,8 +105,7 @@ class UserSelection(object):
 
 class SizeChooserArea(object):
 
-    def __init__(self, dialog, dialog_type, parent_device, max_size, min_size,
-        free_device=None, edited_device=None):
+    def __init__(self, dialog, dialog_type, parent_device, max_size, min_size, free_device=None, edited_device=None):
         """
 
             :param dialog: AddDialog or EditDialog instanace
@@ -148,8 +144,7 @@ class SizeChooserArea(object):
         elif self.dialog_type == "edit":
             self.frame.set_label(self.edited_device.name)
 
-        self.frame_grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
-            column_spacing=5)
+        self.frame_grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
 
         self.frame.add(self.frame_grid)
 
@@ -160,8 +155,8 @@ class SizeChooserArea(object):
     def add_size_widgets(self, unit="MiB"):
 
         scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL,
-            adjustment=Gtk.Adjustment(0, self.min_size.convertTo(unit),
-                self.max_size.convertTo(unit), 1, 10, 0))
+                          adjustment=Gtk.Adjustment(0, self.min_size.convertTo(unit),
+                                                       self.max_size.convertTo(unit), 1, 10, 0))
 
         scale.set_margin_left(10)
         scale.set_margin_bottom(5)
@@ -578,30 +573,30 @@ class AddDialog(Gtk.Dialog):
         self.grid.attach(label_devices, 0, 0, 1, 1)
 
         if self.device_type == "disk" and self.free_device.isLogical:
-            self.devices = [(_("Partition"), "partition")]
+            devices = [(_("Partition"), "partition")]
 
         elif self.device_type == "disk" and not self.parent_device.format.type \
             and self.free_device.size > Size("256 MiB"):
-            self.devices = [(_("Btrfs Volume"), "btrfs volume")]
+            devices = [(_("Btrfs Volume"), "btrfs volume")]
 
         else:
-            self.devices = map_type_devices[self.device_type]
+            devices = map_type_devices[self.device_type]
 
             if self.device_type == "disk" and len(self.free_disks_regions) > 1:
-                self.devices.append((_("Software RAID"), "mdraid"))
+                devices.append((_("Software RAID"), "mdraid"))
 
             if self.device_type == "disk" and self.free_device.size > Size("256 MiB"):
-                self.devices.append((_("Btrfs Volume"), "btrfs volume"))
+                devices.append((_("Btrfs Volume"), "btrfs volume"))
 
         devices_store = Gtk.ListStore(str, str)
 
-        for device in self.devices:
+        for device in devices:
             devices_store.append([device[0], device[1]])
 
         devices_combo = Gtk.ComboBox.new_with_model(devices_store)
         devices_combo.set_entry_text_column(0)
 
-        if len(self.devices) == 1:
+        if len(devices) == 1:
             devices_combo.set_sensitive(False)
 
         self.grid.attach(devices_combo, 1, 0, 2, 1)
@@ -1338,70 +1333,59 @@ class AddLabelDialog(Gtk.Dialog):
         self.parent_window = parent_window
         self.disklabels = disklabels
 
-        Gtk.Dialog.__init__(self, _("No partition table found on disk"), None,
-            0, (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-            Gtk.STOCK_OK, Gtk.ResponseType.OK))
+        Gtk.Dialog.__init__(self, _("No partition table found on disk"), None, 0,
+                            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
 
         self.set_border_width(10)
 
-        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
-            column_spacing=5)
+        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
 
         box = self.get_content_area()
         box.add(self.grid)
 
         self.add_labels()
-        self.add_pt_chooser()
+        self.pts_combo = self.add_pt_chooser()
 
         self.show_all()
 
     def add_labels(self):
 
-        self.info_label = Gtk.Label(label=_("A partition table is required " \
-            "before partitions can be added.").format(self.disk_name))
-
-        self.grid.attach(self.info_label, 0, 0, 4, 1) #left-top-width-height
+        info_label = Gtk.Label(label=_("A partition table is required before partitions can be added."))
+        self.grid.attach(info_label, 0, 0, 4, 1)
 
     def add_pt_chooser(self):
 
-        self.pts_store = Gtk.ListStore(str)
+        pts_store = Gtk.ListStore(str)
 
         for label in self.disklabels:
-            self.pts_store.append([label])
+            pts_store.append([label])
 
-        self.pts_store.append(["btrfs"])
+        pts_store.append(["btrfs"])
 
-        self.pts_combo = Gtk.ComboBox.new_with_model(self.pts_store)
+        pts_combo = Gtk.ComboBox.new_with_model(pts_store)
 
-        self.pts_combo.set_entry_text_column(0)
-        self.pts_combo.set_active(0)
+        pts_combo.set_entry_text_column(0)
+        pts_combo.set_active(0)
 
         if len(self.disklabels) > 1:
-            self.pts_combo.set_sensitive(True)
+            pts_combo.set_sensitive(True)
 
         else:
-            self.pts_combo.set_sensitive(False)
+            pts_combo.set_sensitive(False)
 
-        self.label_list = Gtk.Label(label=_("Select new partition table type:"))
+        label_list = Gtk.Label(label=_("Select new partition table type:"))
+        label_list.get_style_context().add_class("dim-label")
 
-        self.grid.attach(self.label_list, 0, 1, 2, 1)
-        self.grid.attach(self.pts_combo, 2, 1, 1, 1)
+        self.grid.attach(label_list, 0, 1, 2, 1)
+        self.grid.attach(pts_combo, 2, 1, 1, 1)
 
-        self.pts_combo.connect("changed", self.on_pt_combo_changed)
         renderer_text = Gtk.CellRendererText()
-        self.pts_combo.pack_start(renderer_text, True)
-        self.pts_combo.add_attribute(renderer_text, "text", 0)
+        pts_combo.pack_start(renderer_text, True)
+        pts_combo.add_attribute(renderer_text, "text", 0)
 
-
-    def on_pt_combo_changed(self, event):
-
-        tree_iter = self.pts_combo.get_active_iter()
-
-        if tree_iter != None:
-            model = self.pts_combo.get_model()
-            device = model[tree_iter][0]
+        return pts_combo
 
     def get_selection(self):
         tree_iter = self.pts_combo.get_active_iter()
