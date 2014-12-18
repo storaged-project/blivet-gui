@@ -5,6 +5,7 @@ po/*.po
 po/*.mo
 
 MANIFEST
+ChangeLog
 
 # Packages
 *.egg

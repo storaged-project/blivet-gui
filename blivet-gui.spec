@@ -1,29 +1,18 @@
-%define name blivet-gui
-%define version 0.1.9
-%define unmangled_version 0.1.9
-%define release 3
-%define build_timestamp %(date +"%Y%m%d")
-
-Summary: Tool for data storages configuration
-Name: %{name}
-Version: %{version}
-Release: %{release}
-Source0: %{name}-%{unmangled_version}.tar.gz
-Source1: org.fedoraproject.pkexec.blivet-gui.policy
-Source2: blivet-gui.desktop
+Summary: Tool for data storage configuration
+Name: blivet-gui
+Version: 0.1.9
+Release: 3
+Source0: https://github.com/vojtechtrefny/blivet-gui/archive/%{name}-%{version}.tar.gz
 License: GPLv3
 Group: Applications/System
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-buildroot
-Prefix: %{_prefix}
 BuildArch: noarch
-Vendor: Vojtech Trefny <vtrefny@redhat.com>
 BuildRequires: python2-devel, desktop-file-utils, intltool, gettext, python-setuptools
 Requires: python, pygobject3, gettext, yelp, python-blivet >= 0.61, gtk3, gnome-icon-theme, polkit-gnome, python-pyudev
-Provides: blivetgui
 Url: http://github.com/vojtechtrefny/blivet-gui
 
 %description
-		 ...
+Graphical (GTK) tool for manipulation and configuration of data storage
+(disks, LVMs, RAIDs) based on blivet library.
 
 %prep
 %setup -q
@@ -32,14 +21,11 @@ Url: http://github.com/vojtechtrefny/blivet-gui
 make
 
 %install
-mkdir -p %{buildroot}%{_datadir}/polkit-1/actions/
-cp %{SOURCE1} %{buildroot}%{_datadir}/polkit-1/actions/
-
-desktop-file-install                                    \
---dir=${RPM_BUILD_ROOT}%{_datadir}/applications         \
-%{SOURCE2}
-
 make DESTDIR=%{buildroot} install
+
+%check
+desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
+
 %find_lang %{name}
 
 %clean
@@ -48,8 +34,8 @@ rm -rf %{buildroot}
 %files -f %{name}.lang
 %defattr(-,root,root,-)
 %{python_sitelib}/*
-/usr/share/applications/blivet-gui.desktop
-/usr/share/polkit-1/actions/org.fedoraproject.pkexec.blivet-gui.policy
+/usr/share/applications
+/usr/share/polkit-1/actions
 /usr/share/blivet-gui
 /usr/share/help/C/blivet-gui
 /usr/bin/blivet-gui
