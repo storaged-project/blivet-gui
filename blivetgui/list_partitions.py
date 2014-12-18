@@ -26,17 +26,17 @@ from gi.repository import Gtk, GdkPixbuf
 
 import gettext
 
-from utils import *
+import blivet
 
 from dialogs import *
 
-from actions_toolbar import *
+from actions_toolbar import actions_toolbar
 
-from actions_menu import *
+from actions_menu import ActionsMenu
 
-from main_menu import *
+from main_menu import MainMenu
 
-from processing_window import *
+from processing_window import ProcessingActions
 
 from devicevisualization.device_canvas import device_canvas
 
@@ -46,10 +46,10 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
-class ListPartitions():
+class ListPartitions(object):
 
-    def __init__(self, main_window, list_devices, blivet_utils, builder,
-        kickstart_mode=False, disk=None):
+    def __init__(self, main_window, list_devices, blivet_utils, builder, kickstart_mode=False,
+                 disk=None):
 
         self.list_devices = list_devices
         self.b = blivet_utils
@@ -60,10 +60,7 @@ class ListPartitions():
         self.disk = disk
         self.main_window = main_window
 
-        # ListStores for partitions and actions
-        self.partitions_list = Gtk.TreeStore(object, str, str, str, str, str,
-            str, object)
-
+        self.partitions_list = Gtk.TreeStore(object, str, str, str, str, str, str, object)
         self.actions_list = Gtk.TreeStore(GdkPixbuf.Pixbuf, str)
 
         self.partitions_view = self.create_partitions_view()
@@ -89,8 +86,7 @@ class ListPartitions():
         self.path = self.select.select_path("1")
 
         self.on_partition_selection_changed(self.select)
-        self.selection_signal = self.select.connect("changed",
-            self.on_partition_selection_changed)
+        self.selection_signal = self.select.connect("changed", self.on_partition_selection_changed)
 
         self.actions = 0
         self.actions_label = self.builder.get_object("actions_page")
@@ -205,9 +201,7 @@ class ListPartitions():
         self.partitions_view.expand_all()
 
         # update partitions image
-
-        self.darea.visualize_device(self.partitions_list, self.partitions_view,
-            self.disk)
+        self.darea.visualize_device(self.partitions_list, self.partitions_view, self.disk)
 
     def add_partition_to_view(self, partition, parent):
         """ Add partition into partition_list
@@ -303,11 +297,10 @@ class ListPartitions():
 
             selection = treeview.get_selection()
 
-            if selection == None:
+            if not selection:
                 return False
 
-            self.popup_menu.get_menu.popup(None, None, None, None, event.button,
-                event.time)
+            self.popup_menu.get_menu.popup(None, None, None, None, event.button, event.time)
 
             return True
 
@@ -498,7 +491,7 @@ class ListPartitions():
                 and device.format.exists:
                 self.activate_options(["decrypt"])
 
-            elif device.format.mountable and device.format.mountpoint :
+            elif device.format.mountable and device.format.mountpoint:
                 self.activate_options(["unmount"])
 
     def delete_selected_partition(self):
@@ -508,12 +501,12 @@ class ListPartitions():
         deleted_device = self.selected_partition[0]
 
         title = _("Confirm delete operation")
-        msg = _("Are you sure you want to delete device {0}?").format(self.selected_partition[0].name)
+        msg = _("Are you sure you want delete device {0}?").format(self.selected_partition[0].name)
 
         dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
         response = dialog.run()
 
-        if response :
+        if response:
             actions = self.b.delete_device(self.selected_partition[0])
 
             if actions:
@@ -552,7 +545,7 @@ class ListPartitions():
             and btrfs_pt == False:
 
             dialog = add_dialog.AddLabelDialog(self.main_window, self.disk,
-                self.b.get_available_disklabels())
+                                               self.b.get_available_disklabels())
 
             response = dialog.run()
 
@@ -577,12 +570,17 @@ class ListPartitions():
             dialog.destroy()
             return
 
-        dialog = add_dialog.AddDialog(self.main_window, parent_device_type,
-            parent_device, self.selected_partition[0],
-            self.selected_partition[0].size, self.b.get_free_pvs_info(),
-            self.b.get_free_disks_regions(), self.b.get_available_raid_levels(),
-            self.b.has_extended_partition(self.disk), self.b.storage.mountpoints,
-            self.kickstart_mode)
+        dialog = add_dialog.AddDialog(self.main_window,
+                                      parent_device_type,
+                                      parent_device,
+                                      self.selected_partition[0],
+                                      self.selected_partition[0].size,
+                                      self.b.get_free_pvs_info(),
+                                      self.b.get_free_disks_regions(),
+                                      self.b.get_available_raid_levels(),
+                                      self.b.has_extended_partition(self.disk),
+                                      self.b.storage.mountpoints,
+                                      self.kickstart_mode)
 
         response = dialog.run()
 
@@ -593,9 +591,11 @@ class ListPartitions():
 
             if actions:
                 if user_input.filesystem == None:
-                    action_str = _("add {0} {1} device").format(str(user_input.size), user_input.device_type)
+                    action_str = _("add {0} {1} device").format(str(user_input.size),
+                                                                user_input.device_type)
                 else:
-                    action_str = _("add {0} {1} partition").format(str(user_input.size), user_input.filesystem)
+                    action_str = _("add {0} {1} partition").format(str(user_input.size),
+                                                                   user_input.filesystem)
 
                 self.add_undo_actions(actions)
                 self.main_menu.activate_menu_items(["undo"])
@@ -659,8 +659,7 @@ class ListPartitions():
             msg = _("Are you sure you want to perform scheduled actions?")
             actions = self.b.get_actions()
 
-            dialog = message_dialogs.ConfirmActionsDialog(self.main_window, title,
-                msg, actions)
+            dialog = message_dialogs.ConfirmActionsDialog(self.main_window, title, msg, actions)
 
             response = dialog.run()
 
@@ -675,7 +674,7 @@ class ListPartitions():
             self.selected_partition[0].format.unmount()
 
         except blivet.errors.FSError:
-            msg = _("Unmount failed. Are you sure {0} is not in use?").format(self.selected_partition[0].name)
+            msg = _("Unmount failed. Are you sure device is not in use?")
             message_dialogs.ErrorDialog(self.main_window, msg)
 
         else:
@@ -691,8 +690,7 @@ class ListPartitions():
         response = dialog.run()
 
         if response:
-            ret = self.b.luks_decrypt(self.selected_partition[0],
-                response)
+            ret = self.b.luks_decrypt(self.selected_partition[0], response)
 
             if ret:
                 msg = _("Unknown error appeared:\n\n{0}.").format(ret)
@@ -711,12 +709,14 @@ class ListPartitions():
 
         if device.type in ["partition", "lvmlv"]:
             dialog = edit_dialog.PartitionEditDialog(self.main_window, device,
-                self.b.device_resizable(device), self.kickstart_mode)
+                                                     self.b.device_resizable(device),
+                                                     self.kickstart_mode)
 
         elif device.type in ["lvmvg"]:
             dialog = edit_dialog.LVMEditDialog(self.main_window, device,
-                self.b.get_free_pvs_info(), self.b.get_free_disks_regions(),
-                self.b.get_removable_pvs_info(device))
+                                               self.b.get_free_pvs_info(),
+                                               self.b.get_free_disks_regions(),
+                                               self.b.get_removable_pvs_info(device))
 
         response = dialog.run()
 
