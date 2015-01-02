@@ -183,7 +183,7 @@ class SizeChooserArea(object):
 
             scale.set_value(self.edited_device.size.convertTo(unit))
 
-            if self.edited_device.size not in [self.min_size, self.max_size]:
+            if self.edited_device.size not in (self.min_size, self.max_size):
                 scale.add_mark(self.edited_device.size.convertTo(unit), Gtk.PositionType.BOTTOM,
                     str(self.edited_device.size))
 
@@ -247,7 +247,7 @@ class SizeChooserArea(object):
         self.scale.add_mark(float(self.max_size.convertTo(unit)), Gtk.PositionType.BOTTOM,
             format(self.max_size.convertTo(unit), "." + str(digits) + "f"))
 
-        if self.dialog_type == "edit" and self.edited_device.size not in [self.min_size, self.max_size]:
+        if self.dialog_type == "edit" and self.edited_device.size not in (self.min_size, self.max_size):
             self.scale.add_mark(float(self.edited_device.size.convertTo(unit)), Gtk.PositionType.BOTTOM,
             format(self.max_size.convertTo(unit), "." + str(digits) + "f"))
 
@@ -369,7 +369,7 @@ class AdvancedOptions(object):
 
         self.widgets = [self.expander, self.grid]
 
-        if self.device_type in ["lvm", "lvmvg"]:
+        if self.device_type in ("lvm", "lvmvg"):
             self.pesize_combo = self.lvm_options()
 
         elif self.device_type == "partition":
@@ -463,10 +463,10 @@ class AdvancedOptions(object):
 
     def get_selection(self):
 
-        if self.device_type in ["lvm", "lvmvg"]:
+        if self.device_type in ("lvm", "lvmvg"):
             return {"pesize" : Size(self.pesize_combo.get_active_text())}
 
-        elif self.device_type in ["partition"]:
+        elif self.device_type in ("partition"):
             return {"parttype" : self.partition_combo.get_active_id()}
 
 class AddDialog(Gtk.Dialog):
@@ -782,13 +782,13 @@ class AddDialog(Gtk.Dialog):
                 self.parents_store.append([pv, free, False, False, pv.name,
                     "lvmpv", str(free.size)])
 
-        elif device_type in ["btrfs volume", "lvm", "mdraid"]:
+        elif device_type in ("btrfs volume", "lvm", "mdraid"):
 
             for free in self.free_disks_regions:
 
                 disk = free.parents[0]
 
-                if free.isFreeRegion and (parent_type == "partitions" or device_type in ["lvm", "mdraid"]):
+                if free.isFreeRegion and (parent_type == "partitions" or device_type in ("lvm", "mdraid")):
                     self.parents_store.append([disk, free, False, False, disk.name,
                         "disk region", str(free.size)])
 
@@ -821,7 +821,7 @@ class AddDialog(Gtk.Dialog):
         if device_type not in self.supported_raids.keys() or num_parents == 1:
             return (False, None)
 
-        elif self.raid_combo.get_active_text() in ["linear", "single"]:
+        elif self.raid_combo.get_active_text() in ("linear", "single"):
             return (False, None)
 
         else:
@@ -849,7 +849,7 @@ class AddDialog(Gtk.Dialog):
         if device_type not in self.supported_raids.keys() or num_parents == 1:
             return
 
-        elif self.raid_combo.get_active_text() in ["linear", "single"]:
+        elif self.raid_combo.get_active_text() in ("linear", "single"):
             return
 
         else:
@@ -886,7 +886,7 @@ class AddDialog(Gtk.Dialog):
         raid, max_size = self.raid_member_max_size()
 
         min_size = Size("1 MiB")
-        if device_type in ["lvmpv", "lvm"]:
+        if device_type in ("lvmpv", "lvm"):
             min_size = Size("8 MiB")
         elif device_type == "btrfs volume":
             min_size = Size("256 MiB")
@@ -911,7 +911,7 @@ class AddDialog(Gtk.Dialog):
         for area in self.size_areas:
             area.show()
 
-            if device_type in ["lvmvg", "btrfs subvolume"]:
+            if device_type in ("lvmvg", "btrfs subvolume"):
                 area.set_sensitive(False)
 
         size_area_height = size_grid.size_request().height
@@ -958,8 +958,8 @@ class AddDialog(Gtk.Dialog):
 
         md_type_store = Gtk.ListStore(str, str)
 
-        for md_type in [(_("Partition"), "partition"),
-            (_("LVM Physical Volume"), "lvmpv")]:
+        for md_type in ((_("Partition"), "partition"),
+            (_("LVM Physical Volume"), "lvmpv")):
             md_type_store.append(md_type)
 
         md_type_combo = Gtk.ComboBox.new_with_model(md_type_store)
@@ -1008,7 +1008,7 @@ class AddDialog(Gtk.Dialog):
     def on_filesystems_combo_changed(self, combo):
         selection = combo.get_active_text()
 
-        if selection in ["swap"]:
+        if selection in ("swap",):
             self.hide_widgets(["label", "mountpoint"])
 
         else:
@@ -1085,7 +1085,7 @@ class AddDialog(Gtk.Dialog):
         if self.advanced:
             self.advanced.destroy()
 
-        if device_type in ["lvm", "lvmvg", "partition"]:
+        if device_type in ("lvm", "lvmvg", "partition"):
             self.advanced = AdvancedOptions(self, device_type, self.parent_device,
                 self.free_device, self.has_extended)
             self.widgets_dict["advanced"] = [self.advanced]
@@ -1277,7 +1277,7 @@ class AddDialog(Gtk.Dialog):
         else:
             btrfs_type = None
 
-        if device_type in ["btrfs volume", "lvmlv", "mdraid"]:
+        if device_type in ("btrfs volume", "lvmlv", "mdraid"):
             raid_level = self.raid_combo.get_active_text()
 
         else:

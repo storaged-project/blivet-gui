@@ -148,7 +148,7 @@ class actions_toolbar():
         """
 
         for button in self.buttons:
-            if button not in ["apply", "clear", "undo", "redo"]:
+            if button not in ("apply", "clear", "undo", "redo"):
                 self.buttons[button].set_sensitive(False)
 
     def on_delete_clicked(self, button):

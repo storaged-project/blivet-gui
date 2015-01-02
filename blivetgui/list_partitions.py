@@ -117,7 +117,7 @@ class ListPartitions(object):
                 info_str += _("\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> " \
                     "disk.\n").format(pv.name, str(pv.size), pv.disks[0].name)
 
-        elif device_type in ["lvmpv", "luks/dm-crypt"]:
+        elif device_type in ("lvmpv", "luks/dm-crypt"):
             blivet_device = self.disk
 
             if blivet_device.format.type == "lvmpv":
@@ -380,7 +380,7 @@ class ListPartitions(object):
             self.toolbar.activate_buttons([item])
             self.main_menu.activate_menu_items([item])
 
-            if item not in ["apply", "clear", "undo"]:
+            if item not in ("apply", "clear", "undo"):
                 self.popup_menu.activate_menu_items([item])
 
     def deactivate_options(self, deactivate_list):
@@ -395,7 +395,7 @@ class ListPartitions(object):
             self.toolbar.deactivate_buttons([item])
             self.main_menu.deactivate_menu_items([item])
 
-            if item not in ["apply", "clear", "undo"]:
+            if item not in ("apply", "clear", "undo"):
                 self.popup_menu.deactivate_menu_items([item])
 
     def deactivate_all_options(self):
@@ -443,7 +443,7 @@ class ListPartitions(object):
 
         """
 
-        if device.type not in ["partition", "lvmvg", "lvmlv"]:
+        if device.type not in ("partition", "lvmvg", "lvmlv"):
             return False
 
         elif device.type == "partition" and device.isExtended:
@@ -453,10 +453,10 @@ class ListPartitions(object):
             return device.format.mountable
 
         else:
-            if device.type in ["lvmvg"]:
+            if device.type in ("lvmvg",):
                 return True
 
-            elif device.format.type in ["btrfs", "lvmpv", "luks"]:
+            elif device.format.type in ("btrfs", "lvmpv", "luks"):
                 return False
 
             elif not device.format.type:
@@ -483,7 +483,7 @@ class ListPartitions(object):
         if self._allow_edit_device(device):
             self.activate_options(["edit"])
 
-        if device.type in ["free space", "btrfs volume"]:
+        if device.type in ("free space", "btrfs volume"):
             self.activate_options(["add"])
 
         if device.format:
@@ -707,12 +707,12 @@ class ListPartitions(object):
 
         device = self.selected_partition[0]
 
-        if device.type in ["partition", "lvmlv"]:
+        if device.type in ("partition", "lvmlv"):
             dialog = edit_dialog.PartitionEditDialog(self.main_window, device,
                                                      self.b.device_resizable(device),
                                                      self.kickstart_mode)
 
-        elif device.type in ["lvmvg"]:
+        elif device.type in ("lvmvg",):
             dialog = edit_dialog.LVMEditDialog(self.main_window, device,
                                                self.b.get_free_pvs_info(),
                                                self.b.get_free_disks_regions(),
@@ -724,10 +724,10 @@ class ListPartitions(object):
 
             user_input = dialog.get_selection()
 
-            if device.type in ["partition", "lvmlv"]:
+            if device.type in ("partition", "lvmlv"):
                 actions = self.b.edit_partition_device(user_input)
 
-            elif device.type in ["lvmvg"]:
+            elif device.type in ("lvmvg",):
                 actions = self.b.edit_lvmvg_device(user_input)
 
             if actions:

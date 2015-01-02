@@ -112,7 +112,7 @@ class FreeSpaceDevice(object):
     def isEmptyDisk(self):
         return len(self.parents) == 1 and self.parents[0].type == "disk" and \
             self.parents[0].kids == 0 and self.parents[0].format.type and \
-            self.parents[0].format.type not in ["iso9660"]
+            self.parents[0].format.type not in ("iso9660",)
 
     @property
     def isUnitializedDisk(self):
@@ -214,7 +214,7 @@ class BlivetUtils(object):
 
         for disk in self.storage.disks:
 
-            if disk.format.type in ["iso9660", "btrfs", "mdmember", "dmraidmember"]:
+            if disk.format.type in ("iso9660", "btrfs", "mdmember", "dmraidmember"):
                 continue
 
             elif not disk.format.type:
@@ -280,7 +280,7 @@ class BlivetUtils(object):
             partitions.append(FreeSpaceDevice(blivet_device.size, 0,
                 blivet_device.partedDevice.length, [blivet_device], False))
 
-        elif blivet_device.isDisk and blivet_device.format.type in ["iso9660", "btrfs", "mdmember", "dmraidmember"]:
+        elif blivet_device.isDisk and blivet_device.format.type in ("iso9660", "btrfs", "mdmember", "dmraidmember"):
             # LiveUSB or btrfs/mdraid partition table, no free space here
             pass
 
@@ -361,7 +361,7 @@ class BlivetUtils(object):
                 partitions.append(FreeSpaceDevice(blivet_device.freeSpace, None, None,
                     [blivet_device]))
 
-        elif blivet_device.type in ["partition", "luks/dm-crypt", "mdarray"]:
+        elif blivet_device.type in ("partition", "luks/dm-crypt", "mdarray"):
             # empty (encrypted) physical volume
 
             if blivet_device.format.type == "lvmpv" and blivet_device.kids == 0:
@@ -433,7 +433,7 @@ class BlivetUtils(object):
             return action
 
         try:
-            if blivet_device.type in ["partition", "lvmlv"] and blivet_device.format.type:
+            if blivet_device.type in ("partition", "lvmlv") and blivet_device.format.type:
                 ac_fmt = blivet.deviceaction.ActionDestroyFormat(blivet_device)
                 self.storage.devicetree.registerAction(ac_fmt)
                 actions.append(ac_fmt)
@@ -448,7 +448,7 @@ class BlivetUtils(object):
             return
 
         # for encrypted partitions/lvms delete the luks-formatted partition too
-        if blivet_device.type in ["luks/dm-crypt"]:
+        if blivet_device.type in ("luks/dm-crypt",):
             for parent in blivet_device.parents:
                 assert parent.type == "partition" and parent.format.type == "luks"
 
@@ -467,7 +467,7 @@ class BlivetUtils(object):
                 actions.extend(self.delete_device(parent))
 
         # for btrfs volumes delete parents partition after deleting volume
-        if blivet_device.type in ["btrfs volume", "mdarray"]:
+        if blivet_device.type in ("btrfs volume", "mdarray"):
             for parent in blivet_device.parents:
                 if parent.type == "partition":
                     actions.extend(self.delete_device(parent))

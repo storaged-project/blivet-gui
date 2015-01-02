@@ -259,7 +259,7 @@ class MainMenu():
         """
 
         for item in self.menu_items:
-            if item not in ["apply", "clear", "undo"]:
+            if item not in ("apply", "clear", "undo"):
                 self.menu_items[item].set_sensitive(False)
 
     def on_about_item(self, event):
