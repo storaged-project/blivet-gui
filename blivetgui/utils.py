@@ -280,24 +280,27 @@ class BlivetUtils(object):
             partitions.append(FreeSpaceDevice(blivet_device.size, 0,
                 blivet_device.partedDevice.length, [blivet_device], False))
 
-        elif blivet_device.isDisk and blivet_device.format.type in ("iso9660", "btrfs", "mdmember", "dmraidmember"):
+        elif blivet_device.isDisk and blivet_device.format.type in ("iso9660", "btrfs", "mdmember",
+                                                                    "dmraidmember"):
             # LiveUSB or btrfs/mdraid partition table, no free space here
             pass
 
         elif blivet_device.isDisk:
 
             extended = None
+            logicals = []
 
             for partition in partitions:
                 if hasattr(partition, "isExtended") and partition.isExtended:
                     extended = partition
-                    break
+
+                if hasattr(partition, "isLogical") and partition.isLogical:
+                    logicals.append(partition)
 
             free_space = blivet.partitioning.getFreeRegions([blivet_device])
 
             if len(free_space) == 0:
                 # no free space
-
                 return partitions
 
             for free in free_space:
@@ -305,59 +308,47 @@ class BlivetUtils(object):
                     # too small to be usable
                     continue
 
-                # free space in B
                 free_size = blivet.Size(free.length * free.device.sectorSize)
 
-                added = False
+                # free space is inside extended partition
+                if (extended and free.start >= extended.partedPartition.geometry.start
+                    and free.end <= extended.partedPartition.geometry.end):
 
-                for partition in partitions:
+                    if logicals:
+                        for logical in logicals:
+                            if free.start < logical.partedPartition.geometry.start:
+                                partitions.insert(partitions.index(logical),
+                                                  FreeSpaceDevice(free_size, free.start, free.end,
+                                                                  [blivet_device], True))
+                                break
 
-                    if (hasattr(partition, "partedPartition")
-                        and free.start < partition.partedPartition.geometry.start):
+                        if free.end > logicals[-1].partedPartition.geometry.end:
+                                partitions.append(FreeSpaceDevice(free_size, free.start, free.end,
+                                                                  [blivet_device], True))
 
-                        if (extended and extended.partedPartition.geometry.start <= free.start
-                            and extended.partedPartition.geometry.end >= free.end):
+                    else:
+                        partitions.insert(partitions.index(extended),
+                                          FreeSpaceDevice(free_size, free.start, free.end,
+                                                          [blivet_device], True))
+                else:
+                    added = False
+                    for partition in partitions:
+                        if partition.type in ("free space",):
+                            continue
 
+                        if free.start < partition.partedPartition.geometry.start:
                             partitions.insert(partitions.index(partition),
-                                FreeSpaceDevice(free_size, free.start, free.end,
-                                    [blivet_device], True))
-
-                        else:
-                            partitions.insert(partitions.index(partition),
-                                FreeSpaceDevice(free_size, free.start, free.end,
-                                [blivet_device], False))
-
-                        added = True
-                        break
-
-                    elif (hasattr(partition, "partedPartition")
-                        and free.start > partition.partedPartition.geometry.start):
-
-                        if (extended and extended.partedPartition.geometry.start <= free.start
-                            and extended.partedPartition.geometry.end >= free.end):
-
-                            partitions.insert(partitions.index(partition)+1,
-                                FreeSpaceDevice(free_size, free.start, free.end,
-                                [blivet_device], True))
-
+                                              FreeSpaceDevice(free_size, free.start, free.end,
+                                                              [blivet_device], False))
                             added = True
                             break
 
-                if not added:
-                    # free space is at the end of device
-                    if (extended and extended.partedPartition.geometry.start <= free.start
-                        and extended.partedPartition.geometry.end >= free.end):
-
-                        partitions.append(FreeSpaceDevice(free_size, free.start,
-                        free.end, True))
-
-                    else:
-                        partitions.append(FreeSpaceDevice(free_size,free.start,
-                            free.end, [blivet_device], False))
+                    if not added:
+                        partitions.append(FreeSpaceDevice(free_size, free.start, free.end, [blivet_device], False))
 
         elif blivet_device.type == "lvmvg":
 
-            if blivet_device.freeSpace > 0:
+            if blivet_device.freeSpace > blivet.Size(0):
                 partitions.append(FreeSpaceDevice(blivet_device.freeSpace, None, None,
                     [blivet_device]))
 
@@ -389,6 +380,10 @@ class BlivetUtils(object):
 
         partitions = []
         partitions = self.storage.devicetree.getChildren(blivet_device)
+
+        if blivet_device.isDisk:
+            partitions.sort(key=lambda x: x.partedPartition.geometry.start)
+
         partitions = self.get_free_space(blivet_device, partitions)
 
         return partitions
