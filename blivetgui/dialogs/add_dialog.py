@@ -249,7 +249,7 @@ class SizeChooserArea(object):
 
         if self.dialog_type == "edit" and self.edited_device.size not in (self.min_size, self.max_size):
             self.scale.add_mark(float(self.edited_device.size.convertTo(unit)), Gtk.PositionType.BOTTOM,
-            format(self.max_size.convertTo(unit), "." + str(digits) + "f"))
+            format(self.edited_device.size.convertTo(unit), "." + str(digits) + "f"))
 
         self.spin_size.set_range(self.min_size.convertTo(unit), self.max_size.convertTo(unit))
         self.spin_size.set_increments(increment, increment*10)
