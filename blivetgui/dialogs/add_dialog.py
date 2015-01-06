@@ -703,6 +703,7 @@ class AddDialog(Gtk.Dialog):
     def on_free_space_type_toggled(self, button, name):
         if button.get_active():
             self.update_parent_list(parent_type=name)
+            self.update_raid_type_chooser()
 
             self.size_grid, self.size_scroll = self.add_size_areas()
 
