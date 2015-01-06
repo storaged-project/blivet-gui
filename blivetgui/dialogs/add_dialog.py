@@ -439,10 +439,10 @@ class AdvancedOptions(object):
         part_type = combo.get_active_id()
 
         if part_type == "extended":
-            self.add_dialog.hide_widgets(["fs"])
+            self.add_dialog.hide_widgets(["fs", "encrypt", "label"])
 
         else:
-            self.add_dialog.show_widgets(["fs"])
+            self.add_dialog.show_widgets(["fs", "encrypt", "label"])
 
     def destroy(self):
         for widget in self.widgets:
