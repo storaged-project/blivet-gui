@@ -326,7 +326,7 @@ class LVMEditDialog(Gtk.Dialog):
     def add_parents(self):
 
         if len(self.free_disks_regions) + len(self.free_pvs) == 0:
-            label_none = Gtk.Label(label=_("There are currently no empty physical volume or "\
+            label_none = Gtk.Label(label=_("There are currently no empty physical volumes or\n "\
                                            "disks with enough empty space to create one."))
             self.grid.attach(label_none, 0, 5, 4, 1)
 
@@ -389,7 +389,7 @@ class LVMEditDialog(Gtk.Dialog):
     def remove_parents(self):
 
         if len(self.removable_pvs) == 0:
-            label_none = Gtk.Label(label=_("It's currently not possible to remove "\
+            label_none = Gtk.Label(label=_("It's currently not possible to remove\n "\
                                            "a physical volume from existing volume group."))
             self.grid.attach(label_none, 0, 5, 4, 1)
 
