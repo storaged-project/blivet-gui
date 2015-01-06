@@ -571,20 +571,18 @@ class BlivetUtils(object):
         """
 
         if not name:
-
             if parent_device:
-                name = self.storage.suggestDeviceName(parent=parent_device,
-                    swap=False)
+                name = self.storage.suggestDeviceName(parent=parent_device, swap=False)
 
             else:
-                name = self.storage.suggestContainerName(
-                    hostname=socket.gethostname())
+                name = self.storage.suggestContainerName(hostname=socket.gethostname())
 
         else:
             name = self.storage.safeDeviceName(name)
 
             # if name exists add -XX suffix
-            if name in self.storage.names:
+            if name in self.storage.names or (parent_device and
+                                              parent_device.name + "-" + name in self.storage.names):
                 for i in range(100):
                     if name + "-" + str(i) not in self.storage.names:
                         name = name + "-" + str(i)
@@ -592,8 +590,7 @@ class BlivetUtils(object):
 
             # if still exists let blivet pick it
             if name in self.storage.names:
-                name = self._pick_device_name(name=None,
-                    parent_device=parent_device)
+                name = self._pick_device_name(name=None, parent_device=parent_device)
 
         return name
 
