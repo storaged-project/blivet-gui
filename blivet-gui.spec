@@ -1,13 +1,13 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.1.9
-Release: 3
+Version: 0.1.10
+Release: 1
 Source0: https://github.com/vojtechtrefny/blivet-gui/archive/%{name}-%{version}.tar.gz
 License: GPLv3
 Group: Applications/System
 BuildArch: noarch
 BuildRequires: python2-devel, desktop-file-utils, intltool, gettext, python-setuptools
-Requires: python, pygobject3, gettext, yelp, python-blivet >= 0.61, gtk3, gnome-icon-theme, polkit-gnome, python-pyudev
+Requires: python, pygobject3, gettext, yelp, python-blivet >= 0.73, gtk3, gnome-icon-theme, polkit-gnome, python-pyudev
 Url: http://github.com/vojtechtrefny/blivet-gui
 
 %description

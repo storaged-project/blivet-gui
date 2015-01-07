@@ -2,12 +2,12 @@
 Makefile
 README.txt
 blivet-gui
+blivet-gui.desktop
+org.fedoraproject.pkexec.blivet-gui.policy
 setup.py
 blivetgui/__init__.py
-blivetgui/actions_history.py
 blivetgui/actions_menu.py
 blivetgui/actions_toolbar.py
-blivetgui/embeded.py
 blivetgui/list_devices.py
 blivetgui/list_partitions.py
 blivetgui/main.py
@@ -25,9 +25,11 @@ blivetgui/dialogs/message_dialogs.py
 blivetgui/dialogs/other_dialogs.py
 data/ui/about_dialog.ui
 data/ui/blivet-gui.ui
+data/ui/confirm_actions_dialog.ui
 data/ui/confirm_dialog.ui
 data/ui/error_dialog.ui
 data/ui/exception_dialog.ui
+data/ui/info_dialog.ui
 data/ui/kickstart_filesave_dialog.ui
 data/ui/luks_passphrase_dialog.ui
 data/ui/warning_dialog.ui
@@ -47,7 +49,6 @@ help/C/icons/clear.png
 help/C/icons/delete.png
 help/C/icons/edit.png
 help/C/icons/password.png
-help/C/icons/redo.png
 help/C/icons/undo.png
 help/C/icons/unmount.png
 help/C/images/.directory
@@ -66,4 +67,5 @@ help/C/images/pending-actions.png
 po/.directory
 po/Makefile
 po/blivet-gui.pot
+po/cs.mo
 po/cs.po
