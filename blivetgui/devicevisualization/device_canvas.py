@@ -264,7 +264,11 @@ class device_canvas(Gtk.DrawingArea):
             # too small to print anything
             return
 
-        name = unicode(name, "utf-8")
+        try:
+            name = unicode(name, "utf-8")
+        except TypeError:
+            pass
+
         while cairo_ctx.text_extents(name)[-2] > r.width - 20:
             name = name[:-1]
             if len(name) > 3:
