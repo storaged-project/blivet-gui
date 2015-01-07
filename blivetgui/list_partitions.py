@@ -70,6 +70,9 @@ class ListPartitions(object):
         self.builder.get_object("actions_viewport").add(self.actions_view)
 
         self.info_label = Gtk.Label()
+        self.info_label.set_margin_start(5)
+        self.info_label.set_margin_end(5)
+
         self.builder.get_object("pv_viewport").add(self.info_label)
 
         self.darea = device_canvas(blivet_utils=self.b, list_partitions=self)
@@ -446,24 +449,25 @@ class ListPartitions(object):
         if device.type not in ("partition", "lvmvg", "lvmlv"):
             return False
 
-        elif device.type == "partition" and device.isExtended:
-            return device.format.resizable
-
-        elif self.kickstart_mode:
-            return device.format.mountable
-
         else:
-            if device.type in ("lvmvg",):
-                return True
+            if device.type == "partition" and device.isExtended:
+                return device.format.resizable
 
-            elif device.format.type in ("btrfs", "lvmpv", "luks"):
-                return False
-
-            elif not device.format.type:
-                return True
+            elif self.kickstart_mode:
+                return device.format.mountable
 
             else:
-                return not device.format.status
+                if device.type in ("lvmvg",):
+                    return True
+
+                elif device.format.type in ("btrfs", "lvmpv", "luks", "mdmember"):
+                    return False
+
+                elif not device.format.type:
+                    return True
+
+                else:
+                    return not device.format.status
 
     def activate_action_buttons(self, selected_device):
         """ Activate buttons in toolbar based on selected device
@@ -819,6 +823,10 @@ class ListPartitions(object):
 
             if response:
                 self.b.blivet_reset()
+
+                if self.kickstart_mode:
+                    self.b.kickstart_hide_disks(self.list_devices.use_disks)
+
                 self.clear_undo_actions()
                 self.clear_actions_view()
 
@@ -827,6 +835,10 @@ class ListPartitions(object):
 
         else:
             self.b.blivet_reset()
+
+            if self.kickstart_mode:
+                self.b.kickstart_hide_disks(self.list_devices.use_disks)
+
             self.clear_undo_actions()
             self.clear_actions_view()
 
