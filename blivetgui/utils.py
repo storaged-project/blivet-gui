@@ -381,7 +381,8 @@ class BlivetUtils(object):
         partitions = []
         partitions = self.storage.devicetree.getChildren(blivet_device)
 
-        if blivet_device.isDisk:
+        if blivet_device.isDisk and blivet_device.format.type not in ("btrfs", "mdmember",
+                                                                      "dmraidmember"):
             partitions.sort(key=lambda x: x.partedPartition.geometry.start)
 
         partitions = self.get_free_space(blivet_device, partitions)
