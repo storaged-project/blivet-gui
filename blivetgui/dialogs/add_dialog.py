@@ -1138,8 +1138,7 @@ class AddDialog(Gtk.Dialog):
             self.remove_free_type_chooser()
 
         if device_type == "partition":
-            self.show_widgets(["label", "fs", "encrypt", "mountpoint", "size",
-                "advanced"])
+            self.show_widgets(["label", "fs", "encrypt", "mountpoint", "size", "advanced"])
             self.hide_widgets(["name", "passphrase", "mdraid"])
 
             if self.free_device.isLogical:
@@ -1147,8 +1146,7 @@ class AddDialog(Gtk.Dialog):
 
         elif device_type == "lvmpv":
             self.show_widgets(["encrypt", "size"])
-            self.hide_widgets(["name", "label", "fs", "mountpoint", "passphrase",
-                "advanced", "mdraid"])
+            self.hide_widgets(["name", "label", "fs", "mountpoint", "passphrase", "advanced", "mdraid"])
 
         elif device_type == "lvm":
             self.show_widgets(["encrypt", "name", "size", "advanced"])
@@ -1156,23 +1154,20 @@ class AddDialog(Gtk.Dialog):
 
         elif device_type == "lvmvg":
             self.show_widgets(["name", "advanced"])
-            self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size",
-                "passphrase", "mdraid"])
+            self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size", "passphrase", "mdraid"])
 
         elif device_type == "lvmlv":
             self.show_widgets(["name", "fs", "mountpoint", "size"])
             self.hide_widgets(["label", "encrypt", "passphrase", "advanced", "mdraid"])
 
         elif device_type == "btrfs volume":
-            self.show_widgets(["name", "size"])
-            self.hide_widgets(["label", "fs", "mountpoint", "encrypt",
-                "passphrase", "advanced", "mdraid"])
+            self.show_widgets(["name", "size", "mountpoint"])
+            self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced",  "mdraid"])
             self.add_free_type_chooser()
 
         elif device_type == "btrfs subvolume":
-            self.show_widgets(["name"])
-            self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size",
-                "passphrase", "advanced", "mdraid"])
+            self.show_widgets(["name", "mountpoint"])
+            self.hide_widgets(["label", "fs", "encrypt", "size", "passphrase", "advanced", "mdraid"])
 
         elif device_type == "mdraid":
             self.show_widgets(["name", "size", "mountpoint", "fs", "mdraid"])

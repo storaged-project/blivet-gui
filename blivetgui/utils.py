@@ -833,7 +833,7 @@ class BlivetUtils(object):
                     btrfs_parents.append(dev)
 
             new_btrfs = BTRFSVolumeDevice(device_name, size=total_size, parents=btrfs_parents)
-            new_btrfs.format = blivet.formats.getFormat("btrfs", label=device_name)
+            new_btrfs.format = blivet.formats.getFormat("btrfs", label=device_name, mountpoint=user_input.mountpoint)
             actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
 
         elif user_input.device_type == "btrfs subvolume":
@@ -842,6 +842,7 @@ class BlivetUtils(object):
                 user_input.parents[0][0])
 
             new_btrfs = BTRFSSubVolumeDevice(device_name, parents=[i[0] for i in user_input.parents])
+            new_btrfs.format = blivet.formats.getFormat("btrfs", mountpoint=user_input.mountpoint)
             actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
 
         elif user_input.device_type == "mdraid":
