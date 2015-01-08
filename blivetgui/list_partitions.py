@@ -28,6 +28,8 @@ import gettext
 
 import blivet
 
+import os.path
+
 from dialogs import *
 
 from actions_toolbar import actions_toolbar
@@ -647,6 +649,15 @@ class ListPartitions(object):
             response = dialog.run()
 
             if response:
+                if os.path.isfile(response):
+                    title = _("File exists")
+                    msg = _("Selected file already exists, do you want to overwrite it?")
+                    dialog_file = message_dialogs.ConfirmDialog(self.main_window, title, msg)
+                    response_file = dialog_file.run()
+
+                    if not response_file:
+                        return
+
                 self.clear_actions_view()
                 self.b.create_kickstart_file(response)
 
@@ -658,7 +669,6 @@ class ListPartitions(object):
             self.clear_undo_actions()
 
         else:
-
             title = _("Confirm scheduled actions")
             msg = _("Are you sure you want to perform scheduled actions?")
             actions = self.b.get_actions()
