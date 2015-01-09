@@ -1,13 +1,24 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 0.1.10
-Release: 1
+Release: 1%{?dist}
 Source0: https://github.com/vojtechtrefny/blivet-gui/archive/%{name}-%{version}.tar.gz
 License: GPLv3
 Group: Applications/System
 BuildArch: noarch
-BuildRequires: python2-devel, desktop-file-utils, intltool, gettext, python-setuptools
-Requires: python, pygobject3, gettext, yelp, python-blivet >= 0.73, gtk3, gnome-icon-theme, polkit-gnome, python-pyudev
+BuildRequires: python2-devel
+BuildRequires: desktop-file-utils
+BuildRequires:intltool
+BuildRequires: gettext
+BuildRequires: python-setuptools
+Requires: python
+Requires: pygobject3
+Requires: gettext
+Requires: python-blivet >= 0.73
+Requires: gtk3
+Requires: gnome-icon-theme
+Requires: polkit-gnome
+Requires: yelp
 Url: http://github.com/vojtechtrefny/blivet-gui
 
 %description
@@ -18,7 +29,7 @@ Graphical (GTK) tool for manipulation and configuration of data storage
 %setup -q
 
 %build
-make
+make %{?_smp_mflags}
 
 %install
 make DESTDIR=%{buildroot} install
@@ -32,7 +43,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 rm -rf %{buildroot}
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
 %{python_sitelib}/*
 /usr/share/applications
 /usr/share/polkit-1/actions
