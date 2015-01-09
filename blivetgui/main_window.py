@@ -62,14 +62,11 @@ def main_window(kickstart=False):
 
     return MainWindow
 
-def embeded_window(kickstart=False):
+def embedded_window(kickstart=False, socket_id=0):
     """ Create Gtk.Plug widget
     """
 
-    window_id = 0
-    plug = Gtk.Plug(window_id)
-
-    print(str(plug.get_id()) + "\n")
+    plug = Gtk.Plug.new(socket_id)
 
     builder = Gtk.Builder()
     builder.add_from_file(locate_ui_file('blivet-gui.ui'))

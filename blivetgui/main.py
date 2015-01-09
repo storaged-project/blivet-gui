@@ -32,7 +32,7 @@ from gi.repository import Gtk
 
 from dialogs import message_dialogs
 
-from main_window import main_window, embeded_window
+from main_window import main_window, embedded_window
 
 #------------------------------------------------------------------------------#
 
@@ -52,8 +52,8 @@ def parse_options():
     parser = optparse.OptionParser()
     parser.add_option("-v", "--version", action="store_true", dest="version",
                    default=False, help=_("show version information"))
-    parser.add_option("-e", "--embeded", action="store_true", dest="embeded",
-                   default=False, help=_("embed this application"))
+    parser.add_option("-e", "--embedded", action="store", type="int", dest="socket",
+                   help=_("embed this application into SOCKET"), metavar="SOCKET")
     parser.add_option("-k", "--kickstart", action="store_true", dest="kickstart",
                    default=False, help=_("run blivet-gui in kickstart mode"))
 
@@ -79,11 +79,11 @@ def main(options=None):
 
     else:
 
-        if options.embeded:
+        if options.socket:
             if options.kickstart:
-                MainWindow = embeded_window(kickstart=True)
+                MainWindow = embedded_window(kickstart=True, socket_id=options.SOCKET)
             else:
-                MainWindow = embeded_window()
+                MainWindow = embedded_window(socket_id=options.SOCKET)
             MainWindow.show_all()
 
         elif options.kickstart:

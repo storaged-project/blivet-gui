@@ -48,12 +48,9 @@ class SocketWindow(Gtk.Window):
         socket = Gtk.Socket()
         self.add(socket)
 
-        socket_id = None
+        socket_id = socket.get_id()
 
-        process = subprocess.Popen(["blivet-gui", "-e"])
-
-        socket_id = raw_input("Enter the ID printed above:\n")
-        socket.add_id(int(socket_id))
+        process = subprocess.Popen(["blivet-gui", "-e", str(socket_id)])
 
         self.connect("destroy", lambda w: Gtk.main_quit())
         socket.connect("plug-added", self.plugged_event)
