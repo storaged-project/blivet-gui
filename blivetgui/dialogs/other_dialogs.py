@@ -26,7 +26,7 @@ import gettext
 
 from gi.repository import Gtk, GdkPixbuf
 
-from message_dialogs import locate_ui_file
+from .message_dialogs import locate_ui_file
 
 #------------------------------------------------------------------------------#
 

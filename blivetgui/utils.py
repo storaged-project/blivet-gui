@@ -25,7 +25,7 @@ import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice
 
-from dialogs import message_dialogs
+from .dialogs import message_dialogs
 
 import gettext
 

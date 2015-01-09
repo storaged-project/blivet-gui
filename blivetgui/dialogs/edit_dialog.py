@@ -26,7 +26,7 @@ import gettext
 
 from gi.repository import Gtk
 
-from add_dialog import SizeChooserArea
+from .add_dialog import SizeChooserArea
 
 #------------------------------------------------------------------------------#
 

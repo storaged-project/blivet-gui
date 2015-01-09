@@ -32,7 +32,7 @@ from gi.repository import Gtk, Gdk
 
 from blivet import Size
 
-from dialogs import message_dialogs
+from ..dialogs import message_dialogs
 
 #------------------------------------------------------------------------------#
 

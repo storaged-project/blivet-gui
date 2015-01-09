@@ -26,8 +26,8 @@ import gettext
 
 from gi.repository import Gtk
 
-from dialogs.other_dialogs import AboutDialog
-from dialogs.message_dialogs import ErrorDialog, WarningDialog
+from .dialogs.other_dialogs import AboutDialog
+from .dialogs.message_dialogs import ErrorDialog, WarningDialog
 
 import os, subprocess
 

@@ -16,6 +16,8 @@ sdist
 _build
 .zanata-cache
 
+main.py
+
 doc/_build
 
 *.sqlite3

@@ -28,11 +28,11 @@ from gi.repository import Gtk, GdkPixbuf
 
 import gettext
 
-from utils import *
+from .utils import *
 
-from dialogs import other_dialogs, message_dialogs
+from .dialogs import other_dialogs, message_dialogs
 
-from list_partitions import *
+from .list_partitions import *
 
 #------------------------------------------------------------------------------#
 

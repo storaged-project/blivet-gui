@@ -30,17 +30,17 @@ import blivet
 
 import os.path
 
-from dialogs import *
+from .dialogs import *
 
-from actions_toolbar import actions_toolbar
+from .actions_toolbar import actions_toolbar
 
-from actions_menu import ActionsMenu
+from .actions_menu import ActionsMenu
 
-from main_menu import MainMenu
+from .main_menu import MainMenu
 
-from processing_window import ProcessingActions
+from .processing_window import ProcessingActions
 
-from devicevisualization.device_canvas import device_canvas
+from .devicevisualization.device_canvas import device_canvas
 
 #------------------------------------------------------------------------------#
 

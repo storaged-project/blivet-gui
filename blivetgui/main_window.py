@@ -30,10 +30,7 @@ from gi.repository import Gtk
 
 import gettext
 
-from list_devices import ListDevices
-
-from udisks_loop import udisks_thread
-
+from .list_devices import ListDevices
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
@@ -62,9 +59,6 @@ def main_window(kickstart=False):
     MainWindow = builder.get_object("MainWindow")
 
     ListDevices(MainWindow, builder, kickstart)
-
-    # u = udisks_thread()
-    # u.start()
 
     return MainWindow
 
