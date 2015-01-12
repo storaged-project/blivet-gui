@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 0.1.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/vojtechtrefny/blivet-gui/archive/%{name}-%{version}.tar.gz
 License: GPLv3
 Group: Applications/System
@@ -43,6 +43,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 rm -rf %{buildroot}
 
 %files -f %{name}.lang
+%{_mandir}/man1/blivet-gui.1*
 %{python_sitelib}/*
 /usr/share/applications
 /usr/share/polkit-1/actions

@@ -64,6 +64,7 @@ help/C/images/new-lvm2-vg.png
 help/C/images/new-partition.png
 help/C/images/partition-table.png
 help/C/images/pending-actions.png
+man/blivet-gui.1
 po/.directory
 po/Makefile
 po/blivet-gui.pot

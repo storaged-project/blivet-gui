@@ -9,12 +9,14 @@ image_files = glob.glob("help/C/images/*.png")
 icon_files = glob.glob("help/C/icons/*.png")
 polkit_files = glob.glob("org.fedoraproject.pkexec.blivet-gui.policy")
 desktop_files = glob.glob("blivet-gui.desktop")
+man_files = glob.glob("man/blivet-gui.1")
 data_files.append(("/usr/share/blivet-gui/ui", ui_files))
 data_files.append(("/usr/share/help/C/blivet-gui", help_files))
 data_files.append(("/usr/share/help/C/blivet-gui/images", image_files))
 data_files.append(("/usr/share/help/C/blivet-gui/icons", icon_files))
 data_files.append(("/usr/share/polkit-1/actions", polkit_files))
 data_files.append(("/usr/share/applications", desktop_files))
+data_files.append(("/usr/share/man/man1", man_files))
 
 print data_files
 

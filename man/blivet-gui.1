@@ -1,0 +1,31 @@
+.TH BLIVET-GUI 1
+.SH NAME
+blivet-gui \- GTK tool for storage configuration
+.SH SYNOPSIS
+.B blivet-gui
+[\fB\-h\fR]
+[\fB\-v\fR]
+[\fB\-k\fR]
+[\fB\-e\fR \fISOCKET\fR]
+.SH DESCRIPTION
+.B blivet-gui
+is a graphical (GTK) tool for manipulation and configuration of data storage (disks, LVMs, RAIDs) based on blivet library.
+.SH OPTIONS
+.TP
+.BR \-h ", " \-\-help
+show this help information and exit
+.TP
+.BR \-v ", " \-\-version
+show version information and exit
+.TP
+.BR \-k ", " \-\-kickstart
+run blivet-gui in kickstart mode
+.TP
+.BR \-e " "\fISOCKET\fR ", " \-\-embedded=\fISOCKET\fR
+embed this application into SOCKET (Gtk.Socket ID number)
+
+.SH AUTHOR
+Vojtech Trefny <vtrefny@redhat.com>
+
+.SH COPYRIGHT
+2014, Red Hat, Licensed under GPLv3+
