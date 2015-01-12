@@ -632,8 +632,8 @@ class AddDialog(Gtk.Dialog):
         label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
         label_list.get_style_context().add_class("dim-label")
 
-        self.grid.attach(label_list, 0, 1, 1, 1)
-        self.grid.attach(parents_view, 1, 1, 4, 3)
+        self.grid.attach(label_list, 0, 2, 1, 1)
+        self.grid.attach(parents_view, 1, 2, 4, 3)
 
         return parents_store
 
@@ -717,15 +717,15 @@ class AddDialog(Gtk.Dialog):
 
         label_empty_type = Gtk.Label(label=_("Volumes based on:"), xalign=1)
         label_empty_type.get_style_context().add_class("dim-label")
-        self.grid.attach(label_empty_type, 0, 4, 1, 1)
+        self.grid.attach(label_empty_type, 0, 1, 1, 1)
 
         button1 = Gtk.RadioButton.new_with_label_from_widget(None, _("Disks"))
         button1.connect("toggled", self.on_free_space_type_toggled, "disks")
-        self.grid.attach(button1, 1, 4, 1, 1)
+        self.grid.attach(button1, 1, 1, 1, 1)
 
         button2 = Gtk.RadioButton.new_with_label_from_widget(button1, _("Partitions"))
         button2.connect("toggled", self.on_free_space_type_toggled, "partitions")
-        self.grid.attach(button2, 2, 4, 1, 1)
+        self.grid.attach(button2, 2, 1, 1, 1)
 
         label_empty_type.show()
         button1.show()
