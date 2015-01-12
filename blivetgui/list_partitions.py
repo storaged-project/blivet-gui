@@ -658,15 +658,11 @@ class ListPartitions(object):
                     if not response_file:
                         return
 
-                self.clear_actions_view()
                 self.b.create_kickstart_file(response)
 
                 msg = _("File with your Kickstart configuration was successfully saved to:\n\n" \
                     "{0}").format(response)
                 message_dialogs.InfoDialog(self.main_window, msg)
-
-            self.clear_actions_view()
-            self.clear_undo_actions()
 
         else:
             title = _("Confirm scheduled actions")
