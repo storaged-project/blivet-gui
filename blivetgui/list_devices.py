@@ -22,17 +22,17 @@
 #
 #------------------------------------------------------------------------------#
 
-import sys, signal
+import sys
 
 from gi.repository import Gtk, GdkPixbuf
 
 import gettext
 
-from .utils import *
+from .utils import BlivetUtils
 
 from .dialogs import other_dialogs, message_dialogs
 
-from .list_partitions import *
+from .list_partitions import ListPartitions
 
 #------------------------------------------------------------------------------#
 
@@ -40,7 +40,10 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
-class ListDevices():
+class ListDevices(object):
+    """ List of parent devices
+    """
+
     def __init__(self, main_window, Builder, kickstart=False):
         """
 
@@ -60,73 +63,72 @@ class ListDevices():
 
         self.kickstart_mode = kickstart
 
+        # Last selected device from list
+        self.last_iter = None
+
         if self.kickstart_mode:
-
-            disks = self.b.get_disks()
-
-            if len(disks) == 0:
-                msg = _("blivet-gui failed to find at least one storage device " \
-                    "to work with.\n\nPlease connect a storage device to your " \
-                    "computer and re-run blivet-gui.")
-
-                message_dialogs.ErrorDialog(self.main_window, msg)
-                sys.exit(0)
-
-            dialog = other_dialogs.KickstartSelectDevicesDialog(self.main_window, disks)
-            response = dialog.run()
-
-            if response == Gtk.ResponseType.OK:
-                self.use_disks, self.install_bootloader, self.bootloader_device = dialog.get_selection()
-
-                dialog.destroy()
-
-                if self.install_bootloader and self.bootloader_device:
-                    self.b.set_bootloader_device(self.bootloader_device)
-
-            else:
-                dialog.destroy()
-                sys.exit(0)
-
+            self.use_disks, self.install_bootloader, self.bootloader_device = self.kickstart_disks()
             self.b.kickstart_hide_disks(self.use_disks)
-
             self.old_mountpoints = self.b.kickstart_mountpoints()
 
         self.device_list = Gtk.ListStore(object, GdkPixbuf.Pixbuf, str)
         num_devices = self.load_devices()
 
-
-        if num_devices:
-
-            self.partitions_list = ListPartitions(self.main_window, self,
-                self.b, self.builder, kickstart_mode=self.kickstart_mode)
-
-            self.disks_view = self.create_devices_view()
-
-            selection = self.disks_view.get_selection()
-            self.selection_signal = selection.connect("changed",
-                self.on_disk_selection_changed)
-
-            self.disks_view.set_cursor(1)
-
-            self.builder.get_object("disks_viewport").add(self.disks_view)
-
-        else:
-
+        if not num_devices:
             msg = _("blivet-gui failed to find at least one storage device to work with." \
                 "\n\nPlease connect a storage device to your computer and re-run blivet-gui.")
             message_dialogs.ErrorDialog(self.main_window, msg)
             sys.exit(0)
 
+        self.partitions_list = ListPartitions(self.main_window, self, self.b, self.builder,
+                                              kickstart_mode=self.kickstart_mode)
+
+        self.disks_view = self.create_devices_view()
+
+        selection = self.disks_view.get_selection()
+        self.selection_signal = selection.connect("changed", self.on_disk_selection_changed)
+
+        self.disks_view.set_cursor(1)
+
+        self.builder.get_object("disks_viewport").add(self.disks_view)
+
+    def kickstart_disks(self):
+        """ Kickstart mode -- show disk selection dialog
+        """
+
+        disks = self.b.get_disks()
+
+        if len(disks) == 0:
+            msg = _("blivet-gui failed to find at least one storage device to work with.\n\n" \
+                    "Please connect a storage device to your computer and re-run blivet-gui.")
+
+            message_dialogs.ErrorDialog(self.main_window, msg)
+            sys.exit(0)
+
+        dialog = other_dialogs.KickstartSelectDevicesDialog(self.main_window, disks)
+        response = dialog.run()
+
+        if response == Gtk.ResponseType.OK:
+            use_disks, install_bootloader, bootloader_device = dialog.get_selection()
+
+            dialog.destroy()
+
+            if install_bootloader and bootloader_device:
+                self.b.set_bootloader_device(bootloader_device)
+
+        else:
+            dialog.destroy()
+            sys.exit(0)
+
+        return (use_disks, install_bootloader, bootloader_device)
 
     def load_disks(self):
         """ Load disks
         """
 
         icon_theme = Gtk.IconTheme.get_default()
-        icon_disk = Gtk.IconTheme.load_icon(icon_theme,
-            "drive-harddisk", 32, 0)
-        icon_disk_usb = Gtk.IconTheme.load_icon(icon_theme,
-            "drive-removable-media", 32, 0)
+        icon_disk = Gtk.IconTheme.load_icon(icon_theme, "drive-harddisk", 32, 0)
+        icon_disk_usb = Gtk.IconTheme.load_icon(icon_theme, "drive-removable-media", 32, 0)
 
         disks = self.b.get_disks()
 
@@ -134,13 +136,12 @@ class ListDevices():
             self.device_list.append([None, None, _("<b>Disks</b>")])
 
         for disk in disks:
-
             if disk.removable:
-                self.device_list.append([disk, icon_disk_usb, str(disk.name +
-                    "\n<i><small>" + disk.model + "</small></i>")])
+                self.device_list.append([disk, icon_disk_usb, str(disk.name + "\n<i><small>" +
+                                                                  disk.model + "</small></i>")])
             else:
-                self.device_list.append([disk, icon_disk, str(disk.name +
-                    "\n<i><small>" + disk.model + "</small></i>")])
+                self.device_list.append([disk, icon_disk, str(disk.name + "\n<i><small>" +
+                                                              disk.model + "</small></i>")])
 
         return len(disks)
 
@@ -149,8 +150,7 @@ class ListDevices():
         """
 
         icon_theme = Gtk.IconTheme.get_default()
-        icon_btrfs = Gtk.IconTheme.load_icon(icon_theme,
-            "drive-removable-media", 32, 0)
+        icon_btrfs = Gtk.IconTheme.load_icon(icon_theme, "drive-removable-media", 32, 0)
 
         bdevices = self.b.get_btrfs_volumes()
 
@@ -159,8 +159,8 @@ class ListDevices():
 
         for device in bdevices:
 
-            self.device_list.append([device, icon_btrfs, str(device.name +
-                "\n<i><small>Btrfs Volume</small></i>")])
+            self.device_list.append([device, icon_btrfs,
+                                     str(device.name + "\n<i><small>Btrfs Volume</small></i>")])
 
         return len(bdevices)
 
@@ -169,8 +169,7 @@ class ListDevices():
         """
 
         icon_theme = Gtk.IconTheme.get_default()
-        icon_physical = Gtk.IconTheme.load_icon(icon_theme,
-            "drive-removable-media", 32, 0)
+        icon_physical = Gtk.IconTheme.load_icon(icon_theme, "drive-removable-media", 32, 0)
 
         pdevices = self.b.get_physical_devices()
 
@@ -178,9 +177,8 @@ class ListDevices():
             self.device_list.append([None, None, _("<b>LVM2 Physical Volumes</b>")])
 
         for device in pdevices:
-
-            self.device_list.append([device, icon_physical, str(device.name +
-                "\n<i><small>LVM2 PV</small></i>")])
+            self.device_list.append([device, icon_physical,
+                                     str(device.name + "\n<i><small>LVM2 PV</small></i>")])
 
         return len(pdevices)
 
@@ -194,12 +192,11 @@ class ListDevices():
             self.device_list.append([None, None, _("<b>LVM2 Volume Groups</b>")])
 
         icon_theme = Gtk.IconTheme.get_default()
-        icon_group = Gtk.IconTheme.load_icon(icon_theme,
-            "drive-removable-media", 32, 0)
+        icon_group = Gtk.IconTheme.load_icon(icon_theme, "drive-removable-media", 32, 0)
 
         for device in gdevices:
-            self.device_list.append([device, icon_group, str(device.name +
-                "\n<i><small>LVM2 VG</small></i>")])
+            self.device_list.append([device, icon_group,
+                                     str(device.name + "\n<i><small>LVM2 VG</small></i>")])
 
         return len(gdevices)
 
@@ -269,9 +266,6 @@ class ListDevices():
         """ Onselect action for devices
         """
 
-        # Last selected device from list
-        global last
-
         model, treeiter = selection.get_selected()
 
         if treeiter and model:
@@ -283,21 +277,12 @@ class ListDevices():
                 selection.handler_block(self.selection_signal)
                 selection.unselect_iter(treeiter)
                 selection.handler_unblock(self.selection_signal)
-                selection.select_iter(last)
-                treeiter = last
+                selection.select_iter(self.last_iter)
+                treeiter = self.last_iter
 
             else:
-                last = treeiter
+                self.last_iter = treeiter
 
             if self.device_list.iter_is_valid(treeiter):
                 disk = model[treeiter][0]
                 self.partitions_list.update_partitions_view(disk)
-
-    def return_device_list(self):
-        return self.device_list
-
-    def get_disks_view(self):
-        return self.disks_view
-
-    def get_partions_list(self):
-        return self.partitions_list

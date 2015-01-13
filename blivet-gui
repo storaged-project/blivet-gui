@@ -46,22 +46,24 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 #------------------------------------------------------------------------------#
 
 def parse_options():
+    """ Parses command-line arguments passed to blivet_gui
     """
-    Parses command-line arguments passed to blivet_gui
-    """
+
     parser = optparse.OptionParser()
-    parser.add_option("-v", "--version", action="store_true", dest="version",
-                   default=False, help=_("show version information"))
+    parser.add_option("-v", "--version", action="store_true", dest="version", default=False,
+                      help=_("show version information"))
     parser.add_option("-e", "--embedded", action="store", type="int", dest="socket",
-                   help=_("embed this application into SOCKET"), metavar="SOCKET")
-    parser.add_option("-k", "--kickstart", action="store_true", dest="kickstart",
-                   default=False, help=_("run blivet-gui in kickstart mode"))
+                      help=_("embed this application into SOCKET"), metavar="SOCKET")
+    parser.add_option("-k", "--kickstart", action="store_true", dest="kickstart", default=False,
+                      help=_("run blivet-gui in kickstart mode"))
 
     (options, args) = parser.parse_args()
 
     return options
 
 def main(options=None):
+    """ Main function, creates a main/embedded window instance
+    """
 
     if options == None:
         options = parse_options()
@@ -81,20 +83,20 @@ def main(options=None):
 
         if options.socket:
             if options.kickstart:
-                MainWindow = embedded_window(kickstart=True, socket_id=options.socket)
+                win = embedded_window(kickstart=True, socket_id=options.socket)
             else:
-                MainWindow = embedded_window(socket_id=options.socket)
-            MainWindow.show_all()
+                win = embedded_window(socket_id=options.socket)
+            win.show_all()
 
         elif options.kickstart:
-            MainWindow = main_window(kickstart=True)
-            MainWindow.set_position(Gtk.WindowPosition.CENTER)
-            MainWindow.show_all()
+            win = main_window(kickstart=True)
+            win.set_position(Gtk.WindowPosition.CENTER)
+            win.show_all()
 
         else:
-            MainWindow = main_window()
-            MainWindow.set_position(Gtk.WindowPosition.CENTER)
-            MainWindow.show_all()
+            win = main_window()
+            win.set_position(Gtk.WindowPosition.CENTER)
+            win.show_all()
 
         Gtk.main()
 

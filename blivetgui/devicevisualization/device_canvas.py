@@ -22,15 +22,15 @@
 #
 #------------------------------------------------------------------------------#
 
-import os
-
 from gi.repository import Gtk, Gdk, Gio
 
 import cairo
 
 #------------------------------------------------------------------------------#
 
-class cairo_rectangle():
+class CairoRectangle(object):
+    """ Rectangle object
+    """
 
     def __init__(self, x, y, width, height, color):
         self.x = x
@@ -50,39 +50,40 @@ class cairo_rectangle():
         """
 
         return (p_x >= self.x and p_x <= self.x + self.width and
-            p_y >= self.y and p_y <= self.y + self.height)
+                p_y >= self.y and p_y <= self.y + self.height)
 
     def __gt__(self, other):
-
         return self.height > other.height
 
     def __lt__(self, other):
-
         return self.height < other.height
 
     def __str__(self):
         return "Cairo rectangle object\nStarting point: [" + self.x + "|" + \
                 self.y + "]\nwidth: " + self.width + " height: " + self.height
 
-class device_canvas(Gtk.DrawingArea):
+class DeviceCanvas(Gtk.DrawingArea):
 
-    def __init__(self, blivet_utils, list_partitions):
+    def __init__(self, list_partitions):
         Gtk.DrawingArea.__init__(self)
 
-        self.b = blivet_utils
         self.list_partitions = list_partitions
 
         self.connect('draw', self.draw_event)
         self.connect('button-press-event', self.button_press_event)
 
         self.set_events(self.get_events()
-                | Gdk.EventMask.LEAVE_NOTIFY_MASK
-                | Gdk.EventMask.BUTTON_PRESS_MASK
-                | Gdk.EventMask.POINTER_MOTION_MASK
-                | Gdk.EventMask.POINTER_MOTION_HINT_MASK)
+                        | Gdk.EventMask.LEAVE_NOTIFY_MASK
+                        | Gdk.EventMask.BUTTON_PRESS_MASK
+                        | Gdk.EventMask.POINTER_MOTION_MASK
+                        | Gdk.EventMask.POINTER_MOTION_HINT_MASK)
 
         # dict rectangles-partitions_list treeiters
         self.rectangles = {}
+
+        self.partitions_list = None
+        self.partitions_view = None
+        self.parent = None
 
         # color changing for partitions
         self.color = 0
@@ -115,23 +116,24 @@ class device_canvas(Gtk.DrawingArea):
 
     def detect_extended(self):
         """ Detect extended partitions
-
         """
 
         extended = False
         num_logical = 0
 
-        for partition in self.partitions:
+        for partition in self.partitions_list:
 
-            if hasattr(partition, "isExtended") and partition.isExtended:
+            if hasattr(partition[0], "isExtended") and partition[0].isExtended:
                 extended = True # there is extended partition
 
-            if hasattr(partition, "isLogical") and partition.isLogical:
+            if hasattr(partition[0], "isLogical") and partition[0].isLogical:
                 num_logical += 1
 
         return (extended, num_logical)
 
     def pick_color(self, partition):
+        """ Pick color for rectangle
+        """
 
         if hasattr(partition, "isExtended") and partition.isExtended:
             return [0, 1, 1]
@@ -149,11 +151,10 @@ class device_canvas(Gtk.DrawingArea):
             return [0.921, 0.694, 0.239]
         else:
             self.color += 1
-            return [[0.239, 0.921, 0.353],
-            [0.239, 0.467, 0.921]][self.color % 2]
+            return [[0.239, 0.921, 0.353], [0.239, 0.467, 0.921]][self.color % 2]
 
-    def compute_rectangles_size(self, partition, parent, parent_width, height,
-        num_parts, parts_size, parts_left, size_left, start, depth):
+    def compute_rectangles_size(self, partition, parent, parent_width, height, num_parts, parts_size,
+                                parts_left, size_left, start, depth):
         """ Compute sizes (in px) of partition rectangle
 
             :param partition: partition
@@ -173,9 +174,10 @@ class device_canvas(Gtk.DrawingArea):
             :param depth: current tree depth
             :type depth: int
             :returns: rectangle size and location
-            :rtype: class:cairo_rectangle
+            :rtype: class:CairoRectangle
 
         """
+
         if parts_size > parent.size:
             total_size = round(parts_size.convertTo(spec="MiB"))
         else:
@@ -198,8 +200,8 @@ class device_canvas(Gtk.DrawingArea):
             part_width = parent_width - (num_parts-1) * (parent_width // (num_parts*2))
 
         # [x, y, width, height, [r,g,b]]
-        r = cairo_rectangle(round(x), depth, round(part_width), height - 2*depth,
-            self.pick_color(partition))
+        r = CairoRectangle(round(x), depth, round(part_width), height - 2*depth,
+                           self.pick_color(partition))
 
         return r
 
@@ -257,8 +259,7 @@ class device_canvas(Gtk.DrawingArea):
         font_name = settings.get_string('font-name')
 
         cairo_ctx.set_source_rgb(0, 0, 0)
-        cairo_ctx.select_font_face(font_name, cairo.FONT_SLANT_NORMAL,
-            cairo.FONT_WEIGHT_NORMAL)
+        cairo_ctx.select_font_face(font_name, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 
         if r.width - 20 < cairo_ctx.text_extents(u"...")[-2]:
             # too small to print anything
@@ -275,8 +276,7 @@ class device_canvas(Gtk.DrawingArea):
                 name = name[:-3] + "..."
 
         # name of partition
-        cairo_ctx.move_to(r.x + r.width//2 - cairo_ctx.text_extents(name)[-2]//2,
-            r.y + r.height//2)
+        cairo_ctx.move_to(r.x + r.width//2 - cairo_ctx.text_extents(name)[-2]//2, r.y + r.height//2)
         cairo_ctx.show_text(name)
 
         while cairo_ctx.text_extents(size)[-2] > r.width - 20:
@@ -286,29 +286,28 @@ class device_canvas(Gtk.DrawingArea):
 
         # size of partition
         cairo_ctx.move_to(r.x + r.width//2 - cairo_ctx.text_extents(size)[-2]//2,
-            r.y + r.height//2 + 10)
+                          r.y + r.height//2 + 10)
         cairo_ctx.show_text(size)
 
-    def draw_event(self, da, cairo_ctx):
+    def draw_event(self, darea, cairo_ctx):
         """ Drawing event for partition visualisation
 
-            :param da: drawing area
-            :type da: Gtk.DrawingArea
+            :param darea: drawing area
+            :type darea: Gtk.DrawingArea
             :param cairo_ctx: Cairo context
             :type cairo_ctx: Cairo.Context
 
         """
 
         self.color = 0
-        self.cairo_ctx = cairo_ctx
 
         # paint the canvas
         cairo_ctx.set_source_rgb(1, 1, 1)
         cairo_ctx.paint()
 
         # cavas size
-        width = da.get_allocated_width()
-        height = da.get_allocated_height()
+        width = darea.get_allocated_width()
+        height = darea.get_allocated_height()
 
         # get selected line
         selection = self.partitions_view.get_selection()
@@ -347,7 +346,8 @@ class device_canvas(Gtk.DrawingArea):
 
             if num_parts*15 > parent_size:
                 # too many devices, too few space to draw
-                rectangle = cairo_rectangle(start + depth, depth, parent_size, height - 2*depth, [0.9, 0.9, 0.9])
+                rectangle = CairoRectangle(start + depth, depth, parent_size, height - 2*depth,
+                                           [0.9, 0.9, 0.9])
                 self.rectangles[rectangle] = None
                 self.draw_rectangle(cairo_ctx, rectangle)
                 self.draw_info(cairo_ctx, rectangle, str(num_parts), u"devices")
@@ -355,9 +355,9 @@ class device_canvas(Gtk.DrawingArea):
                 return
 
             while treeiter != None:
-                rectangle = self.compute_rectangles_size(self.partitions_list[treeiter][0],
-                    parent, parent_size, height, num_parts, parts_size, parts_left,
-                    size_left, start, depth)
+                rectangle = self.compute_rectangles_size(self.partitions_list[treeiter][0], parent,
+                                                         parent_size, height, num_parts, parts_size,
+                                                         parts_left, size_left, start, depth)
                 self.rectangles[rectangle] = treeiter
 
                 size_left -= rectangle.width
@@ -370,12 +370,12 @@ class device_canvas(Gtk.DrawingArea):
                     self.draw_rectangle(cairo_ctx, rectangle)
 
                 self.draw_info(cairo_ctx, rectangle, self.partitions_list[treeiter][0].name,
-                    str(self.partitions_list[treeiter][0].size))
+                               str(self.partitions_list[treeiter][0].size))
 
                 if self.partitions_list.iter_has_child(treeiter):
                     childiter = self.partitions_list.iter_children(treeiter)
-                    draw_loop(self, childiter, start, depth + 5,
-                        self.partitions_list[treeiter][0], rectangle.width)
+                    draw_loop(self, childiter, start, depth + 5, self.partitions_list[treeiter][0],
+                              rectangle.width)
 
                 start += rectangle.width
                 treeiter = self.partitions_list.iter_next(treeiter)
@@ -387,7 +387,7 @@ class device_canvas(Gtk.DrawingArea):
 
         return True
 
-    def button_press_event(self, da, event):
+    def button_press_event(self, darea, event):
         """ Button press event for partition image
         """
 
@@ -414,7 +414,7 @@ class device_canvas(Gtk.DrawingArea):
 
         # right button popup menu
         if event.button == 3:
-            self.list_partitions.popup_menu.get_menu.popup(None, None, None,
-                None, event.button, event.time)
+            self.list_partitions.popup_menu.menu.popup(None, None, None, None, event.button,
+                                                       event.time)
 
         return True

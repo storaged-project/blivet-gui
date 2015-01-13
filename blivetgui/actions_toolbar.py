@@ -22,8 +22,6 @@
 #
 #------------------------------------------------------------------------------#
 
-import os
-
 from gi.repository import Gtk
 
 import gettext
@@ -34,7 +32,7 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
-class actions_toolbar():
+class ActionsToolbar(object):
     """ Create toolbar with action buttons
     """
 
@@ -154,21 +152,25 @@ class actions_toolbar():
     def on_delete_clicked(self, button):
         """ Onclick action for delete button
         """
+
         self.list_partitions.delete_selected_partition()
 
     def on_add_clicked(self, button):
         """ Onclick action for add button
         """
+
         self.list_partitions.add_partition()
 
     def on_edit_clicked(self, button):
         """ Onclick action for edit button
         """
+
         self.list_partitions.edit_device()
 
     def on_umount_clicked(self, button):
         """ Onclick action for umount button
         """
+
         self.list_partitions.umount_partition()
 
     def on_decrypt_clicked(self, button):
@@ -183,18 +185,14 @@ class actions_toolbar():
 
         self.list_partitions.apply_event()
 
-    def on_clear_clicked(self, event):
+    def on_clear_clicked(self, button):
         """ Onselect action for 'Clear Queued Actions'
         """
 
         self.list_partitions.clear_actions()
 
-    def on_undo_clicked(self, event):
+    def on_undo_clicked(self, button):
         """ Onselect action for 'Undo' button
         """
 
         self.list_partitions.actions_undo()
-
-    @property
-    def get_toolbar(self):
-        return self.toolbar

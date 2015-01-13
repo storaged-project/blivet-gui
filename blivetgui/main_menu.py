@@ -37,7 +37,7 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
-class MainMenu():
+class MainMenu(object):
     """ Main menu for blivet-gui
     """
 
@@ -81,8 +81,7 @@ class MainMenu():
         reload_item = Gtk.MenuItem()
         reload_item.set_label(_("Reload"))
         key, mod = Gtk.accelerator_parse("<Control>R")
-        reload_item.add_accelerator("activate", self.agr,
-            key, mod, Gtk.AccelFlags.VISIBLE)
+        reload_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
 
         reload_item.connect("activate", self.on_reload_item)
 
@@ -91,12 +90,9 @@ class MainMenu():
         quit_item = Gtk.MenuItem()
         quit_item.set_label(_("Quit"))
         key, mod = Gtk.accelerator_parse("<Control>Q")
-        quit_item.add_accelerator("activate", self.agr,
-            key, mod, Gtk.AccelFlags.VISIBLE)
+        quit_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
 
         quit_item.connect("activate", self.on_quit_item)
-
-
         file_menu.add(quit_item)
 
         return file_menu_item
@@ -112,8 +108,7 @@ class MainMenu():
         undo_item = Gtk.MenuItem()
         undo_item.set_label(_("Undo Last Action"))
         key, mod = Gtk.accelerator_parse("<Control>Z")
-        undo_item.add_accelerator("activate", self.agr,
-            key, mod, Gtk.AccelFlags.VISIBLE)
+        undo_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
 
         undo_item.connect("activate", self.on_undo_item)
         undo_item.set_sensitive(False)
@@ -133,8 +128,7 @@ class MainMenu():
         apply_item = Gtk.MenuItem()
         apply_item.set_label(_("Apply Queued Actions"))
         key, mod = Gtk.accelerator_parse("<Control>A")
-        apply_item.add_accelerator("activate", self.agr,
-            key, mod, Gtk.AccelFlags.VISIBLE)
+        apply_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
 
         apply_item.connect("activate", self.on_apply_item)
         apply_item.set_sensitive(False)
@@ -155,8 +149,7 @@ class MainMenu():
         add_item = Gtk.MenuItem()
         add_item.set_label(_("New"))
         key, mod = Gtk.accelerator_parse("Insert")
-        add_item.add_accelerator("activate", self.agr,
-            key, mod, Gtk.AccelFlags.VISIBLE)
+        add_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
 
         add_item.connect("activate", self.on_add_item)
         add_item.set_sensitive(False)
@@ -167,8 +160,7 @@ class MainMenu():
         delete_item = Gtk.MenuItem()
         delete_item.set_label(_("Delete"))
         key, mod = Gtk.accelerator_parse("Delete")
-        delete_item.add_accelerator("activate", self.agr,
-            key, mod, Gtk.AccelFlags.VISIBLE)
+        delete_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
 
         delete_item.connect("activate", self.on_delete_item)
         delete_item.set_sensitive(False)
@@ -218,8 +210,7 @@ class MainMenu():
         help_item = Gtk.MenuItem()
         help_item.set_label(_("Contents"))
         key, mod = Gtk.accelerator_parse("F1")
-        help_item.add_accelerator("activate", self.agr,
-            key, mod, Gtk.AccelFlags.VISIBLE)
+        help_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
 
         help_item.connect("activate", self.on_help_item)
         help_menu.add(help_item)
@@ -262,13 +253,13 @@ class MainMenu():
             if item not in ("apply", "clear", "undo"):
                 self.menu_items[item].set_sensitive(False)
 
-    def on_about_item(self, event):
+    def on_about_item(self, *args):
         """ Onselect action for 'About'
         """
 
         AboutDialog(self.main_window)
 
-    def on_help_item(self, event):
+    def on_help_item(self, *args):
         """ Onselect action for 'Help'
         """
 
@@ -281,90 +272,82 @@ class MainMenu():
             return
 
         try:
-            FNULL = open(os.devnull, "w")
+            fnull = open(os.devnull, "w")
 
             user = os.getenv("PKEXEC_UID")
 
             if user:
                 subprocess.Popen(["yelp", "/usr/share/help/C/blivet-gui/index.page"],
-                    stdout=FNULL, stderr=subprocess.STDOUT, preexec_fn=lambda : (os.setuid(int(user))))
+                                 stdout=fnull, stderr=subprocess.STDOUT,
+                                 preexec_fn=lambda: (os.setuid(int(user))))
 
             else:
                 subprocess.Popen(["yelp", "/usr/share/help/C/blivet-gui/index.page"],
-                    stdout=FNULL, stderr=subprocess.STDOUT)
+                                 stdout=fnull, stderr=subprocess.STDOUT)
 
-        except OSError as e:
+        except OSError:
             msg = _("You need \"Yelp\" to see the documentation.\n\n" \
-                "Online version of documentation is available at " \
-                "http://vojtechtrefny.github.io/blivet-gui")
+                    "Online version of documentation is available at " \
+                    "http://vojtechtrefny.github.io/blivet-gui")
 
             ErrorDialog(self.main_window, msg)
 
-    def on_undo_item(self, event):
+    def on_undo_item(self, *args):
         """ Onselect action for 'Undo Last Action'
         """
 
         self.list_partitions.actions_undo()
 
-    def on_clear_item(self, event):
+    def on_clear_item(self, *args):
         """ Onselect action for 'Clear Queued Actions'
         """
 
         self.list_partitions.clear_actions()
 
-    def on_apply_item(self, event):
+    def on_apply_item(self, *args):
         """ Onselect action for 'Apply Queued Actions'
         """
 
         self.list_partitions.apply_event()
 
-    def on_add_item(self, event):
+    def on_add_item(self, *args):
         """ Onselect action for 'New'
         """
 
         self.list_partitions.add_partition()
 
-    def on_delete_item(self, event):
+    def on_delete_item(self, *args):
         """ Onselect action for 'Delete'
         """
 
         self.list_partitions.delete_selected_partition()
 
-    def on_edit_item(self, event):
+    def on_edit_item(self, *args):
         """ Onselect action for 'Edit'
         """
 
         self.list_partitions.edit_device()
 
-    def on_umount_item(self, event):
+    def on_umount_item(self, *args):
         """ Onselect action for 'Unmount'
         """
 
         self.list_partitions.umount_partition()
 
-    def on_decrypt_item(self, event):
+    def on_decrypt_item(self, *args):
         """ Onselect action for 'Decrypt'
         """
 
         self.list_partitions.decrypt_device()
 
-    def on_quit_item(self, event):
+    def on_quit_item(self, *args):
         """ Onselect action for 'Quit'
         """
 
         self.list_partitions.quit()
 
-    def on_reload_item(self, event):
+    def on_reload_item(self, *args):
+        """ Onselect action for 'Reload'
+        """
 
         self.list_partitions.reload()
-
-    def on_pv_item(self, event):
-
-        self.list_devices.add_pv()
-
-    def on_vg_item(self, event):
-        pass
-
-    @property
-    def get_main_menu(self):
-        return self.menu_bar

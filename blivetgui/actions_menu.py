@@ -25,15 +25,16 @@ from gi.repository import Gtk
 
 import gettext
 
-import os
-
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
-class ActionsMenu():
+class ActionsMenu(object):
+    """ Popup context menu for devices
+    """
+
     def __init__(self, list_partitions):
         self.list_partitions = list_partitions
         self.menu = Gtk.Menu()
@@ -150,7 +151,3 @@ class ActionsMenu():
         """
 
         self.list_partitions.decrypt_device()
-
-    @property
-    def get_menu(self):
-        return self.menu

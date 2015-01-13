@@ -22,7 +22,7 @@
 #
 #------------------------------------------------------------------------------#
 
-import os, threading, traceback
+import threading, traceback
 
 import gettext
 
@@ -35,6 +35,8 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 #------------------------------------------------------------------------------#
 
 class ProcessingActions(Gtk.Dialog):
+    """ Processing actions dialog
+    """
 
     def __init__(self, list_partitions, parent_window):
 
@@ -49,8 +51,7 @@ class ProcessingActions(Gtk.Dialog):
         self.set_position(Gtk.WindowPosition.CENTER)
         self.set_response_sensitive(Gtk.ResponseType.OK, False)
 
-        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
-            column_spacing=5)
+        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
         self.grid.set_margin_bottom(12)
 
         box = self.get_content_area()
@@ -75,24 +76,30 @@ class ProcessingActions(Gtk.Dialog):
         self.thread.start()
 
     def start(self):
+        """ Start the dialog
+        """
+
         self.run()
         self.destroy()
 
         return self.success
 
-    def end(self, error=None, traceback=None):
+    def end(self, error=None, traceback_msg=None):
+        """ End the thread
+        """
+
         self.thread.join()
         self.pulse = False
         self.progressbar.set_fraction(1)
         self.set_response_sensitive(Gtk.ResponseType.OK, True)
 
         if error:
-            self.label.set_markup(_("<b>Queued actions couldn't be finished due " \
-                "to an unexpected error.</b>\n\n%(error)s." % locals()))
+            self.label.set_markup(_("<b>Queued actions couldn't be finished due to an unexpected " \
+                                    "error.</b>\n\n%(error)s." % locals()))
 
             expander = Gtk.Expander(label=_("Show traceback"))
             self.grid.attach(expander, 0, 2, 3, 1)
-            expander.add(Gtk.Label(label=traceback))
+            expander.add(Gtk.Label(label=traceback_msg))
             self.show_all()
 
             self.success = False
@@ -103,6 +110,8 @@ class ProcessingActions(Gtk.Dialog):
             self.success = True
 
     def on_timeout(self, user_data):
+        """ Timeout fuction for progressbar pulsing
+        """
 
         if self.pulse:
             self.progressbar.pulse()
@@ -112,6 +121,9 @@ class ProcessingActions(Gtk.Dialog):
             return False
 
     def do_it(self):
+        """ Run blivet.doIt()
+        """
+
         try:
             self.list_partitions.b.blivet_do_it()
             GObject.idle_add(self.end)

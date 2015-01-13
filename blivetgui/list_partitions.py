@@ -32,7 +32,7 @@ import os.path
 
 from .dialogs import *
 
-from .actions_toolbar import actions_toolbar
+from .actions_toolbar import ActionsToolbar
 
 from .actions_menu import ActionsMenu
 
@@ -40,7 +40,7 @@ from .main_menu import MainMenu
 
 from .processing_window import ProcessingActions
 
-from .devicevisualization.device_canvas import device_canvas
+from .devicevisualization.device_canvas import DeviceCanvas
 
 #------------------------------------------------------------------------------#
 
@@ -49,6 +49,8 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 #------------------------------------------------------------------------------#
 
 class ListPartitions(object):
+    """ List of childs of selected device
+    """
 
     def __init__(self, main_window, list_devices, blivet_utils, builder, kickstart_mode=False,
                  disk=None):
@@ -77,15 +79,15 @@ class ListPartitions(object):
 
         self.builder.get_object("pv_viewport").add(self.info_label)
 
-        self.darea = device_canvas(blivet_utils=self.b, list_partitions=self)
+        self.darea = DeviceCanvas(list_partitions=self)
         self.builder.get_object("image_window").add(self.darea)
 
         self.main_menu = MainMenu(self.main_window, self, self.list_devices)
-        self.builder.get_object("vbox").add(self.main_menu.get_main_menu)
+        self.builder.get_object("vbox").add(self.main_menu.menu_bar)
 
         self.popup_menu = ActionsMenu(self)
-        self.toolbar = actions_toolbar(self, self.main_window)
-        self.builder.get_object("vbox").add(self.toolbar.get_toolbar)
+        self.toolbar = ActionsToolbar(self, self.main_window)
+        self.builder.get_object("vbox").add(self.toolbar.toolbar)
 
         self.select = self.partitions_view.get_selection()
         self.path = self.select.select_path("1")
@@ -116,11 +118,11 @@ class ListPartitions(object):
             pvs = self.b.get_parent_pvs(self.disk)
 
             info_str = _("<b>LVM2 Volume group <i>{0}</i> occupying {1} " \
-                "physical volume(s):</b>\n\n").format(self.disk.name, len(pvs))
+                         "physical volume(s):</b>\n\n").format(self.disk.name, len(pvs))
 
             for pv in pvs:
                 info_str += _("\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> " \
-                    "disk.\n").format(pv.name, str(pv.size), pv.disks[0].name)
+                              "disk.\n").format(pv.name, str(pv.size), pv.disks[0].name)
 
         elif device_type in ("lvmpv", "luks/dm-crypt"):
             blivet_device = self.disk
@@ -134,10 +136,9 @@ class ListPartitions(object):
         elif device_type == "disk":
 
             blivet_disk = self.disk
-
-            info_str = _("<b>Hard disk</b> <i>{0}</i>\n\n\t• Size: <i>{1}</i>" \
-                "\n\t• Model: <i>{2}</i>\n").format(blivet_disk.path,
-                str(blivet_disk.size), blivet_disk.model)
+            info_str = _("<b>Hard disk</b> <i>{0}</i>\n\n\t• Size: <i>{1}</i>\n\t" \
+                         "• Model: <i>{2}</i>\n").format(blivet_disk.path,
+                                                         str(blivet_disk.size), blivet_disk.model)
 
         else:
             info_str = ""
@@ -212,20 +213,23 @@ class ListPartitions(object):
         """ Add partition into partition_list
 
         """
+
         resize_size = "--"
 
         if partition.type == "free space":
-            iter_added = self.partitions_list.append(parent, [partition,
-                partition.name, "--", "--", str(partition.size), "--", None,
-                None])
+            iter_added = self.partitions_list.append(parent, [partition, partition.name, "--", "--",
+                                                              str(partition.size), "--",
+                                                              None, None])
+
         elif partition.type == "partition" and hasattr(partition, "isExtended") and partition.isExtended:
-            iter_added = self.partitions_list.append(None, [partition,
-                partition.name, _("extended"), "--", str(partition.size), "--",
-                None, None])
+            iter_added = self.partitions_list.append(None, [partition, partition.name,
+                                                            _("extended"), "--",
+                                                            str(partition.size), "--",
+                                                            None, None])
         elif partition.type == "lvmvg":
-            iter_added = self.partitions_list.append(parent, [partition,
-                partition.name, _("lvmvg"), "--", str(partition.size), "--",
-                None, None])
+            iter_added = self.partitions_list.append(parent, [partition, partition.name, _("lvmvg"),
+                                                              "--", str(partition.size), "--",
+                                                              None, None])
 
         elif partition.format.mountable:
 
@@ -234,10 +238,11 @@ class ListPartitions(object):
                 resize_size = partition.format.minSize
 
             if partition.format.mountpoint != None:
-                iter_added = self.partitions_list.append(parent, [partition,
-                    partition.name, partition.format.type,
-                    partition.format.mountpoint, str(partition.size),
-                    str(resize_size), None, None])
+                iter_added = self.partitions_list.append(parent, [partition, partition.name,
+                                                                  partition.format.type,
+                                                                  partition.format.mountpoint,
+                                                                  str(partition.size),
+                                                                  str(resize_size), None, None])
 
             elif not partition.format.mountpoint and self.kickstart_mode:
 
@@ -246,18 +251,23 @@ class ListPartitions(object):
                 else:
                     old_mnt = None
 
-                iter_added = self.partitions_list.append(parent, [partition,
-                    partition.name, partition.format.type, partition.format.mountpoint,
-                    str(partition.size), str(resize_size), old_mnt, None])
+                iter_added = self.partitions_list.append(parent, [partition, partition.name,
+                                                                  partition.format.type,
+                                                                  partition.format.mountpoint,
+                                                                  str(partition.size),
+                                                                  str(resize_size), old_mnt, None])
 
             else:
-                iter_added = self.partitions_list.append(parent, [partition,
-                    partition.name, partition.format.type, partition.format.mountpoint,
-                    str(partition.size), str(resize_size), None, None])
+                iter_added = self.partitions_list.append(parent, [partition, partition.name,
+                                                                  partition.format.type,
+                                                                  partition.format.mountpoint,
+                                                                  str(partition.size),
+                                                                  str(resize_size), None, None])
         else:
-            iter_added = self.partitions_list.append(parent, [partition,
-                partition.name, partition.format.type, "--",
-                str(partition.size), str(resize_size), None, None])
+            iter_added = self.partitions_list.append(parent, [partition, partition.name,
+                                                              partition.format.type, "--",
+                                                              str(partition.size),
+                                                              str(resize_size), None, None])
 
         return iter_added
 
@@ -305,7 +315,7 @@ class ListPartitions(object):
             if not selection:
                 return False
 
-            self.popup_menu.get_menu.popup(None, None, None, None, event.button, event.time)
+            self.popup_menu.menu.popup(None, None, None, None, event.button, event.time)
 
             return True
 
@@ -421,7 +431,7 @@ class ListPartitions(object):
 
         """
 
-        if device.type == "free space" or not device.isleaf:
+        if device.type in ("free space",) or not device.isleaf:
             return False
 
         else:
@@ -464,9 +474,6 @@ class ListPartitions(object):
 
                 elif device.format.type in ("btrfs", "lvmpv", "luks", "mdmember"):
                     return False
-
-                elif not device.format.type:
-                    return True
 
                 else:
                     return not device.format.status

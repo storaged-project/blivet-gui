@@ -38,14 +38,16 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 #------------------------------------------------------------------------------#
 
 def locate_ui_file(filename):
+    """ Locate neccessary Glade .ui files
+    """
 
-    path = [os.path.split(os.path.abspath(__file__))[0] + '/../data/ui/',
-        '/usr/share/blivet-gui/ui/']
+    path = [os.path.split(os.path.abspath(__file__))[0] + "/../data/ui/",
+            "/usr/share/blivet-gui/ui/"]
 
     for folder in path:
-        fn = folder + filename
-        if os.access(fn, os.R_OK):
-            return fn
+        fname = folder + filename
+        if os.access(fname, os.R_OK):
+            return fname
 
     raise RuntimeError("Unable to find glade file %s" % file)
 
@@ -54,13 +56,13 @@ def main_window(kickstart=False):
     """
 
     builder = Gtk.Builder()
-    builder.add_from_file(locate_ui_file('blivet-gui.ui'))
+    builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
-    MainWindow = builder.get_object("MainWindow")
+    win = builder.get_object("MainWindow")
 
-    ListDevices(MainWindow, builder, kickstart)
+    ListDevices(win, builder, kickstart)
 
-    return MainWindow
+    return win
 
 def embedded_window(kickstart=False, socket_id=0):
     """ Create Gtk.Plug widget
@@ -69,7 +71,7 @@ def embedded_window(kickstart=False, socket_id=0):
     plug = Gtk.Plug.new(socket_id)
 
     builder = Gtk.Builder()
-    builder.add_from_file(locate_ui_file('blivet-gui.ui'))
+    builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
     signal.signal(signal.SIGINT, signal.SIG_DFL)
 
