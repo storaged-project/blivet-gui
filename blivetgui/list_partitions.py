@@ -176,12 +176,14 @@ class ListPartitions(object):
                         unadded_logical.append(child)
 
                     else:
-                        self.add_partition_to_view(child, extended_iter)
+                        parent_iter = self.add_partition_to_view(child, extended_iter)
+
+                        if child.type != "free space" and len(self.b.get_partitions(child)) != 0:
+                            childs_loop(self.b.get_partitions(child), parent_iter)
 
                 elif child.type != "free space" and len(self.b.get_partitions(child)) != 0:
 
                     parent_iter = self.add_partition_to_view(child, parent)
-
                     childs_loop(self.b.get_partitions(child), parent_iter)
 
                 else:

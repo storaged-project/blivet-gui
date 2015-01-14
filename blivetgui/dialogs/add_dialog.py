@@ -573,7 +573,8 @@ class AddDialog(Gtk.Dialog):
         self.grid.attach(label_devices, 0, 0, 1, 1)
 
         if self.device_type == "disk" and self.free_device.isLogical:
-            devices = [(_("Partition"), "partition")]
+            devices = [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
+                       (_("LVM2 Physical Volume"), "lvmpv")]
 
         elif self.device_type == "disk" and not self.parent_device.format.type \
             and self.free_device.size > Size("256 MiB"):
