@@ -128,6 +128,6 @@ class ProcessingActions(Gtk.Dialog):
             self.list_partitions.b.blivet_do_it()
             GObject.idle_add(self.end)
 
-        except Exception as e:
+        except Exception as e: # pylint: disable=broad-except
             self.list_partitions.b.blivet_reset()
             GObject.idle_add(self.end, e, traceback.format_exc())

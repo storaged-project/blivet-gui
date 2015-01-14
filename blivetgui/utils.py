@@ -404,7 +404,7 @@ class BlivetUtils(object):
             action = blivet.deviceaction.ActionDestroyFormat(disk_device)
             self.storage.devicetree.registerAction(action)
 
-        except Exception as e:
+        except Exception as e: # pylint: disable=broad-except
             message_dialogs.ExceptionDialog(self.main_window, str(e),
                 traceback.format_exc())
             return
@@ -438,7 +438,7 @@ class BlivetUtils(object):
             self.storage.devicetree.registerAction(ac_dev)
             actions.append(ac_dev)
 
-        except Exception as e:
+        except Exception as e: # pylint: disable=broad-except
             message_dialogs.ExceptionDialog(self.main_window, str(e),
                 traceback.format_exc())
             return
@@ -530,7 +530,7 @@ class BlivetUtils(object):
             blivet.partitioning.doPartitioning(self.storage)
             return actions
 
-        except Exception as e:
+        except Exception as e: # pylint: disable=broad-except
 
             message_dialogs.ExceptionDialog(self.main_window, str(e),
                 traceback.format_exc())
@@ -797,7 +797,7 @@ class BlivetUtils(object):
                     try:
                         self.storage.devicetree.registerAction(ac_fmt)
 
-                    except Exception as e:
+                    except Exception as e: # pylint: disable=broad-except
                         message_dialogs.ExceptionDialog(self.main_window,
                             str(e), traceback.format_exc())
                         return
@@ -895,7 +895,7 @@ class BlivetUtils(object):
 
             blivet.partitioning.doPartitioning(self.storage)
 
-        except Exception as e:
+        except Exception as e: # pylint: disable=broad-except
 
             message_dialogs.ExceptionDialog(self.main_window, str(e),
                 traceback.format_exc())
@@ -917,7 +917,7 @@ class BlivetUtils(object):
             ac_rm = blivet.deviceaction.ActionRemoveMember(container, parent)
             self.storage.devicetree.registerAction(ac_rm)
 
-        except Exception as e:
+        except Exception as e: # pylint: disable=broad-except
 
             message_dialogs.ExceptionDialog(self.main_window, str(e),
                 traceback.format_exc())
@@ -962,7 +962,7 @@ class BlivetUtils(object):
 
             actions.append(ac_add)
 
-        except Exception as e:
+        except Exception as e: # pylint: disable=broad-except
 
             message_dialogs.ExceptionDialog(self.main_window, str(e),
                 traceback.format_exc())
