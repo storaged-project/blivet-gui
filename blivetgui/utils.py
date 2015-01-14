@@ -323,7 +323,7 @@ class BlivetUtils(object):
                                 break
 
                         if free.end > logicals[-1].partedPartition.geometry.end:
-                                partitions.append(FreeSpaceDevice(free_size, free.start, free.end,
+                            partitions.append(FreeSpaceDevice(free_size, free.start, free.end,
                                                                   [blivet_device], True))
 
                     else:
