@@ -57,7 +57,7 @@ def parse_options():
     parser.add_option("-k", "--kickstart", action="store_true", dest="kickstart", default=False,
                       help=_("run blivet-gui in kickstart mode"))
 
-    (options, args) = parser.parse_args()
+    (options, _args) = parser.parse_args()
 
     return options
 

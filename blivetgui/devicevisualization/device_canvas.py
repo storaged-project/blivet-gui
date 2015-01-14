@@ -311,7 +311,7 @@ class DeviceCanvas(Gtk.DrawingArea):
 
         # get selected line
         selection = self.partitions_view.get_selection()
-        model, selected_treeiter = selection.get_selected()
+        _model, selected_treeiter = selection.get_selected()
 
         def draw_loop(self, treeiter, start, depth, parent, parent_size):
             """ Recursive function to draw rectangles
