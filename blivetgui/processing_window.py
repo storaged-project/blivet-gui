@@ -95,7 +95,7 @@ class ProcessingActions(Gtk.Dialog):
 
         if error:
             self.label.set_markup(_("<b>Queued actions couldn't be finished due to an unexpected " \
-                                    "error.</b>\n\n%(error)s." % locals()))
+                                    "error.</b>\n\n%s.") % locals())
 
             expander = Gtk.Expander(label=_("Show traceback"))
             self.grid.attach(expander, 0, 2, 3, 1)
