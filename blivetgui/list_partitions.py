@@ -30,7 +30,7 @@ import blivet
 
 import os.path
 
-from .dialogs import *
+from .dialogs import add_dialog, edit_dialog, message_dialogs, other_dialogs
 
 from .actions_toolbar import ActionsToolbar
 
