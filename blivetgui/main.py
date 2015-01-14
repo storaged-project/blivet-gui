@@ -30,9 +30,9 @@ import gettext
 
 from gi.repository import Gtk
 
-from dialogs import message_dialogs
+from blivetgui.dialogs import message_dialogs
 
-from main_window import main_window, embedded_window
+from blivetgui.main_window import main_window, embedded_window
 
 #------------------------------------------------------------------------------#
 
