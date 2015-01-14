@@ -45,12 +45,12 @@ class PartitionEditDialog(Gtk.Dialog):
     """
 
     class UserSelection(object):
-        def __init__(self, edit_device, resize, size, format, filesystem, mountpoint):
+        def __init__(self, edit_device, resize, size, fmt, filesystem, mountpoint):
 
             self.edit_device = edit_device
             self.resize = resize
             self.size = size
-            self.format = format
+            self.format = fmt
             self.filesystem = filesystem
             self.mountpoint = mountpoint
 
@@ -230,7 +230,7 @@ class PartitionEditDialog(Gtk.Dialog):
         return self.UserSelection(edit_device=self.edited_device,
                                   resize=resize,
                                   size=size,
-                                  format=self.format_check.get_active(),
+                                  fmt=self.format_check.get_active(),
                                   filesystem=self.filesystems_combo.get_active_text(),
                                   mountpoint=mountpoint)
 
