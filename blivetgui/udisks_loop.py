@@ -1,4 +1,3 @@
-import sys,os,time
 from threading import Thread
 
 import dbus
