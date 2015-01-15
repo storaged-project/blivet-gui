@@ -13,6 +13,8 @@
 
   <desc>
     <link xref="kickstart">Kickstart Mode</link>,
+    <link xref="btrfs">Btrfs</link>,
+    <link xref="raid">Software RAID</link>,
     <link xref="lvm2">LVM2 Storages</link>,
     <link xref="partitioning">Disk Partitions</link>,
     <link xref="window">User Interface</link>…
@@ -23,9 +25,9 @@
 
 <title>blivet-gui</title>
 
-<p>blivet-gui is a graphical application to manage disks, partitions and LVM2 storages. As backend it uses blivet, powerful python module for storage configuration.</p>
+<p>blivet-gui is a graphical application to manage disks, partitions, LVM2 storages and software RAIDs. As backend it uses blivet, powerful python module for storage configuration.</p>
 
-<p>This guide will help you with some basic tasks regarding partitioning and creating and managing LVM2 storages.</p>
+<p>This guide will help you with some basic tasks regarding partitioning and creating and managing LVM2 storages, RAIDs and btrfs volumes.</p>
 
 <figure>
   <title>Create new partition</title>

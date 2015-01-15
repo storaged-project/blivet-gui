@@ -179,7 +179,7 @@
 <section id="delete">
     <title>Deleting LVM2 Storages</title>
     
-<p>Because only devices without any active child devices can be deleted, to delete whole LVM2 storage it is neccessary to first delete all
+<p>Because only devices without any active child devices can be deleted, to delete whole LVM2 storage it is necessary to first delete all
 LVM2 logical volumes, then delete the volume group and at last delete all physical volumes.</p>
 
 <steps>
