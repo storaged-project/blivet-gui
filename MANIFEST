@@ -10,7 +10,6 @@ blivetgui/actions_menu.py
 blivetgui/actions_toolbar.py
 blivetgui/list_devices.py
 blivetgui/list_partitions.py
-blivetgui/main.py
 blivetgui/main_menu.py
 blivetgui/main_window.py
 blivetgui/processing_window.py
