@@ -69,6 +69,8 @@ class ListPartitions(object):
 
         self.partitions_view = self.create_partitions_view()
         self.builder.get_object("partitions_viewport").add(self.partitions_view)
+        self.partitions_view.set_has_tooltip(True)
+        self.partitions_view.connect("query-tooltip", self.on_tooltip_query)
 
         self.actions_view = self.create_actions_view()
         self.builder.get_object("actions_viewport").add(self.actions_view)
@@ -107,6 +109,28 @@ class ListPartitions(object):
         self.selected_partition = None
 
         self.history = []
+
+    def on_tooltip_query(self, treeview, x, y, keyboard_mode, tooltip):
+        """ On tooltip query function for partitions treeview -- displays tooltip with full name
+            when actual name of device is too long and has been shortened
+        """
+
+        if not treeview.get_tooltip_context(x, y, keyboard_mode)[0]:
+            return False
+        else:
+            path = treeview.get_tooltip_context(x, y, keyboard_mode)[4]
+            treeiter = treeview.get_tooltip_context(x, y, keyboard_mode)[5]
+
+            name = self.partitions_list.get_value(treeiter, 0).name
+            printed_name = self.partitions_list.get_value(treeiter, 1)
+
+            if name != printed_name:
+                tooltip.set_markup(name)
+                treeview.set_tooltip_cell(tooltip, path, None, None)
+                return True
+
+            else:
+                return False
 
     def device_info(self):
         """ Basic information for selected device
@@ -217,19 +241,23 @@ class ListPartitions(object):
         """
 
         resize_size = "--"
+        name = partition.name
+
+        if len(name) > 18:
+            name = name[:15] + "..."
 
         if partition.type == "free space":
-            iter_added = self.partitions_list.append(parent, [partition, partition.name, "--", "--",
+            iter_added = self.partitions_list.append(parent, [partition, name, "--", "--",
                                                               str(partition.size), "--",
                                                               None, None])
 
         elif partition.type == "partition" and hasattr(partition, "isExtended") and partition.isExtended:
-            iter_added = self.partitions_list.append(None, [partition, partition.name,
+            iter_added = self.partitions_list.append(None, [partition, name,
                                                             _("extended"), "--",
                                                             str(partition.size), "--",
                                                             None, None])
         elif partition.type == "lvmvg":
-            iter_added = self.partitions_list.append(parent, [partition, partition.name, _("lvmvg"),
+            iter_added = self.partitions_list.append(parent, [partition, name, _("lvmvg"),
                                                               "--", str(partition.size), "--",
                                                               None, None])
 
@@ -240,7 +268,7 @@ class ListPartitions(object):
                 resize_size = partition.format.minSize
 
             if partition.format.mountpoint != None:
-                iter_added = self.partitions_list.append(parent, [partition, partition.name,
+                iter_added = self.partitions_list.append(parent, [partition, name,
                                                                   partition.format.type,
                                                                   partition.format.mountpoint,
                                                                   str(partition.size),
@@ -253,20 +281,20 @@ class ListPartitions(object):
                 else:
                     old_mnt = None
 
-                iter_added = self.partitions_list.append(parent, [partition, partition.name,
+                iter_added = self.partitions_list.append(parent, [partition, name,
                                                                   partition.format.type,
                                                                   partition.format.mountpoint,
                                                                   str(partition.size),
                                                                   str(resize_size), old_mnt, None])
 
             else:
-                iter_added = self.partitions_list.append(parent, [partition, partition.name,
+                iter_added = self.partitions_list.append(parent, [partition, name,
                                                                   partition.format.type,
                                                                   partition.format.mountpoint,
                                                                   str(partition.size),
                                                                   str(resize_size), None, None])
         else:
-            iter_added = self.partitions_list.append(parent, [partition, partition.name,
+            iter_added = self.partitions_list.append(parent, [partition, name,
                                                               partition.format.type, "--",
                                                               str(partition.size),
                                                               str(resize_size), None, None])
