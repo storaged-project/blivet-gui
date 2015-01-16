@@ -22,8 +22,6 @@
 #
 #------------------------------------------------------------------------------#
 
-import os
-
 import subprocess
 
 import gettext
@@ -50,7 +48,7 @@ class SocketWindow(Gtk.Window):
 
         socket_id = socket.get_id()
 
-        process = subprocess.Popen(["blivet-gui", "-e", str(socket_id)])
+        subprocess.Popen(["blivet-gui", "-e", str(socket_id)])
 
         self.connect("destroy", lambda w: Gtk.main_quit())
         socket.connect("plug-added", self.plugged_event)

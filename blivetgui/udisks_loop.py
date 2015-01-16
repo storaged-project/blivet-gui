@@ -1,4 +1,3 @@
-import sys,os,time
 from threading import Thread
 
 import dbus
@@ -13,8 +12,6 @@ class udisks_thread(Thread):
         proxy = bus.get_object('org.freedesktop.UDisks',
             '/org/freedesktop/UDisks')
         iface = dbus.Interface(proxy, 'org.freedesktop.UDisks')
-        devices = iface.get_dbus_method('EnumerateDevices')()
-
         iface.connect_to_signal('DeviceAdded', self.on_device_added)
         iface.connect_to_signal('DeviceRemoved', self.on_device_removed)
 

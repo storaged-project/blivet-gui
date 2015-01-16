@@ -22,5 +22,4 @@ doc/_build
 
 *.sqlite3
 
-tests
 .directory
