@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=blivet-gui
-Exec=/usr/bin/pkexec /usr/bin/blivet-gui
+Exec=/usr/bin/blivet-gui_pkexec
 Terminal=false
 Type=Application
 Categories=GNOME;System;Filesystem;X-Fedora;GTK;

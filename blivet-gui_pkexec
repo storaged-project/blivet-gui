@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ $(which pkexec) ]; then
+        pkexec "/usr/bin/blivet-gui" "$@"
+else
+        /usr/bin/blivet-gui "$@"
+fi
