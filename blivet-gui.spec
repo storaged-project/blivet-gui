@@ -53,6 +53,35 @@ rm -rf %{buildroot}
 /usr/bin/blivet-gui_pkexec
 
 %changelog
-* Po led 19 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.1.11-1
-
-
+* Mon Jan 19 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.1.11-1
+- New version 0.1.11 (vtrefny)
+- bumpver target for makefile (vtrefny)
+- Merge branch 'master' of github.com:vojtechtrefny/blivet-gui (vtrefny)
+- Specific binary file for desktop file (vtrefny)
+- User help update (vtrefny)
+- Fix python-blivet required version (vtrefny)
+- Fix long device names (vtrefny)
+- Suppress broad-except pylint errors. (amulhern)
+- Change relative to absolute imports. (amulhern)
+- Omit or hide unused variables and computations. (amulhern)
+- main.py moved to blivet-gui file (vtrefny)
+- Omit needless imports. (amulhern)
+- Move % operator outside translation. (amulhern)
+- Do not use wildcard import. (amulhern)
+- Do not use builtin name format as parameter name. (amulhern)
+- Fix bad indentation. (amulhern)
+- Initial pylint setup. (amulhern)
+- Support lvm inside extended partitions (vtrefny)
+- pylint (vtrefny)
+- AddDialog: Move btrfs type chooser above parents view (vtrefny)
+- Do not clear actions after apply in ks mode (vtrefny)
+- blivet-gui man page (vtrefny)
+- Fix embedded function and example (vtrefny)
+- fedora-review fixes for spec and desktop file (vtrefny)
+- Python binary file (vtrefny)
+- Check if file exists while saving ks (vtrefny)
+- Mountpoint support for btrfs in ks mode (vtrefny)
+- Don't allow editing mdmember partitions (vtrefny)
+- Version 0.1.10 (vtrefny)
+- Do not sort child devices on disks with raw device (vtrefny)
+- Fix unicode converting bug (vtrefny)

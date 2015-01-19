@@ -2,7 +2,7 @@ PKGNAME=blivetgui
 APPNAME=blivet-gui
 SPECFILE=blivet-gui.spec
 VERSION=$(shell awk '/Version:/ { print $$2 }' $(SPECFILE))
-RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE))
+RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE) | sed -e 's|%.*$$||g')
 RELEASE_TAG=$(APPNAME)-$(VERSION)-$(RELEASE)
 VERSION_TAG=$(APPNAME)-$(VERSION)
 
@@ -63,7 +63,7 @@ archive: po-pull
 bumpver: po-pull
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 3` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,2,4` ; \
-	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
+	DATELINE="* `LANG="en_US" date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
 	cl=`grep -n %changelog blivet-gui.spec |cut -d : -f 1` ; \
 	tail --lines=+$$(($$cl + 1)) blivet-gui.spec > speclog ; \
 	(head -n $$cl blivet-gui.spec ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > blivet-gui.spec.new ; \
