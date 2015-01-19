@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.1.10
-Release: 4%{?dist}
+Version: 0.1.11
+Release: 1%{?dist}
 Source0: https://github.com/vojtechtrefny/blivet-gui/archive/%{name}-%{version}.tar.gz
 License: GPLv3
 Group: Applications/System
@@ -53,3 +53,6 @@ rm -rf %{buildroot}
 /usr/bin/blivet-gui_pkexec
 
 %changelog
+* Po led 19 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.1.11-1
+
+

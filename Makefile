@@ -49,7 +49,7 @@ release: check tag archive
 
 archive: po-pull
 	@rm -f ChangeLog
-	@make ChangeLog
+	$(MAKE) ChangeLog
 	git archive --format=tar --prefix=$(APPNAME)-$(VERSION)/ $(VERSION_TAG) > $(APPNAME)-$(VERSION).tar
 	mkdir $(APPNAME)-$(VERSION)
 	cp -r po $(APPNAME)-$(VERSION)
@@ -70,7 +70,8 @@ bumpver: po-pull
 	mv blivet-gui.spec.new blivet-gui.spec ; rm -f speclog ; \
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" blivet-gui.spec ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
-	po-push
+	$(MAKE) po-push
+	$(MAKE) -C po clean
 
 rpmlog:
 	@git log --pretty="format:- %s (%ae)" $(RELEASE_TAG).. |sed -e 's/@.*)/)/'
