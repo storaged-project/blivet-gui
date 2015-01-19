@@ -60,6 +60,18 @@ archive: po-pull
 	git checkout -- po/$(APPNAME).pot
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
 
+bumpver: po-pull
+	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 3` + 1)) ; \
+	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,2,4` ; \
+	DATELINE="* `date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
+	cl=`grep -n %changelog blivet-gui.spec |cut -d : -f 1` ; \
+	tail --lines=+$$(($$cl + 1)) blivet-gui.spec > speclog ; \
+	(head -n $$cl blivet-gui.spec ; echo "$$DATELINE" ; make --quiet rpmlog 2>/dev/null ; echo ""; cat speclog) > blivet-gui.spec.new ; \
+	mv blivet-gui.spec.new blivet-gui.spec ; rm -f speclog ; \
+	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" blivet-gui.spec ; \
+	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
+	po-push
+
 rpmlog:
 	@git log --pretty="format:- %s (%ae)" $(RELEASE_TAG).. |sed -e 's/@.*)/)/'
 	@echo

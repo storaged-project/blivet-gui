@@ -50,3 +50,6 @@ rm -rf %{buildroot}
 /usr/share/blivet-gui
 /usr/share/help/C/blivet-gui
 /usr/bin/blivet-gui
+/usr/bin/blivet-gui_pkexec
+
+%changelog
