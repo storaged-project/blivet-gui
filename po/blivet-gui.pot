@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-19 14:34+0100\n"
+"POT-Creation-Date: 2015-01-20 06:59+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -402,7 +402,7 @@ msgstr ""
 #: ../blivetgui/dialogs/edit_dialog.py:329
 msgid ""
 "There are currently no empty physical volumes or\n"
-" disks with enough empty space to create one."
+"disks with enough empty space to create one."
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:358
@@ -414,7 +414,7 @@ msgstr ""
 #: ../blivetgui/dialogs/edit_dialog.py:392
 msgid ""
 "It's currently not possible to remove\n"
-" a physical volume from existing volume group."
+"a physical volume from existing volume group."
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:404
