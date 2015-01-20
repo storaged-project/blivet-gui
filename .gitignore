@@ -18,8 +18,9 @@ _build
 
 main.py
 
-doc/_build
+blivet-gui*.tar.gz
+blivet-gui*.tar.bz2
 
-*.sqlite3
+doc/_build
 
 .directory

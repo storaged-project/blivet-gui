@@ -2,7 +2,7 @@ Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 0.2.0
 Release: 2%{?dist}
-Source0: https://github.com/vojtechtrefny/blivet-gui/archive/%{name}-%{version}.tar.gz
+Source0: https://github.com/rhinstaller/blivet-gui/archive/%{name}-%{version}.tar.gz
 License: GPLv3
 Group: Applications/System
 BuildArch: noarch
@@ -19,7 +19,7 @@ Requires: gtk3
 Requires: gnome-icon-theme
 Requires: polkit-gnome
 Requires: yelp
-Url: http://github.com/vojtechtrefny/blivet-gui
+Url: http://github.com/rhinstaller/blivet-gui
 
 %description
 Graphical (GTK) tool for manipulation and configuration of data storage
