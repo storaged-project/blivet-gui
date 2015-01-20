@@ -54,6 +54,10 @@ rm -rf %{buildroot}
 
 %changelog
 
+* Tue Jan 20 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.0-3
+- Licence file added (GPLv2) (vtrefny)
+- New source location (vtrefny)
+
 * Tue Jan 20 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.0-2
 - Version bumped to 0.2 (vtrefny)
 - EditDialog: typo (vtrefny)
