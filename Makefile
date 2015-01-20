@@ -60,7 +60,7 @@ archive: po-pull
 	git checkout -- po/$(APPNAME).pot
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
 
-bumpver: po-pull
+bumpver:
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 3` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,2,4` ; \
 	DATELINE="* `LANG="en_US" date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
@@ -70,6 +70,7 @@ bumpver: po-pull
 	mv blivet-gui.spec.new blivet-gui.spec ; rm -f speclog ; \
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" blivet-gui.spec ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
+	sed -i "s/APP_VERSION='$(VERSION)'/APP_VERSION='$$NEWVERSION'/" blivet-gui ; \
 	$(MAKE) po-push
 	$(MAKE) -C po clean
 
