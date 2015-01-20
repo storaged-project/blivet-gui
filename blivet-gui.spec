@@ -1,9 +1,9 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 0.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://github.com/rhinstaller/blivet-gui/archive/%{name}-%{version}.tar.gz
-License: GPLv3
+License: GPLv2+
 Group: Applications/System
 BuildArch: noarch
 BuildRequires: python2-devel
