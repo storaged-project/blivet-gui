@@ -32,15 +32,13 @@ Graphical (GTK) tool for manipulation and configuration of data storage
 make %{?_smp_mflags}
 
 %install
+rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 
 %find_lang %{name}
-
-%clean
-rm -rf %{buildroot}
 
 %files -f %{name}.lang
 %{_mandir}/man1/blivet-gui.1*
