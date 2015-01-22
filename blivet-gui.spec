@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 0.2.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Source0: https://github.com/rhinstaller/blivet-gui/archive/%{name}-%{version}.tar.gz
 License: GPLv2+
 Group: Applications/System
@@ -50,10 +50,13 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 
 %changelog
 
+* Thu Jan 22 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.0-5
+- Fixed macro-in-changelog rpmlint warning (vtrefny)
+
 * Thu Jan 22 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.0-4
 - New build 0.2.0-4
 - Fedora review: updated specfile, licence added to package (vtrefny)
-- %clean section removed from spec file (vtrefny)
+- %%clean section removed from spec file (vtrefny)
 
 * Tue Jan 20 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.0-3
 - Licence file added (GPLv2) (vtrefny)
