@@ -3,8 +3,8 @@ APPNAME=blivet-gui
 SPECFILE=blivet-gui.spec
 VERSION=$(shell awk '/Version:/ { print $$2 }' $(SPECFILE))
 RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE) | sed -e 's|%.*$$||g')
-RELEASE_TAG=$(APPNAME)-$(VERSION)-$(RELEASE)
-VERSION_TAG=$(APPNAME)-$(VERSION)
+RELEASE_TAG=$(VERSION)-$(RELEASE)
+VERSION_TAG=$(VERSION)
 
 L10N_FILES = po
 ZANATA_PULL_ARGS = -B
@@ -50,7 +50,7 @@ release: check tag archive
 archive: po-pull
 	@rm -f ChangeLog
 	$(MAKE) ChangeLog
-	git archive --format=tar --prefix=$(APPNAME)-$(VERSION)/ $(VERSION_TAG) > $(APPNAME)-$(VERSION).tar
+	git archive --format=tar --prefix=$(APPNAME)-$(VERSION)/ $(RELEASE_TAG) > $(APPNAME)-$(VERSION)-$(RELEASE).tar
 	mkdir $(APPNAME)-$(VERSION)
 	cp -r po $(APPNAME)-$(VERSION)
 	cp ChangeLog $(APPNAME)-$(VERSION)/

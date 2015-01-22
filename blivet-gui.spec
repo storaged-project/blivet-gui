@@ -1,8 +1,8 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 0.2.0
-Release: 5%{?dist}
-Source0: https://github.com/rhinstaller/blivet-gui/archive/%{name}-%{version}.tar.gz
+Release: 6%{?dist}
+Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}-6/%{name}-%{version}-6.tar.gz
 License: GPLv2+
 Group: Applications/System
 BuildArch: noarch
@@ -49,6 +49,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui_pkexec
 
 %changelog
+
+* Thu Jan 22 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.0-6
+- GitHub release as source for spec file (vtrefny)
 
 * Thu Jan 22 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.0-5
 - Fixed macro-in-changelog rpmlint warning (vtrefny)
