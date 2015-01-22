@@ -8,7 +8,7 @@ Group: Applications/System
 BuildArch: noarch
 BuildRequires: python2-devel
 BuildRequires: desktop-file-utils
-BuildRequires:intltool
+BuildRequires: intltool
 BuildRequires: gettext
 BuildRequires: python-setuptools
 Requires: python
@@ -19,7 +19,7 @@ Requires: gtk3
 Requires: gnome-icon-theme
 Requires: polkit-gnome
 Requires: yelp
-Url: http://github.com/rhinstaller/blivet-gui
+URL: http://github.com/rhinstaller/blivet-gui
 
 %description
 Graphical (GTK) tool for manipulation and configuration of data storage
@@ -32,10 +32,8 @@ Graphical (GTK) tool for manipulation and configuration of data storage
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
 make DESTDIR=%{buildroot} install
 
-%check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 
 %find_lang %{name}
@@ -43,12 +41,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %files -f %{name}.lang
 %{_mandir}/man1/blivet-gui.1*
 %{python_sitelib}/*
-/usr/share/applications
-/usr/share/polkit-1/actions
-/usr/share/blivet-gui
-/usr/share/help/C/blivet-gui
-/usr/bin/blivet-gui
-/usr/bin/blivet-gui_pkexec
+%{_datadir}/applications/blivet-gui.desktop
+%{_datadir}/polkit-1/actions/org.fedoraproject.pkexec.blivet-gui.policy
+%{_datadir}/blivet-gui
+%{_datadir}/help/C/blivet-gui
+%{_bindir}/blivet-gui
+%{_bindir}/blivet-gui_pkexec
 
 %changelog
 
