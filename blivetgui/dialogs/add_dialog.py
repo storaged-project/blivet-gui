@@ -190,11 +190,11 @@ class SizeChooserArea(object):
             scale.add_mark(self.max_size.convertTo(unit), Gtk.PositionType.BOTTOM,
                 str(self.max_size))
 
-        self.frame_grid .attach(scale, 0, 0, 4, 3)
+        self.frame_grid.attach(scale, 0, 0, 4, 3)
 
         label_size = Gtk.Label(label=_("Volume size:"), xalign=1)
         label_size.get_style_context().add_class("dim-label")
-        self.frame_grid .attach(label_size, 4, 1, 1, 1)
+        self.frame_grid.attach(label_size, 4, 1, 1, 1)
 
         spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0,
             self.min_size.convertTo(unit), self.max_size.convertTo(unit), 1, 10, 0))
@@ -202,10 +202,10 @@ class SizeChooserArea(object):
         spin_size.set_numeric(True)
         spin_size.set_value(self.max_size.convertTo(unit))
 
-        self.frame_grid .attach(spin_size, 5, 1, 1, 1)
+        self.frame_grid.attach(spin_size, 5, 1, 1, 1)
 
         unit_chooser = self.add_unit_chooser(unit)
-        self.frame_grid .attach(unit_chooser, 6, 1, 1, 1)
+        self.frame_grid.attach(unit_chooser, 6, 1, 1, 1)
 
         scale.connect("value-changed", self.scale_moved, spin_size)
         spin_size.connect("value-changed", self.spin_size_moved, scale)
