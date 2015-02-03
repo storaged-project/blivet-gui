@@ -30,7 +30,7 @@ import gettext
 
 from gi.repository import Gtk
 
-from blivetgui.dialogs import message_dialogs
+from blivetgui.dialogs import other_dialogs
 
 from blivetgui.main_window import main_window, embedded_window
 
@@ -75,9 +75,7 @@ def main(options=None):
     elif os.geteuid() != 0:
         # root privileges are required for blivet
 
-        msg = _("Root privileges are required for running blivet-gui.")
-        message_dialogs.ErrorDialog(None, msg)
-        sys.exit(0)
+        win = other_dialogs.RootCheckWindow()
 
     else:
 

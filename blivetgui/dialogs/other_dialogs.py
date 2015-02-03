@@ -50,7 +50,6 @@ class AboutDialog(object):
         dialog.run()
         dialog.destroy()
 
-
 class LuksPassphraseDialog(object):
     """ Dialog window allowing user to enter passphrase to decrypt
     """
@@ -226,3 +225,17 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
 
         return (selected_disks_names, self.boot_device_combo.get_sensitive(),
                 self.boot_device_combo.get_active_text())
+
+class RootCheckWindow(object):
+    def __init__(self):
+        builder = Gtk.Builder()
+        builder.add_from_file(locate_ui_file('root_check_window.ui'))
+
+        win = builder.get_object("root_window")
+        win.connect("delete-event", Gtk.main_quit)
+
+        button = builder.get_object("button")
+        button.connect("clicked", Gtk.main_quit)
+
+        win.show_all()
+        Gtk.main()
