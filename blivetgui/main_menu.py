@@ -66,7 +66,7 @@ class MainMenu(object):
 
         self.menu_bar.add(self.add_file_menu())
         self.menu_bar.add(self.add_edit_menu())
-        self.menu_bar.add(self.add_partition_menu())
+        self.menu_bar.add(self.add_device_menu())
         self.menu_bar.add(self.add_help_menu())
 
     def add_file_menu(self):
@@ -138,13 +138,13 @@ class MainMenu(object):
 
         return edit_menu_item
 
-    def add_partition_menu(self):
-        """ Menu item 'Partition' #FIXME: 'device' menu now
+    def add_device_menu(self):
+        """ Menu item 'Device'
         """
 
-        partition_menu_item = Gtk.MenuItem(label=_("Device"))
-        partition_menu = Gtk.Menu()
-        partition_menu_item.set_submenu(partition_menu)
+        device_menu_item = Gtk.MenuItem(label=_("Device"))
+        device_menu = Gtk.Menu()
+        device_menu_item.set_submenu(device_menu)
 
         add_item = Gtk.MenuItem()
         add_item.set_label(_("New"))
@@ -153,7 +153,7 @@ class MainMenu(object):
 
         add_item.connect("activate", self.on_add_item)
         add_item.set_sensitive(False)
-        partition_menu.add(add_item)
+        device_menu.add(add_item)
 
         self.menu_items["add"] = add_item
 
@@ -164,7 +164,7 @@ class MainMenu(object):
 
         delete_item.connect("activate", self.on_delete_item)
         delete_item.set_sensitive(False)
-        partition_menu.add(delete_item)
+        device_menu.add(delete_item)
 
         self.menu_items["delete"] = delete_item
 
@@ -173,18 +173,18 @@ class MainMenu(object):
 
         edit_item.connect("activate", self.on_edit_item)
         edit_item.set_sensitive(False)
-        partition_menu.add(edit_item)
+        device_menu.add(edit_item)
 
         self.menu_items["edit"] = edit_item
 
-        partition_menu.append(Gtk.SeparatorMenuItem())
+        device_menu.append(Gtk.SeparatorMenuItem())
 
         umount_item = Gtk.MenuItem()
         umount_item.set_label(_("Unmount"))
 
         umount_item.connect("activate", self.on_umount_item)
         umount_item.set_sensitive(False)
-        partition_menu.add(umount_item)
+        device_menu.add(umount_item)
 
         self.menu_items["unmount"] = umount_item
 
@@ -193,11 +193,11 @@ class MainMenu(object):
 
         decrypt_item.connect("activate", self.on_decrypt_item)
         decrypt_item.set_sensitive(False)
-        partition_menu.add(decrypt_item)
+        device_menu.add(decrypt_item)
 
         self.menu_items["decrypt"] = decrypt_item
 
-        return partition_menu_item
+        return device_menu_item
 
     def add_help_menu(self):
         """ Menu item 'Help'

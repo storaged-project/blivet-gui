@@ -50,7 +50,7 @@ release: check tag archive
 archive: po-pull
 	@rm -f ChangeLog
 	$(MAKE) ChangeLog
-	git archive --format=tar --prefix=$(APPNAME)-$(VERSION)/ $(RELEASE_TAG) > $(APPNAME)-$(VERSION)-$(RELEASE).tar
+	git archive --format=tar --prefix=$(APPNAME)-$(VERSION)/ $(RELEASE_TAG) > $(APPNAME)-$(VERSION).tar
 	mkdir $(APPNAME)-$(VERSION)
 	cp -r po $(APPNAME)-$(VERSION)
 	cp ChangeLog $(APPNAME)-$(VERSION)/
