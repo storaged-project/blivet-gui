@@ -485,15 +485,20 @@ class BlivetUtils(object):
         if not blivet_device.format.type:
             return (False, blivet.Size("1 MiB"), blivet_device.size)
 
-        blivet_device.format.updateSizeInfo()
+        try:
+            blivet_device.format.updateSizeInfo()
+
+        except blivet.errors.FSError:
+            return (False, blivet.Size("1 MiB"), blivet_device.size)
+
+        except Exception as e: # pylint: disable=broad-except
+            message_dialogs.ExceptionDialog(self.main_window, str(e), traceback.format_exc())
 
         if blivet_device.resizable and blivet_device.format.resizable:
-            return (True, blivet_device.minSize, blivet_device.maxSize,
-                blivet_device.size)
+            return (True, blivet_device.minSize, blivet_device.maxSize, blivet_device.size)
 
         else:
-            return (False, blivet.Size("1 MiB"), blivet_device.size,
-                blivet_device.size)
+            return (False, blivet.Size("1 MiB"), blivet_device.size, blivet_device.size)
 
 
     def edit_partition_device(self, user_input):

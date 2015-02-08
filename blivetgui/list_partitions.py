@@ -264,8 +264,12 @@ class ListPartitions(object):
         elif partition.format.mountable:
 
             if partition.format.resizable:
-                partition.format.updateSizeInfo()
-                resize_size = partition.format.minSize
+                try:
+                    partition.format.updateSizeInfo()
+                except blivet.errors.FSError:
+                    pass
+                else:
+                    resize_size = partition.format.minSize
 
             if partition.format.mountpoint != None:
                 iter_added = self.partitions_list.append(parent, [partition, name,
