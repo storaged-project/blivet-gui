@@ -482,7 +482,7 @@ class BlivetUtils(object):
 
         """
 
-        if not blivet_device.format.type:
+        if blivet_device.format.type in (None, "swap"):
             return (False, blivet.Size("1 MiB"), blivet_device.size)
 
         try:
