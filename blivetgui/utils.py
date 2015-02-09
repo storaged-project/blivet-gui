@@ -144,6 +144,7 @@ class BlivetUtils(object):
         self.storage.reset()
         self.storage.devicetree.populate()
         self.storage.devicetree.getActiveMounts()
+        self.update_min_sizes_info()
 
         self.main_window = main_window
 
@@ -471,6 +472,18 @@ class BlivetUtils(object):
                     actions.append(self.delete_disk_label(parent))
 
         return actions
+
+    def update_min_sizes_info(self):
+        """ Update information of minimal size for resizable devices
+        """
+
+        for device in self.storage.devices:
+            if device.type in ("partition", "lvmlv"):
+                if device.format and device.format.type and hasattr(device.format, "updateSizeInfo"):
+                    try:
+                        device.format.updateSizeInfo()
+                    except blivet.errors.FSError:
+                        pass
 
     def device_resizable(self, blivet_device):
         """ Is given device resizable
