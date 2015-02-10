@@ -918,4 +918,6 @@ class ListPartitions(object):
         else:
             Gtk.main_quit()
 
+        self.b.remove_logs()
+
         return True

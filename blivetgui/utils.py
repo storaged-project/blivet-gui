@@ -21,6 +21,8 @@
 #
 #------------------------------------------------------------------------------#
 
+from __future__ import print_function
+
 import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice
@@ -29,7 +31,9 @@ from .dialogs import message_dialogs
 
 import gettext
 
-import traceback, socket
+import traceback, socket, os
+
+import logging
 
 import parted
 
@@ -133,6 +137,9 @@ class BlivetUtils(object):
 
     def __init__(self, main_window, kickstart=False):
 
+        self.blivet_log_file, self.blivet_log = self.set_logging(component="blivet")
+        self.blivetgui_log_file, self.log = self.set_logging(component="blivet-gui")
+
         if kickstart:
             self.ksparser = pykickstart.parser.KickstartParser(makeVersion())
             self.storage = blivet.Blivet(ksdata=self.ksparser.handler)
@@ -147,6 +154,42 @@ class BlivetUtils(object):
         self.update_min_sizes_info()
 
         self.main_window = main_window
+
+    def set_logging(self, component, logging_level=logging.DEBUG, log_file=None):
+
+        if not log_file:
+            log_file = "/tmp/" + component + ".log"
+
+        while os.path.isfile(log_file):
+            if not log_file[-1].isdigit():
+                log_file += ".0"
+
+            else:
+                num = int(log_file.split(".")[-1])
+                name = ".".join(log_file.split(".")[:-1])
+                log_file = name + "." + str(num + 1)
+
+        log_handler = logging.FileHandler(log_file)
+        log_handler.setLevel(logging_level)
+        formatter = logging.Formatter('%(levelname)s:%(name)s: %(message)s')
+        log_handler.setFormatter(formatter)
+
+        logger = logging.getLogger(component)
+        logger.addHandler(log_handler)
+        logger.setLevel(logging_level)
+
+        return log_file, logger
+
+    def remove_logs(self):
+
+        assert os.path.isfile(self.blivet_log_file) and os.path.isfile(self.blivetgui_log_file)
+
+        try:
+            os.remove(self.blivet_log_file)
+            os.remove(self.blivetgui_log_file)
+
+        except OSError as e:
+            print("Failed to remove log file\n" + e)
 
     def get_disks(self):
         """ Return list of all disk devices on current system
