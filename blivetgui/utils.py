@@ -221,16 +221,6 @@ class BlivetUtils(object):
 
         return self.storage.pvs
 
-    def get_btrfs_volumes(self):
-        """ Return list of Btrfs Volumes
-
-            :returns: list of btrfs volumes
-            :rtype: list
-
-        """
-
-        return self.storage.btrfsVolumes
-
     def get_free_pvs_info(self):
         """ Return list of PVs without VGs
 
@@ -245,8 +235,7 @@ class BlivetUtils(object):
 
         for pv in pvs:
             if pv.kids == 0:
-                free_pvs.append((pv, FreeSpaceDevice(pv.size, None, None,
-                    pv.parents)))
+                free_pvs.append((pv, FreeSpaceDevice(pv.size, None, None, pv.parents)))
 
         return free_pvs
 
@@ -262,8 +251,7 @@ class BlivetUtils(object):
                 continue
 
             elif not disk.format.type:
-                free_disks.append(FreeSpaceDevice(disk.size, 0,
-                    disk.partedDevice.length, [disk]))
+                free_disks.append(FreeSpaceDevice(disk.size, 0, disk.partedDevice.length, [disk]))
                 continue
 
             extended = None
@@ -271,9 +259,10 @@ class BlivetUtils(object):
             for partition in self.storage.devicetree.getChildren(disk):
                 if partition.type == "partition" and partition.isExtended:
                     extended = (partition.partedPartition.geometry.start,
-                        partition.partedPartition.geometry.end)
+                                partition.partedPartition.geometry.end)
 
             free_space = blivet.partitioning.getFreeRegions([disk])
+
             for free in free_space:
                 if extended and free.start >= extended[0] and free.end <= extended[1]:
                     #empty space inside extended partition -> not usable for btrfs
@@ -283,8 +272,7 @@ class BlivetUtils(object):
                 free_size = blivet.Size(free.length * free.device.sectorSize)
 
                 if free_size > blivet.Size("2 MiB"):
-                    free_disks.append(FreeSpaceDevice(free_size, free.start, free.end,
-                        [disk]))
+                    free_disks.append(FreeSpaceDevice(free_size, free.start, free.end, [disk]))
 
         return free_disks
 
@@ -1206,12 +1194,6 @@ class BlivetUtils(object):
             return e
 
         self.storage.devicetree.populate()
-
-    def update_mountpoints(self):
-        """ Update information about mounted devices
-        """
-
-        self.storage.devicetree.getActiveMounts()
 
     def blivet_cancel_actions(self, actions):
         """ Cancel scheduled actions
