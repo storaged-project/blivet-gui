@@ -31,7 +31,7 @@ from .dialogs import message_dialogs
 
 import gettext
 
-import traceback, socket, os
+import traceback, socket, os, platform
 
 import logging
 
@@ -625,7 +625,14 @@ class BlivetUtils(object):
                 name = self.storage.suggestDeviceName(parent=parent_device, swap=False)
 
             else:
-                name = self.storage.suggestContainerName(hostname=socket.gethostname())
+
+                if hasattr(platform, "linux_distribution"):
+                    prefix = filter(str.isalnum, platform.linux_distribution()[0].lower())
+                else:
+                    prefix = ""
+
+                name = self.storage.suggestContainerName(hostname=socket.gethostname(),
+                                                         prefix=prefix)
 
         else:
             name = self.storage.safeDeviceName(name)
