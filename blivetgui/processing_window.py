@@ -82,9 +82,7 @@ class ProcessingActions(Gtk.Dialog):
         self.run()
         self.destroy()
 
-        return self.success
-
-    def end(self, error=None, traceback_msg=None):
+    def end(self):
         """ End the thread
         """
 
@@ -93,21 +91,7 @@ class ProcessingActions(Gtk.Dialog):
         self.progressbar.set_fraction(1)
         self.set_response_sensitive(Gtk.ResponseType.OK, True)
 
-        if error:
-            self.label.set_markup(_("<b>Queued actions couldn't be finished due to an unexpected " \
-                                    "error.</b>\n\n%s.") % locals())
-
-            expander = Gtk.Expander(label=_("Show traceback"))
-            self.grid.attach(expander, 0, 2, 3, 1)
-            expander.add(Gtk.Label(label=traceback_msg))
-            self.show_all()
-
-            self.success = False
-
-        else:
-            self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
-
-            self.success = True
+        self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
 
     def on_timeout(self, user_data):
         """ Timeout fuction for progressbar pulsing
@@ -124,10 +108,5 @@ class ProcessingActions(Gtk.Dialog):
         """ Run blivet.doIt()
         """
 
-        try:
-            self.list_partitions.b.blivet_do_it()
-            GObject.idle_add(self.end)
-
-        except Exception as e: # pylint: disable=broad-except
-            self.list_partitions.b.blivet_reset()
-            GObject.idle_add(self.end, e, traceback.format_exc())
+        self.list_partitions.b.blivet_do_it()
+        GObject.idle_add(self.end)

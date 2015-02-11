@@ -669,13 +669,10 @@ class ListPartitions(object):
         """
 
         dialog = ProcessingActions(self, self.main_window)
-        success = dialog.start()
+        dialog.start()
 
         self.clear_actions_view()
         self.clear_undo_actions()
-
-        if not success:
-            self.reload()
 
         self.list_devices.update_devices_view()
         self.update_partitions_view(self.disk)
@@ -689,6 +686,7 @@ class ListPartitions(object):
                 is neccessary to create file choosing dialog for kickstart file save.
 
         """
+
         if self.kickstart_mode:
 
             dialog = other_dialogs.KickstartFileSaveDialog(self.main_window)

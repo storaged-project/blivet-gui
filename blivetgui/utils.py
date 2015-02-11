@@ -31,14 +31,24 @@ from .dialogs import message_dialogs
 
 import gettext
 
-import traceback, socket, os, platform
+import traceback, socket, os, platform, sys
 
 import logging
 
 import parted
 
+import meh
+import meh.handler
+import meh.dump
+import meh.ui.gui
+
 import pykickstart.parser
 from pykickstart.version import makeVersion
+
+#------------------------------------------------------------------------------#
+
+APP_NAME='blivet-gui'
+APP_VERSION='0.2.0-5'
 
 #------------------------------------------------------------------------------#
 
@@ -146,6 +156,8 @@ class BlivetUtils(object):
         else:
             self.storage = blivet.Blivet()
 
+        self.set_python_meh()
+
         blivet.formats.fs.NTFS._formattable = True
 
         self.storage.reset()
@@ -179,6 +191,16 @@ class BlivetUtils(object):
         logger.setLevel(logging_level)
 
         return log_file, logger
+
+    def set_python_meh(self):
+        config = meh.Config(programName=APP_NAME, programVersion=APP_VERSION, programArch="noarch",
+                            localSkipList=["passphrase"],
+                            fileList=[self.blivet_log_file, self.blivetgui_log_file])
+
+        intf = meh.ui.gui.GraphicalIntf()
+
+        handler = meh.handler.ExceptionHandler(config, intf, meh.dump.ExceptionDump)
+        handler.install(self.storage)
 
     def remove_logs(self):
 
