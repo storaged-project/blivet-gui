@@ -669,10 +669,14 @@ class ListPartitions(object):
         """
 
         dialog = ProcessingActions(self, self.main_window)
-        dialog.start()
+        success, error = dialog.start()
 
         self.clear_actions_view()
         self.clear_undo_actions()
+
+        if not success:
+            self.main_window.set_sensitive(False)
+            raise error
 
         self.list_devices.update_devices_view()
         self.update_partitions_view(self.disk)

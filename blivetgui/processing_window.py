@@ -59,6 +59,7 @@ class ProcessingActions(Gtk.Dialog):
 
         self.pulse = True
         self.success = False
+        self.error = None
 
         self.label = Gtk.Label()
         self.grid.attach(self.label, 0, 0, 3, 1)
@@ -82,16 +83,25 @@ class ProcessingActions(Gtk.Dialog):
         self.run()
         self.destroy()
 
-    def end(self):
+        return (self.success, self.error)
+
+    def end(self, error=None):
         """ End the thread
         """
 
         self.thread.join()
-        self.pulse = False
-        self.progressbar.set_fraction(1)
-        self.set_response_sensitive(Gtk.ResponseType.OK, True)
 
-        self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
+        if error:
+            self.success = False
+            self.error = error
+            self.destroy()
+
+        else:
+            self.pulse = False
+            self.progressbar.set_fraction(1)
+            self.set_response_sensitive(Gtk.ResponseType.OK, True)
+            self.success = True
+            self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
 
     def on_timeout(self, user_data):
         """ Timeout fuction for progressbar pulsing
@@ -108,5 +118,10 @@ class ProcessingActions(Gtk.Dialog):
         """ Run blivet.doIt()
         """
 
-        self.list_partitions.b.blivet_do_it()
-        GObject.idle_add(self.end)
+        try:
+            self.list_partitions.b.blivet_do_it()
+            GObject.idle_add(self.end)
+
+        except Exception as e: # pylint: disable=broad-except
+            self.list_partitions.b.blivet_reset()
+            GObject.idle_add(self.end, e)
