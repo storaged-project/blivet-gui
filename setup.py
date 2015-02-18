@@ -23,7 +23,7 @@ print data_files
 setup(
 	name='blivet-gui',
 	packages=['blivetgui'],
-	version='0.2.0',
+	version='0.2.1',
 	description = 'Tool for data storages configuration',
 	author='Vojtech Trefny',
 	author_email='vtrefny@redhat.com',
