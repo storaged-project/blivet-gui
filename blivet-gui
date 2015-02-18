@@ -37,7 +37,7 @@ from blivetgui.main_window import main_window, embedded_window
 #------------------------------------------------------------------------------#
 
 APP_NAME='blivet-gui'
-APP_VERSION='0.2.0'
+APP_VERSION='0.2.1'
 
 #------------------------------------------------------------------------------#
 

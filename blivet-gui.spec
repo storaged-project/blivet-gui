@@ -1,8 +1,8 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.2.0
-Release: 6%{?dist}
-Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}-6/%{name}-%{version}-6.tar.gz
+Version: 0.2.1
+Release: 1%{?dist}
+Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
 Group: Applications/System
 BuildArch: noarch
@@ -14,7 +14,7 @@ BuildRequires: python-setuptools
 Requires: python
 Requires: pygobject3
 Requires: gettext
-Requires: python-blivet
+Requires: python-blivet >= 1:0.61.14
 Requires: gtk3
 Requires: gnome-icon-theme
 Requires: polkit-gnome
@@ -49,6 +49,20 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui_pkexec
 
 %changelog
+* Wed Feb 18 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.1-1
+- Fix python-meh for processing window (vtrefny)
+- python-meh support (vtrefny)
+- Base default container name on distribution name (vtrefny)
+- Removed some ununsed functions (vtrefny)
+- Enable blivet logging, preparations for blivet-gui internal logging (vtrefny)
+- Detect minimal device (partition and LV) size during BlivetUtils initialization (vtrefny)
+- Swap is not resizable (vtrefny)
+- Catch exceptions when checnking minSize on device with broken fs (vtrefny)
+- Fix luks passphrase dialog spacing (vtrefny)
+- Added root_check_window.ui file (vtrefny)
+- 'Root privilegies required' dialog changed to window (vtrefny)
+- MainMenu: partition_menu renamed to device_menu (vtrefny)
+- pylint removed unallowed spaces (vtrefny)
 
 * Thu Jan 22 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.0-6
 - GitHub release as source for spec file (vtrefny)
