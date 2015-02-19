@@ -24,6 +24,8 @@
 
 from gi.repository import Gtk, Gdk, Gio
 
+from blivet.size import MiB
+
 import cairo
 
 #------------------------------------------------------------------------------#
@@ -179,13 +181,13 @@ class DeviceCanvas(Gtk.DrawingArea):
         """
 
         if parts_size > parent.size:
-            total_size = round(parts_size.convertTo(spec="MiB"))
+            total_size = round(parts_size.convertTo(spec=MiB))
         else:
-            total_size = round(parent.size.convertTo(spec="MiB"))
+            total_size = round(parent.size.convertTo(spec=MiB))
 
         x = start + depth
 
-        part_width = round(partition.size.convertTo(spec="MiB"))*(parent_width)/total_size
+        part_width = round(partition.size.convertTo(spec=MiB))*(parent_width)/total_size
 
         # last partition gets all space left
         if parts_left == 1:

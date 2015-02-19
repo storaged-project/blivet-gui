@@ -30,7 +30,7 @@ import gettext
 
 from gi.repository import Gtk, Gdk
 
-from blivet import Size
+from blivet import size
 
 from ..dialogs import message_dialogs
 
@@ -155,8 +155,9 @@ class SizeChooserArea(object):
     def add_size_widgets(self, unit="MiB"):
 
         scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL,
-                          adjustment=Gtk.Adjustment(0, self.min_size.convertTo(unit),
-                                                       self.max_size.convertTo(unit), 1, 10, 0))
+                          adjustment=Gtk.Adjustment(0, self.min_size.convertTo(size.parseUnits(unit, False)),
+                                                       self.max_size.convertTo(size.parseUnits(unit, False)),
+                                                       1, 10, 0))
 
         scale.set_margin_left(10)
         scale.set_margin_bottom(5)
@@ -164,30 +165,34 @@ class SizeChooserArea(object):
         scale.set_hexpand(True)
         scale.set_valign(Gtk.Align.START)
         scale.set_digits(0)
-        scale.add_mark(self.min_size.convertTo(unit), Gtk.PositionType.BOTTOM,
+        scale.add_mark(self.min_size.convertTo(size.parseUnits(unit, False)), Gtk.PositionType.BOTTOM,
             str(self.min_size))
 
         if self.dialog_type == "add":
 
-            scale.set_value(self.max_size.convertTo(unit))
+            scale.set_value(self.max_size.convertTo(size.parseUnits(unit, False)))
 
             if self.max_size < self.free_device.size:
-                scale.add_mark(self.max_size.convertTo(unit), Gtk.PositionType.BOTTOM,
+                scale.add_mark(self.max_size.convertTo(size.parseUnits(unit, False)),
+                    Gtk.PositionType.BOTTOM,
                     str(self.max_size) + " of " + str(self.free_device.size))
 
             else:
-                scale.add_mark(self.max_size.convertTo(unit), Gtk.PositionType.BOTTOM,
+                scale.add_mark(self.max_size.convertTo(size.parseUnits(unit, False)),
+                    Gtk.PositionType.BOTTOM,
                     str(self.max_size))
 
         if self.dialog_type == "edit":
 
-            scale.set_value(self.edited_device.size.convertTo(unit))
+            scale.set_value(self.edited_device.size.convertTo(size.parseUnits(unit, False)))
 
             if self.edited_device.size not in (self.min_size, self.max_size):
-                scale.add_mark(self.edited_device.size.convertTo(unit), Gtk.PositionType.BOTTOM,
+                scale.add_mark(self.edited_device.size.convertTo(size.parseUnits(unit, False)),
+                    Gtk.PositionType.BOTTOM,
                     str(self.edited_device.size))
 
-            scale.add_mark(self.max_size.convertTo(unit), Gtk.PositionType.BOTTOM,
+            scale.add_mark(self.max_size.convertTo(size.parseUnits(unit, False)),
+                Gtk.PositionType.BOTTOM,
                 str(self.max_size))
 
         self.frame_grid.attach(scale, 0, 0, 4, 3)
@@ -197,10 +202,11 @@ class SizeChooserArea(object):
         self.frame_grid.attach(label_size, 4, 1, 1, 1)
 
         spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0,
-            self.min_size.convertTo(unit), self.max_size.convertTo(unit), 1, 10, 0))
+            self.min_size.convertTo(size.parseUnits(unit, False)),
+            self.max_size.convertTo(size.parseUnits(unit, False)), 1, 10, 0))
 
         spin_size.set_numeric(True)
-        spin_size.set_value(self.max_size.convertTo(unit))
+        spin_size.set_value(self.max_size.convertTo(size.parseUnits(unit, False)))
 
         self.frame_grid.attach(spin_size, 5, 1, 1, 1)
 
@@ -234,32 +240,34 @@ class SizeChooserArea(object):
 
     def adjust_size_scale(self, selected_size, unit="MiB"):
 
-        self.scale.set_range(self.min_size.convertTo(unit), self.max_size.convertTo(unit))
+        self.scale.set_range(self.min_size.convertTo(size.parseUnits(unit, False)),
+                             self.max_size.convertTo(size.parseUnits(unit, False)))
         self.scale.clear_marks()
 
-        increment, digits = self.get_size_precision(self.min_size.convertTo(unit),
-            self.max_size.convertTo(unit), unit)
+        increment, digits = self.get_size_precision(self.min_size.convertTo(size.parseUnits(unit, False)),
+            self.max_size.convertTo(size.parseUnits(unit, False)), unit)
         self.scale.set_increments(increment, increment*10)
         self.scale.set_digits(digits)
 
         self.scale.add_mark(0, Gtk.PositionType.BOTTOM,
-            format(self.min_size.convertTo(unit), "." + str(digits) + "f"))
-        self.scale.add_mark(float(self.max_size.convertTo(unit)), Gtk.PositionType.BOTTOM,
-            format(self.max_size.convertTo(unit), "." + str(digits) + "f"))
+            format(self.min_size.convertTo(size.parseUnits(unit, False)), "." + str(digits) + "f"))
+        self.scale.add_mark(float(self.max_size.convertTo(size.parseUnits(unit, False))), Gtk.PositionType.BOTTOM,
+            format(self.max_size.convertTo(size.parseUnits(unit, False)), "." + str(digits) + "f"))
 
         if self.dialog_type == "edit" and self.edited_device.size not in (self.min_size, self.max_size):
-            self.scale.add_mark(float(self.edited_device.size.convertTo(unit)), Gtk.PositionType.BOTTOM,
-            format(self.edited_device.size.convertTo(unit), "." + str(digits) + "f"))
+            self.scale.add_mark(float(self.edited_device.size.convertTo(size.parseUnits(unit, False))), Gtk.PositionType.BOTTOM,
+            format(self.edited_device.size.convertTo(size.parseUnits(unit, False)), "." + str(digits) + "f"))
 
-        self.spin_size.set_range(self.min_size.convertTo(unit), self.max_size.convertTo(unit))
+        self.spin_size.set_range(self.min_size.convertTo(size.parseUnits(unit, False)),
+                                 self.max_size.convertTo(size.parseUnits(unit, False)))
         self.spin_size.set_increments(increment, increment*10)
         self.spin_size.set_digits(digits)
 
-        self.scale.set_value(selected_size.convertTo(unit))
+        self.scale.set_value(selected_size.convertTo(size.parseUnits(unit, False)))
 
     def set_selected_size(self, size):
 
-        self.scale.set_value(size.convertTo(self.selected_unit))
+        self.scale.set_value(size.convertTo(size.parseUnits(self.selected_unit, False)))
 
     def get_size_precision(self, down_limit, up_limit, unit):
 
@@ -292,21 +300,21 @@ class SizeChooserArea(object):
         self.adjust_size_scale(selected_size, new_unit)
         return
 
-    def convert_to_size(self, size, unit):
+    def convert_to_size(self, size_num, unit):
         """ Convert floats from scale to Size
 
             .. note:: Neccesary for floats in form 1e-10
 
         """
 
-        str_size = str(size)
+        str_size = str(size_num)
 
         if "e" in str_size:
             exp = abs(int(str_size.split("e")[-1]))
             dec = len(str_size.split("e")[0].split(".")[-1])
             str_size = format(size, "." + str(exp+dec) + "f")
 
-        return Size(str_size + unit)
+        return size.Size(str_size + unit)
 
     def scale_moved(self, scale, spin_size):
 
@@ -464,7 +472,7 @@ class AdvancedOptions(object):
     def get_selection(self):
 
         if self.device_type in ("lvm", "lvmvg"):
-            return {"pesize" : Size(self.pesize_combo.get_active_text())}
+            return {"pesize" : size.Size(self.pesize_combo.get_active_text())}
 
         elif self.device_type in ("partition"):
             return {"parttype" : self.partition_combo.get_active_id()}
@@ -577,7 +585,7 @@ class AddDialog(Gtk.Dialog):
                        (_("LVM2 Physical Volume"), "lvmpv")]
 
         elif self.device_type == "disk" and not self.parent_device.format.type \
-            and self.free_device.size > Size("256 MiB"):
+            and self.free_device.size > size.Size("256 MiB"):
             devices = [(_("Btrfs Volume"), "btrfs volume")]
 
         else:
@@ -586,7 +594,7 @@ class AddDialog(Gtk.Dialog):
             if self.device_type == "disk" and len(self.free_disks_regions) > 1:
                 devices.append((_("Software RAID"), "mdraid"))
 
-            if self.device_type == "disk" and self.free_device.size > Size("256 MiB"):
+            if self.device_type == "disk" and self.free_device.size > size.Size("256 MiB"):
                 devices.append((_("Btrfs Volume"), "btrfs volume"))
 
         devices_store = Gtk.ListStore(str, str)
@@ -887,11 +895,11 @@ class AddDialog(Gtk.Dialog):
 
         raid, max_size = self.raid_member_max_size()
 
-        min_size = Size("1 MiB")
+        min_size = size.Size("1 MiB")
         if device_type in ("lvmpv", "lvm"):
-            min_size = Size("8 MiB")
+            min_size = size.Size("8 MiB")
         elif device_type == "btrfs volume":
-            min_size = Size("256 MiB")
+            min_size = size.Size("256 MiB")
 
         for row in self.parents_store:
             if row[3]:
