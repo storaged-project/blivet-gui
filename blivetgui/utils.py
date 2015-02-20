@@ -96,7 +96,7 @@ class FreeSpaceDevice(object):
         """
 
         :param free_size: size of free space
-        :type free_size: blivet.Size
+        :type free_size: blivet.size.Size
         :param start: start block
         :type end: int
         :param end: end block
@@ -291,9 +291,9 @@ class BlivetUtils(object):
                     #volumes or lvmpv
                     continue
 
-                free_size = blivet.Size(free.length * free.device.sectorSize)
+                free_size = blivet.size.Size(free.length * free.device.sectorSize)
 
-                if free_size > blivet.Size("2 MiB"):
+                if free_size > blivet.size.Size("2 MiB"):
                     free_disks.append(FreeSpaceDevice(free_size, free.start, free.end, [disk]))
 
         return free_disks
@@ -362,7 +362,7 @@ class BlivetUtils(object):
                     # too small to be usable
                     continue
 
-                free_size = blivet.Size(free.length * free.device.sectorSize)
+                free_size = blivet.size.Size(free.length * free.device.sectorSize)
 
                 # free space is inside extended partition
                 if (extended and free.start >= extended.partedPartition.geometry.start
@@ -402,7 +402,7 @@ class BlivetUtils(object):
 
         elif blivet_device.type == "lvmvg":
 
-            if blivet_device.freeSpace > blivet.Size(0):
+            if blivet_device.freeSpace > blivet.size.Size(0):
                 partitions.append(FreeSpaceDevice(blivet_device.freeSpace, None, None,
                     [blivet_device]))
 
@@ -549,13 +549,13 @@ class BlivetUtils(object):
         """
 
         if blivet_device.format.type in (None, "swap"):
-            return (False, blivet.Size("1 MiB"), blivet_device.size)
+            return (False, blivet.size.Size("1 MiB"), blivet_device.size)
 
         try:
             blivet_device.format.updateSizeInfo()
 
         except blivet.errors.FSError:
-            return (False, blivet.Size("1 MiB"), blivet_device.size)
+            return (False, blivet.size.Size("1 MiB"), blivet_device.size)
 
         except Exception as e: # pylint: disable=broad-except
             message_dialogs.ExceptionDialog(self.main_window, str(e), traceback.format_exc())
@@ -564,7 +564,7 @@ class BlivetUtils(object):
             return (True, blivet_device.minSize, blivet_device.maxSize, blivet_device.size)
 
         else:
-            return (False, blivet.Size("1 MiB"), blivet_device.size, blivet_device.size)
+            return (False, blivet.size.Size("1 MiB"), blivet_device.size, blivet_device.size)
 
 
     def edit_partition_device(self, user_input):
@@ -722,7 +722,7 @@ class BlivetUtils(object):
             pvs = []
 
             # exact total size of newly created pvs (future parents)
-            total_size = blivet.Size("0 MiB")
+            total_size = blivet.size.Size("0 MiB")
 
             for parent, size in user_input.parents:
 
@@ -763,7 +763,7 @@ class BlivetUtils(object):
             lukses = []
 
             # exact total size of newly created pvs (future parents)
-            total_size = blivet.Size("0 MiB")
+            total_size = blivet.size.Size("0 MiB")
 
             for parent, size in user_input.parents:
                 dev = PartitionDevice(name="req%d" % self.storage.nextID,
@@ -860,7 +860,7 @@ class BlivetUtils(object):
             btrfs_parents = []
 
             # exact total size of newly created partitions (future parents)
-            total_size = blivet.Size("0 MiB")
+            total_size = blivet.size.Size("0 MiB")
 
             for parent, size in user_input.parents:
 
@@ -929,7 +929,7 @@ class BlivetUtils(object):
             parts = []
 
             # exact total size of newly created pvs (future parents)
-            total_size = blivet.Size("0 MiB")
+            total_size = blivet.size.Size("0 MiB")
 
             for parent, size in user_input.parents:
 
