@@ -148,6 +148,7 @@ class BlivetUtils(object):
     def __init__(self, main_window, kickstart=False):
 
         self.blivet_log_file, self.blivet_log = self.set_logging(component="blivet")
+        self.program_log_file, self.program_log = self.set_logging(component="program")
         self.blivetgui_log_file, self.log = self.set_logging(component="blivet-gui")
 
         if kickstart:
@@ -209,6 +210,7 @@ class BlivetUtils(object):
         try:
             os.remove(self.blivet_log_file)
             os.remove(self.blivetgui_log_file)
+            os.remove(self.program_log_file)
 
         except OSError as e:
             print("Failed to remove log file\n" + e)
