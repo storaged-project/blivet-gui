@@ -31,7 +31,7 @@ from .dialogs import message_dialogs
 
 import gettext
 
-import traceback, socket, os, platform, sys
+import traceback, socket, os, platform, re
 
 import logging
 
@@ -649,7 +649,7 @@ class BlivetUtils(object):
             else:
 
                 if hasattr(platform, "linux_distribution"):
-                    prefix = filter(str.isalnum, platform.linux_distribution()[0].lower())
+                    prefix = re.sub(r"\W+", "", platform.linux_distribution()[0].lower())
                 else:
                     prefix = ""
 
