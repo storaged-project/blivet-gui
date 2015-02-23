@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.2.1
+Version: 0.2.2
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -51,6 +51,14 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui_pkexec
 
 %changelog
+* Mon Feb 23 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.2-1
+- Store blivet program log too (vtrefny)
+- Fix Size calling (vtrefny)
+- Replace filter with regexp (vtrefny)
+- blivet.size is now module (vtrefny)
+- Fix covertTo to use blivet.size.parseUnits function (vtrefny)
+- New version 0.2.1 (vtrefny)
+
 * Wed Feb 18 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.1-1
 - Fix python-meh for processing window (vtrefny)
 - python-meh support (vtrefny)
