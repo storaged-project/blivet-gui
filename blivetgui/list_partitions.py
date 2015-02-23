@@ -263,7 +263,7 @@ class ListPartitions(object):
 
         elif partition.format.mountable:
 
-            if partition.format.minSize not in (None, blivet.Size(0), partition.size):
+            if partition.format.minSize not in (None, blivet.size.Size(0), partition.size):
                 resize_size = partition.format.minSize
 
             elif partition.format.resizable:
