@@ -22,17 +22,9 @@
 #
 #------------------------------------------------------------------------------#
 
-import sys
-
 from gi.repository import Gtk, GdkPixbuf
 
 import gettext
-
-from .utils import BlivetUtils
-
-from .dialogs import other_dialogs, message_dialogs
-
-from .list_partitions import ListPartitions
 
 #------------------------------------------------------------------------------#
 
@@ -44,32 +36,21 @@ class ListDevices(object):
     """ List of parent devices
     """
 
-    def __init__(self, main_window, Builder, kickstart=False):
+    def __init__(self, blivet_gui):
         """
 
-        :param main_window: main window instance
-        :type main_window: Gtk.Window
-        :param Builder: glade builder
-        :type Builder: Gtk.Builder
-        :param kickstart: use blivet-gui in kickstart mode
-        :type kickstart: bool
+        :param blivet_gui: instance of BlivetGUI class
+        :type blivet_gui: :class:`~.blivetgui.BlivetGUI`
 
         """
 
-        self.main_window = main_window
+        self.blivet_gui = blivet_gui
 
-        self.b = BlivetUtils(self.main_window, kickstart)
-        self.builder = Builder
-
-        self.kickstart_mode = kickstart
-
-        # Last selected device from list
+        # last selected device from list
         self.last_iter = None
 
-        if self.kickstart_mode:
-            self.use_disks, self.install_bootloader, self.bootloader_device = self.kickstart_disks()
-            self.b.kickstart_hide_disks(self.use_disks)
-            self.old_mountpoints = self.b.kickstart_mountpoints()
+        # currently selected device
+        self.selected_device = None
 
         self.device_list = Gtk.ListStore(object, GdkPixbuf.Pixbuf, str)
         num_devices = self.load_devices()
@@ -77,50 +58,13 @@ class ListDevices(object):
         if not num_devices:
             msg = _("blivet-gui failed to find at least one storage device to work with." \
                 "\n\nPlease connect a storage device to your computer and re-run blivet-gui.")
-            message_dialogs.ErrorDialog(self.main_window, msg)
-            sys.exit(0)
-
-        self.partitions_list = ListPartitions(self.main_window, self, self.b, self.builder,
-                                              kickstart_mode=self.kickstart_mode)
+            self.blivet_gui.show_error_dialog(msg)
+            self.blivet_gui.quit()
 
         self.disks_view = self.create_devices_view()
 
         selection = self.disks_view.get_selection()
         self.selection_signal = selection.connect("changed", self.on_disk_selection_changed)
-
-        self.disks_view.set_cursor(1)
-
-        self.builder.get_object("disks_viewport").add(self.disks_view)
-
-    def kickstart_disks(self):
-        """ Kickstart mode -- show disk selection dialog
-        """
-
-        disks = self.b.get_disks()
-
-        if len(disks) == 0:
-            msg = _("blivet-gui failed to find at least one storage device to work with.\n\n" \
-                    "Please connect a storage device to your computer and re-run blivet-gui.")
-
-            message_dialogs.ErrorDialog(self.main_window, msg)
-            sys.exit(0)
-
-        dialog = other_dialogs.KickstartSelectDevicesDialog(self.main_window, disks)
-        response = dialog.run()
-
-        if response == Gtk.ResponseType.OK:
-            use_disks, install_bootloader, bootloader_device = dialog.get_selection()
-
-            dialog.destroy()
-
-            if install_bootloader and bootloader_device:
-                self.b.set_bootloader_device(bootloader_device)
-
-        else:
-            dialog.destroy()
-            sys.exit(0)
-
-        return (use_disks, install_bootloader, bootloader_device)
 
     def load_disks(self):
         """ Load disks
@@ -130,7 +74,7 @@ class ListDevices(object):
         icon_disk = Gtk.IconTheme.load_icon(icon_theme, "drive-harddisk", 32, 0)
         icon_disk_usb = Gtk.IconTheme.load_icon(icon_theme, "drive-removable-media", 32, 0)
 
-        disks = self.b.get_disks()
+        disks = self.blivet_gui.blivet_utils.get_disks()
 
         if disks:
             self.device_list.append([None, None, _("<b>Disks</b>")])
@@ -149,7 +93,7 @@ class ListDevices(object):
         """ Load LVM2 VGs
         """
 
-        gdevices = self.b.get_group_devices()
+        gdevices = self.blivet_gui.blivet_utils.get_group_devices()
 
         if gdevices:
             self.device_list.append([None, None, _("<b>LVM2 Volume Groups</b>")])
@@ -247,5 +191,5 @@ class ListDevices(object):
                 self.last_iter = treeiter
 
             if self.device_list.iter_is_valid(treeiter):
-                disk = model[treeiter][0]
-                self.partitions_list.update_partitions_view(disk)
+                self.selected_device = model[treeiter][0]
+                self.blivet_gui.update_partitions_view(device_changed=True)

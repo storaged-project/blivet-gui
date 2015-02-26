@@ -66,10 +66,10 @@ class CairoRectangle(object):
 
 class DeviceCanvas(Gtk.DrawingArea):
 
-    def __init__(self, list_partitions):
+    def __init__(self, blivet_gui):
         Gtk.DrawingArea.__init__(self)
 
-        self.list_partitions = list_partitions
+        self.blivet_gui = blivet_gui
 
         self.connect('draw', self.draw_event)
         self.connect('button-press-event', self.button_press_event)
@@ -113,7 +113,6 @@ class DeviceCanvas(Gtk.DrawingArea):
     def update_visualisation(self):
         """ Redraw image
         """
-
         self.queue_draw()
 
     def detect_extended(self):
@@ -311,6 +310,9 @@ class DeviceCanvas(Gtk.DrawingArea):
         width = darea.get_allocated_width()
         height = darea.get_allocated_height()
 
+        if not self.partitions_view:
+            return
+
         # get selected line
         selection = self.partitions_view.get_selection()
         _model, selected_treeiter = selection.get_selected()
@@ -416,7 +418,6 @@ class DeviceCanvas(Gtk.DrawingArea):
 
         # right button popup menu
         if event.button == 3:
-            self.list_partitions.popup_menu.menu.popup(None, None, None, None, event.button,
-                                                       event.time)
+            self.blivet_gui.popup_menu.menu.popup(None, None, None, None, event.button, event.time)
 
         return True

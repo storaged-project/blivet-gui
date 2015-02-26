@@ -30,9 +30,7 @@ import gettext
 
 from gi.repository import Gtk
 
-from blivetgui.dialogs import other_dialogs
-
-from blivetgui.main_window import main_window, embedded_window
+from blivetgui.dialogs.message_dialogs import locate_ui_file # FIXME
 
 #------------------------------------------------------------------------------#
 
@@ -44,6 +42,19 @@ APP_VERSION='0.2.2'
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
+
+class RootCheckWindow(object):
+    def __init__(self):
+        builder = Gtk.Builder()
+        builder.add_from_file(locate_ui_file('root_check_window.ui'))
+
+        win = builder.get_object("root_window")
+        win.connect("delete-event", Gtk.main_quit)
+
+        button = builder.get_object("button")
+        button.connect("clicked", Gtk.main_quit)
+
+        win.show_all()
 
 def parse_options():
     """ Parses command-line arguments passed to blivet_gui
@@ -74,30 +85,14 @@ def main(options=None):
 
     elif os.geteuid() != 0:
         # root privileges are required for blivet
-
-        win = other_dialogs.RootCheckWindow()
+        RootCheckWindow()
 
     else:
+        from blivetgui.blivetgui import BlivetGUI
 
-        if options.socket:
-            if options.kickstart:
-                win = embedded_window(kickstart=True, socket_id=options.socket)
-            else:
-                win = embedded_window(socket_id=options.socket)
-            win.show_all()
-
-        elif options.kickstart:
-            win = main_window(kickstart=True)
-            win.set_position(Gtk.WindowPosition.CENTER)
-            win.show_all()
-
-        else:
-            win = main_window()
-            win.set_position(Gtk.WindowPosition.CENTER)
-            win.show_all()
-
-        Gtk.main()
+        BlivetGUI(embedded_socket=options.socket, kickstart_mode=options.kickstart)
 
 if  __name__ == '__main__':
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     main()
+    Gtk.main()

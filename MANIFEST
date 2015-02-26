@@ -10,6 +10,7 @@ setup.py
 blivetgui/__init__.py
 blivetgui/actions_menu.py
 blivetgui/actions_toolbar.py
+blivetgui/blivetgui.py
 blivetgui/list_devices.py
 blivetgui/list_partitions.py
 blivetgui/main_menu.py
@@ -33,6 +34,7 @@ data/ui/exception_dialog.ui
 data/ui/info_dialog.ui
 data/ui/kickstart_filesave_dialog.ui
 data/ui/luks_passphrase_dialog.ui
+data/ui/root_check_window.ui
 data/ui/warning_dialog.ui
 help/C/.directory
 help/C/actions.page

@@ -35,8 +35,8 @@ class ActionsMenu(object):
     """ Popup context menu for devices
     """
 
-    def __init__(self, list_partitions):
-        self.list_partitions = list_partitions
+    def __init__(self, blivet_gui):
+        self.blivet_gui = blivet_gui
         self.menu = Gtk.Menu()
 
         # Dict to translate menu item names (str) to menu items (Gtk.MenuItem)
@@ -129,25 +129,24 @@ class ActionsMenu(object):
     def on_add_item(self, event):
         """ Onselect action for add item
         """
-        self.list_partitions.add_partition()
+        self.blivet_gui.add_partition()
 
     def on_delete_item(self, event):
         """ Onselect action for delete item
         """
-        self.list_partitions.delete_selected_partition()
+        self.blivet_gui.delete_selected_partition()
 
     def on_edit_item(self, event):
         """ Onselect action for edit item
         """
-        self.list_partitions.edit_device()
+        self.blivet_gui.edit_device()
 
     def on_umount_item(self, event):
         """ Onselect action for umount item
         """
-        self.list_partitions.umount_partition()
+        self.blivet_gui.umount_partition()
 
     def on_decrypt_item(self, event):
         """ Onselect action for 'Decrypt'
         """
-
-        self.list_partitions.decrypt_device()
+        self.blivet_gui.decrypt_device()

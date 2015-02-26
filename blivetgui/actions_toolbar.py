@@ -36,9 +36,8 @@ class ActionsToolbar(object):
     """ Create toolbar with action buttons
     """
 
-    def __init__(self, list_partitions, main_window):
-        self.list_partitions = list_partitions
-        self.main_window = main_window
+    def __init__(self, blivet_gui):
+        self.blivet_gui = blivet_gui
 
         self.toolbar = Gtk.Toolbar()
 
@@ -48,7 +47,7 @@ class ActionsToolbar(object):
         self.create_buttons()
 
     def create_buttons(self):
-        """ Fill toolbar with buttons
+        """ Fill toolbar with buttons #FIXME: automate this
         """
 
         button_add = Gtk.ToolButton()
@@ -152,47 +151,39 @@ class ActionsToolbar(object):
     def on_delete_clicked(self, button):
         """ Onclick action for delete button
         """
-
-        self.list_partitions.delete_selected_partition()
+        self.blivet_gui.delete_selected_partition()
 
     def on_add_clicked(self, button):
         """ Onclick action for add button
         """
-
-        self.list_partitions.add_partition()
+        self.blivet_gui.add_partition()
 
     def on_edit_clicked(self, button):
         """ Onclick action for edit button
         """
-
-        self.list_partitions.edit_device()
+        self.blivet_gui.edit_device()
 
     def on_umount_clicked(self, button):
         """ Onclick action for umount button
         """
-
-        self.list_partitions.umount_partition()
+        self.blivet_gui.umount_partition()
 
     def on_decrypt_clicked(self, button):
         """ Onclick action for decrypt button
         """
-
-        self.list_partitions.decrypt_device()
+        self.blivet_gui.decrypt_device()
 
     def on_apply_clicked(self, button):
         """ Onclick action for edit button
         """
-
-        self.list_partitions.apply_event()
+        self.blivet_gui.apply_event()
 
     def on_clear_clicked(self, button):
         """ Onselect action for 'Clear Queued Actions'
         """
-
-        self.list_partitions.clear_actions()
+        self.blivet_gui.clear_actions()
 
     def on_undo_clicked(self, button):
         """ Onselect action for 'Undo' button
         """
-
-        self.list_partitions.actions_undo()
+        self.blivet_gui.actions_undo()
