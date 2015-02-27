@@ -145,7 +145,7 @@ class BlivetUtils(object):
     """ Class with utils directly working with blivet itselves
     """
 
-    def __init__(self, main_window, kickstart=False):
+    def __init__(self, blivet_gui, kickstart=False):
 
         self.blivet_log_file, self.blivet_log = self.set_logging(component="blivet")
         self.program_log_file, self.program_log = self.set_logging(component="program")
@@ -166,7 +166,7 @@ class BlivetUtils(object):
         self.storage.devicetree.getActiveMounts()
         self.update_min_sizes_info()
 
-        self.main_window = main_window
+        self.blivet_gui = blivet_gui
 
     def set_logging(self, component, logging_level=logging.DEBUG, log_file=None):
 
@@ -461,8 +461,7 @@ class BlivetUtils(object):
             self.storage.devicetree.registerAction(action)
 
         except Exception as e: # pylint: disable=broad-except
-            message_dialogs.ExceptionDialog(self.main_window, str(e),
-                traceback.format_exc())
+            self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
             return
 
         return action
@@ -495,8 +494,7 @@ class BlivetUtils(object):
             actions.append(ac_dev)
 
         except Exception as e: # pylint: disable=broad-except
-            message_dialogs.ExceptionDialog(self.main_window, str(e),
-                traceback.format_exc())
+            self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
             return
 
         # for encrypted partitions/lvms delete the luks-formatted partition too
@@ -604,9 +602,7 @@ class BlivetUtils(object):
             return actions
 
         except Exception as e: # pylint: disable=broad-except
-
-            message_dialogs.ExceptionDialog(self.main_window, str(e),
-                traceback.format_exc())
+            self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
             return
 
     def edit_lvmvg_device(self, user_input):
@@ -976,10 +972,7 @@ class BlivetUtils(object):
             blivet.partitioning.doPartitioning(self.storage)
 
         except Exception as e: # pylint: disable=broad-except
-
-            message_dialogs.ExceptionDialog(self.main_window, str(e),
-                traceback.format_exc())
-            return
+            self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
 
         return actions
 
@@ -998,9 +991,7 @@ class BlivetUtils(object):
             self.storage.devicetree.registerAction(ac_rm)
 
         except Exception as e: # pylint: disable=broad-except
-
-            message_dialogs.ExceptionDialog(self.main_window, str(e),
-                traceback.format_exc())
+            self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
             return
 
         return [ac_rm]
@@ -1043,9 +1034,7 @@ class BlivetUtils(object):
             actions.append(ac_add)
 
         except Exception as e: # pylint: disable=broad-except
-
-            message_dialogs.ExceptionDialog(self.main_window, str(e),
-                traceback.format_exc())
+            self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
             return
 
         return actions

@@ -41,26 +41,16 @@ class MainMenu(object):
     """ Main menu for blivet-gui
     """
 
-    def __init__(self, main_window, list_partitions, list_devices):
-        """
+    def __init__(self, blivet_gui):
 
-            :param main_window: main window instance
-            :type main_window: Gtk.Window
-            :list_partitions: list partitions instance
-            :type list_partitions: ListPartitions
-
-        """
-
-        self.list_partitions = list_partitions
-        self.list_devices = list_devices
-        self.main_window = main_window
+        self.blivet_gui = blivet_gui
 
         self.menu_bar = Gtk.MenuBar()
 
         self.icon_theme = Gtk.IconTheme.get_default()
 
         self.agr = Gtk.AccelGroup()
-        self.main_window.add_accel_group(self.agr)
+        self.blivet_gui.main_window.add_accel_group(self.agr)
 
         self.menu_items = {}
 
@@ -257,7 +247,7 @@ class MainMenu(object):
         """ Onselect action for 'About'
         """
 
-        AboutDialog(self.main_window)
+        AboutDialog(self.blivet_gui.main_window)
 
     def on_help_item(self, *args):
         """ Onselect action for 'Help'
@@ -268,7 +258,7 @@ class MainMenu(object):
                 "Online version of documentation is available at " \
                 "http://vojtechtrefny.github.io/blivet-gui")
 
-            WarningDialog(self.main_window, msg)
+            self.blivet_gui.show_warning_dialog(msg)
             return
 
         try:
@@ -290,64 +280,54 @@ class MainMenu(object):
                     "Online version of documentation is available at " \
                     "http://vojtechtrefny.github.io/blivet-gui")
 
-            ErrorDialog(self.main_window, msg)
+            self.blivet_gui.show_error_dialog(msg)
 
     def on_undo_item(self, *args):
         """ Onselect action for 'Undo Last Action'
         """
-
-        self.list_partitions.actions_undo()
+        self.blivet_gui.actions_undo()
 
     def on_clear_item(self, *args):
         """ Onselect action for 'Clear Queued Actions'
         """
-
-        self.list_partitions.clear_actions()
+        self.blivet_gui.clear_actions()
 
     def on_apply_item(self, *args):
         """ Onselect action for 'Apply Queued Actions'
         """
-
-        self.list_partitions.apply_event()
+        self.blivet_gui.apply_event()
 
     def on_add_item(self, *args):
         """ Onselect action for 'New'
         """
-
-        self.list_partitions.add_partition()
+        self.blivet_gui.add_partition()
 
     def on_delete_item(self, *args):
         """ Onselect action for 'Delete'
         """
-
-        self.list_partitions.delete_selected_partition()
+        self.blivet_gui.delete_selected_partition()
 
     def on_edit_item(self, *args):
         """ Onselect action for 'Edit'
         """
-
-        self.list_partitions.edit_device()
+        self.blivet_gui.edit_device()
 
     def on_umount_item(self, *args):
         """ Onselect action for 'Unmount'
         """
-
-        self.list_partitions.umount_partition()
+        self.blivet_gui.umount_partition()
 
     def on_decrypt_item(self, *args):
         """ Onselect action for 'Decrypt'
         """
-
-        self.list_partitions.decrypt_device()
+        self.blivet_gui.decrypt_device()
 
     def on_quit_item(self, *args):
         """ Onselect action for 'Quit'
         """
-
-        self.list_partitions.quit()
+        self.blivet_gui.quit()
 
     def on_reload_item(self, *args):
         """ Onselect action for 'Reload'
         """
-
-        self.list_partitions.reload()
+        self.blivet_gui.reload()

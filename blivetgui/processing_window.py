@@ -38,14 +38,13 @@ class ProcessingActions(Gtk.Dialog):
     """ Processing actions dialog
     """
 
-    def __init__(self, list_partitions, parent_window):
+    def __init__(self, blivet_gui):
 
-        self.list_partitions = list_partitions
-        self.parent_window = parent_window
+        self.blivet_gui = blivet_gui
 
         Gtk.Dialog.__init__(self, _("Proccessing"), None, 0, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
-        self.set_transient_for(self.parent_window)
+        self.set_transient_for(self.blivet_gui.main_window)
 
         self.set_border_width(8)
         self.set_position(Gtk.WindowPosition.CENTER)
@@ -119,9 +118,9 @@ class ProcessingActions(Gtk.Dialog):
         """
 
         try:
-            self.list_partitions.b.blivet_do_it()
+            self.blivet_gui.blivet_utils.blivet_do_it() #FIXME
             GObject.idle_add(self.end)
 
         except Exception as e: # pylint: disable=broad-except
-            self.list_partitions.b.blivet_reset()
+            self.blivet_gui.blivet_utils.blivet_reset() #FIXME
             GObject.idle_add(self.end, e)

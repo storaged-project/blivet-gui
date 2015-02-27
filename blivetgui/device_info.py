@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-# main_window.py
-# blivet-gui Main Window
+# actions_toolbar.py
+# Gtk.Label displaying information about selected device
 #
-# Copyright (C) 2014  Red Hat, Inc.
+# Copyright (C) 2015  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -22,10 +22,6 @@
 #
 #------------------------------------------------------------------------------#
 
-from __future__ import print_function
-
-import os, signal
-
 from gi.repository import Gtk
 
 import gettext
@@ -36,33 +32,38 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
-class MainWindow(object):
+class DeviceInfo(object):
+    """ Create label with information about selected device
+    """
 
     def __init__(self, blivet_gui):
 
         self.blivet_gui = blivet_gui
 
-        if self.blivet_gui.embedded_socket:
-            self.window = self.embedded_window(blivet_gui.kickstart_mode, blivet_gui.embedded_socket)
+        self.info_label = Gtk.Label()
+        self.info_label.set_margin_start(5)
+        self.info_label.set_margin_end(5)
+
+    def update_device_info(self, device):
+        """ Basic information for selected device
+        """
+
+        if device.type == "lvmvg":
+            info_str = _("<b>LVM2 Volume group <i>{0}</i> occupying {1} " \
+                         "physical volume(s):</b>\n\n").format(device.name, len(device.parents))
+
+            for parent in device.parents:
+                info_str += _("\t• PV <i>{0}</i>, size: {1} on <i>{2}</i> " \
+                              "disk.\n").format(parent.name, str(parent.size), parent.disks[0].name)
+
+        elif device.type == "disk":
+            info_str = _("<b>Hard disk</b> <i>{0}</i>\n\n\t• Size: <i>{1}</i>\n\t" \
+                         "• Model: <i>{2}</i>\n").format(device.path,
+                                                         str(device.size), device.model)
 
         else:
-            self.window = self.main_window(blivet_gui.kickstart_mode)
-            self.window.connect("delete-event", self.blivet_gui.quit)
+            info_str = ""
 
-    def main_window(self, kickstart=False):
-        """ Create main window from Glade UI file
-        """
+        self.info_label.set_markup(info_str)
 
-        return self.blivet_gui.builder.get_object("main_window")
-
-    def embedded_window(self, kickstart=False, socket_id=0):
-        """ Create Gtk.Plug widget
-        """
-
-        plug = Gtk.Plug.new(socket_id)
-        signal.signal(signal.SIGINT, signal.SIG_DFL)
-
-        vbox = self.blivet_gui.builder.get_object("vbox")
-        vbox.reparent(plug)
-
-        return plug
+        return
