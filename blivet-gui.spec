@@ -14,7 +14,7 @@ BuildRequires: python-setuptools
 Requires: python
 Requires: pygobject3
 Requires: gettext
-Requires: python-blivet >= 1:0.61.14
+Requires: python-blivet >= 1:1.0
 Requires: gtk3
 Requires: gnome-icon-theme
 Requires: polkit-gnome
