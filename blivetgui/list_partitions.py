@@ -78,8 +78,6 @@ class ListPartitions(object):
 
         self.selected_partition = None
 
-        self.history = []
-
     def on_tooltip_query(self, treeview, x, y, keyboard_mode, tooltip):
         """ On tooltip query function for partitions treeview -- displays tooltip with full name
             when actual name of device is too long and has been shortened

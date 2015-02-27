@@ -76,8 +76,6 @@ class BlivetGUI(object):
         self.builder = Gtk.Builder()
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
-        self.history = [] #FIXME: use ListActions
-
         ### BlivetUtils
         self.blivet_utils = BlivetUtils(self, kickstart_mode)
 
@@ -247,9 +245,7 @@ class BlivetGUI(object):
 
             if actions:
                 action_str = _("edit {0} {1}").format(device.name, device.type)
-                self.add_undo_actions(actions)
-                self.activate_options(["undo"])
-                self.list_actions.update_actions_view("edit", action_str, actions)
+                self.list_actions.append("edit", action_str, actions)
 
             self.list_partitions.update_partitions_list(self.list_devices.selected_device)
 
@@ -296,9 +292,7 @@ class BlivetGUI(object):
                 actions = self.blivet_utils.create_disk_label(self.list_devices.selected_device, selection)
                 if actions:
                     action_str = _("create new disklabel on {0}").format(self.list_devices.selected_device.name)
-                    self.add_undo_actions(actions)
-                    self.activate_options(["undo"])
-                    self.list_actions.update_actions_view("add", action_str, actions)
+                    self.list_actions.append("add", action_str, actions)
 
                 self.update_partitions_view()
 
@@ -332,9 +326,7 @@ class BlivetGUI(object):
                     action_str = _("add {0} {1} partition").format(str(user_input.size),
                                                                    user_input.filesystem)
 
-                self.add_undo_actions(actions)
-                self.activate_options(["undo"])
-                self.list_actions.update_actions_view("add", action_str, actions)
+                self.list_actions.append("add", action_str, actions)
 
             self.list_devices.update_devices_view()
             self.update_partitions_view()
@@ -349,7 +341,7 @@ class BlivetGUI(object):
         deleted_device = self.list_partitions.selected_partition[0]
 
         title = _("Confirm delete operation")
-        msg = _("Are you sure you want delete device {0}?").format(deleted_device)
+        msg = _("Are you sure you want delete device {0}?").format(deleted_device.name)
 
         dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
         response = dialog.run()
@@ -359,9 +351,7 @@ class BlivetGUI(object):
 
             if actions:
                 action_str = _("delete partition {0}").format(deleted_device.name)
-                self.add_undo_actions(actions)
-                self.activate_options(["undo"])
-                self.list_actions.update_actions_view("delete", action_str, actions)
+                self.list_actions.append("delete", action_str, actions)
 
         self.update_partitions_view()
         self.list_devices.update_devices_view()
@@ -377,16 +367,14 @@ class BlivetGUI(object):
         dialog = ProcessingActions(self)
         success, error = dialog.start()
 
-        self.clear_undo_actions()
+        self.list_actions.clear()
 
         if not success:
             self.main_window.set_sensitive(False)
             raise error
 
         self.list_devices.update_devices_view()
-        self.list_actions.clear()
         self.update_partitions_view()
-        self.deactivate_options(["apply", "clear", "undo"])
 
     def apply_event(self):
         """ Apply event for main menu/toolbar
@@ -467,19 +455,12 @@ class BlivetGUI(object):
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
-    def add_undo_actions(self, actions):
-        """ Add actions to list of actions to undo
-        """
-
-        self.history.append(actions)
-        self.list_actions.add_action()
-
     def actions_undo(self):
         """ Undo last action
         """
 
-        self.list_actions.remove_action()
-        self.blivet_utils.blivet_cancel_actions(self.history.pop())
+        removed_actions = self.list_actions.pop()
+        self.blivet_utils.blivet_cancel_actions(removed_actions)
 
         self.list_devices.update_devices_view()
         self.update_partitions_view()
@@ -491,17 +472,9 @@ class BlivetGUI(object):
         self.blivet_utils.blivet_reset()
 
         self.list_actions.clear()
-        self.list_actions.clear_actions_view()
 
         self.list_devices.update_devices_view()
         self.update_partitions_view()
-
-    def clear_undo_actions(self):
-        """ Clear list of undo actions
-        """
-
-        self.history = []
-        self.list_actions.clear()
 
     def reload(self):
         """ Reload storage information
@@ -511,7 +484,7 @@ class BlivetGUI(object):
             title = _("Confirm reload storage")
             msg = _("There are pending operations. Are you sure you want to continue?")
 
-            response = show_confirmation_dialog(self.main_window, title, msg)
+            response = self.show_confirmation_dialog(title, msg)
 
             if not response:
                 return
@@ -521,8 +494,7 @@ class BlivetGUI(object):
         if self.kickstart_mode:
             self.blivet_utils.kickstart_hide_disks(self.use_disks)
 
-        self.clear_undo_actions()
-        self.list_actions.clear_actions_view()
+        self.list_actions.clear()
 
         self.list_devices.update_devices_view()
         self.update_partitions_view()

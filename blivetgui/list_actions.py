@@ -34,16 +34,34 @@ _ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 class ListActions(object):
     """ List of childs of selected device
+
+        ..note:: There are two types of 'actions': 'blivet actions' -- simply instances of
+                 blivet.DeviceAction and 'blivet-gui actions' created as a reaction on user
+                 action, eg. adding new device or deleting one. One blivet-gui action can
+                 consist of more blivet actions (eg. adding a new partition creates two
+                 blivet actions -- creating of a partition device and creatig format for it)
+
     """
 
     def __init__(self, blivet_gui):
 
         self.blivet_gui = blivet_gui
 
+        # list of blivet actions
+        self.history = []
+
+        # number af scheduled actions
         self.actions = 0
         self.actions_list = Gtk.TreeStore(GdkPixbuf.Pixbuf, str)
 
         self.actions_view = self.create_actions_view()
+
+        icon_theme = Gtk.IconTheme.get_default()
+        icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
+        icon_delete = Gtk.IconTheme.load_icon(icon_theme, "edit-delete", 16, 0)
+        icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all", 16, 0)
+
+        self.action_icons = {"add" : icon_add, "delete" : icon_delete, "edit" : icon_edit}
 
     def create_actions_view(self):
         """ Create treeview for actions
@@ -66,71 +84,71 @@ class ListActions(object):
         treeview.append_column(column_text)
 
         treeview.set_headers_visible(False)
+        treeview.expand_all()
 
         return treeview
 
-    def clear_actions_view(self):
-        """ Delete all actions in actions view
-        """
-
-        self.actions = 0
-        self.blivet_gui.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
-        self.actions_list.clear()
-
-        self.blivet_gui.deactivate_options(["apply", "clear"])
-
-        self.blivet_gui.update_partitions_view()
-
-    def remove_action(self):
-        """ Remove last action from the list
-        """
-
-        self.actions_list.remove(self.actions_list.get_iter(len(self.actions_list)-1))
-        self.actions -= 1
-        self.blivet_gui.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
-
-        if self.actions == 0:
-            self.blivet_gui.deactivate_options(["clear", "apply", "undo"])
-
-    def add_action(self):
-        """ Add action to list
-        """
-
-        self.actions += 1
-        self.blivet_gui.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
-        self.blivet_gui.activate_options(["undo"])
-
-    def clear(self):
-        self.actions = 0
-        self.actions_list.clear()
-        self.blivet_gui.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
-
-        self.blivet_gui.deactivate_options(["undo"])
-
-    def update_actions_view(self, action_type=None, action_desc=None, blivet_actions=None):
-        """ Update list of scheduled actions
+    def append(self, action_type, action_desc, blivet_actions):
+        """ Append newly scheduled actions to the list of actions
 
             :param action_type: type of action (delete/add/edit)
             :type action_type: str
             :param action_desc: description of scheduled action
             :type partition_name: str
+            :param blivet_actions: list of actions
+            :type blivet_actions: list of blivet.DeviceAction
 
         """
 
-        icon_theme = Gtk.IconTheme.get_default()
-        icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
-        icon_delete = Gtk.IconTheme.load_icon(icon_theme, "edit-delete", 16, 0)
-        icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all", 16, 0)
+        # update number of actions label
+        self.actions += 1
+        self.blivet_gui.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 
-        action_icons = {"add" : icon_add, "delete" : icon_delete, "edit" : icon_edit}
-
-
-        parent_iter = self.actions_list.append(None, [action_icons[action_type], action_desc])
+        # add new actions to the view
+        parent_iter = self.actions_list.append(None, [self.action_icons[action_type], action_desc])
 
         for action in blivet_actions:
             self.actions_list.append(parent_iter, [None, str(action)])
 
-        self.actions_view.expand_all()
+        # update list of actions
+        self.history.append(blivet_actions)
+
+        # activate 'actions-related' options
+        self.blivet_gui.activate_options(["apply", "clear", "undo"])
+
+    def pop(self):
+        """ Remove last action from the list of actions
+
+            :returns: list of blivet actions belonging to the last action
+            :rtype: list of blivet.DeviceAction
+
+        """
+
+        # upate number of actions label
+        self.actions -= 1
         self.blivet_gui.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 
-        self.blivet_gui.activate_options(["apply", "clear"])
+        # remove actions from view
+        self.actions_list.remove(self.actions_list.get_iter(len(self.actions_list)-1))
+
+        # deactivate 'actions-related' options (if there are no actions)
+        if not self.actions:
+            self.blivet_gui.deactivate_options(["clear", "apply", "undo"])
+
+        return self.history.pop()
+
+    def clear(self):
+        """ Delete all actions in actions view
+        """
+
+        # upate number of actions label
+        self.actions = 0
+        self.blivet_gui.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
+
+        # remove all actions from view
+        self.actions_list.clear()
+
+        # remove all actions from list of actions
+        self.history = []
+
+        self.blivet_gui.deactivate_options(["clear", "apply", "undo"])
