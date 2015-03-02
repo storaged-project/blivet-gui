@@ -22,25 +22,11 @@
 #
 #------------------------------------------------------------------------------#
 
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import Gtk
 
 import gettext
 
-import blivet
-
-import os.path
-
-from .dialogs import add_dialog, edit_dialog, message_dialogs, other_dialogs
-
-from .actions_toolbar import ActionsToolbar
-
-from .actions_menu import ActionsMenu
-
-from .main_menu import MainMenu
-
-from .processing_window import ProcessingActions
-
-from .devicevisualization.device_canvas import DeviceCanvas
+from blivet import size, errors
 
 #------------------------------------------------------------------------------#
 
@@ -56,13 +42,7 @@ class ListPartitions(object):
 
         self.blivet_gui = blivet_gui
 
-        self.list_devices = self.blivet_gui.list_devices #FIXME
-        self.b =  self.blivet_gui.blivet_utils #FIXME
-
-        self.kickstart_mode = self.blivet_gui.kickstart_mode #FIXME
-
-        self.disk = None
-        self.main_window = self.blivet_gui.main_window #FIXME
+        self.kickstart_mode = self.blivet_gui.kickstart_mode
 
         self.partitions_list = Gtk.TreeStore(object, str, str, str, str, str, str, object)
 
@@ -71,10 +51,10 @@ class ListPartitions(object):
         self.partitions_view.connect("query-tooltip", self.on_tooltip_query)
 
         self.select = self.partitions_view.get_selection()
-        self.path = self.select.select_path("1")
-
         self.on_partition_selection_changed(self.select)
-        self.selection_signal = self.select.connect("changed", self.on_partition_selection_changed)
+
+        self.select = self.partitions_view.get_selection()
+        self.select.connect("changed", self.on_partition_selection_changed)
 
         self.selected_partition = None
 
@@ -126,13 +106,22 @@ class ListPartitions(object):
                     else:
                         parent_iter = self.add_partition_to_view(child, extended_iter)
 
-                        if child.type != "free space" and len(self.b.get_partitions(child)) != 0:
-                            childs_loop(self.b.get_partitions(child), parent_iter)
+                        if child.type not in ("free space",):
 
-                elif child.type != "free space" and len(self.b.get_partitions(child)) != 0:
+                            partitions = self.blivet_gui.blivet_utils.get_partitions(child)
 
-                    parent_iter = self.add_partition_to_view(child, parent)
-                    childs_loop(self.b.get_partitions(child), parent_iter)
+                            if len(partitions) != 0:
+                                childs_loop(partitions, parent_iter)
+
+                elif child.type not in ("free space",):
+
+                    partitions = self.blivet_gui.blivet_utils.get_partitions(child)
+
+                    if len(partitions) != 0:
+                        parent_iter = self.add_partition_to_view(child, parent)
+                        childs_loop(partitions, parent_iter)
+                    else:
+                        self.add_partition_to_view(child, parent)
 
                 else:
                     self.add_partition_to_view(child, parent)
@@ -145,13 +134,12 @@ class ListPartitions(object):
 
         self.partitions_list.clear()
 
-        partitions = self.b.get_partitions(selected_device)
+        partitions = self.blivet_gui.blivet_utils.get_partitions(selected_device)
 
         childs_loop(partitions, None)
 
         # select first line in partitions view
-        self.select = self.partitions_view.get_selection()
-        self.path = self.select.select_path("0")
+        self.select.select_path("0")
 
         # expand all expanders
         self.partitions_view.expand_all()
@@ -172,7 +160,8 @@ class ListPartitions(object):
                                                               str(partition.size), "--",
                                                               None, None])
 
-        elif partition.type == "partition" and hasattr(partition, "isExtended") and partition.isExtended:
+        elif partition.type == "partition" and hasattr(partition, "isExtended") \
+             and partition.isExtended:
             iter_added = self.partitions_list.append(None, [partition, name,
                                                             _("extended"), "--",
                                                             str(partition.size), "--",
@@ -184,13 +173,13 @@ class ListPartitions(object):
 
         elif partition.format.mountable:
 
-            if partition.format.minSize not in (None, blivet.size.Size(0), partition.size):
+            if partition.format.minSize not in (None, size.Size(0), partition.size):
                 resize_size = partition.format.minSize
 
             elif partition.format.resizable:
                 try:
                     partition.format.updateSizeInfo()
-                except blivet.errors.FSError:
+                except errors.FSError:
                     pass
                 else:
                     resize_size = partition.format.minSize
@@ -243,21 +232,15 @@ class ListPartitions(object):
 
         renderer_text = Gtk.CellRendererText()
 
-        column_text1 = Gtk.TreeViewColumn(_("Partition"), renderer_text, text=1)
-        column_text2 = Gtk.TreeViewColumn(_("Filesystem"), renderer_text, text=2)
-        column_text3 = Gtk.TreeViewColumn(_("Mountpoint"), renderer_text, text=3)
-        column_text4 = Gtk.TreeViewColumn(_("Size"), renderer_text, text=4)
-        column_text5 = Gtk.TreeViewColumn(_("Used"), renderer_text, text=5)
-        column_text6 = Gtk.TreeViewColumn(_("Current Mountpoint"), renderer_text, text=6)
-
-        treeview.append_column(column_text1)
-        treeview.append_column(column_text2)
-        treeview.append_column(column_text3)
-        treeview.append_column(column_text4)
-        treeview.append_column(column_text5)
+        treeview.append_column(Gtk.TreeViewColumn(_("Partition"), renderer_text, text=1))
+        treeview.append_column(Gtk.TreeViewColumn(_("Filesystem"), renderer_text, text=2))
+        treeview.append_column(Gtk.TreeViewColumn(_("Mountpoint"), renderer_text, text=3))
+        treeview.append_column(Gtk.TreeViewColumn(_("Size"), renderer_text, text=4))
+        treeview.append_column(Gtk.TreeViewColumn(_("Used"), renderer_text, text=5))
 
         if self.kickstart_mode:
-            treeview.append_column(column_text6)
+            treeview.append_column(Gtk.TreeViewColumn(_("Current Mountpoint"),
+                                                      renderer_text, text=6))
 
         treeview.set_headers_visible(True)
 
@@ -359,8 +342,7 @@ class ListPartitions(object):
             self.blivet_gui.activate_options(["add"])
 
         if device.format:
-            if device.format.type == "luks" and not device.format.status \
-                and device.format.exists:
+            if device.format.type == "luks" and not device.format.status and device.format.exists:
                 self.blivet_gui.activate_options(["decrypt"])
 
             elif device.format.mountable and device.format.mountpoint:
