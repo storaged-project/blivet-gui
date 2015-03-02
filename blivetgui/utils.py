@@ -27,7 +27,7 @@ import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice
 
-from .dialogs import message_dialogs
+from collections import namedtuple
 
 import gettext
 
@@ -87,6 +87,8 @@ class ISO9660Device(object):
         else:
             self.name = _("ISO9660 Disklabel")
 
+#------------------------------------------------------------------------------#
+
 class FreeSpaceDevice(object):
     """ Special class to represent free space on disk (device)
         (blivet doesn't have class/device to represent free space)
@@ -140,6 +142,11 @@ class FreeSpaceDevice(object):
     def __str__(self):
         return "existing " + str(self.size) + " free space"
 
+#------------------------------------------------------------------------------#
+
+ReturnList = namedtuple("ReturnList", ["success", "actions", "message", "exception"])
+
+#------------------------------------------------------------------------------#
 
 class BlivetUtils(object):
     """ Class with utils directly working with blivet itselves
@@ -481,7 +488,7 @@ class BlivetUtils(object):
             # format instead
             action = self.delete_disk_label(blivet_device.parents[0])
 
-            return action
+            return ReturnList(success=True, actions=action, message=None, exception=None)
 
         try:
             if blivet_device.type in ("partition", "lvmlv") and blivet_device.format.type:
@@ -494,8 +501,7 @@ class BlivetUtils(object):
             actions.append(ac_dev)
 
         except Exception as e: # pylint: disable=broad-except
-            self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
-            return
+            return ReturnList(success=False, actions=None, message=None, exception=e)
 
         # for encrypted partitions/lvms delete the luks-formatted partition too
         if blivet_device.type in ("luks/dm-crypt",):
@@ -508,11 +514,10 @@ class BlivetUtils(object):
 
                 except blivet.errors.CryptoError:
                     msg = _("Failed to remove device {0}. Are you sure it is not in use?").format(parent.name)
-                    message_dialogs.ErrorDialog(self.main_window, msg)
 
                     # cancel destroy action for luks device
                     self.blivet_cancel_actions(actions)
-                    return
+                    return ReturnList(success=False, actions=None, message=msg, exception=None)
 
                 actions.extend(self.delete_device(parent))
 
@@ -524,7 +529,7 @@ class BlivetUtils(object):
                 elif parent.type == "disk":
                     actions.append(self.delete_disk_label(parent))
 
-        return actions
+        return ReturnList(success=True, actions=actions, message=None, exception=None)
 
     def update_min_sizes_info(self):
         """ Update information of minimal size for resizable devices
@@ -557,9 +562,6 @@ class BlivetUtils(object):
         except blivet.errors.FSError:
             return (False, blivet.size.Size("1 MiB"), blivet_device.size)
 
-        except Exception as e: # pylint: disable=broad-except
-            message_dialogs.ExceptionDialog(self.main_window, str(e), traceback.format_exc())
-
         if blivet_device.resizable and blivet_device.format.resizable:
             return (True, blivet_device.minSize, blivet_device.maxSize, blivet_device.size)
 
@@ -586,7 +588,7 @@ class BlivetUtils(object):
             blivet_device.format.mountpoint = user_input.mountpoint
 
         if not user_input.resize and not user_input.format:
-            return
+            return ReturnList(success=True, actions=None, message=None, exception=None)
 
         if user_input.resize:
             actions.append(blivet.deviceaction.ActionResizeDevice(blivet_device, user_input.size))
@@ -599,11 +601,10 @@ class BlivetUtils(object):
             for ac in actions:
                 self.storage.devicetree.registerAction(ac)
             blivet.partitioning.doPartitioning(self.storage)
-            return actions
+            return ReturnList(success=True, actions=actions, message=None, exception=None)
 
         except Exception as e: # pylint: disable=broad-except
-            self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
-            return
+            return ReturnList(success=False, actions=None, message=None, exception=e)
 
     def edit_lvmvg_device(self, user_input):
         """ Edit LVM Volume group
@@ -613,19 +614,19 @@ class BlivetUtils(object):
 
         if user_input.action_type == "add":
             for parent in user_input.parents_list:
-                action = self.add_lvmvg_parent(user_input.edit_device, parent)
+                result = self._add_lvmvg_parent(user_input.edit_device, parent)
 
-                if action:
-                    actions.extend(action)
+                if result.success:
+                    actions.extend(result.actions)
 
         elif user_input.action_type == "remove":
             for parent in user_input.parents_list:
-                action = self.remove_lvmvg_parent(user_input.edit_device, parent)
+                result = self._remove_lvmvg_parent(user_input.edit_device, parent)
 
-                if action:
-                    actions.extend(action)
+                if result.success:
+                    actions.extend(result.actions)
 
-        return actions
+        return result
 
     def _pick_device_name(self, name, parent_device=None):
         """ Pick name for device.
@@ -742,10 +743,7 @@ class BlivetUtils(object):
                         self.storage.devicetree.registerAction(ac)
 
                 except blivet.errors.PartitioningError as e:
-
-                    message_dialogs.ExceptionDialog(self.main_window,
-                        str(e), traceback.format_exc())
-                    return
+                    return ReturnList(success=False, actions=None, message=None, exception=e)
 
                 pvs.append(dev)
 
@@ -788,10 +786,7 @@ class BlivetUtils(object):
                         self.storage.devicetree.registerAction(ac)
 
                 except blivet.errors.PartitioningError as e:
-
-                    message_dialogs.ExceptionDialog(self.main_window,
-                        str(e), traceback.format_exc())
-                    return
+                    return ReturnList(success=False, actions=None, message=None, exception=e)
 
                 lukses.append(luks_dev)
 
@@ -874,9 +869,7 @@ class BlivetUtils(object):
                         self.storage.devicetree.registerAction(ac_fmt)
 
                     except Exception as e: # pylint: disable=broad-except
-                        message_dialogs.ExceptionDialog(self.main_window,
-                            str(e), traceback.format_exc())
-                        return
+                        return ReturnList(success=False, actions=None, message=None, exception=e)
 
                     total_size += size
                     btrfs_parents.append(parent)
@@ -901,10 +894,7 @@ class BlivetUtils(object):
                             self.storage.devicetree.registerAction(ac)
 
                     except blivet.errors.PartitioningError as e:
-
-                        message_dialogs.ExceptionDialog(self.main_window,
-                            str(e), traceback.format_exc())
-                        return
+                        return ReturnList(success=False, actions=None, message=None, exception=e)
 
                     btrfs_parents.append(dev)
 
@@ -949,10 +939,7 @@ class BlivetUtils(object):
                         self.storage.devicetree.registerAction(ac)
 
                 except blivet.errors.PartitioningError as e:
-
-                    message_dialogs.ExceptionDialog(self.main_window,
-                        str(e), traceback.format_exc())
-                    return
+                    return ReturnList(success=False, actions=None, message=None, exception=e)
 
                 parts.append(dev)
 
@@ -974,9 +961,9 @@ class BlivetUtils(object):
         except Exception as e: # pylint: disable=broad-except
             self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
 
-        return actions
+        return ReturnList(success=True, actions=actions, message=None, exception=None)
 
-    def remove_lvmvg_parent(self, container, parent):
+    def _remove_lvmvg_parent(self, container, parent):
         """ Add parent fromexisting lvmg
 
             :param container: existing lvmvg
@@ -991,12 +978,11 @@ class BlivetUtils(object):
             self.storage.devicetree.registerAction(ac_rm)
 
         except Exception as e: # pylint: disable=broad-except
-            self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
-            return
+            return ReturnList(success=False, actions=None, message=None, exception=e)
 
-        return [ac_rm]
+        return ReturnList(success=True, actions=[ac_rm], message=None, exception=None)
 
-    def add_lvmvg_parent(self, container, parent):
+    def _add_lvmvg_parent(self, container, parent):
         """ Add new parent to existing lvmg
 
             :param container: existing lvmvg
@@ -1011,8 +997,8 @@ class BlivetUtils(object):
         actions = []
 
         if parent.type == "free space":
-            dev = PartitionDevice(name="req%d" % self.storage.nextID,
-                size=parent.size, parents=parent.parents)
+            dev = PartitionDevice(name="req%d" % self.storage.nextID, size=parent.size,
+                                  parents=parent.parents)
             ac_part = blivet.deviceaction.ActionCreateDevice(dev)
 
             fmt = blivet.formats.getFormat(fmt_type="lvmpv")
@@ -1034,10 +1020,9 @@ class BlivetUtils(object):
             actions.append(ac_add)
 
         except Exception as e: # pylint: disable=broad-except
-            self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
-            return
+            return ReturnList(success=False, actions=None, message=None, exception=e)
 
-        return actions
+        return ReturnList(success=True, actions=actions, message=None, exception=None)
 
     def get_device_type(self, blivet_device):
         """ Get device type
@@ -1145,15 +1130,15 @@ class BlivetUtils(object):
         if blivet_device.format.type:
             actions.append(blivet.deviceaction.ActionDestroyFormat(blivet_device))
 
-        new_label = blivet.formats.getFormat("disklabel",
-            device=blivet_device.path, labelType=label_type)
+        new_label = blivet.formats.getFormat("disklabel", device=blivet_device.path,
+                                             labelType=label_type)
 
         actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_label))
 
         for ac in actions:
             self.storage.devicetree.registerAction(ac)
 
-        return actions
+        return ReturnList(success=True, actions=actions, message=None, exception=None)
 
     def set_bootloader_device(self, disk_name):
 

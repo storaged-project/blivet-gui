@@ -42,7 +42,7 @@ import gettext
 
 import blivet # FIXME
 
-import os, sys
+import os
 
 #------------------------------------------------------------------------------#
 
@@ -238,14 +238,22 @@ class BlivetGUI(object):
             user_input = dialog.get_selection()
 
             if device.type in ("partition", "lvmlv"):
-                actions = self.blivet_utils.edit_partition_device(user_input)
+                result = self.blivet_utils.edit_partition_device(user_input)
 
             elif device.type in ("lvmvg",):
-                actions = self.blivet_utils.edit_lvmvg_device(user_input)
+                result = self.blivet_utils.edit_lvmvg_device(user_input)
 
-            if actions:
-                action_str = _("edit {0} {1}").format(device.name, device.type)
-                self.list_actions.append("edit", action_str, actions)
+            if not result.success:
+                if not result.exception:
+                    self.show_error_dialog(result.message)
+
+                else:
+                    raise result.exception
+
+            else:
+                if result.actions:
+                    action_str = _("edit {0} {1}").format(device.name, device.type)
+                    self.list_actions.append("edit", action_str, result.actions)
 
             self.list_partitions.update_partitions_list(self.list_devices.selected_device)
 
@@ -289,10 +297,18 @@ class BlivetGUI(object):
                     self.add_partition(btrfs_pt=True)
                     return
 
-                actions = self.blivet_utils.create_disk_label(self.list_devices.selected_device, selection)
-                if actions:
-                    action_str = _("create new disklabel on {0}").format(self.list_devices.selected_device.name)
-                    self.list_actions.append("add", action_str, actions)
+                result = self.blivet_utils.create_disk_label(self.list_devices.selected_device, selection)
+                if not result.success:
+                    if not result.exception:
+                        self.show_error_dialog(result.message)
+
+                    else:
+                        raise result.exception
+
+                else:
+                    if result.actions:
+                        action_str = _("create new disklabel on {0}").format(self.list_devices.selected_device.name)
+                        self.list_actions.append("add", action_str, result.actions)
 
                 self.update_partitions_view()
 
@@ -316,17 +332,25 @@ class BlivetGUI(object):
         if response == Gtk.ResponseType.OK:
 
             user_input = dialog.get_selection()
-            actions = self.blivet_utils.add_device(user_input)
+            result = self.blivet_utils.add_device(user_input)
 
-            if actions:
-                if user_input.filesystem == None:
-                    action_str = _("add {0} {1} device").format(str(user_input.size),
-                                                                user_input.device_type)
+            if not result.success:
+                if not result.exception:
+                    self.show_error_dialog(result.message)
+
                 else:
-                    action_str = _("add {0} {1} partition").format(str(user_input.size),
-                                                                   user_input.filesystem)
+                    raise result.exception
 
-                self.list_actions.append("add", action_str, actions)
+            else:
+                if result.actions:
+                    if not user_input.filesystem:
+                        action_str = _("add {0} {1} device").format(str(user_input.size),
+                                                                    user_input.device_type)
+                    else:
+                        action_str = _("add {0} {1} partition").format(str(user_input.size),
+                                                                       user_input.filesystem)
+
+                    self.list_actions.append("add", action_str, result.actions)
 
             self.list_devices.update_devices_view()
             self.update_partitions_view()
@@ -347,11 +371,18 @@ class BlivetGUI(object):
         response = dialog.run()
 
         if response:
-            actions = self.blivet_utils.delete_device(deleted_device)
+            result = self.blivet_utils.delete_device(deleted_device)
 
-            if actions:
+            if not result.success:
+                if not result.exception:
+                    self.show_error_dialog(result.message)
+
+                else:
+                    raise result.exception
+
+            else:
                 action_str = _("delete partition {0}").format(deleted_device.name)
-                self.list_actions.append("delete", action_str, actions)
+                self.list_actions.append("delete", action_str, result.actions)
 
         self.update_partitions_view()
         self.list_devices.update_devices_view()
@@ -369,9 +400,9 @@ class BlivetGUI(object):
 
         self.list_actions.clear()
 
-        if not success:
+        if not success and error:
             self.main_window.set_sensitive(False)
-            raise error
+            raise error # pylint: disable=raising-bad-type
 
         self.list_devices.update_devices_view()
         self.update_partitions_view()
