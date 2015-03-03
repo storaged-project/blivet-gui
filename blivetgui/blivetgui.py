@@ -77,7 +77,7 @@ class BlivetGUI(object):
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
         ### BlivetUtils
-        self.blivet_utils = BlivetUtils(self, kickstart_mode)
+        self.blivet_utils = BlivetUtils(kickstart_mode)
 
         if self.kickstart_mode:
             self.use_disks = self.kickstart_disk_selection()

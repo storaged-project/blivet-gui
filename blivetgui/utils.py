@@ -152,7 +152,7 @@ class BlivetUtils(object):
     """ Class with utils directly working with blivet itselves
     """
 
-    def __init__(self, blivet_gui, kickstart=False):
+    def __init__(self, kickstart=False):
 
         self.blivet_log_file, self.blivet_log = self.set_logging(component="blivet")
         self.program_log_file, self.program_log = self.set_logging(component="program")
@@ -172,8 +172,6 @@ class BlivetUtils(object):
         self.storage.devicetree.populate()
         self.storage.devicetree.getActiveMounts()
         self.update_min_sizes_info()
-
-        self.blivet_gui = blivet_gui
 
     def set_logging(self, component, logging_level=logging.DEBUG, log_file=None):
 
@@ -468,10 +466,9 @@ class BlivetUtils(object):
             self.storage.devicetree.registerAction(action)
 
         except Exception as e: # pylint: disable=broad-except
-            self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
-            return
+            return ReturnList(success=False, actions=None, message=None, exception=e)
 
-        return action
+        return ReturnList(success=True, actions=[action], message=None, exception=None)
 
     def delete_device(self, blivet_device):
         """ Delete device
@@ -486,9 +483,9 @@ class BlivetUtils(object):
         if blivet_device.type == "iso9660":
             # iso9660 disklabel, not going to delete device but destroy disk
             # format instead
-            action = self.delete_disk_label(blivet_device.parents[0])
+            result = self.delete_disk_label(blivet_device.parents[0])
 
-            return ReturnList(success=True, actions=action, message=None, exception=None)
+            return result
 
         try:
             if blivet_device.type in ("partition", "lvmlv") and blivet_device.format.type:
@@ -527,7 +524,12 @@ class BlivetUtils(object):
                 if parent.type == "partition":
                     actions.extend(self.delete_device(parent))
                 elif parent.type == "disk":
-                    actions.append(self.delete_disk_label(parent))
+                    result = self.delete_disk_label(parent)
+
+                    if not result.success:
+                        return result
+                    else:
+                        actions.append(result.actions)
 
         return ReturnList(success=True, actions=actions, message=None, exception=None)
 
@@ -959,7 +961,7 @@ class BlivetUtils(object):
             blivet.partitioning.doPartitioning(self.storage)
 
         except Exception as e: # pylint: disable=broad-except
-            self.blivet_gui.show_exception_dialog(str(e), traceback.format_exc())
+            return ReturnList(success=False, actions=None, message=None, exception=e)
 
         return ReturnList(success=True, actions=actions, message=None, exception=None)
 
