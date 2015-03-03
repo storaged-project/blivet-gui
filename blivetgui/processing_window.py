@@ -22,8 +22,6 @@
 #
 #------------------------------------------------------------------------------#
 
-import threading, traceback
-
 import gettext
 
 from gi.repository import Gtk, GObject
@@ -57,8 +55,6 @@ class ProcessingActions(Gtk.Dialog):
         box.add(self.grid)
 
         self.pulse = True
-        self.success = False
-        self.error = None
 
         self.label = Gtk.Label()
         self.grid.attach(self.label, 0, 0, 3, 1)
@@ -69,11 +65,9 @@ class ProcessingActions(Gtk.Dialog):
         self.grid.attach(self.progressbar, 0, 1, 3, 1)
 
         self.timeout_id = GObject.timeout_add(50, self.on_timeout, None)
-        self.thread = threading.Thread(target=self.do_it)
 
         self.set_resizable(False)
         self.show_all()
-        self.thread.start()
 
     def start(self):
         """ Start the dialog
@@ -82,25 +76,14 @@ class ProcessingActions(Gtk.Dialog):
         self.run()
         self.destroy()
 
-        return (self.success, self.error)
-
-    def end(self, error=None):
+    def stop(self):
         """ End the thread
         """
 
-        self.thread.join()
-
-        if error:
-            self.success = False
-            self.error = error
-            self.destroy()
-
-        else:
-            self.pulse = False
-            self.progressbar.set_fraction(1)
-            self.set_response_sensitive(Gtk.ResponseType.OK, True)
-            self.success = True
-            self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
+        self.pulse = False
+        self.progressbar.set_fraction(1)
+        self.set_response_sensitive(Gtk.ResponseType.OK, True)
+        self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
 
     def on_timeout(self, user_data):
         """ Timeout fuction for progressbar pulsing
@@ -112,15 +95,3 @@ class ProcessingActions(Gtk.Dialog):
 
         else:
             return False
-
-    def do_it(self):
-        """ Run blivet.doIt()
-        """
-
-        try:
-            self.blivet_gui.blivet_utils.blivet_do_it() #FIXME
-            GObject.idle_add(self.end)
-
-        except Exception as e: # pylint: disable=broad-except
-            self.blivet_gui.blivet_utils.blivet_reset() #FIXME
-            GObject.idle_add(self.end, e)

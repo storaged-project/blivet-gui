@@ -164,7 +164,7 @@ class BlivetUtils(object):
         else:
             self.storage = blivet.Blivet()
 
-        self.set_python_meh()
+        # self.set_python_meh()
 
         blivet.formats.fs.NTFS._formattable = True
 

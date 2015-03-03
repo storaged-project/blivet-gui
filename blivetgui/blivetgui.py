@@ -22,7 +22,7 @@
 #
 #------------------------------------------------------------------------------#
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GObject
 
 from .main_window import MainWindow
 from .list_devices import ListDevices
@@ -39,6 +39,8 @@ from .dialogs import message_dialogs, other_dialogs, edit_dialog, add_dialog
 from .processing_window import ProcessingActions
 
 import gettext
+
+import threading
 
 import blivet # FIXME
 
@@ -387,22 +389,39 @@ class BlivetGUI(object):
         self.update_partitions_view()
         self.list_devices.update_devices_view()
 
-    def perform_actions(self):
+    def perform_actions(self, dialog):
         """ Perform queued actions
-
-        .. note::
-                New window creates separate thread to run blivet.doIt()
-
         """
 
-        dialog = ProcessingActions(self)
-        success, error = dialog.start()
+        def end(success, error):
+            if success:
+                dialog.stop()
+
+            else:
+                dialog.destroy()
+                self.main_window.set_sensitive(False)
+                raise error # pylint: disable=raising-bad-type
+
+        def do_it():
+            """ Run blivet.doIt()
+            """
+
+            try:
+                self.blivet_utils.blivet_do_it()
+                GObject.idle_add(end, True, None)
+
+            except Exception as e: # pylint: disable=broad-except
+                self.blivet_utils.blivet_reset()
+                GObject.idle_add(end, False, e)
+
+            return
+
+        thread = threading.Thread(target=do_it)
+        thread.start()
+        dialog.start()
+        thread.join()
 
         self.list_actions.clear()
-
-        if not success and error:
-            self.main_window.set_sensitive(False)
-            raise error # pylint: disable=raising-bad-type
 
         self.list_devices.update_devices_view()
         self.update_partitions_view()
@@ -449,7 +468,8 @@ class BlivetGUI(object):
             response = dialog.run()
 
             if response:
-                self.perform_actions()
+                processing_dialog = ProcessingActions(self)
+                self.perform_actions(processing_dialog)
 
     def umount_partition(self):
         """ Unmount selected partition
