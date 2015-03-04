@@ -24,7 +24,7 @@
 
 import gettext
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Pango
 
 from .add_dialog import SizeChooserArea
 
@@ -54,22 +54,22 @@ class PartitionEditDialog(Gtk.Dialog):
             self.filesystem = filesystem
             self.mountpoint = mountpoint
 
-    def __init__(self, parent_window, edited_device, resizable, kickstart=False):
+    def __init__(self, parent_window, edited_device, resize_info, kickstart=False):
         """
 
             :param parent_window: parent window
             :type parent_window: Gtk.Window
             :param partition_name: name of device
             :type partition_name: str
-            :param resizable: is partition resizable, minSize, maxSize
-            :type resizable: tuple
+            :param resize_info: is partition resizable, error, min_size, max_size
+            :type resize_info: namedtuple
             :param kickstart: kickstart mode
             :type kickstart: bool
 
         """
 
         self.edited_device = edited_device
-        self.resizable = resizable
+        self.resize_info = resize_info
         self.kickstart = kickstart
         self.parent_window = parent_window
 
@@ -96,9 +96,11 @@ class PartitionEditDialog(Gtk.Dialog):
 
         self.mountpoint_entry = self.add_mountpoint()
 
-        if not self.resizable[0]:
+        if not self.resize_info.resizable:
             self.hide_widgets(["size"])
             self.size_area.frame.set_tooltip_text(_("This device cannot be resized."))
+            self.add_resize_info()
+            self.show_widgets(["info"])
 
         if self.edited_device.type == "partition" and self.edited_device.isExtended:
             self.set_widgets_sensitive(["fs"], False)
@@ -109,10 +111,29 @@ class PartitionEditDialog(Gtk.Dialog):
 
         self.show_widgets(["fs"])
 
+    def add_resize_info(self):
+
+        width = self.size_area.frame.size_request().width
+
+        label_info = Gtk.Label()
+        label_info.set_size_request(width, -1)
+        label_info.set_line_wrap_mode(Pango.WrapMode.WORD_CHAR)
+        label_info.set_line_wrap(True)
+
+        label_info.set_markup(_("<b>This device cannot be resized:</b>\n<i>{0}</i>").format(self.resize_info.error))
+
+        table = Gtk.Table(1, 1, False)
+        table.attach(label_info, 0, 1, 0, 1, Gtk.AttachOptions.SHRINK | Gtk.AttachOptions.FILL)
+
+        self.grid.attach(table, 0, 1, 6, 1)
+
+        self.widgets_dict["info"] = [table, label_info]
+
     def add_size_chooser(self):
 
         size_area = SizeChooserArea(dialog=self, dialog_type="edit", parent_device=None,
-                                    max_size=self.resizable[2], min_size=self.resizable[1],
+                                    max_size=self.resize_info.max_size,
+                                    min_size=self.resize_info.min_size,
                                     edited_device=self.edited_device)
 
         self.grid.attach(size_area.frame, 0, 0, 6, 1)
@@ -125,15 +146,15 @@ class PartitionEditDialog(Gtk.Dialog):
 
         label_format = Gtk.Label(label=_("Format?:"), xalign=1)
         label_format.get_style_context().add_class("dim-label")
-        self.grid.attach(label_format, 0, 1, 1, 1)
+        self.grid.attach(label_format, 0, 2, 1, 1)
 
         format_check = Gtk.CheckButton()
-        self.grid.attach(format_check, 1, 1, 1, 1)
+        self.grid.attach(format_check, 1, 2, 1, 1)
         format_check.connect("toggled", self.on_format_changed)
 
         label_fs = Gtk.Label(label=_("Filesystem:"), xalign=1)
         label_fs.get_style_context().add_class("dim-label")
-        self.grid.attach(label_fs, 0, 2, 1, 1)
+        self.grid.attach(label_fs, 0, 3, 1, 1)
 
         filesystems_combo = Gtk.ComboBoxText()
         filesystems_combo.set_entry_text_column(0)
@@ -144,7 +165,7 @@ class PartitionEditDialog(Gtk.Dialog):
         for fs in SUPPORTED_FS:
             filesystems_combo.append_text(fs)
 
-        self.grid.attach(filesystems_combo, 1, 2, 2, 1)
+        self.grid.attach(filesystems_combo, 1, 3, 2, 1)
 
         return (format_check, filesystems_combo)
 
@@ -152,10 +173,10 @@ class PartitionEditDialog(Gtk.Dialog):
 
         label_mountpoint = Gtk.Label(label=_("Mountpoint:"), xalign=1)
         label_mountpoint.get_style_context().add_class("dim-label")
-        self.grid.attach(label_mountpoint, 0, 3, 1, 1)
+        self.grid.attach(label_mountpoint, 0, 4, 1, 1)
 
         mountpoint_entry = Gtk.Entry()
-        self.grid.attach(mountpoint_entry, 1, 3, 2, 1)
+        self.grid.attach(mountpoint_entry, 1, 4, 2, 1)
 
         self.widgets_dict["mountpoint"] = [label_mountpoint, mountpoint_entry]
 
@@ -220,7 +241,7 @@ class PartitionEditDialog(Gtk.Dialog):
         else:
             mountpoint = None
 
-        if self.resizable[0]:
+        if self.resize_info.resizable:
             resize, size = self.size_area.get_selection()
 
         else:

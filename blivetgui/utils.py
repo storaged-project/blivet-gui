@@ -133,6 +133,7 @@ class FreeSpaceDevice(object):
 #------------------------------------------------------------------------------#
 
 ReturnList = namedtuple("ReturnList", ["success", "actions", "message", "exception", "traceback"])
+ResizeInfo = namedtuple("ResizeInfo", ["resizable", "error", "min_size", "max_size"])
 
 #------------------------------------------------------------------------------#
 
@@ -497,20 +498,24 @@ class BlivetUtils(object):
         """
 
         if blivet_device.format.type in (None, "swap"):
-            return (False, blivet.size.Size("1 MiB"), blivet_device.size)
+            return ResizeInfo(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
+                              max_size=blivet_device.size)
 
         try:
             blivet_device.format.updateSizeInfo()
 
-        except blivet.errors.FSError:
-            return (False, blivet.size.Size("1 MiB"), blivet_device.size)
+        except blivet.errors.FSError as e:
+            return ResizeInfo(resizable=False, error=unicode(e).encode("utf8"),
+                              min_size=blivet.size.Size("1 MiB"),
+                              max_size=blivet_device.size)
 
         if blivet_device.resizable and blivet_device.format.resizable:
-            return (True, blivet_device.minSize, blivet_device.maxSize, blivet_device.size)
+            return ResizeInfo(resizable=True, error=None, min_size=blivet_device.minSize,
+                              max_size=blivet_device.maxSize)
 
         else:
-            return (False, blivet.size.Size("1 MiB"), blivet_device.size, blivet_device.size)
-
+            return ResizeInfo(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
+                              max_size=blivet_device.size)
 
     def edit_partition_device(self, user_input):
         """ Edit device
