@@ -565,6 +565,9 @@ class BlivetUtils(object):
                 if result.success:
                     actions.extend(result.actions)
 
+                else:
+                    return result
+
         elif user_input.action_type == "remove":
             for parent in user_input.parents_list:
                 result = self._remove_lvmvg_parent(user_input.edit_device, parent)
@@ -572,7 +575,11 @@ class BlivetUtils(object):
                 if result.success:
                     actions.extend(result.actions)
 
-        return result
+                else:
+                    return result
+
+        return ReturnList(success=True, actions=actions, message=None, exception=None,
+                          traceback=None)
 
     def _pick_device_name(self, name, parent_device=None):
         """ Pick name for device.
