@@ -413,8 +413,10 @@ class DeviceCanvas(Gtk.DrawingArea):
                 return False
 
             path = self.partitions_list.get_path(self.rectangles[result])
-            self.partitions_view.set_cursor(path)
-            self.queue_draw()
+
+            if path:
+                self.partitions_view.set_cursor(path)
+                self.queue_draw()
 
         # right button popup menu
         if event.button == 3:
