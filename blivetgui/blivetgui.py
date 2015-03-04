@@ -43,6 +43,7 @@ import gettext
 
 import threading
 import os
+import sys
 import atexit
 
 import blivet # FIXME
@@ -264,7 +265,7 @@ class BlivetGUI(object):
                     self.show_error_dialog(result.message)
 
                 else:
-                    raise result.exception
+                    raise result.exception, None, result.traceback
 
             else:
                 if result.actions:
@@ -319,7 +320,7 @@ class BlivetGUI(object):
                         self.show_error_dialog(result.message)
 
                     else:
-                        raise result.exception
+                        raise result.exception, None, result.traceback
 
                 else:
                     if result.actions:
@@ -355,7 +356,7 @@ class BlivetGUI(object):
                     self.show_error_dialog(result.message)
 
                 else:
-                    raise result.exception
+                    raise result.exception, None, result.traceback
 
             else:
                 if result.actions:
@@ -394,7 +395,7 @@ class BlivetGUI(object):
                     self.show_error_dialog(result.message)
 
                 else:
-                    raise result.exception
+                    raise result.exception, None, result.traceback
 
             else:
                 action_str = _("delete partition {0}").format(deleted_device.name)
@@ -407,14 +408,14 @@ class BlivetGUI(object):
         """ Perform queued actions
         """
 
-        def end(success, error):
+        def end(success, error, traceback):
             if success:
                 dialog.stop()
 
             else:
                 dialog.destroy()
                 self.main_window.set_sensitive(False)
-                raise error # pylint: disable=raising-bad-type
+                raise error, None, traceback # pylint: disable=raising-bad-type
 
         def do_it():
             """ Run blivet.doIt()
@@ -422,11 +423,11 @@ class BlivetGUI(object):
 
             try:
                 self.blivet_utils.blivet_do_it()
-                GObject.idle_add(end, True, None)
+                GObject.idle_add(end, True, None, None)
 
             except Exception as e: # pylint: disable=broad-except
                 self.blivet_utils.blivet_reset()
-                GObject.idle_add(end, False, e)
+                GObject.idle_add(end, False, e, sys.exc_info()[2])
 
             return
 
@@ -578,4 +579,3 @@ class BlivetGUI(object):
                 return True
 
         Gtk.main_quit()
-        # remove_logs(log_files=[self.blivet_logfile, self.program_logfile, self.blivetgui_logfile])
