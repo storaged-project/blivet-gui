@@ -85,10 +85,8 @@ class BlivetGUI(object):
         self.program_logfile, self.program_log = set_logging(component="program")
         self.blivetgui_logfile, self.log = set_logging(component="blivet-gui")
 
-        self.traceback = None
-
         handler = set_python_meh(log_files=[self.blivet_logfile, self.program_logfile, self.blivetgui_logfile])
-        handler.install(self.traceback)
+        handler.install(None)
 
         atexit.register(remove_logs, log_files=[self.blivet_logfile, self.program_logfile,
                                                 self.blivetgui_logfile])
