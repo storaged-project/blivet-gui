@@ -35,16 +35,17 @@ from .device_info import DeviceInfo
 from .devicevisualization.device_canvas import DeviceCanvas
 from .utils import BlivetUtils
 
+from .logs import set_logging, set_python_meh, remove_logs
 from .dialogs import message_dialogs, other_dialogs, edit_dialog, add_dialog
 from .processing_window import ProcessingActions
 
 import gettext
 
 import threading
+import os
+import atexit
 
 import blivet # FIXME
-
-import os
 
 #------------------------------------------------------------------------------#
 
@@ -77,6 +78,19 @@ class BlivetGUI(object):
 
         self.builder = Gtk.Builder()
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
+
+        ### Logging
+        self.blivet_logfile, self.blivet_log = set_logging(component="blivet")
+        self.program_logfile, self.program_log = set_logging(component="program")
+        self.blivetgui_logfile, self.log = set_logging(component="blivet-gui")
+
+        self.traceback = None
+
+        handler = set_python_meh(log_files=[self.blivet_logfile, self.program_logfile, self.blivetgui_logfile])
+        handler.install(self.traceback)
+
+        atexit.register(remove_logs, log_files=[self.blivet_logfile, self.program_logfile,
+                                                self.blivetgui_logfile])
 
         ### BlivetUtils
         self.blivet_utils = BlivetUtils(kickstart_mode)
@@ -564,4 +578,4 @@ class BlivetGUI(object):
                 return True
 
         Gtk.main_quit()
-        self.blivet_utils.remove_logs()
+        # remove_logs(log_files=[self.blivet_logfile, self.program_logfile, self.blivetgui_logfile])

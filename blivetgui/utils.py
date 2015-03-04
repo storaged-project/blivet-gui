@@ -37,18 +37,8 @@ import logging
 
 import parted
 
-import meh
-import meh.handler
-import meh.dump
-import meh.ui.gui
-
 import pykickstart.parser
 from pykickstart.version import makeVersion
-
-#------------------------------------------------------------------------------#
-
-APP_NAME='blivet-gui'
-APP_VERSION='0.2.2'
 
 #------------------------------------------------------------------------------#
 
@@ -154,17 +144,11 @@ class BlivetUtils(object):
 
     def __init__(self, kickstart=False):
 
-        self.blivet_log_file, self.blivet_log = self.set_logging(component="blivet")
-        self.program_log_file, self.program_log = self.set_logging(component="program")
-        self.blivetgui_log_file, self.log = self.set_logging(component="blivet-gui")
-
         if kickstart:
             self.ksparser = pykickstart.parser.KickstartParser(makeVersion())
             self.storage = blivet.Blivet(ksdata=self.ksparser.handler)
         else:
             self.storage = blivet.Blivet()
-
-        # self.set_python_meh()
 
         blivet.formats.fs.NTFS._formattable = True
 
@@ -172,53 +156,6 @@ class BlivetUtils(object):
         self.storage.devicetree.populate()
         self.storage.devicetree.getActiveMounts()
         self.update_min_sizes_info()
-
-    def set_logging(self, component, logging_level=logging.DEBUG, log_file=None):
-
-        if not log_file:
-            log_file = "/tmp/" + component + ".log"
-
-        while os.path.isfile(log_file):
-            if not log_file[-1].isdigit():
-                log_file += ".0"
-
-            else:
-                num = int(log_file.split(".")[-1])
-                name = ".".join(log_file.split(".")[:-1])
-                log_file = name + "." + str(num + 1)
-
-        log_handler = logging.FileHandler(log_file)
-        log_handler.setLevel(logging_level)
-        formatter = logging.Formatter('%(levelname)s:%(name)s: %(message)s')
-        log_handler.setFormatter(formatter)
-
-        logger = logging.getLogger(component)
-        logger.addHandler(log_handler)
-        logger.setLevel(logging_level)
-
-        return log_file, logger
-
-    def set_python_meh(self):
-        config = meh.Config(programName=APP_NAME, programVersion=APP_VERSION, programArch="noarch",
-                            localSkipList=["passphrase"],
-                            fileList=[self.blivet_log_file, self.blivetgui_log_file])
-
-        intf = meh.ui.gui.GraphicalIntf()
-
-        handler = meh.handler.ExceptionHandler(config, intf, meh.dump.ExceptionDump)
-        handler.install(self.storage)
-
-    def remove_logs(self):
-
-        assert os.path.isfile(self.blivet_log_file) and os.path.isfile(self.blivetgui_log_file)
-
-        try:
-            os.remove(self.blivet_log_file)
-            os.remove(self.blivetgui_log_file)
-            os.remove(self.program_log_file)
-
-        except OSError as e:
-            print("Failed to remove log file\n" + e)
 
     def get_disks(self):
         """ Return list of all disk devices on current system
