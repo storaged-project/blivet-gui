@@ -26,8 +26,6 @@ from gi.repository import Gtk
 
 import gettext
 
-from blivet import size, errors
-
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
@@ -173,21 +171,14 @@ class ListPartitions(object):
 
         elif partition.format.mountable:
 
-            if partition.format.minSize not in (None, size.Size(0), partition.size):
+            if partition.format.minSize not in (None, 0, partition.size) \
+               and partition.format.type not in ("btrfs",):
                 resize_size = partition.format.minSize
-
-            elif partition.format.resizable:
-                try:
-                    partition.format.updateSizeInfo()
-                except errors.FSError:
-                    pass
-                else:
-                    resize_size = partition.format.minSize
 
             else:
                 resize_size = "--"
 
-            if partition.format.mountpoint != None:
+            if partition.format.mountpoint:
                 iter_added = self.partitions_list.append(parent, [partition, name,
                                                                   partition.format.type,
                                                                   partition.format.mountpoint,
