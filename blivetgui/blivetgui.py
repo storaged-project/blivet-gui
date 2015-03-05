@@ -46,8 +46,6 @@ import os
 import sys
 import atexit
 
-import blivet # FIXME
-
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
@@ -489,16 +487,13 @@ class BlivetGUI(object):
         """ Unmount selected partition
         """
 
-        try:
-            self.list_partitions.selected_partition[0].format.unmount() # FIXME
+        result = self.blivet_utils.unmount_device(self.list_partitions.selected_partition[0])
 
-        except blivet.errors.FSError:
+        if not result:
             msg = _("Unmount failed. Are you sure device is not in use?")
-            message_dialogs.ErrorDialog(self.main_window, msg)
+            self.show_error_dialog(msg)
 
-        else:
-            self.list_partitions.selected_partition[0].format.mountpoint = None #TODO: is this neccessary?
-            self.update_partitions_view()
+        self.update_partitions_view()
 
     def decrypt_device(self):
         """ Decrypt selected device

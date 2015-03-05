@@ -993,6 +993,22 @@ class BlivetUtils(object):
         return ReturnList(success=True, actions=actions, message=None, exception=None,
                           traceback=None)
 
+    def unmount_device(self, blivet_device):
+        """ Unmount selected device
+        """
+
+        if not blivet_device.format.mountable or not blivet_device.format.mountpoint:
+            return False
+
+        else:
+            try:
+                blivet_device.format.unmount()
+                blivet_device.format.mountpoint = None
+                return True
+
+            except blivet.errors.FSError:
+                return False
+
     def get_device_type(self, blivet_device):
         """ Get device type
 
