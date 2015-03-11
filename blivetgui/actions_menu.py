@@ -48,52 +48,21 @@ class ActionsMenu(object):
         """ Create popup menu
         """
 
-        add_item = Gtk.MenuItem()
-        add_item.set_label(_("New"))
+        items = [(_("New"), "add", self.blivet_gui.add_partition),
+                 (_("Delete"), "delete", self.blivet_gui.delete_selected_partition),
+                 (_("Edit"), "edit", self.blivet_gui.edit_device),
+                 (_("Unmount"), "unmount", self.blivet_gui.umount_partition),
+                 (_("Decrypt"), "decrypt", self.blivet_gui.decrypt_device)]
 
-        add_item.connect("activate", self.on_add_item)
-        add_item.set_sensitive(False)
-        self.menu.add(add_item)
+        for item in items:
+            menu_item = Gtk.MenuItem()
+            menu_item.set_label(item[0])
 
-        self.menu_items["add"] = add_item
+            menu_item.connect("activate", item[2])
+            menu_item.set_sensitive(False)
+            self.menu.add(menu_item)
 
-        delete_item = Gtk.MenuItem()
-        delete_item.set_label(_("Delete"))
-
-        delete_item.connect("activate", self.on_delete_item)
-        delete_item.set_sensitive(False)
-        self.menu.add(delete_item)
-
-        self.menu_items["delete"] = delete_item
-
-        edit_item = Gtk.MenuItem()
-        edit_item.set_label(_("Edit"))
-
-        edit_item.connect("activate", self.on_edit_item)
-        edit_item.set_sensitive(False)
-        self.menu.add(edit_item)
-
-        self.menu_items["edit"] = edit_item
-
-        self.menu.append(Gtk.SeparatorMenuItem())
-
-        umount_item = Gtk.MenuItem()
-        umount_item.set_label(_("Unmount"))
-
-        umount_item.connect("activate", self.on_umount_item)
-        umount_item.set_sensitive(False)
-        self.menu.add(umount_item)
-
-        self.menu_items["unmount"] = umount_item
-
-        decrypt_item = Gtk.MenuItem()
-        decrypt_item.set_label(_("Decrypt"))
-
-        decrypt_item.connect("activate", self.on_decrypt_item)
-        decrypt_item.set_sensitive(False)
-        self.menu.add(decrypt_item)
-
-        self.menu_items["decrypt"] = decrypt_item
+            self.menu_items[item[1]] = menu_item
 
         self.menu.show_all()
 
@@ -125,28 +94,3 @@ class ActionsMenu(object):
 
         for item in self.menu_items:
             self.menu_items[item].set_sensitive(False)
-
-    def on_add_item(self, event):
-        """ Onselect action for add item
-        """
-        self.blivet_gui.add_partition()
-
-    def on_delete_item(self, event):
-        """ Onselect action for delete item
-        """
-        self.blivet_gui.delete_selected_partition()
-
-    def on_edit_item(self, event):
-        """ Onselect action for edit item
-        """
-        self.blivet_gui.edit_device()
-
-    def on_umount_item(self, event):
-        """ Onselect action for umount item
-        """
-        self.blivet_gui.umount_partition()
-
-    def on_decrypt_item(self, event):
-        """ Onselect action for 'Decrypt'
-        """
-        self.blivet_gui.decrypt_device()

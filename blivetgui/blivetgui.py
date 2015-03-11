@@ -228,8 +228,12 @@ class BlivetGUI(object):
 
         return response
 
-    def edit_device(self):
+    def edit_device(self, widget=None):
         """ Edit selected device
+
+            :param widget: widget calling this function (only for calls via signal.connect)
+            :type widget: Gtk.Widget()
+
         """
 
         device = self.list_partitions.selected_partition[0]
@@ -274,8 +278,10 @@ class BlivetGUI(object):
         dialog.destroy()
         return
 
-    def add_partition(self, btrfs_pt=False):
+    def add_partition(self, widget=None, btrfs_pt=False):
         """ Add new partition
+            :param widget: widget calling this function (only for calls via signal.connect)
+            :type widget: Gtk.Widget()
             :param btrfs_pt: create btrfs as partition table
             :type btrfs_pt: bool
         """
@@ -372,8 +378,12 @@ class BlivetGUI(object):
         dialog.destroy()
         return
 
-    def delete_selected_partition(self):
+    def delete_selected_partition(self, widget=None):
         """ Delete selected partition
+
+            :param widget: widget calling this function (only for calls via signal.connect)
+            :type widget: Gtk.Widget()
+
         """
 
         deleted_device = self.list_partitions.selected_partition[0]
@@ -438,8 +448,11 @@ class BlivetGUI(object):
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
-    def apply_event(self):
+    def apply_event(self, widget=None):
         """ Apply event for main menu/toolbar
+
+            :param widget: widget calling this function (only for calls via signal.connect)
+            :type widget: Gtk.Widget()
 
         .. note::
                 This is neccessary because of kickstart mode -- in "standard" mode
@@ -483,8 +496,12 @@ class BlivetGUI(object):
                 processing_dialog = ProcessingActions(self)
                 self.perform_actions(processing_dialog)
 
-    def umount_partition(self):
+    def umount_partition(self, widget=None):
         """ Unmount selected partition
+
+            :param widget: widget calling this function (only for calls via signal.connect)
+            :type widget: Gtk.Widget()
+
         """
 
         result = self.blivet_utils.unmount_device(self.list_partitions.selected_partition[0])
@@ -495,8 +512,11 @@ class BlivetGUI(object):
 
         self.update_partitions_view()
 
-    def decrypt_device(self):
+    def decrypt_device(self, widget=None):
         """ Decrypt selected device
+
+            :param widget: widget calling this function (only for calls via signal.connect)
+            :type widget: Gtk.Widget()
         """
 
         dialog = other_dialogs.LuksPassphraseDialog(self.main_window)
@@ -515,8 +535,12 @@ class BlivetGUI(object):
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
-    def actions_undo(self):
+    def actions_undo(self, widget=None):
         """ Undo last action
+
+            :param widget: widget calling this function (only for calls via signal.connect)
+            :type widget: Gtk.Widget()
+
         """
 
         removed_actions = self.list_actions.pop()
@@ -525,8 +549,12 @@ class BlivetGUI(object):
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
-    def clear_actions(self):
+    def clear_actions(self, widget=None):
         """ Clear all scheduled actions
+
+            :param widget: widget calling this function (only for calls via signal.connect)
+            :type widget: Gtk.Widget()
+
         """
 
         self.blivet_utils.blivet_reset()
@@ -538,6 +566,10 @@ class BlivetGUI(object):
 
     def reload(self):
         """ Reload storage information
+
+            :param widget: widget calling this function (only for calls via signal.connect)
+            :type widget: Gtk.Widget()
+
         """
 
         if self.list_actions.actions:
@@ -561,6 +593,10 @@ class BlivetGUI(object):
 
     def quit(self, event=None, widget=None):
         """ Quit blivet-gui
+
+            :param widget: widget calling this function (only for calls via signal.connect)
+            :type widget: Gtk.Widget()
+
         """
 
         if self.list_actions.actions:

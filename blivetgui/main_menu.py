@@ -27,7 +27,6 @@ import gettext
 from gi.repository import Gtk
 
 from .dialogs.other_dialogs import AboutDialog
-from .dialogs.message_dialogs import ErrorDialog, WarningDialog
 
 import os, subprocess
 
@@ -64,26 +63,14 @@ class MainMenu(object):
         """
 
         file_menu_item = Gtk.MenuItem(label=_("File"))
-
         file_menu = Gtk.Menu()
         file_menu_item.set_submenu(file_menu)
 
-        reload_item = Gtk.MenuItem()
-        reload_item.set_label(_("Reload"))
-        key, mod = Gtk.accelerator_parse("<Control>R")
-        reload_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
+        items = [(None, _("Reload"), "<Control>R", self.blivet_gui.reload, None),
+                 (None, _("Quit"), "<Control>Q", self.blivet_gui.quit)
+                ]
 
-        reload_item.connect("activate", self.on_reload_item)
-
-        file_menu.add(reload_item)
-
-        quit_item = Gtk.MenuItem()
-        quit_item.set_label(_("Quit"))
-        key, mod = Gtk.accelerator_parse("<Control>Q")
-        quit_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
-
-        quit_item.connect("activate", self.on_quit_item)
-        file_menu.add(quit_item)
+        self.add_to_menu(file_menu, items)
 
         return file_menu_item
 
@@ -95,36 +82,12 @@ class MainMenu(object):
         edit_menu = Gtk.Menu()
         edit_menu_item.set_submenu(edit_menu)
 
-        undo_item = Gtk.MenuItem()
-        undo_item.set_label(_("Undo Last Action"))
-        key, mod = Gtk.accelerator_parse("<Control>Z")
-        undo_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
+        items = [("undo", _("Undo Last Action"), "<Control>Z", self.blivet_gui.actions_undo),
+                 ("clear", _("Clear Queued Actions"), None, self.blivet_gui.clear_actions),
+                 ("apply", _("Apply Queued Actions"), "<Control>A", self.blivet_gui.apply_event)
+                ]
 
-        undo_item.connect("activate", self.on_undo_item)
-        undo_item.set_sensitive(False)
-        edit_menu.add(undo_item)
-
-        self.menu_items["undo"] = undo_item
-
-        clear_item = Gtk.MenuItem()
-        clear_item.set_label(_("Clear Queued Actions"))
-
-        clear_item.connect("activate", self.on_clear_item)
-        clear_item.set_sensitive(False)
-        edit_menu.add(clear_item)
-
-        self.menu_items["clear"] = clear_item
-
-        apply_item = Gtk.MenuItem()
-        apply_item.set_label(_("Apply Queued Actions"))
-        key, mod = Gtk.accelerator_parse("<Control>A")
-        apply_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
-
-        apply_item.connect("activate", self.on_apply_item)
-        apply_item.set_sensitive(False)
-        edit_menu.add(apply_item)
-
-        self.menu_items["apply"] = apply_item
+        self.add_to_menu(edit_menu, items)
 
         return edit_menu_item
 
@@ -136,56 +99,15 @@ class MainMenu(object):
         device_menu = Gtk.Menu()
         device_menu_item.set_submenu(device_menu)
 
-        add_item = Gtk.MenuItem()
-        add_item.set_label(_("New"))
-        key, mod = Gtk.accelerator_parse("Insert")
-        add_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
+        items = [("add", _("New"), "Insert", self.blivet_gui.add_partition),
+                 ("delete", _("Delete"), "Delete", self.blivet_gui.delete_selected_partition),
+                 ("edit", _("Edit"), None, self.blivet_gui.edit_device),
+                 ("separator",),
+                 ("unmount", _("Unmount"), None, self.blivet_gui.umount_partition),
+                 ("decrypt", _("Decrypt"), None, self.blivet_gui.decrypt_device)
+                ]
 
-        add_item.connect("activate", self.on_add_item)
-        add_item.set_sensitive(False)
-        device_menu.add(add_item)
-
-        self.menu_items["add"] = add_item
-
-        delete_item = Gtk.MenuItem()
-        delete_item.set_label(_("Delete"))
-        key, mod = Gtk.accelerator_parse("Delete")
-        delete_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
-
-        delete_item.connect("activate", self.on_delete_item)
-        delete_item.set_sensitive(False)
-        device_menu.add(delete_item)
-
-        self.menu_items["delete"] = delete_item
-
-        edit_item = Gtk.MenuItem()
-        edit_item.set_label(_("Edit"))
-
-        edit_item.connect("activate", self.on_edit_item)
-        edit_item.set_sensitive(False)
-        device_menu.add(edit_item)
-
-        self.menu_items["edit"] = edit_item
-
-        device_menu.append(Gtk.SeparatorMenuItem())
-
-        umount_item = Gtk.MenuItem()
-        umount_item.set_label(_("Unmount"))
-
-        umount_item.connect("activate", self.on_umount_item)
-        umount_item.set_sensitive(False)
-        device_menu.add(umount_item)
-
-        self.menu_items["unmount"] = umount_item
-
-        decrypt_item = Gtk.MenuItem()
-        decrypt_item.set_label(_("Decrypt"))
-
-        decrypt_item.connect("activate", self.on_decrypt_item)
-        decrypt_item.set_sensitive(False)
-        device_menu.add(decrypt_item)
-
-        self.menu_items["decrypt"] = decrypt_item
+        self.add_to_menu(device_menu, items)
 
         return device_menu_item
 
@@ -197,21 +119,42 @@ class MainMenu(object):
         help_menu = Gtk.Menu()
         help_menu_item.set_submenu(help_menu)
 
-        help_item = Gtk.MenuItem()
-        help_item.set_label(_("Contents"))
-        key, mod = Gtk.accelerator_parse("F1")
-        help_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
+        items = [(None, _("Contents"), "F1", self.on_help_item),
+                 (None, _("About"), None, self.on_about_item),
+                ]
 
-        help_item.connect("activate", self.on_help_item)
-        help_menu.add(help_item)
-
-        about_item = Gtk.MenuItem()
-        about_item.set_label(_("About"))
-
-        about_item.connect("activate", self.on_about_item)
-        help_menu.add(about_item)
+        self.add_to_menu(help_menu, items)
 
         return help_menu_item
+
+    def add_to_menu(self, menu, items):
+        """ Add items to menu
+
+            :param menu: menu
+            :type menu: Gtk.Menu
+            :param items: list of items to add
+            :type items: list of Gtk.MenuItem
+
+        """
+
+        for item in items:
+            if item[0] == "separator":
+                menu.append(Gtk.SeparatorMenuItem())
+                continue
+
+            menu_item = Gtk.MenuItem()
+            menu_item.set_label(item[1])
+            menu_item.connect("activate", item[3])
+
+            if item[2]:
+                key, mod = Gtk.accelerator_parse(item[2])
+                menu_item.add_accelerator("activate", self.agr, key, mod, Gtk.AccelFlags.VISIBLE)
+
+            if item[0]:
+                menu_item.set_sensitive(False)
+                self.menu_items[item[0]] = menu_item
+
+            menu.add(menu_item)
 
     def activate_menu_items(self, menu_item_names):
         """ Activate selected menu items
@@ -255,8 +198,8 @@ class MainMenu(object):
 
         if not os.access('/usr/share/help/C/blivet-gui/index.page', os.R_OK):
             msg = _("Documentation for blivet-gui hasn't been found.\n\n" \
-                "Online version of documentation is available at " \
-                "http://vojtechtrefny.github.io/blivet-gui")
+                    "Online version of documentation is available at " \
+                    "http://vojtechtrefny.github.io/blivet-gui")
 
             self.blivet_gui.show_warning_dialog(msg)
             return
@@ -281,53 +224,3 @@ class MainMenu(object):
                     "http://vojtechtrefny.github.io/blivet-gui")
 
             self.blivet_gui.show_error_dialog(msg)
-
-    def on_undo_item(self, *args):
-        """ Onselect action for 'Undo Last Action'
-        """
-        self.blivet_gui.actions_undo()
-
-    def on_clear_item(self, *args):
-        """ Onselect action for 'Clear Queued Actions'
-        """
-        self.blivet_gui.clear_actions()
-
-    def on_apply_item(self, *args):
-        """ Onselect action for 'Apply Queued Actions'
-        """
-        self.blivet_gui.apply_event()
-
-    def on_add_item(self, *args):
-        """ Onselect action for 'New'
-        """
-        self.blivet_gui.add_partition()
-
-    def on_delete_item(self, *args):
-        """ Onselect action for 'Delete'
-        """
-        self.blivet_gui.delete_selected_partition()
-
-    def on_edit_item(self, *args):
-        """ Onselect action for 'Edit'
-        """
-        self.blivet_gui.edit_device()
-
-    def on_umount_item(self, *args):
-        """ Onselect action for 'Unmount'
-        """
-        self.blivet_gui.umount_partition()
-
-    def on_decrypt_item(self, *args):
-        """ Onselect action for 'Decrypt'
-        """
-        self.blivet_gui.decrypt_device()
-
-    def on_quit_item(self, *args):
-        """ Onselect action for 'Quit'
-        """
-        self.blivet_gui.quit()
-
-    def on_reload_item(self, *args):
-        """ Onselect action for 'Reload'
-        """
-        self.blivet_gui.reload()
