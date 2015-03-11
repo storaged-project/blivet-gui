@@ -92,12 +92,13 @@ class BlivetGUI(object):
         ### BlivetUtils
         self.blivet_utils = BlivetUtils(kickstart_mode)
 
+        ### MainWindow
+        self.main_window = MainWindow(self).window
+
+        ### Kickstart devices dialog
         if self.kickstart_mode:
             self.use_disks = self.kickstart_disk_selection()
             self.old_mountpoints = self.blivet_utils.kickstart_mountpoints()
-
-        ### MainWindow
-        self.main_window = MainWindow(self).window
 
         ### MainMenu
         self.main_menu = MainMenu(self)
@@ -195,7 +196,7 @@ class BlivetGUI(object):
             self.show_error_dialog(msg)
             self.quit()
 
-        dialog = other_dialogs.KickstartSelectDevicesDialog(None, disks) #FIXME rewrite as window, not dialog
+        dialog = other_dialogs.KickstartSelectDevicesDialog(self.main_window, disks)
         response = dialog.run()
 
         if response == Gtk.ResponseType.OK:
