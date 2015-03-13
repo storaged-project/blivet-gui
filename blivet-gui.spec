@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.2.2
+Version: 0.2.3
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -52,6 +52,30 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui_pkexec
 
 %changelog
+* Fri Mar 13 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.3-1
+- Fix resizing LVs (#1201745) (vtrefny)
+- Start KickstartSelectDevicesDialog with MainWindow as parent (vtrefny)
+- Simplyfication of MainMenu, ActionsMenu and ActionsToolbar classes (vtrefny)
+- Do not call updateSizeInfo() multiple times (vtrefny)
+- Removed last dependency on blivet from BlivetGUI (vtrefny)
+- EditDialog: Inform about corrupted filesystems (#1198239) (vtrefny)
+- Fix python-meh handler.install (vtrefny)
+- Fix returning success when editting LVM VGs (vtrefny)
+- Do not refresh views when there are actions scheduled (vtrefny)
+- DeviceCanvas: do not select invalid path (vtrefny)
+- Re-raise exception from BlivetUtils with original traceback (vtrefny)
+- Move logging from BlivetUtisl to BlivetGUI (vtrefny)
+- Move thread creation and calling doIt() from ProcessingWindow (vtrefny)
+- Move handling errors from BlivetUtils to BlivetGUI, part 2 (vtrefny)
+- Move handling errors from BlivetUtils to BlivetGUI (vtrefny)
+- ListPartitions cleanup (vtrefny)
+- Fix blivet required version (>= 1.0) (vtrefny)
+- Merge branch 'new_class_model' (vtrefny)
+- Simplification of ListAction and undo history (vtrefny)
+- New class model - preparation for root/non-root separation (vtrefny)
+- New version 0.2.2 (vtrefny)
+- New version 0.2.2 (vtrefny)
+
 * Mon Feb 23 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.2-1
 - Store blivet program log too (vtrefny)
 - Fix Size calling (vtrefny)
