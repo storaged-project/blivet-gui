@@ -185,12 +185,6 @@ class SizeChooserArea(object):
         if self.dialog_type == "edit":
 
             scale.set_value(self.edited_device.size.convertTo(size.parseUnits(unit, False)))
-
-            if self.edited_device.size not in (self.min_size, self.max_size):
-                scale.add_mark(self.edited_device.size.convertTo(size.parseUnits(unit, False)),
-                    Gtk.PositionType.BOTTOM,
-                    str(self.edited_device.size))
-
             scale.add_mark(self.max_size.convertTo(size.parseUnits(unit, False)),
                 Gtk.PositionType.BOTTOM,
                 str(self.max_size))
@@ -253,10 +247,6 @@ class SizeChooserArea(object):
             format(self.min_size.convertTo(size.parseUnits(unit, False)), "." + str(digits) + "f"))
         self.scale.add_mark(float(self.max_size.convertTo(size.parseUnits(unit, False))), Gtk.PositionType.BOTTOM,
             format(self.max_size.convertTo(size.parseUnits(unit, False)), "." + str(digits) + "f"))
-
-        if self.dialog_type == "edit" and self.edited_device.size not in (self.min_size, self.max_size):
-            self.scale.add_mark(float(self.edited_device.size.convertTo(size.parseUnits(unit, False))), Gtk.PositionType.BOTTOM,
-            format(self.edited_device.size.convertTo(size.parseUnits(unit, False)), "." + str(digits) + "f"))
 
         self.spin_size.set_range(self.min_size.convertTo(size.parseUnits(unit, False)),
                                  self.max_size.convertTo(size.parseUnits(unit, False)))
