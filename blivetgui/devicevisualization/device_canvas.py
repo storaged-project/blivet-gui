@@ -280,6 +280,11 @@ class DeviceCanvas(Gtk.DrawingArea):
         cairo_ctx.move_to(r.x + r.width//2 - cairo_ctx.text_extents(name)[-2]//2, r.y + r.height//2)
         cairo_ctx.show_text(name)
 
+        try:
+            size = unicode(size, "utf-8")
+        except TypeError:
+            pass
+
         while cairo_ctx.text_extents(size)[-2] > r.width - 20:
             size = size[:-1]
             if len(size) > 3:
