@@ -200,7 +200,12 @@ class SizeChooserArea(object):
             self.max_size.convertTo(size.parseUnits(unit, False)), 1, 10, 0))
 
         spin_size.set_numeric(True)
-        spin_size.set_value(self.max_size.convertTo(size.parseUnits(unit, False)))
+
+        if self.dialog_type == "add":
+            spin_size.set_value(self.max_size.convertTo(size.parseUnits(unit, False)))
+
+        elif self.dialog_type == "edit":
+            spin_size.set_value(self.edited_device.size.convertTo(size.parseUnits(unit, False)))
 
         self.frame_grid.attach(spin_size, 5, 1, 1, 1)
 
