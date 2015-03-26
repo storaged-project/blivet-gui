@@ -29,6 +29,8 @@ from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LV
 
 from collections import namedtuple
 
+from gi.repository import GLib
+
 import gettext
 
 import socket, platform, re, sys
@@ -1182,7 +1184,7 @@ class BlivetUtils(object):
         try:
             blivet_device.format.setup()
 
-        except blivet.errors.CryptoError as e:
+        except GLib.GError as e:
             return e
 
         self.storage.devicetree.populate()
