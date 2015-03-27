@@ -46,6 +46,8 @@ import os
 import sys
 import atexit
 
+import six
+
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
@@ -229,6 +231,13 @@ class BlivetGUI(object):
 
         return response
 
+    def _raise_exception(self, exception, traceback):
+        if six.PY2:
+            raise six.reraise(type(exception), exception, traceback)
+
+        else:
+            raise exception.with_traceback(traceback)
+
     def edit_device(self, widget=None):
         """ Edit selected device
 
@@ -266,7 +275,7 @@ class BlivetGUI(object):
                     self.show_error_dialog(result.message)
 
                 else:
-                    raise result.exception, None, result.traceback
+                    self._raise_exception(result.exception, result.traceback)
 
             else:
                 if result.actions:
@@ -324,7 +333,7 @@ class BlivetGUI(object):
                         self.show_error_dialog(result.message)
 
                     else:
-                        raise result.exception, None, result.traceback
+                        self._raise_exception(result.exception, result.traceback)
 
                 else:
                     if result.actions:
@@ -360,7 +369,7 @@ class BlivetGUI(object):
                     self.show_error_dialog(result.message)
 
                 else:
-                    raise result.exception, None, result.traceback
+                    self._raise_exception(result.exception, result.traceback)
 
             else:
                 if result.actions:
@@ -403,7 +412,7 @@ class BlivetGUI(object):
                     self.show_error_dialog(result.message)
 
                 else:
-                    raise result.exception, None, result.traceback
+                    self._raise_exception(result.exception, result.traceback)
 
             else:
                 action_str = _("delete partition {0}").format(deleted_device.name)
@@ -423,7 +432,7 @@ class BlivetGUI(object):
             else:
                 dialog.destroy()
                 self.main_window.set_sensitive(False)
-                raise error, None, traceback # pylint: disable=raising-bad-type
+                self._raise_exception(error, traceback)
 
         def do_it():
             """ Run blivet.doIt()
