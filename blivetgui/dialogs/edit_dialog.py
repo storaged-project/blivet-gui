@@ -120,7 +120,11 @@ class PartitionEditDialog(Gtk.Dialog):
         label_info.set_line_wrap_mode(Pango.WrapMode.WORD_CHAR)
         label_info.set_line_wrap(True)
 
-        label_info.set_markup(_("<b>This device cannot be resized:</b>\n<i>{0}</i>").format(self.resize_info.error))
+        if self.resize_info.error:
+            label_info.set_markup(_("<b>This device cannot be resized:</b>\n<i>{0}</i>").format(self.resize_info.error))
+
+        else:
+            label_info.set_markup(_("<b>This device cannot be resized.</b>"))
 
         table = Gtk.Table(1, 1, False)
         table.attach(label_info, 0, 1, 0, 1, Gtk.AttachOptions.SHRINK | Gtk.AttachOptions.FILL)

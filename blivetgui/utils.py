@@ -499,7 +499,7 @@ class BlivetUtils(object):
 
         """
 
-        if blivet_device.format.type in (None, "swap"):
+        if blivet_device.format.type in (None, "swap") or not blivet_device.format.exists:
             return ResizeInfo(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
                               max_size=blivet_device.size)
 
