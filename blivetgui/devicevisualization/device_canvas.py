@@ -28,6 +28,8 @@ from blivet.size import MiB
 
 import cairo
 
+import six
+
 #------------------------------------------------------------------------------#
 
 class CairoRectangle(object):
@@ -266,10 +268,11 @@ class DeviceCanvas(Gtk.DrawingArea):
             # too small to print anything
             return
 
-        try:
-            name = unicode(name, "utf-8")
-        except TypeError:
-            pass
+        if six.PY2:
+            try:
+                name = unicode(name, "utf-8")
+            except TypeError:
+                pass
 
         while cairo_ctx.text_extents(name)[-2] > r.width - 20:
             name = name[:-1]
@@ -279,6 +282,12 @@ class DeviceCanvas(Gtk.DrawingArea):
         # name of partition
         cairo_ctx.move_to(r.x + r.width//2 - cairo_ctx.text_extents(name)[-2]//2, r.y + r.height//2)
         cairo_ctx.show_text(name)
+
+        if six.PY2:
+            try:
+                size = unicode(size, "utf-8")
+            except TypeError:
+                pass
 
         while cairo_ctx.text_extents(size)[-2] > r.width - 20:
             size = size[:-1]
