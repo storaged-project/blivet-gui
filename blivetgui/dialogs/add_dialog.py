@@ -1342,6 +1342,7 @@ class AddLabelDialog(Gtk.Dialog):
         self.set_border_width(10)
 
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
+        self.grid.set_margin_bottom(15)
 
         box = self.get_content_area()
         box.add(self.grid)
