@@ -570,7 +570,7 @@ class BlivetGUI(object):
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
-    def reload(self):
+    def reload(self, widget=None):
         """ Reload storage information
 
             :param widget: widget calling this function (only for calls via signal.connect)
