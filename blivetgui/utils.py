@@ -51,30 +51,30 @@ PARTITION_TYPE = {"primary" : parted.PARTITION_NORMAL,
 
 #------------------------------------------------------------------------------#
 
-class ISO9660Device(object):
-    """ Special class to represent disk with iso9660 format
+class RawFormatDevice(object):
+    """ Special class to represent formatted disk without a disklabel
     """
 
-    def __init__(self, size, fmt, disk):
+    def __init__(self, disk, fmt):
+        self.disk = disk
+        self.format = fmt
 
-        self.size = size
+        self.type = self.format.type
+        self.size = self.disk.size
 
         self.isLogical = False
         self.isFreeSpace = False
         self.isDisk = False
         self.isleaf = True
 
-        self.format = fmt
-        self.type = "iso9660"
-
         self.kids = 0
-        self.parents = [disk]
+        self.parents = blivet.devices.lib.ParentList(items=[self.disk])
 
-        if self.format.label:
+        if hasattr(self.format, "label") and self.format.label:
             self.name = self.format.label
 
         else:
-            self.name = _("ISO9660 Disklabel")
+            self.name = _("{0} disklabel").format(self.type)
 
 #------------------------------------------------------------------------------#
 
@@ -203,7 +203,7 @@ class BlivetUtils(object):
 
         for disk in self.storage.disks:
 
-            if disk.format.type in ("iso9660", "btrfs", "mdmember", "dmraidmember"):
+            if disk.format.type not in ("disklabel", None):
                 continue
 
             elif not disk.format.type:
@@ -268,8 +268,7 @@ class BlivetUtils(object):
             partitions.append(FreeSpaceDevice(blivet_device.size, 0,
                 blivet_device.partedDevice.length, [blivet_device], False))
 
-        elif blivet_device.isDisk and blivet_device.format.type in ("iso9660", "btrfs", "mdmember",
-                                                                    "dmraidmember"):
+        elif blivet_device.isDisk and blivet_device.format.type not in ("disklabel",):
             # LiveUSB or btrfs/mdraid partition table, no free space here
             pass
 
@@ -362,16 +361,15 @@ class BlivetUtils(object):
         if blivet_device == None:
             return []
 
-        if blivet_device.isDisk and blivet_device.format and blivet_device.format.type == "iso9660":
-            # special occasion -- LiveUSB
-            return [ISO9660Device(size=blivet_device.size, fmt=blivet_device.format,
-                disk=blivet_device)]
+        if blivet_device.isDisk and blivet_device.format \
+            and blivet_device.format.type not in ("disklabel", "btrfs", None):
+            # special occasion -- raw device format
+            return [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format)]
 
         partitions = []
         partitions = self.storage.devicetree.getChildren(blivet_device)
 
-        if blivet_device.isDisk and blivet_device.format.type not in ("btrfs", "mdmember",
-                                                                      "dmraidmember"):
+        if blivet_device.isDisk and blivet_device.format.type in ("disklabel",):
             partitions.sort(key=lambda x: x.partedPartition.geometry.start)
 
         partitions = self._get_free_space(blivet_device, partitions)
@@ -410,9 +408,8 @@ class BlivetUtils(object):
 
         actions = []
 
-        if blivet_device.type == "iso9660":
-            # iso9660 disklabel, not going to delete device but destroy disk
-            # format instead
+        if isinstance(blivet_device, RawFormatDevice):
+            # raw device, not going to delete device but destroy disk format instead
             result = self.delete_disk_label(blivet_device.parents[0])
 
             return result
