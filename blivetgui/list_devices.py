@@ -74,7 +74,7 @@ class ListDevices(object):
         icon_disk = Gtk.IconTheme.load_icon(icon_theme, "drive-harddisk", 32, 0)
         icon_disk_usb = Gtk.IconTheme.load_icon(icon_theme, "drive-removable-media", 32, 0)
 
-        disks = self.blivet_gui.blivet_utils.get_disks()
+        disks = self.blivet_gui.client.remote_call("get_disks")
 
         if disks:
             self.device_list.append([None, None, _("<b>Disks</b>")])
@@ -93,7 +93,7 @@ class ListDevices(object):
         """ Load LVM2 VGs
         """
 
-        gdevices = self.blivet_gui.blivet_utils.get_group_devices()
+        gdevices = self.blivet_gui.client.remote_call("get_group_devices")
 
         if gdevices:
             self.device_list.append([None, None, _("<b>LVM2 Volume Groups</b>")])

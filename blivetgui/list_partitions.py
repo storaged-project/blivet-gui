@@ -106,14 +106,14 @@ class ListPartitions(object):
 
                         if child.type not in ("free space",):
 
-                            partitions = self.blivet_gui.blivet_utils.get_partitions(child)
+                            partitions = self.blivet_gui.client.remote_call("get_partitions", child)
 
                             if len(partitions) != 0:
                                 childs_loop(partitions, parent_iter)
 
                 elif child.type not in ("free space",):
 
-                    partitions = self.blivet_gui.blivet_utils.get_partitions(child)
+                    partitions = self.blivet_gui.client.remote_call("get_partitions", child)
 
                     if len(partitions) != 0:
                         parent_iter = self.add_partition_to_view(child, parent)
@@ -132,7 +132,7 @@ class ListPartitions(object):
 
         self.partitions_list.clear()
 
-        partitions = self.blivet_gui.blivet_utils.get_partitions(selected_device)
+        partitions = self.blivet_gui.client.remote_call("get_partitions", selected_device)
 
         childs_loop(partitions, None)
 
