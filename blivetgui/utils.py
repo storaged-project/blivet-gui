@@ -31,8 +31,9 @@ from collections import namedtuple
 
 import gettext
 
-import socket, platform, re, sys
+import socket, platform, re
 
+import traceback
 import parted
 
 import pykickstart.parser
@@ -394,7 +395,7 @@ class BlivetUtils(object):
 
         except Exception as e: # pylint: disable=broad-except
             return ReturnList(success=False, actions=None, message=None, exception=e,
-                              traceback=sys.exc_info()[2])
+                              traceback=traceback.format_exc())
 
         return ReturnList(success=True, actions=[action], message=None, exception=None,
                           traceback=None)
@@ -428,7 +429,7 @@ class BlivetUtils(object):
 
         except Exception as e: # pylint: disable=broad-except
             return ReturnList(success=False, actions=None, message=None, exception=e,
-                              traceback=sys.exc_info()[2])
+                              traceback=traceback.format_exc())
 
         # for encrypted partitions/lvms delete the luks-formatted partition too
         if blivet_device.type in ("luks/dm-crypt",):
@@ -445,7 +446,7 @@ class BlivetUtils(object):
                     # cancel destroy action for luks device
                     self.blivet_cancel_actions(actions)
                     return ReturnList(success=False, actions=None, message=msg, exception=None,
-                                      traceback=sys.exc_info()[2])
+                                      traceback=traceback.format_exc())
 
                 actions.extend(self.delete_device(parent))
 
@@ -546,7 +547,7 @@ class BlivetUtils(object):
 
         except Exception as e: # pylint: disable=broad-except
             return ReturnList(success=False, actions=None, message=None, exception=e,
-                              traceback=sys.exc_info()[2])
+                              traceback=traceback.format_exc())
 
     def edit_lvmvg_device(self, user_input):
         """ Edit LVM Volume group
@@ -693,7 +694,7 @@ class BlivetUtils(object):
 
                 except blivet.errors.PartitioningError as e:
                     return ReturnList(success=False, actions=None, message=None, exception=e,
-                                      traceback=sys.exc_info()[2])
+                                      traceback=traceback.format_exc())
 
                 pvs.append(dev)
 
@@ -737,7 +738,7 @@ class BlivetUtils(object):
 
                 except blivet.errors.PartitioningError as e:
                     return ReturnList(success=False, actions=None, message=None, exception=e,
-                                      traceback=sys.exc_info()[2])
+                                      traceback=traceback.format_exc())
 
                 lukses.append(luks_dev)
 
@@ -821,7 +822,7 @@ class BlivetUtils(object):
 
                     except Exception as e: # pylint: disable=broad-except
                         return ReturnList(success=False, actions=None, message=None, exception=e,
-                                          traceback=sys.exc_info()[2])
+                                          traceback=traceback.format_exc())
 
                     total_size += size
                     btrfs_parents.append(parent)
@@ -847,7 +848,7 @@ class BlivetUtils(object):
 
                     except blivet.errors.PartitioningError as e:
                         return ReturnList(success=False, actions=None, message=None, exception=e,
-                                          traceback=sys.exc_info()[2])
+                                          traceback=traceback.format_exc())
 
                     btrfs_parents.append(dev)
 
@@ -892,8 +893,8 @@ class BlivetUtils(object):
                         self.storage.devicetree.registerAction(ac)
 
                 except blivet.errors.PartitioningError as e:
-                    return ReturnList(success=False, actions=None, message=None, exception=e,
-                                      traceback=sys.exc_info()[2])
+                    return ReturnList(success=False, actions=None, message=None,
+                                      exception=e, traceback=traceback.format_exc())
 
                 parts.append(dev)
 
@@ -913,11 +914,11 @@ class BlivetUtils(object):
             blivet.partitioning.doPartitioning(self.storage)
 
         except Exception as e: # pylint: disable=broad-except
-            return ReturnList(success=False, actions=None, message=None, exception=e,
-                              traceback=sys.exc_info()[2])
+            return ReturnList(success=False, actions=None, message=None,
+                                                exception=e, traceback=traceback.format_exc())
 
-        return ReturnList(success=True, actions=actions, message=None, exception=None,
-                          traceback=None)
+        return ReturnList(success=True, actions=actions,
+                                            message=None, exception=None, traceback=None)
 
     def _remove_lvmvg_parent(self, container, parent):
         """ Add parent fromexisting lvmg
@@ -935,10 +936,10 @@ class BlivetUtils(object):
 
         except Exception as e: # pylint: disable=broad-except
             return ReturnList(success=False, actions=None, message=None, exception=e,
-                              traceback=sys.exc_info()[2])
+                              traceback=traceback.format_exc())
 
-        return ReturnList(success=True, actions=[ac_rm], message=None, exception=None,
-                          traceback=None)
+        return ReturnList(success=True, actions=[ac_rm],
+                          message=None, exception=None, traceback=None)
 
     def _add_lvmvg_parent(self, container, parent):
         """ Add new parent to existing lvmg
@@ -979,10 +980,10 @@ class BlivetUtils(object):
 
         except Exception as e: # pylint: disable=broad-except
             return ReturnList(success=False, actions=None, message=None, exception=e,
-                              traceback=sys.exc_info()[2])
+                              traceback=traceback.format_exc())
 
-        return ReturnList(success=True, actions=actions, message=None, exception=None,
-                          traceback=None)
+        return ReturnList(success=True, actions=actions,
+                          message=None, exception=None, traceback=None)
 
     def unmount_device(self, blivet_device):
         """ Unmount selected device

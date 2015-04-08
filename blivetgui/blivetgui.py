@@ -215,6 +215,9 @@ class BlivetGUI(object):
 
         return use_disks
 
+    def _reraise_exception(self, exception, traceback):
+        raise type(exception)(exception.message + "\n" + traceback)
+
     def show_exception_dialog(self, exception_data, exception_traceback):
         message_dialogs.ExceptionDialog(self.main_window, exception_data, exception_traceback)
 
@@ -267,7 +270,7 @@ class BlivetGUI(object):
                     self.show_error_dialog(result.message)
 
                 else:
-                    raise result.exception, None, result.traceback
+                    self._reraise_exception(result.exception, result.traceback)
 
             else:
                 if result.actions:
@@ -325,7 +328,7 @@ class BlivetGUI(object):
                         self.show_error_dialog(result.message)
 
                     else:
-                        raise result.exception, None, result.traceback
+                        self._reraise_exception(result.exception, result.traceback)
 
                 else:
                     if result.actions:
@@ -362,7 +365,7 @@ class BlivetGUI(object):
                     self.show_error_dialog(result.message)
 
                 else:
-                    raise result.exception, None, result.traceback
+                    self._reraise_exception(result.exception, result.traceback)
 
             else:
                 if result.actions:
@@ -405,7 +408,7 @@ class BlivetGUI(object):
                     self.show_error_dialog(result.message)
 
                 else:
-                    raise result.exception, None, result.traceback
+                    self._reraise_exception(result.exception, result.traceback)
 
             else:
                 action_str = _("delete partition {0}").format(deleted_device.name)
