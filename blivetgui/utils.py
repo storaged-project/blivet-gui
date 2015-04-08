@@ -154,7 +154,7 @@ class BlivetUtils(object):
         self.storage.reset()
         self.storage.devicetree.populate()
         self.storage.devicetree.getActiveMounts()
-        self.update_min_sizes_info()
+        self._update_min_sizes_info()
 
     def get_disks(self):
         """ Return list of all disk devices on current system
@@ -176,16 +176,6 @@ class BlivetUtils(object):
 
         return self.storage.vgs
 
-    def get_physical_devices(self):
-        """ Return list of LVM2 Physical Volumes
-
-            :returns: list of LVM2 PV devices
-            :rtype: list
-
-        """
-
-        return self.storage.pvs
-
     def get_free_pvs_info(self):
         """ Return list of PVs without VGs
 
@@ -194,7 +184,7 @@ class BlivetUtils(object):
 
         """
 
-        pvs = self.get_physical_devices()
+        pvs = self.storage.pvs
 
         free_pvs = []
 
@@ -256,7 +246,7 @@ class BlivetUtils(object):
 
         return pvs
 
-    def get_free_space(self, blivet_device, partitions):
+    def _get_free_space(self, blivet_device, partitions):
         """ Find free space on device
 
             :param blivet_device: blivet device
@@ -383,7 +373,7 @@ class BlivetUtils(object):
                                                                       "dmraidmember"):
             partitions.sort(key=lambda x: x.partedPartition.geometry.start)
 
-        partitions = self.get_free_space(blivet_device, partitions)
+        partitions = self._get_free_space(blivet_device, partitions)
 
         return partitions
 
@@ -472,10 +462,10 @@ class BlivetUtils(object):
                     else:
                         actions.append(result.actions)
 
-        return ReturnList(success=True, actions=actions, message=None, exception=None,
-                          traceback=None)
+        return ReturnList(success=True, actions=actions,
+                          message=None, exception=None, traceback=None)
 
-    def update_min_sizes_info(self):
+    def _update_min_sizes_info(self):
         """ Update information of minimal size for resizable devices
         """
 
@@ -497,7 +487,7 @@ class BlivetUtils(object):
 
         """
 
-        if blivet_device.format.type in (None, "swap"):
+        if blivet_device.format.type in (None, "swap") or not blivet_device.format.exists:
             return ResizeInfo(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
                               max_size=blivet_device.size)
 
@@ -551,8 +541,8 @@ class BlivetUtils(object):
             for ac in actions:
                 self.storage.devicetree.registerAction(ac)
             blivet.partitioning.doPartitioning(self.storage)
-            return ReturnList(success=True, actions=actions, message=None, exception=None,
-                              traceback=None)
+            return ReturnList(success=True, actions=actions,
+                              message=None, exception=None, traceback=None)
 
         except Exception as e: # pylint: disable=broad-except
             return ReturnList(success=False, actions=None, message=None, exception=e,
@@ -584,8 +574,8 @@ class BlivetUtils(object):
                 else:
                     return result
 
-        return ReturnList(success=True, actions=actions, message=None, exception=None,
-                          traceback=None)
+        return ReturnList(success=True, actions=actions,
+                          message=None, exception=None, traceback=None)
 
     def _pick_device_name(self, name, parent_device=None):
         """ Pick name for device.
@@ -868,7 +858,7 @@ class BlivetUtils(object):
         elif user_input.device_type == "btrfs subvolume":
 
             device_name = self._pick_device_name(user_input.name,
-                user_input.parents[0][0])
+                                                 user_input.parents[0][0])
 
             new_btrfs = BTRFSSubVolumeDevice(device_name, parents=[i[0] for i in user_input.parents])
             new_btrfs.format = blivet.formats.getFormat("btrfs", mountpoint=user_input.mountpoint)
@@ -1010,37 +1000,6 @@ class BlivetUtils(object):
             except blivet.errors.FSError:
                 return False
 
-    def get_device_type(self, blivet_device):
-        """ Get device type
-
-            :param blivet_device: blivet device
-            :type device_name: blivet.Device
-            :returns: type of device
-            :rtype: str
-
-        """
-
-        assert blivet_device != None
-
-        if blivet_device.type == "partition" and blivet_device.format.type == "lvmpv":
-            return "lvmpv"
-
-        return blivet_device.type
-
-    def get_parent_pvs(self, blivet_device):
-        """ Return list of LVM VG PVs
-
-            :param blivet_device: blivet device
-            :type blivet_device: blivet.Device
-            :returns: list of devices
-            :rtype: list of blivet.StorageDevice
-
-        """
-
-        assert blivet_device.type == "lvmvg"
-
-        return blivet_device.pvs
-
     def get_actions(self):
         """ Return list of currently registered actions
 
@@ -1049,7 +1008,9 @@ class BlivetUtils(object):
 
         """
 
-        return self.storage.devicetree.findActions()
+        actions = self.storage.devicetree.findActions()
+
+        return actions
 
     def has_extended_partition(self, blivet_device):
         """ Detect if disk has an extended partition
@@ -1089,15 +1050,21 @@ class BlivetUtils(object):
         """
         return blivet.platform.getPlatform().diskLabelTypes
 
-    def get_available_raid_levels(self):
+    def get_available_raid_levels(self, device_type):
         """ Return dict of supported raid levels for device types
         """
 
-        rl = {}
-        rl["btrfs volume"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_BTRFS)
-        rl["mdraid"] = blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_MD)
+        if device_type == "btrfs volume":
+            return blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_BTRFS)
 
-        return rl
+        if device_type == "mdraid":
+            return blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_MD)
+
+    def get_mountpoints(self):
+        """ Return list of current mountpoints
+        """
+
+        return self.storage.mountpoints.keys()
 
     def create_disk_label(self, blivet_device, label_type):
         """ Create disklabel
@@ -1108,8 +1075,6 @@ class BlivetUtils(object):
             :type label_type: str
 
         """
-
-        assert blivet_device.isDisk
 
         actions = []
 
@@ -1124,8 +1089,8 @@ class BlivetUtils(object):
         for ac in actions:
             self.storage.devicetree.registerAction(ac)
 
-        return ReturnList(success=True, actions=actions, message=None, exception=None,
-                          traceback=None)
+        return ReturnList(success=True, actions=actions, message=None,
+                          exception=None, traceback=None)
 
     def set_bootloader_device(self, disk_name):
 
@@ -1209,6 +1174,8 @@ class BlivetUtils(object):
         """
 
         self.storage.doIt()
+
+        return True
 
     def create_kickstart_file(self, fname):
         """ Create kickstart config file
