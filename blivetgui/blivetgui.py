@@ -22,7 +22,7 @@
 #
 #------------------------------------------------------------------------------#
 
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GLib
 
 from .main_window import MainWindow
 from .list_devices import ListDevices
@@ -428,19 +428,19 @@ class BlivetGUI(object):
             else:
                 dialog.destroy()
                 self.main_window.set_sensitive(False)
-                raise error, None, traceback # pylint: disable=raising-bad-type
+                self._reraise_exception(error, traceback) # pylint: disable=raising-bad-type
 
         def do_it():
             """ Run blivet.doIt()
             """
 
-            try:
-                self.blivet_utils.blivet_do_it()
-                GObject.idle_add(end, True, None, None)
+            ret = self.client.remote_call("blivet_do_it")
+            if ret:
+                GLib.idle_add(end, True, None, None)
 
-            except Exception as e: # pylint: disable=broad-except
-                self.blivet_utils.blivet_reset()
-                GObject.idle_add(end, False, e, sys.exc_info()[2])
+            else: # FIXME ret is just True/False, not exception!
+                self.client.remote_call("blivet_reset")
+                GLib.idle_add(end, False, e, sys.exc_info()[2])
 
             return
 
