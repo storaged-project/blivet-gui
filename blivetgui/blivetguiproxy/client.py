@@ -164,6 +164,12 @@ class BlivetGUIClient(object):
 
         return self._answer_convertTo_object(answer)
 
+    def quit(self):
+        pickled_data = cPickle.dumps(("quit",))
+        self._send(pickled_data)
+
+        self.sock.close()
+
     def _recieve(self):
         return self.sock.recv(1024)
 

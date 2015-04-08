@@ -94,7 +94,11 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
 
             unpickled_data = cPickle.loads(data)
 
-            if unpickled_data[0] == "call":
+            if unpickled_data[0] == "quit":
+                self.server.quit = True
+                break
+
+            elif unpickled_data[0] == "call":
                 # print("RECV: call", unpickled_data)
                 self._call_utils_method(unpickled_data)
 

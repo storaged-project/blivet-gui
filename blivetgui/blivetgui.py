@@ -79,6 +79,9 @@ class BlivetGUI(object):
         self.builder = Gtk.Builder()
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
+        ### BlivetUtils
+        self.client = BlivetGUIClient()
+
         ### Logging
         self.blivet_logfile, self.blivet_log = set_logging(component="blivet")
         self.program_logfile, self.program_log = set_logging(component="program")
@@ -89,9 +92,7 @@ class BlivetGUI(object):
 
         atexit.register(remove_logs, log_files=[self.blivet_logfile, self.program_logfile,
                                                 self.blivetgui_logfile])
-
-        ### BlivetUtils
-        self.client = BlivetGUIClient()
+        atexit.register(self.client.quit)
 
         ### MainWindow
         self.main_window = MainWindow(self).window

@@ -28,11 +28,19 @@ from six.moves import socketserver
 
 from blivetgui.blivetguiproxy.server import BlivetUtilsServer
 
+class BlivetGUIServer(socketserver.TCPServer):
+
+    quit = False
+
+    def serve_forever(self):
+        while not self.quit:
+            self.handle_request()
+
 if __name__ == "__main__":
     HOST, PORT = "localhost", 9999
 
     # Create the server, binding to localhost on port 9999
-    server = socketserver.TCPServer((HOST, PORT), BlivetUtilsServer)
+    server = BlivetGUIServer((HOST, PORT), BlivetUtilsServer)
     print("Server ready!")
 
     # Activate the server; this will keep running until you
