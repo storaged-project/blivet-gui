@@ -34,6 +34,8 @@ from blivet import size
 
 from ..dialogs import message_dialogs
 
+from ..blivetguiproxy.proxy_utils import ProxyDataContainer
+
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
@@ -66,7 +68,7 @@ def check_mountpoint(parent_window, used_mountpoints, mountpoint):
         message_dialogs.ErrorDialog(parent_window, msg)
 
 
-    elif mountpoint not in used_mountpoints.keys():
+    elif mountpoint not in used_mountpoints:
         return True
 
     else:
@@ -85,23 +87,6 @@ def check_mountpoint(parent_window, used_mountpoints, mountpoint):
             old_device.format.mountpoint = None
 
         return response
-
-class UserSelection(object):
-    def __init__(self, device_type, size, filesystem, name, label, mountpoint, encrypt, passphrase, parents, btrfs_type,
-                 raid_level, advanced):
-
-        self.device_type = device_type
-        self.size = size
-        self.filesystem = filesystem
-        self.name = name
-        self.label = label
-        self.mountpoint = mountpoint
-        self.encrypt = encrypt
-        self.passphrase = passphrase
-        self.parents = parents
-        self.btrfs_type = btrfs_type
-        self.raid_level = raid_level
-        self.advanced = advanced
 
 class SizeChooserArea(object):
 
@@ -306,7 +291,6 @@ class SizeChooserArea(object):
             .. note:: Neccesary for floats in form 1e-10
 
         """
-
         str_size = str(size_num)
 
         if "e" in str_size:
@@ -1306,7 +1290,7 @@ class AddDialog(Gtk.Dialog):
         else:
             filesystem = self.filesystems_combo.get_active_text()
 
-        return UserSelection(device_type=device_type,
+        return ProxyDataContainer(device_type=device_type,
             size=total_size,
             filesystem=filesystem,
             name=self.name_entry.get_text(),
