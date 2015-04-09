@@ -24,11 +24,15 @@
 
 from __future__ import print_function
 
+import os
+
 from six.moves import socketserver
 
 from blivetgui.blivetguiproxy.server import BlivetUtilsServer
 
-class BlivetGUIServer(socketserver.TCPServer):
+SOCK_FILE = "/tmp/blivet-gui.sock" #FIXME
+
+class BlivetGUIServer(socketserver.UnixStreamServer):
 
     quit = False
 
@@ -37,12 +41,15 @@ class BlivetGUIServer(socketserver.TCPServer):
             self.handle_request()
 
 if __name__ == "__main__":
-    HOST, PORT = "localhost", 9999
-
-    # Create the server, binding to localhost on port 9999
-    server = BlivetGUIServer((HOST, PORT), BlivetUtilsServer)
+    server = BlivetGUIServer(SOCK_FILE , BlivetUtilsServer)
     print("Server ready!")
 
     # Activate the server; this will keep running until you
     # interrupt the program with Ctrl-C
     server.serve_forever()
+
+    try:
+        os.remove(SOCK_FILE)
+
+    except OSError:
+        pass

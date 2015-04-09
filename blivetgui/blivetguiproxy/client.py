@@ -76,16 +76,15 @@ class ClientProxyObject(object):
 
 #------------------------------------------------------------------------------#
 
-HOST = "localhost"
-PORT = 9999
+SOCK_FILE = "/tmp/blivet-gui.sock" #FIXME
 
 class BlivetGUIClient(object):
 
     id_dict = {}
 
     def __init__(self):
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.connect((HOST, PORT))
+        self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+        self.sock.connect(SOCK_FILE)
 
     def _answer_convertTo_object(self, answer):
         # all data sent from server to BlivetGUI must be either built-in types (int, str...) or
