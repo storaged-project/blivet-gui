@@ -22,7 +22,7 @@
 #
 #------------------------------------------------------------------------------#
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Pango
 
 import gettext
 
@@ -46,7 +46,6 @@ class ListPartitions(object):
 
         self.partitions_view = self.create_partitions_view()
         self.partitions_view.set_has_tooltip(True)
-        self.partitions_view.connect("query-tooltip", self.on_tooltip_query)
 
         self.select = self.partitions_view.get_selection()
         self.on_partition_selection_changed(self.select)
@@ -55,28 +54,6 @@ class ListPartitions(object):
         self.select.connect("changed", self.on_partition_selection_changed)
 
         self.selected_partition = None
-
-    def on_tooltip_query(self, treeview, x, y, keyboard_mode, tooltip):
-        """ On tooltip query function for partitions treeview -- displays tooltip with full name
-            when actual name of device is too long and has been shortened
-        """
-
-        if not treeview.get_tooltip_context(x, y, keyboard_mode)[0]:
-            return False
-        else:
-            path = treeview.get_tooltip_context(x, y, keyboard_mode)[4]
-            treeiter = treeview.get_tooltip_context(x, y, keyboard_mode)[5]
-
-            name = self.partitions_list.get_value(treeiter, 0).name
-            printed_name = self.partitions_list.get_value(treeiter, 1)
-
-            if name != printed_name:
-                tooltip.set_markup(name)
-                treeview.set_tooltip_cell(tooltip, path, None, None)
-                return True
-
-            else:
-                return False
 
     def update_partitions_list(self, selected_device):
         """ Update partition view with selected disc children (partitions)
@@ -221,17 +198,17 @@ class ListPartitions(object):
         treeview = Gtk.TreeView(model=partitions)
         treeview.set_vexpand(True)
 
-        renderer_text = Gtk.CellRendererText()
+        renderer_text = Gtk.CellRendererText(ellipsize = Pango.EllipsizeMode.END)
 
-        treeview.append_column(Gtk.TreeViewColumn(_("Partition"), renderer_text, text=1))
-        treeview.append_column(Gtk.TreeViewColumn(_("Filesystem"), renderer_text, text=2))
-        treeview.append_column(Gtk.TreeViewColumn(_("Mountpoint"), renderer_text, text=3))
-        treeview.append_column(Gtk.TreeViewColumn(_("Size"), renderer_text, text=4))
-        treeview.append_column(Gtk.TreeViewColumn(_("Used"), renderer_text, text=5))
-
+        columns = (_("Partition"), _("Filesystem"), _("Mountpoint"), _("Size"), ("Used"))
         if self.kickstart_mode:
-            treeview.append_column(Gtk.TreeViewColumn(_("Current Mountpoint"),
-                                                      renderer_text, text=6))
+            columns += (_("Current Mountpoint"),)
+
+        for idx, column in enumerate(columns):
+            treeview_column = Gtk.TreeViewColumn(column, renderer_text, text=idx + 1)
+            treeview_column.set_expand(True)
+            treeview_column.set_resizable(True)
+            treeview.append_column(treeview_column)
 
         treeview.set_headers_visible(True)
 
