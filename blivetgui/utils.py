@@ -27,6 +27,8 @@ import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice
 
+from  .blivetguiproxy.proxy_utils import ProxyDataContainer
+
 from collections import namedtuple
 
 import gettext
@@ -1171,9 +1173,14 @@ class BlivetUtils(object):
         """ Blivet.doIt()
         """
 
-        self.storage.doIt()
+        try:
+            self.storage.doIt()
 
-        return True
+        except Exception as e: # pylint: disable=broad-except
+            return ProxyDataContainer(success=False, exception=e, traceback=traceback.format_exc())
+
+        else:
+            return ProxyDataContainer(success=True)
 
     def create_kickstart_file(self, fname):
         """ Create kickstart config file

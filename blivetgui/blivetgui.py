@@ -435,13 +435,13 @@ class BlivetGUI(object):
             """ Run blivet.doIt()
             """
 
-            ret = self.client.remote_call("blivet_do_it")
-            if ret:
+            result = self.client.remote_call("blivet_do_it")
+            if result.success:
                 GLib.idle_add(end, True, None, None)
 
-            else: # FIXME ret is just True/False, not exception!
+            else:
                 self.client.remote_call("blivet_reset")
-                GLib.idle_add(end, False, e, sys.exc_info()[2])
+                GLib.idle_add(end, False, result.exception, result.traceback)
 
             return
 
