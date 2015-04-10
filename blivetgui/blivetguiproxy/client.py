@@ -78,6 +78,8 @@ class ClientProxyObject(object):
 
 SOCK_FILE = "/tmp/blivet-gui.sock" #FIXME
 
+from threading import Lock
+
 class BlivetGUIClient(object):
 
     id_dict = {}
@@ -85,6 +87,7 @@ class BlivetGUIClient(object):
     def __init__(self):
         self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         self.sock.connect(SOCK_FILE)
+        self.mutex = Lock()
 
     def _answer_convertTo_object(self, answer):
         # all data sent from server to BlivetGUI must be either built-in types (int, str...) or
@@ -129,45 +132,55 @@ class BlivetGUIClient(object):
 
     def remote_call(self, method, *args): # call method on server with args
         pickled_data = cPickle.dumps(("call", method, self._args_convertTo_id(args)))
-        self._send(pickled_data)
 
-        answer = cPickle.loads(self._recieve())
+        with self.mutex:
+            self._send(pickled_data)
+            answer = cPickle.loads(self._recieve())
 
         return self._answer_convertTo_object(answer)
 
     def remote_param(self, proxy_id, param_name): # get param from object represented by proxy_id
         pickled_data = cPickle.dumps(("param", proxy_id, param_name))
-        self._send(pickled_data)
-        answer = cPickle.loads(self._recieve())
+
+        with self.mutex:
+            self._send(pickled_data)
+            answer = cPickle.loads(self._recieve())
 
         return self._answer_convertTo_object(answer)
 
     def remote_method(self, proxy_id, method_name, args):
         pickled_data = cPickle.dumps(("method", proxy_id, method_name, args))
-        self._send(pickled_data)
-        answer = cPickle.loads(self._recieve())
+
+        with self.mutex:
+            self._send(pickled_data)
+            answer = cPickle.loads(self._recieve())
 
         return self._answer_convertTo_object(answer)
 
     def remote_next(self, proxy_id):
         pickled_data = cPickle.dumps(("next", proxy_id))
-        self._send(pickled_data)
-        answer = cPickle.loads(self._recieve())
+
+        with self.mutex:
+            self._send(pickled_data)
+            answer = cPickle.loads(self._recieve())
 
         return self._answer_convertTo_object(answer)
 
     def remote_key(self, proxy_id, key):
         pickled_data = cPickle.dumps(("key", proxy_id, key))
-        self._send(pickled_data)
-        answer = cPickle.loads(self._recieve())
+
+        with self.mutex:
+            self._send(pickled_data)
+            answer = cPickle.loads(self._recieve())
 
         return self._answer_convertTo_object(answer)
 
     def quit(self):
         pickled_data = cPickle.dumps(("quit",))
-        self._send(pickled_data)
 
-        self.sock.close()
+        with self.mutex:
+            self._send(pickled_data)
+            self.sock.close()
 
     def _recieve(self):
         return self.sock.recv(1024)
