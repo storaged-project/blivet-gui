@@ -34,7 +34,7 @@ from ..utils import BlivetUtils, ReturnList # FIXME: ProxyDataContainer instead 
 
 #------------------------------------------------------------------------------#
 
-picklable_types = six.integer_types + six.string_types + (six.text_type, float, bool, size.Size)
+picklable_types = six.integer_types + six.string_types + (six.text_type, float, bool, size.Size, BaseException)
 
 #------------------------------------------------------------------------------#
 
@@ -90,7 +90,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         # self.request is the TCP socket connected to the client
 
         while True:
-            data = self.request.recv(1024).strip()
+            data = self.request.recv(4096).strip()
 
             unpickled_data = cPickle.loads(data)
 
@@ -118,48 +118,32 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
                 # print("RECV: key", unpickled_data)
                 self._get_key(unpickled_data)
 
-            elif unpickled_data[0] == "type":
-                # print("RECV: type of param", unpickled_data)
-                proxy_id = data[1]
-                param_name = data[2]
-
-                answer = self.object_dict[proxy_id.id].is_method(param_name)
-
-                pickled_data = cPickle.dumps(answer)
-                self._send(pickled_data + "\n")
-
     def _pickle_answer(self, answer):
+        if answer is None:
+            picklable_answer = answer
 
-        try:
-            if isinstance(answer, (BlivetProxyObject, ReturnList)):
-                raise cPickle.PicklingError
+        elif isinstance(answer, (list, tuple)) and not isinstance(answer, ReturnList):
+            picklable_answer = []
 
-            pickled_answer = cPickle.dumps(answer)
+            for item in answer:
+                if not isinstance(item, picklable_types):
+                    proxy_object = BlivetProxyObject(item)
+                    new_id = ProxyID()
+                    self.object_dict[new_id.id] = proxy_object
+                    picklable_answer.append(new_id)
+                else:
+                    picklable_answer.append(item)
 
-        except Exception: # pylint: disable=broad-except
+        elif not isinstance(answer, picklable_types):
+            proxy_object = BlivetProxyObject(answer)
+            new_id = ProxyID()
+            self.object_dict[new_id.id] = proxy_object
+            picklable_answer = new_id
 
-            if isinstance(answer, (list, tuple)) and not isinstance(answer, ReturnList):
-                picklable_answer = []
+        else:
+            picklable_answer = answer
 
-                for item in answer:
-                    if not isinstance(item, picklable_types):
-                        proxy_object = BlivetProxyObject(item)
-                        new_id = ProxyID()
-                        self.object_dict[new_id.id] = proxy_object
-                        picklable_answer.append(new_id)
-                    else:
-                        picklable_answer.append(item)
-
-            elif not isinstance(answer, picklable_types):
-                proxy_object = BlivetProxyObject(answer)
-                new_id = ProxyID()
-                self.object_dict[new_id.id] = proxy_object
-                picklable_answer = new_id
-
-            else:
-                picklable_answer = answer
-
-            pickled_answer = self._pickle_answer(picklable_answer)
+        pickled_answer = cPickle.dumps(picklable_answer)
 
         return pickled_answer
 
