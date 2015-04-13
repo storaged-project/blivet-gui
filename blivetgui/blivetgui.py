@@ -533,8 +533,8 @@ class BlivetGUI(object):
         if response:
             ret = self.client.remote_call("luks_decrypt", self.list_partitions.selected_partition[0], response)
 
-            if ret:
-                msg = _("Unknown error appeared:\n\n{0}.").format(ret)
+            if not ret:
+                msg = _("Device decryption failed. Are you sure provided password is correct?")
                 message_dialogs.ErrorDialog(self.main_window, msg)
 
                 return

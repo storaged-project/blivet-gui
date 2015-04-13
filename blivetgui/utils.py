@@ -1149,10 +1149,13 @@ class BlivetUtils(object):
         try:
             blivet_device.format.setup()
 
-        except GLib.GError as e:
-            return e
+        except GLib.GError:
+            return False
 
-        self.storage.devicetree.populate()
+        else:
+            self.storage.devicetree.populate()
+            return True
+
 
     def blivet_cancel_actions(self, actions):
         """ Cancel scheduled actions
