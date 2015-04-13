@@ -24,7 +24,7 @@
 
 import gettext
 
-from gi.repository import Gtk, GObject
+from gi.repository import Gtk, GLib
 
 #------------------------------------------------------------------------------#
 
@@ -64,7 +64,7 @@ class ProcessingActions(Gtk.Dialog):
         self.progressbar = Gtk.ProgressBar()
         self.grid.attach(self.progressbar, 0, 1, 3, 1)
 
-        self.timeout_id = GObject.timeout_add(50, self.on_timeout, None)
+        self.timeout_id = GLib.timeout_add(50, self.on_timeout, None)
 
         self.set_resizable(False)
         self.show_all()
