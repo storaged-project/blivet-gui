@@ -24,6 +24,9 @@
 from blivet import size
 
 import six
+import traceback
+
+import struct
 
 from six.moves import socketserver
 from six.moves import cPickle
@@ -90,33 +93,60 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         # self.request is the TCP socket connected to the client
 
         while True:
-            data = self.request.recv(4096).strip()
+            msg = self._recv_msg()
 
-            unpickled_data = cPickle.loads(data)
+            unpickled_msg = cPickle.loads(msg)
 
-            if unpickled_data[0] == "quit":
+            if unpickled_msg[0] == "quit":
                 self.server.quit = True
                 break
 
-            elif unpickled_data[0] == "call":
-                # print("RECV: call", unpickled_data)
-                self._call_utils_method(unpickled_data)
+            elif unpickled_msg[0] == "call":
+                print("RECV: call", unpickled_msg)
+                self._call_utils_method(unpickled_msg)
 
-            elif unpickled_data[0] == "param":
-                # print("RECV: param", unpickled_data)
-                self._get_param(unpickled_data)
+            elif unpickled_msg[0] == "param":
+                print("RECV: param", unpickled_msg)
+                self._get_param(unpickled_msg)
 
-            elif unpickled_data[0] == "method":
-                # print("RECV: method", unpickled_data)
-                self._call_method(unpickled_data)
+            elif unpickled_msg[0] == "method":
+                print("RECV: method", unpickled_msg)
+                self._call_method(unpickled_msg)
 
-            elif unpickled_data[0] == "next":
-                # print("RECV: next", unpickled_data)
-                self._get_next(unpickled_data)
+            elif unpickled_msg[0] == "next":
+                print("RECV: next", unpickled_msg)
+                self._get_next(unpickled_msg)
 
-            elif unpickled_data[0] == "key":
-                # print("RECV: key", unpickled_data)
-                self._get_key(unpickled_data)
+            elif unpickled_msg[0] == "key":
+                print("RECV: key", unpickled_msg)
+                self._get_key(unpickled_msg)
+
+    def _recv_msg(self):
+        raw_msglen = self._recv_data(4)
+
+        if not raw_msglen:
+            return None
+
+        msglen = struct.unpack(">I", raw_msglen)[0]
+
+        return self._recv_data(msglen)
+
+    def _recv_data(self, length):
+
+        if six.PY2:
+            data = ""
+        else:
+            data = b""
+
+        while len(data) < length:
+            packet = self.request.recv(length - len(data))
+
+            if not packet:
+                return None
+
+            data += packet
+
+        return data
 
     def _pickle_answer(self, answer):
         if answer is None:
@@ -234,4 +264,5 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         return args_id
 
     def _send(self, data):
+        data = struct.pack(">I", len(data)) + data
         self.request.sendall(data)

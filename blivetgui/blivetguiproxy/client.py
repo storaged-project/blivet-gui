@@ -23,9 +23,13 @@
 
 from six.moves import cPickle
 
+import six
+
 from .proxy_utils import ProxyID, ProxyDataContainer
 
 import socket
+
+import struct
 
 #------------------------------------------------------------------------------#
 
@@ -135,16 +139,22 @@ class BlivetGUIClient(object):
 
         with self.mutex:
             self._send(pickled_data)
-            answer = cPickle.loads(self._recieve())
+            answer = cPickle.loads(self._recv_msg())
 
-        return self._answer_convertTo_object(answer)
+        ret = self._answer_convertTo_object(answer)
+
+        if not ret.success:
+            raise type(ret.exception)(str(ret.exception) + "\n" + ret.traceback)
+
+        else:
+            return ret.answer
 
     def remote_param(self, proxy_id, param_name): # get param from object represented by proxy_id
         pickled_data = cPickle.dumps(("param", proxy_id, param_name))
 
         with self.mutex:
             self._send(pickled_data)
-            answer = cPickle.loads(self._recieve())
+            answer = cPickle.loads(self._recv_msg())
 
         return self._answer_convertTo_object(answer)
 
@@ -153,7 +163,7 @@ class BlivetGUIClient(object):
 
         with self.mutex:
             self._send(pickled_data)
-            answer = cPickle.loads(self._recieve())
+            answer = cPickle.loads(self._recv_msg())
 
         return self._answer_convertTo_object(answer)
 
@@ -162,7 +172,7 @@ class BlivetGUIClient(object):
 
         with self.mutex:
             self._send(pickled_data)
-            answer = cPickle.loads(self._recieve())
+            answer = cPickle.loads(self._recv_msg())
 
         return self._answer_convertTo_object(answer)
 
@@ -171,7 +181,7 @@ class BlivetGUIClient(object):
 
         with self.mutex:
             self._send(pickled_data)
-            answer = cPickle.loads(self._recieve())
+            answer = cPickle.loads(self._recv_msg())
 
         return self._answer_convertTo_object(answer)
 
@@ -182,8 +192,33 @@ class BlivetGUIClient(object):
             self._send(pickled_data)
             self.sock.close()
 
-    def _recieve(self):
-        return self.sock.recv(1024)
+    def _recv_msg(self):
+        raw_msglen = self._recv_data(4)
+
+        if not raw_msglen:
+            return None
+
+        msglen = struct.unpack(">I", raw_msglen)[0]
+
+        return self._recv_data(msglen)
+
+    def _recv_data(self, length):
+
+        if six.PY2:
+            data = ""
+        else:
+            data = b""
+
+        while len(data) < length:
+            packet = self.sock.recv(length - len(data))
+
+            if not packet:
+                return None
+
+            data += packet
+
+        return data
 
     def _send(self, data):
+        data = struct.pack(">I", len(data)) + data
         self.sock.sendall(data)
