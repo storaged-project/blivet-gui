@@ -234,7 +234,12 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         utils_method = getattr(self.blivet_utils, data[1])
         args = self._args_convertTo_objects(data[2])
 
-        answer = utils_method(*args)
+        try:
+            ret = utils_method(*args)
+            answer = ProxyDataContainer(success=True, answer=ret)
+        except Exception as e: # pylint: disable=broad-except
+            answer = ProxyDataContainer(success=False, exception=e, traceback=traceback.format_exc())
+
         pickled_answer = self._pickle_answer(answer)
 
         self._send(pickled_answer)
