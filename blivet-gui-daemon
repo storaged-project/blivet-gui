@@ -25,6 +25,8 @@
 from __future__ import print_function
 
 import os
+import stat
+import atexit
 
 from six.moves import socketserver
 
@@ -40,16 +42,19 @@ class BlivetGUIServer(socketserver.UnixStreamServer):
         while not self.quit:
             self.handle_request()
 
+def remove_sock_file(filename):
+    try:
+        os.remove(filename)
+
+    except OSError:
+        pass
+
 if __name__ == "__main__":
     server = BlivetGUIServer(SOCK_FILE , BlivetUtilsServer)
+    os.chmod(SOCK_FILE, stat.S_IWOTH) #FIXME
+    atexit.register(remove_sock_file, filename=SOCK_FILE)
     print("Server ready!")
 
     # Activate the server; this will keep running until you
     # interrupt the program with Ctrl-C
     server.serve_forever()
-
-    try:
-        os.remove(SOCK_FILE)
-
-    except OSError:
-        pass
