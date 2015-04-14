@@ -41,7 +41,7 @@ class ProxyDataContainer(object):
 
     def __getattr__(self, name):
         if name not in self.kwargs.keys():
-            raise AttributeError
+            raise AttributeError("%s has no attribute %s" % ("ProxyDataContainer", name))
         return self.kwargs.get(name, None)
 
     def __repr__(self):
