@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.2.3
+Version: 0.2.4
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -12,6 +12,7 @@ BuildRequires: intltool
 BuildRequires: gettext
 BuildRequires: python-setuptools
 Requires: python
+Requires: python-six
 Requires: pygobject3
 Requires: gettext
 Requires: python-blivet >= 1:1.0
@@ -21,7 +22,6 @@ Requires: polkit-gnome
 Requires: yelp
 Requires: python-meh
 Requires: python-meh-gui
-Requires: python-kickstart
 URL: http://github.com/rhinstaller/blivet-gui
 
 %description
@@ -52,6 +52,19 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui_pkexec
 
 %changelog
+* Mon Apr 13 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.4-1
+- Auto-ellipsize longer strings in ListPartitions (vtrefny)
+- Fix widget spacing in AddLabelDialog (vtrefny)
+- Better handling of raw device formats (#1207743) (vtrefny)
+- Fix blivetgui.reload() function (vtrefny)
+- Python3 compatibility for device visualisation (vtrefny)
+- Python3 compatible re-raising exceptions (vtrefny)
+- Do not allow resizing of non-existing devices. (vtrefny)
+- Catch GLib.GError instead of blivet.errors.CryptoError (vtrefny)
+- Fix device visualisation with russian locale (#1202955) (vtrefny)
+- EditDialog: Set the value of size SpinButton to device size (vtrefny)
+- Do not display current size in EditDialog (#1201706) (vtrefny)
+
 * Fri Mar 13 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.3-1
 - Fix resizing LVs (#1201745) (vtrefny)
 - Start KickstartSelectDevicesDialog with MainWindow as parent (vtrefny)
