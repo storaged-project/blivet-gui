@@ -37,6 +37,8 @@ import gettext
 
 import socket, platform, re
 
+import six
+
 import traceback
 import parted
 
@@ -138,7 +140,6 @@ class FreeSpaceDevice(object):
 #------------------------------------------------------------------------------#
 
 ReturnList = namedtuple("ReturnList", ["success", "actions", "message", "exception", "traceback"])
-ResizeInfo = namedtuple("ResizeInfo", ["resizable", "error", "min_size", "max_size"])
 
 #------------------------------------------------------------------------------#
 
@@ -490,23 +491,28 @@ class BlivetUtils(object):
         """
 
         if blivet_device.format.type in (None, "swap") or not blivet_device.format.exists:
-            return ResizeInfo(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
+            return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
                               max_size=blivet_device.size)
 
         try:
             blivet_device.format.updateSizeInfo()
 
         except blivet.errors.FSError as e:
-            return ResizeInfo(resizable=False, error=unicode(e).encode("utf8"),
+            if six.PY2:
+                exc = unicode(e).encode("utf8")
+            else:
+                exc = str(e)
+
+            return ProxyDataContainer(resizable=False, error=exc,
                               min_size=blivet.size.Size("1 MiB"),
                               max_size=blivet_device.size)
 
         if blivet_device.resizable and blivet_device.format.resizable:
-            return ResizeInfo(resizable=True, error=None, min_size=blivet_device.minSize,
+            return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.minSize,
                               max_size=blivet_device.maxSize)
 
         else:
-            return ResizeInfo(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
+            return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
                               max_size=blivet_device.size)
 
     def edit_partition_device(self, user_input):
