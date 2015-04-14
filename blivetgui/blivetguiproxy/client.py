@@ -121,7 +121,7 @@ class BlivetGUIClient(object):
             if isinstance(arg, ProxyDataContainer):
                 for item in arg:
                     if isinstance(arg[item], ClientProxyObject):
-                        arg[item] = arg[item].id
+                        arg[item] = arg[item].proxy_id
                     elif isinstance(arg[item], (list, tuple)):
                         arg[item] = self._args_convertTo_id(arg[item])
                 args_id.append(arg)
@@ -178,6 +178,15 @@ class BlivetGUIClient(object):
 
     def remote_key(self, proxy_id, key):
         pickled_data = cPickle.dumps(("key", proxy_id, key))
+
+        with self.mutex:
+            self._send(pickled_data)
+            answer = cPickle.loads(self._recv_msg())
+
+        return self._answer_convertTo_object(answer)
+
+    def remote_control(self, command, *args):
+        pickled_data = cPickle.dumps((command, args))
 
         with self.mutex:
             self._send(pickled_data)

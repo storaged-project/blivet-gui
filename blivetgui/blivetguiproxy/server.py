@@ -85,7 +85,7 @@ class BlivetProxyObject(object):
 
 
 class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly change the server to multiprocess manager?
-    blivet_utils = BlivetUtils()
+    blivet_utils = None
     proxy_objects = []
     object_dict = {}
 
@@ -100,6 +100,10 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
             if unpickled_msg[0] == "quit":
                 self.server.quit = True
                 break
+
+            elif unpickled_msg[0] == "init":
+                print("RECV: init", unpickled_msg)
+                self._blivet_utils_init(unpickled_msg)
 
             elif unpickled_msg[0] == "call":
                 print("RECV: call", unpickled_msg)
@@ -215,6 +219,19 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         key = data[2]
 
         answer = proxy_object[key]
+        pickled_answer = self._pickle_answer(answer)
+
+        self._send(pickled_answer)
+
+    def _blivet_utils_init(self, data):
+        if self.blivet_utils:
+            raise RuntimeError
+
+        args = self._args_convertTo_objects(data[1])
+
+        self.blivet_utils = BlivetUtils(*args)
+
+        answer = ProxyDataContainer(success=True)
         pickled_answer = self._pickle_answer(answer)
 
         self._send(pickled_answer)

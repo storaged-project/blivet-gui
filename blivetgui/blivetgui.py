@@ -81,6 +81,7 @@ class BlivetGUI(object):
 
         ### BlivetUtils
         self.client = BlivetGUIClient()
+        self.client.remote_control("init", self.kickstart_mode)
 
         ### Logging
         self.blivet_logfile, self.blivet_log = set_logging(component="blivet")
