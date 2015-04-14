@@ -533,7 +533,7 @@ class BlivetUtils(object):
         if user_input.mountpoint:
             blivet_device.format.mountpoint = user_input.mountpoint
 
-        if not user_input.resize and not user_input.format:
+        if not user_input.resize and not user_input.fmt:
             return ReturnList(success=True, actions=None, message=None, exception=None,
                               traceback=None)
 
@@ -541,7 +541,7 @@ class BlivetUtils(object):
             actions.append(blivet.deviceaction.ActionResizeFormat(blivet_device, user_input.size))
             actions.append(blivet.deviceaction.ActionResizeDevice(blivet_device, user_input.size))
 
-        if user_input.format:
+        if user_input.fmt:
             new_fmt = blivet.formats.getFormat(user_input.filesystem, mountpoint=user_input.mountpoint)
             actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_fmt))
 
@@ -1126,7 +1126,7 @@ class BlivetUtils(object):
         for swap in self.storage.swaps:
             swap.format.exists = False
 
-        return old_mountpoints
+        return ProxyDataContainer(**old_mountpoints)
 
     def kickstart_hide_disks(self, disk_names):
         """ Hide disks not used in kickstart mode

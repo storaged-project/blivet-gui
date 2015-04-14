@@ -164,8 +164,8 @@ class ListPartitions(object):
 
             elif not partition.format.mountpoint and self.kickstart_mode:
 
-                if partition.format.uuid in self.blivet_gui.old_mountpoints.keys():
-                    old_mnt = self.blivet_gui.old_mountpoints[partition.format.uuid]
+                if hasattr(self.blivet_gui.old_mountpoints, partition.format.uuid):
+                    old_mnt = getattr(self.blivet_gui.old_mountpoints, partition.format.uuid)
                 else:
                     old_mnt = None
 
