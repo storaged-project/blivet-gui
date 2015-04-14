@@ -486,6 +486,6 @@ class LVMEditDialog(Gtk.Dialog):
         else:
             action_type = None
 
-        return UserSelection(edit_device=self.edited_device,
+        return ProxyDataContainer(edit_device=self.edited_device,
                                  action_type=action_type,
                                  parents_list=parents_list)
