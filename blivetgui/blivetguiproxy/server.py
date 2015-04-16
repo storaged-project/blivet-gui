@@ -33,7 +33,7 @@ from six.moves import cPickle
 
 from .proxy_utils import ProxyID, ProxyDataContainer
 
-from ..utils import BlivetUtils, ReturnList # FIXME: ProxyDataContainer instead of ReturnList
+from ..utils import BlivetUtils
 
 #------------------------------------------------------------------------------#
 
@@ -156,7 +156,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         if answer is None:
             picklable_answer = answer
 
-        elif isinstance(answer, (list, tuple)) and not isinstance(answer, ReturnList):
+        elif isinstance(answer, (list, tuple)):
             picklable_answer = []
 
             for item in answer:
