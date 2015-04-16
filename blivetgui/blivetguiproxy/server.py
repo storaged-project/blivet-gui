@@ -23,6 +23,8 @@
 
 from blivet import size
 
+import sys
+
 import six
 import traceback
 
@@ -225,13 +227,19 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
 
     def _blivet_utils_init(self, data):
         if self.blivet_utils:
-            raise RuntimeError
+            raise RuntimeError("Server already received request for initialization.")
 
-        args = self._args_convertTo_objects(data[1])
+        if self.server.other_running:
+            exc = RuntimeError("Another instance of blivet-gui-daemon is already running.")
+            answer = ProxyDataContainer(success=False, exception=exc)
 
-        self.blivet_utils = BlivetUtils(*args)
+        else:
+            args = self._args_convertTo_objects(data[1])
 
-        answer = ProxyDataContainer(success=True)
+            self.blivet_utils = BlivetUtils(*args)
+
+            answer = ProxyDataContainer(success=True)
+
         pickled_answer = self._pickle_answer(answer)
 
         self._send(pickled_answer)

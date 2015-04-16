@@ -80,17 +80,18 @@ class ClientProxyObject(object):
 
 #------------------------------------------------------------------------------#
 
-SOCK_FILE = "/tmp/blivet-gui.sock" #FIXME
-
 from threading import Lock
 
 class BlivetGUIClient(object):
 
     id_dict = {}
 
-    def __init__(self):
+    def __init__(self, server_socket, secret):
+
+        self.secret = secret
+
         self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-        self.sock.connect(SOCK_FILE)
+        self.sock.connect(server_socket)
         self.mutex = Lock()
 
     def _answer_convertTo_object(self, answer):

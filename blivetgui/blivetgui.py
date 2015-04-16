@@ -71,17 +71,29 @@ def locate_ui_file(filename):
 
 class BlivetGUI(object):
 
-    def __init__(self, embedded_socket=None, kickstart_mode=False):
+    def __init__(self, server_socket, secret, embedded_socket=None, kickstart_mode=False):
 
+        self.server_socket = server_socket
+        self.secret = secret
         self.embedded_socket = embedded_socket
         self.kickstart_mode = kickstart_mode
 
         self.builder = Gtk.Builder()
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
+        ### MainWindow
+        self.main_window = MainWindow(self).window
+
         ### BlivetUtils
-        self.client = BlivetGUIClient()
-        self.client.remote_control("init", self.kickstart_mode)
+        self.client = BlivetGUIClient(self.server_socket, self.secret)
+        ret = self.client.remote_control("init", self.kickstart_mode)
+
+        if not ret.success:
+            msg = _("blivet-gui is already running.")
+
+            self.show_error_dialog(msg)
+            self.client.quit()
+            sys.exit(1)
 
         ### Logging
         self.blivet_logfile, self.blivet_log = set_logging(component="blivet")
@@ -94,9 +106,6 @@ class BlivetGUI(object):
         atexit.register(remove_logs, log_files=[self.blivet_logfile, self.program_logfile,
                                                 self.blivetgui_logfile])
         atexit.register(self.client.quit)
-
-        ### MainWindow
-        self.main_window = MainWindow(self).window
 
         ### Kickstart devices dialog
         if self.kickstart_mode:
