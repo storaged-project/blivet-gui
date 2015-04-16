@@ -97,7 +97,7 @@ class FreeSpaceDevice(object):
         :param end: end block
         :type end: int
         :param parents: list of parent devices
-        :type parents: list #FIXME blivet.devices.ParentList
+        :type parents: blivet.devices.lib.ParentList
         :param logical: is this free space inside extended partition
         :type logical: bool
 
@@ -115,7 +115,7 @@ class FreeSpaceDevice(object):
         self.format = None
         self.type = "free space"
         self.kids = 0
-        self.parents = parents
+        self.parents = blivet.devices.lib.ParentList(items=parents)
 
     @property
     def isEmptyDisk(self):
