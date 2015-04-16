@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from distutils.core import setup
 import glob
 
@@ -18,12 +20,12 @@ data_files.append(('/usr/share/polkit-1/actions', polkit_files))
 data_files.append(('/usr/share/applications', desktop_files))
 data_files.append(('/usr/share/man/man1', man_files))
 
-print data_files
+print(data_files)
 
 setup(
 	name='blivet-gui',
 	packages=['blivetgui'],
-	version='0.2.3',
+	version='0.2.4',
 	description = 'Tool for data storages configuration',
 	author='Vojtech Trefny',
 	author_email='vtrefny@redhat.com',
@@ -31,7 +33,7 @@ setup(
 	package_dir={'blivetgui' : 'blivetgui'},
 	package_data={'blivetgui' : ['help/C/*.page',
 			'help/C/*.xml', 'help/C/icons/*', 'help/C/images/*',
-			'devicevisualization/*.py', 'dialogs/*.py']},
+			'devicevisualization/*.py', 'blivetguiproxy/*.py', 'dialogs/*.py']},
 	data_files=data_files,
-	scripts = ['blivet-gui', 'blivet-gui_pkexec']
+	scripts = ['blivet-gui', 'blivet-gui-daemon', 'blivet-gui_pkexec']
 )
