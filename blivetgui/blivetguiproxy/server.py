@@ -104,27 +104,27 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
                 break
 
             elif unpickled_msg[0] == "init":
-                print("RECV: init", unpickled_msg)
+                # print("RECV: init", unpickled_msg)
                 self._blivet_utils_init(unpickled_msg)
 
             elif unpickled_msg[0] == "call":
-                print("RECV: call", unpickled_msg)
+                # print("RECV: call", unpickled_msg)
                 self._call_utils_method(unpickled_msg)
 
             elif unpickled_msg[0] == "param":
-                print("RECV: param", unpickled_msg)
+                # print("RECV: param", unpickled_msg)
                 self._get_param(unpickled_msg)
 
             elif unpickled_msg[0] == "method":
-                print("RECV: method", unpickled_msg)
+                # print("RECV: method", unpickled_msg)
                 self._call_method(unpickled_msg)
 
             elif unpickled_msg[0] == "next":
-                print("RECV: next", unpickled_msg)
+                # print("RECV: next", unpickled_msg)
                 self._get_next(unpickled_msg)
 
             elif unpickled_msg[0] == "key":
-                print("RECV: key", unpickled_msg)
+                # print("RECV: key", unpickled_msg)
                 self._get_key(unpickled_msg)
 
     def _recv_msg(self):

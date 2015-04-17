@@ -96,15 +96,12 @@ class BlivetGUI(object):
             sys.exit(1)
 
         ### Logging
-        self.blivet_logfile, self.blivet_log = set_logging(component="blivet")
-        self.program_logfile, self.program_log = set_logging(component="program")
-        self.blivetgui_logfile, self.log = set_logging(component="blivet-gui")
+        blivetgui_logfile, self.log = set_logging(component="blivet-gui")
 
-        handler = set_python_meh(log_files=[self.blivet_logfile, self.program_logfile, self.blivetgui_logfile])
+        handler = set_python_meh(log_files=[blivetgui_logfile]) #FIXME get blivet log files
         handler.install(None)
 
-        atexit.register(remove_logs, log_files=[self.blivet_logfile, self.program_logfile,
-                                                self.blivetgui_logfile])
+        atexit.register(remove_logs, log_files=[blivetgui_logfile])
         atexit.register(self.client.quit)
 
         ### Kickstart devices dialog

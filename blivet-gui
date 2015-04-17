@@ -85,7 +85,7 @@ def main():
         sys.exit(0)
 
     else:
-        p = Popen("pkexec blivet-gui-daemon", stdout=PIPE, stderr=STDOUT, shell=True)
+        p = Popen("pkexec blivet-gui-daemon", stdout=PIPE, shell=True)
         output = p.stdout.readline()
         sockfile, secret = output.split()
 

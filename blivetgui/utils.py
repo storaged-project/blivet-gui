@@ -40,8 +40,12 @@ import six
 import traceback
 import parted
 
+import atexit
+
 import pykickstart.parser
 from pykickstart.version import makeVersion
+
+from .logs import set_logging, set_python_meh, remove_logs
 
 #------------------------------------------------------------------------------#
 
@@ -149,12 +153,26 @@ class BlivetUtils(object):
         else:
             self.storage = blivet.Blivet()
 
+        self.set_logging()
+
         blivet.formats.fs.NTFS._formattable = True
 
         self.storage.reset()
         self.storage.devicetree.populate()
         self.storage.devicetree.getActiveMounts()
         self._update_min_sizes_info()
+
+    def set_logging(self):
+        """ Set logging and python-meh for blivet-gui-daemon process
+        """
+
+        blivet_logfile, blivet_log = set_logging(component="blivet")
+        program_logfile, program_log = set_logging(component="program")
+
+        handler = set_python_meh(log_files=[blivet_logfile, program_logfile])
+        handler.install(self.storage)
+
+        atexit.register(remove_logs, log_files=[blivet_logfile, program_logfile])
 
     def get_disks(self):
         """ Return list of all disk devices on current system

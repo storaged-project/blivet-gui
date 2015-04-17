@@ -38,7 +38,6 @@ from six.moves import socketserver
 
 from blivetgui.blivetguiproxy.server import BlivetUtilsServer
 
-SOCK_FILE = tempfile.mkstemp(suffix=".sock", prefix="blivet-gui", text=False)[1] #FIXME
 PID_FILE = "/var/run/blivet-gui-daemon.pid"
 
 def create_pid_file():
@@ -118,12 +117,12 @@ if __name__ == "__main__":
     secret = random.getrandbits(32)
 
     tempdir = tempfile.mkdtemp()
-    SOCK_FILE = tempdir + "/blivet-gui.sock"
+    sock_file = tempdir + "/blivet-gui.sock"
 
-    server = BlivetGUIServer(SOCK_FILE , BlivetUtilsServer)
+    server = BlivetGUIServer(sock_file , BlivetUtilsServer)
     server.secret = secret
 
-    atexit.register(remove_file, SOCK_FILE)
+    atexit.register(remove_file, sock_file)
 
     pidfile_created = create_pid_file()
 
@@ -134,10 +133,10 @@ if __name__ == "__main__":
     else:
         server.other_running = True
 
-    os.chmod(SOCK_FILE, 0o707) #FIXME
+    os.chmod(sock_file, 0o707) #FIXME
     os.chmod(tempdir, 0o705)
 
-    print(SOCK_FILE, str(secret))
+    print(sock_file, str(secret))
     sys.stdout.flush()
 
     # Activate the server; this will keep running until you
