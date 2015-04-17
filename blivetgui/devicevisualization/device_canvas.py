@@ -22,7 +22,7 @@
 #
 #------------------------------------------------------------------------------#
 
-from gi.repository import Gtk, Gdk, Gio
+from gi.repository import Gtk, Gdk
 
 from blivet.size import MiB
 
@@ -257,12 +257,8 @@ class DeviceCanvas(Gtk.DrawingArea):
 
     def draw_info(self, cairo_ctx, r, name, size):
 
-        # default system font
-        settings = Gio.Settings('org.gnome.desktop.interface')
-        font_name = settings.get_string('font-name')
-
         cairo_ctx.set_source_rgb(0, 0, 0)
-        cairo_ctx.select_font_face(font_name, cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
+        cairo_ctx.select_font_face("sans-serif", cairo.FONT_SLANT_NORMAL, cairo.FONT_WEIGHT_NORMAL)
 
         if r.width - 20 < cairo_ctx.text_extents(u"...")[-2]:
             # too small to print anything
