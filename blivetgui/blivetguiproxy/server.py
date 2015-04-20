@@ -39,6 +39,13 @@ from ..utils import BlivetUtils
 
 #------------------------------------------------------------------------------#
 
+from blivetgui.logs import set_logging, remove_atexit
+
+log_file, log = set_logging(component="blivet-gui-com")
+remove_atexit((log_file,))
+
+#------------------------------------------------------------------------------#
+
 picklable_types = six.integer_types + six.string_types + (six.text_type, float, bool, size.Size, BaseException)
 
 #------------------------------------------------------------------------------#
@@ -107,27 +114,31 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
                 break
 
             elif unpickled_msg[1] == "init":
-                # print("RECV: init", unpickled_msg)
+                log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._blivet_utils_init(unpickled_msg)
 
             elif unpickled_msg[1] == "call":
-                # print("RECV: call", unpickled_msg)
+                if unpickled_msg[2] == "luks_decrypt":
+                    # do not log passwords
+                    log.debug("RECV: " + str(unpickled_msg[1:2]) + str(unpickled_msg[3][0]) + " ***")
+                else:
+                    log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._call_utils_method(unpickled_msg)
 
             elif unpickled_msg[1] == "param":
-                # print("RECV: param", unpickled_msg)
+                log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._get_param(unpickled_msg)
 
             elif unpickled_msg[1] == "method":
-                # print("RECV: method", unpickled_msg)
+                log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._call_method(unpickled_msg)
 
             elif unpickled_msg[1] == "next":
-                # print("RECV: next", unpickled_msg)
+                log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._get_next(unpickled_msg)
 
             elif unpickled_msg[1] == "key":
-                # print("RECV: key", unpickled_msg)
+                log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._get_key(unpickled_msg)
 
     def _recv_msg(self):
