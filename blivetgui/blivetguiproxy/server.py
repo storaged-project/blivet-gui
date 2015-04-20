@@ -99,31 +99,34 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
 
             unpickled_msg = cPickle.loads(msg)
 
-            if unpickled_msg[0] == "quit":
+            if unpickled_msg[0] == self.server.secret:
+                raise RuntimeError("Request from unauthorized client.")
+
+            if unpickled_msg[1] == "quit":
                 self.server.quit = True
                 break
 
-            elif unpickled_msg[0] == "init":
+            elif unpickled_msg[1] == "init":
                 # print("RECV: init", unpickled_msg)
                 self._blivet_utils_init(unpickled_msg)
 
-            elif unpickled_msg[0] == "call":
+            elif unpickled_msg[1] == "call":
                 # print("RECV: call", unpickled_msg)
                 self._call_utils_method(unpickled_msg)
 
-            elif unpickled_msg[0] == "param":
+            elif unpickled_msg[1] == "param":
                 # print("RECV: param", unpickled_msg)
                 self._get_param(unpickled_msg)
 
-            elif unpickled_msg[0] == "method":
+            elif unpickled_msg[1] == "method":
                 # print("RECV: method", unpickled_msg)
                 self._call_method(unpickled_msg)
 
-            elif unpickled_msg[0] == "next":
+            elif unpickled_msg[1] == "next":
                 # print("RECV: next", unpickled_msg)
                 self._get_next(unpickled_msg)
 
-            elif unpickled_msg[0] == "key":
+            elif unpickled_msg[1] == "key":
                 # print("RECV: key", unpickled_msg)
                 self._get_key(unpickled_msg)
 
@@ -184,8 +187,8 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         return pickled_answer
 
     def _get_param(self, data):
-        proxy_object = self.object_dict[data[1].id]
-        param_name = data[2]
+        proxy_object = self.object_dict[data[2].id]
+        param_name = data[3]
 
         if not hasattr(proxy_object.blivet_object, param_name):
             if six.PY2:
@@ -204,7 +207,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         self._send(pickled_answer)
 
     def _get_next(self, data):
-        proxy_object = self.object_dict[data[1].id]
+        proxy_object = self.object_dict[data[2].id]
 
         try:
             answer = proxy_object.__next__()
@@ -217,8 +220,8 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         self._send(pickled_answer)
 
     def _get_key(self, data):
-        proxy_object = self.object_dict[data[1].id]
-        key = data[2]
+        proxy_object = self.object_dict[data[2].id]
+        key = data[3]
 
         answer = proxy_object[key]
         pickled_answer = self._pickle_answer(answer)
@@ -234,7 +237,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
             answer = ProxyDataContainer(success=False, exception=exc)
 
         else:
-            args = self._args_convertTo_objects(data[1])
+            args = self._args_convertTo_objects(data[2])
 
             self.blivet_utils = BlivetUtils(*args)
 
@@ -245,9 +248,9 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         self._send(pickled_answer)
 
     def _call_method(self, data):
-        proxy_object = self.object_dict[data[1].id]
-        param_name = data[2]
-        args = data[3]
+        proxy_object = self.object_dict[data[2].id]
+        param_name = data[3]
+        args = data[4]
 
         method = getattr(proxy_object, param_name)
         answer = method(*args)
@@ -256,8 +259,8 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         self._send(pickled_answer)
 
     def _call_utils_method(self, data):
-        utils_method = getattr(self.blivet_utils, data[1])
-        args = self._args_convertTo_objects(data[2])
+        utils_method = getattr(self.blivet_utils, data[2])
+        args = self._args_convertTo_objects(data[3])
 
         try:
             ret = utils_method(*args)

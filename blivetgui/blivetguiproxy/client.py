@@ -136,7 +136,7 @@ class BlivetGUIClient(object):
         return args_id
 
     def remote_call(self, method, *args): # call method on server with args
-        pickled_data = cPickle.dumps(("call", method, self._args_convertTo_id(args)))
+        pickled_data = cPickle.dumps((self.secret, "call", method, self._args_convertTo_id(args)))
 
         with self.mutex:
             self._send(pickled_data)
@@ -151,7 +151,7 @@ class BlivetGUIClient(object):
             return ret.answer
 
     def remote_param(self, proxy_id, param_name): # get param from object represented by proxy_id
-        pickled_data = cPickle.dumps(("param", proxy_id, param_name))
+        pickled_data = cPickle.dumps((self.secret, "param", proxy_id, param_name))
 
         with self.mutex:
             self._send(pickled_data)
@@ -160,7 +160,7 @@ class BlivetGUIClient(object):
         return self._answer_convertTo_object(answer)
 
     def remote_method(self, proxy_id, method_name, args):
-        pickled_data = cPickle.dumps(("method", proxy_id, method_name, args))
+        pickled_data = cPickle.dumps((self.secret, "method", proxy_id, method_name, args))
 
         with self.mutex:
             self._send(pickled_data)
@@ -169,7 +169,7 @@ class BlivetGUIClient(object):
         return self._answer_convertTo_object(answer)
 
     def remote_next(self, proxy_id):
-        pickled_data = cPickle.dumps(("next", proxy_id))
+        pickled_data = cPickle.dumps((self.secret, "next", proxy_id))
 
         with self.mutex:
             self._send(pickled_data)
@@ -178,7 +178,7 @@ class BlivetGUIClient(object):
         return self._answer_convertTo_object(answer)
 
     def remote_key(self, proxy_id, key):
-        pickled_data = cPickle.dumps(("key", proxy_id, key))
+        pickled_data = cPickle.dumps((self.secret, "key", proxy_id, key))
 
         with self.mutex:
             self._send(pickled_data)
@@ -187,7 +187,7 @@ class BlivetGUIClient(object):
         return self._answer_convertTo_object(answer)
 
     def remote_control(self, command, *args):
-        pickled_data = cPickle.dumps((command, args))
+        pickled_data = cPickle.dumps((self.secret, command, args))
 
         with self.mutex:
             self._send(pickled_data)
@@ -196,7 +196,7 @@ class BlivetGUIClient(object):
         return self._answer_convertTo_object(answer)
 
     def quit(self):
-        pickled_data = cPickle.dumps(("quit",))
+        pickled_data = cPickle.dumps((self.secret, "quit",))
 
         with self.mutex:
             self._send(pickled_data)
