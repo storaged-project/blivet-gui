@@ -23,15 +23,13 @@
 
 from blivet import size
 
-import sys
-
 import six
 import traceback
 
 import struct
 
-from six.moves import socketserver
-from six.moves import cPickle
+from six.moves import socketserver # pylint: disable=import-error
+from six.moves import cPickle # pylint: disable=import-error
 
 from .proxy_utils import ProxyID, ProxyDataContainer
 
@@ -53,6 +51,8 @@ picklable_types = six.integer_types + six.string_types + (six.text_type, float, 
 import inspect
 
 class BlivetProxyObject(object):
+    """ Class representing unpicklable objects
+    """
 
     def __init__(self, blivet_object):
         self.blivet_object = blivet_object
@@ -93,24 +93,25 @@ class BlivetProxyObject(object):
             return 1
 
 
-class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly change the server to multiprocess manager?
+class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-init
     blivet_utils = None
     proxy_objects = []
     object_dict = {}
 
     def handle(self):
-        # self.request is the TCP socket connected to the client
+        """ Handle request
+        """
 
         while True:
             msg = self._recv_msg()
 
             unpickled_msg = cPickle.loads(msg)
 
-            if unpickled_msg[0] == self.server.secret:
+            if unpickled_msg[0] == self.server.secret: # pylint: disable=no-member
                 raise RuntimeError("Request from unauthorized client.")
 
             if unpickled_msg[1] == "quit":
-                self.server.quit = True
+                self.server.quit = True # pylint: disable=no-member
                 break
 
             elif unpickled_msg[1] == "init":
@@ -142,6 +143,11 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
                 self._get_key(unpickled_msg)
 
     def _recv_msg(self):
+        """ Recieve a message from client
+
+            ..note.: first for bites represents message length
+        """
+
         raw_msglen = self._recv_data(4)
 
         if not raw_msglen:
@@ -152,6 +158,12 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         return self._recv_data(msglen)
 
     def _recv_data(self, length):
+        """ Recieve 'length' of data from client
+
+            :param length: length of data to receive
+            :type length: int
+
+        """
 
         if six.PY2:
             data = ""
@@ -159,7 +171,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
             data = b""
 
         while len(data) < length:
-            packet = self.request.recv(length - len(data))
+            packet = self.request.recv(length - len(data)) # pylint: disable=no-member
 
             if not packet:
                 return None
@@ -169,6 +181,10 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         return data
 
     def _pickle_answer(self, answer):
+        """ Pickle the answer. If the answer is not picklable, create a BlivetProxyObject and
+            send its ProxyID instead
+        """
+
         if answer is None:
             picklable_answer = answer
 
@@ -198,6 +214,9 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         return pickled_answer
 
     def _get_param(self, data):
+        """ Get param of a object
+        """
+
         proxy_object = self.object_dict[data[2].id]
         param_name = data[3]
 
@@ -218,6 +237,9 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         self._send(pickled_answer)
 
     def _get_next(self, data):
+        """ Get next member of iterable object
+        """
+
         proxy_object = self.object_dict[data[2].id]
 
         try:
@@ -231,6 +253,9 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         self._send(pickled_answer)
 
     def _get_key(self, data):
+        """ Get member of iterable object
+        """
+
         proxy_object = self.object_dict[data[2].id]
         key = data[3]
 
@@ -240,17 +265,20 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         self._send(pickled_answer)
 
     def _blivet_utils_init(self, data):
+        """ Create BlivetUtils instance
+        """
+
         if self.blivet_utils:
             raise RuntimeError("Server already received request for initialization.")
 
-        if self.server.other_running:
+        if self.server.other_running: # pylint: disable=no-member
             exc = RuntimeError("Another instance of blivet-gui-daemon is already running.")
             answer = ProxyDataContainer(success=False, exception=exc)
 
         else:
             args = self._args_convertTo_objects(data[2])
 
-            self.blivet_utils = BlivetUtils(*args)
+            self.blivet_utils = BlivetUtils(*args) # pylint: disable=star-args
 
             answer = ProxyDataContainer(success=True)
 
@@ -259,22 +287,28 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         self._send(pickled_answer)
 
     def _call_method(self, data):
+        """ Call blivet method
+        """
+
         proxy_object = self.object_dict[data[2].id]
         param_name = data[3]
         args = data[4]
 
         method = getattr(proxy_object, param_name)
-        answer = method(*args)
+        answer = method(*args) # pylint: disable=star-args
         pickled_answer = self._pickle_answer(answer)
 
         self._send(pickled_answer)
 
     def _call_utils_method(self, data):
+        """ Call a method from BlivetUtils
+        """
+
         utils_method = getattr(self.blivet_utils, data[2])
         args = self._args_convertTo_objects(data[3])
 
         try:
-            ret = utils_method(*args)
+            ret = utils_method(*args) # pylint: disable=star-args
             answer = ProxyDataContainer(success=True, answer=ret)
         except Exception as e: # pylint: disable=broad-except
             answer = ProxyDataContainer(success=False, exception=e, traceback=traceback.format_exc())
@@ -284,8 +318,10 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
         self._send(pickled_answer)
 
     def _args_convertTo_objects(self, args):
-        # all args sent from client to server are be either built-in types (int, str...) or
-        # ProxyID (or ProxyDataContainer), we need to "convert" them to blivet Objects
+        """ All args sent from client to server are be either built-in types (int, str...) or
+            ProxyID (or ProxyDataContainer), we need to "convert" them to blivet Objects
+        """
+
         args_id = []
 
         for arg in args:
@@ -309,4 +345,4 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): #FIXME: possibly chang
 
     def _send(self, data):
         data = struct.pack(">I", len(data)) + data
-        self.request.sendall(data)
+        self.request.sendall(data) # pylint: disable=no-member

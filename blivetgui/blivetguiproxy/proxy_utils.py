@@ -25,6 +25,9 @@ import functools
 import itertools
 
 class ProxyDataContainer(object):
+    """ A picklable container for multiple objects similar to namedtuple
+    """
+
     kwargs = None
 
     def __init__(self, **kwargs):
@@ -48,6 +51,9 @@ class ProxyDataContainer(object):
         return "ProxyDataContainer:\n%s" % str(self.kwargs)
 
 class ProxyID(object):
+    """ A simple picklable object with a unique ID
+    """
+
     _newid_gen = functools.partial(next, itertools.count())
 
     def __init__(self):

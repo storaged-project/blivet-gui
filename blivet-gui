@@ -24,7 +24,7 @@
 
 from __future__ import print_function
 
-import os, sys, optparse, signal, stat
+import sys, optparse, signal
 
 import gettext
 
@@ -32,7 +32,7 @@ from gi.repository import Gtk
 
 from blivetgui.dialogs.message_dialogs import locate_ui_file # FIXME
 
-from subprocess import Popen, PIPE, STDOUT
+from subprocess import Popen, PIPE
 
 #------------------------------------------------------------------------------#
 

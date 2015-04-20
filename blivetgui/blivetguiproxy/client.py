@@ -21,7 +21,7 @@
 #
 #------------------------------------------------------------------------------#
 
-from six.moves import cPickle
+from six.moves import cPickle # pylint: disable=import-error
 
 import six
 
@@ -95,8 +95,9 @@ class BlivetGUIClient(object):
         self.mutex = Lock()
 
     def _answer_convertTo_object(self, answer):
-        # all data sent from server to BlivetGUI must be either built-in types (int, str...) or
-        # ClientProxyObject, never ProxyID
+        """ All data sent from server to BlivetGUI must be either built-in types (int, str...) or
+            ClientProxyObject, never ProxyID
+        """
 
         if isinstance(answer, ProxyID):
             if answer.id in self.id_dict.keys(): # we already recieved this id before and have our proxy object for it
@@ -113,8 +114,9 @@ class BlivetGUIClient(object):
             return answer
 
     def _args_convertTo_id(self, args):
-        # all args sent from client to server must be either built-in types (int, str...) or
-        # ProxyID (or ProxyDataContainer), never ClientProxyObject
+        """ All args sent from client to server must be either built-in types (int, str...) or
+            ProxyID (or ProxyDataContainer), never ClientProxyObject
+        """
 
         args_id = []
 
@@ -135,7 +137,10 @@ class BlivetGUIClient(object):
 
         return args_id
 
-    def remote_call(self, method, *args): # call method on server with args
+    def remote_call(self, method, *args):
+        """ Call a method on server
+        """
+
         pickled_data = cPickle.dumps((self.secret, "call", method, self._args_convertTo_id(args)))
 
         with self.mutex:
@@ -144,13 +149,16 @@ class BlivetGUIClient(object):
 
         ret = self._answer_convertTo_object(answer)
 
-        if not ret.success:
-            raise type(ret.exception)(str(ret.exception) + "\n" + ret.traceback)
+        if not ret.success: # pylint: disable=maybe-no-member
+            raise type(ret.exception)(str(ret.exception) + "\n" + ret.traceback) # pylint: disable=maybe-no-member
 
         else:
-            return ret.answer
+            return ret.answer # pylint: disable=maybe-no-member
 
-    def remote_param(self, proxy_id, param_name): # get param from object represented by proxy_id
+    def remote_param(self, proxy_id, param_name):
+        """ Get a param of proxy_id object
+        """
+
         pickled_data = cPickle.dumps((self.secret, "param", proxy_id, param_name))
 
         with self.mutex:
@@ -160,6 +168,9 @@ class BlivetGUIClient(object):
         return self._answer_convertTo_object(answer)
 
     def remote_method(self, proxy_id, method_name, args):
+        """ Call remotely a method on proxy_id object
+        """
+
         pickled_data = cPickle.dumps((self.secret, "method", proxy_id, method_name, args))
 
         with self.mutex:
@@ -169,6 +180,9 @@ class BlivetGUIClient(object):
         return self._answer_convertTo_object(answer)
 
     def remote_next(self, proxy_id):
+        """ Ask for a next member of iterable proxy_id object
+        """
+
         pickled_data = cPickle.dumps((self.secret, "next", proxy_id))
 
         with self.mutex:
@@ -178,6 +192,9 @@ class BlivetGUIClient(object):
         return self._answer_convertTo_object(answer)
 
     def remote_key(self, proxy_id, key):
+        """ Ask for a member of iterable proxy_id object
+        """
+
         pickled_data = cPickle.dumps((self.secret, "key", proxy_id, key))
 
         with self.mutex:
@@ -187,6 +204,9 @@ class BlivetGUIClient(object):
         return self._answer_convertTo_object(answer)
 
     def remote_control(self, command, *args):
+        """ Send a control command to server
+        """
+
         pickled_data = cPickle.dumps((self.secret, command, args))
 
         with self.mutex:
@@ -196,6 +216,9 @@ class BlivetGUIClient(object):
         return self._answer_convertTo_object(answer)
 
     def quit(self):
+        """ Quit the client
+        """
+
         pickled_data = cPickle.dumps((self.secret, "quit",))
 
         with self.mutex:
@@ -203,6 +226,10 @@ class BlivetGUIClient(object):
             self.sock.close()
 
     def _recv_msg(self):
+        """ Recieve a message from server
+
+            ..note.: first for bites represents message length
+        """
         raw_msglen = self._recv_data(4)
 
         if not raw_msglen:
@@ -213,6 +240,12 @@ class BlivetGUIClient(object):
         return self._recv_data(msglen)
 
     def _recv_data(self, length):
+        """ Recieve 'length' of data from client
+
+            :param length: length of data to receive
+            :type length: int
+
+        """
 
         if six.PY2:
             data = ""

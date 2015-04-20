@@ -26,7 +26,6 @@ from __future__ import print_function
 
 import os
 import sys
-import stat
 import atexit
 import errno
 
@@ -34,13 +33,36 @@ import random
 
 import tempfile
 
-from six.moves import socketserver
+from six.moves import socketserver # pylint: disable=import-error
 
 from blivetgui.blivetguiproxy.server import BlivetUtilsServer
 
+#------------------------------------------------------------------------------#
+
 PID_FILE = "/var/run/blivet-gui-daemon.pid"
 
+#------------------------------------------------------------------------------#
+
+class BlivetGUIServer(socketserver.UnixStreamServer): # pylint: disable=no-init
+    """ Custom UnixStreamServer instance
+    """
+
+    quit = False
+    other_running = False
+    secret = None
+
+    def serve_forever(self):
+        """ Serve until interrupted
+        """
+        while not self.quit:
+            self.handle_request() # pylint: disable=no-member
+
+#------------------------------------------------------------------------------#
+
 def create_pid_file():
+    """ Create a PID file (taken from pyanconda code)
+    """
+
     try:
         with open(PID_FILE, "r") as pidfile:
             pid = int(pidfile.read())
@@ -97,6 +119,9 @@ def create_pid_file():
     return True
 
 def remove_temp_files(files, folders=None):
+    """ Remove temporary files and folders
+    """
+
     try:
         for file_name in files:
             os.unlink(file_name)
@@ -108,42 +133,42 @@ def remove_temp_files(files, folders=None):
     except OSError:
         pass
 
-class BlivetGUIServer(socketserver.UnixStreamServer):
-
-    quit = False
-    other_running = False
-    secret = None
-
-    def serve_forever(self):
-        while not self.quit:
-            self.handle_request()
-
-if __name__ == "__main__":
-    secret = random.getrandbits(32)
+def create_sock_file():
+    """ Create a sock file
+    """
 
     tempdir = tempfile.mkdtemp()
-    sock_file = tempdir + "/blivet-gui.sock"
+    socket = tempdir + "/blivet-gui.sock"
+    atexit.register(remove_temp_files, (socket,), (tempdir,))
 
-    server = BlivetGUIServer(sock_file , BlivetUtilsServer)
-    server.secret = secret
+    os.chmod(tempdir, 0o705)
 
-    atexit.register(remove_temp_files, (sock_file,), (tempdir,))
+    return socket
 
-    pidfile_created = create_pid_file()
+def main():
+    """ Main for blivet-gui-daemon
+    """
 
-    if pidfile_created:
+    sock_file = create_sock_file()
+
+    server = BlivetGUIServer(sock_file, BlivetUtilsServer)
+    server.secret = random.getrandbits(32)
+
+    os.chmod(sock_file, 0o707) #FIXME
+
+    if create_pid_file():
         atexit.register(remove_temp_files, (PID_FILE,))
 
     # pidfile was not created => another blivet-gui-daemon process is running
     else:
         server.other_running = True
 
-    os.chmod(sock_file, 0o707) #FIXME
-    os.chmod(tempdir, 0o705)
-
-    print(sock_file, str(secret))
+    print(sock_file, str(server.secret))
     sys.stdout.flush()
 
-    # Activate the server; this will keep running until you
-    # interrupt the program with Ctrl-C
     server.serve_forever()
+
+#------------------------------------------------------------------------------#
+
+if __name__ == "__main__":
+    main()
