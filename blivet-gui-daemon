@@ -96,9 +96,14 @@ def create_pid_file():
 
     return True
 
-def remove_file(filename):
+def remove_temp_files(files, folders=None):
     try:
-        os.unlink(filename)
+        for file_name in files:
+            os.unlink(file_name)
+
+        if folders:
+            for folder_name in folders:
+                os.rmdir(folder_name)
 
     except OSError:
         pass
@@ -122,12 +127,12 @@ if __name__ == "__main__":
     server = BlivetGUIServer(sock_file , BlivetUtilsServer)
     server.secret = secret
 
-    atexit.register(remove_file, sock_file)
+    atexit.register(remove_temp_files, (sock_file,), (tempdir,))
 
     pidfile_created = create_pid_file()
 
     if pidfile_created:
-        atexit.register(remove_file, PID_FILE)
+        atexit.register(remove_temp_files, (PID_FILE,))
 
     # pidfile was not created => another blivet-gui-daemon process is running
     else:
