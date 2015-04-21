@@ -28,6 +28,8 @@ import traceback
 
 import struct
 
+import sys
+
 from six.moves import socketserver # pylint: disable=import-error
 from six.moves import cPickle # pylint: disable=import-error
 
@@ -54,8 +56,9 @@ class BlivetProxyObject(object):
     """ Class representing unpicklable objects
     """
 
-    def __init__(self, blivet_object):
+    def __init__(self, blivet_object, obj_id):
         self.blivet_object = blivet_object
+        self.id = obj_id
 
     def __getattr__(self, name):
         if not hasattr(self.blivet_object, name):
@@ -76,7 +79,7 @@ class BlivetProxyObject(object):
                 return self.blivet_object[key]
 
             else:
-                return BlivetProxyObject(self.blivet_object[key])
+                return self.blivet_object[key]
 
         except IndexError as e:
             return e
@@ -188,21 +191,24 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
         if answer is None:
             picklable_answer = answer
 
+        elif isinstance(answer, BlivetProxyObject):
+            picklable_answer = answer.id
+
         elif isinstance(answer, (list, tuple)):
             picklable_answer = []
 
             for item in answer:
                 if not isinstance(item, picklable_types):
-                    proxy_object = BlivetProxyObject(item)
                     new_id = ProxyID()
+                    proxy_object = BlivetProxyObject(item, new_id)
                     self.object_dict[new_id.id] = proxy_object
                     picklable_answer.append(new_id)
                 else:
                     picklable_answer.append(item)
 
         elif not isinstance(answer, picklable_types):
-            proxy_object = BlivetProxyObject(answer)
             new_id = ProxyID()
+            proxy_object = BlivetProxyObject(answer, new_id)
             self.object_dict[new_id.id] = proxy_object
             picklable_answer = new_id
 
@@ -318,11 +324,11 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
         self._send(pickled_answer)
 
     def _args_convertTo_objects(self, args):
-        """ All args sent from client to server are be either built-in types (int, str...) or
+        """ All args sent from client to server are either built-in types (int, str...) or
             ProxyID (or ProxyDataContainer), we need to "convert" them to blivet Objects
         """
 
-        args_id = []
+        args_obj = []
 
         for arg in args:
             if isinstance(arg, ProxyDataContainer):
@@ -331,17 +337,17 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
                         arg[item] = self.object_dict[arg[item].id].blivet_object
                     elif isinstance(arg[item], (list, tuple)):
                         arg[item] = self._args_convertTo_objects(arg[item])
-                args_id.append(arg)
+                args_obj.append(arg)
             elif isinstance(arg, ProxyID):
-                args_id.append(self.object_dict[arg.id].blivet_object)
+                args_obj.append(self.object_dict[arg.id].blivet_object)
 
             elif isinstance(arg, (list, tuple)):
-                args_id.append(self._args_convertTo_objects(arg))
+                args_obj.append(self._args_convertTo_objects(arg))
 
             else:
-                args_id.append(arg)
+                args_obj.append(arg)
 
-        return args_id
+        return args_obj
 
     def _send(self, data):
         data = struct.pack(">I", len(data)) + data
