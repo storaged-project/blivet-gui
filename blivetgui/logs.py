@@ -33,6 +33,8 @@ import meh.handler
 import meh.dump
 import meh.ui.gui
 
+import atexit
+
 #------------------------------------------------------------------------------#
 
 APP_NAME='blivet-gui'
@@ -73,7 +75,7 @@ def set_logging(component, logging_level=logging.DEBUG, log_file=None):
     logger.addHandler(log_handler)
     logger.setLevel(logging_level)
 
-    return log_file, log_handler
+    return log_file, logger
 
 def set_python_meh(log_files):
     """ Configure python-meh
@@ -106,3 +108,13 @@ def remove_logs(log_files):
 
     except OSError as e:
         print("Failed to remove log file\n" + str(e))
+
+def remove_atexit(log_files):
+    """ Remove log files using atexit
+
+        :param log_files: list of log files to delete
+        :type log_files: list of str
+
+    """
+
+    atexit.register(remove_logs, log_files)

@@ -1,0 +1,174 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+# Main
+#
+# Copyright (C) 2014  Red Hat, Inc.
+#
+# This copyrighted material is made available to anyone wishing to use,
+# modify, copy, or redistribute it subject to the terms and conditions of
+# the GNU General Public License v.2, or (at your option) any later version.
+# This program is distributed in the hope that it will be useful, but WITHOUT
+# ANY WARRANTY expressed or implied, including the implied warranties of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General
+# Public License for more details.  You should have received a copy of the
+# GNU General Public License along with this program; if not, write to the
+# Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.  Any Red Hat trademarks that are incorporated in the
+# source code or documentation are not subject to the GNU General Public
+# License and may only be used or replicated with the express permission of
+# Red Hat, Inc.
+#
+# Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
+#
+#------------------------------------------------------------------------------#
+
+from __future__ import print_function
+
+import os
+import sys
+import atexit
+import errno
+
+import random
+
+import tempfile
+
+from six.moves import socketserver # pylint: disable=import-error
+
+from blivetgui.blivetguiproxy.server import BlivetUtilsServer
+
+#------------------------------------------------------------------------------#
+
+PID_FILE = "/var/run/blivet-gui-daemon.pid"
+
+#------------------------------------------------------------------------------#
+
+class BlivetGUIServer(socketserver.UnixStreamServer): # pylint: disable=no-init
+    """ Custom UnixStreamServer instance
+    """
+
+    quit = False
+    other_running = False
+    secret = None
+
+    def serve_forever(self):
+        """ Serve until interrupted
+        """
+        while not self.quit:
+            self.handle_request() # pylint: disable=no-member
+
+#------------------------------------------------------------------------------#
+
+def create_pid_file():
+    """ Create a PID file (taken from pyanconda code)
+    """
+
+    try:
+        with open(PID_FILE, "r") as pidfile:
+            pid = int(pidfile.read())
+    except IOError as e:
+        # Ignore errors due to the file not existing. Other errors mean (most
+        # likely) that we're not running as root, there's a filesystem error,
+        # or someone filled our PID file with garbage, so just let those be
+        # raised.
+        if e.errno != errno.ENOENT:
+            raise
+    else:
+        # Is the PID still running?
+        if not os.path.isdir("/proc/%s" % pid):
+            # log.info("Removing stale PID file: %s no longer running", pid)
+            os.unlink(PID_FILE)
+
+            return True
+        # Is the PID blivet-gui-daemon?
+        else:
+            try:
+                with open("/proc/%s/cmdline" % pid, "r") as pid_cmd:
+                    # The part we care about is in the start, "PID (name) ..."
+                    proc_cmd = pid_cmd.read()
+                    if "blivet-gui-daemon" not in proc_cmd:
+                        # log.info("Removing stale PID file: PID %s is now %s", pid, procname)
+                        os.unlink(PID_FILE)
+
+                        return True
+            except IOError as e:
+                # Ignore failures due to the file not existing in case the
+                # process ended while we were trying to read about it. Assume
+                # in this case that the process was another blivet-gui-daemon instance,
+                # and the PID file was cleaned up.
+                # If the process ended between open and read, we'll get ESRCH
+                if e.errno not in (errno.ENOENT, errno.ESRCH):
+                    raise
+
+            return False
+
+        return False
+
+    # Attempt to create the pidfile
+    try:
+        with open(PID_FILE, "w+") as pidfile:
+            pidfile.write(str(os.getpid()))
+    except OSError as e:
+        # If the failure was anything other than EEXIST during the open call,
+        # just re-raise the exception
+        if e.errno != errno.EEXIST:
+            raise
+
+        return False
+
+    return True
+
+def remove_temp_files(files, folders=None):
+    """ Remove temporary files and folders
+    """
+
+    try:
+        for file_name in files:
+            os.unlink(file_name)
+
+        if folders:
+            for folder_name in folders:
+                os.rmdir(folder_name)
+
+    except OSError:
+        pass
+
+def create_sock_file():
+    """ Create a sock file
+    """
+
+    tempdir = tempfile.mkdtemp()
+    socket = tempdir + "/blivet-gui.sock"
+    atexit.register(remove_temp_files, (socket,), (tempdir,))
+
+    os.chmod(tempdir, 0o705)
+
+    return socket
+
+def main():
+    """ Main for blivet-gui-daemon
+    """
+
+    sock_file = create_sock_file()
+
+    server = BlivetGUIServer(sock_file, BlivetUtilsServer)
+    server.secret = random.getrandbits(32)
+
+    os.chmod(sock_file, 0o707) #FIXME
+
+    if create_pid_file():
+        atexit.register(remove_temp_files, (PID_FILE,))
+
+    # pidfile was not created => another blivet-gui-daemon process is running
+    else:
+        server.other_running = True
+
+    print(sock_file, str(server.secret))
+    sys.stdout.flush()
+
+    server.serve_forever()
+
+#------------------------------------------------------------------------------#
+
+if __name__ == "__main__":
+    main()

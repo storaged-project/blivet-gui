@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # Main
 #
@@ -24,13 +24,15 @@
 
 from __future__ import print_function
 
-import os, sys, optparse, signal
+import sys, optparse, signal
 
 import gettext
 
 from gi.repository import Gtk
 
-from blivetgui.dialogs.message_dialogs import locate_ui_file # FIXME
+from blivetgui.dialogs.message_dialogs import locate_ui_file, ErrorDialog # FIXME
+
+from subprocess import Popen, PIPE
 
 #------------------------------------------------------------------------------#
 
@@ -72,27 +74,35 @@ def parse_options():
 
     return options
 
-def main(options=None):
+def main():
     """ Main function, creates a main/embedded window instance
     """
 
-    if options == None:
-        options = parse_options()
+    options = parse_options()
 
     if options.version:
         print(APP_NAME, "version", APP_VERSION)
         sys.exit(0)
 
-    elif os.geteuid() != 0:
-        # root privileges are required for blivet
-        RootCheckWindow()
-
     else:
-        from blivetgui.blivetgui import BlivetGUI
+        p = Popen("pkexec blivet-gui-daemon", stdout=PIPE, shell=True)
+        output = p.stdout.readline()
 
-        BlivetGUI(embedded_socket=options.socket, kickstart_mode=options.kickstart)
+        # we expect exactly two parameters
+        if len(output.split()) != 2:
+            ErrorDialog(parent_window=None, msg=_("Failed to start blivet-gui-daemon."))
+            sys.exit(1)
+
+        else:
+            sockfile, secret = output.split()
+
+            from blivetgui.blivetgui import BlivetGUI
+
+            BlivetGUI(server_socket=sockfile, secret=secret, embedded_socket=options.socket,
+                      kickstart_mode=options.kickstart)
 
 if  __name__ == '__main__':
+
     signal.signal(signal.SIGINT, signal.SIG_DFL)
     main()
     Gtk.main()

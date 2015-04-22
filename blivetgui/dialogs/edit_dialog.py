@@ -28,6 +28,8 @@ from gi.repository import Gtk, Pango
 
 from .add_dialog import SizeChooserArea
 
+from ..blivetguiproxy.proxy_utils import ProxyDataContainer
+
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
@@ -38,21 +40,10 @@ SUPPORTED_FS = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap", "vfat"]
 
 #------------------------------------------------------------------------------#
 
-
 class PartitionEditDialog(Gtk.Dialog):
     """ Dialog window allowing user to edit partition including selecting size,
         fs, label etc.
     """
-
-    class UserSelection(object):
-        def __init__(self, edit_device, resize, size, fmt, filesystem, mountpoint):
-
-            self.edit_device = edit_device
-            self.resize = resize
-            self.size = size
-            self.format = fmt
-            self.filesystem = filesystem
-            self.mountpoint = mountpoint
 
     def __init__(self, parent_window, edited_device, resize_info, kickstart=False):
         """
@@ -252,23 +243,16 @@ class PartitionEditDialog(Gtk.Dialog):
             resize = False
             size = None
 
-        return self.UserSelection(edit_device=self.edited_device,
-                                  resize=resize,
-                                  size=size,
-                                  fmt=self.format_check.get_active(),
-                                  filesystem=self.filesystems_combo.get_active_text(),
-                                  mountpoint=mountpoint)
+        return ProxyDataContainer(edit_device=self.edited_device,
+                                 resize=resize,
+                                 size=size,
+                                 fmt=self.format_check.get_active(),
+                                 filesystem=self.filesystems_combo.get_active_text(),
+                                 mountpoint=mountpoint)
 
 class LVMEditDialog(Gtk.Dialog):
     """ Dialog window allowing user to edit lvmvg
     """
-
-    class UserSelection(object):
-        def __init__(self, edit_device, action_type, parents_list):
-
-            self.edit_device = edit_device
-            self.action_type = action_type
-            self.parents_list = parents_list
 
     def __init__(self, parent_window, edited_device, free_pvs, free_disks_regions, removable_pvs):
         """
@@ -506,6 +490,6 @@ class LVMEditDialog(Gtk.Dialog):
         else:
             action_type = None
 
-        return self.UserSelection(edit_device=self.edited_device,
-                                  action_type=action_type,
-                                  parents_list=parents_list)
+        return ProxyDataContainer(edit_device=self.edited_device,
+                                 action_type=action_type,
+                                 parents_list=parents_list)
