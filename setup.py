@@ -25,7 +25,7 @@ print(data_files)
 setup(
 	name='blivet-gui',
 	packages=['blivetgui'],
-	version='0.2.4',
+	version='0.3.0',
 	description = 'Tool for data storages configuration',
 	author='Vojtech Trefny',
 	author_email='vtrefny@redhat.com',
@@ -35,5 +35,5 @@ setup(
 			'help/C/*.xml', 'help/C/icons/*', 'help/C/images/*',
 			'devicevisualization/*.py', 'blivetguiproxy/*.py', 'dialogs/*.py']},
 	data_files=data_files,
-	scripts = ['blivet-gui', 'blivet-gui-daemon', 'blivet-gui_pkexec']
+	scripts = ['blivet-gui', 'blivet-gui-daemon']
 )

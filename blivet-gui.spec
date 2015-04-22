@@ -1,21 +1,21 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.2.4
+Version: 0.3.0
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
 Group: Applications/System
 BuildArch: noarch
-BuildRequires: python2-devel
+BuildRequires: python3-devel
 BuildRequires: desktop-file-utils
 BuildRequires: intltool
 BuildRequires: gettext
 BuildRequires: python-setuptools
-Requires: python
+Requires: python3
 Requires: python-six
 Requires: pygobject3
 Requires: gettext
-Requires: python-blivet >= 1:1.0
+Requires: python3-blivet >= 1:1.2
 Requires: gtk3
 Requires: gnome-icon-theme
 Requires: polkit-gnome
@@ -49,7 +49,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_datadir}/blivet-gui
 %{_datadir}/help/C/blivet-gui
 %{_bindir}/blivet-gui
-%{_bindir}/blivet-gui_pkexec
+%{_bindir}/blivet-gui-daemon
 
 %changelog
 * Mon Apr 13 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.4-1
