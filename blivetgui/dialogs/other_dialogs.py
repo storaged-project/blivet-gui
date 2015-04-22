@@ -45,6 +45,7 @@ class AboutDialog(object):
         dialog = builder.get_object("about_dialog")
 
         dialog.set_transient_for(parent_window)
+        dialog.set_translator_credits(_("translator-credits"))
 
         dialog.show_all()
         dialog.run()
