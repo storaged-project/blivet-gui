@@ -30,7 +30,7 @@ import gettext
 
 from gi.repository import Gtk
 
-from blivetgui.dialogs.message_dialogs import locate_ui_file # FIXME
+from blivetgui.dialogs.message_dialogs import locate_ui_file, ErrorDialog # FIXME
 
 from subprocess import Popen, PIPE
 
@@ -87,12 +87,19 @@ def main():
     else:
         p = Popen("pkexec blivet-gui-daemon", stdout=PIPE, shell=True)
         output = p.stdout.readline()
-        sockfile, secret = output.split()
 
-        from blivetgui.blivetgui import BlivetGUI
+        # we expect exactly two parameters
+        if len(output.split()) != 2:
+            ErrorDialog(parent_window=None, msg=_("Failed to start blivet-gui-daemon."))
+            sys.exit(1)
 
-        BlivetGUI(server_socket=sockfile, secret=secret, embedded_socket=options.socket,
-                  kickstart_mode=options.kickstart)
+        else:
+            sockfile, secret = output.split()
+
+            from blivetgui.blivetgui import BlivetGUI
+
+            BlivetGUI(server_socket=sockfile, secret=secret, embedded_socket=options.socket,
+                      kickstart_mode=options.kickstart)
 
 if  __name__ == '__main__':
 
