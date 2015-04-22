@@ -121,6 +121,10 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
                 log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._blivet_utils_init(unpickled_msg)
 
+            elif unpickled_msg[1] == "logs":
+                log.debug("RECV: " + str(unpickled_msg[1:]))
+                self._blivet_utils_logs(unpickled_msg)
+
             elif unpickled_msg[1] == "call":
                 if unpickled_msg[2] == "luks_decrypt":
                     # do not log passwords
@@ -288,6 +292,26 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
 
             answer = ProxyDataContainer(success=True)
 
+        pickled_answer = self._pickle_answer(answer)
+
+        self._send(pickled_answer)
+
+    def _blivet_utils_logs(self, data):
+        """ Set server logging
+
+            :returns: server log files
+            :rtype: list of str
+
+        """
+
+        if not self.blivet_utils:
+            raise RuntimeError("Got request to start logging before BlivetUtils initialization")
+
+        client_logs = data[2]
+
+        self.blivet_utils.set_meh(client_logfile=client_logs[0], communication_logfile=log_file)
+
+        answer = (self.blivet_utils.blivet_logfile, self.blivet_utils.program_logfile, log_file)
         pickled_answer = self._pickle_answer(answer)
 
         self._send(pickled_answer)

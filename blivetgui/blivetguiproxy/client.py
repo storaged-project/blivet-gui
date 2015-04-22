@@ -23,6 +23,8 @@
 
 from six.moves import cPickle # pylint: disable=import-error
 
+import os
+
 import six
 
 from .proxy_utils import ProxyID, ProxyDataContainer
@@ -30,6 +32,14 @@ from .proxy_utils import ProxyID, ProxyDataContainer
 import socket
 
 import struct
+
+import gettext
+
+from ..dialogs.message_dialogs import ErrorDialog
+
+#------------------------------------------------------------------------------#
+
+_ = lambda x: gettext.ldgettext("blivet-gui", x)
 
 #------------------------------------------------------------------------------#
 
@@ -86,7 +96,9 @@ class BlivetGUIClient(object):
 
     id_dict = {}
 
-    def __init__(self, server_socket, secret):
+    def __init__(self, blivetgui, server_socket, secret):
+
+        self.blivetgui = blivetgui
 
         self.secret = secret
 
@@ -253,7 +265,14 @@ class BlivetGUIClient(object):
             data = b""
 
         while len(data) < length:
-            packet = self.sock.recv(length - len(data))
+
+            try:
+                packet = self.sock.recv(length - len(data))
+
+            except OSError as e: #TODO: python3 BrokenPipeError
+                ErrorDialog(parent_window=self.blivetgui.main_window,
+                            msg=_("Failed to connect to blivet-gui-daemon.\n%s" % e))
+                os._exit(1)
 
             if not packet:
                 return None
@@ -264,4 +283,11 @@ class BlivetGUIClient(object):
 
     def _send(self, data):
         data = struct.pack(">I", len(data)) + data
-        self.sock.sendall(data)
+
+        try:
+            self.sock.sendall(data)
+
+        except OSError as e:
+            ErrorDialog(parent_window=self.blivetgui.main_window,
+                        msg=_("Failed to connect to blivet-gui-daemon.\n%s" % e))
+            os._exit(1)

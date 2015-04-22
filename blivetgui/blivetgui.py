@@ -85,7 +85,7 @@ class BlivetGUI(object):
         self.main_window = MainWindow(self).window
 
         ### BlivetUtils
-        self.client = BlivetGUIClient(self.server_socket, self.secret)
+        self.client = BlivetGUIClient(self, self.server_socket, self.secret)
         ret = self.client.remote_control("init", self.kickstart_mode)
 
         if not ret.success:
@@ -98,7 +98,10 @@ class BlivetGUI(object):
         ### Logging
         blivetgui_logfile, self.log = set_logging(component="blivet-gui")
 
-        handler = set_python_meh(log_files=[blivetgui_logfile]) #FIXME get blivet log files
+        server_logs = self.client.remote_control("logs", blivetgui_logfile)
+        log_files = server_logs + [blivetgui_logfile]
+
+        handler = set_python_meh(log_files=log_files)
         handler.install(None)
 
         atexit.register(remove_logs, log_files=[blivetgui_logfile])
@@ -224,7 +227,7 @@ class BlivetGUI(object):
         return use_disks
 
     def _reraise_exception(self, exception, traceback):
-        raise type(exception)(exception.message + "\n" + traceback)
+        raise type(exception)(str(exception) + "\n" + traceback)
 
     def show_exception_dialog(self, exception_data, exception_traceback):
         message_dialogs.ExceptionDialog(self.main_window, exception_data, exception_traceback)
