@@ -158,8 +158,6 @@ class BlivetUtils(object):
         blivet.formats.fs.NTFS._formattable = True
 
         self.storage.reset()
-        self.storage.devicetree.populate()
-        self.storage.devicetree.getActiveMounts()
         self._update_min_sizes_info()
 
     def set_logging(self):
@@ -1015,13 +1013,12 @@ class BlivetUtils(object):
         """ Unmount selected device
         """
 
-        if not blivet_device.format.mountable or not blivet_device.format.mountpoint:
+        if not blivet_device.format.mountable or not blivet_device.format.systemMountpoint:
             return False
 
         else:
             try:
                 blivet_device.format.unmount()
-                blivet_device.format.mountpoint = None
                 return True
 
             except blivet.errors.FSError:
@@ -1196,8 +1193,6 @@ class BlivetUtils(object):
         """
 
         self.storage.reset()
-        self.storage.devicetree.populate()
-        self.storage.devicetree.getActiveMounts()
 
     def blivet_do_it(self):
         """ Blivet.doIt()

@@ -155,14 +155,14 @@ class ListPartitions(object):
             else:
                 resize_size = "--"
 
-            if partition.format.mountpoint:
+            if partition.format.systemMountpoint:
                 iter_added = self.partitions_list.append(parent, [partition, name,
                                                                   partition.format.type,
-                                                                  partition.format.mountpoint,
+                                                                  partition.format.systemMountpoint,
                                                                   str(partition.size),
                                                                   str(resize_size), None, None])
 
-            elif not partition.format.mountpoint and self.kickstart_mode:
+            elif not partition.format.systemMountpoint and self.kickstart_mode:
 
                 if hasattr(self.blivet_gui.old_mountpoints, partition.format.uuid):
                     old_mnt = getattr(self.blivet_gui.old_mountpoints, partition.format.uuid)
@@ -171,14 +171,14 @@ class ListPartitions(object):
 
                 iter_added = self.partitions_list.append(parent, [partition, name,
                                                                   partition.format.type,
-                                                                  partition.format.mountpoint,
+                                                                  partition.format.systemMountpoint,
                                                                   str(partition.size),
                                                                   str(resize_size), old_mnt, None])
 
             else:
                 iter_added = self.partitions_list.append(parent, [partition, name,
                                                                   partition.format.type,
-                                                                  partition.format.mountpoint,
+                                                                  partition.format.systemMountpoint,
                                                                   str(partition.size),
                                                                   str(resize_size), None, None])
         else:
@@ -313,7 +313,7 @@ class ListPartitions(object):
             if device.format.type == "luks" and not device.format.status and device.format.exists:
                 self.blivet_gui.activate_options(["decrypt"])
 
-            elif device.format.mountable and device.format.mountpoint:
+            elif device.format.mountable and device.format.systemMountpoint:
                 self.blivet_gui.activate_options(["unmount"])
 
     def on_partition_selection_changed(self, selection):
