@@ -82,10 +82,10 @@ class ListDevices(object):
         for disk in disks:
             if disk.removable:
                 self.device_list.append([disk, icon_disk_usb, str(disk.name + "\n<i><small>" +
-                                                                  disk.model + "</small></i>")])
+                                                                  str(disk.model) + "</small></i>")])
             else:
                 self.device_list.append([disk, icon_disk, str(disk.name + "\n<i><small>" +
-                                                              disk.model + "</small></i>")])
+                                                              str(disk.model) + "</small></i>")])
 
         return len(disks)
 
