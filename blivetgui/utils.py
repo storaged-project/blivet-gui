@@ -31,6 +31,8 @@ from  .blivetguiproxy.proxy_utils import ProxyDataContainer
 
 from gi.repository import GLib
 
+from gi.overrides import BlockDev
+
 import gettext
 
 import socket, platform, re
@@ -1171,7 +1173,7 @@ class BlivetUtils(object):
         try:
             blivet_device.format.setup()
 
-        except GLib.GError:
+        except BlockDev.CryptoError:
             return False
 
         else:
