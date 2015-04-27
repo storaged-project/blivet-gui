@@ -20,8 +20,8 @@ Requires: gtk3
 Requires: gnome-icon-theme
 Requires: polkit-gnome
 Requires: yelp
-Requires: python-meh
-Requires: python-meh-gui
+Requires: python3-meh
+Requires: python3-meh-gui
 URL: http://github.com/rhinstaller/blivet-gui
 
 %description
