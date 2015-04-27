@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.3.0
+Version: 0.3.1
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -52,6 +52,57 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Mon Apr 27 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.3.1-1
+- Fix catching exception when trying to decrypt LUKS device (vtrefny)
+- Fix python-meh requirement to Python 3 version (vtrefny)
+- Remove obsolete methon convert_to_size (vtrefny)
+- Fix None disk.model in description (vtrefny)
+- Use format.systemMountpoint instead of format.mountpoint (vtrefny)
+- New version 0.3.0 (vtrefny)
+
+* Wed Apr 22 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.3.0-1
+- Add translator credits to AboutDialog (vtrefny)
+- Merge branch 'separate-processes' into devel (vtrefny)
+- Advanced logging and python-meh support (vtrefny)
+- Check if the server starts in blivet-gui main() (vtrefny)
+- Fix returning of BlivetProxyObject and id to it (vtrefny)
+- Pylint checks and docstrings (vtrefny)
+- Logging server communication (vtrefny)
+- Add message verification with a secret "key" (vtrefny)
+- Remove temp directories atexit of server (vtrefny)
+- Do not use Gio.Settings to obtaion default system font (vtrefny)
+- Store blivet logs on server site (vtrefny)
+- Delete udisks_loop.py file (no longer used) (vtrefny)
+- Use blivet's ParentList for FreeSpaceDevice parents (vtrefny)
+- Autorun server part, PID file for server (vtrefny)
+- Update setup.py with new package_data (vtrefny)
+- Use ProxyDataContainer instead of ReturnList (vtrefny)
+- Use ProxyDataContainer for old_mountpoints (vtrefny)
+- Fix EditDialog using non-existing UserSelection class (vtrefny)
+- More detailed information for proxy objects AttributeError (vtrefny)
+- Create instance of BlivetUtils upon client request (vtrefny)
+- Use ProxyDataContainer instead of ResizeInfo namedtuple (vtrefny)
+- Catch exception raised during BlivetUtils calls (vtrefny)
+- Send message length in messages and use it in recv (vtrefny)
+- Do not forward LUKS decrypt exceptions to client (vtrefny)
+- Use GLib.timeout_add instead of GObject.timeout_add (vtrefny)
+- Delete socket file using atexit (vtrefny)
+- Catch GLib.GError instead of blivet.errors.CryptoError (vtrefny)
+- Pickle only whitelisted objects (vtrefny)
+- Mutex-protected server calls (vtrefny)
+- Proper catching and reraising exception during doIt() (vtrefny)
+- Use UnixStreamServer instead of TCPServer (vtrefny)
+- Close server on client exit (vtrefny)
+- Fix blivetgui.reload() function (vtrefny)
+- Use GLib.idle_add instead of GObject.idle_add (vtrefny)
+- New way of re-raising exceptions from BlivetUtils (vtrefny)
+- Remove unused functions; mark some functions as private (vtrefny)
+- Replace BlivetUtils calls with BlivetGUIClient calls (vtrefny)
+- Replace UserSelection with ProxyDataContainer (vtrefny)
+-"Binary" file for server/daemon part (vtrefny)
+- blivet-gui process separation (vtrefny)
+- Do not check root privilegies for blivet-gui (client part) (vtrefny)
+
 * Mon Apr 13 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.4-1
 - Auto-ellipsize longer strings in ListPartitions (vtrefny)
 - Fix widget spacing in AddLabelDialog (vtrefny)
