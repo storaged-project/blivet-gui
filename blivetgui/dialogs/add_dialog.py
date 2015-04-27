@@ -245,9 +245,9 @@ class SizeChooserArea(object):
 
         self.scale.set_value(selected_size.convertTo(size.parseUnits(unit, False)))
 
-    def set_selected_size(self, size):
+    def set_selected_size(self, selected_size):
 
-        self.scale.set_value(size.convertTo(size.parseUnits(self.selected_unit, False)))
+        self.scale.set_value(selected_size.convertTo(size.parseUnits(self.selected_unit, False)))
 
     def get_size_precision(self, down_limit, up_limit, unit):
 
@@ -275,25 +275,10 @@ class SizeChooserArea(object):
         old_unit = self.selected_unit
         self.selected_unit = new_unit
 
-        selected_size = self.convert_to_size(self.scale.get_value(), old_unit)
+        selected_size = size.Size(str(self.scale.get_value()) + " " + old_unit)
 
         self.adjust_size_scale(selected_size, new_unit)
         return
-
-    def convert_to_size(self, size_num, unit):
-        """ Convert floats from scale to Size
-
-            .. note:: Neccesary for floats in form 1e-10
-
-        """
-        str_size = str(size_num)
-
-        if "e" in str_size:
-            exp = abs(int(str_size.split("e")[-1]))
-            dec = len(str_size.split("e")[0].split(".")[-1])
-            str_size = format(size, "." + str(exp+dec) + "f")
-
-        return size.Size(str_size + unit)
 
     def scale_moved(self, scale, spin_size):
 
@@ -301,7 +286,9 @@ class SizeChooserArea(object):
 
         spin_size.set_value(scale.get_value())
 
-        self.dialog.update_size_areas(self.convert_to_size(self.scale.get_value(), self.selected_unit))
+        selected_size = size.Size(str(self.scale.get_value()) + " " + self.selected_unit)
+
+        self.dialog.update_size_areas(selected_size)
 
     def spin_size_moved(self, spin_size, scale):
         scale.set_value(spin_size.get_value())
@@ -325,17 +312,17 @@ class SizeChooserArea(object):
 
     def get_selection(self):
 
-        size = self.convert_to_size(self.scale.get_value(), self.selected_unit)
+        selected_size = size.Size(str(self.scale.get_value()) + " " + self.selected_unit)
 
         if self.dialog_type == "add":
-            if size > self.free_device.size:
-                size = self.free_device.size
+            if selected_size > self.free_device.size:
+                selected_size = self.free_device.size
 
-            return [self.parent_device, size]
+            return [self.parent_device, selected_size]
 
         if self.dialog_type == "edit":
 
-            return (self.resize, size)
+            return (self.resize, selected_size)
 
 class AdvancedOptions(object):
 
@@ -372,8 +359,8 @@ class AdvancedOptions(object):
         pesize_combo.set_entry_text_column(0)
         pesize_combo.set_id_column(0)
 
-        for size in SUPPORTED_PESIZE:
-            pesize_combo.append_text(size)
+        for pesize in SUPPORTED_PESIZE:
+            pesize_combo.append_text(pesize)
 
         pesize_combo.set_active_id("4 MiB")
 
@@ -827,7 +814,7 @@ class AddDialog(Gtk.Dialog):
 
             return (True, max_size)
 
-    def update_size_areas(self, size):
+    def update_size_areas(self, selected_size):
         """ Update all size areas to selected size
             (used for raids where all parents has same size)
         """
@@ -843,7 +830,7 @@ class AddDialog(Gtk.Dialog):
 
         else:
             for area in self.size_areas:
-                area.set_selected_size(size)
+                area.set_selected_size(selected_size)
 
     def add_size_areas(self):
         device_type = self._get_selected_device_type()
