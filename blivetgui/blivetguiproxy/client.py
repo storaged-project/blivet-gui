@@ -39,7 +39,7 @@ from ..dialogs.message_dialogs import ErrorDialog
 
 #------------------------------------------------------------------------------#
 
-_ = lambda x: gettext.ldgettext("blivet-gui", x)
+_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
 
 #------------------------------------------------------------------------------#
 

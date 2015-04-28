@@ -38,7 +38,7 @@ from ..blivetguiproxy.proxy_utils import ProxyDataContainer
 
 #------------------------------------------------------------------------------#
 
-_ = lambda x: gettext.ldgettext("blivet-gui", x)
+_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
 
 #------------------------------------------------------------------------------#
 

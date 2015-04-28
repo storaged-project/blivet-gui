@@ -51,7 +51,7 @@ from .logs import set_logging, set_python_meh, remove_logs
 
 #------------------------------------------------------------------------------#
 
-_ = lambda x: gettext.ldgettext("blivet-gui", x)
+_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
 
 #------------------------------------------------------------------------------#
 
