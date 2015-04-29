@@ -539,7 +539,8 @@ class AddDialog(Gtk.Dialog):
             "lvmvg" : [(_("LVM2 Logical Volume"), "lvmlv")],
             "luks/dm-crypt" : [(_("LVM2 Volume Group"), "lvmvg")],
             "mdarray" : [(_("LVM2 Volume Group"), "lvmvg")],
-            "btrfs volume" : [(_("Btrfs Subvolume"), "btrfs subvolume")]
+            "btrfs volume" : [(_("Btrfs Subvolume"), "btrfs subvolume")],
+            "lvmlv" : [(_("LVM Snaphost"), "lvm snapshot")]
             }
 
         label_devices = Gtk.Label(label=_("Device type:"), xalign=1)
@@ -771,6 +772,10 @@ class AddDialog(Gtk.Dialog):
                 elif not free.isFreeRegion:
                     self.parents_store.append([disk, free, False, False, disk.name,
                         "disk", str(free.size)])
+
+        elif device_type in ("lvm snapshot",):
+            self.parents_store.append([self.parent_device, self.free_device, False, False,
+                self.free_device.parents[0].name, "lvmvg", str(self.free_device.size)])
 
         else:
             self.parents_store.append([self.parent_device, self.free_device, False, False,
@@ -1147,6 +1152,10 @@ class AddDialog(Gtk.Dialog):
         elif device_type == "mdraid":
             self.show_widgets(["name", "size", "mountpoint", "fs", "mdraid"])
             self.hide_widgets(["label", "encrypt", "passphrase", "advanced"])
+
+        elif device_type == "lvm snapshot":
+            self.show_widgets(["name", "size"])
+            self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced",  "mdraid", "mountpoint"])
 
         self.update_raid_type_chooser()
 

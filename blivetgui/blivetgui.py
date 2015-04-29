@@ -311,14 +311,15 @@ class BlivetGUI(object):
             :type btrfs_pt: bool
         """
 
-        # parent device; free space has always only one parent #FIXME
-        parent_device = self.list_partitions.selected_partition[0].parents[0]
-
         # btrfs volume has no special free space device -- parent device for newly
         # created subvolume is not parent of selected device but device (btrfs volume)
         # itself
-        if self.list_partitions.selected_partition[0].type == "btrfs volume":
+        # for snapshots 'parent' is the LV we are making snapshot
+        if self.list_partitions.selected_partition[0].type in ("btrfs volume", "lvmlv"):
             parent_device = self.list_partitions.selected_partition[0]
+
+        else:
+            parent_device = self.list_partitions.selected_partition[0].parents[0]
 
         parent_device_type = parent_device.type
 
@@ -360,11 +361,19 @@ class BlivetGUI(object):
             dialog.destroy()
             return
 
+        # for snapshots we don't know the free space device because user doesn't choose one
+        # we have the lvmlv and lvmvg information only
+        if parent_device_type == "lvmlv":
+            free_device = self.client.remote_call("get_vg_free", parent_device.parents[0])
+
+        else:
+            free_device = self.list_partitions.selected_partition[0]
+
         dialog = add_dialog.AddDialog(self.main_window,
                                       parent_device_type,
                                       parent_device,
-                                      self.list_partitions.selected_partition[0],
-                                      self.list_partitions.selected_partition[0].size,
+                                      free_device,
+                                      free_device.size,
                                       self.client.remote_call("get_free_pvs_info"),
                                       self.client.remote_call("get_free_disks_regions"),
                                       {"btrfs volume" : self.client.remote_call("get_available_raid_levels", "btrfs volume"),

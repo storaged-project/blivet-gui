@@ -25,11 +25,9 @@ from __future__ import print_function
 
 import blivet
 
-from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice
+from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice, LVMSnapShotDevice
 
 from  .blivetguiproxy.proxy_utils import ProxyDataContainer
-
-from gi.repository import GLib
 
 from gi.overrides import BlockDev
 
@@ -218,6 +216,14 @@ class BlivetUtils(object):
                 free_pvs.append((pv, FreeSpaceDevice(pv.size, None, None, pv.parents)))
 
         return free_pvs
+
+    def get_vg_free(self, blivet_device):
+        """ Return FreeSpaceDevice for selected LVM VG
+        """
+
+        assert blivet_device.type == "lvmvg"
+
+        return FreeSpaceDevice(blivet_device.freeSpace, None, None, [blivet_device])
 
     def get_free_disks_regions(self):
         """ Returns list of non-empty disks with free space
@@ -604,7 +610,7 @@ class BlivetUtils(object):
         return ProxyDataContainer(success=True, actions=actions,
                           message=None, exception=None, traceback=None)
 
-    def _pick_device_name(self, name, parent_device=None):
+    def _pick_device_name(self, name, parent_device=None, snapshot=False):
         """ Pick name for device.
             If user choosed a name, check it and (if necessary) change it
 
@@ -620,6 +626,10 @@ class BlivetUtils(object):
         if not name:
             if parent_device:
                 name = self.storage.suggestDeviceName(parent=parent_device, swap=False)
+
+            elif snapshot:
+                name = self.storage.suggestDeviceName(parent=parent_device, swap=False,
+                                                      prefix="snapshot")
 
             else:
 
@@ -932,6 +942,16 @@ class BlivetUtils(object):
             fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem)
             actions.append(blivet.deviceaction.ActionCreateFormat(new_md, fmt))
 
+        elif user_input.device_type == "lvm snapshot":
+            origin_lv = user_input.parents[0][0]
+            snapshot_size = user_input.parents[0][1]
+
+            device_name = self._pick_device_name(user_input.name, origin_lv.parents[0])
+
+            new_snap = LVMSnapShotDevice(name=device_name, parents=[origin_lv.parents[0]],
+                                         origin=origin_lv, size=snapshot_size)
+            actions.append(blivet.deviceaction.ActionCreateDevice(new_snap))
+
         try:
             for ac in actions:
                 if not ac._applied:
@@ -983,7 +1003,7 @@ class BlivetUtils(object):
 
         if parent.type == "free space":
             dev = PartitionDevice(name="req%d" % self.storage.nextID, size=parent.size,
-                                  parents=parent.parents)
+                                  parents=[i for i in parent.parents])
             ac_part = blivet.deviceaction.ActionCreateDevice(dev)
 
             fmt = blivet.formats.getFormat(fmt_type="lvmpv")

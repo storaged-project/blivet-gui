@@ -306,7 +306,7 @@ class ListPartitions(object):
         if self._allow_edit_device(device):
             self.blivet_gui.activate_options(["edit"])
 
-        if device.type in ("free space", "btrfs volume"):
+        if device.type in ("free space", "btrfs volume", "lvmlv"):
             self.blivet_gui.activate_options(["add"])
 
         if device.format:
