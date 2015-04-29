@@ -373,7 +373,6 @@ class BlivetGUI(object):
                                       parent_device_type,
                                       parent_device,
                                       free_device,
-                                      free_device.size,
                                       self.client.remote_call("get_free_pvs_info"),
                                       self.client.remote_call("get_free_disks_regions"),
                                       {"btrfs volume" : self.client.remote_call("get_available_raid_levels", "btrfs volume"),

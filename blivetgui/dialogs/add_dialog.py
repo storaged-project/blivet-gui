@@ -48,6 +48,28 @@ SUPPORTED_PESIZE = ["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"]
 
 #------------------------------------------------------------------------------#
 
+def get_size_precision(down_limit, up_limit):
+    """ Get precision for scale
+    """
+
+    step = 1.0
+    digits = 0
+
+    while True:
+        if down_limit >= 1.0:
+            break
+
+        down_limit *= 10
+        step /= 10
+        digits += 1
+
+    # always offer at least 10 steps to adjust size
+    if up_limit - down_limit < 10*step:
+        step /= 10
+        digits += 1
+
+    return step, digits
+
 def check_mountpoint(parent_window, used_mountpoints, mountpoint):
     """ Kickstart mode; check for duplicate mountpoints
 
@@ -228,8 +250,8 @@ class SizeChooserArea(object):
                              self.max_size.convertTo(size.parseUnits(unit, False)))
         self.scale.clear_marks()
 
-        increment, digits = self.get_size_precision(self.min_size.convertTo(size.parseUnits(unit, False)),
-            self.max_size.convertTo(size.parseUnits(unit, False)), unit)
+        increment, digits = get_size_precision(self.min_size.convertTo(size.parseUnits(unit, False)),
+            self.max_size.convertTo(size.parseUnits(unit, False)))
         self.scale.set_increments(increment, increment*10)
         self.scale.set_digits(digits)
 
@@ -248,26 +270,6 @@ class SizeChooserArea(object):
     def set_selected_size(self, selected_size):
 
         self.scale.set_value(selected_size.convertTo(size.parseUnits(self.selected_unit, False)))
-
-    def get_size_precision(self, down_limit, up_limit, unit):
-
-        step = 1.0
-        digits = 0
-
-        while True:
-            if down_limit >= 1.0:
-                break
-
-            down_limit *= 10
-            step /= 10
-            digits += 1
-
-        # always offer at least 10 steps to adjust size
-        if up_limit - down_limit < 10*step:
-            step /= 10
-            digits += 1
-
-        return step, digits
 
     def on_unit_combo_changed(self, combo):
 
@@ -448,52 +450,47 @@ class AddDialog(Gtk.Dialog):
          size, fs, label etc.
     """
 
-    def __init__(self, parent_window, device_type, parent_device, free_device,
-        free_space, free_pvs, free_disks_regions, supported_raids, has_extended,
-        mountpoints, kickstart=False):
+    def __init__(self, parent_window, parent_type, parent_device, free_device, free_pvs,
+                 free_disks_regions, supported_raids, has_extended, mountpoints,
+                 kickstart_mode=False):
         """
 
-            :param device_type: type of parent device
-            :type device_type: str
-            :parama parent_device: parent device
-            :type parent_device: blivet.Device
-            :param free_device: free device
-            :type free_device: FreeSpaceDevice
-            :param free_space: free device size
-            :type free_space: blivet.Size
-            :param free_pvs: list PVs with no VG
-            :type free_pvs: list
+            :param str parent_type: type of (future) parent device
+            :parama parent_device: future parent device
+            :type parent_device: :class:`blivet.Device` instances
+            :param free_device: selected free space device
+            :type free_device: :class:`blivetgui.utils.FreeSpaceDevice` instances
+            :param list free_pvs: list PVs with no VG
             :param free_disks_regions: list of free regions on non-empty disks
-            :type free_disks_regions: list of blivetgui.utils.FreeSpaceDevice
-            :param mountpoints: list of mountpoints in current devicetree
-            :type mountpoints: list of str
-            :param kickstart: kickstart mode
-            :type kickstart: bool
+            :type free_disks_regions: list of :class:`blivetgui.utils.FreeSpaceDevice` instances
+            :param list mountpoints: list of mountpoints in current devicetree
+            :param bool kickstart_mode: kickstart mode
 
           """
 
+        self.parent_window = parent_window
+
+        self.parent_type = parent_type
         self.free_device = free_device
-        self.free_space = free_space
-        self.device_type = device_type
         self.parent_device = parent_device
+
         self.free_pvs = free_pvs
         self.free_disks_regions = free_disks_regions
-        self.parent_window = parent_window
-        self.kickstart = kickstart
+
+        self.kickstart_mode = kickstart_mode
+
         self.supported_raids = supported_raids
         self.has_extended = has_extended
         self.mountpoints = mountpoints
 
         Gtk.Dialog.__init__(self, _("Create new device"), None, 0,
-            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-            Gtk.STOCK_OK, Gtk.ResponseType.OK))
+            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
 
         self.set_resizable(False) # auto shrink after removing widgets
 
-        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
-            column_spacing=5)
+        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
         self.grid.set_border_width(10)
 
         self.box = self.get_content_area()
@@ -511,7 +508,7 @@ class AddDialog(Gtk.Dialog):
 
         self.raid_combo, self.raid_changed_signal = self.add_raid_type_chooser()
 
-        if kickstart:
+        if kickstart_mode:
             self.mountpoint_entry = self.add_mountpoint()
 
         self.devices_combo = self.add_device_chooser()
@@ -547,21 +544,21 @@ class AddDialog(Gtk.Dialog):
         label_devices.get_style_context().add_class("dim-label")
         self.grid.attach(label_devices, 0, 0, 1, 1)
 
-        if self.device_type == "disk" and self.free_device.isLogical:
+        if self.parent_type == "disk" and self.free_device.isLogical:
             devices = [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
                        (_("LVM2 Physical Volume"), "lvmpv")]
 
-        elif self.device_type == "disk" and not self.parent_device.format.type \
+        elif self.parent_type == "disk" and not self.parent_device.format.type \
             and self.free_device.size > size.Size("256 MiB"):
             devices = [(_("Btrfs Volume"), "btrfs volume")]
 
         else:
-            devices = map_type_devices[self.device_type]
+            devices = map_type_devices[self.parent_type]
 
-            if self.device_type == "disk" and len(self.free_disks_regions) > 1:
+            if self.parent_type == "disk" and len(self.free_disks_regions) > 1:
                 devices.append((_("Software RAID"), "mdraid"))
 
-            if self.device_type == "disk" and self.free_device.size > size.Size("256 MiB"):
+            if self.parent_type == "disk" and self.free_device.size > size.Size("256 MiB"):
                 devices.append((_("Btrfs Volume"), "btrfs volume"))
 
         devices_store = Gtk.ListStore(str, str)
@@ -655,7 +652,7 @@ class AddDialog(Gtk.Dialog):
 
         return
 
-    def on_raid_type_changed(self, event):
+    def on_raid_type_changed(self, _event):
         self.size_grid, self.size_scroll = self.add_size_areas()
 
     def add_raid_type_chooser(self):
@@ -690,7 +687,6 @@ class AddDialog(Gtk.Dialog):
                 self.show_widgets(["size"])
 
     def add_free_type_chooser(self):
-
         label_empty_type = Gtk.Label(label=_("Volumes based on:"), xalign=1)
         label_empty_type.get_style_context().add_class("dim-label")
         self.grid.attach(label_empty_type, 0, 1, 1, 1)
@@ -723,7 +719,6 @@ class AddDialog(Gtk.Dialog):
         self.free_type_chooser = (label_empty_type, button1, button2)
 
     def remove_free_type_chooser(self):
-
         for widget in self.free_type_chooser:
             widget.destroy()
 
@@ -783,7 +778,7 @@ class AddDialog(Gtk.Dialog):
 
         self.select_selected_free_region()
 
-    def on_cell_toggled(self, event, path):
+    def on_cell_toggled(self, _event, path):
 
         if self.parents_store[path][2]:
             pass
@@ -837,8 +832,9 @@ class AddDialog(Gtk.Dialog):
             for area in self.size_areas:
                 area.set_selected_size(selected_size)
 
-    def add_size_areas(self):
-        device_type = self._get_selected_device_type()
+    def _destroy_size_areas(self):
+        """ Remove existing size areas
+        """
 
         self.widgets_dict["size"] = []
 
@@ -851,13 +847,18 @@ class AddDialog(Gtk.Dialog):
 
             self.size_areas = []
 
+    def add_size_areas(self):
+        device_type = self._get_selected_device_type()
+
+        # remove all existing size areas
+        self._destroy_size_areas()
+
         size_scroll = Gtk.ScrolledWindow()
         size_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
         self.grid.attach(size_scroll, 0, 6, 6, 1)
         size_scroll.show()
 
-        size_grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
-            column_spacing=5)
+        size_grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
 
         size_scroll.add(size_grid)
         size_grid.show()
@@ -866,15 +867,15 @@ class AddDialog(Gtk.Dialog):
 
         raid, max_size = self.raid_member_max_size()
 
-        min_size = size.Size("1 MiB")
-        if device_type in ("lvmpv", "lvm"):
+        if device_type in ("lvmpv", "lvm", "lvm snapshot"):
             min_size = size.Size("8 MiB")
         elif device_type == "btrfs volume":
             min_size = size.Size("256 MiB")
+        else:
+            min_size = size.Size("1 MiB")
 
         for row in self.parents_store:
             if row[3]:
-
                 if not raid:
                     max_size = row[1].size
 
@@ -959,8 +960,7 @@ class AddDialog(Gtk.Dialog):
 
         return md_type_combo
 
-    def on_md_type_changed(self, event):
-
+    def on_md_type_changed(self, _event):
         if self.md_type_combo.get_active_id() == "partition":
             self.show_widgets(["fs"])
 
@@ -1080,7 +1080,7 @@ class AddDialog(Gtk.Dialog):
     def show_widgets(self, widget_types):
 
         for widget_type in widget_types:
-            if widget_type == "mountpoint" and not self.kickstart:
+            if widget_type == "mountpoint" and not self.kickstart_mode:
                 continue
 
             elif widget_type == "size":
@@ -1094,7 +1094,7 @@ class AddDialog(Gtk.Dialog):
     def hide_widgets(self, widget_types):
 
         for widget_type in widget_types:
-            if widget_type == "mountpoint" and not self.kickstart:
+            if widget_type == "mountpoint" and not self.kickstart_mode:
                 continue
 
             elif widget_type == "size":
@@ -1105,7 +1105,7 @@ class AddDialog(Gtk.Dialog):
                 for widget in self.widgets_dict[widget_type]:
                     widget.hide()
 
-    def on_devices_combo_changed(self, event):
+    def on_devices_combo_changed(self, _event):
 
         device_type = self._get_selected_device_type()
 
@@ -1142,7 +1142,7 @@ class AddDialog(Gtk.Dialog):
 
         elif device_type == "btrfs volume":
             self.show_widgets(["name", "size", "mountpoint"])
-            self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced",  "mdraid"])
+            self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid"])
             self.add_free_type_chooser()
 
         elif device_type == "btrfs subvolume":
@@ -1155,7 +1155,7 @@ class AddDialog(Gtk.Dialog):
 
         elif device_type == "lvm snapshot":
             self.show_widgets(["name", "size"])
-            self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced",  "mdraid", "mountpoint"])
+            self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint"])
 
         self.update_raid_type_chooser()
 
@@ -1172,7 +1172,6 @@ class AddDialog(Gtk.Dialog):
             return None
 
     def _get_number_selected_parents(self):
-
         num = 0
 
         for row in self.parents_store:
@@ -1188,42 +1187,37 @@ class AddDialog(Gtk.Dialog):
         user_input = self.get_selection()
 
         if not user_input.filesystem and user_input.device_type == "partition" \
-            and user_input.advanced["parttype"] != "extended":
-
+           and user_input.advanced["parttype"] != "extended":
             msg = _("Filesystem type must be specified when creating new partition.")
             message_dialogs.ErrorDialog(self, msg)
 
             return False
 
         elif not user_input.filesystem and user_input.device_type == "lvmlv":
-
             msg = _("Filesystem type must be specified when creating new logical volume.")
             message_dialogs.ErrorDialog(self, msg)
 
             return False
 
         elif user_input.encrypt and not user_input.passphrase:
-
             msg = _("Passphrase not specified.")
             message_dialogs.ErrorDialog(self, msg)
 
             return False
 
         elif user_input.mountpoint and not os.path.isabs(user_input.mountpoint):
-
             msg = _("\"{0}\" is not a valid mountpoint.").format(user_input.mountpoint)
             message_dialogs.ErrorDialog(self, msg)
 
             return False
 
         elif user_input.device_type == "mdraid" and len(user_input.parents) == 1:
-
             msg = _("Please select at least two parent devices.")
             message_dialogs.ErrorDialog(self, msg)
 
             return False
 
-        elif self.kickstart and user_input.mountpoint:
+        elif self.kickstart_mode and user_input.mountpoint:
             if check_mountpoint(self, self.mountpoints, user_input.mountpoint):
                 return True
 
@@ -1233,13 +1227,11 @@ class AddDialog(Gtk.Dialog):
         else:
             return True
 
-    def on_ok_clicked(self, event):
-
+    def on_ok_clicked(self, _event):
         if not self.validate_user_input():
             self.run()
 
     def get_selection(self):
-
         device_type = self._get_selected_device_type()
 
         parents = []
@@ -1254,19 +1246,16 @@ class AddDialog(Gtk.Dialog):
                 btrfs_type = "disks"
             elif self.free_type_chooser[2].get_active():
                 btrfs_type = "partitions"
-
         else:
             btrfs_type = None
 
         if device_type in ("btrfs volume", "lvmlv", "mdraid"):
             raid_level = self.raid_combo.get_active_text()
-
         else:
             raid_level = None
 
-        if self.kickstart:
+        if self.kickstart_mode:
             mountpoint = self.mountpoint_entry.get_text()
-
         else:
             mountpoint = None
 
@@ -1277,22 +1266,21 @@ class AddDialog(Gtk.Dialog):
 
         if device_type == "mdraid" and self.md_type_combo.get_active_id() == "lvmpv":
             filesystem = "lvmpv"
-
         else:
             filesystem = self.filesystems_combo.get_active_text()
 
         return ProxyDataContainer(device_type=device_type,
-            size=total_size,
-            filesystem=filesystem,
-            name=self.name_entry.get_text(),
-            label=self.label_entry.get_text(),
-            mountpoint=mountpoint,
-            encrypt=self.encrypt_check.get_active(),
-            passphrase=self.pass_entry.get_text(),
-            parents=parents,
-            btrfs_type=btrfs_type,
-            raid_level=raid_level,
-            advanced=advanced)
+                                  size=total_size,
+                                  filesystem=filesystem,
+                                  name=self.name_entry.get_text(),
+                                  label=self.label_entry.get_text(),
+                                  mountpoint=mountpoint,
+                                  encrypt=self.encrypt_check.get_active(),
+                                  passphrase=self.pass_entry.get_text(),
+                                  parents=parents,
+                                  btrfs_type=btrfs_type,
+                                  raid_level=raid_level,
+                                  advanced=advanced)
 
 class AddLabelDialog(Gtk.Dialog):
     """ Dialog window allowing user to add disklabel to disk
