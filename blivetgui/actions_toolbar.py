@@ -85,7 +85,8 @@ class ActionsToolbar(object):
         """
 
         for button in button_names:
-            self.buttons[button].set_sensitive(True)
+            if button in self.buttons.keys():
+                self.buttons[button].set_sensitive(True)
 
     def deactivate_buttons(self, button_names):
         """ Deactivate selected buttons
@@ -96,7 +97,8 @@ class ActionsToolbar(object):
         """
 
         for button in button_names:
-            self.buttons[button].set_sensitive(False)
+            if button in self.buttons.keys():
+                self.buttons[button].set_sensitive(False)
 
     def deactivate_all(self):
         """ Deactivate all partition based buttons
