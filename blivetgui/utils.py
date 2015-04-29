@@ -493,6 +493,14 @@ class BlivetUtils(object):
         return ProxyDataContainer(success=True, actions=actions,
                           message=None, exception=None, traceback=None)
 
+    def _has_snapshots(self, blivet_device):
+
+        for lvs in self.storage.devicetree.getChildren(blivet_device.vg):
+            if isinstance(lvs, LVMSnapShotDevice) and lvs.origin == blivet_device:
+                return True
+
+        return False
+
     def _update_min_sizes_info(self):
         """ Update information of minimal size for resizable devices
         """
@@ -517,6 +525,11 @@ class BlivetUtils(object):
 
         if blivet_device.format.type in (None, "swap") or not blivet_device.format.exists:
             return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
+                                      max_size=blivet_device.size)
+
+        if blivet_device.type in ("lvmlv",) and self._has_snapshots(blivet_device):
+            msg = _("Logical Volumes with snapshots couldn't be resized.")
+            return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
         try:
