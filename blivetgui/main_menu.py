@@ -165,7 +165,8 @@ class MainMenu(object):
         """
 
         for item in menu_item_names:
-            self.menu_items[item].set_sensitive(True)
+            if item in self.menu_items.keys():
+                self.menu_items[item].set_sensitive(True)
 
     def deactivate_menu_items(self, menu_item_names):
         """ Deactivate selected buttons
@@ -176,7 +177,8 @@ class MainMenu(object):
         """
 
         for item in menu_item_names:
-            self.menu_items[item].set_sensitive(False)
+            if item in self.menu_items.keys():
+                self.menu_items[item].set_sensitive(False)
 
     def deactivate_all(self):
         """ Deactivate all partition based buttons

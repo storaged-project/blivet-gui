@@ -161,9 +161,7 @@ class BlivetGUI(object):
         for item in activate_list:
             self.toolbar.activate_buttons([item])
             self.main_menu.activate_menu_items([item])
-
-            if item not in ("apply", "clear", "undo"):
-                self.popup_menu.activate_menu_items([item])
+            self.popup_menu.activate_menu_items([item])
 
     def deactivate_options(self, deactivate_list):
         """ Deactivate toolbar buttons and menu items
@@ -176,9 +174,7 @@ class BlivetGUI(object):
         for item in deactivate_list:
             self.toolbar.deactivate_buttons([item])
             self.main_menu.deactivate_menu_items([item])
-
-            if item not in ("apply", "clear", "undo"):
-                self.popup_menu.deactivate_menu_items([item])
+            self.popup_menu.deactivate_menu_items([item])
 
     def deactivate_all_options(self):
         """ Deactivate all partition-based buttons/menu items
