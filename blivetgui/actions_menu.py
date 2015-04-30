@@ -52,7 +52,8 @@ class ActionsMenu(object):
                  (_("Delete"), "delete", self.blivet_gui.delete_selected_partition),
                  (_("Edit"), "edit", self.blivet_gui.edit_device),
                  (_("Unmount"), "unmount", self.blivet_gui.umount_partition),
-                 (_("Decrypt"), "decrypt", self.blivet_gui.decrypt_device)]
+                 (_("Decrypt"), "decrypt", self.blivet_gui.decrypt_device),
+                 (_("Information"), "info", self.blivet_gui.device_information)]
 
         for item in items:
             menu_item = Gtk.MenuItem()
