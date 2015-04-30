@@ -36,7 +36,7 @@ from .devicevisualization.device_canvas import DeviceCanvas
 from .utils import BlivetUtils
 
 from .logs import set_logging, set_python_meh, remove_logs
-from .dialogs import message_dialogs, other_dialogs, edit_dialog, add_dialog
+from .dialogs import message_dialogs, other_dialogs, edit_dialog, add_dialog, device_info_dialog
 from .processing_window import ProcessingActions
 
 import gettext
@@ -237,6 +237,16 @@ class BlivetGUI(object):
 
         else:
             raise exception.with_traceback(traceback)
+
+    def device_information(self, widget=None):
+        """ Display information about currently selected device
+        """
+
+        blivet_device = self.list_partitions.selected_partition[0]
+
+        dialog = device_info_dialog.DeviceInformationDialog(self.main_window, blivet_device)
+        dialog.run()
+        dialog.destroy()
 
     def edit_device(self, widget=None):
         """ Edit selected device
