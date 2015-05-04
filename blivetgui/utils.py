@@ -1123,7 +1123,7 @@ class BlivetUtils(object):
         """ Return list of current mountpoints
         """
 
-        return self.storage.mountpoints.keys()
+        return list(self.storage.mountpoints.keys())
 
     def create_disk_label(self, blivet_device, label_type):
         """ Create disklabel

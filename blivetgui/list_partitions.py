@@ -154,25 +154,13 @@ class ListPartitions(object):
             else:
                 resize_size = "--"
 
-            if partition.format.systemMountpoint:
+            if self.kickstart_mode:
                 iter_added = self.partitions_list.append(parent, [partition, name,
                                                                   partition.format.type,
                                                                   partition.format.systemMountpoint,
                                                                   str(partition.size),
-                                                                  str(resize_size), None, None])
-
-            elif not partition.format.systemMountpoint and self.kickstart_mode:
-
-                if hasattr(self.blivet_gui.old_mountpoints, partition.format.uuid):
-                    old_mnt = getattr(self.blivet_gui.old_mountpoints, partition.format.uuid)
-                else:
-                    old_mnt = None
-
-                iter_added = self.partitions_list.append(parent, [partition, name,
-                                                                  partition.format.type,
-                                                                  partition.format.systemMountpoint,
-                                                                  str(partition.size),
-                                                                  str(resize_size), old_mnt, None])
+                                                                  str(resize_size),
+                                                                  partition.format.mountpoint, None])
 
             else:
                 iter_added = self.partitions_list.append(parent, [partition, name,
@@ -180,6 +168,7 @@ class ListPartitions(object):
                                                                   partition.format.systemMountpoint,
                                                                   str(partition.size),
                                                                   str(resize_size), None, None])
+
         else:
             iter_added = self.partitions_list.append(parent, [partition, name,
                                                               partition.format.type, "--",
@@ -201,7 +190,7 @@ class ListPartitions(object):
 
         columns = (_("Partition"), _("Filesystem"), _("Mountpoint"), _("Size"), ("Used"))
         if self.kickstart_mode:
-            columns += (_("Current Mountpoint"),)
+            columns += (_("Installation Mountpoint"),)
 
         for idx, column in enumerate(columns):
             treeview_column = Gtk.TreeViewColumn(column, renderer_text, text=idx + 1)
