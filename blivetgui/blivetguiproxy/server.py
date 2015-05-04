@@ -28,8 +28,6 @@ import traceback
 
 import struct
 
-import sys
-
 from six.moves import socketserver # pylint: disable=import-error
 from six.moves import cPickle # pylint: disable=import-error
 

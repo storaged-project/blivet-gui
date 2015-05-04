@@ -64,7 +64,7 @@ class ProcessingActions(Gtk.Dialog):
         self.progressbar = Gtk.ProgressBar()
         self.grid.attach(self.progressbar, 0, 1, 3, 1)
 
-        self.timeout_id = GLib.timeout_add(50, self.on_timeout, None)
+        self.timeout_id = GLib.timeout_add(50, self.on_timeout)
 
         self.set_resizable(False)
         self.show_all()
@@ -85,7 +85,7 @@ class ProcessingActions(Gtk.Dialog):
         self.set_response_sensitive(Gtk.ResponseType.OK, True)
         self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
 
-    def on_timeout(self, user_data):
+    def on_timeout(self):
         """ Timeout fuction for progressbar pulsing
         """
 

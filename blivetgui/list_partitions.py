@@ -64,7 +64,6 @@ class ListPartitions(object):
         """
 
         def childs_loop(childs, parent):
-
             extended_iter = None
             unadded_logical = []
 
@@ -198,7 +197,7 @@ class ListPartitions(object):
         treeview = Gtk.TreeView(model=partitions)
         treeview.set_vexpand(True)
 
-        renderer_text = Gtk.CellRendererText(ellipsize = Pango.EllipsizeMode.END)
+        renderer_text = Gtk.CellRendererText(ellipsize=Pango.EllipsizeMode.END)
 
         columns = (_("Partition"), _("Filesystem"), _("Mountpoint"), _("Size"), ("Used"))
         if self.kickstart_mode:

@@ -188,13 +188,13 @@ class MainMenu(object):
             if item not in ("apply", "clear", "undo"):
                 self.menu_items[item].set_sensitive(False)
 
-    def on_about_item(self, *args):
+    def on_about_item(self, *_args):
         """ Onselect action for 'About'
         """
 
         AboutDialog(self.blivet_gui.main_window)
 
-    def on_help_item(self, *args):
+    def on_help_item(self, *_args):
         """ Onselect action for 'Help'
         """
 

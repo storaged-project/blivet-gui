@@ -24,7 +24,7 @@
 
 from __future__ import print_function
 
-import os, signal
+import signal
 
 from gi.repository import Gtk
 
@@ -37,25 +37,27 @@ _ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x !
 #------------------------------------------------------------------------------#
 
 class MainWindow(object):
+    """ Class representing the main window (Gtk.Window) ow blivet-gui.
+    """
 
     def __init__(self, blivet_gui):
 
         self.blivet_gui = blivet_gui
 
         if self.blivet_gui.embedded_socket:
-            self.window = self.embedded_window(blivet_gui.kickstart_mode, blivet_gui.embedded_socket)
+            self.window = self.embedded_window(blivet_gui.embedded_socket)
 
         else:
-            self.window = self.main_window(blivet_gui.kickstart_mode)
+            self.window = self.main_window()
             self.window.connect("delete-event", self.blivet_gui.quit)
 
-    def main_window(self, kickstart=False):
+    def main_window(self):
         """ Create main window from Glade UI file
         """
 
         return self.blivet_gui.builder.get_object("main_window")
 
-    def embedded_window(self, kickstart=False, socket_id=0):
+    def embedded_window(self, socket_id=0):
         """ Create Gtk.Plug widget
         """
 
