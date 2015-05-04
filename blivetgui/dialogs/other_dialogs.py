@@ -171,10 +171,10 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
         for disk in self.blivet_disks:
             if disk.removable:
                 disks_store.append([disk, False, icon_disk_usb,
-                                    str(disk.name + "\n<i><small>" + disk.model + "</small></i>")])
+                                    str(disk.name) + "\n<i><small>" + str(disk.model) + "</small></i>"])
             else:
                 disks_store.append([disk, False, icon_disk,
-                                    str(disk.name + "\n<i><small>" + disk.model + "</small></i>")])
+                                    str(disk.name) + "\n<i><small>" + str(disk.model) + "</small></i>"])
 
         label_list = Gtk.Label(label=_("Please select at least one of shown devices:"), xalign=1)
         label_list.get_style_context().add_class("dim-label")
