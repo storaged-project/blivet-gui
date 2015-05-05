@@ -221,10 +221,10 @@ class DeviceInformationDialog(Gtk.Dialog):
         self.grid.attach(parent_info_label, left=0, top=6, width=2, height=1)
 
         info = ""
-        for idx, parent in enumerate(parents):
+        for parent in parents:
             exists = _("existing") if parent.exists else _("non-existing")
-            info += _(" • Parent device #{idx}: {exists} {size} {type} {name}\n").format(idx=idx,
-                exists=exists, size=str(parent.size), name=parent.name, type=parent.type)
+            info += _(" • {exists} {size} {type} {name}\n").format(exists=exists,
+                size=str(parent.size), name=parent.name, type=parent.type)
 
         parent_info_label.set_markup(info)
         parent_info_label.set_alignment(xalign=0, yalign=0)
