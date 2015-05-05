@@ -55,7 +55,7 @@ class SocketWindow(Gtk.Window):
 
         self.show_all()
 
-    def plugged_event(self, widget):
+    def plugged_event(self, _widget):
         print "A plug has been inserted."
 
 window = SocketWindow()

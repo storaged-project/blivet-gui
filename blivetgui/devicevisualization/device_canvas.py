@@ -396,7 +396,7 @@ class DeviceCanvas(Gtk.DrawingArea):
 
         return True
 
-    def button_press_event(self, darea, event):
+    def button_press_event(self, _darea, event):
         """ Button press event for partition image
         """
 

@@ -271,7 +271,7 @@ class BlivetGUIClient(object):
 
             except OSError as e: #TODO: python3 BrokenPipeError
                 ErrorDialog(parent_window=self.blivetgui.main_window,
-                            msg=_("Failed to connect to blivet-gui-daemon.\n%s" % e))
+                            msg=_("Failed to connect to blivet-gui-daemon.\n{err}").format(err=e))
                 os._exit(1)
 
             if not packet:
@@ -289,5 +289,5 @@ class BlivetGUIClient(object):
 
         except OSError as e:
             ErrorDialog(parent_window=self.blivetgui.main_window,
-                        msg=_("Failed to connect to blivet-gui-daemon.\n%s" % e))
+                        msg=_("Failed to connect to blivet-gui-daemon.\n{err}").format(err=e))
             os._exit(1)

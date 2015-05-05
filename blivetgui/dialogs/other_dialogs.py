@@ -185,7 +185,7 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
 
         return disks_store
 
-    def on_cell_toggled(self, event, path):
+    def on_cell_toggled(self, _event, path):
         self.disks_store[path][1] = not self.disks_store[path][1]
 
     def add_bootloader_chooser(self):
@@ -212,7 +212,7 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
 
         return boot_check, boot_device_combo
 
-    def on_boot_changed(self, event):
+    def on_boot_changed(self, _event):
         self.boot_device_combo.set_sensitive(not self.boot_device_combo.get_sensitive())
 
     def get_selection(self):
