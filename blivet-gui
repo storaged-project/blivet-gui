@@ -35,7 +35,7 @@ from blivetgui.dialogs.message_dialogs import locate_ui_file # FIXME
 #------------------------------------------------------------------------------#
 
 APP_NAME='blivet-gui'
-APP_VERSION='0.2.4'
+APP_VERSION='0.2.5'
 
 #------------------------------------------------------------------------------#
 

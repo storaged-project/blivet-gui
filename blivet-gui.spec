@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.2.4
+Version: 0.2.5
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -52,6 +52,16 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui_pkexec
 
 %changelog
+* Tue May 05 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.5-1
+- Do not (de)activate non-existing options in menus/toolbars (vtrefny)
+- Fix adding encrypted partitions (vtrefny)
+- New option to show device information (vtrefny)
+- Do not use Gio.Settings to obtaion default system font (vtrefny)
+- Delete udisks_loop.py file (no longer used) (vtrefny)
+- Use GLib.timeout_add instead of GObject.timeout_add (vtrefny)
+- Use blivet's ParentList for FreeSpaceDevice parents (vtrefny)
+- New version 0.2.4 (vtrefny)
+
 * Mon Apr 13 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.4-1
 - Auto-ellipsize longer strings in ListPartitions (vtrefny)
 - Fix widget spacing in AddLabelDialog (vtrefny)
