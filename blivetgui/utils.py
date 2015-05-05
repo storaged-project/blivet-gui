@@ -653,11 +653,11 @@ class BlivetUtils(object):
                 fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
                 actions.append(blivet.deviceaction.ActionCreateFormat(dev, fmt))
 
-                luks_dev = LUKSDevice("luks-%s" % dev.name,
-                    fmt=blivet.formats.getFormat(user_input.filesystem, device=dev.path,
-                        mountpoint=user_input.mountpoint), size=dev.size, parents=[dev])
-
+                luks_dev = LUKSDevice("luks-%s" % dev.name, size=dev.size, parents=[dev])
                 actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
+
+                luks_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem, device=dev.path, mountpoint=user_input.mountpoint)
+                actions.append(blivet.deviceaction.ActionCreateFormat(luks_dev, luks_fmt))
 
             else:
                 new_part = PartitionDevice(name="req%d" % self.storage.nextID,
