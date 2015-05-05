@@ -38,7 +38,7 @@ class AboutDialog(object):
     """ Standard 'about application' dialog
     """
 
-    def __init__(self, parent_window):
+    def __init__(self, parent_window, version):
 
         builder = Gtk.Builder()
         builder.add_from_file(locate_ui_file('about_dialog.ui'))
@@ -46,6 +46,7 @@ class AboutDialog(object):
 
         dialog.set_transient_for(parent_window)
         dialog.set_translator_credits(_("translator-credits"))
+        dialog.set_version(version)
 
         dialog.show_all()
         dialog.run()

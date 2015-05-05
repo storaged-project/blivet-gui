@@ -98,8 +98,8 @@ def main():
 
             from blivetgui.blivetgui import BlivetGUI
 
-            BlivetGUI(server_socket=sockfile, secret=secret, embedded_socket=options.socket,
-                      kickstart_mode=options.kickstart)
+            BlivetGUI(server_socket=sockfile, secret=secret, version=APP_VERSION,
+                      embedded_socket=options.socket, kickstart_mode=options.kickstart)
 
 if  __name__ == '__main__':
 

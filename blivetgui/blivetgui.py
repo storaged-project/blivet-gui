@@ -76,10 +76,11 @@ class BlivetGUI(object):
         Gtk.Widgets used in blivet-gui.
     """
 
-    def __init__(self, server_socket, secret, embedded_socket=None, kickstart_mode=False):
+    def __init__(self, server_socket, secret, version, embedded_socket=None, kickstart_mode=False):
 
         self.server_socket = server_socket
         self.secret = secret
+        self.version = version
         self.embedded_socket = embedded_socket
         self.kickstart_mode = kickstart_mode
 

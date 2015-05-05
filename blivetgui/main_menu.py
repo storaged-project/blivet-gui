@@ -192,7 +192,7 @@ class MainMenu(object):
         """ Onselect action for 'About'
         """
 
-        AboutDialog(self.blivet_gui.main_window)
+        AboutDialog(self.blivet_gui.main_window, self.blivet_gui.version)
 
     def on_help_item(self, *_args):
         """ Onselect action for 'Help'
