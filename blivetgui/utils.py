@@ -25,7 +25,7 @@ from __future__ import print_function
 
 import blivet
 
-from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice, LVMSnapShotDevice
+from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice, LVMSnapShotDevice, LVMThinLogicalVolumeDevice, LVMThinPoolDevice
 
 from  .blivetguiproxy.proxy_utils import ProxyDataContainer
 
@@ -445,7 +445,7 @@ class BlivetUtils(object):
             return result
 
         try:
-            if blivet_device.type in ("partition", "lvmlv") and blivet_device.format.type:
+            if blivet_device.type in ("partition", "lvmlv", "lvmthinlv") and blivet_device.format.type:
                 ac_fmt = blivet.deviceaction.ActionDestroyFormat(blivet_device)
                 self.storage.devicetree.registerAction(ac_fmt)
                 actions.append(ac_fmt)
@@ -809,6 +809,30 @@ class BlivetUtils(object):
             new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem, mountpoint=user_input.mountpoint)
 
             actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
+
+        elif user_input.device_type == "lvmthinlv":
+
+            device_name = self._pick_device_name(user_input.name,
+                user_input.parents[0][0])
+
+            new_part = LVMThinLogicalVolumeDevice(name=device_name, size=user_input.size,
+                parents=[i[0] for i in user_input.parents])
+
+            actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
+
+            new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem, mountpoint=user_input.mountpoint)
+
+            actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
+
+        elif user_input.device_type == "lvmthinpool":
+
+            device_name = self._pick_device_name(user_input.name,
+                user_input.parents[0][0])
+
+            new_part = LVMThinPoolDevice(name=device_name, size=user_input.size,
+                parents=[i[0] for i in user_input.parents])
+
+            actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
         elif user_input.device_type == "lvmvg":
 

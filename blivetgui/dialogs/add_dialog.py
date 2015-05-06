@@ -533,11 +533,12 @@ class AddDialog(Gtk.Dialog):
             "disk" : [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
             (_("LVM2 Physical Volume"), "lvmpv")],
             "lvmpv" : [(_("LVM2 Volume Group"), "lvmvg")],
-            "lvmvg" : [(_("LVM2 Logical Volume"), "lvmlv")],
+            "lvmvg" : [(_("LVM2 Logical Volume"), "lvmlv"), (_("LVM2 ThinPool"), "lvmthinpool")],
             "luks/dm-crypt" : [(_("LVM2 Volume Group"), "lvmvg")],
             "mdarray" : [(_("LVM2 Volume Group"), "lvmvg")],
             "btrfs volume" : [(_("Btrfs Subvolume"), "btrfs subvolume")],
-            "lvmlv" : [(_("LVM Snaphost"), "lvm snapshot")]
+            "lvmlv" : [(_("LVM2 Snaphost"), "lvm snapshot")],
+            "lvmthinpool" : [(_("LVM2 Thin Logical Volume"), "lvmthinlv")]
             }
 
         label_devices = Gtk.Label(label=_("Device type:"), xalign=1)
@@ -1136,7 +1137,7 @@ class AddDialog(Gtk.Dialog):
             self.show_widgets(["name", "advanced"])
             self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size", "passphrase", "mdraid"])
 
-        elif device_type == "lvmlv":
+        elif device_type in ("lvmlv", "lvmthinlv"):
             self.show_widgets(["name", "fs", "mountpoint", "size"])
             self.hide_widgets(["label", "encrypt", "passphrase", "advanced", "mdraid"])
 
@@ -1154,6 +1155,10 @@ class AddDialog(Gtk.Dialog):
             self.hide_widgets(["label", "encrypt", "passphrase", "advanced"])
 
         elif device_type == "lvm snapshot":
+            self.show_widgets(["name", "size"])
+            self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint"])
+
+        elif device_type == "lvmthinpool":
             self.show_widgets(["name", "size"])
             self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint"])
 

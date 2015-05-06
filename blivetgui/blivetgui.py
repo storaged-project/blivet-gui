@@ -324,7 +324,7 @@ class BlivetGUI(object):
         # created subvolume is not parent of selected device but device (btrfs volume)
         # itself
         # for snapshots 'parent' is the LV we are making snapshot
-        if self.list_partitions.selected_partition[0].type in ("btrfs volume", "lvmlv"):
+        if self.list_partitions.selected_partition[0].type in ("btrfs volume", "lvmlv", "lvmthinpool"):
             parent_device = self.list_partitions.selected_partition[0]
 
         else:
