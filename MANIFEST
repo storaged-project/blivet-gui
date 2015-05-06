@@ -28,6 +28,7 @@ blivetgui/devicevisualization/__init__.py
 blivetgui/devicevisualization/device_canvas.py
 blivetgui/dialogs/__init__.py
 blivetgui/dialogs/add_dialog.py
+blivetgui/dialogs/device_info_dialog.py
 blivetgui/dialogs/edit_dialog.py
 blivetgui/dialogs/message_dialogs.py
 blivetgui/dialogs/other_dialogs.py

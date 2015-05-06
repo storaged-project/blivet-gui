@@ -9,6 +9,7 @@ VERSION_TAG=$(VERSION)
 L10N_FILES = po
 ZANATA_PULL_ARGS = -B
 ZANATA_PUSH_ARGS = -B
+PYTHON=/usr/bin/python3
 
 all:
 	$(MAKE) -C po
@@ -25,10 +26,10 @@ potfile:
 clean:
 	-rm blivetgui/*.pyc blivetgui/*/*.pyc ChangeLog
 	$(MAKE) -C po clean
-	python setup.py -q clean --all
+	$(PYTHON) setup.py -q clean --all
 
 install:
-	python setup.py install --root=$(DESTDIR)
+	$(PYTHON) setup.py install --root=$(DESTDIR)
 	$(MAKE) -C po install
 
 ChangeLog:

@@ -43,7 +43,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 
 %files -f %{name}.lang
 %{_mandir}/man1/blivet-gui.1*
-%{python_sitelib}/*
+%{python3_sitelib}/*
 %{_datadir}/applications/blivet-gui.desktop
 %{_datadir}/polkit-1/actions/org.fedoraproject.pkexec.blivet-gui.policy
 %{_datadir}/blivet-gui
