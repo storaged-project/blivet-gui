@@ -145,8 +145,13 @@ class DeviceInformationDialog(Gtk.Dialog):
         device_type_label = Gtk.Label()
         self.grid.attach(child=device_type_label, left=0, top=0, width=2, height=1)
 
-        info = "<b>{type} {name}</b>".format(type=self.type_dict[self.device.type][0],
-            name=self.device.name)
+        # unknow device type
+        if self.device.type not in self.type_dict.keys():
+            info = _("<b>Unknown device {name}</b>").format(name=self.device.name)
+
+        else:
+            info = "<b>{type} {name}</b>".format(type=self.type_dict[self.device.type][0],
+                name=self.device.name)
         device_type_label.set_markup(info)
 
         # device info header
