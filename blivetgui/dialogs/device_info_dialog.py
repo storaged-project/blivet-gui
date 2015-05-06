@@ -80,6 +80,7 @@ class DeviceInformationDialog(Gtk.Dialog):
                           "lvmlv" : (_("LVM2 Logical Volume"), self._get_lvmlv_info),
                           "lvmsnapshot" : (_("LVM2 Snapshot"), self._get_lvmlv_info),
                           "lvmthinpool" : (_("LVM2 ThinPool"), self._get_lvmlv_info),
+                          "lvmthinlv" : (_("LVM2 Thin Logical Volume"), self._get_lvmlv_info),
                           "luks/dm-crypt" : (_("LUKS/DM-Crypt Device"), None),
                           "btrfs volume" : (_("Btrfs Volume"), self._get_btrfs_info),
                           "btrfs subvolume" : (_("Btrfs Subvolume"), self._get_btrfs_info)}
