@@ -24,7 +24,7 @@
 
 import gettext
 
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GdkPixbuf, Pango
 
 #------------------------------------------------------------------------------#
 
@@ -36,9 +36,17 @@ class ProcessingActions(Gtk.Dialog):
     """ Processing actions dialog
     """
 
-    def __init__(self, blivet_gui):
+    def __init__(self, blivet_gui, actions):
+        """
+            :param blivet-gui: BlivetGUI instance
+            :param actions: number of actions to process
+
+        """
 
         self.blivet_gui = blivet_gui
+        self.actions = actions
+
+        self.finished_actions = 0
 
         Gtk.Dialog.__init__(self, _("Proccessing"), None, 0, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
@@ -57,22 +65,78 @@ class ProcessingActions(Gtk.Dialog):
         self.pulse = True
 
         self.label = Gtk.Label()
-        self.grid.attach(self.label, 0, 0, 3, 1)
+        self.label.set_size_request(350, -1)
+        self.label.set_line_wrap_mode(Pango.WrapMode.WORD_CHAR)
+        self.label.set_line_wrap(True)
 
-        self.label.set_markup(_("<b>Queued actions are being proccessed.</b>"))
+        table = Gtk.Table(1, 1, False)
+        table.attach(self.label, 0, 1, 0, 1, Gtk.AttachOptions.SHRINK | Gtk.AttachOptions.FILL)
+        self.grid.attach(table, 0, 0, 3, 1)
 
         self.progressbar = Gtk.ProgressBar()
         self.grid.attach(self.progressbar, 0, 1, 3, 1)
 
-        self.timeout_id = GLib.timeout_add(50, self.on_timeout)
+        self.expander = Gtk.Expander(label=_("Show actions"), expanded=False)
+        self.grid.attach(self.expander, 0, 2, 3, 1)
+
+        self.actions_view, self.actions_list = self.add_action_view()
 
         self.set_resizable(False)
         self.show_all()
+
+    def add_action_view(self):
+        """ Show list of actions
+        """
+
+        icon_theme = Gtk.IconTheme.get_default()
+        icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
+        icon_delete = Gtk.IconTheme.load_icon(icon_theme, "edit-delete", 16, 0)
+        icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all", 16, 0)
+
+        actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf, str, GdkPixbuf.Pixbuf)
+
+        for action in self.actions:
+            if action.isDestroy or action.isRemove:
+                actions_list.append([icon_delete, str(action), None])
+            elif action.isAdd or action.isCreate:
+                actions_list.append([icon_add, str(action), None])
+            else:
+                actions_list.append([icon_edit, str(action), None])
+
+        actions_view = Gtk.TreeView(model=actions_list)
+        actions_view.set_headers_visible(False)
+        actions_view.set_vexpand(True)
+        actions_view.set_hexpand(True)
+
+        renderer_pixbuf = Gtk.CellRendererPixbuf()
+        column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, pixbuf=0)
+        actions_view.append_column(column_pixbuf)
+
+        renderer_text = Gtk.CellRendererText()
+        column_text = Gtk.TreeViewColumn(None, renderer_text, text=1)
+        actions_view.append_column(column_text)
+
+        renderer_pixbuf = Gtk.CellRendererPixbuf()
+        column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, pixbuf=2)
+        actions_view.append_column(column_pixbuf)
+
+        self.expander.add(actions_view)
+
+        return actions_view, actions_list
+
+    def _set_applied_icon(self, position):
+        icon_theme = Gtk.IconTheme.get_default()
+        icon_applied = Gtk.IconTheme.load_icon(icon_theme, "emblem-ok-symbolic.symbolic", 16, 0)
+
+        path = Gtk.TreePath(position)
+        treeiter = self.actions_list.get_iter(path)
+        self.actions_list.set_value(treeiter, 2, icon_applied)
 
     def start(self):
         """ Start the dialog
         """
 
+        self.progressbar.set_fraction(0)
         self.run()
         self.destroy()
 
@@ -80,18 +144,14 @@ class ProcessingActions(Gtk.Dialog):
         """ End the thread
         """
 
-        self.pulse = False
         self.progressbar.set_fraction(1)
         self.set_response_sensitive(Gtk.ResponseType.OK, True)
         self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
 
-    def on_timeout(self):
-        """ Timeout fuction for progressbar pulsing
-        """
+    def progress_msg(self, message):
+        self.label.set_markup(_("<b>Proccessing action {num} of {total}</b>:" \
+            "\n<i>{action}</i>").format(num=self.finished_actions, total=len(self.actions), action=message))
+        self._set_applied_icon(self.finished_actions)
 
-        if self.pulse:
-            self.progressbar.pulse()
-            return True
-
-        else:
-            return False
+        self.finished_actions += 1
+        self.progressbar.set_fraction(self.finished_actions / len(self.actions))
