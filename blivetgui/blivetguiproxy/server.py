@@ -335,15 +335,24 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
         utils_method = getattr(self.blivet_utils, data[2])
         args = self._args_convertTo_objects(data[3])
 
-        try:
-            ret = utils_method(*args) # pylint: disable=star-args
-            answer = ProxyDataContainer(success=True, answer=ret)
-        except Exception as e: # pylint: disable=broad-except
-            answer = ProxyDataContainer(success=False, exception=e, traceback=traceback.format_exc())
+        if data[2] == "blivet_do_it":
+            answer = self.blivet_utils.blivet_do_it(self._progress_report_hook)
+
+        else:
+            utils_method = getattr(self.blivet_utils, data[2])
+            try:
+                ret = utils_method(*args) # pylint: disable=star-args
+                answer = ProxyDataContainer(success=True, answer=ret)
+            except Exception as e: # pylint: disable=broad-except
+                answer = ProxyDataContainer(success=False, exception=e, traceback=traceback.format_exc())
 
         pickled_answer = self._pickle_answer(answer)
 
         self._send(pickled_answer)
+
+    def _progress_report_hook(self, message):
+        pickled_msg = self._pickle_answer((False, message))
+        self._send(pickled_msg)
 
     def _args_convertTo_objects(self, args):
         """ All args sent from client to server are either built-in types (int, str...) or

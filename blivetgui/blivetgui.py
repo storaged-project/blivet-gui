@@ -467,11 +467,14 @@ class BlivetGUI(object):
                 self.main_window.set_sensitive(False)
                 self._reraise_exception(error, traceback) # pylint: disable=raising-bad-type
 
+        def show_progress(message):
+            dialog.progress_msg(message)
+
         def do_it():
             """ Run blivet.doIt()
             """
 
-            result = self.client.remote_call("blivet_do_it")
+            result = self.client.remote_do_it(show_progress)
             if result.success:
                 GLib.idle_add(end, True, None, None)
 
@@ -536,7 +539,7 @@ class BlivetGUI(object):
             response = dialog.run()
 
             if response:
-                processing_dialog = ProcessingActions(self)
+                processing_dialog = ProcessingActions(self, actions)
                 self.perform_actions(processing_dialog)
 
     def umount_partition(self, _widget=None):

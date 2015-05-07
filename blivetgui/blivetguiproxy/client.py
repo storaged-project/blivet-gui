@@ -227,6 +227,27 @@ class BlivetGUIClient(object):
 
         return self._answer_convertTo_object(answer)
 
+    def remote_do_it(self, show_progress_clbk):
+
+        pickled_data = cPickle.dumps((self.secret, "call", "blivet_do_it", ()))
+
+        with self.mutex:
+            self._send(pickled_data)
+            answer = cPickle.loads(self._recv_msg())
+
+            ret = self._answer_convertTo_object(answer)
+
+            while True:
+                if ret[0]: # pylint: disable=maybe-no-member
+                    break
+
+                show_progress_clbk(ret[1])
+
+                answer = cPickle.loads(self._recv_msg())
+                ret = self._answer_convertTo_object(answer)
+
+        return ret[1]
+
     def quit(self):
         """ Quit the client
         """
