@@ -1253,18 +1253,22 @@ class BlivetUtils(object):
 
         self.storage.reset()
 
-    def blivet_do_it(self):
+    def blivet_do_it(self, progress_report_hook):
         """ Blivet.doIt()
         """
 
+        progress_clbk = lambda clbk_data: progress_report_hook(clbk_data.msg)
+
+        callbacks_reg = blivet.callbacks.create_new_callbacks_register(report_progress=progress_clbk)
+
         try:
-            self.storage.doIt()
+            self.storage.doIt(callbacks=callbacks_reg)
 
         except Exception as e: # pylint: disable=broad-except
-            return ProxyDataContainer(success=False, exception=e, traceback=traceback.format_exc())
+            return (True, ProxyDataContainer(success=False, exception=e, traceback=traceback.format_exc()))
 
         else:
-            return ProxyDataContainer(success=True)
+            return (True, ProxyDataContainer(success=True))
 
     def create_kickstart_file(self, fname):
         """ Create kickstart config file
