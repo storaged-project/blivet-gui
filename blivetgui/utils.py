@@ -671,6 +671,284 @@ class BlivetUtils(object):
 
         return name
 
+    def _create_partition(self, user_input):
+        actions = []
+
+        if hasattr(user_input, "advanced"):
+            partition_type = user_input.advanced["parttype"] or "primary"
+        else:
+            partition_type = "primary"
+
+        # create new partition
+        new_part = PartitionDevice(name="req%d" % self.storage.nextID,
+                                   size=user_input.size,
+                                   parents=[i[0] for i in user_input.parents],
+                                   partType=PARTITION_TYPE[partition_type])
+        actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
+
+        # encrypted partition -- create a luks device and format it to desired format
+        if user_input.encrypt:
+            part_fmt = blivet.formats.getFormat(fmt_type="luks",
+                                                passphrase=user_input.passphrase,
+                                                device=new_part.path)
+            actions.append(blivet.deviceaction.ActionCreateFormat(new_part, part_fmt))
+
+            luks_dev = LUKSDevice("luks-%s" % new_part.name, size=new_part.size, parents=[new_part])
+            actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
+
+            luks_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem,
+                                                device=new_part.path,
+                                                mountpoint=user_input.mountpoint)
+            actions.append(blivet.deviceaction.ActionCreateFormat(luks_dev, luks_fmt))
+
+        # non-encrypted partition -- just format the partition
+        else:
+            if partition_type != "extended":
+                new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem,
+                                                   label=user_input.label,
+                                                   mountpoint=user_input.mountpoint)
+            actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
+
+        return actions
+
+    def _create_lvmlv(self, user_input):
+        actions = []
+
+        if user_input.device_type == "lvmthinlv":
+            create_class = LVMThinLogicalVolumeDevice
+        elif user_input.device_type == "lvmlv":
+            create_class = LVMLogicalVolumeDevice
+
+        device_name = self._pick_device_name(user_input.name, user_input.parents[0][0])
+
+        new_part = create_class(name=device_name,
+                                size=user_input.size,
+                                parents=[i[0] for i in user_input.parents])
+        actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
+
+        new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem,
+                                           mountpoint=user_input.mountpoint)
+        actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
+
+        return actions
+
+    def _create_lvmpv(self, user_input):
+        actions = []
+
+        new_part = PartitionDevice(name="req%d" % self.storage.nextID,
+                              size=user_input.size,
+                              parents=[i[0] for i in user_input.parents])
+        actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
+
+        # encrypted lvmpv
+        if user_input.encrypt:
+            part_fmt = blivet.formats.getFormat(fmt_type="luks",
+                                                passphrase=user_input.passphrase,
+                                                device=new_part.path)
+            actions.append(blivet.deviceaction.ActionCreateFormat(new_part, part_fmt))
+
+            luks_dev = LUKSDevice("luks-%s" % new_part.name, size=new_part.size, parents=[new_part])
+            actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
+
+            luks_fmt = blivet.formats.getFormat(fmt_type="lvmpv")
+            actions.append(blivet.deviceaction.ActionCreateFormat(luks_dev, luks_fmt))
+
+        else:
+
+            part_fmt = blivet.formats.getFormat(fmt_type="lvmpv")
+            actions.append(blivet.deviceaction.ActionCreateFormat(new_part, part_fmt))
+
+        return actions
+
+    def _create_lvmvg(self, user_input):
+        actions = []
+
+        device_name = self._pick_device_name(user_input.name)
+
+        new_vg = LVMVolumeGroupDevice(name=device_name,
+                                      parents=[i[0] for i in user_input.parents],
+                                      peSize=user_input.advanced["pesize"])
+        actions.append(blivet.deviceaction.ActionCreateDevice(new_vg))
+
+        return actions
+
+    def _create_lvmthinpool(self, user_input):
+        actions = []
+
+        device_name = self._pick_device_name(user_input.name, user_input.parents[0][0])
+
+        new_thin = LVMThinPoolDevice(name=device_name,
+                                     size=user_input.size,
+                                     parents=[i[0] for i in user_input.parents])
+
+        actions.append(blivet.deviceaction.ActionCreateDevice(new_thin))
+
+        return actions
+
+    def _create_lvm(self, user_input):
+        actions = []
+
+        for parent, size in user_input.parents:
+            # _create_lvmpv needs user_input but we actually don't have it for individual
+            # pvs so we need to 'create' it
+            pv_input = ProxyDataContainer(size=size,
+                                          parents=[(parent, size)],
+                                          encrypt=user_input.encrypt,
+                                          passphrase=user_input.passphrase)
+            pv_actions = self._create_lvmpv(pv_input)
+
+            # we need to try to register create actions immediately, if something fails, fail now
+            try:
+                for ac in pv_actions:
+                    self.storage.devicetree.registerAction(ac)
+            except blivet.errors.PartitioningError as e:
+                return ProxyDataContainer(success=False, actions=None, message=None,
+                                          exception=e, traceback=traceback.format_exc())
+            else:
+                actions.extend(pv_actions)
+
+        # we don't have a list of newly created pvs but we have the list of actions
+        vg_parents = [(ac.device, ac.device.size) for ac in actions if ac.isFormat and ac._format.type == "lvmpv"]
+        vg_input = ProxyDataContainer(name=user_input.name,
+                                      parents=vg_parents,
+                                      advanced=user_input.advanced)
+        vg_actions = self._create_lvmvg(vg_input)
+        actions.extend(vg_actions)
+
+        return actions
+
+    def _create_snapshot(self, user_input):
+        actions = []
+
+        if user_input.device_type == "lvm snapshot":
+
+            origin_lv = user_input.parents[0][0]
+            snapshot_size = user_input.parents[0][1]
+            device_name = self._pick_device_name(user_input.name, origin_lv.parents[0])
+
+            new_snap = LVMSnapShotDevice(name=device_name,
+                                         parents=[origin_lv.parents[0]],
+                                         origin=origin_lv,
+                                         size=snapshot_size)
+            actions.append(blivet.deviceaction.ActionCreateDevice(new_snap))
+
+        return actions
+
+    def _create_mdraid(self, user_input):
+        actions = []
+
+        device_name = self._pick_device_name(user_input.name)
+
+        for parent, size in user_input.parents:
+            # _create_partition needs user_input but we actually don't have it for individual
+            # parent partitions so we need to 'create' it
+            part_input = ProxyDataContainer(size=size,
+                                            parents=[(parent, size)],
+                                            filesystem="mdmember",
+                                            encrypt=False,
+                                            label=None, mountpoint=None)
+            part_actions = self._create_partition(part_input)
+
+            # we need to try to create partitions immediately, if something fails, fail now
+            try:
+                for ac in part_actions:
+                    self.storage.devicetree.registerAction(ac)
+            except blivet.errors.PartitioningError as e:
+                return ProxyDataContainer(success=False, actions=None, message=None,
+                                          exception=e, traceback=traceback.format_exc())
+            else:
+                actions.extend(part_actions)
+
+        md_parents = [ac.device for ac in actions if ac.isFormat and ac._format.type == "mdmember"]
+        new_md = MDRaidArrayDevice(parents=md_parents,
+                                   name=device_name,
+                                   level=user_input.raid_level,
+                                   memberDevices=len(md_parents),
+                                   totalDevices=len(md_parents))
+        actions.append(blivet.deviceaction.ActionCreateDevice(new_md))
+
+        fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem)
+        actions.append(blivet.deviceaction.ActionCreateFormat(new_md, fmt))
+
+        return actions
+
+    def _create_btrfs_disk(self, blivet_disk):
+        """ Create a btrfs label on selected disk
+        """
+
+        fmt = blivet.formats.getFormat(fmt_type="btrfs")
+        ac_fmt = blivet.deviceaction.ActionCreateFormat(blivet_disk, fmt)
+
+        return ac_fmt
+
+    def _create_btrfs_volume(self, user_input):
+        actions = []
+        device_name = self._pick_device_name(user_input.name)
+
+        for parent, size in user_input.parents:
+
+            if user_input.btrfs_type == "disks":
+                disk_ac = self._create_btrfs_disk(parent)
+
+                try:
+                    self.storage.devicetree.registerAction(disk_ac)
+                except Exception as e: # pylint: disable=broad-except
+                    return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
+                                              traceback=traceback.format_exc())
+                else:
+                    actions.append(disk_ac)
+
+            else:
+                # _create_partition needs user_input but we actually don't have it for individual
+                # parent partitions so we need to 'create' it
+                part_input = ProxyDataContainer(size=size,
+                                                parents=[(parent, size)],
+                                                filesystem="btrfs",
+                                                encrypt=False,
+                                                label=None,
+                                                mountpoint=None)
+                part_actions = self._create_partition(part_input)
+
+                # we need to try to create partitions immediately, if something
+                # fails, fail now
+                try:
+                    for ac in part_actions:
+                        self.storage.devicetree.registerAction(ac)
+                except blivet.errors.PartitioningError as e:
+                    return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
+                                              traceback=traceback.format_exc())
+                else:
+                    actions.extend(part_actions)
+
+        btrfs_parents = [ac.device for ac in actions if ac.isFormat and ac._format.type == "btrfs"]
+        new_btrfs = BTRFSVolumeDevice(device_name, parents=btrfs_parents)
+        new_btrfs.format = blivet.formats.getFormat("btrfs", label=device_name, mountpoint=user_input.mountpoint)
+        actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
+
+        return actions
+
+    def _create_btrfs_subvolume(self, user_input):
+        actions = []
+        device_name = self._pick_device_name(user_input.name, user_input.parents[0][0])
+
+        new_btrfs = BTRFSSubVolumeDevice(device_name, parents=[i[0] for i in user_input.parents])
+        new_btrfs.format = blivet.formats.getFormat("btrfs", mountpoint=user_input.mountpoint)
+        actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
+
+        return actions
+
+    add_dict = {"partition" : _create_partition,
+                "lvm" : _create_lvm,
+                "lvmlv" : _create_lvmlv,
+                "lvmthinlv" : _create_lvmlv,
+                "lvmthinpool" : _create_lvmthinpool,
+                "lvmvg" : _create_lvmvg,
+                "lvmpv" : _create_lvmpv,
+                "btrfs volume" : _create_btrfs_volume,
+                "btrfs subvolume" : _create_btrfs_subvolume,
+                "mdraid" : _create_mdraid,
+                "lvm snapshot" : _create_snapshot}
+
     def add_device(self, user_input):
         """ Create new device
 
@@ -681,313 +959,8 @@ class BlivetUtils(object):
 
         """
 
-        actions = []
-
-        if user_input.device_type == "partition":
-
-            if user_input.encrypt:
-                dev = PartitionDevice(name="req%d" % self.storage.nextID,
-                    size=user_input.size,
-                    parents=[i[0] for i in user_input.parents])
-                actions.append(blivet.deviceaction.ActionCreateDevice(dev))
-
-                fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
-                actions.append(blivet.deviceaction.ActionCreateFormat(dev, fmt))
-
-                luks_dev = LUKSDevice("luks-%s" % dev.name, size=dev.size, parents=[dev])
-                actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
-
-                luks_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem, device=dev.path, mountpoint=user_input.mountpoint)
-                actions.append(blivet.deviceaction.ActionCreateFormat(luks_dev, luks_fmt))
-
-            else:
-                new_part = PartitionDevice(name="req%d" % self.storage.nextID,
-                    size=user_input.size, parents=[i[0] for i in user_input.parents],
-                    partType=PARTITION_TYPE[user_input.advanced["parttype"]])
-
-                actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
-
-                if user_input.advanced["parttype"] != "extended":
-                    new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem,
-                        label=user_input.label, mountpoint=user_input.mountpoint)
-
-                    actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
-
-        elif user_input.device_type == "lvm" and not user_input.encrypt:
-
-            device_name = self._pick_device_name(user_input.name)
-
-            pvs = []
-
-            # exact total size of newly created pvs (future parents)
-            total_size = blivet.size.Size("0 MiB")
-
-            for parent, size in user_input.parents:
-
-                dev = PartitionDevice(name="req%d" % self.storage.nextID,
-                    size=size, parents=parent)
-                ac_part = blivet.deviceaction.ActionCreateDevice(dev)
-
-                fmt = blivet.formats.getFormat(fmt_type="lvmpv")
-                ac_fmt = blivet.deviceaction.ActionCreateFormat(dev, fmt)
-
-                actions.extend([ac_part, ac_fmt])
-
-                total_size += dev.size
-
-                # we need to try to create pvs immediately, if something
-                # fails, fail now
-                try:
-                    for ac in (ac_part, ac_fmt):
-                        self.storage.devicetree.registerAction(ac)
-
-                except blivet.errors.PartitioningError as e:
-                    return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                                      traceback=traceback.format_exc())
-
-                pvs.append(dev)
-
-            new_vg = LVMVolumeGroupDevice(size=total_size, parents=pvs,
-                name=device_name, peSize=user_input.advanced["pesize"])
-
-            actions.append(blivet.deviceaction.ActionCreateDevice(new_vg))
-
-        elif user_input.device_type == "lvm" and user_input.encrypt:
-
-            device_name = self._pick_device_name(user_input.name)
-
-            lukses = []
-
-            # exact total size of newly created pvs (future parents)
-            total_size = blivet.size.Size("0 MiB")
-
-            for parent, size in user_input.parents:
-                dev = PartitionDevice(name="req%d" % self.storage.nextID,
-                    size=user_input.size,
-                    parents=[parent])
-                ac_part = blivet.deviceaction.ActionCreateDevice(dev)
-
-                fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
-                ac_fmt = blivet.deviceaction.ActionCreateFormat(dev, fmt)
-
-                luks_dev = LUKSDevice("luks-%s" % dev.name,
-                    fmt=blivet.formats.getFormat("lvmpv", device=dev.path),
-                    size=dev.size, parents=[dev])
-                ac_luks = blivet.deviceaction.ActionCreateDevice(luks_dev)
-
-                actions.extend([ac_part, ac_fmt, ac_luks])
-
-                total_size += luks_dev.size
-
-                # we need to try to create pvs immediately, if something
-                # fails, fail now
-                try:
-                    for ac in (ac_part, ac_fmt, ac_luks):
-                        self.storage.devicetree.registerAction(ac)
-
-                except blivet.errors.PartitioningError as e:
-                    return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                                      traceback=traceback.format_exc())
-
-                lukses.append(luks_dev)
-
-            new_vg = LVMVolumeGroupDevice(size=total_size, parents=lukses,
-                name=device_name, peSize=user_input.advanced["pesize"])
-
-            actions.append(blivet.deviceaction.ActionCreateDevice(new_vg))
-
-        elif user_input.device_type == "lvmlv":
-
-            device_name = self._pick_device_name(user_input.name,
-                user_input.parents[0][0])
-
-            new_part = LVMLogicalVolumeDevice(name=device_name, size=user_input.size,
-                parents=[i[0] for i in user_input.parents])
-
-            actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
-
-            new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem, mountpoint=user_input.mountpoint)
-
-            actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
-
-        elif user_input.device_type == "lvmthinlv":
-
-            device_name = self._pick_device_name(user_input.name,
-                user_input.parents[0][0])
-
-            new_part = LVMThinLogicalVolumeDevice(name=device_name, size=user_input.size,
-                parents=[i[0] for i in user_input.parents])
-
-            actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
-
-            new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem, mountpoint=user_input.mountpoint)
-
-            actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
-
-        elif user_input.device_type == "lvmthinpool":
-
-            device_name = self._pick_device_name(user_input.name,
-                user_input.parents[0][0])
-
-            new_part = LVMThinPoolDevice(name=device_name, size=user_input.size,
-                parents=[i[0] for i in user_input.parents])
-
-            actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
-
-        elif user_input.device_type == "lvmvg":
-
-            device_name = self._pick_device_name(user_input.name)
-
-            new_vg = LVMVolumeGroupDevice(size=user_input.size, name=device_name,
-                parents=[i[0] for i in user_input.parents],
-                peSize=user_input.advanced["pesize"])
-
-            actions.append(blivet.deviceaction.ActionCreateDevice(new_vg))
-
-        elif user_input.device_type == "lvmpv":
-
-            if user_input.encrypt:
-
-                dev = PartitionDevice(name="req%d" % self.storage.nextID,
-                    size=user_input.size,
-                    parents=[i[0] for i in user_input.parents])
-                actions.append(blivet.deviceaction.ActionCreateDevice(dev))
-
-                fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
-                actions.append(blivet.deviceaction.ActionCreateFormat(dev, fmt))
-
-                luks_dev = LUKSDevice("luks-%s" % dev.name,
-                    fmt=blivet.formats.getFormat("lvmpv", device=dev.path),
-                    size=dev.size, parents=[dev])
-                actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
-
-            else:
-                dev = PartitionDevice(name="req%d" % self.storage.nextID,
-                    size=user_input.size, parents=[i[0] for i in user_input.parents])
-                actions.append(blivet.deviceaction.ActionCreateDevice(dev))
-
-                fmt = blivet.formats.getFormat(fmt_type="lvmpv")
-                actions.append(blivet.deviceaction.ActionCreateFormat(dev, fmt))
-
-        elif user_input.device_type == "btrfs volume":
-
-            device_name = self._pick_device_name(user_input.name)
-
-            # for btrfs we need to create parents first -- currently selected "parents" are
-            # disks but "real parents" for subvolume are btrfs formatted partitions
-            btrfs_parents = []
-
-            # exact total size of newly created partitions (future parents)
-            total_size = blivet.size.Size("0 MiB")
-
-            for parent, size in user_input.parents:
-
-                if user_input.btrfs_type == "disks":
-                    assert parent.isDisk
-
-                    fmt = blivet.formats.getFormat(fmt_type="btrfs")
-                    ac_fmt = blivet.deviceaction.ActionCreateFormat(parent, fmt)
-
-                    actions.append(ac_fmt)
-
-                    try:
-                        self.storage.devicetree.registerAction(ac_fmt)
-
-                    except Exception as e: # pylint: disable=broad-except
-                        return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                                          traceback=traceback.format_exc())
-
-                    total_size += size
-                    btrfs_parents.append(parent)
-
-                else:
-
-                    dev = PartitionDevice(name="req%d" % self.storage.nextID,
-                        size=size, parents=[parent])
-                    ac_part = blivet.deviceaction.ActionCreateDevice(dev)
-
-                    fmt = blivet.formats.getFormat(fmt_type="btrfs")
-                    ac_fmt = blivet.deviceaction.ActionCreateFormat(dev, fmt)
-
-                    actions.extend([ac_part, ac_fmt])
-
-                    total_size += dev.size
-
-                    # we need to try to create partitions immediately, if something
-                    # fails, fail now
-                    try:
-                        for ac in (ac_part, ac_fmt):
-                            self.storage.devicetree.registerAction(ac)
-
-                    except blivet.errors.PartitioningError as e:
-                        return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                                          traceback=traceback.format_exc())
-
-                    btrfs_parents.append(dev)
-
-            new_btrfs = BTRFSVolumeDevice(device_name, size=total_size, parents=btrfs_parents)
-            new_btrfs.format = blivet.formats.getFormat("btrfs", label=device_name, mountpoint=user_input.mountpoint)
-            actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
-
-        elif user_input.device_type == "btrfs subvolume":
-
-            device_name = self._pick_device_name(user_input.name,
-                                                 user_input.parents[0][0])
-
-            new_btrfs = BTRFSSubVolumeDevice(device_name, parents=[i[0] for i in user_input.parents])
-            new_btrfs.format = blivet.formats.getFormat("btrfs", mountpoint=user_input.mountpoint)
-            actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
-
-        elif user_input.device_type == "mdraid":
-            device_name = self._pick_device_name(user_input.name)
-
-            parts = []
-
-            # exact total size of newly created pvs (future parents)
-            total_size = blivet.size.Size("0 MiB")
-
-            for parent, size in user_input.parents:
-
-                dev = PartitionDevice(name="req%d" % self.storage.nextID,
-                    size=size, parents=[parent])
-                ac_part = blivet.deviceaction.ActionCreateDevice(dev)
-
-                fmt = blivet.formats.getFormat(fmt_type="mdmember")
-                ac_fmt = blivet.deviceaction.ActionCreateFormat(dev, fmt)
-
-                actions.extend([ac_part, ac_fmt])
-
-                total_size += dev.size
-
-                # we need to try to create pvs immediately, if something
-                # fails, fail now
-                try:
-                    for ac in (ac_part, ac_fmt):
-                        self.storage.devicetree.registerAction(ac)
-
-                except blivet.errors.PartitioningError as e:
-                    return ProxyDataContainer(success=False, actions=None, message=None,
-                                      exception=e, traceback=traceback.format_exc())
-
-                parts.append(dev)
-
-            new_md = MDRaidArrayDevice(size=total_size, parents=parts,
-                name=device_name, level=user_input.raid_level,
-                memberDevices=len(parts), totalDevices=len(parts))
-            actions.append(blivet.deviceaction.ActionCreateDevice(new_md))
-
-            fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem)
-            actions.append(blivet.deviceaction.ActionCreateFormat(new_md, fmt))
-
-        elif user_input.device_type == "lvm snapshot":
-            origin_lv = user_input.parents[0][0]
-            snapshot_size = user_input.parents[0][1]
-
-            device_name = self._pick_device_name(user_input.name, origin_lv.parents[0])
-
-            new_snap = LVMSnapShotDevice(name=device_name, parents=[origin_lv.parents[0]],
-                                         origin=origin_lv, size=snapshot_size)
-            actions.append(blivet.deviceaction.ActionCreateDevice(new_snap))
+        add_function = self.add_dict[user_input.device_type]
+        actions = add_function(self, user_input)
 
         try:
             for ac in actions:
@@ -998,10 +971,10 @@ class BlivetUtils(object):
 
         except Exception as e: # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None,
-                                                exception=e, traceback=traceback.format_exc())
+                                      exception=e, traceback=traceback.format_exc())
 
-        return ProxyDataContainer(success=True, actions=actions,
-                                            message=None, exception=None, traceback=None)
+        return ProxyDataContainer(success=True, actions=actions, message=None,
+                                  exception=None, traceback=None)
 
     def _remove_lvmvg_parent(self, container, parent):
         """ Add parent fromexisting lvmg
