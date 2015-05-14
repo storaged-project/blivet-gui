@@ -237,7 +237,7 @@ class BlivetUtils(object):
                 continue
 
             elif not disk.format.type:
-                free_disks.append(FreeSpaceDevice(disk.size, 0, disk.partedDevice.length, [disk]))
+                free_disks.append(FreeSpaceDevice(disk.size, 0, disk.currentSize, [disk]))
                 continue
 
             extended = None
@@ -296,7 +296,7 @@ class BlivetUtils(object):
             # empty disk without disk label
 
             partitions.append(FreeSpaceDevice(blivet_device.size, 0,
-                blivet_device.partedDevice.length, [blivet_device], False))
+                blivet_device.currentSize, [blivet_device], False))
 
         elif blivet_device.isDisk and blivet_device.format.type not in ("disklabel",):
             # LiveUSB or btrfs/mdraid partition table, no free space here
