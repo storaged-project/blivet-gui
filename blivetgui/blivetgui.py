@@ -24,7 +24,6 @@
 
 from gi.repository import Gtk, GLib
 
-from .main_window import MainWindow
 from .list_devices import ListDevices
 from .list_partitions import ListPartitions
 from .list_actions import ListActions
@@ -76,19 +75,19 @@ class BlivetGUI(object):
         Gtk.Widgets used in blivet-gui.
     """
 
-    def __init__(self, server_socket, secret, version, embedded_socket=None, kickstart_mode=False):
+    def __init__(self, server_socket, secret, version, kickstart_mode=False):
 
         self.server_socket = server_socket
         self.secret = secret
         self.version = version
-        self.embedded_socket = embedded_socket
         self.kickstart_mode = kickstart_mode
 
         self.builder = Gtk.Builder()
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
         ### MainWindow
-        self.main_window = MainWindow(self).window
+        self.main_window = self.builder.get_object("main_window")
+        self.main_window.connect("delete-event", self.quit)
 
         ### BlivetUtils
         self.client = BlivetGUIClient(self, self.server_socket, self.secret)

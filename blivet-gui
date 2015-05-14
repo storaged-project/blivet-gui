@@ -65,8 +65,6 @@ def parse_options():
     parser = optparse.OptionParser()
     parser.add_option("-v", "--version", action="store_true", dest="version", default=False,
                       help=_("show version information"))
-    parser.add_option("-e", "--embedded", action="store", type="int", dest="socket",
-                      help=_("embed this application into SOCKET"), metavar="SOCKET")
     parser.add_option("-k", "--kickstart", action="store_true", dest="kickstart", default=False,
                       help=_("run blivet-gui in kickstart mode"))
 
@@ -75,7 +73,7 @@ def parse_options():
     return options
 
 def main():
-    """ Main function, creates a main/embedded window instance
+    """ Main function, creates a main window instance
     """
 
     options = parse_options()
@@ -99,7 +97,7 @@ def main():
             from blivetgui.blivetgui import BlivetGUI
 
             BlivetGUI(server_socket=sockfile, secret=secret, version=APP_VERSION,
-                      embedded_socket=options.socket, kickstart_mode=options.kickstart)
+                      kickstart_mode=options.kickstart)
 
 if  __name__ == '__main__':
 
