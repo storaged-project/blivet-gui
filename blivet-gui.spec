@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.3.1
+Version: 0.3.2
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -52,6 +52,31 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Thu May 14 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.3.2-1
+- Devel branch for l10n on Zanata (vtrefny)
+- Use currentSize instead of partedDevice.length for empty disks (vtrefny)
+- add_device method refactoring (vtrefny)
+- Display progress in ProcessingWindow dialog (vtrefny)
+- BlivetGUI: Call the blivet_do_it method with progress report support (vtrefny)
+- Add progress callback support in BlivetUtils.blivet_do_it (vtrefny)
+- Fix Makefile and spec for python3 (vtrefny)
+- Add thinlv support to DeviceInformationDialog (vtrefny)
+- Do not try to display information about unknown devices (vtrefny)
+- Added support for creating LVM thinpools and thinlvs (vtrefny)
+- Pylint fixes (vtrefny)
+- Fix displaying parents in device information dialog (vtrefny)
+- Add version information to the AboutDialog (vtrefny)
+- Fix adding encrypted partitions (vtrefny)
+- Fix displaying future mountpoint in kickstart mode (vtrefny)
+- Pylint fixes (vtrefny)
+- Fix 'None' as disk.model in kickstart dialogs (vtrefny)
+- New option to show device information (vtrefny)
+- Do not (de)activate non-existing options in menus/toolbars (vtrefny)
+- Do not allow to resize lvs with snapshots (vtrefny)
+- AddDialog refactoring (vtrefny)
+- Add support for creating LVM snapshots (vtrefny)
+- Python 3 compatible localisation support (vtrefny)
+
 * Mon Apr 27 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.3.1-1
 - Fix catching exception when trying to decrypt LUKS device (vtrefny)
 - Fix python-meh requirement to Python 3 version (vtrefny)

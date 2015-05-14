@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-04-27 11:34+0200\n"
+"POT-Creation-Date: 2015-05-14 10:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../blivetgui/utils.py:87
+#: ../blivetgui/utils.py:85
 #, python-brace-format
 msgid "{0} disklabel"
 msgstr ""
 
-#: ../blivetgui/utils.py:112
+#: ../blivetgui/utils.py:110
 msgid "free space"
 msgstr ""
 
-#: ../blivetgui/utils.py:465
+#: ../blivetgui/utils.py:471
 #, python-brace-format
 msgid "Failed to remove device {0}. Are you sure it is not in use?"
+msgstr ""
+
+#: ../blivetgui/utils.py:531
+msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr ""
 
 #: ../blivetgui/actions_menu.py:51 ../blivetgui/main_menu.py:102
@@ -52,16 +56,27 @@ msgstr ""
 msgid "Decrypt"
 msgstr ""
 
-#: ../blivetgui/processing_window.py:43
+#: ../blivetgui/actions_menu.py:56
+msgid "Information"
+msgstr ""
+
+#: ../blivetgui/processing_window.py:51
 msgid "Proccessing"
 msgstr ""
 
-#: ../blivetgui/processing_window.py:62
-msgid "<b>Queued actions are being proccessed.</b>"
+#: ../blivetgui/processing_window.py:79
+msgid "Show actions"
 msgstr ""
 
-#: ../blivetgui/processing_window.py:86
+#: ../blivetgui/processing_window.py:149
 msgid "<b>All queued actions have been processed.</b>"
+msgstr ""
+
+#: ../blivetgui/processing_window.py:152
+#, python-brace-format
+msgid ""
+"<b>Proccessing action {num} of {total}</b>:\n"
+"<i>{action}</i>"
 msgstr ""
 
 #: ../blivetgui/device_info.py:52
@@ -85,40 +100,216 @@ msgid ""
 "\t• Model: <i>{2}</i>\n"
 msgstr ""
 
-#: ../blivetgui/list_partitions.py:141
+#: ../blivetgui/list_partitions.py:140
+#: ../blivetgui/dialogs/device_info_dialog.py:41
 msgid "extended"
 msgstr ""
 
-#: ../blivetgui/list_partitions.py:145
+#: ../blivetgui/list_partitions.py:144
 msgid "lvmvg"
 msgstr ""
 
-#: ../blivetgui/list_partitions.py:203 ../blivetgui/dialogs/add_dialog.py:536
-#: ../blivetgui/dialogs/add_dialog.py:550
-#: ../blivetgui/dialogs/add_dialog.py:937
+#. dictionary with 'human-readable' device names and methods providing detailed information
+#: ../blivetgui/list_partitions.py:191 ../blivetgui/dialogs/add_dialog.py:533
+#: ../blivetgui/dialogs/add_dialog.py:549
+#: ../blivetgui/dialogs/add_dialog.py:944
+#: ../blivetgui/dialogs/device_info_dialog.py:78
 msgid "Partition"
 msgstr ""
 
-#: ../blivetgui/list_partitions.py:203
+#: ../blivetgui/list_partitions.py:191
 msgid "Filesystem"
 msgstr ""
 
-#: ../blivetgui/list_partitions.py:203
+#: ../blivetgui/list_partitions.py:191
 msgid "Mountpoint"
 msgstr ""
 
-#: ../blivetgui/list_partitions.py:203 ../blivetgui/dialogs/edit_dialog.py:308
+#: ../blivetgui/list_partitions.py:191 ../blivetgui/dialogs/add_dialog.py:597
+#: ../blivetgui/dialogs/edit_dialog.py:308
 #: ../blivetgui/dialogs/edit_dialog.py:358
 #: ../blivetgui/dialogs/edit_dialog.py:425
-#: ../blivetgui/dialogs/add_dialog.py:598
 msgid "Size"
 msgstr ""
 
-#: ../blivetgui/list_partitions.py:205
-msgid "Current Mountpoint"
+#: ../blivetgui/list_partitions.py:193
+msgid "Installation Mountpoint"
 msgstr ""
 
-#: ../blivetgui/actions_toolbar.py:53 ../blivetgui/dialogs/add_dialog.py:487
+#: ../blivetgui/main_menu.py:65
+msgid "File"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:69
+msgid "Reload"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:70
+msgid "Quit"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:85
+msgid "Undo Last Action"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:86
+msgid "Clear Queued Actions"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:87
+msgid "Apply Queued Actions"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:98 ../blivetgui/dialogs/add_dialog.py:595
+#: ../blivetgui/dialogs/edit_dialog.py:306
+#: ../blivetgui/dialogs/edit_dialog.py:356
+#: ../blivetgui/dialogs/edit_dialog.py:423
+msgid "Device"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:118
+msgid "Help"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:122
+msgid "Contents"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:123
+msgid "About"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:202
+msgid ""
+"Documentation for blivet-gui hasn't been found.\n"
+"\n"
+"Online version of documentation is available at http://vojtechtrefny.github."
+"io/blivet-gui"
+msgstr ""
+
+#: ../blivetgui/main_menu.py:224
+msgid ""
+"You need \"Yelp\" to see the documentation.\n"
+"\n"
+"Online version of documentation is available at http://vojtechtrefny.github."
+"io/blivet-gui"
+msgstr ""
+
+#. pylint: disable=maybe-no-member
+#: ../blivetgui/blivetgui.py:98
+msgid "blivet-gui is already running."
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:140 ../blivetgui/dialogs/add_dialog.py:699
+#: tmp/blivet-gui.ui.h:2
+msgid "Partitions"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:146 ../blivetgui/list_actions.py:105
+#: ../blivetgui/list_actions.py:129 ../blivetgui/list_actions.py:146
+#, python-brace-format
+msgid "Pending actions ({0})"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:207 ../blivetgui/list_devices.py:59
+msgid ""
+"blivet-gui failed to find at least one storage device to work with.\n"
+"\n"
+"Please connect a storage device to your computer and re-run blivet-gui."
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:307
+#, python-brace-format
+msgid "edit {0} {1}"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:365
+#, python-brace-format
+msgid "create new disklabel on {0}"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:410
+#, python-brace-format
+msgid "add {0} {1} device"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:413
+#, python-brace-format
+msgid "add {0} {1} partition"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:434
+msgid "Confirm delete operation"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:435
+#, python-brace-format
+msgid "Are you sure you want delete device {0}?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:451
+#, python-brace-format
+msgid "delete partition {0}"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:518
+msgid "File exists"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:519
+msgid "Selected file already exists, do you want to overwrite it?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:528
+#, python-brace-format
+msgid ""
+"File with your Kickstart configuration was successfully saved to:\n"
+"\n"
+"{0}"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:533
+msgid "Confirm scheduled actions"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:534
+msgid "Are you sure you want to perform scheduled actions?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:556
+msgid "Unmount failed. Are you sure device is not in use?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:576
+msgid "Device decryption failed. Are you sure provided password is correct?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:622
+msgid "Confirm reload storage"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:623
+msgid "There are pending operations. Are you sure you want to continue?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:649
+msgid "Are you sure you want to quit?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:650
+msgid ""
+"There are unapplied actions. Are you sure you want to quit blivet-gui now?"
+msgstr ""
+
+#: ../blivetgui/list_devices.py:80
+msgid "<b>Disks</b>"
+msgstr ""
+
+#: ../blivetgui/list_devices.py:99
+msgid "<b>LVM2 Volume Groups</b>"
+msgstr ""
+
+#: ../blivetgui/actions_toolbar.py:53 ../blivetgui/dialogs/add_dialog.py:486
 msgid "Create new device"
 msgstr ""
 
@@ -150,176 +341,196 @@ msgstr ""
 msgid "Clear queued actions"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:65
-msgid "File"
+#: ../blivetgui/dialogs/add_dialog.py:89
+#, python-brace-format
+msgid "{0} is not a valid mountpoint."
 msgstr ""
 
-#: ../blivetgui/main_menu.py:69
-msgid "Reload"
+#: ../blivetgui/dialogs/add_dialog.py:100
+msgid "Duplicate mountpoint detected"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:70
-msgid "Quit"
+#: ../blivetgui/dialogs/add_dialog.py:101
+#, python-brace-format
+msgid ""
+"Selected mountpoint \"{0}\" is already used for \"{1}\" device. Do you want "
+"to remove this mountpoint?"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:85
-msgid "Undo Last Action"
+#: ../blivetgui/dialogs/add_dialog.py:201
+msgid "Volume size:"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:86
-msgid "Clear Queued Actions"
+#: ../blivetgui/dialogs/add_dialog.py:340
+msgid "Show advanced options"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:87
-msgid "Apply Queued Actions"
+#: ../blivetgui/dialogs/add_dialog.py:356
+msgid "PE Size:"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:98 ../blivetgui/dialogs/edit_dialog.py:306
-#: ../blivetgui/dialogs/edit_dialog.py:356
-#: ../blivetgui/dialogs/edit_dialog.py:423
+#: ../blivetgui/dialogs/add_dialog.py:377
+msgid "Partition type:"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:386
+msgid "Logical"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:389
+#: ../blivetgui/dialogs/add_dialog.py:392
+msgid "Primary"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:392
+msgid "Extended"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:533
+#: ../blivetgui/dialogs/add_dialog.py:549
+msgid "LVM2 Storage"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:534
+#: ../blivetgui/dialogs/add_dialog.py:550
+msgid "LVM2 Physical Volume"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:535
+#: ../blivetgui/dialogs/add_dialog.py:537
+#: ../blivetgui/dialogs/add_dialog.py:538
+#: ../blivetgui/dialogs/device_info_dialog.py:79
+msgid "LVM2 Volume Group"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:536
+#: ../blivetgui/dialogs/device_info_dialog.py:80
+msgid "LVM2 Logical Volume"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:536
+#: ../blivetgui/dialogs/device_info_dialog.py:82
+msgid "LVM2 ThinPool"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:539
+#: ../blivetgui/dialogs/device_info_dialog.py:86
+msgid "Btrfs Subvolume"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:540
+msgid "LVM2 Snaphost"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:541
+#: ../blivetgui/dialogs/device_info_dialog.py:83
+msgid "LVM2 Thin Logical Volume"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:544
+msgid "Device type:"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:554
+#: ../blivetgui/dialogs/add_dialog.py:563
+#: ../blivetgui/dialogs/device_info_dialog.py:85
+msgid "Btrfs Volume"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:560
+msgid "Software RAID"
+msgstr ""
+
 #: ../blivetgui/dialogs/add_dialog.py:596
-msgid "Device"
+#: ../blivetgui/dialogs/edit_dialog.py:307
+#: ../blivetgui/dialogs/edit_dialog.py:357
+#: ../blivetgui/dialogs/edit_dialog.py:424
+msgid "Type"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:118
-msgid "Help"
+#: ../blivetgui/dialogs/add_dialog.py:606
+#: ../blivetgui/dialogs/edit_dialog.py:367
+#: ../blivetgui/dialogs/edit_dialog.py:434
+msgid "Available devices:"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:122
-msgid "Contents"
+#: ../blivetgui/dialogs/add_dialog.py:661
+msgid "RAID Level:"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:123
-msgid "About"
+#: ../blivetgui/dialogs/add_dialog.py:691
+msgid "Volumes based on:"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:200
-msgid ""
-"Documentation for blivet-gui hasn't been found.\n"
-"\n"
-"Online version of documentation is available at http://vojtechtrefny.github."
-"io/blivet-gui"
+#: ../blivetgui/dialogs/add_dialog.py:695
+msgid "Disks"
 msgstr ""
 
-#: ../blivetgui/main_menu.py:222
-msgid ""
-"You need \"Yelp\" to see the documentation.\n"
-"\n"
-"Online version of documentation is available at http://vojtechtrefny.github."
-"io/blivet-gui"
+#: ../blivetgui/dialogs/add_dialog.py:938
+msgid "MDArray type:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:94
-msgid "blivet-gui is already running."
+#: ../blivetgui/dialogs/add_dialog.py:945
+msgid "LVM Physical Volume"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:136 ../blivetgui/dialogs/add_dialog.py:701
-#: tmp/blivet-gui.ui.h:2
-msgid "Partitions"
+#: ../blivetgui/dialogs/add_dialog.py:972
+#: ../blivetgui/dialogs/edit_dialog.py:150
+msgid "Filesystem:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:142 ../blivetgui/list_actions.py:105
-#: ../blivetgui/list_actions.py:129 ../blivetgui/list_actions.py:146
+#: ../blivetgui/dialogs/add_dialog.py:1005
+msgid "Label:"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1014
+msgid "Name:"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1026
+#: ../blivetgui/dialogs/edit_dialog.py:169
+msgid "Mountpoint:"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1038
+msgid "Encrypt:"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1047 tmp/luks_passphrase_dialog.ui.h:3
+msgid "Passphrase:"
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1196
+msgid "Filesystem type must be specified when creating new partition."
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1202
+msgid "Filesystem type must be specified when creating new logical volume."
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1208
+msgid "Passphrase not specified."
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1214
 #, python-brace-format
-msgid "Pending actions ({0})"
+msgid "\"{0}\" is not a valid mountpoint."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:207 ../blivetgui/list_devices.py:59
-msgid ""
-"blivet-gui failed to find at least one storage device to work with.\n"
-"\n"
-"Please connect a storage device to your computer and re-run blivet-gui."
+#: ../blivetgui/dialogs/add_dialog.py:1220
+msgid "Please select at least two parent devices."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:297
-#, python-brace-format
-msgid "edit {0} {1}"
+#: ../blivetgui/dialogs/add_dialog.py:1310
+msgid "No partition table found on disk"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:355
-#, python-brace-format
-msgid "create new disklabel on {0}"
+#: ../blivetgui/dialogs/add_dialog.py:1330
+msgid "A partition table is required before partitions can be added."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:393
-#, python-brace-format
-msgid "add {0} {1} device"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:396
-#, python-brace-format
-msgid "add {0} {1} partition"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:417
-msgid "Confirm delete operation"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:418
-#, python-brace-format
-msgid "Are you sure you want delete device {0}?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:434
-#, python-brace-format
-msgid "delete partition {0}"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:498
-msgid "File exists"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:499
-msgid "Selected file already exists, do you want to overwrite it?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:508
-#, python-brace-format
-msgid ""
-"File with your Kickstart configuration was successfully saved to:\n"
-"\n"
-"{0}"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:513
-msgid "Confirm scheduled actions"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:514
-msgid "Are you sure you want to perform scheduled actions?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:536
-msgid "Unmount failed. Are you sure device is not in use?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:556
-msgid "Device decryption failed. Are you sure provided password is correct?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:602
-msgid "Confirm reload storage"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:603
-msgid "There are pending operations. Are you sure you want to continue?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:629
-msgid "Are you sure you want to quit?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:630
-msgid ""
-"There are unapplied actions. Are you sure you want to quit blivet-gui now?"
-msgstr ""
-
-#: ../blivetgui/list_devices.py:80
-msgid "<b>Disks</b>"
-msgstr ""
-
-#: ../blivetgui/list_devices.py:99
-msgid "<b>LVM2 Volume Groups</b>"
+#: ../blivetgui/dialogs/add_dialog.py:1353
+msgid "Select new partition table type:"
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:67
@@ -350,23 +561,6 @@ msgstr ""
 msgid "Format?:"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:150
-#: ../blivetgui/dialogs/add_dialog.py:966
-msgid "Filesystem:"
-msgstr ""
-
-#: ../blivetgui/dialogs/edit_dialog.py:169
-#: ../blivetgui/dialogs/add_dialog.py:1020
-msgid "Mountpoint:"
-msgstr ""
-
-#: ../blivetgui/dialogs/edit_dialog.py:307
-#: ../blivetgui/dialogs/edit_dialog.py:357
-#: ../blivetgui/dialogs/edit_dialog.py:424
-#: ../blivetgui/dialogs/add_dialog.py:597
-msgid "Type"
-msgstr ""
-
 #: ../blivetgui/dialogs/edit_dialog.py:316
 msgid "Parent devices:"
 msgstr ""
@@ -385,12 +579,6 @@ msgid ""
 "disks with enough empty space to create one."
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:367
-#: ../blivetgui/dialogs/edit_dialog.py:434
-#: ../blivetgui/dialogs/add_dialog.py:607
-msgid "Available devices:"
-msgstr ""
-
 #: ../blivetgui/dialogs/edit_dialog.py:401
 msgid ""
 "It's currently not possible to remove\n"
@@ -401,183 +589,223 @@ msgstr ""
 msgid "Currently is possible to remove only one parent at time."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:67
-#, python-brace-format
-msgid "{0} is not a valid mountpoint."
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:78
-msgid "Duplicate mountpoint detected"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:79
-#, python-brace-format
-msgid ""
-"Selected mountpoint \"{0}\" is already used for \"{1}\" device. Do you want "
-"to remove this mountpoint?"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:179
-msgid "Volume size:"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:338
-msgid "Show advanced options"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:354
-msgid "PE Size:"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:375
-msgid "Partition type:"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:384
-msgid "Logical"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:387
-#: ../blivetgui/dialogs/add_dialog.py:390
-msgid "Primary"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:390
-msgid "Extended"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:536
-#: ../blivetgui/dialogs/add_dialog.py:550
-msgid "LVM2 Storage"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:537
-#: ../blivetgui/dialogs/add_dialog.py:551
-msgid "LVM2 Physical Volume"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:538
-#: ../blivetgui/dialogs/add_dialog.py:540
-#: ../blivetgui/dialogs/add_dialog.py:541
-msgid "LVM2 Volume Group"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:539
-msgid "LVM2 Logical Volume"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:542
-msgid "Btrfs Subvolume"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:545
-msgid "Device type:"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:555
-#: ../blivetgui/dialogs/add_dialog.py:564
-msgid "Btrfs Volume"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:561
-msgid "Software RAID"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:662
-msgid "RAID Level:"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:693
-msgid "Volumes based on:"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:697
-msgid "Disks"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:931
-msgid "MDArray type:"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:938
-msgid "LVM Physical Volume"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:999
-msgid "Label:"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1008
-msgid "Name:"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1032
-msgid "Encrypt:"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1041 tmp/luks_passphrase_dialog.ui.h:3
-msgid "Passphrase:"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1184
-msgid "Filesystem type must be specified when creating new partition."
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1191
-msgid "Filesystem type must be specified when creating new logical volume."
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1198
-msgid "Passphrase not specified."
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1205
-#, python-brace-format
-msgid "\"{0}\" is not a valid mountpoint."
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1212
-msgid "Please select at least two parent devices."
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1308
-msgid "No partition table found on disk"
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1328
-msgid "A partition table is required before partitions can be added."
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1351
-msgid "Select new partition table type:"
-msgstr ""
-
 #: ../blivetgui/dialogs/other_dialogs.py:48
 msgid "translator-credits"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:129
+#: ../blivetgui/dialogs/other_dialogs.py:130
 msgid "Select devices"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:179
+#: ../blivetgui/dialogs/other_dialogs.py:180
 msgid "Please select at least one of shown devices:"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:192
+#: ../blivetgui/dialogs/other_dialogs.py:193
 msgid "Install bootloader?:"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:200
+#: ../blivetgui/dialogs/other_dialogs.py:201
 msgid "Device to install bootloader:"
 msgstr ""
 
-#: ../blivetgui/blivetguiproxy/client.py:274
-#: ../blivetgui/blivetguiproxy/client.py:292
-#, python-format
+#. ------------------------------------------------------------------------------#
+#: ../blivetgui/dialogs/device_info_dialog.py:39
+msgid "primary"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:40
+msgid "logical"
+msgstr ""
+
+#. Gtk.Dialog
+#: ../blivetgui/dialogs/device_info_dialog.py:63
+#, python-brace-format
+msgid "Information about {0}"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:81
+msgid "LVM2 Snapshot"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:84
+msgid "LUKS/DM-Crypt Device"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:97
+#: ../blivetgui/dialogs/device_info_dialog.py:201
+#, python-brace-format
+msgid " • <i>Type:</i> {type}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:100
+#, python-brace-format
+msgid " • <i>Length:</i> {length}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:101
+#, python-brace-format
+msgid " • <i>Start:</i> {start}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:102
+#, python-brace-format
+msgid " • <i>End:</i> {end}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:109
+#, python-brace-format
+msgid " • <i>Origin:</i> {origin}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:110
+#: ../blivetgui/dialogs/device_info_dialog.py:113
+#: ../blivetgui/dialogs/device_info_dialog.py:118
+#, python-brace-format
+msgid " • <i>Segment type:</i> {segtype}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:111
+#: ../blivetgui/dialogs/device_info_dialog.py:114
+#: ../blivetgui/dialogs/device_info_dialog.py:119
+#, python-brace-format
+msgid " • <i>Mirror copies:</i> {copies}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:115
+#, python-brace-format
+msgid " • <i>Free space:</i> {free}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:116
+#, python-brace-format
+msgid " • <i>Space used:</i> {used}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:124
+#, python-brace-format
+msgid " • <i>PE Size:</i> {pesize}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:125
+#, python-brace-format
+msgid " • <i>PE Count:</i> {pecount}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:126
+#, python-brace-format
+msgid " • <i>Free Space:</i> {free}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:127
+#, python-brace-format
+msgid " • <i>PE Free:</i> {pefree}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:128
+#, python-brace-format
+msgid " • <i>Reserved Space:</i> {res} ({resp} %)\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:130
+#, python-brace-format
+msgid " • <i>Complete:</i> {complete}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:135
+#, python-brace-format
+msgid " • <i>Subvol ID:</i> {id}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:136
+#, python-brace-format
+msgid " • <i>Data Level:</i> {level}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:137
+#, python-brace-format
+msgid " • <i>Metadata Level:</i> {level}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:151
+#, python-brace-format
+msgid "<b>Unknown device {name}</b>"
+msgstr ""
+
+#. device info header
+#: ../blivetgui/dialogs/device_info_dialog.py:159
+msgid "<i>Basic information</i>"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:168
+#: ../blivetgui/dialogs/device_info_dialog.py:200
+#, python-brace-format
+msgid " • <i>Status:</i> {exist}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:169
+#, python-brace-format
+msgid " • <i>Name:</i> {name}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:170
+#, python-brace-format
+msgid " • <i>Path:</i> {path}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:171
+#, python-brace-format
+msgid " • <i>Size:</i> {size}\n"
+msgstr ""
+
+#. device format header
+#: ../blivetgui/dialogs/device_info_dialog.py:190
+msgid "<i>Device format</i>"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:202
+#, python-brace-format
+msgid " • <i>UUID:</i> {uuid}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:204
+#, python-brace-format
+msgid " • <i>Label:</i> {label}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:206
+#, python-brace-format
+msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:209
+msgid " • <i>Type:</i> None"
+msgstr ""
+
+#. device parents header
+#: ../blivetgui/dialogs/device_info_dialog.py:221
+msgid "<i>Parents</i>"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:231
+msgid "existing"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:231
+msgid "non-existing"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:232
+#, python-brace-format
+msgid " • {exists} {size} {type} {name}\n"
+msgstr ""
+
+#: ../blivetgui/blivetguiproxy/client.py:295
+#: ../blivetgui/blivetguiproxy/client.py:313
+#, python-brace-format
 msgid ""
 "Failed to connect to blivet-gui-daemon.\n"
-"%s"
+"{err}"
 msgstr ""
 
 #: tmp/about_dialog.ui.h:1
