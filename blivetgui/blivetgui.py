@@ -116,7 +116,6 @@ class BlivetGUI(object):
         ### Kickstart devices dialog
         if self.kickstart_mode:
             self.use_disks = self.kickstart_disk_selection()
-            self.old_mountpoints = self.client.remote_call("kickstart_mountpoints")
 
         ### MainMenu
         self.main_menu = MainMenu(self)
@@ -335,7 +334,7 @@ class BlivetGUI(object):
         if parent_device_type == "partition" and parent_device.format.type == "lvmpv":
             parent_device_type = "lvmpv"
 
-        if parent_device_type == "disk" and not self.client.remote_call("has_disklabel", self.list_devices.selected_device) \
+        if parent_device_type == "disk" and self.list_devices.selected_device.format.type != "disklabel" \
             and btrfs_pt == False:
 
             dialog = add_dialog.AddLabelDialog(self.main_window, self.list_devices.selected_device,

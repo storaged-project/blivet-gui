@@ -1083,20 +1083,6 @@ class BlivetUtils(object):
 
         return extended
 
-    def has_disklabel(self, blivet_device):
-        """ Has this disk device disklabel
-
-            :param blivet_device: blivet device
-            :type blivet_device: blivet.Device
-            :returns: true/false
-            :rtype: bool
-
-        """
-
-        assert blivet_device.type == "disk"
-
-        return blivet_device.format.type == "disklabel"
-
     def get_available_disklabels(self):
         """ Return disklabels available on current platform
 
@@ -1158,23 +1144,6 @@ class BlivetUtils(object):
         self.ksparser.handler.bootloader.bootDrive = disk_name
 
         self.storage.ksdata = self.ksparser.handler
-
-    def kickstart_mountpoints(self):
-        """ delete existing mountpoints from dt and save them for future use
-        """
-
-        old_mountpoints = {}
-
-        for mountpoint in self.storage.mountpoints.values():
-            old_mountpoints[mountpoint.format.uuid] = mountpoint.format.mountpoint
-            mountpoint.format.mountpoint = None
-            mountpoint.format._mountpoint = None
-
-        # set swaps to non-existent in order to set their status to False
-        for swap in self.storage.swaps:
-            swap.format.exists = False
-
-        return ProxyDataContainer(**old_mountpoints)
 
     def kickstart_hide_disks(self, disk_names):
         """ Hide disks not used in kickstart mode
