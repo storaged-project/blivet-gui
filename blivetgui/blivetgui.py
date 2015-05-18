@@ -217,7 +217,7 @@ class BlivetGUI(object):
 
         else:
             dialog.destroy()
-            self.quit()
+            sys.exit(0)
 
         if install_bootloader and bootloader_device:
             self.client.remote_call("set_bootloader_device", bootloader_device)
