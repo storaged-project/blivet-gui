@@ -26,6 +26,8 @@ from gi.repository import Gtk, GdkPixbuf
 
 import gettext
 
+import sys
+
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.ldgettext("blivet-gui", x)
@@ -59,7 +61,7 @@ class ListDevices(object):
             msg = _("blivet-gui failed to find at least one storage device to work with." \
                 "\n\nPlease connect a storage device to your computer and re-run blivet-gui.")
             self.blivet_gui.show_error_dialog(msg)
-            self.blivet_gui.quit()
+            sys.exit(0)
 
         self.disks_view = self.create_devices_view()
 
