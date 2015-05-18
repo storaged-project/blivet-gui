@@ -750,6 +750,23 @@ class AddDialog(Gtk.Dialog):
 
         self.free_type_chooser = (label_empty_type, button1, button2)
 
+    def _get_free_type(self):
+        if self.free_type_chooser:
+            button_disks = self.free_type_chooser[1]
+            button_partitions = self.free_type_chooser[2]
+
+        else:
+            return None
+
+        if button_disks.get_active():
+            return "disks"
+
+        elif button_partitions.get_active():
+            return "partitions"
+
+        else:
+            return None
+
     def remove_free_type_chooser(self):
 
         for widget in self.free_type_chooser:
@@ -916,7 +933,7 @@ class AddDialog(Gtk.Dialog):
         for area in self.size_areas:
             area.show()
 
-            if device_type in ("lvmvg", "btrfs subvolume"):
+            if device_type in ("lvmvg", "btrfs subvolume") or self._get_free_type() == "disks":
                 area.set_sensitive(False)
 
         size_area_height = size_grid.size_request().height
