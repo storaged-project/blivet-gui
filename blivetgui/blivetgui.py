@@ -234,7 +234,7 @@ class BlivetGUI(object):
         else:
             raise exception.with_traceback(traceback)
 
-    def device_information(self, widget=None):
+    def device_information(self, _widget=None):
         """ Display information about currently selected device
         """
 
@@ -244,7 +244,7 @@ class BlivetGUI(object):
         dialog.run()
         dialog.destroy()
 
-    def edit_device(self, widget=None):
+    def edit_device(self, _widget=None):
         """ Edit selected device
 
             :param widget: widget calling this function (only for calls via signal.connect)
@@ -294,7 +294,7 @@ class BlivetGUI(object):
         dialog.destroy()
         return
 
-    def add_partition(self, widget=None, btrfs_pt=False):
+    def add_partition(self, _widget=None, btrfs_pt=False):
         """ Add new partition
             :param widget: widget calling this function (only for calls via signal.connect)
             :type widget: Gtk.Widget()
@@ -394,7 +394,7 @@ class BlivetGUI(object):
         dialog.destroy()
         return
 
-    def delete_selected_partition(self, widget=None):
+    def delete_selected_partition(self, _widget=None):
         """ Delete selected partition
 
             :param widget: widget calling this function (only for calls via signal.connect)
@@ -464,7 +464,7 @@ class BlivetGUI(object):
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
-    def apply_event(self, widget=None):
+    def apply_event(self, _widget=None):
         """ Apply event for main menu/toolbar
 
             :param widget: widget calling this function (only for calls via signal.connect)
@@ -512,7 +512,7 @@ class BlivetGUI(object):
                 processing_dialog = ProcessingActions(self)
                 self.perform_actions(processing_dialog)
 
-    def umount_partition(self, widget=None):
+    def umount_partition(self, _widget=None):
         """ Unmount selected partition
 
             :param widget: widget calling this function (only for calls via signal.connect)
@@ -528,7 +528,7 @@ class BlivetGUI(object):
 
         self.update_partitions_view()
 
-    def decrypt_device(self, widget=None):
+    def decrypt_device(self, _widget=None):
         """ Decrypt selected device
 
             :param widget: widget calling this function (only for calls via signal.connect)
@@ -551,7 +551,7 @@ class BlivetGUI(object):
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
-    def actions_undo(self, widget=None):
+    def actions_undo(self, _widget=None):
         """ Undo last action
 
             :param widget: widget calling this function (only for calls via signal.connect)
@@ -565,7 +565,7 @@ class BlivetGUI(object):
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
-    def clear_actions(self, widget=None):
+    def clear_actions(self, _widget=None):
         """ Clear all scheduled actions
 
             :param widget: widget calling this function (only for calls via signal.connect)
@@ -580,7 +580,7 @@ class BlivetGUI(object):
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
-    def reload(self, widget=None):
+    def reload(self, _widget=None):
         """ Reload storage information
 
             :param widget: widget calling this function (only for calls via signal.connect)
@@ -607,7 +607,7 @@ class BlivetGUI(object):
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
-    def quit(self, event=None, widget=None):
+    def quit(self, _event=None, _widget=None):
         """ Quit blivet-gui
 
             :param widget: widget calling this function (only for calls via signal.connect)

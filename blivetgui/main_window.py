@@ -24,7 +24,7 @@
 
 from __future__ import print_function
 
-import os, signal
+import signal
 
 from gi.repository import Gtk
 
@@ -49,13 +49,13 @@ class MainWindow(object):
             self.window = self.main_window(blivet_gui.kickstart_mode)
             self.window.connect("delete-event", self.blivet_gui.quit)
 
-    def main_window(self, kickstart=False):
+    def main_window(self, _kickstart=False):
         """ Create main window from Glade UI file
         """
 
         return self.blivet_gui.builder.get_object("main_window")
 
-    def embedded_window(self, kickstart=False, socket_id=0):
+    def embedded_window(self, _kickstart=False, socket_id=0):
         """ Create Gtk.Plug widget
         """
 

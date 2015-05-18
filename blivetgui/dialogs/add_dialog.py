@@ -681,7 +681,7 @@ class AddDialog(Gtk.Dialog):
 
         return
 
-    def on_raid_type_changed(self, event):
+    def on_raid_type_changed(self, _event):
         self.size_grid, self.size_scroll = self.add_size_areas()
 
     def add_raid_type_chooser(self):
@@ -822,7 +822,7 @@ class AddDialog(Gtk.Dialog):
 
         self.select_selected_free_region()
 
-    def on_cell_toggled(self, event, path):
+    def on_cell_toggled(self, _event, path):
 
         if self.parents_store[path][2]:
             pass
@@ -998,7 +998,7 @@ class AddDialog(Gtk.Dialog):
 
         return md_type_combo
 
-    def on_md_type_changed(self, event):
+    def on_md_type_changed(self, _event):
 
         if self.md_type_combo.get_active_id() == "partition":
             self.show_widgets(["fs"])
@@ -1144,7 +1144,7 @@ class AddDialog(Gtk.Dialog):
                 for widget in self.widgets_dict[widget_type]:
                     widget.hide()
 
-    def on_devices_combo_changed(self, event):
+    def on_devices_combo_changed(self, _event):
 
         device_type = self._get_selected_device_type()
 
@@ -1268,7 +1268,7 @@ class AddDialog(Gtk.Dialog):
         else:
             return True
 
-    def on_ok_clicked(self, event):
+    def on_ok_clicked(self, _event):
 
         if not self.validate_user_input():
             self.run()

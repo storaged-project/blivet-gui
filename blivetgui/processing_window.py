@@ -85,7 +85,7 @@ class ProcessingActions(Gtk.Dialog):
         self.set_response_sensitive(Gtk.ResponseType.OK, True)
         self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
 
-    def on_timeout(self, user_data):
+    def on_timeout(self, _user_data):
         """ Timeout fuction for progressbar pulsing
         """
 

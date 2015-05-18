@@ -186,7 +186,7 @@ class PartitionEditDialog(Gtk.Dialog):
 
         return mountpoint_entry
 
-    def on_format_changed(self, event):
+    def on_format_changed(self, _event):
 
         if self.format_check.get_active():
             self.filesystems_combo.set_sensitive(True)
@@ -404,10 +404,10 @@ class LVMEditDialog(Gtk.Dialog):
 
             return parents_store
 
-    def on_cell_toggled(self, toggle, path, store):
+    def on_cell_toggled(self, _toggle, path, store):
         store[path][2] = not store[path][2]
 
-    def on_cell_radio_toggled(self, toggle, path, store):
+    def on_cell_radio_toggled(self, _toggle, path, store):
         for row in store:
             row[2] = (row.path == Gtk.TreePath(path))
 
