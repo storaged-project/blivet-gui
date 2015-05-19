@@ -222,21 +222,9 @@ class BlivetUtils(object):
                 free_disks.append(FreeSpaceDevice(disk.size, 0, disk.partedDevice.length, [disk]))
                 continue
 
-            extended = None
-
-            for partition in self.storage.devicetree.getChildren(disk):
-                if partition.type == "partition" and partition.isExtended:
-                    extended = (partition.partedPartition.geometry.start,
-                                partition.partedPartition.geometry.end)
-
             free_space = blivet.partitioning.getFreeRegions([disk])
 
             for free in free_space:
-                if extended and free.start >= extended[0] and free.end <= extended[1]:
-                    #empty space inside extended partition -> not usable for btrfs
-                    #volumes or lvmpv
-                    continue
-
                 free_size = blivet.size.Size(free.length * free.device.sectorSize)
 
                 if free_size > blivet.size.Size("2 MiB"):
