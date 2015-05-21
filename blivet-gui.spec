@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.3.2
+Version: 0.3.3
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -52,6 +52,14 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Thu May 21 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.3.3-1
+- Require newest blivet (python-blivet 1.4) (vtrefny)
+- Allow using of free space inside extended partitions for LVM (vtrefny)
+- Use sys.exit instead of blivetgui.quit in certain situations (vtrefny)
+- AddDialog: fix size selection for btrfs disks (vtrefny)
+- Remove obsolete option to embedd blivet-gui to another app (vtrefny)
+- Remove some obsolete/unused BlivetUtils methods (vtrefny)
+
 * Thu May 14 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.3.2-1
 - Devel branch for l10n on Zanata (vtrefny)
 - Use currentSize instead of partedDevice.length for empty disks (vtrefny)
