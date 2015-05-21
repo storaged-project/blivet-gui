@@ -294,6 +294,17 @@ class BlivetGUI(object):
         dialog.destroy()
         return
 
+    def _allow_add_device(self, parent_device, parent_device_type):
+        """ Allow add device?
+        """
+
+        if parent_device_type == "lvmvg" and not parent_device.complete:
+            msg = _("{name} is not complete. It is not possible to add new LVs to VG with " \
+                "missing PVs.").format(name=parent_device.name)
+            return (False, msg)
+
+        return (True, None)
+
     def add_partition(self, _widget=None, btrfs_pt=False):
         """ Add new partition
             :param widget: widget calling this function (only for calls via signal.connect)
@@ -315,6 +326,13 @@ class BlivetGUI(object):
 
         if parent_device_type == "partition" and parent_device.format.type == "lvmpv":
             parent_device_type = "lvmpv"
+
+        # allow adding new device?
+        allow, msg = self._allow_add_device(parent_device, parent_device_type)
+
+        if not allow:
+            message_dialogs.ErrorDialog(self.main_window, msg)
+            return
 
         if parent_device_type == "disk" and not self.blivet_utils.has_disklabel(self.list_devices.selected_device) \
             and btrfs_pt == False:
