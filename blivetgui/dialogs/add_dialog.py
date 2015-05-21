@@ -413,6 +413,9 @@ class AdvancedOptions(object):
         elif self.has_extended:
             types = [(_("Primary"), "primary")]
 
+        elif self.parent_device.format.labelType in ("gpt",):
+            types = [(_("Primary"), "primary")]
+
         else:
             types = [(_("Primary"), "primary"), (_("Extended"), "extended")]
 
