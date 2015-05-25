@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.2.5
+Version: 0.2.6
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -52,6 +52,18 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui_pkexec
 
 %changelog
+* Mon May 25 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.6-1
+- Kickstart mode: update partition view after mountpoint change (vtrefny)
+- Do not display disks without disklabel in AddDialog (vtrefny)
+- Do not allow adding new LV to an incomplete VG (vtrefny)
+- Do not allow to create an extended partition on GPT disks (vtrefny)
+- Allow using of free space inside extended partitions for LVM (vtrefny)
+- Fix pylint unused variable warning for Gtk signal handling (vtrefny)
+- Use sys.exit instead of blivetgui.quit in certain situations (vtrefny)
+- AddDialog: Do not use 'size' as name for variable (vtrefny)
+- AddDialog: fix size selection for btrfs disks (vtrefny)
+- Catch BlockDev.CryptoError while decrypting luks (vtrefny)
+
 * Tue May 05 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.5-1
 - Do not (de)activate non-existing options in menus/toolbars (vtrefny)
 - Fix adding encrypted partitions (vtrefny)
