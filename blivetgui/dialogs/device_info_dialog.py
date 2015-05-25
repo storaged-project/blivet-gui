@@ -131,8 +131,7 @@ class DeviceInformationDialog(Gtk.Dialog):
         return info
 
     def _get_btrfs_info(self):
-        info = _(" • <i>Subvol ID:</i> {id}\n").format(id=self.device.format.subvolspec)
-        info += _(" • <i>Data Level:</i> {level}\n").format(level=self.device.dataLevel)
+        info = _(" • <i>Data Level:</i> {level}\n").format(level=self.device.dataLevel)
         info += _(" • <i>Metadata Level:</i> {level}\n").format(level=self.device.metaDataLevel)
 
         return info
