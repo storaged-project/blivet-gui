@@ -215,7 +215,7 @@ class BlivetUtils(object):
 
         for disk in self.storage.disks:
 
-            if disk.format.type not in ("disklabel", None):
+            if disk.format.type not in ("disklabel",):
                 continue
 
             elif not disk.format.type:
