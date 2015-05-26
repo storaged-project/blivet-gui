@@ -815,6 +815,13 @@ class BlivetUtils(object):
                 if user_input.btrfs_type == "disks":
                     assert parent.isDisk
 
+                    if parent.format.type:
+                        result = self.delete_disk_label(parent)
+                        if not result.success:
+                            return result
+                        else:
+                            actions.extend(result.actions)
+
                     fmt = blivet.formats.getFormat(fmt_type="btrfs")
                     ac_fmt = blivet.deviceaction.ActionCreateFormat(parent, fmt)
 
