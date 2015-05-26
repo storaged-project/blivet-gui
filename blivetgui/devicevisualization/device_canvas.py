@@ -391,6 +391,7 @@ class DeviceCanvas(Gtk.DrawingArea):
 
             return
 
+        self.rectangles = {}
         root_iter = self.partitions_list.get_iter_first()
         draw_loop(self, root_iter, 0, 0, self.parent, width)
 
