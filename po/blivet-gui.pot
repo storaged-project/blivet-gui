@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-25 09:13+0200\n"
+"POT-Creation-Date: 2015-05-26 13:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "free space"
 msgstr ""
 
-#: ../blivetgui/utils.py:441
+#: ../blivetgui/utils.py:443
 #, python-brace-format
 msgid "Failed to remove device {0}. Are you sure it is not in use?"
 msgstr ""
@@ -482,36 +482,36 @@ msgstr ""
 msgid "Passphrase:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1231
+#: ../blivetgui/dialogs/add_dialog.py:1228
 msgid "Filesystem type must be specified when creating new partition."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1238
+#: ../blivetgui/dialogs/add_dialog.py:1235
 msgid "Filesystem type must be specified when creating new logical volume."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1245
+#: ../blivetgui/dialogs/add_dialog.py:1242
 msgid "Passphrase not specified."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1252
+#: ../blivetgui/dialogs/add_dialog.py:1249
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1259
+#: ../blivetgui/dialogs/add_dialog.py:1256
 msgid "Please select at least two parent devices."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1355
+#: ../blivetgui/dialogs/add_dialog.py:1352
 msgid "No partition table found on disk"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1375
+#: ../blivetgui/dialogs/add_dialog.py:1372
 msgid "A partition table is required before partitions can be added."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1398
+#: ../blivetgui/dialogs/add_dialog.py:1395
 msgid "Select new partition table type:"
 msgstr ""
 
@@ -615,7 +615,7 @@ msgid "LUKS/DM-Crypt Device"
 msgstr ""
 
 #: ../blivetgui/dialogs/device_info_dialog.py:96
-#: ../blivetgui/dialogs/device_info_dialog.py:195
+#: ../blivetgui/dialogs/device_info_dialog.py:196
 #, python-brace-format
 msgid " • <i>Type:</i> {type}\n"
 msgstr ""
@@ -696,26 +696,21 @@ msgstr ""
 
 #: ../blivetgui/dialogs/device_info_dialog.py:134
 #, python-brace-format
-msgid " • <i>Subvol ID:</i> {id}\n"
-msgstr ""
-
-#: ../blivetgui/dialogs/device_info_dialog.py:135
-#, python-brace-format
 msgid " • <i>Data Level:</i> {level}\n"
 msgstr ""
 
-#: ../blivetgui/dialogs/device_info_dialog.py:136
+#: ../blivetgui/dialogs/device_info_dialog.py:135
 #, python-brace-format
 msgid " • <i>Metadata Level:</i> {level}\n"
 msgstr ""
 
 #. device info header
-#: ../blivetgui/dialogs/device_info_dialog.py:153
+#: ../blivetgui/dialogs/device_info_dialog.py:152
 msgid "<i>Basic information</i>"
 msgstr ""
 
 #: ../blivetgui/dialogs/device_info_dialog.py:162
-#: ../blivetgui/dialogs/device_info_dialog.py:194
+#: ../blivetgui/dialogs/device_info_dialog.py:195
 #, python-brace-format
 msgid " • <i>Status:</i> {exist}\n"
 msgstr ""
@@ -740,39 +735,39 @@ msgstr ""
 msgid "<i>Device format</i>"
 msgstr ""
 
-#: ../blivetgui/dialogs/device_info_dialog.py:196
+#: ../blivetgui/dialogs/device_info_dialog.py:197
 #, python-brace-format
 msgid " • <i>UUID:</i> {uuid}\n"
 msgstr ""
 
-#: ../blivetgui/dialogs/device_info_dialog.py:198
+#: ../blivetgui/dialogs/device_info_dialog.py:199
 #, python-brace-format
 msgid " • <i>Label:</i> {label}\n"
 msgstr ""
 
-#: ../blivetgui/dialogs/device_info_dialog.py:200
+#: ../blivetgui/dialogs/device_info_dialog.py:201
 #, python-brace-format
 msgid " • <i>Mountpoint:</i> {mountpoint}\n"
 msgstr ""
 
-#: ../blivetgui/dialogs/device_info_dialog.py:203
+#: ../blivetgui/dialogs/device_info_dialog.py:204
 msgid " • <i>Type:</i> None"
 msgstr ""
 
 #. device parents header
-#: ../blivetgui/dialogs/device_info_dialog.py:215
+#: ../blivetgui/dialogs/device_info_dialog.py:216
 msgid "<i>Parents</i>"
 msgstr ""
 
-#: ../blivetgui/dialogs/device_info_dialog.py:225
+#: ../blivetgui/dialogs/device_info_dialog.py:227
 msgid "existing"
 msgstr ""
 
-#: ../blivetgui/dialogs/device_info_dialog.py:225
+#: ../blivetgui/dialogs/device_info_dialog.py:227
 msgid "non-existing"
 msgstr ""
 
-#: ../blivetgui/dialogs/device_info_dialog.py:226
+#: ../blivetgui/dialogs/device_info_dialog.py:228
 #, python-brace-format
 msgid " • Parent device #{idx}: {exists} {size} {type} {name}\n"
 msgstr ""

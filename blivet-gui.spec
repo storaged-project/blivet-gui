@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.2.6
+Version: 0.2.7
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -52,6 +52,16 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui_pkexec
 
 %changelog
+* Tue May 26 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.7-1
+- Fix adding new PV to VG (vtrefny)
+- Fix device visualisation selection after window resize (vtrefny)
+- Allow adding encrypted logical partitions (vtrefny)
+- Delete existing partition table when adding btrfs as a disklabel (vtrefny)
+- Fix removing parents for encrypted devices and btrfs volumes (vtrefny)
+- DeviceInfoDialog: auto-ellipsize long labels (vtrefny)
+- Do not chatch blivet.errors.CryptoError (#1224744) (vtrefny)
+- Do not display subvol ID in info dialog (vtrefny)
+
 * Mon May 25 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.6-1
 - Kickstart mode: update partition view after mountpoint change (vtrefny)
 - Do not display disks without disklabel in AddDialog (vtrefny)
