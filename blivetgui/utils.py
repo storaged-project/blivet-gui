@@ -437,7 +437,7 @@ class BlivetUtils(object):
                 try:
                     parent.teardown()
 
-                except blivet.errors.CryptoError:
+                except (GLib.GError, BlockDev.CryptoError):
                     msg = _("Failed to remove device {0}. Are you sure it is not in use?").format(parent.name)
 
                     # cancel destroy action for luks device
