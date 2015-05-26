@@ -387,7 +387,8 @@ class BlivetUtils(object):
         assert disk_device.isDisk and disk_device.format
 
         try:
-            disk_device.format.teardown()
+            if disk_device.format.exists:
+                disk_device.format.teardown()
             action = blivet.deviceaction.ActionDestroyFormat(disk_device)
             self.storage.devicetree.registerAction(action)
 
@@ -433,32 +434,37 @@ class BlivetUtils(object):
             for parent in blivet_device.parents:
                 assert parent.type == "partition" and parent.format.type == "luks"
 
-                # teardown parent before
-                try:
-                    parent.teardown()
+                if parent.exists:
+                # teardown existing parent before
+                    try:
+                        parent.teardown()
 
-                except (GLib.GError, BlockDev.CryptoError):
-                    msg = _("Failed to remove device {0}. Are you sure it is not in use?").format(parent.name)
+                    except (GLib.GError, BlockDev.CryptoError):
+                        msg = _("Failed to remove device {0}. Are you sure it is not in use?").format(parent.name)
 
-                    # cancel destroy action for luks device
-                    self.blivet_cancel_actions(actions)
-                    return ReturnList(success=False, actions=None, message=msg, exception=None,
-                                      traceback=sys.exc_info()[2])
+                        # cancel destroy action for luks device
+                        self.blivet_cancel_actions(actions)
+                        return ReturnList(success=False, actions=None, message=msg, exception=None,
+                                          traceback=sys.exc_info()[2])
 
-                actions.extend(self.delete_device(parent))
+                result = self.delete_device(parent)
+                if not result.success:
+                    return result
+                else:
+                    actions.extend(result.actions)
 
         # for btrfs volumes delete parents partition after deleting volume
         if blivet_device.type in ("btrfs volume", "mdarray"):
             for parent in blivet_device.parents:
                 if parent.type == "partition":
-                    actions.extend(self.delete_device(parent))
+                    result = self.delete_device(parent)
                 elif parent.type == "disk":
                     result = self.delete_disk_label(parent)
 
-                    if not result.success:
-                        return result
-                    else:
-                        actions.append(result.actions)
+                if not result.success:
+                    return result
+                else:
+                    actions.extend(result.actions)
 
         return ReturnList(success=True, actions=actions, message=None, exception=None,
                           traceback=None)
