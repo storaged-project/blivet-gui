@@ -967,7 +967,7 @@ class BlivetUtils(object):
 
         if parent.type == "free space":
             dev = PartitionDevice(name="req%d" % self.storage.nextID, size=parent.size,
-                                  parents=parent.parents)
+                                  parents=[i for i in parent.parents])
             ac_part = blivet.deviceaction.ActionCreateDevice(dev)
 
             fmt = blivet.formats.getFormat(fmt_type="lvmpv")
