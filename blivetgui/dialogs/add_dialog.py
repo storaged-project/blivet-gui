@@ -1142,9 +1142,6 @@ class AddDialog(Gtk.Dialog):
             self.show_widgets(["label", "fs", "encrypt", "mountpoint", "size", "advanced"])
             self.hide_widgets(["name", "passphrase", "mdraid"])
 
-            if self.free_device.isLogical:
-                self.hide_widgets(["encrypt", "passphrase"])
-
         elif device_type == "lvmpv":
             self.show_widgets(["encrypt", "size"])
             self.hide_widgets(["name", "label", "fs", "mountpoint", "passphrase", "advanced", "mdraid"])
