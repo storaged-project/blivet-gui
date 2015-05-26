@@ -28,7 +28,7 @@ import gettext
 
 import parted
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Pango
 
 #------------------------------------------------------------------------------#
 
@@ -154,6 +154,7 @@ class DeviceInformationDialog(Gtk.Dialog):
         info_type_label.set_alignment(xalign=0, yalign=0)
 
         device_info_label = Gtk.Label()
+        device_info_label.set_ellipsize(Pango.EllipsizeMode.MIDDLE)
         self.grid.attach(device_info_label, left=0, top=2, width=1, height=1)
 
         # 'basic' information about selected device
@@ -186,6 +187,7 @@ class DeviceInformationDialog(Gtk.Dialog):
 
         # information about device format
         fmt_info_label = Gtk.Label()
+        fmt_info_label.set_ellipsize(Pango.EllipsizeMode.MIDDLE)
         self.grid.attach(fmt_info_label, left=0, top=4, width=2, height=1)
 
         if self.device.format and self.device.format.type:
@@ -217,6 +219,7 @@ class DeviceInformationDialog(Gtk.Dialog):
 
         # information about device parents
         parent_info_label = Gtk.Label()
+        parent_info_label.set_ellipsize(Pango.EllipsizeMode.MIDDLE)
         self.grid.attach(parent_info_label, left=0, top=6, width=2, height=1)
 
         info = ""
