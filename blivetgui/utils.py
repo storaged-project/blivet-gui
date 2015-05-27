@@ -145,7 +145,7 @@ class BlivetUtils(object):
     """ Class with utils directly working with blivet itselves
     """
 
-    def __init__(self, kickstart=False):
+    def __init__(self, kickstart=False, test_run=False):
 
         if kickstart:
             self.ksparser = pykickstart.parser.KickstartParser(makeVersion())
@@ -153,12 +153,13 @@ class BlivetUtils(object):
         else:
             self.storage = blivet.Blivet()
 
-        self.blivet_logfile, self.program_logfile = self.set_logging()
+        if not test_run:
+            self.blivet_logfile, self.program_logfile = self.set_logging()
 
-        blivet.formats.fs.NTFS._formattable = True
+            blivet.formats.fs.NTFS._formattable = True
 
-        self.storage.reset()
-        self._update_min_sizes_info()
+            self.storage.reset()
+            self._update_min_sizes_info()
 
     def set_logging(self):
         """ Set logging for blivet-gui-daemon process
@@ -786,14 +787,9 @@ class BlivetUtils(object):
             pv_actions = self._create_lvmpv(pv_input)
 
             # we need to try to register create actions immediately, if something fails, fail now
-            try:
-                for ac in pv_actions:
-                    self.storage.devicetree.registerAction(ac)
-            except blivet.errors.PartitioningError as e:
-                return ProxyDataContainer(success=False, actions=None, message=None,
-                                          exception=e, traceback=traceback.format_exc())
-            else:
-                actions.extend(pv_actions)
+            for ac in pv_actions:
+                self.storage.devicetree.registerAction(ac)
+            actions.extend(pv_actions)
 
         # we don't have a list of newly created pvs but we have the list of actions
         vg_parents = [(ac.device, ac.device.size) for ac in actions if ac.isFormat and ac._format.type == "lvmpv"]
@@ -838,14 +834,9 @@ class BlivetUtils(object):
             part_actions = self._create_partition(part_input)
 
             # we need to try to create partitions immediately, if something fails, fail now
-            try:
-                for ac in part_actions:
-                    self.storage.devicetree.registerAction(ac)
-            except blivet.errors.PartitioningError as e:
-                return ProxyDataContainer(success=False, actions=None, message=None,
-                                          exception=e, traceback=traceback.format_exc())
-            else:
-                actions.extend(part_actions)
+            for ac in part_actions:
+                self.storage.devicetree.registerAction(ac)
+            actions.extend(part_actions)
 
         md_parents = [ac.device for ac in actions if ac.isFormat and ac._format.type == "mdmember"]
         new_md = MDRaidArrayDevice(parents=md_parents,
@@ -878,13 +869,8 @@ class BlivetUtils(object):
             if user_input.btrfs_type == "disks":
                 disk_ac = self._create_btrfs_disk(parent)
 
-                try:
-                    self.storage.devicetree.registerAction(disk_ac)
-                except Exception as e: # pylint: disable=broad-except
-                    return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                                              traceback=traceback.format_exc())
-                else:
-                    actions.append(disk_ac)
+                self.storage.devicetree.registerAction(disk_ac)
+                actions.append(disk_ac)
 
             else:
                 # _create_partition needs user_input but we actually don't have it for individual
@@ -899,14 +885,9 @@ class BlivetUtils(object):
 
                 # we need to try to create partitions immediately, if something
                 # fails, fail now
-                try:
-                    for ac in part_actions:
-                        self.storage.devicetree.registerAction(ac)
-                except blivet.errors.PartitioningError as e:
-                    return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                                              traceback=traceback.format_exc())
-                else:
-                    actions.extend(part_actions)
+                for ac in part_actions:
+                    self.storage.devicetree.registerAction(ac)
+                actions.extend(part_actions)
 
         btrfs_parents = [ac.device for ac in actions if ac.isFormat and ac._format.type == "btrfs"]
         new_btrfs = BTRFSVolumeDevice(device_name, parents=btrfs_parents)
@@ -948,8 +929,12 @@ class BlivetUtils(object):
         """
 
         add_function = self.add_dict[user_input.device_type]
-        actions = add_function(self, user_input)
 
+        try:
+            actions = add_function(self, user_input)
+        except Exception as e: # pylint: disable=broad-except
+            return ProxyDataContainer(success=False, actions=None, message=None,
+                                      exception=e, traceback=traceback.format_exc())
         try:
             for ac in actions:
                 if not ac._applied:
