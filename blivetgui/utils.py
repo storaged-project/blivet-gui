@@ -534,8 +534,12 @@ class BlivetUtils(object):
                               traceback=None)
 
         if user_input.resize:
-            actions.append(blivet.deviceaction.ActionResizeFormat(blivet_device, user_input.size))
-            actions.append(blivet.deviceaction.ActionResizeDevice(blivet_device, user_input.size))
+            if blivet_device.type == "partition":
+                aligned_size = blivet_device.alignTargetSize(user_input.size)
+            else:
+                aligned_size = user_input.size
+            actions.append(blivet.deviceaction.ActionResizeFormat(blivet_device, aligned_size))
+            actions.append(blivet.deviceaction.ActionResizeDevice(blivet_device, aligned_size))
 
         if user_input.format:
             new_fmt = blivet.formats.getFormat(user_input.filesystem, mountpoint=user_input.mountpoint)
