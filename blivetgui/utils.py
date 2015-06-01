@@ -859,10 +859,21 @@ class BlivetUtils(object):
         """ Create a btrfs label on selected disk
         """
 
+        actions = []
+
+        if blivet_disk.format.type:
+            result = self.delete_disk_label(blivet_disk)
+            if not result.success:
+                return result
+            else:
+                actions.extend(result.actions)
+
         fmt = blivet.formats.getFormat(fmt_type="btrfs")
         ac_fmt = blivet.deviceaction.ActionCreateFormat(blivet_disk, fmt)
 
-        return ac_fmt
+        self.storage.devicetree.registerAction(ac_fmt)
+
+        return actions
 
     def _create_btrfs_volume(self, user_input):
         actions = []
@@ -873,8 +884,7 @@ class BlivetUtils(object):
             if user_input.btrfs_type == "disks":
                 disk_ac = self._create_btrfs_disk(parent)
 
-                self.storage.devicetree.registerAction(disk_ac)
-                actions.append(disk_ac)
+                actions.extend(disk_ac)
 
             else:
                 # _create_partition needs user_input but we actually don't have it for individual
@@ -893,7 +903,7 @@ class BlivetUtils(object):
                     self.storage.devicetree.registerAction(ac)
                 actions.extend(part_actions)
 
-        btrfs_parents = [ac.device for ac in actions if ac.isFormat and ac._format.type == "btrfs"]
+        btrfs_parents = [ac.device for ac in actions if (ac.isFormat and ac.isCreate) and ac._format.type == "btrfs"]
         new_btrfs = BTRFSVolumeDevice(device_name, parents=btrfs_parents)
         new_btrfs.format = blivet.formats.getFormat("btrfs", label=device_name, mountpoint=user_input.mountpoint)
         actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
