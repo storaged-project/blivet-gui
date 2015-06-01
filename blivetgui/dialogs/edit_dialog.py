@@ -181,9 +181,11 @@ class PartitionEditDialog(Gtk.Dialog):
 
         if self.format_check.get_active():
             self.filesystems_combo.set_sensitive(True)
+            self.filesystems_combo.set_active(0)
 
         else:
             self.filesystems_combo.set_sensitive(False)
+            self.filesystems_combo.set_active(-1)
 
     def update_size_areas(self, size):
         """ Update all size areas to selected size
