@@ -268,7 +268,7 @@ class ListPartitions(object):
 
             else:
                 if device.type in ("lvmvg",):
-                    return True
+                    return device.exists
 
                 elif device.format.type in ("btrfs", "lvmpv", "luks", "mdmember"):
                     return False
