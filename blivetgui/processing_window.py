@@ -153,5 +153,5 @@ class ProcessingActions(Gtk.Dialog):
             "\n<i>{action}</i>").format(num=self.finished_actions, total=len(self.actions), action=message))
         self._set_applied_icon(self.finished_actions)
 
-        self.finished_actions += 1
         self.progressbar.set_fraction(self.finished_actions / len(self.actions))
+        self.finished_actions += 1
