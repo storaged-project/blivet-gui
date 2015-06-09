@@ -715,10 +715,11 @@ class BlivetUtils(object):
 
         if user_input.device_type == "lvmthinlv":
             create_class = LVMThinLogicalVolumeDevice
+            # for thinlv, parent (for name suggestion) is not thinpool but the vg
+            device_name = self._pick_device_name(user_input.name, user_input.parents[0][0].vg)
         elif user_input.device_type == "lvmlv":
             create_class = LVMLogicalVolumeDevice
-
-        device_name = self._pick_device_name(user_input.name, user_input.parents[0][0])
+            device_name = self._pick_device_name(user_input.name, user_input.parents[0][0])
 
         new_part = create_class(name=device_name,
                                 size=user_input.size,
