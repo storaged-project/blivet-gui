@@ -354,25 +354,19 @@ class BlivetGUI(object):
         if parent_device_type == "disk" and self.list_devices.selected_device.format.type != "disklabel" \
             and btrfs_pt == False:
 
-            dialog = add_dialog.AddLabelDialog(self.main_window, self.list_devices.selected_device,
-                                               self.client.remote_call("get_available_disklabels"))
+            dialog = other_dialogs.AddLabelDialog(self.main_window, self.client.remote_call("get_available_disklabels", True))
 
-            response = dialog.run()
+            selection = dialog.run()
 
-            if response == Gtk.ResponseType.OK:
+            if selection == "btrfs":
+                self.add_partition(btrfs_pt=True)
+                return
 
-                selection = dialog.get_selection()
-
-                if selection == "btrfs":
-                    dialog.destroy()
-                    self.add_partition(btrfs_pt=True)
-                    return
-
+            if selection:
                 result = self.client.remote_call("create_disk_label", self.list_devices.selected_device, selection)
                 if not result.success:
                     if not result.exception:
                         self.show_error_dialog(result.message)
-
                     else:
                         self._reraise_exception(result.exception, result.traceback)
 
@@ -380,10 +374,7 @@ class BlivetGUI(object):
                     if result.actions:
                         action_str = _("create new disklabel on {0}").format(self.list_devices.selected_device.name)
                         self.list_actions.append("add", action_str, result.actions)
-
                 self.update_partitions_view()
-
-            dialog.destroy()
             return
 
         # for snapshots we don't know the free space device because user doesn't choose one

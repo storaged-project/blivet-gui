@@ -1077,14 +1077,21 @@ class BlivetUtils(object):
 
         return extended
 
-    def get_available_disklabels(self):
+    def get_available_disklabels(self, allow_btrfs=False):
         """ Return disklabels available on current platform
 
             :returns: list of disklabel types
             :rtype: list of str
 
         """
-        return blivet.platform.getPlatform().diskLabelTypes
+
+        dl_types = []
+        dl_types.extend(blivet.platform.getPlatform().diskLabelTypes)
+
+        if allow_btrfs:
+            dl_types.append("btrfs")
+
+        return dl_types
 
     def get_available_raid_levels(self, device_type):
         """ Return dict of supported raid levels for device types

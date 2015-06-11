@@ -52,6 +52,43 @@ class AboutDialog(object):
         dialog.run()
         dialog.destroy()
 
+class AddLabelDialog(object):
+    """ Dialog window allowing user to add disklabel to disk
+    """
+
+    def __init__(self, parent_window, disklabels):
+        """
+
+            :param parent_window: parent window
+            :type parent_window: Gtk.Window
+
+        """
+
+        builder = Gtk.Builder()
+        builder.add_from_file(locate_ui_file('add_disklabel_dialog.ui'))
+        self.dialog = builder.get_object("dialog")
+        self.pttype_combo = builder.get_object("pttype_combo")
+
+        self.dialog.set_transient_for(parent_window)
+
+        for disklabel in disklabels:
+            self.pttype_combo.append_text(disklabel)
+
+        self.pttype_combo.set_active(0)
+
+        self.dialog.show_all()
+
+    def run(self):
+        response = self.dialog.run()
+        label = self.pttype_combo.get_active_text()
+
+        self.dialog.destroy()
+
+        if response == Gtk.ResponseType.OK:
+            return label
+        else:
+            return None
+
 class LuksPassphraseDialog(object):
     """ Dialog window allowing user to enter passphrase to decrypt
     """
