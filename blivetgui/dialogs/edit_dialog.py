@@ -26,7 +26,7 @@ import gettext
 
 from gi.repository import Gtk, Pango
 
-from .add_dialog import SizeChooserArea
+from .size_chooser import SizeChooserArea
 
 from ..blivetguiproxy.proxy_utils import ProxyDataContainer
 
@@ -125,11 +125,11 @@ class PartitionEditDialog(Gtk.Dialog):
         self.widgets_dict["info"] = [table, label_info]
 
     def add_size_chooser(self):
-
-        size_area = SizeChooserArea(dialog=self, dialog_type="edit", parent_device=None,
+        size_area = SizeChooserArea(dialog_type="edit",
+                                    device_name=self.edited_device.name,
                                     max_size=self.resize_info.max_size,
                                     min_size=self.resize_info.min_size,
-                                    edited_device=self.edited_device)
+                                    current_size=self.edited_device.size)
 
         self.grid.attach(size_area.frame, 0, 0, 6, 1)
 
@@ -239,15 +239,16 @@ class PartitionEditDialog(Gtk.Dialog):
             mountpoint = None
 
         if self.resize_info.resizable:
-            resize, size = self.size_area.get_selection()
+            selected_size = self.size_area.get_selection()
+            resize = selected_size != self.edited_device.size
 
         else:
             resize = False
-            size = None
+            selected_size = None
 
         return ProxyDataContainer(edit_device=self.edited_device,
                                  resize=resize,
-                                 size=size,
+                                 size=selected_size,
                                  fmt=self.format_check.get_active(),
                                  filesystem=self.filesystems_combo.get_active_text(),
                                  mountpoint=mountpoint)
