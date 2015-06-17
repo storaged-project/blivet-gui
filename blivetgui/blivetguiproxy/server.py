@@ -286,7 +286,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
         else:
             args = self._args_convertTo_objects(data[2])
 
-            self.blivet_utils = BlivetUtils(*args) # pylint: disable=star-args
+            self.blivet_utils = BlivetUtils(*args)
 
             answer = ProxyDataContainer(success=True)
 
@@ -323,7 +323,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
         args = data[4]
 
         method = getattr(proxy_object, param_name)
-        answer = method(*args) # pylint: disable=star-args
+        answer = method(*args)
         pickled_answer = self._pickle_answer(answer)
 
         self._send(pickled_answer)
@@ -341,7 +341,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
         else:
             utils_method = getattr(self.blivet_utils, data[2])
             try:
-                ret = utils_method(*args) # pylint: disable=star-args
+                ret = utils_method(*args)
                 answer = ProxyDataContainer(success=True, answer=ret)
             except Exception as e: # pylint: disable=broad-except
                 answer = ProxyDataContainer(success=False, exception=e, traceback=traceback.format_exc())

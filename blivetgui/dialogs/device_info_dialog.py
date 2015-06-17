@@ -36,9 +36,9 @@ _ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x !
 
 #------------------------------------------------------------------------------#
 
-PARTITION_TYPE = {parted.PARTITION_NORMAL : _("primary"),
-                  parted.PARTITION_LOGICAL : _("logical"),
-                  parted.PARTITION_EXTENDED : _("extended")}
+PARTITION_TYPE = {parted.PARTITION_NORMAL : _("primary"), # pylint: disable=found-_-in-module-class
+                  parted.PARTITION_LOGICAL : _("logical"), # pylint: disable=found-_-in-module-class
+                  parted.PARTITION_EXTENDED : _("extended")} # pylint: disable=found-_-in-module-class
 
 #------------------------------------------------------------------------------#
 
