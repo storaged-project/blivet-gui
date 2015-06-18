@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.2.7
+Version: 0.2.8
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -52,6 +52,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui_pkexec
 
 %changelog
+* Thu Jun 18 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.8-1
+- Require the newest version of python-blivet (1.0.10) (vtrefny)
+- Do not allow editing of non-existing LVM VGs (vtrefny)
+- EditDialog: Do not allow select "None" as format (vtrefny)
+- Align target size before resizing partitions (#1207798) (vtrefny)
+
 * Tue May 26 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.2.7-1
 - Fix adding new PV to VG (vtrefny)
 - Fix device visualisation selection after window resize (vtrefny)
