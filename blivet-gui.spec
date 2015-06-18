@@ -15,7 +15,7 @@ Requires: python
 Requires: python-six
 Requires: pygobject3
 Requires: gettext
-Requires: python-blivet >= 1:1.0
+Requires: python-blivet >= 1:1.0.10
 Requires: gtk3
 Requires: gnome-icon-theme
 Requires: polkit-gnome
