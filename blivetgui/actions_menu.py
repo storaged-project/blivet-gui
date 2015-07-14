@@ -21,6 +21,9 @@
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #------------------------------------------------------------------------------#
 
+import gi
+gi.require_version("Gtk", "3.0")
+
 from gi.repository import Gtk
 
 import gettext

@@ -28,6 +28,9 @@ import sys, optparse, signal
 
 import gettext
 
+import gi
+gi.require_version("Gtk", "3.0")
+
 from gi.repository import Gtk
 
 from blivetgui.dialogs.message_dialogs import locate_ui_file, ErrorDialog # FIXME
