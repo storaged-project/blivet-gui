@@ -151,16 +151,38 @@ class ConfirmDialog(object):
 
         return response == Gtk.ResponseType.OK
 
+def show_actions_list(scrolledwindow, treestore_actions, win_width, win_height):
+    builder = Gtk.Builder()
+    builder.add_from_file(locate_ui_file("blivet-gui.ui"))
+
+    treeview_actions = builder.get_object("treeview_actions")
+    treeview_actions.set_model(treestore_actions)
+    treeview_actions.expand_all()
+
+    scrolledwindow.add(treeview_actions)
+
+    # add scrollbars when there is too many actions
+    width = treeview_actions.size_request().width
+    height = treeview_actions.size_request().height
+
+    if width < win_width and height < win_height:
+        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+    elif width < win_width and height >= win_height:
+        scrolledwindow.set_size_request(width, win_height)
+        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+    elif width >= win_width and height < win_height:
+        scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+    else:
+        scrolledwindow.set_size_request(win_width, win_height)
+        scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+
 class ConfirmActionsDialog(object):
     """ Confirm execute actions
     """
 
-    def __init__(self, parent_window, title, msg, actions):
-
-        self.actions = actions
-
+    def __init__(self, parent_window, title, msg, treestore_actions):
         builder = Gtk.Builder()
-        builder.add_from_file(locate_ui_file('confirm_actions_dialog.ui'))
+        builder.add_from_file(locate_ui_file("confirm_actions_dialog.ui"))
         self.dialog = builder.get_object("confirm_actions_dialog")
 
         self.dialog.set_transient_for(parent_window)
@@ -168,86 +190,45 @@ class ConfirmActionsDialog(object):
         self.dialog.format_secondary_text(msg)
 
         scrolledwindow = builder.get_object("scrolledwindow")
-        self.treeview, self.selection_signal = self.show_actions(scrolledwindow)
 
-        self.dialog.show_all()
-
-        width = self.treeview.size_request().width
-        height = self.treeview.size_request().height
         win_width = int(parent_window.get_allocated_width()*0.60)
         win_height = int(parent_window.get_allocated_height()*0.60)
-
-        if width < win_width and height < win_height:
-            scrolledwindow.set_policy(Gtk.PolicyType.NEVER,
-                                      Gtk.PolicyType.NEVER)
-        elif width < win_width and height >= win_height:
-            scrolledwindow.set_size_request(width, win_height)
-            scrolledwindow.set_policy(Gtk.PolicyType.NEVER,
-                                      Gtk.PolicyType.AUTOMATIC)
-        elif width >= win_width and height < win_height:
-            scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC,
-                                      Gtk.PolicyType.NEVER)
-        else:
-            scrolledwindow.set_size_request(win_width, win_height)
-            scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC,
-                                      Gtk.PolicyType.AUTOMATIC)
-
-    def show_actions(self, scrolledwindow):
-        """ Show list of pending actions
-        """
-
-        icon_theme = Gtk.IconTheme.get_default()
-        icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
-        icon_delete = Gtk.IconTheme.load_icon(icon_theme, "edit-delete", 16, 0)
-        icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all", 16, 0)
-
-        actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf, str)
-
-        for action in self.actions:
-            if action.isDestroy or action.isRemove:
-                actions_list.append([icon_delete, str(action)])
-            elif action.isAdd or action.isCreate:
-                actions_list.append([icon_add, str(action)])
-            else:
-                actions_list.append([icon_edit, str(action)])
-
-        treeview = Gtk.TreeView(model=actions_list)
-        treeview.set_headers_visible(False)
-        treeview.set_vexpand(True)
-        treeview.set_hexpand(True)
-
-        selection = treeview.get_selection()
-        selection_signal = selection.connect("changed", self.on_action_clicked)
-
-        renderer_pixbuf = Gtk.CellRendererPixbuf()
-        column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, pixbuf=0)
-        treeview.append_column(column_pixbuf)
-
-        renderer_text = Gtk.CellRendererText()
-        column_text = Gtk.TreeViewColumn(None, renderer_text, text=1)
-        treeview.append_column(column_text)
-
-        scrolledwindow.add(treeview)
-
-        return treeview, selection_signal
-
-    def on_action_clicked(self, selection):
-        """ Onclick action for treeview
-        """
-
-        model, treeiter = selection.get_selected()
-
-        if treeiter and model:
-            selection.handler_block(self.selection_signal)
-            selection.unselect_iter(treeiter)
-            selection.handler_unblock(self.selection_signal)
+        show_actions_list(scrolledwindow, treestore_actions, win_width, win_height)
+        self.dialog.show_all()
 
     def run(self):
         """ Run the dialog
         """
 
         response = self.dialog.run()
-
         self.dialog.destroy()
 
         return response == Gtk.ResponseType.OK
+
+class ShowActionsDialog(object):
+    """ Show dialog with scheduled actions
+    """
+
+    def __init__(self, parent_window, treestore_actions):
+        builder = Gtk.Builder()
+        builder.add_from_file(locate_ui_file("show_actions_dialog.ui"))
+        self.dialog = builder.get_object("show_actions_dialog")
+
+        self.dialog.set_transient_for(parent_window)
+
+        if len(treestore_actions) == 0:
+            self.dialog.format_secondary_text(_("There are no pending actions."))
+
+        scrolledwindow = builder.get_object("scrolledwindow")
+
+        win_width = int(parent_window.get_allocated_width()*0.60)
+        win_height = int(parent_window.get_allocated_height()*0.60)
+        show_actions_list(scrolledwindow, treestore_actions, win_width, win_height)
+        self.dialog.show_all()
+
+    def run(self):
+        """ Run the dialog
+        """
+
+        self.dialog.run()
+        self.dialog.destroy()

@@ -558,4 +558,56 @@
       </object>
     </child>
   </object>
+  <object class="GtkTreeStore" id="treestore_actions">
+    <columns>
+      <!-- column-name action_icon -->
+      <column type="GdkPixbuf"/>
+      <!-- column-name action_str -->
+      <column type="gchararray"/>
+      <!-- column-name action_finished_icon -->
+      <column type="GdkPixbuf"/>
+    </columns>
+  </object>
+  <object class="GtkTreeView" id="treeview_actions">
+    <property name="visible">True</property>
+    <property name="can_focus">True</property>
+    <property name="model">treestore_actions</property>
+    <property name="headers_visible">False</property>
+    <child internal-child="selection">
+      <object class="GtkTreeSelection" id="treeview-selection4"/>
+    </child>
+    <child>
+      <object class="GtkTreeViewColumn" id="column_icon1">
+        <property name="title" translatable="yes">column</property>
+        <child>
+          <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf2"/>
+          <attributes>
+            <attribute name="pixbuf">0</attribute>
+          </attributes>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkTreeViewColumn" id="column_str">
+        <property name="title" translatable="yes">column</property>
+        <child>
+          <object class="GtkCellRendererText" id="cellrenderertext2"/>
+          <attributes>
+            <attribute name="markup">1</attribute>
+          </attributes>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkTreeViewColumn" id="column_finished">
+        <property name="title" translatable="yes">column</property>
+        <child>
+          <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf3"/>
+          <attributes>
+            <attribute name="pixbuf">2</attribute>
+          </attributes>
+        </child>
+      </object>
+    </child>
+  </object>
 </interface>

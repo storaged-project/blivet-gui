@@ -45,8 +45,8 @@ class MainMenu(object):
         menuitem_reload = self.blivet_gui.builder.get_object("menuitem_reload")
         menuitem_reload.connect("activate", self.blivet_gui.reload)
 
-        # menuitem_actions = self.blivet_gui.builder.get_object("menuitem_actions")
-        # menuitem_actions.connect("activate", ) #FIXME
+        menuitem_actions = self.blivet_gui.builder.get_object("menuitem_actions")
+        menuitem_actions.connect("activate", self.blivet_gui.show_actions)
 
         menuitem_quit = self.blivet_gui.builder.get_object("menuitem_quit")
         menuitem_quit.connect("activate", self.blivet_gui.quit)

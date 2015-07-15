@@ -56,9 +56,8 @@ class ListActions(object):
 
         # number af scheduled actions
         self.actions = 0
-        self.actions_list = Gtk.TreeStore(GdkPixbuf.Pixbuf, str)
-
-        self.actions_view = self.create_actions_view()
+        self.actions_list = self.blivet_gui.builder.get_object("treestore_actions")
+        self.actions_view = self.blivet_gui.builder.get_object("treeview_actions")
 
         icon_theme = Gtk.IconTheme.get_default()
         icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
@@ -68,31 +67,6 @@ class ListActions(object):
         self.action_icons = {"add" : icon_add, "delete" : icon_delete, "edit" : icon_edit}
 
         self.blivet_gui.activate_action_buttons(False)
-
-    def create_actions_view(self):
-        """ Create treeview for actions
-
-            :returns: treeview
-            :rtype: Gtk.TreeView
-
-        """
-
-        treeview = Gtk.TreeView(model=self.actions_list)
-        treeview.set_vexpand(True)
-        treeview.set_hexpand(True)
-
-        renderer_pixbuf = Gtk.CellRendererPixbuf()
-        column_pixbuf = Gtk.TreeViewColumn(None, renderer_pixbuf, pixbuf=0)
-        treeview.append_column(column_pixbuf)
-
-        renderer_text = Gtk.CellRendererText()
-        column_text = Gtk.TreeViewColumn(None, renderer_text, text=1)
-        treeview.append_column(column_text)
-
-        treeview.set_headers_visible(False)
-        treeview.expand_all()
-
-        return treeview
 
     def append(self, action_type, action_desc, blivet_actions):
         """ Append newly scheduled actions to the list of actions
@@ -111,10 +85,10 @@ class ListActions(object):
         # self.blivet_gui.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 
         # add new actions to the view
-        parent_iter = self.actions_list.append(None, [self.action_icons[action_type], action_desc])
+        parent_iter = self.actions_list.append(None, [self.action_icons[action_type], action_desc, None])
 
         for action in blivet_actions:
-            self.actions_list.append(parent_iter, [None, str(action)])
+            self.actions_list.append(parent_iter, [None, str(action), None])
 
         # update list of actions
         self.history.append(blivet_actions)

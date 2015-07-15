@@ -539,7 +539,7 @@ class BlivetGUI(object):
             msg = _("Are you sure you want to perform scheduled actions?")
             actions = self.client.remote_call("get_actions")
 
-            dialog = message_dialogs.ConfirmActionsDialog(self.main_window, title, msg, actions)
+            dialog = message_dialogs.ConfirmActionsDialog(self.main_window, title, msg, self.list_actions.actions_list)
 
             response = dialog.run()
 
@@ -614,6 +614,13 @@ class BlivetGUI(object):
 
         self.list_devices.update_devices_view()
         self.update_partitions_view()
+
+    def show_actions(self, _widget=None):
+        """ Show scheduled actions
+        """
+
+        dialog = message_dialogs.ShowActionsDialog(self.main_window, self.list_actions.actions_list)
+        dialog.run()
 
     def reload(self, _widget=None):
         """ Reload storage information
