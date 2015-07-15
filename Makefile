@@ -27,6 +27,9 @@ test:
 	@echo "*** Running unittests ***"
 	PYTHONPATH=.:tests/ python3 -m unittest discover -v -s tests/ -p '*_test.py'
 
+check:
+	PYTHONPATH=. tests/pylint/runpylint.py
+
 clean:
 	-rm blivetgui/*.pyc blivetgui/*/*.pyc ChangeLog
 	$(MAKE) -C po clean
