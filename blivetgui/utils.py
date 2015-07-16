@@ -535,7 +535,7 @@ class BlivetUtils(object):
 
         except blivet.errors.FSError as e:
             if six.PY2:
-                exc = unicode(e).encode("utf8")
+                exc = unicode(e).encode("utf8") # pylint: disable=E0602
             else:
                 exc = str(e)
 
@@ -1222,6 +1222,5 @@ class BlivetUtils(object):
 
         self.storage.updateKSData()
 
-        outfile = open(fname, 'w')
-        outfile.write(self.storage.ksdata.__str__())
-        outfile.close()
+        with open(fname, "w") as outfile:
+            outfile.write(self.storage.ksdata.__str__())

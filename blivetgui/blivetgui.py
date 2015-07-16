@@ -34,7 +34,6 @@ from .list_actions import ListActions
 from .main_menu import MainMenu
 from .actions_menu import ActionsMenu
 from .actions_toolbar import ActionsToolbar, DeviceToolbar
-from .device_info import DeviceInfo
 from .devicevisualization.device_canvas import DeviceCanvas
 
 from .blivetguiproxy.client import BlivetGUIClient
@@ -70,7 +69,7 @@ def locate_ui_file(filename):
         if os.access(fname, os.R_OK):
             return fname
 
-    raise RuntimeError("Unable to find glade file %s" % file)
+    raise RuntimeError("Unable to find glade file %s" % filename)
 
 #------------------------------------------------------------------------------#
 
@@ -150,7 +149,7 @@ class BlivetGUI(object):
         self.list_devices.disks_view.set_cursor(1)
         self.main_window.show_all()
 
-    def update_partitions_view(self, device_changed=False):
+    def update_partitions_view(self):
         self.list_partitions.update_partitions_list(self.list_devices.selected_device)
         self.device_canvas.visualize_device(self.list_partitions.partitions_list,
                                             self.list_partitions.partitions_view,

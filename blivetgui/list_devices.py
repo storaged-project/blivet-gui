@@ -179,4 +179,4 @@ class ListDevices(object):
 
             if self.device_list.iter_is_valid(treeiter):
                 self.selected_device = model[treeiter][0]
-                self.blivet_gui.update_partitions_view(device_changed=True)
+                self.blivet_gui.update_partitions_view()

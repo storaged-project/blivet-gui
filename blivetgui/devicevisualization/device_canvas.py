@@ -22,6 +22,10 @@
 #
 #------------------------------------------------------------------------------#
 
+import gi
+gi.require_version("Gtk", "3.0")
+gi.require_version("Gdk", "3.0")
+
 from gi.repository import Gtk, Gdk
 
 from blivet.size import MiB
@@ -266,7 +270,7 @@ class DeviceCanvas(Gtk.DrawingArea):
 
         if six.PY2:
             try:
-                name = unicode(name, "utf-8")
+                name = unicode(name, "utf-8") # pylint: disable=E0602
             except TypeError:
                 pass
 
@@ -281,7 +285,7 @@ class DeviceCanvas(Gtk.DrawingArea):
 
         if six.PY2:
             try:
-                size = unicode(size, "utf-8")
+                size = unicode(size, "utf-8") # pylint: disable=E0602
             except TypeError:
                 pass
 

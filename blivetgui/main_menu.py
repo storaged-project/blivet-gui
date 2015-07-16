@@ -76,18 +76,8 @@ class MainMenu(object):
             return
 
         try:
-            fnull = open(os.devnull, "w")
-
-            user = os.getenv("PKEXEC_UID")
-
-            if user:
-                subprocess.Popen(["yelp", "/usr/share/help/C/blivet-gui/index.page"],
-                                 stdout=fnull, stderr=subprocess.STDOUT,
-                                 preexec_fn=lambda: (os.setuid(int(user))))
-
-            else:
-                subprocess.Popen(["yelp", "/usr/share/help/C/blivet-gui/index.page"],
-                                 stdout=fnull, stderr=subprocess.STDOUT)
+            subprocess.Popen(["yelp", "/usr/share/help/C/blivet-gui/index.page"],
+                                 stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
 
         except OSError:
             msg = _("You need \"Yelp\" to see the documentation.\n\n" \
