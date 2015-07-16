@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.3.3
+Version: 0.3.4
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -16,7 +16,7 @@ Requires: python3
 Requires: python-six
 Requires: pygobject3
 Requires: gettext
-Requires: python3-blivet >= 1:1.4
+Requires: python3-blivet >= 1:1.8
 Requires: gtk3
 Requires: gnome-icon-theme
 Requires: polkit-gnome
@@ -53,6 +53,36 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Thu Jul 16 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.3.4-1
+- Pylint fixes (vtrefny)
+- Use pocketlint for blivet-gui (vtrefny)
+- Recreate list of actions using Glade (vtrefny)
+- Completely separate toolbar for blivet actions and for device actions (vtrefny)
+- Add device information button to DeviceToolbar (vtrefny)
+- Separate ActionsToolbar and DeviceToolbar (vtrefny)
+- New UI, part 1 (vtrefny)
+- Use gi.require_version when importing from gi.repository (vtrefny)
+- Few pylint overrides and fixes (vtrefny)
+- Reimplement AddDisklabelDialog using Glade (vtrefny)
+- Add unittest to test AdvancedOptions from AddDialog (vtrefny)
+- Add "test" rule to Makefile (vtrefny)
+- Add unittest to test SizeChooserArea from AddDialog (vtrefny)
+- Move SizeChooserArea to own module (vtrefny)
+- Fix name suggestion for thinlvs (vtrefny)
+- Fix progress bar fraction during applying changes (vtrefny)
+- Do not allow editing of non-existing LVM VGs (vtrefny)
+- EditDialog: Do not allow select "None" as format (vtrefny)
+- Fix removing parents for encrypted devices and btrfs volumes (vtrefny)
+- Delete existing partition table when adding btrfs as a disklabel (vtrefny)
+- Align target size before resizing partitions (#1207798) (vtrefny)
+- Fix device visualisation selection after window resize (vtrefny)
+- Allow adding encrypted logical partitions (vtrefny)
+- DeviceInfoDialog: auto-ellipsize long labels (vtrefny)
+- Do not display disks without disklabel in AddDialog (vtrefny)
+- Move exception catching to add_device method (vtrefny)
+- Do not allow adding new LV to an incomplete VG (vtrefny)
+- Do not allow to create an extended partition on GPT disks (vtrefny)
+
 * Thu May 21 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.3.3-1
 - Require newest blivet (python-blivet 1.4) (vtrefny)
 - Allow using of free space inside extended partitions for LVM (vtrefny)
