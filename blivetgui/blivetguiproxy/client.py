@@ -25,7 +25,6 @@ from six.moves import cPickle # pylint: disable=import-error
 
 import os
 import six
-import copy
 import socket
 import struct
 
@@ -132,12 +131,14 @@ class BlivetGUIClient(object):
 
         for arg in args:
             if isinstance(arg, ProxyDataContainer):
-                arg_id = copy.deepcopy(arg)
+                arg_id = ProxyDataContainer()
                 for item in arg:
                     if isinstance(arg[item], ClientProxyObject):
                         arg_id[item] = arg[item].proxy_id
                     elif isinstance(arg[item], (list, tuple)):
                         arg_id[item] = self._args_convertTo_id(arg[item])
+                    else:
+                        arg_id[item] = arg[item]
                 args_id.append(arg_id)
             elif isinstance(arg, ClientProxyObject):
                 args_id.append(arg.proxy_id)
