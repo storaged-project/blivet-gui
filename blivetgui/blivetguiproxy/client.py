@@ -289,7 +289,7 @@ class BlivetGUIClient(object):
             try:
                 packet = self.sock.recv(length - len(data))
 
-            except OSError as e: #TODO: python3 BrokenPipeError
+            except (OSError, BrokenPipeError) as e:
                 ErrorDialog(parent_window=self.blivetgui.main_window,
                             msg=_("Failed to connect to blivet-gui-daemon.\n{err}").format(err=e))
                 os._exit(1)
