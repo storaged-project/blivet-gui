@@ -216,6 +216,13 @@ class ListPartitions(object):
                 else:
                     return not device.format.status
 
+    def _allow_add_device(self, device):
+        if device.type in ("free space", "btrfs volume", "lvmthinpool"):
+            return True
+
+        if device.type == "lmvlv":
+            return device.vg.freeSpace >= device.vg.peSize
+
     def activate_action_buttons(self, selected_device):
         """ Activate buttons in toolbar based on selected device
 
@@ -237,7 +244,7 @@ class ListPartitions(object):
         if self._allow_edit_device(device):
             self.blivet_gui.activate_device_actions(["edit"])
 
-        if device.type in ("free space", "btrfs volume", "lvmlv", "lvmthinpool"):
+        if self._allow_add_device(device):
             self.blivet_gui.activate_device_actions(["add"])
 
         if device.format:
