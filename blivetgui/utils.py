@@ -229,7 +229,7 @@ class BlivetUtils(object):
 
         return FreeSpaceDevice(blivet_device.freeSpace, None, None, [blivet_device])
 
-    def get_free_disks_regions(self):
+    def get_free_disks_regions(self, include_uninitialized=False):
         """ Returns list of non-empty disks with free space
         """
 
@@ -237,7 +237,7 @@ class BlivetUtils(object):
 
         for disk in self.storage.disks:
 
-            if disk.format.type not in ("disklabel",):
+            if disk.format.type not in ("disklabel",) and not include_uninitialized:
                 continue
 
             elif not disk.format.type:
