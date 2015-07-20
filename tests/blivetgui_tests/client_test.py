@@ -3,8 +3,6 @@
 import unittest
 from unittest.mock import MagicMock
 
-import pickle
-
 from blivetgui.blivetguiproxy.client import BlivetGUIClient, ClientProxyObject
 from blivetgui.blivetguiproxy.proxy_utils import ProxyID, ProxyDataContainer
 
