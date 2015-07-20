@@ -709,7 +709,7 @@ class BlivetUtils(object):
                 new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem,
                                                    label=user_input.label,
                                                    mountpoint=user_input.mountpoint)
-            actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
+                actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
 
         return actions
 
