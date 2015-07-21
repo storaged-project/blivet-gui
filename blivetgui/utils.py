@@ -201,7 +201,12 @@ class BlivetUtils(object):
 
         """
 
-        return self.storage.vgs
+        devices = {}
+        devices["lvm"] = self.storage.vgs
+        devices["raid"] = self.storage.mdarrays
+        devices["btrfs"] = self.storage.btrfsVolumes
+
+        return devices
 
     def get_free_pvs_info(self):
         """ Return list of PVs without VGs

@@ -94,23 +94,31 @@ class ListDevices(object):
 
         return len(disks)
 
-    def load_lvm_volume_groups(self):
-        """ Load LVM2 VGs
+    def load_group_devices(self):
+        """ Load LVM2 VGs, Btrfs Volumes and MDArrays
         """
 
         gdevices = self.blivet_gui.client.remote_call("get_group_devices")
 
-        if gdevices:
-            self.device_list.append([None, None, _("<b>LVM2 Volume Groups</b>")])
-
         icon_theme = Gtk.IconTheme.get_default()
-        icon_group = Gtk.IconTheme.load_icon(icon_theme, "drive-removable-media", 32, 0)
+        icon_group = Gtk.IconTheme.load_icon(icon_theme, "drive-multidisk", 32, 0)
 
-        for device in gdevices:
-            self.device_list.append([device, icon_group,
-                                     str(device.name + "\n<i><small>LVM2 VG</small></i>")])
+        if gdevices["lvm"]:
+            self.device_list.append([None, None, _("<b>LVMs</b>")])
+            for device in gdevices["lvm"]:
+                self.device_list.append([device, icon_group, str(device.name + "\n<i><small>LVM2 VG</small></i>")])
 
-        return len(gdevices)
+        if gdevices["raid"]:
+            self.device_list.append([None, None, _("<b>RAIDs</b>")])
+            for device in gdevices["raid"]:
+                self.device_list.append([device, icon_group, str(device.name + "\n<i><small>MDArray</small></i>")])
+
+        if gdevices["btrfs"]:
+            self.device_list.append([None, None, _("<b>Btrfs Volumes</b>")])
+            for device in gdevices["btrfs"]:
+                self.device_list.append([device, icon_group, str(device.name + "\n<i><small>Btrfs Volume</small></i>")])
+
+        return (len(gdevices["lvm"]) + len(gdevices["raid"]) + len(gdevices["btrfs"]))
 
     def load_devices(self):
         """ Load all devices
@@ -120,7 +128,7 @@ class ListDevices(object):
         devices = 0
 
         devices += self.load_disks()
-        devices += self.load_lvm_volume_groups()
+        devices += self.load_group_devices()
 
         return devices
 
