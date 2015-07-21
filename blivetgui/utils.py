@@ -1065,21 +1065,6 @@ class BlivetUtils(object):
 
         return actions
 
-    def has_extended_partition(self, blivet_device):
-        """ Detect if disk has an extended partition
-        """
-
-        if not blivet_device.isDisk:
-            return False
-
-        extended = False
-
-        for child in self.storage.devicetree.getChildren(blivet_device):
-            if child.type == "partition" and child.isExtended:
-                extended = True
-
-        return extended
-
     def get_available_disklabels(self, allow_btrfs=False):
         """ Return disklabels available on current platform
 

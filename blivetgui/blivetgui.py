@@ -390,7 +390,6 @@ class BlivetGUI(object):
                                       self.client.remote_call("get_free_disks_regions", btrfs_pt),
                                       {"btrfs volume" : self.client.remote_call("get_available_raid_levels", "btrfs volume"),
                                        "mdraid" : self.client.remote_call("get_available_raid_levels", "mdraid")},
-                                      self.client.remote_call("has_extended_partition", self.list_devices.selected_device),
                                       self.client.remote_call("get_mountpoints"),
                                       self.kickstart_mode)
 

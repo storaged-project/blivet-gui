@@ -95,14 +95,12 @@ def check_mountpoint(parent_window, used_mountpoints, mountpoint):
 
 class AdvancedOptions(object):
 
-    def __init__(self, add_dialog, device_type, parent_device, free_device,
-        has_extended):
+    def __init__(self, add_dialog, device_type, parent_device, free_device):
 
         self.add_dialog = add_dialog
         self.device_type = device_type
         self.parent_device = parent_device
         self.free_device = free_device
-        self.has_extended = has_extended
 
         self.expander = Gtk.Expander(label=_("Show advanced options"))
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
@@ -152,7 +150,7 @@ class AdvancedOptions(object):
         if self.free_device.isLogical:
             types = [(_("Logical"), "logical")]
 
-        elif self.has_extended:
+        elif self._has_extended:
             types = [(_("Primary"), "primary")]
 
         elif self.parent_device.format.labelType in ("gpt",):
@@ -179,6 +177,13 @@ class AdvancedOptions(object):
         self.widgets.extend([label_pt_type, partition_combo])
 
         return partition_combo
+
+    @property
+    def _has_extended(self):
+        if self.parent_device.type == "disk":
+            return self.parent_device.format.extendedPartition is not None
+
+        return False
 
     def on_partition_type_changed(self, combo):
 
@@ -221,8 +226,7 @@ class AddDialog(Gtk.Dialog):
     """
 
     def __init__(self, parent_window, parent_type, parent_device, free_device, free_pvs,
-                 free_disks_regions, supported_raids, has_extended, mountpoints,
-                 kickstart_mode=False):
+                 free_disks_regions, supported_raids, mountpoints, kickstart_mode=False):
         """
 
             :param str parent_type: type of (future) parent device
@@ -250,7 +254,6 @@ class AddDialog(Gtk.Dialog):
         self.kickstart_mode = kickstart_mode
 
         self.supported_raids = supported_raids
-        self.has_extended = has_extended
         self.mountpoints = mountpoints
 
         Gtk.Dialog.__init__(self, _("Create new device"), None, 0,
@@ -853,8 +856,7 @@ class AddDialog(Gtk.Dialog):
             self.advanced.destroy()
 
         if device_type in ("lvm", "lvmvg", "partition"):
-            self.advanced = AdvancedOptions(self, device_type, self.parent_device,
-                self.free_device, self.has_extended)
+            self.advanced = AdvancedOptions(self, device_type, self.parent_device, self.free_device)
             self.widgets_dict["advanced"] = [self.advanced]
 
             self.grid.attach(self.advanced.expander, 0, 13, 6, 1)
