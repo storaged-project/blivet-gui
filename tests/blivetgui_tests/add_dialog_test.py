@@ -61,19 +61,20 @@ class SizeChooserAreaTest(unittest.TestCase):
 class AdvancedOptionsTest(unittest.TestCase):
 
     add_dialog = Mock(show_widgets=Mock(return_value=True), hide_widgets=Mock(return_value=True))
+
     def test_lvm_options(self):
         # test lvm options are displayed for lvm/lvmvg type
-        parent_device = Mock(format=Mock(labelType="gpt"))
+        parent_device = Mock(type="disk", format=Mock(labelType="gpt", extendedPartition=None))
         free_device = Mock(isLogical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvm",
-            parent_device=parent_device, free_device=free_device, has_extended=False)
+            parent_device=parent_device, free_device=free_device)
 
         self.assertFalse(hasattr(advanced_options, "partition_combo"))
         self.assertTrue(hasattr(advanced_options, "pesize_combo"))
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvmvg",
-            parent_device=parent_device, free_device=free_device, has_extended=False)
+            parent_device=parent_device, free_device=free_device)
 
         self.assertFalse(hasattr(advanced_options, "partition_combo"))
         self.assertTrue(hasattr(advanced_options, "pesize_combo"))
@@ -81,11 +82,11 @@ class AdvancedOptionsTest(unittest.TestCase):
     def test_partition_options(self):
         # test partition options are displayed for partition type
 
-        parent_device = Mock(format=Mock(labelType="msdos"))
+        parent_device = Mock(type="disk", format=Mock(labelType="msdos", extendedPartition=None))
         free_device = Mock(isLogical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
-            parent_device=parent_device, free_device=free_device, has_extended=False)
+            parent_device=parent_device, free_device=free_device)
 
         self.assertTrue(hasattr(advanced_options, "partition_combo"))
         self.assertFalse(hasattr(advanced_options, "pesize_combo"))
@@ -94,11 +95,11 @@ class AdvancedOptionsTest(unittest.TestCase):
         # "standard" situation -- disk with msdos part table, no existing extended partition
         # → both "primary and extended" types should be allowed
 
-        parent_device = Mock(format=Mock(labelType="msdos"))
+        parent_device = Mock(type="disk", format=Mock(labelType="msdos", extendedPartition=None))
         free_device = Mock(isLogical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
-            parent_device=parent_device, free_device=free_device, has_extended=False)
+            parent_device=parent_device, free_device=free_device)
 
         part_types = advanced_options.partition_combo.get_model()
 
@@ -109,11 +110,11 @@ class AdvancedOptionsTest(unittest.TestCase):
     def test_logical_partition(self):
         # adding partition to free space inside extended partition -> only "logical allowed"
 
-        parent_device = Mock(format=Mock(labelType="msdos"))
+        parent_device = Mock(type="disk", format=Mock(labelType="msdos", extendedPartition=Mock()))
         free_device = Mock(isLogical=True)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
-            parent_device=parent_device, free_device=free_device, has_extended=True)
+            parent_device=parent_device, free_device=free_device)
 
         part_types = advanced_options.partition_combo.get_model()
 
@@ -123,11 +124,11 @@ class AdvancedOptionsTest(unittest.TestCase):
     def test_extended_partition(self):
         # extended partition already exists -> allow only "primary" type
 
-        parent_device = Mock(format=Mock(labelType="msdos"))
+        parent_device = Mock(type="disk", format=Mock(labelType="msdos", extendedPartition=Mock()))
         free_device = Mock(isLogical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
-            parent_device=parent_device, free_device=free_device, has_extended=True)
+            parent_device=parent_device, free_device=free_device)
 
         part_types = advanced_options.partition_combo.get_model()
 
@@ -136,11 +137,11 @@ class AdvancedOptionsTest(unittest.TestCase):
 
     def test_gpt_partitions(self):
         # adding partition on gpt disk -> only "primary" type allowed
-        parent_device = Mock(format=Mock(labelType="gpt"))
+        parent_device = Mock(type="disk", format=Mock(labelType="gpt", extendedPartition=None))
         free_device = Mock(isLogical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
-            parent_device=parent_device, free_device=free_device, has_extended=False)
+            parent_device=parent_device, free_device=free_device)
 
         part_types = advanced_options.partition_combo.get_model()
 
