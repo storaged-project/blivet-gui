@@ -285,6 +285,9 @@ class SizeChooserArea(object):
         for widget in self.widgets:
             widget.set_sensitive(sensitivity)
 
+    def get_sensitive(self):
+        return all([widget.get_sensitive() for widget in self.widgets])
+
     def get_selection(self):
         """ Get selected size
         """
