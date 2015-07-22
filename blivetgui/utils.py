@@ -159,8 +159,6 @@ class BlivetUtils(object):
         if not test_run:
             self.blivet_logfile, self.program_logfile = self.set_logging()
 
-            blivet.formats.fs.NTFS._formattable = True
-
             self.storage.reset()
             self._update_min_sizes_info()
 
@@ -1095,6 +1093,24 @@ class BlivetUtils(object):
 
         if device_type == "mdraid":
             return blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_MD)
+
+    def get_available_filesystems(self):
+        """ Return list of currently available (supported and with tools) formats
+        """
+
+        _fs_types = []
+
+        for cls in blivet.formats.device_formats.values():
+            obj = cls()
+
+            supported_fs = (obj.type not in ("btrfs", "tmpfs") and
+                            obj.supported and obj.formattable and
+                            (isinstance(obj, blivet.formats.fs.FS) or
+                             obj.type in ("swap",)))
+            if supported_fs:
+                _fs_types.append(obj.name)
+
+        return sorted(_fs_types)
 
     def get_mountpoints(self):
         """ Return list of current mountpoints

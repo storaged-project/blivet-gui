@@ -115,6 +115,9 @@ class BlivetGUI(object):
         atexit.register(remove_logs, log_files=[blivetgui_logfile])
         atexit.register(self.client.quit)
 
+        ### Supported types
+        self._get_supported_types()
+
         ### Kickstart devices dialog
         if self.kickstart_mode:
             self.use_disks = self.kickstart_disk_selection()
@@ -148,6 +151,16 @@ class BlivetGUI(object):
         # select first device in ListDevice
         self.list_devices.disks_view.set_cursor(1)
         self.main_window.show_all()
+
+    def _get_supported_types(self):
+        """ Get various supported 'types' (filesystems, raid levels...) from
+            blivet and store them for future use
+        """
+
+        self._supported_raid_levels = {"btrfs volume" : self.client.remote_call("get_available_raid_levels", "btrfs volume"),
+                                       "mdraid" : self.client.remote_call("get_available_raid_levels", "mdraid")}
+        self._supported_filesystems = self.client.remote_call("get_available_filesystems")
+        self._supported_disklabels = self.client.remote_call("get_available_disklabels", True)
 
     def update_partitions_view(self):
         self.list_partitions.update_partitions_list(self.list_devices.selected_device)
@@ -351,7 +364,7 @@ class BlivetGUI(object):
         if parent_device_type == "disk" and self.list_devices.selected_device.format.type != "disklabel" \
             and btrfs_pt == False:
 
-            dialog = other_dialogs.AddLabelDialog(self.main_window, self.client.remote_call("get_available_disklabels", True))
+            dialog = other_dialogs.AddLabelDialog(self.main_window, self._supported_disklabels)
 
             selection = dialog.run()
 
@@ -388,8 +401,8 @@ class BlivetGUI(object):
                                       free_device,
                                       self.client.remote_call("get_free_pvs_info"),
                                       self.client.remote_call("get_free_disks_regions", btrfs_pt),
-                                      {"btrfs volume" : self.client.remote_call("get_available_raid_levels", "btrfs volume"),
-                                       "mdraid" : self.client.remote_call("get_available_raid_levels", "mdraid")},
+                                      self._supported_raid_levels,
+                                      self._supported_filesystems,
                                       self.client.remote_call("get_mountpoints"),
                                       self.kickstart_mode)
 

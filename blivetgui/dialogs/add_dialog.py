@@ -48,7 +48,6 @@ _ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x !
 
 #------------------------------------------------------------------------------#
 
-SUPPORTED_FS = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap", "vfat", "ntfs"]
 SUPPORTED_PESIZE = ["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"]
 
 #------------------------------------------------------------------------------#
@@ -226,7 +225,7 @@ class AddDialog(Gtk.Dialog):
     """
 
     def __init__(self, parent_window, parent_type, parent_device, free_device, free_pvs,
-                 free_disks_regions, supported_raids, mountpoints, kickstart_mode=False):
+                 free_disks_regions, supported_raids, supported_fs, mountpoints, kickstart_mode=False):
         """
 
             :param str parent_type: type of (future) parent device
@@ -254,6 +253,7 @@ class AddDialog(Gtk.Dialog):
         self.kickstart_mode = kickstart_mode
 
         self.supported_raids = supported_raids
+        self.supported_fs = supported_fs
         self.mountpoints = mountpoints
 
         Gtk.Dialog.__init__(self, _("Create new device"), None, 0,
@@ -764,7 +764,7 @@ class AddDialog(Gtk.Dialog):
         filesystems_combo = Gtk.ComboBoxText()
         filesystems_combo.set_entry_text_column(0)
 
-        for fs in SUPPORTED_FS:
+        for fs in self.supported_fs:
             filesystems_combo.append_text(fs)
 
         self.grid.attach(filesystems_combo, 1, 8, 2, 1)
