@@ -43,6 +43,8 @@ class ListPartitions(object):
         self.partitions_list = self.blivet_gui.builder.get_object("liststore_logical")
         self.partitions_view = self.blivet_gui.builder.get_object("treeview_logical")
 
+        self.partitions_view.connect("button-release-event", self.on_right_click_event)
+
         self.select = self.partitions_view.get_selection()
         self.on_partition_selection_changed(self.select)
 
