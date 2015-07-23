@@ -40,16 +40,13 @@ _ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x !
 
 #------------------------------------------------------------------------------#
 
-SUPPORTED_FS = ["ext2", "ext3", "ext4", "xfs", "reiserfs", "swap", "vfat"]
-
-#------------------------------------------------------------------------------#
-
 class PartitionEditDialog(Gtk.Dialog):
     """ Dialog window allowing user to edit partition including selecting size,
         fs, label etc.
     """
 
-    def __init__(self, parent_window, edited_device, resize_info, kickstart=False):
+    def __init__(self, parent_window, edited_device, resize_info, supported_fs,
+                 kickstart=False):
         """
 
             :param parent_window: parent window
@@ -58,6 +55,8 @@ class PartitionEditDialog(Gtk.Dialog):
             :type partition_name: str
             :param resize_info: is partition resizable, error, min_size, max_size
             :type resize_info: namedtuple
+            :param supported_fs: list of supported filesystems
+            :type supported_fs: list of str
             :param kickstart: kickstart mode
             :type kickstart: bool
 
@@ -67,6 +66,7 @@ class PartitionEditDialog(Gtk.Dialog):
         self.resize_info = resize_info
         self.kickstart = kickstart
         self.parent_window = parent_window
+        self.supported_fs = supported_fs
 
         Gtk.Dialog.__init__(self, _("Edit device"), None, 0,
                             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -161,7 +161,7 @@ class PartitionEditDialog(Gtk.Dialog):
 
         self.widgets_dict["fs"] = [label_format, format_check, label_fs, filesystems_combo]
 
-        for fs in SUPPORTED_FS:
+        for fs in self.supported_fs:
             filesystems_combo.append_text(fs)
 
         self.grid.attach(filesystems_combo, 1, 3, 2, 1)

@@ -18,17 +18,18 @@ class PartitionEditDialogTest(unittest.TestCase):
     edited_device = MagicMock(size=Size("1 GiB"))
     edited_device.configure_mock(name="vda1") # set name paremeter
     resize_info = MagicMock(resizable=True, error="Not resizable.", min_size=Size("1 MiB"), max_size=Size("1 GiB"))
+    supported_fs = ["ext4", "xfs"]
 
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
     def test_resizable(self):
         # device is resizable, size widgtes should be active
-        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info)
+        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs)
 
         self.assertTrue(dialog.widgets_dict["size"][0].get_sensitive())
 
         # device is not resizable, size widgtes should be inactive and message should be shown
         self.resize_info.configure_mock(resizable=False)
-        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info)
+        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs)
 
         self.assertFalse(dialog.widgets_dict["size"][0].get_sensitive())
         self.assertTrue("info" in dialog.widgets_dict.keys())
@@ -37,7 +38,7 @@ class PartitionEditDialogTest(unittest.TestCase):
 
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
     def test_format_check(self):
-        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info)
+        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs)
 
         # format_check should be unchecked by default and filesystems_combo incactive
         self.assertFalse(dialog.format_check.get_active())
@@ -50,7 +51,7 @@ class PartitionEditDialogTest(unittest.TestCase):
 
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
     def test_mountpoint(self):
-        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, True)
+        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs, True)
 
         # in kickstart mode, mountpoint_entry is visible
         self.assertTrue(dialog.mountpoint_entry.get_visible())
@@ -58,7 +59,7 @@ class PartitionEditDialogTest(unittest.TestCase):
 
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
     def test_selection_format(self):
-        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, True)
+        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs, True)
 
         # select the format_check
         dialog.format_check.set_active(True)
@@ -73,7 +74,7 @@ class PartitionEditDialogTest(unittest.TestCase):
 
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
     def test_selection_resize(self):
-        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, True)
+        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs, True)
 
         # select new size
         size_area = dialog.widgets_dict["size"][0]

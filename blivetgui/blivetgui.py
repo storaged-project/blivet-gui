@@ -284,6 +284,7 @@ class BlivetGUI(object):
         if device.type in ("partition", "lvmlv"):
             dialog = edit_dialog.PartitionEditDialog(self.main_window, device,
                                                      self.client.remote_call("device_resizable", device),
+                                                     self._supported_filesystems,
                                                      self.kickstart_mode)
 
         elif device.type in ("lvmvg",):
