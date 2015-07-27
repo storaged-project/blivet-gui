@@ -332,15 +332,14 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
         """ Call a method from BlivetUtils
         """
 
-        utils_method = getattr(self.blivet_utils, data[2])
         args = self._args_convertTo_objects(data[3])
 
         if data[2] == "blivet_do_it":
             answer = self.blivet_utils.blivet_do_it(self._progress_report_hook)
 
         else:
-            utils_method = getattr(self.blivet_utils, data[2])
             try:
+                utils_method = getattr(self.blivet_utils, data[2])
                 ret = utils_method(*args)
                 answer = ProxyDataContainer(success=True, answer=ret)
             except Exception as e: # pylint: disable=broad-except
