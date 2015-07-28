@@ -237,7 +237,8 @@ class BlivetUtils(object):
         """ Return FreeSpaceDevice for selected LVM VG
         """
 
-        assert blivet_device.type == "lvmvg"
+        if blivet_device.type != "lvmvg":
+            return None
 
         return FreeSpaceDevice(blivet_device.freeSpace, None, None, [blivet_device])
 
@@ -267,8 +268,8 @@ class BlivetUtils(object):
         return free_disks
 
     def get_removable_pvs_info(self, blivet_device):
-
-        assert blivet_device.type == "lvmvg"
+        """ Get information about PVs that can be removed from the VG
+        """
 
         pvs = []
 
@@ -455,8 +456,6 @@ class BlivetUtils(object):
 
         """
 
-        assert disk_device.isDisk and disk_device.format
-
         try:
             if disk_device.format.exists:
                 disk_device.format.teardown()
@@ -465,10 +464,9 @@ class BlivetUtils(object):
 
         except Exception as e: # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                              traceback=traceback.format_exc())
+                                      traceback=traceback.format_exc())
 
-        return ProxyDataContainer(success=True, actions=[action], message=None, exception=None,
-                          traceback=None)
+        return ProxyDataContainer(success=True, actions=[action], message=None, exception=None, traceback=None)
 
     def delete_device(self, blivet_device):
         """ Delete device
@@ -498,12 +496,11 @@ class BlivetUtils(object):
 
         except Exception as e: # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                              traceback=traceback.format_exc())
+                                      traceback=traceback.format_exc())
 
         # for encrypted partitions/lvms delete the luks-formatted partition too
         if blivet_device.type in ("luks/dm-crypt",):
             for parent in blivet_device.parents:
-                assert parent.type == "partition" and parent.format.type == "luks"
 
                 if parent.exists:
                 # teardown existing parent before
@@ -516,7 +513,7 @@ class BlivetUtils(object):
                         # cancel destroy action for luks device
                         self.blivet_cancel_actions(actions)
                         return ProxyDataContainer(success=False, actions=None, message=msg, exception=None,
-                                          traceback=traceback.format_exc())
+                                                  traceback=traceback.format_exc())
 
                 result = self.delete_device(parent)
                 if not result.success:
@@ -537,8 +534,7 @@ class BlivetUtils(object):
                 else:
                     actions.extend(result.actions)
 
-        return ProxyDataContainer(success=True, actions=actions,
-                          message=None, exception=None, traceback=None)
+        return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
     def _has_snapshots(self, blivet_device):
 
@@ -589,16 +585,16 @@ class BlivetUtils(object):
                 exc = str(e)
 
             return ProxyDataContainer(resizable=False, error=exc,
-                              min_size=blivet.size.Size("1 MiB"),
-                              max_size=blivet_device.size)
+                                      min_size=blivet.size.Size("1 MiB"),
+                                      max_size=blivet_device.size)
 
         if blivet_device.resizable and blivet_device.format.resizable:
             return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.minSize,
-                              max_size=blivet_device.maxSize)
+                                      max_size=blivet_device.maxSize)
 
         else:
             return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
-                              max_size=blivet_device.size)
+                                      max_size=blivet_device.size)
 
     def edit_partition_device(self, user_input):
         """ Edit device
@@ -619,8 +615,7 @@ class BlivetUtils(object):
             blivet_device.format.mountpoint = user_input.mountpoint
 
         if not user_input.resize and not user_input.fmt:
-            return ProxyDataContainer(success=True, actions=None, message=None, exception=None,
-                              traceback=None)
+            return ProxyDataContainer(success=True, actions=None, message=None, exception=None, traceback=None)
 
         if user_input.resize:
             if blivet_device.type == "partition":
@@ -638,12 +633,11 @@ class BlivetUtils(object):
             for ac in actions:
                 self.storage.devicetree.registerAction(ac)
             blivet.partitioning.doPartitioning(self.storage)
-            return ProxyDataContainer(success=True, actions=actions,
-                              message=None, exception=None, traceback=None)
+            return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
         except Exception as e: # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                              traceback=traceback.format_exc())
+                                      traceback=traceback.format_exc())
 
     def edit_lvmvg_device(self, user_input):
         """ Edit LVM Volume group
@@ -657,7 +651,6 @@ class BlivetUtils(object):
 
                 if result.success:
                     actions.extend(result.actions)
-
                 else:
                     return result
 
@@ -667,12 +660,10 @@ class BlivetUtils(object):
 
                 if result.success:
                     actions.extend(result.actions)
-
                 else:
                     return result
 
-        return ProxyDataContainer(success=True, actions=actions,
-                          message=None, exception=None, traceback=None)
+        return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
     def _pick_device_name(self, name, parent_device=None, snapshot=False):
         """ Pick name for device.
@@ -690,27 +681,21 @@ class BlivetUtils(object):
         if not name:
             if parent_device:
                 name = self.storage.suggestDeviceName(parent=parent_device, swap=False)
-
             elif snapshot:
-                name = self.storage.suggestDeviceName(parent=parent_device, swap=False,
-                                                      prefix="snapshot")
-
+                name = self.storage.suggestDeviceName(parent=parent_device, swap=False, prefix="snapshot")
             else:
-
                 if hasattr(platform, "linux_distribution"):
                     prefix = re.sub(r"\W+", "", platform.linux_distribution()[0].lower())
                 else:
                     prefix = ""
 
-                name = self.storage.suggestContainerName(hostname=socket.gethostname(),
-                                                         prefix=prefix)
+                name = self.storage.suggestContainerName(hostname=socket.gethostname(), prefix=prefix)
 
         else:
             name = self.storage.safeDeviceName(name)
 
             # if name exists add -XX suffix
-            if name in self.storage.names or (parent_device and
-                                              parent_device.name + "-" + name in self.storage.names):
+            if name in self.storage.names or (parent_device and parent_device.name + "-" + name in self.storage.names):
                 for i in range(100):
                     if name + "-" + str(i) not in self.storage.names:
                         name = name + "-" + str(i)
@@ -1038,10 +1023,9 @@ class BlivetUtils(object):
 
         except Exception as e: # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                              traceback=traceback.format_exc())
+                                      traceback=traceback.format_exc())
 
-        return ProxyDataContainer(success=True, actions=[ac_rm],
-                          message=None, exception=None, traceback=None)
+        return ProxyDataContainer(success=True, actions=[ac_rm], message=None, exception=None, traceback=None)
 
     def _add_lvmvg_parent(self, container, parent):
         """ Add new parent to existing lvmg
@@ -1053,12 +1037,11 @@ class BlivetUtils(object):
 
         """
 
-        assert container.type == "lvmvg"
-
         actions = []
 
         if parent.type == "free space":
-            dev = PartitionDevice(name="req%d" % self.storage.nextID, size=parent.size,
+            dev = PartitionDevice(name="req%d" % self.storage.nextID,
+                                  size=parent.size,
                                   parents=[i for i in parent.parents])
             ac_part = blivet.deviceaction.ActionCreateDevice(dev)
 
@@ -1071,7 +1054,6 @@ class BlivetUtils(object):
                 self.storage.devicetree.registerAction(ac)
 
             blivet.partitioning.doPartitioning(self.storage)
-
             parent = dev
 
         try:
@@ -1082,10 +1064,9 @@ class BlivetUtils(object):
 
         except Exception as e: # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                              traceback=traceback.format_exc())
+                                      traceback=traceback.format_exc())
 
-        return ProxyDataContainer(success=True, actions=actions,
-                          message=None, exception=None, traceback=None)
+        return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
     def unmount_device(self, blivet_device):
         """ Unmount selected device
@@ -1104,15 +1085,9 @@ class BlivetUtils(object):
 
     def get_actions(self):
         """ Return list of currently registered actions
-
-            :returns: list of actions
-            :rtype: list of class blivet.deviceaction.DeviceAction
-
         """
 
-        actions = self.storage.devicetree.findActions()
-
-        return actions
+        return self.storage.devicetree.findActions()
 
     def get_available_disklabels(self, allow_btrfs=False):
         """ Return disklabels available on current platform
@@ -1181,21 +1156,14 @@ class BlivetUtils(object):
 
         new_label = blivet.formats.getFormat("disklabel", device=blivet_device.path,
                                              labelType=label_type)
-
         actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_label))
 
         for ac in actions:
             self.storage.devicetree.registerAction(ac)
 
-        return ProxyDataContainer(success=True, actions=actions, message=None,
-                          exception=None, traceback=None)
+        return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
     def set_bootloader_device(self, disk_name):
-
-        blivet_device = self.storage.devicetree.getDeviceByName(disk_name)
-
-        assert blivet_device.isDisk
-
         self.ksparser.handler.bootloader.location = "mbr"
         self.ksparser.handler.bootloader.bootDrive = disk_name
 
@@ -1221,8 +1189,6 @@ class BlivetUtils(object):
 
         """
 
-        assert blivet_device.format.type == "luks"
-
         blivet_device.format._setPassphrase(passphrase)
 
         try:
@@ -1235,13 +1201,11 @@ class BlivetUtils(object):
             self.storage.devicetree.populate()
             return True
 
-
     def blivet_cancel_actions(self, actions):
         """ Cancel scheduled actions
         """
 
         actions.reverse()
-
         for action in actions:
             self.storage.devicetree.cancelAction(action)
 
