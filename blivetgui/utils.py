@@ -286,6 +286,10 @@ class BlivetUtils(object):
         """ Get 'group' device based on underlying device (lvmpv/btrfs/mdmember/luks partition)
         """
 
+        # already a group device
+        if blivet_device.type in ("btrfs volume", "lvmvg", "mdarray"):
+            return blivet_device
+
         # encrypted group device -> get the luks device instead
         if blivet_device.format.type == "luks":
             blivet_device = self.get_luks_device(blivet_device)
@@ -343,6 +347,11 @@ class BlivetUtils(object):
             # special occasion -- raw device format
             partitions =  [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format)]
             return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
+
+        if blivet_device.format and blivet_device.format.type == "btrfs" and blivet_device.kids:
+            # btrfs volume on raw device
+            btrfs_volume = self.storage.devicetree.getChildren(blivet_device)[0]
+            return ProxyDataContainer(partitions=[btrfs_volume], extended=None, logicals=None)
 
         # extended partition
         extended = self._get_extended_partition(blivet_device)

@@ -114,6 +114,10 @@ class ListPartitions(object):
         self.partitions_view.expand_all()
 
     def _is_group_device(self, blivet_device):
+        # btrfs volume on raw disk
+        if blivet_device.type in ("btrfs volume",):
+            return True
+
         if blivet_device.format and blivet_device.format.type in ("lvmpv", "btrfs", "mdmember"):
             return (blivet_device.kids > 0)
 
