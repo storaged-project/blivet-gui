@@ -947,7 +947,10 @@ class BlivetUtils(object):
                     self.storage.devicetree.registerAction(ac)
                 actions.extend(part_actions)
 
-        btrfs_parents = [ac.device for ac in actions if (ac.isFormat and ac.isCreate) and ac._format.type == "btrfs"]
+        if user_input.btrfs_type == "disks":
+            btrfs_parents = [parent[0] for parent in user_input.parents]
+        else:
+            btrfs_parents = [ac.device for ac in actions if (ac.isFormat and ac.isCreate) and ac._format.type == "btrfs"]
         new_btrfs = BTRFSVolumeDevice(device_name, parents=btrfs_parents)
         new_btrfs.format = blivet.formats.getFormat("btrfs", label=device_name, mountpoint=user_input.mountpoint)
         actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
