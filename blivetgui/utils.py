@@ -117,12 +117,21 @@ class FreeSpaceDevice(object):
         self.end = end
 
         self.isLogical = logical
+        self.isExtended = False
+        self.isPrimary = not logical
         self.isFreeSpace = True
 
         self.format = None
         self.type = "free space"
         self.kids = 0
         self.parents = blivet.devices.lib.ParentList(items=parents)
+
+    @property
+    def disk(self):
+        if len(self.parents) == 1 and self.parents[0].type == "disk":
+            return self.parents[0]
+        else:
+            return self.parents[0].disk
 
     @property
     def isEmptyDisk(self):
@@ -272,134 +281,171 @@ class BlivetUtils(object):
 
         return pvs
 
-    def _get_free_space(self, blivet_device, partitions):
-        """ Find free space on device
-
-            :param blivet_device: blivet device
-            :type blivet_device: blivet.Device
-            :param paritions: partions (children) of device
-            :type partition: list
-            :returns: list of partitions + free space
-            :rtype: list
-
+    def get_group_device(self, blivet_device):
+        """ Get 'group' device based on underlying device (lvmpv/btrfs/mdmember/luks partition)
         """
 
-        if blivet_device == None:
-            return []
+        # encrypted group device -> get the luks device instead
+        if blivet_device.format.type == "luks":
+            blivet_device = self.get_luks_device(blivet_device)
 
-        if blivet_device.isDisk and blivet_device.format.type == None:
-            # empty disk without disk label
+        if not blivet_device.format or blivet_device.format.type not in ("lvmpv", "btrfs", "mdmember", "luks"):
+            return None
+        if blivet_device.kids != 1:
+            return None
 
-            partitions.append(FreeSpaceDevice(blivet_device.size, 0,
-                blivet_device.currentSize, [blivet_device], False))
+        group_device = self.storage.devicetree.getChildren(blivet_device)[0]
+        return group_device
 
-        elif blivet_device.isDisk and blivet_device.format.type not in ("disklabel",):
-            # LiveUSB or btrfs/mdraid partition table, no free space here
-            pass
+    def get_luks_device(self, blivet_device):
+        """ Get luks device based on underlying partition
+        """
 
-        elif blivet_device.isDisk:
+        if not blivet_device.format or blivet_device.format.type != "luks" or not blivet_device.format.status:
+            return None
+        if blivet_device.kids != 1:
+            return None
 
-            extended = None
-            logicals = []
+        luks_device = self.storage.devicetree.getChildren(blivet_device)[0]
+        return luks_device
 
-            for partition in partitions:
-                if hasattr(partition, "isExtended") and partition.isExtended:
-                    extended = partition
-
-                if hasattr(partition, "isLogical") and partition.isLogical:
-                    logicals.append(partition)
-
-            free_space = blivet.partitioning.getFreeRegions([blivet_device])
-
-            if len(free_space) == 0:
-                # no free space
-                return partitions
-
-            for free in free_space:
-                if free.length < 4096:
-                    # too small to be usable
-                    continue
-
-                free_size = blivet.size.Size(free.length * free.device.sectorSize)
-
-                # free space is inside extended partition
-                if (extended and free.start >= extended.partedPartition.geometry.start
-                    and free.end <= extended.partedPartition.geometry.end):
-
-                    if logicals:
-                        for logical in logicals:
-                            if free.start < logical.partedPartition.geometry.start:
-                                partitions.insert(partitions.index(logical),
-                                                  FreeSpaceDevice(free_size, free.start, free.end,
-                                                                  [blivet_device], True))
-                                break
-
-                        if free.end > logicals[-1].partedPartition.geometry.end:
-                            partitions.append(FreeSpaceDevice(free_size, free.start, free.end,
-                                                                  [blivet_device], True))
-
-                    else:
-                        partitions.insert(partitions.index(extended),
-                                          FreeSpaceDevice(free_size, free.start, free.end,
-                                                          [blivet_device], True))
-                else:
-                    added = False
-                    for partition in partitions:
-                        if partition.type in ("free space",):
-                            continue
-
-                        if free.start < partition.partedPartition.geometry.start:
-                            partitions.insert(partitions.index(partition),
-                                              FreeSpaceDevice(free_size, free.start, free.end,
-                                                              [blivet_device], False))
-                            added = True
-                            break
-
-                    if not added:
-                        partitions.append(FreeSpaceDevice(free_size, free.start, free.end,
-                                                          [blivet_device], False))
-
-        elif blivet_device.type == "lvmvg":
-
-            if blivet_device.freeSpace > blivet.size.Size(0):
-                partitions.append(FreeSpaceDevice(blivet_device.freeSpace, None, None,
-                    [blivet_device]))
-
-        elif blivet_device.type in ("partition", "luks/dm-crypt", "mdarray"):
-            # empty (encrypted) physical volume
-
-            if blivet_device.format.type == "lvmpv" and blivet_device.kids == 0:
-                partitions.append(FreeSpaceDevice(blivet_device.size, None, None, [blivet_device]))
-
-        return partitions
-
-    def get_partitions(self, blivet_device):
+    def get_children(self, blivet_device):
         """ Get partitions (children) of selected device
 
             :param blivet_device: blivet device
-            :type blivet_device: blivet.Device
-            :returns: list of partitions
-            :rtype: list
+            :type blivet_device: blivet.device.Device
+            :returns: list of child devices
+            :rtype: list of blivet.device.Device
 
         """
 
-        if blivet_device == None:
+        if not blivet_device:
             return []
 
-        if blivet_device.isDisk and blivet_device.format \
-            and blivet_device.format.type not in ("disklabel", "btrfs", None):
+        childs = self.storage.devicetree.getChildren(blivet_device)
+
+        if blivet_device.type == "lvmvg" and blivet_device.freeSpace > blivet.size.Size(0):
+            childs.append(FreeSpaceDevice(blivet_device.freeSpace, None, None, [blivet_device]))
+
+        return childs
+
+    def get_disk_children(self, blivet_device):
+        if not blivet_device.isDisk:
+            raise TypeError("device %s is not a disk" % blivet_device.name)
+
+        if blivet_device.isDisk and blivet_device.format.type == None:
+            # empty disk without disk label
+            partitions = [FreeSpaceDevice(blivet_device.size, 0, blivet_device.currentSize, [blivet_device], False)]
+            return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
+
+        if blivet_device.format and blivet_device.format.type not in ("disklabel", "btrfs", None):
             # special occasion -- raw device format
-            return [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format)]
+            partitions =  [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format)]
+            return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
 
-        partitions = []
+        # extended partition
+        extended = self._get_extended_partition(blivet_device)
+        # logical partitions + 'logical' free space
+        logicals = self._get_logical_partitions(blivet_device) + self._get_free_logical(blivet_device)
+        # primary partitions + 'primary' free space
+        primaries = self._get_primary_partitions(blivet_device) + self._get_free_primary(blivet_device)
+
+        def _sort_partitions(part): # FIXME: move to separate 'utils' file
+            if not part.type in ("free space", "partition"):
+                raise ValueError
+            if part.type == "free space":
+                return part.start
+            else:
+                return part.partedPartition.geometry.start
+
+        if extended:
+            partitions = sorted(primaries + [extended], key=_sort_partitions)
+        else:
+            partitions = sorted(primaries, key=_sort_partitions)
+        logicals = sorted(logicals, key=_sort_partitions)
+
+        return ProxyDataContainer(partitions=partitions, extended=extended, logicals=logicals)
+
+    def _get_extended_partition(self, blivet_device):
+        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+            return None
+
+        extended = None
         partitions = self.storage.devicetree.getChildren(blivet_device)
+        for part in partitions:
+            if part.type == "partition" and part.isExtended:
+                extended = part
+                break # only one extended partition
 
-        if blivet_device.isDisk and blivet_device.format.type in ("disklabel",):
-            partitions.sort(key=lambda x: x.partedPartition.geometry.start)
+        return extended
 
-        partitions = self._get_free_space(blivet_device, partitions)
+    def _get_logical_partitions(self, blivet_device):
+        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+            return []
 
-        return partitions
+        logicals = []
+        partitions = self.storage.devicetree.getChildren(blivet_device)
+        for part in partitions:
+            if part.type == "partition" and part.isLogical:
+                logicals.append(part)
+
+        return logicals
+
+    def _get_primary_partitions(self, blivet_device):
+        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+            return []
+
+        primaries = []
+        partitions = self.storage.devicetree.getChildren(blivet_device)
+        for part in partitions:
+            if part.type == "partition" and part.isPrimary:
+                primaries.append(part)
+
+        return primaries
+
+    def _get_free_logical(self, blivet_device):
+        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+            return []
+
+        extended = self._get_extended_partition(blivet_device)
+        if not extended:
+            return []
+
+        free_logical = []
+
+        free_regions = blivet.partitioning.getFreeRegions([blivet_device])
+        for region in free_regions:
+            region_size = blivet.size.Size(region.length * region.device.sectorSize)
+            if region_size < blivet.size.Size("4 MiB"):
+                continue
+
+            if region.start >= extended.partedPartition.geometry.start and \
+               region.end <= extended.partedPartition.geometry.end:
+                free_logical.append(FreeSpaceDevice(region_size, region.start, region.end, [blivet_device], True))
+
+        return free_logical
+
+    def _get_free_primary(self, blivet_device):
+        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+            return []
+
+        free_primary = []
+        free_regions = blivet.partitioning.getFreeRegions([blivet_device])
+
+        extended = self._get_extended_partition(blivet_device)
+
+        for region in free_regions:
+            region_size = blivet.size.Size(region.length * region.device.sectorSize)
+            if region_size < blivet.size.Size("4 MiB"):
+                continue
+
+            if extended and not (region.start >= extended.partedPartition.geometry.start and \
+               region.end <= extended.partedPartition.geometry.end):
+                free_primary.append(FreeSpaceDevice(region_size, region.start, region.end, [blivet_device], False))
+            elif not extended:
+                free_primary.append(FreeSpaceDevice(region_size, region.start, region.end, [blivet_device], False))
+
+        return free_primary
 
     def delete_disk_label(self, disk_device):
         """ Delete current disk label

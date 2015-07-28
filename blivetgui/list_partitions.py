@@ -46,9 +46,6 @@ class ListPartitions(object):
         self.partitions_view.connect("button-release-event", self.on_right_click_event)
 
         self.select = self.partitions_view.get_selection()
-        self.on_partition_selection_changed(self.select)
-
-        self.select = self.partitions_view.get_selection()
         self.select.connect("changed", self.on_partition_selection_changed)
 
         self.selected_partition = None
@@ -61,116 +58,92 @@ class ListPartitions(object):
 
         """
 
-        def childs_loop(childs, parent):
-            extended_iter = None
-            unadded_logical = []
-
-            for child in childs:
-
-                if hasattr(child, "isExtended") and child.isExtended:
-                    extended_iter = self.add_partition_to_view(child, parent)
-
-                elif hasattr(child, "isLogical") and child.isLogical:
-
-                    if not extended_iter:
-                        unadded_logical.append(child)
-
-                    else:
-                        parent_iter = self.add_partition_to_view(child, extended_iter)
-
-                        if child.type not in ("free space",):
-
-                            partitions = self.blivet_gui.client.remote_call("get_partitions", child)
-
-                            if len(partitions) != 0:
-                                childs_loop(partitions, parent_iter)
-
-                elif child.type not in ("free space",):
-
-                    partitions = self.blivet_gui.client.remote_call("get_partitions", child)
-
-                    if len(partitions) != 0:
-                        parent_iter = self.add_partition_to_view(child, parent)
-                        childs_loop(partitions, parent_iter)
-                    else:
-                        self.add_partition_to_view(child, parent)
-
-                else:
-                    self.add_partition_to_view(child, parent)
-
-            if len(unadded_logical) != 0 and extended_iter:
-                # if blivet creates extended partition it is sometimes huges mess
-                # and we need to be sure they are added in proper way
-                for logical in unadded_logical:
-                    self.add_partition_to_view(logical, extended_iter)
-
         self.partitions_list.clear()
 
-        partitions = self.blivet_gui.client.remote_call("get_partitions", selected_device)
+        def _add_chilren(childs, parent_iter=None):
+            for child in childs:
+                if self._is_group_device(child):
+                    new_child = self.blivet_gui.client.remote_call("get_group_device", child)
+                    self._add_to_store(new_child, parent_iter)
 
-        childs_loop(partitions, None)
+                elif child.format and child.format.type == "luks" and child.format.status:
+                    new_child = self.blivet_gui.client.remote_call("get_luks_device", child)
+                    self._add_to_store(new_child, None)
+
+                elif child.kids:
+                    child_iter = self._add_to_store(child, parent_iter)
+                    _add_chilren(self.blivet_gui.client.remote_call("get_children", child), child_iter)
+
+                else:
+                    self._add_to_store(child, parent_iter)
+
+        if selected_device.isDisk:
+            childs = self.blivet_gui.client.remote_call("get_disk_children", selected_device)
+
+            for child in childs.partitions:
+                if self._is_group_device(child):
+                    new_child = self.blivet_gui.client.remote_call("get_group_device", child)
+                    self._add_to_store(new_child, None)
+
+                elif child.format and child.format.type == "luks" and child.format.status:
+                    new_child = self.blivet_gui.client.remote_call("get_luks_device", child)
+                    self._add_to_store(new_child, None)
+
+                else:
+                    child_iter = self._add_to_store(child)
+                    if child.isExtended:
+                        for logical in childs.logicals:
+                            self._add_to_store(logical, child_iter)
+
+        # lvmvg always has some children, at least a free space
+        elif selected_device.type == "lvmvg":
+            childs = self.blivet_gui.client.remote_call("get_children", selected_device)
+            _add_chilren(childs, None)
+
+        # for btrfs volumes and mdarrays its necessary to add the device itself to the view
+        # because these devices don't need to have children (only btrfs volume or only mdarray
+        # is a valid, usable device)
+        elif selected_device.type in ("btrfs volume", "mdarray"):
+            parent_iter = self._add_to_store(selected_device)
+            childs = self.blivet_gui.client.remote_call("get_children", selected_device)
+            _add_chilren(childs, parent_iter)
 
         # select first line in partitions view
         self.select.select_path("0")
-
         # expand all expanders
         self.partitions_view.expand_all()
 
-    def add_partition_to_view(self, partition, parent):
-        """ Add partition into partition_list
+    def _is_group_device(self, blivet_device):
+        if blivet_device.format and blivet_device.format.type in ("lvmpv", "btrfs", "mdmember"):
+            return (blivet_device.kids > 0)
 
+        # encrypted group device
+        if blivet_device.format and blivet_device.format.type == "luks" and blivet_device.format.status:
+            luks_device = self.blivet_gui.client.remote_call("get_luks_device", blivet_device)
+            if luks_device.format and luks_device.format.type in ("lvmpv", "btrfs", "mdmember"):
+                return (luks_device.kids > 0)
+
+        return False
+
+    def _add_to_store(self, device, parent_iter=None):
+        """ Add new device to partitions list
+
+            :param device: device to add
+            :type device: blivet.device.Device
+            :param parent_iter: parent iter for this device
+            :type parent_iter: Gtk.TreeIter or None
         """
 
-        name = partition.name
+        devtype = "lvm" if device.type == "lvmvg" else "raid" if device.type == "mdarray" else device.type
+        name = device.name if len(device.name) < 18 else device.name[:15] + "..." #FIXME
+        fmt = device.format.type if device.format else None
+        mnt = device.format.systemMountpoint if (device.format and device.format.mountable) else None
 
-        if len(name) > 18:
-            name = name[:15] + "..."
+        device_iter = self.partitions_list.append(parent_iter, [device, name, devtype, fmt, str(device.size), mnt])
 
-        if partition.type == "free space":
-            iter_added = self.partitions_list.append(parent, [partition, name, "free_space", "--", str(partition.size), "--"])
-
-        elif partition.type == "partition" and hasattr(partition, "isExtended") \
-             and partition.isExtended:
-            iter_added = self.partitions_list.append(None, [partition, name, partition.type, _("extended"), str(partition.size), "--"])
-
-        elif partition.type == "lvmvg":
-            iter_added = self.partitions_list.append(parent, [partition, name, partition.type, "--", str(partition.size), "--"])
-
-        elif partition.format.mountable:
-            iter_added = self.partitions_list.append(parent, [partition, name, partition.type, partition.format.type,
-                                                                  str(partition.size), partition.format.systemMountpoint])
-
-        else:
-            iter_added = self.partitions_list.append(parent, [partition, name, partition.type, partition.format.type,
-                                                              str(partition.size), "--"])
-
-        return iter_added
-
-    def on_right_click_event(self, treeview, event):
-        """ Right click event on partition treeview
-        """
-
-        if event.button == 3:
-
-            selection = treeview.get_selection()
-
-            if not selection:
-                return False
-
-            self.blivet_gui.popup_menu.menu.popup(None, None, None, None, event.button, event.time)
-
-            return True
+        return device_iter
 
     def _allow_delete_device(self, device):
-        """ Is this device deletable?
-
-            :param device: selected device
-            :type device: blivet.Device
-            :returns: device possible to delete
-            :rtype: bool
-
-        """
-
         if device.type in ("free space",) or not device.isleaf:
             return False
 
@@ -189,15 +162,6 @@ class ListPartitions(object):
                     return not device.format.status
 
     def _allow_edit_device(self, device):
-        """ Is this device editable?
-
-            :param device: selected device
-            :type device: blivet.Device
-            :returns: device possible to edit
-            :rtype: bool
-
-        """
-
         if device.type not in ("partition", "lvmvg", "lvmlv"):
             return False
 
@@ -267,3 +231,13 @@ class ListPartitions(object):
             self.activate_action_buttons(model[treeiter])
             self.selected_partition = model[treeiter]
             self.blivet_gui.device_canvas.update_visualisation()
+
+    def on_right_click_event(self, treeview, event):
+        """ Right click event on partition treeview
+        """
+
+        if event.button == 3:
+            selection = treeview.get_selection()
+
+            if selection:
+                self.blivet_gui.popup_menu.menu.popup(None, None, None, None, event.button, event.time)
