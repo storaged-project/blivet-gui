@@ -132,6 +132,7 @@
                     <child>
                       <object class="GtkTreeViewColumn" id="column_icon">
                         <property name="title" translatable="yes">column</property>
+                        <property name="expand">True</property>
                         <child>
                           <object class="GtkCellRendererPixbuf" id="cellrendererpixbuf1"/>
                           <attributes>
@@ -143,6 +144,7 @@
                     <child>
                       <object class="GtkTreeViewColumn" id="column_info">
                         <property name="title" translatable="yes">column</property>
+                        <property name="expand">True</property>
                         <child>
                           <object class="GtkCellRendererText" id="cellrenderertext1"/>
                           <attributes>
@@ -425,6 +427,7 @@
                             </child>
                             <child>
                               <object class="GtkTreeViewColumn" id="column_device">
+                                <property name="resizable">True</property>
                                 <property name="title" translatable="yes">Device</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="cellrenderertext_device"/>
