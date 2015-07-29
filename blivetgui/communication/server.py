@@ -33,7 +33,7 @@ from six.moves import cPickle # pylint: disable=import-error
 
 from .proxy_utils import ProxyID, ProxyDataContainer
 
-from ..utils import BlivetUtils
+from ..blivet_utils import BlivetUtils
 
 #------------------------------------------------------------------------------#
 

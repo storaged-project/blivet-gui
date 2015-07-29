@@ -34,9 +34,9 @@ from .list_actions import ListActions
 from .main_menu import MainMenu
 from .actions_menu import ActionsMenu
 from .actions_toolbar import ActionsToolbar, DeviceToolbar
-from .devicevisualization.device_canvas import DeviceCanvas
+from .visualization.device_canvas import DeviceCanvas
 
-from .blivetguiproxy.client import BlivetGUIClient
+from .communication.client import BlivetGUIClient
 
 from .logs import set_logging, set_python_meh, remove_logs
 from .dialogs import message_dialogs, other_dialogs, edit_dialog, add_dialog, device_info_dialog

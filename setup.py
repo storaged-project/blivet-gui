@@ -33,7 +33,7 @@ setup(
 	package_dir={'blivetgui' : 'blivetgui'},
 	package_data={'blivetgui' : ['help/C/*.page',
 			'help/C/*.xml', 'help/C/icons/*', 'help/C/images/*',
-			'devicevisualization/*.py', 'blivetguiproxy/*.py', 'dialogs/*.py']},
+			'visualization/*.py', 'communication/*.py', 'dialogs/*.py']},
 	data_files=data_files,
 	scripts = ['blivet-gui', 'blivet-gui-daemon']
 )

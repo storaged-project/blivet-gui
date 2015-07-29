@@ -3,8 +3,8 @@
 import unittest
 from unittest.mock import MagicMock
 
-from blivetgui.blivetguiproxy.client import BlivetGUIClient, ClientProxyObject
-from blivetgui.blivetguiproxy.proxy_utils import ProxyID, ProxyDataContainer
+from blivetgui.communication.client import BlivetGUIClient, ClientProxyObject
+from blivetgui.communication.proxy_utils import ProxyID, ProxyDataContainer
 
 from blivet.size import Size
 

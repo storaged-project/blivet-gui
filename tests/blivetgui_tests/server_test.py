@@ -5,8 +5,8 @@ from unittest.mock import MagicMock
 
 import pickle
 
-from blivetgui.blivetguiproxy.server import BlivetUtilsServer, BlivetProxyObject
-from blivetgui.blivetguiproxy.proxy_utils import ProxyID, ProxyDataContainer
+from blivetgui.communication.server import BlivetUtilsServer, BlivetProxyObject
+from blivetgui.communication.proxy_utils import ProxyID, ProxyDataContainer
 
 from blivet.size import Size
 

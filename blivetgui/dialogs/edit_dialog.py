@@ -32,7 +32,7 @@ from gi.repository import Gtk, Pango
 
 from .size_chooser import SizeChooserArea
 
-from ..blivetguiproxy.proxy_utils import ProxyDataContainer
+from ..communication.proxy_utils import ProxyDataContainer
 
 #------------------------------------------------------------------------------#
 

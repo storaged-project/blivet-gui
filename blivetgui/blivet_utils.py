@@ -27,7 +27,7 @@ import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice, LVMSnapShotDevice, LVMThinLogicalVolumeDevice, LVMThinPoolDevice
 
-from  .blivetguiproxy.proxy_utils import ProxyDataContainer
+from  .communication.proxy_utils import ProxyDataContainer
 
 import gi
 gi.require_version("BlockDev", "1.0")

@@ -38,7 +38,7 @@ from blivet import size
 
 from ..dialogs import message_dialogs
 
-from ..blivetguiproxy.proxy_utils import ProxyDataContainer
+from ..communication.proxy_utils import ProxyDataContainer
 
 from . size_chooser import SizeChooserArea
 
