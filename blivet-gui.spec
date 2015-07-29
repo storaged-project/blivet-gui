@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.3.4
+Version: 0.3.5
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -16,7 +16,7 @@ Requires: python3
 Requires: python-six
 Requires: pygobject3
 Requires: gettext
-Requires: python3-blivet >= 1:1.8
+Requires: python3-blivet >= 1:1.10
 Requires: gtk3
 Requires: gnome-icon-theme
 Requires: polkit-gnome
@@ -53,6 +53,32 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Wed Jul 29 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.3.5-1
+- Fix displaying btrfs as a disklabel (vtrefny)
+- Fix adding btrfs as a disklabel (vtrefny)
+- Small UI fixes (vtrefny)
+- Few stylistic fixes (vtrefny)
+- New UI, part 2: listing of device children in logical view (vtrefny)
+- Catch AttirbuteErrors during remote utils calls (vtrefny)
+- PartitionEditDialog: Do not offer formats that are not supported (vtrefny)
+- Fix context menu for partitions list (vtrefny)
+- Add test for PartitionEditDialog (vtrefny)
+- Fix AddDialog tests (vtrefny)
+- AddDialog: Do not offer formats that are not supported (vtrefny)
+- Display MDarrays and Btrfs Volumes in device list (vtrefny)
+- Remove custom method to detect extended partition on disk (vtrefny)
+- Allow displaying disks withou disklabel in AddDialog (vtrefny)
+- Fix creating extended partitions (vtrefny)
+- Remove unused import (vtrefny)
+- Fix pocketlint settings (vtrefny)
+- Do not allow adding snapshot when there is not enough free space (vtrefny)
+- Fix converting ProxyDataContainer to IDs (vtrefny)
+- Move all tests to one folder (vtrefny)
+- Add tests to test server-client functions (vtrefny)
+- Fix catching exceptions in client-server communication (vtrefny)
+- BlivetGUIClient: fix sending ProxyDataContainer (vtrefny)
+- New version 0.3.4 (vtrefny)
+
 * Thu Jul 16 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.3.4-1
 - Pylint fixes (vtrefny)
 - Use pocketlint for blivet-gui (vtrefny)
