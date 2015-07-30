@@ -106,6 +106,10 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
         while True:
             msg = self._recv_msg()
 
+            if not msg:
+                self.server.quit = True # pylint: disable=no-member
+                break
+
             unpickled_msg = cPickle.loads(msg)
 
             if unpickled_msg[0] == self.server.secret: # pylint: disable=no-member
