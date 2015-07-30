@@ -34,7 +34,7 @@ from .list_actions import ListActions
 from .main_menu import MainMenu
 from .actions_menu import ActionsMenu
 from .actions_toolbar import ActionsToolbar, DeviceToolbar
-from .visualization.device_canvas import DeviceCanvas
+from .visualization.logical_view import LogicalView
 
 from .communication.client import BlivetGUIClient
 
@@ -145,8 +145,8 @@ class BlivetGUI(object):
         # self.actions_label.set_text(_("Pending actions ({0})").format(self.list_actions.actions))
 
         ### DeviceCanvas
-        self.device_canvas = DeviceCanvas(self)
-        self.builder.get_object("image_window").add(self.device_canvas)
+        self.logical_view = LogicalView(self)
+        self.builder.get_object("image_window").add(self.logical_view.hbox)
 
         # select first device in ListDevice
         self.list_devices.disks_view.set_cursor(1)
@@ -164,9 +164,7 @@ class BlivetGUI(object):
 
     def update_partitions_view(self):
         self.list_partitions.update_partitions_list(self.list_devices.selected_device)
-        self.device_canvas.visualize_device(self.list_partitions.partitions_list,
-                                            self.list_partitions.partitions_view,
-                                            self.list_devices.selected_device)
+        self.logical_view.visualize_devices(self.list_partitions.partitions_list)
 
     def activate_action_buttons(self, activate):
         """ Set the actions toolbar buttons (in)active

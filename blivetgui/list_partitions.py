@@ -224,6 +224,15 @@ class ListPartitions(object):
             elif device.format.mountable and device.format.systemMountpoint:
                 self.blivet_gui.activate_device_actions(["unmount"])
 
+    def select_device(self, device):
+        """ Select device from list """
+
+        def _search(model, path, treeiter, device):
+            if model[treeiter][0] == device:
+                self.select.select_path(path)
+
+        self.partitions_list.foreach(_search, device)
+
     def on_partition_selection_changed(self, selection):
         """ On selected partition action
         """
@@ -234,7 +243,7 @@ class ListPartitions(object):
             self.blivet_gui.deactivate_all_actions()
             self.activate_action_buttons(model[treeiter])
             self.selected_partition = model[treeiter]
-            self.blivet_gui.device_canvas.update_visualisation()
+            self.blivet_gui.logical_view.select_rectanlge(device=self.selected_partition[0])
 
     def on_right_click_event(self, treeview, event):
         """ Right click event on partition treeview
