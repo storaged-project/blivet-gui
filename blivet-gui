@@ -30,8 +30,9 @@ import gettext
 
 import gi
 gi.require_version("Gtk", "3.0")
+gi.require_version("Gdk", "3.0")
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from blivetgui.dialogs.message_dialogs import ErrorDialog
 from blivetgui.gui_utils import locate_ui_file, locate_css_file
@@ -102,6 +103,12 @@ def main():
 
             BlivetGUI(server_socket=sockfile, secret=secret, version=APP_VERSION,
                       kickstart_mode=options.kickstart)
+
+            css_provider = Gtk.CssProvider()
+            css_provider.load_from_path(locate_css_file("rectangle.css"))
+            screen = Gdk.Screen.get_default()
+            style_context = Gtk.StyleContext()
+            style_context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
 if  __name__ == '__main__':
 

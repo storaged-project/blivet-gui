@@ -29,7 +29,10 @@ from gi.repository import Gtk
 
 class Rectangle(Gtk.RadioButton):
     """ Rectangle object """
-    def __init__(self, group, width, height, device):
+
+    __gtype_name__ = "Rectangle"
+
+    def __init__(self, rtype, group, width, height, device):
         self.width = width
         self.height = height
 
@@ -38,6 +41,7 @@ class Rectangle(Gtk.RadioButton):
         Gtk.RadioButton.__init__(self, group=group, width_request=width, height_request=height)
 
         self.set_mode(False)
+        self.set_name(rtype)
 
         label_name = Gtk.Label(label=self.device.name)
         self.add(label_name)

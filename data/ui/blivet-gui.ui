@@ -300,6 +300,7 @@
                   <object class="GtkNotebook" id="notebook_views">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="show_border">False</property>
                     <child>
                       <object class="GtkBox" id="box_logical">
                         <property name="visible">True</property>
@@ -309,7 +310,8 @@
                           <object class="GtkScrolledWindow" id="image_window">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="min_content_height">80</property>
+                            <property name="border_width">1</property>
+                            <property name="min_content_height">100</property>
                             <child>
                               <placeholder/>
                             </child>

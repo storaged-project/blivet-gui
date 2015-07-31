@@ -34,16 +34,19 @@ class LogicalView(object):
     def __init__(self, blivet_gui):
         self.blivet_gui = blivet_gui
 
-        self.hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        self.hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=1)
         self.rectangles = []
         self.boxes = []
 
+        self._devices_list = None
         self._ignore_toggle = False
 
     def visualize_devices(self, devices_list):
+        self._devices_list = devices_list
+
         self._clear()
         root_iter = devices_list.get_iter_first()
-        self._visualization_loop(devices_list, root_iter, self.hbox)
+        self._visualization_loop(root_iter, self.hbox)
 
         self.select_rectanlge(devices_list[root_iter][0])
         self.hbox.show_all()
@@ -59,37 +62,57 @@ class LogicalView(object):
             box.destroy()
         self.boxes = []
 
-    def _visualization_loop(self, devices_list, treeiter, box):
+    def _visualization_loop(self, treeiter, box):
         while treeiter:
-            depth = devices_list.iter_depth(treeiter)
-            button_group = self.rectangles[0] if self.rectangles else None
+            depth = self._devices_list.iter_depth(treeiter)
             if depth:
-                # num_childs = self.devices_list.iter_n_children(self.devices_list.iter_parent(treeiter))
-                rect = Rectangle(group=button_group, width=-1, height=-1, device=devices_list[treeiter][0])
-                rect.connect("toggled", self._on_rectangle_toggle)
-                self.rectangles.append(rect)
+                child_type = "child-rect-" + self._get_child_position(treeiter)
+                rect = self._new_rectangle(self._devices_list[treeiter][0], child_type)
                 box.pack_start(child=rect, expand=True, fill=True, padding=0)
             else:
-                rect = Rectangle(group=button_group, width=-1, height=-1, device=devices_list[treeiter][0])
-                rect.connect("toggled", self._on_rectangle_toggle)
-                self.rectangles.append(rect)
-
-                if devices_list.iter_has_child(treeiter):
+                if self._devices_list.iter_has_child(treeiter):
                     # device with children, add a vbox
                     vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, homogeneous=True)
                     self.boxes.append(vbox)
                     box.pack_start(child=vbox, expand=True, fill=True, padding=0)
+
+                    # rectangle for parent device
+                    rect = self._new_rectangle(self._devices_list[treeiter][0], "parent-rect")
                     vbox.pack_start(child=rect, expand=True, fill=True, padding=0)
+
                     # hbox for children
                     child_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
                     self.boxes.append(child_box)
                     vbox.pack_start(child=child_box, expand=True, fill=True, padding=0)
-                    childiter = devices_list.iter_children(treeiter)
-                    self._visualization_loop(devices_list, childiter, child_box)
+
+                    # _virtualization_loop for children
+                    childiter = self._devices_list.iter_children(treeiter)
+                    self._visualization_loop(childiter, child_box)
                 else:
+                    rect = self._new_rectangle(self._devices_list[treeiter][0])
                     box.pack_start(child=rect, expand=True, fill=True, padding=0)
 
-            treeiter = devices_list.iter_next(treeiter)
+            treeiter = self._devices_list.iter_next(treeiter)
+
+    def _new_rectangle(self, device, rtype="", width=-1, height=-1):
+        button_group = self.rectangles[0] if self.rectangles else None
+
+        rect = Rectangle(rtype, button_group, width, height, device)
+        rect.connect("toggled", self._on_rectangle_toggle)
+        self.rectangles.append(rect)
+
+        return rect
+
+    def _get_child_position(self, child_iter):
+        parent_iter = self._devices_list.iter_parent(child_iter)
+        num_childs = self._devices_list.iter_n_children(parent_iter)
+
+        if self._devices_list[child_iter][0] == self._devices_list[self._devices_list.iter_nth_child(parent_iter, 0)][0]:
+            return "first"
+        elif self._devices_list[child_iter][0] == self._devices_list[self._devices_list.iter_nth_child(parent_iter, num_childs - 1)][0]:
+            return "last"
+        else:
+            return "inner"
 
     def select_rectanlge(self, device):
         for rect in self.rectangles:
