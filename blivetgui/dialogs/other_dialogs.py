@@ -30,7 +30,7 @@ gi.require_version("GdkPixbuf", "2.0")
 
 from gi.repository import Gtk, GdkPixbuf
 
-from .message_dialogs import locate_ui_file
+from blivetgui.gui_utils import locate_ui_file
 
 #------------------------------------------------------------------------------#
 

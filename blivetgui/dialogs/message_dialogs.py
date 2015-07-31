@@ -22,8 +22,6 @@
 #
 #------------------------------------------------------------------------------#
 
-import os
-
 import gettext
 
 import gi
@@ -31,25 +29,11 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
+from blivetgui.gui_utils import locate_ui_file
+
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
-
-#------------------------------------------------------------------------------#
-
-def locate_ui_file(filename):
-    """ Locate Glade ui files
-    """
-
-    path = [os.path.split(os.path.abspath(__file__))[0] + '/../../data/ui/',
-            '/usr/share/blivet-gui/ui/']
-
-    for folder in path:
-        filepath = folder + filename
-        if os.access(filepath, os.R_OK):
-            return filepath
-
-    raise RuntimeError("Unable to find glade file %s" % filename)
 
 #------------------------------------------------------------------------------#
 
