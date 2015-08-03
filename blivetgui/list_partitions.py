@@ -91,7 +91,7 @@ class ListPartitions(object):
 
                 else:
                     child_iter = self._add_to_store(child)
-                    if child.isExtended:
+                    if hasattr(child, "isExtended") and child.isExtended:
                         for logical in childs.logicals:
                             self._add_to_store(logical, child_iter)
 
