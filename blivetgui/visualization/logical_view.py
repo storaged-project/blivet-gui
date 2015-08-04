@@ -99,6 +99,7 @@ class LogicalView(object):
 
         rect = Rectangle(rtype, button_group, width, height, device)
         rect.connect("toggled", self._on_rectangle_toggle)
+        rect.connect("button-release-event", self._on_right_click)
         self.rectangles.append(rect)
 
         return rect
@@ -124,3 +125,8 @@ class LogicalView(object):
             self._ignore_toggle = True
             self.blivet_gui.list_partitions.select_device(button.device)
             self._ignore_toggle = False
+
+    def _on_right_click(self, button, event):
+        if event.button == 3:
+            self._on_rectangle_toggle(button) # select the button
+            self.blivet_gui.popup_menu.menu.popup(None, None, None, None, event.button, event.time)
