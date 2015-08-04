@@ -1,9 +1,18 @@
+/* Basic rectangle */
+
 Rectangle {
   border: 1px solid @theme_text_color;
   border-radius: 6px;
   background-image: none;
   background-color: @theme_bg_color;
 }
+
+Rectangle:checked {
+  background-image: none;
+  background: @theme_selected_bg_color;
+}
+
+/* Parent rectangle */
 
 Rectangle#parent-rect {
   border-color: @theme_text_color;
@@ -13,6 +22,8 @@ Rectangle#parent-rect {
   border-bottom: 1px solid @borders;
   border-radius: 6px 6px 0 0;
 }
+
+/* Child rectangles */
 
 Rectangle#child-rect-inner {
   border-top: none;
@@ -38,12 +49,76 @@ Rectangle#child-rect-last {
   border-radius: 0 0 6px 0;
 }
 
-Rectangle:checked {
-  background-image: none;
-  background: @theme_selected_bg_color;
-}
+/* Labels inside rectangles */
 
 Rectangle:checked GtkLabel {
   color: @theme_selected_fg_color;
   text-shadow: none;
+}
+
+/* Physical view rectangles */
+
+Rectangle#root-device:checked {
+  background-color: @theme_bg_color;
+}
+
+Rectangle#child-valid-inner {
+  background-color: @theme_bg_color;
+  border: 2px solid #FF0000;
+  border-radius: 0;
+}
+
+Rectangle#child-valid-first {
+  background-color: @theme_bg_color;
+  border: 2px solid #FF0000;
+  border-radius: 0;
+}
+
+Rectangle#child-valid-last {
+  background-color: @theme_bg_color;
+  border: 2px solid #FF0000;
+  border-radius: 0;
+}
+
+Rectangle#child-invalid-inner {
+  background-color: @theme_bg_color;
+  background-image: url("../img/line.png");
+  background-repeat: space;
+  border-top: 2px solid @theme_text_color;
+  border-bottom: 2px solid @theme_text_color;
+  border-left: none;
+  border-right: 1px solid @borders;
+  border-radius: 0;
+}
+
+Rectangle#child-invalid-first {
+  background-color: @theme_bg_color;
+  background-image: url("../img/line.png");
+  background-repeat: space;
+  border-top: 2px solid @theme_text_color;
+  border-bottom: 2px solid @theme_text_color;
+  border-left: 2px solid @theme_text_color;
+  border-right: 1px solid @borders;
+  border-radius: 0;
+}
+
+Rectangle#child-invalid-last {
+  background-color: @theme_bg_color;
+  background-image: url("../img/line.png");
+  background-repeat: space;
+  border-top: 2px solid @theme_text_color;
+  border-bottom: 2px solid @theme_text_color;
+  border-right: 2px solid @theme_text_color;
+  border-left: none;
+  border-radius: 0;
+  color: @theme_fg_color;
+}
+
+Rectangle#root-device:checked GtkLabel {
+  color: @theme_fg_color;
+}
+
+/* Colored Gtk.Label */
+GtkLabel#dark {
+  color: @theme_fg_color;
 }

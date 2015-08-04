@@ -505,7 +505,7 @@
                       <object class="GtkScrolledWindow" id="scrolledwindow_physical">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="shadow_type">in</property>
+                        <property name="border_width">6</property>
                         <child>
                           <placeholder/>
                         </child>
@@ -561,6 +561,14 @@
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkTreeStore" id="liststore_physical">
+    <columns>
+      <!-- column-name blivet_device -->
+      <column type="PyObject"/>
+      <!-- column-name is_valid -->
+      <column type="gboolean"/>
+    </columns>
   </object>
   <object class="GtkTreeStore" id="treestore_actions">
     <columns>

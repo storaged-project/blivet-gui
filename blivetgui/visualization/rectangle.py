@@ -32,7 +32,7 @@ class Rectangle(Gtk.RadioButton):
 
     __gtype_name__ = "Rectangle"
 
-    def __init__(self, rtype, group, width, height, device):
+    def __init__(self, rtype, group, width, height, device, label=True):
         self.width = width
         self.height = height
 
@@ -43,5 +43,9 @@ class Rectangle(Gtk.RadioButton):
         self.set_mode(False)
         self.set_name(rtype)
 
-        label_name = Gtk.Label(label=self.device.name)
-        self.add(label_name)
+        if label:
+            label_name = Gtk.Label(label=self.device.name)
+            self.add(label_name)
+
+            if rtype.startswith("child-valid"):
+                label_name.set_name("dark")

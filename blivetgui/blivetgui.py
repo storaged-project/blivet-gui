@@ -30,11 +30,13 @@ from gi.repository import Gtk, GLib
 
 from .list_devices import ListDevices
 from .list_partitions import ListPartitions
+from .list_parents import ListParents
 from .list_actions import ListActions
 from .main_menu import MainMenu
 from .actions_menu import ActionsMenu
 from .actions_toolbar import ActionsToolbar, DeviceToolbar
 from .visualization.logical_view import LogicalView
+from .visualization.physical_view import PhysicalView
 
 from .communication.client import BlivetGUIClient
 
@@ -138,15 +140,21 @@ class BlivetGUI(object):
         ### ListPartitions
         self.list_partitions = ListPartitions(self)
 
+        ### ListParents
+        self.list_parents = ListParents(self)
+
         ### ListActions
         self.list_actions = ListActions(self)
         # self.builder.get_object("actions_viewport").add(self.list_actions.actions_view)
         # self.actions_label = self.builder.get_object("actions_page")
         # self.actions_label.set_text(_("Pending actions ({0})").format(self.list_actions.actions))
 
-        ### DeviceCanvas
+        ### Vizualisation
         self.logical_view = LogicalView(self)
         self.builder.get_object("image_window").add(self.logical_view.hbox)
+
+        self.physical_view = PhysicalView(self)
+        self.builder.get_object("scrolledwindow_physical").add(self.physical_view.vbox)
 
         # select first device in ListDevice
         self.list_devices.disks_view.set_cursor(1)
@@ -165,6 +173,10 @@ class BlivetGUI(object):
     def update_partitions_view(self):
         self.list_partitions.update_partitions_list(self.list_devices.selected_device)
         self.logical_view.visualize_devices(self.list_partitions.partitions_list)
+
+    def update_physical_view(self):
+        self.list_parents.update_parents_list(self.list_devices.selected_device)
+        self.physical_view.visualize_parents(self.list_parents.parents_list)
 
     def activate_action_buttons(self, activate):
         """ Set the actions toolbar buttons (in)active

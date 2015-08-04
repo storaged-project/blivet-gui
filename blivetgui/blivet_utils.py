@@ -457,6 +457,30 @@ class BlivetUtils(object):
 
         return free_primary
 
+    def get_roots(self, blivet_device):
+        """ Get list of parents for selected device with its structure """
+
+        roots = []
+
+        if blivet_device.type == "lvmvg":
+            for pv in blivet_device.pvs:
+                roots.append(self._get_root_device(pv))
+        elif blivet_device.type in ("mdarray", "btrfs volume"):
+            for member in blivet_device.members:
+                roots.append(self._get_root_device(member))
+
+        return roots
+
+    def _get_root_device(self, blivet_device):
+        if blivet_device.isDisk:
+            return blivet_device
+
+        elif blivet_device.parents[0] in ("mdarray",):
+            return blivet_device.parents[0]
+
+        else:
+            return blivet_device.disk
+
     def delete_disk_label(self, disk_device):
         """ Delete current disk label
 
