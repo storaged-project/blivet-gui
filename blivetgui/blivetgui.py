@@ -335,15 +335,21 @@ class BlivetGUI(object):
             :type btrfs_pt: bool
         """
 
+        selected_device = self.list_partitions.selected_partition[0]
+
         # btrfs volume has no special free space device -- parent device for newly
         # created subvolume is not parent of selected device but device (btrfs volume)
         # itself
         # for snapshots 'parent' is the LV we are making snapshot
-        if self.list_partitions.selected_partition[0].type in ("btrfs volume", "lvmlv", "lvmthinpool"):
-            parent_device = self.list_partitions.selected_partition[0]
+        if selected_device.type in ("btrfs volume", "lvmlv", "lvmthinpool"):
+            parent_device = selected_device
+
+        # empty lvmpv doesn't have a special free space device
+        elif selected_device.type in ("partition", "luks/dm-crypt") and selected_device.format.type == "lvmpv":
+            parent_device = selected_device
 
         else:
-            parent_device = self.list_partitions.selected_partition[0].parents[0]
+            parent_device = selected_device.parents[0]
 
         parent_device_type = parent_device.type
 

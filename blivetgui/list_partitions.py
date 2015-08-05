@@ -190,6 +190,11 @@ class ListPartitions(object):
         if device.type in ("free space", "btrfs volume", "lvmthinpool"):
             return True
 
+        # empty lvmpv
+        if device.format and device.format.type == "lvmpv":
+            return not device.kids
+
+        # snapshot of lvmlv -- only if there is free space in the vg
         if device.type == "lmvlv":
             return device.vg.freeSpace >= device.vg.peSize
 
