@@ -70,7 +70,7 @@ class RawFormatDevice(object):
         self.disk = disk
         self.format = fmt
 
-        self.type = self.format.type
+        self.type = "raw format"
         self.size = self.disk.size
 
         self.isLogical = False
