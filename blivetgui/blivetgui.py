@@ -41,6 +41,7 @@ from .visualization.physical_view import PhysicalView
 from .communication.client import BlivetGUIClient
 
 from .logs import set_logging, set_python_meh, remove_logs
+from .gui_utils import locate_ui_file
 from .dialogs import message_dialogs, other_dialogs, edit_dialog, add_dialog, device_info_dialog
 from .processing_window import ProcessingActions
 
@@ -56,22 +57,6 @@ import six
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
-
-#------------------------------------------------------------------------------#
-
-def locate_ui_file(filename):
-    """ Locate neccessary Glade .ui files
-    """
-
-    path = [os.path.split(os.path.abspath(__file__))[0] + "/../data/ui/",
-            "/usr/share/blivet-gui/ui/"]
-
-    for folder in path:
-        fname = folder + filename
-        if os.access(fname, os.R_OK):
-            return fname
-
-    raise RuntimeError("Unable to find glade file %s" % filename)
 
 #------------------------------------------------------------------------------#
 
