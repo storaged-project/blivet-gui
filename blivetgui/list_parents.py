@@ -64,9 +64,14 @@ class ListParents(object):
                     self.parents_list.append(root_iter, [child, False])
 
     def _get_parent_devices(self, device):
+        parents = []
         if device.type == "lvmvg":
-            return device.pvs
+            for pv in device.pvs:
+                if pv.type == "luks/dm-crypt":
+                    parents.append(pv.slave)
+                else:
+                    parents.append(pv)
         elif device.type in ("btrfs volume", "mdarray"):
             return device.members
-        else:
-            return []
+
+        return parents
