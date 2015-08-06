@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-07-29 10:40+0200\n"
+"POT-Creation-Date: 2015-08-06 11:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,130 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. pylint: disable=maybe-no-member
-#: ../blivetgui/blivetgui.py:100
-msgid "blivet-gui is already running."
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:215 ../blivetgui/list_devices.py:64
+#: ../blivetgui/list_devices.py:64 ../blivetgui/blivetgui.py:210
 msgid ""
 "blivet-gui failed to find at least one storage device to work with.\n"
 "\n"
 "Please connect a storage device to your computer and re-run blivet-gui."
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:316
-#, python-brace-format
-msgid "edit {0} {1}"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:329
-#, python-brace-format
-msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing "
-"PVs."
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:386
-#, python-brace-format
-msgid "create new disklabel on {0}"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:427
-#, python-brace-format
-msgid "add {0} {1} device"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:430
-#, python-brace-format
-msgid "add {0} {1} partition"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:451
-msgid "Confirm delete operation"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:452
-#, python-brace-format
-msgid "Are you sure you want delete device {0}?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:468
-#, python-brace-format
-msgid "delete partition {0}"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:535
-msgid "File exists"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:536
-msgid "Selected file already exists, do you want to overwrite it?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:545
-#, python-brace-format
-msgid ""
-"File with your Kickstart configuration was successfully saved to:\n"
-"\n"
-"{0}"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:550
-msgid "Confirm scheduled actions"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:551
-msgid "Are you sure you want to perform scheduled actions?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:573
-msgid "Unmount failed. Are you sure device is not in use?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:593
-msgid "Device decryption failed. Are you sure provided password is correct?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:646
-msgid "Confirm reload storage"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:647
-msgid "There are pending operations. Are you sure you want to continue?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:673
-msgid "Are you sure you want to quit?"
-msgstr ""
-
-#: ../blivetgui/blivetgui.py:674
-msgid ""
-"There are unapplied actions. Are you sure you want to quit blivet-gui now?"
-msgstr ""
-
-#: ../blivetgui/actions_menu.py:54
-msgid "New"
-msgstr ""
-
-#: ../blivetgui/actions_menu.py:55
-msgid "Delete"
-msgstr ""
-
-#: ../blivetgui/actions_menu.py:56
-msgid "Edit"
-msgstr ""
-
-#: ../blivetgui/actions_menu.py:57
-msgid "Unmount"
-msgstr ""
-
-#: ../blivetgui/actions_menu.py:58
-msgid "Decrypt"
-msgstr ""
-
-#: ../blivetgui/actions_menu.py:59
-msgid "Information"
 msgstr ""
 
 #: ../blivetgui/list_devices.py:85
@@ -178,21 +59,21 @@ msgid ""
 "<i>{action}</i>"
 msgstr ""
 
-#: ../blivetgui/utils.py:88
+#: ../blivetgui/blivet_utils.py:88
 #, python-brace-format
 msgid "{0} disklabel"
 msgstr ""
 
-#: ../blivetgui/utils.py:113
+#: ../blivetgui/blivet_utils.py:113
 msgid "free space"
 msgstr ""
 
-#: ../blivetgui/utils.py:520
+#: ../blivetgui/blivet_utils.py:549
 #, python-brace-format
 msgid "Failed to remove device {0}. Are you sure it is not in use?"
 msgstr ""
 
-#: ../blivetgui/utils.py:583
+#: ../blivetgui/blivet_utils.py:612
 msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr ""
 
@@ -212,12 +93,123 @@ msgid ""
 "io/blivet-gui"
 msgstr ""
 
-#: ../blivetgui/blivetguiproxy/client.py:295
-#: ../blivetgui/blivetguiproxy/client.py:313
+#. pylint: disable=maybe-no-member
+#: ../blivetgui/blivetgui.py:87
+msgid "blivet-gui is already running."
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:311
+#, python-brace-format
+msgid "edit {0} {1}"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:324
 #, python-brace-format
 msgid ""
-"Failed to connect to blivet-gui-daemon.\n"
-"{err}"
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:387
+#, python-brace-format
+msgid "create new disklabel on {0}"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:428
+#, python-brace-format
+msgid "add {0} {1} device"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:431
+#, python-brace-format
+msgid "add {0} {1} partition"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:452
+msgid "Confirm delete operation"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:453
+#, python-brace-format
+msgid "Are you sure you want delete device {0}?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:469
+#, python-brace-format
+msgid "delete partition {0}"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:536
+msgid "File exists"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:537
+msgid "Selected file already exists, do you want to overwrite it?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:546
+#, python-brace-format
+msgid ""
+"File with your Kickstart configuration was successfully saved to:\n"
+"\n"
+"{0}"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:551
+msgid "Confirm scheduled actions"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:552
+msgid "Are you sure you want to perform scheduled actions?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:574
+msgid "Unmount failed. Are you sure device is not in use?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:594
+msgid "Device decryption failed. Are you sure provided password is correct?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:647
+msgid "Confirm reload storage"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:648
+msgid "There are pending operations. Are you sure you want to continue?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:674
+msgid "Are you sure you want to quit?"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:675
+msgid ""
+"There are unapplied actions. Are you sure you want to quit blivet-gui now?"
+msgstr ""
+
+#: ../blivetgui/actions_menu.py:54
+msgid "New"
+msgstr ""
+
+#: ../blivetgui/actions_menu.py:55
+msgid "Delete"
+msgstr ""
+
+#: ../blivetgui/actions_menu.py:56
+msgid "Edit"
+msgstr ""
+
+#: ../blivetgui/actions_menu.py:57
+msgid "Unmount"
+msgstr ""
+
+#: ../blivetgui/actions_menu.py:58
+msgid "Decrypt"
+msgstr ""
+
+#: ../blivetgui/actions_menu.py:59
+msgid "Information"
 msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:71
@@ -507,7 +499,7 @@ msgstr ""
 msgid "Device to install bootloader:"
 msgstr ""
 
-#: ../blivetgui/dialogs/message_dialogs.py:219
+#: ../blivetgui/dialogs/message_dialogs.py:203
 msgid "There are no pending actions."
 msgstr ""
 
@@ -706,6 +698,14 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:239
 #, python-brace-format
 msgid " • {exists} {size} {type} {name}\n"
+msgstr ""
+
+#: ../blivetgui/communication/client.py:295
+#: ../blivetgui/communication/client.py:313
+#, python-brace-format
+msgid ""
+"Failed to connect to blivet-gui-daemon.\n"
+"{err}"
 msgstr ""
 
 #: tmp/about_dialog.ui.h:1

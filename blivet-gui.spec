@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 0.3.5
+Version: 0.3.6
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -53,6 +53,22 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Thu Aug 06 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.3.6-1
+- Fix visualisation for extended partitions with single child (vtrefny)
+- Fix parent visualization for encrypted LVMs (vtrefny)
+- Allow adding new VG to an empty LVMPV (vtrefny)
+- Remove obsolete definiton of locate_ui_file method (vtrefny)
+- Do not allow displaying device info for raw format devices (vtrefny)
+- Remove old visualization files (vtrefny)
+- Display context menu for logical view visualization (vtrefny)
+- New UI, part 4: Physical View -- parents visualization (vtrefny)
+- Fix visualization for raw format devices (vtrefny)
+- Tweak device visualisation in logical view using CSS (vtrefny)
+- Move various GUI helper functions into one file (vtrefny)
+- New UI, part 3: New device visualisation for logical view (vtrefny)
+- BlivetUtilsServer: quit when recieve empty message (vtrefny)
+- Renaming few files and folders (vtrefny)
+
 * Wed Jul 29 2015 Vojtech Trefny <vtrefny@redhat.com> - 0.3.5-1
 - Fix displaying btrfs as a disklabel (vtrefny)
 - Fix adding btrfs as a disklabel (vtrefny)
