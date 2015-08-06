@@ -23,6 +23,7 @@ Requires: polkit-gnome
 Requires: yelp
 Requires: python3-meh
 Requires: python3-meh-gui
+Requires: python3-pid
 URL: http://github.com/rhinstaller/blivet-gui
 
 %description
