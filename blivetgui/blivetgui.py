@@ -144,6 +144,7 @@ class BlivetGUI(object):
         # select first device in ListDevice
         self.list_devices.disks_view.set_cursor(1)
         self.main_window.show_all()
+        self.list_devices.disks_view.set_cursor(0)
 
     def _get_supported_types(self):
         """ Get various supported 'types' (filesystems, raid levels...) from
@@ -155,6 +156,15 @@ class BlivetGUI(object):
         self._supported_filesystems = self.client.remote_call("get_available_filesystems")
         self._supported_disklabels = self.client.remote_call("get_available_disklabels", True)
 
+    def _set_physical_view_visible(self, visible):
+        notebook = self.builder.get_object("notebook_views")
+        physical_page = notebook.get_nth_page(1)
+
+        if visible:
+            physical_page.show()
+        else:
+            physical_page.hide()
+
     def update_partitions_view(self):
         self.list_partitions.update_partitions_list(self.list_devices.selected_device)
         self.logical_view.visualize_devices(self.list_partitions.partitions_list)
@@ -162,6 +172,11 @@ class BlivetGUI(object):
     def update_physical_view(self):
         self.list_parents.update_parents_list(self.list_devices.selected_device)
         self.physical_view.visualize_parents(self.list_parents.parents_list)
+
+        if self.list_devices.selected_device.isDisk:
+            self._set_physical_view_visible(False)
+        else:
+            self._set_physical_view_visible(True)
 
     def activate_action_buttons(self, activate):
         """ Set the actions toolbar buttons (in)active
