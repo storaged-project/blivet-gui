@@ -43,9 +43,13 @@ class Rectangle(Gtk.RadioButton):
         self.set_mode(False)
         self.set_name(rtype)
 
-        if label:
-            label_name = Gtk.Label(label=self.device.name)
-            self.add(label_name)
+        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, homogeneous=True)
+        self.add(vbox)
 
+        if label:
+            label_device = Gtk.Label(justify=Gtk.Justification.CENTER)
+            label_device.set_markup("<small>%s\n%s</small>" % (self.device.name, str(self.device.size)))
             if rtype.startswith("child-valid"):
-                label_name.set_name("dark")
+                label_device.set_name("dark")
+
+            vbox.pack_start(child=label_device, expand=True, fill=True, padding=0)
