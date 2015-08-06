@@ -108,7 +108,9 @@ class LogicalView(object):
         parent_iter = self._devices_list.iter_parent(child_iter)
         num_childs = self._devices_list.iter_n_children(parent_iter)
 
-        if self._devices_list[child_iter][0] == self._devices_list[self._devices_list.iter_nth_child(parent_iter, 0)][0]:
+        if num_childs == 1:
+            return "single"
+        elif self._devices_list[child_iter][0] == self._devices_list[self._devices_list.iter_nth_child(parent_iter, 0)][0]:
             return "first"
         elif self._devices_list[child_iter][0] == self._devices_list[self._devices_list.iter_nth_child(parent_iter, num_childs - 1)][0]:
             return "last"

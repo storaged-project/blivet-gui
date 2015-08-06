@@ -49,6 +49,14 @@ Rectangle#child-rect-last {
   border-radius: 0 0 6px 0;
 }
 
+Rectangle#child-rect-single {
+  border-top: none;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
+  border-radius: 0 0 6px 6px;
+}
+
 /* Labels inside rectangles */
 
 Rectangle:checked GtkLabel {
