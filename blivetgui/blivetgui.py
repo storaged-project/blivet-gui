@@ -326,7 +326,7 @@ class BlivetGUI(object):
                     action_str = _("edit {0} {1}").format(device.name, device.type)
                     self.list_actions.append("edit", action_str, result.actions)
 
-            self.list_partitions.update_partitions_list(self.list_devices.selected_device)
+            self.update_partitions_view()
 
         dialog.destroy()
         return
