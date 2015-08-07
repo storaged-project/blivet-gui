@@ -52,8 +52,6 @@ import os
 import sys
 import atexit
 
-import six
-
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
@@ -265,11 +263,7 @@ class BlivetGUI(object):
         return response
 
     def _raise_exception(self, exception, traceback):
-        if six.PY2:
-            raise six.reraise(type(exception), exception, traceback)
-
-        else:
-            raise exception.with_traceback(traceback)
+        raise exception.with_traceback(traceback)
 
     def device_information(self, _widget=None):
         """ Display information about currently selected device

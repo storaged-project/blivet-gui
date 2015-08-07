@@ -23,13 +23,12 @@
 
 from blivet import size
 
-import six
 import traceback
 
 import struct
 
-from six.moves import socketserver # pylint: disable=import-error
-from six.moves import cPickle # pylint: disable=import-error
+import socketserver
+import pickle
 
 from .proxy_utils import ProxyID, ProxyDataContainer
 
@@ -44,7 +43,7 @@ remove_atexit((log_file,))
 
 #------------------------------------------------------------------------------#
 
-picklable_types = six.integer_types + six.string_types + (six.text_type, float, bool, size.Size, BaseException)
+picklable_types = (str, int, float, bool, size.Size, BaseException)
 
 #------------------------------------------------------------------------------#
 
@@ -110,7 +109,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
                 self.server.quit = True # pylint: disable=no-member
                 break
 
-            unpickled_msg = cPickle.loads(msg)
+            unpickled_msg = pickle.loads(msg)
 
             if unpickled_msg[0] == self.server.secret: # pylint: disable=no-member
                 raise RuntimeError("Request from unauthorized client.")
@@ -174,10 +173,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
 
         """
 
-        if six.PY2:
-            data = ""
-        else:
-            data = b""
+        data = b""
 
         while len(data) < length:
             packet = self.request.recv(length - len(data)) # pylint: disable=no-member
@@ -221,7 +217,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
         else:
             picklable_answer = answer
 
-        pickled_answer = cPickle.dumps(picklable_answer)
+        pickled_answer = pickle.dumps(picklable_answer)
 
         return pickled_answer
 
@@ -233,10 +229,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
         param_name = data[3]
 
         if not hasattr(proxy_object.blivet_object, param_name):
-            if six.PY2:
-                answer = ValueError("%s has no attribute %s" % (proxy_object.blivet_object.name, param_name))
-            else:
-                answer = AttributeError("%s has no attribute %s" % (proxy_object.blivet_object.name, param_name))
+            answer = AttributeError("%s has no attribute %s" % (proxy_object.blivet_object.name, param_name))
 
         elif proxy_object.is_method(param_name):
             raise ValueError("Calling method, not attribute")

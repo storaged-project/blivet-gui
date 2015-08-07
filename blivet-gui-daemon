@@ -33,7 +33,7 @@ import random
 
 import tempfile
 
-from six.moves import socketserver # pylint: disable=import-error
+import socketserver
 
 from blivetgui.communication.server import BlivetUtilsServer
 
@@ -47,7 +47,7 @@ class BlivetGUIServer(socketserver.UnixStreamServer): # pylint: disable=no-init
     other_running = False
     secret = None
 
-    def serve_forever(self):
+    def serve_forever(self): #pylint: disable=arguments-differ
         """ Serve until interrupted
         """
         while not self.quit:

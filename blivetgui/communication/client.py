@@ -21,10 +21,9 @@
 #
 #------------------------------------------------------------------------------#
 
-from six.moves import cPickle # pylint: disable=import-error
+import pickle
 
 import os
-import six
 import socket
 import struct
 
@@ -153,11 +152,11 @@ class BlivetGUIClient(object):
         """ Call a method on server
         """
 
-        pickled_data = cPickle.dumps((self.secret, "call", method, self._args_convertTo_id(args)))
+        pickled_data = pickle.dumps((self.secret, "call", method, self._args_convertTo_id(args)))
 
         with self.mutex:
             self._send(pickled_data)
-            answer = cPickle.loads(self._recv_msg())
+            answer = pickle.loads(self._recv_msg())
 
         ret = self._answer_convertTo_object(answer)
 
@@ -171,11 +170,11 @@ class BlivetGUIClient(object):
         """ Get a param of proxy_id object
         """
 
-        pickled_data = cPickle.dumps((self.secret, "param", proxy_id, param_name))
+        pickled_data = pickle.dumps((self.secret, "param", proxy_id, param_name))
 
         with self.mutex:
             self._send(pickled_data)
-            answer = cPickle.loads(self._recv_msg())
+            answer = pickle.loads(self._recv_msg())
 
         return self._answer_convertTo_object(answer)
 
@@ -183,11 +182,11 @@ class BlivetGUIClient(object):
         """ Call remotely a method on proxy_id object
         """
 
-        pickled_data = cPickle.dumps((self.secret, "method", proxy_id, method_name, args))
+        pickled_data = pickle.dumps((self.secret, "method", proxy_id, method_name, args))
 
         with self.mutex:
             self._send(pickled_data)
-            answer = cPickle.loads(self._recv_msg())
+            answer = pickle.loads(self._recv_msg())
 
         return self._answer_convertTo_object(answer)
 
@@ -195,11 +194,11 @@ class BlivetGUIClient(object):
         """ Ask for a next member of iterable proxy_id object
         """
 
-        pickled_data = cPickle.dumps((self.secret, "next", proxy_id))
+        pickled_data = pickle.dumps((self.secret, "next", proxy_id))
 
         with self.mutex:
             self._send(pickled_data)
-            answer = cPickle.loads(self._recv_msg())
+            answer = pickle.loads(self._recv_msg())
 
         return self._answer_convertTo_object(answer)
 
@@ -207,11 +206,11 @@ class BlivetGUIClient(object):
         """ Ask for a member of iterable proxy_id object
         """
 
-        pickled_data = cPickle.dumps((self.secret, "key", proxy_id, key))
+        pickled_data = pickle.dumps((self.secret, "key", proxy_id, key))
 
         with self.mutex:
             self._send(pickled_data)
-            answer = cPickle.loads(self._recv_msg())
+            answer = pickle.loads(self._recv_msg())
 
         return self._answer_convertTo_object(answer)
 
@@ -219,21 +218,21 @@ class BlivetGUIClient(object):
         """ Send a control command to server
         """
 
-        pickled_data = cPickle.dumps((self.secret, command, args))
+        pickled_data = pickle.dumps((self.secret, command, args))
 
         with self.mutex:
             self._send(pickled_data)
-            answer = cPickle.loads(self._recv_msg())
+            answer = pickle.loads(self._recv_msg())
 
         return self._answer_convertTo_object(answer)
 
     def remote_do_it(self, show_progress_clbk):
 
-        pickled_data = cPickle.dumps((self.secret, "call", "blivet_do_it", ()))
+        pickled_data = pickle.dumps((self.secret, "call", "blivet_do_it", ()))
 
         with self.mutex:
             self._send(pickled_data)
-            answer = cPickle.loads(self._recv_msg())
+            answer = pickle.loads(self._recv_msg())
 
             ret = self._answer_convertTo_object(answer)
 
@@ -243,7 +242,7 @@ class BlivetGUIClient(object):
 
                 show_progress_clbk(ret[1])
 
-                answer = cPickle.loads(self._recv_msg())
+                answer = pickle.loads(self._recv_msg())
                 ret = self._answer_convertTo_object(answer)
 
         return ret[1]
@@ -252,7 +251,7 @@ class BlivetGUIClient(object):
         """ Quit the client
         """
 
-        pickled_data = cPickle.dumps((self.secret, "quit",))
+        pickled_data = pickle.dumps((self.secret, "quit",))
 
         with self.mutex:
             self._send(pickled_data)
@@ -280,10 +279,7 @@ class BlivetGUIClient(object):
 
         """
 
-        if six.PY2:
-            data = ""
-        else:
-            data = b""
+        data = b""
 
         while len(data) < length:
 

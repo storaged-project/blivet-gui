@@ -13,7 +13,6 @@ BuildRequires: gettext
 BuildRequires: python-setuptools
 BuildRequires: python3-pocketlint >= 0.4
 Requires: python3
-Requires: python-six
 Requires: pygobject3
 Requires: gettext
 Requires: python3-blivet >= 1:1.10

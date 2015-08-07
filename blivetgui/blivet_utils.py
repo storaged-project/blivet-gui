@@ -37,9 +37,6 @@ from gi.overrides import BlockDev
 import gettext
 
 import socket, platform, re
-
-import six
-
 import traceback
 import parted
 
@@ -617,12 +614,7 @@ class BlivetUtils(object):
             blivet_device.format.updateSizeInfo()
 
         except blivet.errors.FSError as e:
-            if six.PY2:
-                exc = unicode(e).encode("utf8") # pylint: disable=E0602
-            else:
-                exc = str(e)
-
-            return ProxyDataContainer(resizable=False, error=exc,
+            return ProxyDataContainer(resizable=False, error=str(e),
                                       min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
