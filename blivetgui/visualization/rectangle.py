@@ -43,13 +43,51 @@ class Rectangle(Gtk.RadioButton):
         self.set_mode(False)
         self.set_name(rtype)
 
-        vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, homogeneous=True)
-        self.add(vbox)
+        hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, homogeneous=False, spacing=6)
+        self.add(hbox)
 
         if label:
-            label_device = Gtk.Label(justify=Gtk.Justification.CENTER)
-            label_device.set_markup("<small>%s\n%s</small>" % (self.device.name, str(self.device.size)))
-            if rtype.startswith("child-valid"):
-                label_device.set_name("dark")
+            label_device = Gtk.Label(justify=Gtk.Justification.CENTER,
+                                     label="<small>%s\n%s</small>" % (self.device.name, str(self.device.size)),
+                                     use_markup=True, name="dark")
 
-            vbox.pack_start(child=label_device, expand=True, fill=True, padding=0)
+            hbox.pack_start(child=label_device, expand=True, fill=True, padding=0)
+
+            icons = self._add_device_icons()
+            hbox.pack_start(child=icons, expand=False, fill=False, padding=0)
+
+    device_icons = { "group" : ("drive-multidisk-symbolic.symbolic", "Group device"),
+                     "livecd" : ("media-optical-symbolic.symbolic", "LiveUSB device"),
+                     "encrypted" : ("changes-prevent-symbolic.symbolic", "Enctypted device (closed)"),
+                     "decrypted" : ("changes-allow-symbolic.symbolic", "Encrypted device (open)"),
+                     "empty" : ("radio-symbolic.symbolic", "Empty device"),
+                     "snapshot" : ("camera-photo-symbolic.symbolic", "Snapshot")}
+
+    def _add_device_icons(self):
+        device_properties = self._get_device_properties()
+
+        icon_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, homogeneous=False, spacing=4)
+        for prop in device_properties:
+            icon = Gtk.Image.new_from_icon_name(self.device_icons[prop][0], Gtk.IconSize.MENU)
+            icon.set_tooltip_text(self.device_icons[prop][1])
+            icon_box.pack_end(child=icon, expand=False, fill=False, padding=0)
+
+        return icon_box
+
+    def _get_device_properties(self):
+        properties = []
+        if self.device.type in ("lvmvg", "btrfs volume", "mdarray"):
+            properties.append("group")
+        if self.device.format and self.device.format in ("iso9660", "udf"):
+            properties.append("livecd")
+        if self.device.type == "partition" and self.device.format.type == "luks":
+            properties.append("encrypted")
+        if self.device.type == "luks/dm-crypt" or any(parent.type == "luks/dm-crypt" for parent in self.device.parents):
+            properties.append("decrypted")
+        if self.device.type in ("lvmsnapshot", "btrfs snapshot"):
+            properties.append("snapshot")
+        if self.device.type == "free space" or (self.device.format and self.device.format.type == "lvmpv"
+                                                and not self.device.kids):
+            properties.append("empty")
+
+        return properties
