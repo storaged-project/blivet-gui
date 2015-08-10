@@ -41,20 +41,15 @@ from .visualization.physical_view import PhysicalView
 from .communication.client import BlivetGUIClient
 
 from .logs import set_logging, set_python_meh, remove_logs
+from .i18n import _
 from .gui_utils import locate_ui_file
 from .dialogs import message_dialogs, other_dialogs, edit_dialog, add_dialog, device_info_dialog
 from .processing_window import ProcessingActions
-
-import gettext
 
 import threading
 import os
 import sys
 import atexit
-
-#------------------------------------------------------------------------------#
-
-_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
 
 #------------------------------------------------------------------------------#
 

@@ -26,8 +26,6 @@ from __future__ import print_function
 
 import os
 
-import gettext
-
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
@@ -42,9 +40,7 @@ from ..communication.proxy_utils import ProxyDataContainer
 
 from . size_chooser import SizeChooserArea
 
-#------------------------------------------------------------------------------#
-
-_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
+from ..i18n import _
 
 #------------------------------------------------------------------------------#
 

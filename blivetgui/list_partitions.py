@@ -22,14 +22,6 @@
 #
 #------------------------------------------------------------------------------#
 
-import gettext
-
-#------------------------------------------------------------------------------#
-
-_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
-
-#------------------------------------------------------------------------------#
-
 class ListPartitions(object):
     """ List of childs of selected device
     """

@@ -22,15 +22,10 @@
 #
 #------------------------------------------------------------------------------#
 
-import gettext
-
 from .dialogs.other_dialogs import AboutDialog
+from .i18n import _
 
 import os, subprocess
-
-#------------------------------------------------------------------------------#
-
-_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
 
 #------------------------------------------------------------------------------#
 

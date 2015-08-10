@@ -24,8 +24,6 @@
 
 from __future__ import print_function
 
-import gettext
-
 import parted
 
 import gi
@@ -34,9 +32,7 @@ gi.require_version("Pango", "1.0")
 
 from gi.repository import Gtk, Pango
 
-#------------------------------------------------------------------------------#
-
-_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
+from ..i18n import _
 
 #------------------------------------------------------------------------------#
 

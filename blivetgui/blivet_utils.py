@@ -34,8 +34,6 @@ gi.require_version("BlockDev", "1.0")
 
 from gi.overrides import BlockDev
 
-import gettext
-
 import socket, platform, re
 import traceback
 import parted
@@ -46,10 +44,7 @@ import pykickstart.parser
 from pykickstart.version import makeVersion
 
 from .logs import set_logging, set_python_meh, remove_logs
-
-#------------------------------------------------------------------------------#
-
-_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
+from .i18n import _
 
 #------------------------------------------------------------------------------#
 

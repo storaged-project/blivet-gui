@@ -22,8 +22,6 @@
 #
 #------------------------------------------------------------------------------#
 
-import gettext
-
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("GdkPixbuf", "2.0")
@@ -31,9 +29,7 @@ gi.require_version("Pango", "1.0")
 
 from gi.repository import Gtk, GdkPixbuf, Pango
 
-#------------------------------------------------------------------------------#
-
-_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
+from .i18n import _
 
 #------------------------------------------------------------------------------#
 

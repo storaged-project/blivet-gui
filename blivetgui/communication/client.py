@@ -29,13 +29,8 @@ import struct
 
 from .proxy_utils import ProxyID, ProxyDataContainer
 
-import gettext
-
 from ..dialogs.message_dialogs import ErrorDialog
-
-#------------------------------------------------------------------------------#
-
-_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
+from ..i18n import _
 
 #------------------------------------------------------------------------------#
 

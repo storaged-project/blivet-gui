@@ -22,8 +22,6 @@
 #
 #------------------------------------------------------------------------------#
 
-import gettext
-
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("GdkPixbuf", "2.0")
@@ -32,9 +30,7 @@ from gi.repository import Gtk, GdkPixbuf
 
 from blivetgui.gui_utils import locate_ui_file
 
-#------------------------------------------------------------------------------#
-
-_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
+from ..i18n import _
 
 #------------------------------------------------------------------------------#
 

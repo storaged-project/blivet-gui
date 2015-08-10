@@ -27,13 +27,9 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
-import gettext
-
 import sys
 
-#------------------------------------------------------------------------------#
-
-_ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
+from .i18n import _
 
 #------------------------------------------------------------------------------#
 
