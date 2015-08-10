@@ -265,6 +265,13 @@ class BlivetGUI(object):
     def _raise_exception(self, exception, traceback):
         raise exception.with_traceback(traceback)
 
+    def switch_device_view(self, device):
+        if not (device.isDisk or device.type in ("lvmvg", "btrfs volume", "mdarray")):
+            print(device.type)
+            raise ValueError
+
+        self.list_devices.select_device_by_name(device.name)
+
     def device_information(self, _widget=None):
         """ Display information about currently selected device
         """

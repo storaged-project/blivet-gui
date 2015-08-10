@@ -24,8 +24,9 @@
 
 import gi
 gi.require_version("Gtk", "3.0")
+gi.require_version("Gdk", "3.0")
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from .rectangle import Rectangle
 
@@ -99,7 +100,8 @@ class LogicalView(object):
 
         rect = Rectangle(rtype, button_group, width, height, device)
         rect.connect("toggled", self._on_rectangle_toggle)
-        rect.connect("button-release-event", self._on_right_click)
+        rect.connect("button-release-event", self._on_button_release)
+        rect.connect("button-press-event", self._on_button_press)
         self.rectangles.append(rect)
 
         return rect
@@ -128,7 +130,12 @@ class LogicalView(object):
             self.blivet_gui.list_partitions.select_device(button.device)
             self._ignore_toggle = False
 
-    def _on_right_click(self, button, event):
+    def _on_button_release(self, button, event):
         if event.button == 3:
             self._on_rectangle_toggle(button) # select the button
             self.blivet_gui.popup_menu.menu.popup(None, None, None, None, event.button, event.time)
+
+    def _on_button_press(self, button, event):
+        if event.type == Gdk.EventType._2BUTTON_PRESS:
+            if button.device.isDisk or button.device.type in ("lvmvg", "btrfs volume", "mdarray"):
+                self.blivet_gui.switch_device_view(button.device)

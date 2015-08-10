@@ -164,6 +164,11 @@ class ListDevices(object):
         if not selected:
             self.disks_view.set_cursor(1)
 
+    def select_device_by_name(self, device_name):
+        for idx, device in enumerate(self.device_list):
+            if device[0] and device[0].name == device_name:
+                self.disks_view.set_cursor(idx)
+
     def on_disk_selection_changed(self, selection):
         """ Onselect action for devices
         """

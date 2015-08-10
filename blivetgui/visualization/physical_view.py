@@ -96,7 +96,9 @@ class PhysicalView(object):
         self.boxes = []
 
     def _new_rectangle(self, device, rtype="", width=90, height=90):
+        # no labels for 'invalid rectangles' in physical view
         label = not rtype.startswith("child-invalid-")
+
         rect = Rectangle(rtype, None, width, height, device, label)
         self.rectangles.append(rect)
 
