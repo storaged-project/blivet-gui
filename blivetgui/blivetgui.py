@@ -127,10 +127,9 @@ class BlivetGUI(object):
         self.list_parents = ListParents(self)
 
         ### ListActions
+        self.label_actions = self.builder.get_object("label_actions")
+        self.label_actions.connect("activate-link", self.show_actions)
         self.list_actions = ListActions(self)
-        # self.builder.get_object("actions_viewport").add(self.list_actions.actions_view)
-        # self.actions_label = self.builder.get_object("actions_page")
-        # self.actions_label.set_text(_("Pending actions ({0})").format(self.list_actions.actions))
 
         ### Vizualisation
         self.logical_view = LogicalView(self)
@@ -644,12 +643,14 @@ class BlivetGUI(object):
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
-    def show_actions(self, _widget=None):
+    def show_actions(self, _widget=None, _uri=None):
         """ Show scheduled actions
         """
 
         dialog = message_dialogs.ShowActionsDialog(self.main_window, self.list_actions.actions_list)
         dialog.run()
+
+        return True
 
     def reload(self, _widget=None):
         """ Reload storage information

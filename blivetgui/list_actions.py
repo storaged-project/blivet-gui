@@ -32,6 +32,7 @@ import gettext
 #------------------------------------------------------------------------------#
 
 _ = lambda x: gettext.translation("blivet-gui", fallback=True).gettext(x) if x != "" else ""
+P_ = lambda x, y, z: gettext.translation("blivet-gui", fallback=True).ngettext(x, y, z)
 
 #------------------------------------------------------------------------------#
 
@@ -66,6 +67,7 @@ class ListActions(object):
         self.action_icons = {"add" : icon_add, "delete" : icon_delete, "edit" : icon_edit}
 
         self.blivet_gui.activate_action_buttons(False)
+        self.blivet_gui.label_actions.set_markup("No pending actions")
 
     def append(self, action_type, action_desc, blivet_actions):
         """ Append newly scheduled actions to the list of actions
@@ -94,6 +96,8 @@ class ListActions(object):
 
         # activate 'actions-related' options
         self.blivet_gui.activate_action_buttons(True)
+        markup = P_("<a href=\"\">%s pending action</a>", "<a href=\"\">%s pending actions</a>", self.actions)
+        self.blivet_gui.label_actions.set_markup(markup % self.actions)
 
     def pop(self):
         """ Remove last action from the list of actions
@@ -113,6 +117,9 @@ class ListActions(object):
         # deactivate 'actions-related' options (if there are no actions)
         if not self.actions:
             self.blivet_gui.activate_action_buttons(False)
+            self.blivet_gui.label_actions.set_markup("No pending actions")
+        else:
+            self.blivet_gui.label_actions.set_markup("<a href=\"\"> %s pending actions</a>" % self.actions)
 
         return self.history.pop()
 
