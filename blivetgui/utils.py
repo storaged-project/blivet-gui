@@ -646,7 +646,7 @@ class BlivetUtils(object):
             if user_input.encrypt:
                 dev = PartitionDevice(name="req%d" % self.storage.nextID,
                     size=user_input.size,
-                    parents=[i[0] for i in user_input.parents])
+                    parents=[i[0] for i in user_input.parents], partType=PARTITION_TYPE["primary"])
                 actions.append(blivet.deviceaction.ActionCreateDevice(dev))
 
                 fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
@@ -683,7 +683,7 @@ class BlivetUtils(object):
             for parent, size in user_input.parents:
 
                 dev = PartitionDevice(name="req%d" % self.storage.nextID,
-                    size=size, parents=parent)
+                    size=size, parents=parent, partType=PARTITION_TYPE["primary"])
                 ac_part = blivet.deviceaction.ActionCreateDevice(dev)
 
                 fmt = blivet.formats.getFormat(fmt_type="lvmpv")
@@ -722,7 +722,7 @@ class BlivetUtils(object):
             for parent, size in user_input.parents:
                 dev = PartitionDevice(name="req%d" % self.storage.nextID,
                     size=user_input.size,
-                    parents=[parent])
+                    parents=[parent], partType=PARTITION_TYPE["primary"])
                 ac_part = blivet.deviceaction.ActionCreateDevice(dev)
 
                 fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
@@ -784,7 +784,7 @@ class BlivetUtils(object):
 
                 dev = PartitionDevice(name="req%d" % self.storage.nextID,
                     size=user_input.size,
-                    parents=[i[0] for i in user_input.parents])
+                    parents=[i[0] for i in user_input.parents], partType=PARTITION_TYPE["primary"])
                 actions.append(blivet.deviceaction.ActionCreateDevice(dev))
 
                 fmt = blivet.formats.getFormat(fmt_type="luks", passphrase=user_input.passphrase, device=dev.path)
@@ -797,7 +797,7 @@ class BlivetUtils(object):
 
             else:
                 dev = PartitionDevice(name="req%d" % self.storage.nextID,
-                    size=user_input.size, parents=[i[0] for i in user_input.parents])
+                    size=user_input.size, parents=[i[0] for i in user_input.parents], partType=PARTITION_TYPE["primary"])
                 actions.append(blivet.deviceaction.ActionCreateDevice(dev))
 
                 fmt = blivet.formats.getFormat(fmt_type="lvmpv")
@@ -844,7 +844,7 @@ class BlivetUtils(object):
                 else:
 
                     dev = PartitionDevice(name="req%d" % self.storage.nextID,
-                        size=size, parents=[parent])
+                        size=size, parents=[parent], partType=PARTITION_TYPE["primary"])
                     ac_part = blivet.deviceaction.ActionCreateDevice(dev)
 
                     fmt = blivet.formats.getFormat(fmt_type="btrfs")
@@ -890,7 +890,7 @@ class BlivetUtils(object):
             for parent, size in user_input.parents:
 
                 dev = PartitionDevice(name="req%d" % self.storage.nextID,
-                    size=size, parents=[parent])
+                    size=size, parents=[parent], partType=PARTITION_TYPE["primary"])
                 ac_part = blivet.deviceaction.ActionCreateDevice(dev)
 
                 fmt = blivet.formats.getFormat(fmt_type="mdmember")
