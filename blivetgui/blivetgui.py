@@ -335,6 +335,13 @@ class BlivetGUI(object):
                 "missing PVs.").format(name=parent_device.name)
             return (False, msg)
 
+        if parent_device.isDisk and parent_device.format and parent_device.format.type == "disklabel":
+            disk = parent_device.format.partedDisk
+            if disk.primaryPartitionCount >= disk.maxPrimaryPartitionCount:
+                msg = _("Disk {name} already reached maximum allowed count of primary partitions " \
+                        "for {label} disklabel.").format(name=parent_device.name, label=parent_device.format.labelType)
+                return (False, msg)
+
         return (True, None)
 
     def add_partition(self, _widget=None, btrfs_pt=False):
