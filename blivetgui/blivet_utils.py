@@ -249,7 +249,7 @@ class BlivetUtils(object):
                 free_disks.append(FreeSpaceDevice(disk.size, 0, disk.currentSize, [disk]))
                 continue
 
-            free_space = blivet.partitioning.getFreeRegions([disk])
+            free_space = blivet.partitioning.getFreeRegions([disk], align=True)
 
             for free in free_space:
                 free_size = blivet.size.Size(free.length * free.device.sectorSize)
@@ -415,7 +415,7 @@ class BlivetUtils(object):
 
         free_logical = []
 
-        free_regions = blivet.partitioning.getFreeRegions([blivet_device])
+        free_regions = blivet.partitioning.getFreeRegions([blivet_device], align=True)
         for region in free_regions:
             region_size = blivet.size.Size(region.length * region.device.sectorSize)
             if region_size < blivet.size.Size("4 MiB"):
@@ -432,7 +432,7 @@ class BlivetUtils(object):
             return []
 
         free_primary = []
-        free_regions = blivet.partitioning.getFreeRegions([blivet_device])
+        free_regions = blivet.partitioning.getFreeRegions([blivet_device], align=True)
 
         extended = self._get_extended_partition(blivet_device)
 
