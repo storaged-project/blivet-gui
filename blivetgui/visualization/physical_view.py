@@ -51,7 +51,7 @@ class PhysicalView(object):
 
         self.vbox.show_all()
 
-    def _visualization_loop(self, treeiter, box=None):
+    def _visualization_loop(self, treeiter, box=None, rect_widths=None):
         while treeiter:
             depth = self._devices_list.iter_depth(treeiter)
             # lower level of the tree -> visualization of childs
@@ -59,16 +59,16 @@ class PhysicalView(object):
                 (device, is_valid) = self._devices_list[treeiter]
 
                 if is_valid:
-                    rect = self._new_rectangle(device, "child-valid-" + self._get_child_position(treeiter))
+                    rect = self._new_rectangle(device, "child-valid-" + self._get_child_position(treeiter), width=rect_widths[device])
                 else:
-                    rect = self._new_rectangle(device, "child-invalid-" + self._get_child_position(treeiter))
+                    rect = self._new_rectangle(device, "child-invalid-" + self._get_child_position(treeiter), width=rect_widths[device])
                 box.pack_start(child=rect, expand=True, fill=True, padding=0)
 
             else:
                 parent_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
                 self.boxes.append(parent_box)
                 self.vbox.pack_start(child=parent_box, expand=False, fill=False, padding=0)
-                rect = self._new_rectangle(self._devices_list[treeiter][0], "root-device")
+                rect = self._new_rectangle(self._devices_list[treeiter][0], "root-device", width=100)
                 parent_box.pack_start(child=rect, expand=False, fill=False, padding=0)
 
                 # every "root" device has children; if not, something is very wrong
@@ -79,10 +79,87 @@ class PhysicalView(object):
                 parent_box.pack_start(child=child_box, expand=True, fill=True, padding=0)
                 self.boxes.append(child_box)
 
+                # it's not possible to get width of child box, so we take width
+                # of the vbox a substract width of parent device and its padding
+                box_width = self.vbox.get_allocation().width - 100 -2*10
+                # compute rectangle widths for children
+                widths = self._compute_rect_widths(parent_iter=treeiter, view_width=box_width)
+
                 child_iter = self._devices_list.iter_children(treeiter)
-                self._visualization_loop(child_iter, child_box)
+                self._visualization_loop(child_iter, child_box, rect_widths=widths)
 
             treeiter = self._devices_list.iter_next(treeiter)
+
+    def _compute_rect_widths(self, parent_iter, view_width):
+        width_dict = {}
+        allocated_width = 0
+
+        # set minimal sizes
+        treeiter = self._devices_list.iter_children(parent_iter)
+        while treeiter:
+            (device, is_valid) = self._devices_list[treeiter]
+            if is_valid:
+                min_size = 100 # min_size for valid devices
+            else:
+                min_size = 10 # min_size for invalid devices
+            width_dict[device] = min_size
+            allocated_width += min_size
+
+            treeiter = self._devices_list.iter_next(treeiter)
+
+        # already allocated all available space (or more) just with minimal sizes
+        if allocated_width >= view_width:
+            return width_dict
+
+        # allocate remaining space
+        self._allocate_remaining_space(self._devices_list.iter_children(parent_iter), view_width, allocated_width, width_dict)
+
+        return width_dict
+
+    def _allocate_remaining_space(self, treeiter, available_width, allocated_width, width_dict):
+        """ Allocate remaining space (px) for devices based on its size
+
+            :param treeiter: first iter on given level (or None for first iter)
+            :type treeiter: Gtk.TreeIter
+            :param available_width: total available width for rectangles in px
+            :type available_width: int
+            :param allocated_width: currently allocated (used) width
+            :type allocated_width: int
+            :param width_dict: dict with devices and currently allocated with
+            :type width_dict: dict
+
+        """
+
+        total_size = self._get_total_device_size(treeiter)
+        remaining_space = (available_width - allocated_width)
+        while treeiter:
+            device = self._devices_list[treeiter][0]
+            extra_space = int(remaining_space * (device.size.convertTo() / total_size))
+            width_dict[device] += extra_space
+            allocated_width += extra_space
+
+            treeiter = self._devices_list.iter_next(treeiter)
+
+        # still some space remaining, probably because of rounding
+        # just add it to the first device in dict
+        if allocated_width < available_width:
+            if width_dict: # empty dict
+                width_dict[list(width_dict.keys())[0]] += (allocated_width - available_width)
+
+    def _get_total_device_size(self, treeiter):
+        """ Return size (in bytes) of all devices on current level
+
+            :param treeiter: first iter on given level
+            :type treeiter: Gtk.TreeIter
+
+        """
+
+        total_size = 0
+        while treeiter:
+            total_size += self._devices_list[treeiter][0].size.convertTo()
+            treeiter = self._devices_list.iter_next(treeiter)
+
+        return total_size
 
     def _clear(self):
         for rect in self.rectangles:
