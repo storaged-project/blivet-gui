@@ -39,6 +39,7 @@ from ..dialogs import message_dialogs
 from ..communication.proxy_utils import ProxyDataContainer
 
 from . size_chooser import SizeChooserArea
+from .helpers import is_name_valid
 
 from ..i18n import _
 
@@ -1013,6 +1014,11 @@ class AddDialog(Gtk.Dialog):
 
             else:
                 return False
+
+        elif not is_name_valid(user_input.device_type, user_input.name):
+            msg = _("\"{0}\" is not a valid name.").format(user_input.name)
+            message_dialogs.ErrorDialog(self, msg)
+            return False
 
         else:
             return True
