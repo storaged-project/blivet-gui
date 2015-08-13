@@ -3,9 +3,45 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from blivetgui.blivet_utils import BlivetUtils
+from blivetgui.blivet_utils import BlivetUtils, FreeSpaceDevice
 
 from blivet.size import Size
+
+class FreeSpaceDeviceTest(unittest.TestCase):
+
+    def test_free_basic(self):
+        free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[MagicMock(type="disk")], logical=True)
+
+        self.assertTrue(free.isLogical)
+        self.assertFalse(free.isExtended)
+        self.assertFalse(free.isPrimary)
+        self.assertEqual(free.kids, 0)
+        self.assertEqual(free.type, "free space")
+        self.assertIsNotNone(free.format)
+        self.assertIsNone(free.format.type)
+        self.assertEqual(free.disk, free.parents[0])
+
+    def test_free_type(self):
+        disk = MagicMock(type="disk", kids=0, isDisk=True, format=MagicMock(type="disklabel"))
+        free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
+
+        self.assertTrue(free.isEmptyDisk)
+        self.assertFalse(free.isUnitializedDisk)
+        self.assertFalse(free.isFreeRegion)
+
+        disk = MagicMock(type="disk", kids=0, isDisk=True, format=MagicMock(type=None))
+        free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
+
+        self.assertTrue(free.isUnitializedDisk)
+        self.assertFalse(free.isEmptyDisk)
+        self.assertFalse(free.isFreeRegion)
+
+        disk = MagicMock(type="disk", kids=1, isDisk=True, format=MagicMock(type="disklabel"))
+        free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
+
+        self.assertTrue(free.isFreeRegion)
+        self.assertFalse(free.isEmptyDisk)
+        self.assertFalse(free.isUnitializedDisk)
 
 class BlivetUtilsTest(unittest.TestCase):
 
