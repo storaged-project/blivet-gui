@@ -26,6 +26,7 @@ from __future__ import print_function
 import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice, LVMSnapShotDevice, LVMThinLogicalVolumeDevice, LVMThinPoolDevice
+from blivet.formats import DeviceFormat
 
 from  .communication.proxy_utils import ProxyDataContainer
 
@@ -58,9 +59,10 @@ class RawFormatDevice(object):
     """ Special class to represent formatted disk without a disklabel
     """
 
-    def __init__(self, disk, fmt):
+    def __init__(self, disk, fmt, dev_id):
         self.disk = disk
         self.format = fmt
+        self.id = dev_id
 
         self.type = "raw format"
         self.size = self.disk.size
@@ -86,7 +88,7 @@ class FreeSpaceDevice(object):
         (blivet doesn't have class/device to represent free space)
     """
 
-    def __init__(self, free_size, start, end, parents, logical=False):
+    def __init__(self, free_size, dev_id, start, end, parents, logical=False):
         """
 
         :param free_size: size of free space
@@ -104,6 +106,7 @@ class FreeSpaceDevice(object):
 
         self.name = _("free space")
         self.size = free_size
+        self.id = dev_id
 
         self.start = start
         self.end = end
@@ -113,7 +116,7 @@ class FreeSpaceDevice(object):
         self.isPrimary = not logical
         self.isFreeSpace = True
 
-        self.format = None
+        self.format = DeviceFormat()
         self.type = "free space"
         self.kids = 0
         self.parents = blivet.devices.lib.ParentList(items=parents)
@@ -221,7 +224,7 @@ class BlivetUtils(object):
 
         for pv in pvs:
             if pv.kids == 0:
-                free_pvs.append((pv, FreeSpaceDevice(pv.size, None, None, pv.parents)))
+                free_pvs.append((pv, FreeSpaceDevice(pv.size, self.storage.nextID, None, None, pv.parents)))
 
         return free_pvs
 
@@ -232,7 +235,7 @@ class BlivetUtils(object):
         if blivet_device.type != "lvmvg":
             return None
 
-        return FreeSpaceDevice(blivet_device.freeSpace, None, None, [blivet_device])
+        return FreeSpaceDevice(blivet_device.freeSpace, self.storage.nextID, None, None, [blivet_device])
 
     def get_free_disks_regions(self, include_uninitialized=False):
         """ Returns list of non-empty disks with free space
@@ -246,7 +249,7 @@ class BlivetUtils(object):
                 continue
 
             elif not disk.format.type:
-                free_disks.append(FreeSpaceDevice(disk.size, 0, disk.currentSize, [disk]))
+                free_disks.append(FreeSpaceDevice(disk.size, self.storage.nextID, 0, disk.currentSize, [disk]))
                 continue
 
             free_space = blivet.partitioning.getFreeRegions([disk], align=True)
@@ -255,7 +258,7 @@ class BlivetUtils(object):
                 free_size = blivet.size.Size(free.length * free.device.sectorSize)
 
                 if free_size > blivet.size.Size("2 MiB"):
-                    free_disks.append(FreeSpaceDevice(free_size, free.start, free.end, [disk]))
+                    free_disks.append(FreeSpaceDevice(free_size, self.storage.nextID, free.start, free.end, [disk]))
 
         return free_disks
 
@@ -322,7 +325,7 @@ class BlivetUtils(object):
         childs = self.storage.devicetree.getChildren(blivet_device)
 
         if blivet_device.type == "lvmvg" and blivet_device.freeSpace > blivet.size.Size(0):
-            childs.append(FreeSpaceDevice(blivet_device.freeSpace, None, None, [blivet_device]))
+            childs.append(FreeSpaceDevice(blivet_device.freeSpace, self.storage.nextID, None, None, [blivet_device]))
 
         return childs
 
@@ -332,12 +335,12 @@ class BlivetUtils(object):
 
         if blivet_device.isDisk and blivet_device.format.type == None:
             # empty disk without disk label
-            partitions = [FreeSpaceDevice(blivet_device.size, 0, blivet_device.currentSize, [blivet_device], False)]
+            partitions = [FreeSpaceDevice(blivet_device.size, self.storage.nextID, 0, blivet_device.currentSize, [blivet_device], False)]
             return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
 
         if blivet_device.format and blivet_device.format.type not in ("disklabel", "btrfs", None):
             # special occasion -- raw device format
-            partitions =  [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format)]
+            partitions =  [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format, dev_id=self.storage.nextID)]
             return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
 
         if blivet_device.format and blivet_device.format.type == "btrfs" and blivet_device.kids:
@@ -423,7 +426,7 @@ class BlivetUtils(object):
 
             if region.start >= extended.partedPartition.geometry.start and \
                region.end <= extended.partedPartition.geometry.end:
-                free_logical.append(FreeSpaceDevice(region_size, region.start, region.end, [blivet_device], True))
+                free_logical.append(FreeSpaceDevice(region_size, self.storage.nextID, region.start, region.end, [blivet_device], True))
 
         return free_logical
 
@@ -443,9 +446,9 @@ class BlivetUtils(object):
 
             if extended and not (region.start >= extended.partedPartition.geometry.start and \
                region.end <= extended.partedPartition.geometry.end):
-                free_primary.append(FreeSpaceDevice(region_size, region.start, region.end, [blivet_device], False))
+                free_primary.append(FreeSpaceDevice(region_size, self.storage.nextID, region.start, region.end, [blivet_device], False))
             elif not extended:
-                free_primary.append(FreeSpaceDevice(region_size, region.start, region.end, [blivet_device], False))
+                free_primary.append(FreeSpaceDevice(region_size, self.storage.nextID, region.start, region.end, [blivet_device], False))
 
         return free_primary
 
