@@ -765,6 +765,11 @@ class AddDialog(Gtk.Dialog):
 
         self.grid.attach(filesystems_combo, 1, 8, 2, 1)
 
+        if "ext4" in self.supported_fs:
+            filesystems_combo.set_active(self.supported_fs.index("ext4"))
+        else:
+            filesystems_combo.set_active(0)
+
         filesystems_combo.connect("changed", self.on_filesystems_combo_changed)
 
         self.widgets_dict["fs"] = [label_fs, filesystems_combo]

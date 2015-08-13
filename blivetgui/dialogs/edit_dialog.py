@@ -181,7 +181,10 @@ class PartitionEditDialog(Gtk.Dialog):
 
         if self.format_check.get_active():
             self.filesystems_combo.set_sensitive(True)
-            self.filesystems_combo.set_active(0)
+            if "ext4" in self.supported_fs:
+                self.filesystems_combo.set_active(self.supported_fs.index("ext4"))
+            else:
+                self.filesystems_combo.set_active(0)
 
         else:
             self.filesystems_combo.set_sensitive(False)
