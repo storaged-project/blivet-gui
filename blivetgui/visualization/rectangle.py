@@ -56,12 +56,13 @@ class Rectangle(Gtk.RadioButton):
             icons = self._add_device_icons()
             hbox.pack_start(child=icons, expand=False, fill=False, padding=0)
 
-    device_icons = { "group" : ("drive-multidisk-symbolic.symbolic", "Group device"),
-                     "livecd" : ("media-optical-symbolic.symbolic", "LiveUSB device"),
-                     "encrypted" : ("changes-prevent-symbolic.symbolic", "Enctypted device (closed)"),
-                     "decrypted" : ("changes-allow-symbolic.symbolic", "Encrypted device (open)"),
-                     "empty" : ("radio-symbolic.symbolic", "Empty device"),
-                     "snapshot" : ("camera-photo-symbolic.symbolic", "Snapshot")}
+    device_icons = { "group" : ("drive-multidisk-symbolic", "Group device"),
+                     "livecd" : ("media-optical-symbolic", "LiveUSB device"),
+                     "encrypted" : ("changes-prevent-symbolic", "Enctypted device (closed)"),
+                     "decrypted" : ("changes-allow-symbolic", "Encrypted device (open)"),
+                     "empty" : ("radio-symbolic", "Empty device"),
+                     "snapshot" : ("camera-photo-symbolic", "Snapshot"),
+                     "nodisklabel" : ("drive-harddisk-symbolic", "Missing partition table")}
 
     def _add_device_icons(self):
         device_properties = self._get_device_properties()
@@ -70,6 +71,7 @@ class Rectangle(Gtk.RadioButton):
         for prop in device_properties:
             icon = Gtk.Image.new_from_icon_name(self.device_icons[prop][0], Gtk.IconSize.MENU)
             icon.set_tooltip_text(self.device_icons[prop][1])
+            icon.set_opacity(0.85)
             icon_box.pack_end(child=icon, expand=False, fill=False, padding=0)
 
         return icon_box
@@ -81,7 +83,10 @@ class Rectangle(Gtk.RadioButton):
         if self.device.format and self.device.format in ("iso9660", "udf"):
             properties.append("livecd")
         if self.device.type == "partition" and self.device.format.type == "luks":
-            properties.append("encrypted")
+            if self.device.kids:
+                properties.append("decrypted")
+            else:
+                properties.append("encrypted")
         if self.device.type == "luks/dm-crypt" or any(parent.type == "luks/dm-crypt" for parent in self.device.parents):
             properties.append("decrypted")
         if self.device.type in ("lvmsnapshot", "btrfs snapshot"):
@@ -89,5 +94,7 @@ class Rectangle(Gtk.RadioButton):
         if self.device.type == "free space" or (self.device.format and self.device.format.type == "lvmpv"
                                                 and not self.device.kids):
             properties.append("empty")
+        if self.device.isDisk and not self.device.format.type:
+            properties.append("nodisklabel")
 
         return properties

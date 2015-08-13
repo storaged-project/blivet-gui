@@ -115,6 +115,7 @@ class FreeSpaceDevice(object):
         self.isExtended = False
         self.isPrimary = not logical
         self.isFreeSpace = True
+        self.isDisk = False
 
         self.format = DeviceFormat()
         self.type = "free space"
