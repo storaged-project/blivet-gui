@@ -63,6 +63,10 @@ class RootCheckWindow(object):
 
         win.show_all()
 
+def daemon_preexec():
+    """ Preexec function for blivet-gui-daemon blocking Ctrl-C kill """
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
+
 def parse_options():
     """ Parses command-line arguments passed to blivet_gui
     """
@@ -88,7 +92,7 @@ def main():
         sys.exit(0)
 
     else:
-        p = Popen("pkexec blivet-gui-daemon", stdout=PIPE, shell=True)
+        p = Popen("pkexec blivet-gui-daemon", stdout=PIPE, shell=True, preexec_fn=daemon_preexec)
         output = p.stdout.readline()
 
         # we expect exactly two parameters
