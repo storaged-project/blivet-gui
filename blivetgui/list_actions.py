@@ -133,3 +133,4 @@ class ListActions(object):
         self.history = []
 
         self.blivet_gui.activate_action_buttons(False)
+        self.blivet_gui.label_actions.set_markup("No pending actions")
