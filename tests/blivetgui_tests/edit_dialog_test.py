@@ -40,13 +40,15 @@ class PartitionEditDialogTest(unittest.TestCase):
     def test_format_check(self):
         dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs)
 
-        # format_check should be unchecked by default and filesystems_combo incactive
+        # format_check should be unchecked by default and filesystems_combo and fslabel_entry incactive
         self.assertFalse(dialog.format_check.get_active())
         self.assertFalse(dialog.filesystems_combo.get_sensitive())
+        self.assertFalse(dialog.fslabel_entry.get_sensitive())
 
-        # format_check active -> filesystems_combo active and a fs is selected
+        # format_check active -> filesystems_combo and fslabel_entry active and a fs is selected
         dialog.format_check.set_active(True)
         self.assertTrue(dialog.filesystems_combo.get_sensitive())
+        self.assertTrue(dialog.fslabel_entry.get_sensitive())
         self.assertIsNotNone(dialog.filesystems_combo.get_active_text())
 
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
@@ -56,13 +58,13 @@ class PartitionEditDialogTest(unittest.TestCase):
         # in kickstart mode, mountpoint_entry is visible
         self.assertTrue(dialog.mountpoint_entry.get_visible())
 
-
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
     def test_selection_format(self):
         dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs, True)
 
         # select the format_check
         dialog.format_check.set_active(True)
+        dialog.fslabel_entry.set_text("Label")
 
         selection = dialog.get_selection()
 
@@ -71,6 +73,7 @@ class PartitionEditDialogTest(unittest.TestCase):
         self.assertFalse(selection.resize)
         self.assertTrue(selection.fmt)
         self.assertIsNotNone(selection.filesystem)
+        self.assertEqual(selection.label, "Label")
 
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
     def test_selection_resize(self):
@@ -91,11 +94,6 @@ class PartitionEditDialogTest(unittest.TestCase):
         self.assertFalse(selection.fmt)
         self.assertIsNone(selection.filesystem)
         self.assertEqual(selection.mountpoint, "/home")
-
-
-
-
-
 
 if __name__ == "__main__":
     unittest.main()
