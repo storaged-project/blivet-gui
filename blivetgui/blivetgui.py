@@ -486,8 +486,8 @@ class BlivetGUI(object):
                 action_str = _("delete partition {0}").format(deleted_device.name)
                 self.list_actions.append("delete", action_str, result.actions)
 
-        self.update_partitions_view()
-        self.list_devices.update_devices_view()
+            self.update_partitions_view()
+            self.list_devices.update_devices_view()
 
     def perform_actions(self, dialog):
         """ Perform queued actions
