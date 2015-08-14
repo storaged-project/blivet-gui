@@ -83,7 +83,7 @@ class PartitionEditDialog(Gtk.Dialog):
 
         self.show_all()
 
-        self.format_check, self.filesystems_combo = self.add_fs_chooser()
+        self.format_check, self.filesystems_combo, self.fslabel_entry = self.add_fs_chooser()
 
         self.mountpoint_entry = self.add_mountpoint()
 
@@ -155,23 +155,31 @@ class PartitionEditDialog(Gtk.Dialog):
         filesystems_combo.set_entry_text_column(0)
         filesystems_combo.set_sensitive(False)
 
-        self.widgets_dict["fs"] = [label_format, format_check, label_fs, filesystems_combo]
-
         for fs in self.supported_fs:
             filesystems_combo.append_text(fs)
 
         self.grid.attach(filesystems_combo, 1, 3, 2, 1)
 
-        return (format_check, filesystems_combo)
+        label_fslabel = Gtk.Label(label=_("Label:"), xalign=1)
+        label_fslabel.get_style_context().add_class("dim-label")
+        self.grid.attach(label_fslabel, 0, 4, 1, 1)
+
+        fslabel_entry = Gtk.Entry()
+        fslabel_entry.set_sensitive(False)
+        self.grid.attach(fslabel_entry, 1, 4, 2, 1)
+
+        self.widgets_dict["fs"] = [label_format, format_check, label_fs, filesystems_combo, label_fslabel, fslabel_entry]
+
+        return (format_check, filesystems_combo, fslabel_entry)
 
     def add_mountpoint(self):
 
         label_mountpoint = Gtk.Label(label=_("Mountpoint:"), xalign=1)
         label_mountpoint.get_style_context().add_class("dim-label")
-        self.grid.attach(label_mountpoint, 0, 4, 1, 1)
+        self.grid.attach(label_mountpoint, 0, 5, 1, 1)
 
         mountpoint_entry = Gtk.Entry()
-        self.grid.attach(mountpoint_entry, 1, 4, 2, 1)
+        self.grid.attach(mountpoint_entry, 1, 5, 2, 1)
 
         self.widgets_dict["mountpoint"] = [label_mountpoint, mountpoint_entry]
 
@@ -181,6 +189,7 @@ class PartitionEditDialog(Gtk.Dialog):
 
         if self.format_check.get_active():
             self.filesystems_combo.set_sensitive(True)
+            self.fslabel_entry.set_sensitive(True)
             if "ext4" in self.supported_fs:
                 self.filesystems_combo.set_active(self.supported_fs.index("ext4"))
             else:
@@ -188,6 +197,8 @@ class PartitionEditDialog(Gtk.Dialog):
 
         else:
             self.filesystems_combo.set_sensitive(False)
+            self.fslabel_entry.set_sensitive(False)
+            self.fslabel_entry.set_text(None)
             self.filesystems_combo.set_active(-1)
 
     def update_size_areas(self, size):
@@ -254,6 +265,7 @@ class PartitionEditDialog(Gtk.Dialog):
                                  size=selected_size,
                                  fmt=self.format_check.get_active(),
                                  filesystem=self.filesystems_combo.get_active_text(),
+                                 label=self.fslabel_entry.get_text(),
                                  mountpoint=mountpoint)
 
 class LVMEditDialog(Gtk.Dialog):

@@ -655,7 +655,7 @@ class BlivetUtils(object):
             actions.append(blivet.deviceaction.ActionResizeDevice(blivet_device, aligned_size))
 
         if user_input.fmt:
-            new_fmt = blivet.formats.getFormat(user_input.filesystem, mountpoint=user_input.mountpoint)
+            new_fmt = blivet.formats.getFormat(user_input.filesystem, label=user_input.label, mountpoint=user_input.mountpoint)
             actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_fmt))
 
         try:
