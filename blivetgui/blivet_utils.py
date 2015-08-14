@@ -245,12 +245,11 @@ class BlivetUtils(object):
         free_disks = []
 
         for disk in self.storage.disks:
-
-            if disk.format.type not in ("disklabel",) and not include_uninitialized:
+            if not disk.format.type and include_uninitialized:
+                free_disks.append(FreeSpaceDevice(disk.size, self.storage.nextID, 0, disk.currentSize, [disk]))
                 continue
 
-            elif not disk.format.type:
-                free_disks.append(FreeSpaceDevice(disk.size, self.storage.nextID, 0, disk.currentSize, [disk]))
+            elif disk.format.type not in ("disklabel",):
                 continue
 
             free_space = blivet.partitioning.getFreeRegions([disk], align=True)
