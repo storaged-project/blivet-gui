@@ -605,7 +605,7 @@ class AddDialog(Gtk.Dialog):
 
             return (True, max_size)
 
-    def update_size_areas(self, selected_size):
+    def update_size_areas_selections(self, selected_size):
         """ Update all size areas to selected size
             (used for raids where all parents has same size)
         """
@@ -622,6 +622,10 @@ class AddDialog(Gtk.Dialog):
         else:
             for area, _parent in self.size_areas:
                 area.set_selected_size(selected_size)
+
+    def update_size_areas_limits(self, min_size=None, max_size=None):
+        for area, _parent in self.size_areas:
+            area.update_size_limits(min_size, max_size)
 
     def _destroy_size_areas(self):
         """ Remove existing size areas
@@ -670,7 +674,7 @@ class AddDialog(Gtk.Dialog):
                 if not raid:
                     max_size = row[1].size
 
-                area = SizeChooserArea(dialog_type="add", device_name=row[0].name, max_size=max_size, min_size=min_size, update_clbk=self.update_size_areas)
+                area = SizeChooserArea(dialog_type="add", device_name=row[0].name, max_size=max_size, min_size=min_size, update_clbk=self.update_size_areas_selections)
 
                 size_grid.attach(area.frame, 0, posititon, 1, 1)
 

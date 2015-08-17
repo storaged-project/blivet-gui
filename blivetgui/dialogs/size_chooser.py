@@ -204,16 +204,29 @@ class SizeChooserArea(object):
         self.scale.set_digits(digits)
 
         self.scale.add_mark(0, Gtk.PositionType.BOTTOM,
-                            format(self.min_size.convertTo(conv(unit)), "." + str(digits) + "f"))
+                            format(self.min_size.convertTo(conv(unit)), "." + str(digits) + "f") + " " + unit)
         self.scale.add_mark(float(self.max_size.convertTo(conv(unit))), Gtk.PositionType.BOTTOM,
-                            format(self.max_size.convertTo(conv(unit)), "." + str(digits) + "f"))
+                            format(self.max_size.convertTo(conv(unit)), "." + str(digits) + "f") + " " + unit)
 
         self.spin_size.set_range(self.min_size.convertTo(conv(unit)),
                                  self.max_size.convertTo(conv(unit)))
         self.spin_size.set_increments(increment, increment*10)
         self.spin_size.set_digits(digits)
 
-        self.scale.set_value(selected_size.convertTo(conv(unit)))
+        if selected_size > self.max_size:
+            self.scale.set_value(self.max_size.convertTo(conv(unit)))
+        elif selected_size < self.min_size:
+            self.scale.set_value(self.min_size.convertTo(conv(unit)))
+        else:
+            self.scale.set_value(selected_size.convertTo(conv(unit)))
+
+    def update_size_limits(self, min_size=None, max_size=None):
+        if min_size:
+            self.min_size = min_size
+        if max_size:
+            self.max_size = max_size
+
+        self.adjust_size_scale(self.get_selected_size(), self.selected_unit)
 
     def set_selected_size(self, selected_size):
         self.scale.set_value(selected_size.convertTo(conv(self.selected_unit)))
