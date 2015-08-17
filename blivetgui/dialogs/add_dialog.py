@@ -123,6 +123,9 @@ class AdvancedOptions(object):
         pesize_combo.set_id_column(0)
 
         for pesize in SUPPORTED_PESIZE:
+            if size.Size(pesize) > self.free_device.size:
+                # do not offer pesize larger than free space we have
+                break
             pesize_combo.append_text(pesize)
 
         pesize_combo.set_active_id("4 MiB")

@@ -65,7 +65,7 @@ class AdvancedOptionsTest(unittest.TestCase):
     def test_lvm_options(self):
         # test lvm options are displayed for lvm/lvmvg type
         parent_device = Mock(type="disk", format=Mock(labelType="gpt", extendedPartition=None))
-        free_device = Mock(isLogical=False)
+        free_device = Mock(isLogical=False, size=Size("8 GiB"))
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvm",
             parent_device=parent_device, free_device=free_device)
