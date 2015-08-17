@@ -80,7 +80,7 @@ class Rectangle(Gtk.RadioButton):
         properties = []
         if self.device.type in ("lvmvg", "btrfs volume", "mdarray"):
             properties.append("group")
-        if self.device.format and self.device.format in ("iso9660", "udf"):
+        if self.device.format and self.device.format.type in ("iso9660", "udf"):
             properties.append("livecd")
         if self.device.type == "partition" and self.device.format.type == "luks":
             if self.device.kids:
