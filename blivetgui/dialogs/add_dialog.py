@@ -1018,7 +1018,7 @@ class AddDialog(Gtk.Dialog):
             else:
                 return False
 
-        elif not is_name_valid(user_input.device_type, user_input.name):
+        elif user_input.name and not is_name_valid(user_input.device_type, user_input.name):
             msg = _("\"{0}\" is not a valid name.").format(user_input.name)
             message_dialogs.ErrorDialog(self, msg)
             return False
