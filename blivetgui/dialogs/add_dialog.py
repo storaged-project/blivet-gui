@@ -128,6 +128,7 @@ class AdvancedOptions(object):
                 break
             pesize_combo.append_text(pesize)
 
+        pesize_combo.connect("changed", self.on_pesize_changed)
         pesize_combo.set_active_id("4 MiB")
 
         self.grid.attach(pesize_combo, 1, 0, 2, 1)
@@ -183,6 +184,15 @@ class AdvancedOptions(object):
             return self.parent_device.format.extendedPartition is not None
 
         return False
+
+    def on_pesize_changed(self, combo):
+        pesize = combo.get_active_id()
+        min_size = size.Size(pesize)*2
+
+        if self.add_dialog.encrypt_check.get_active():
+            min_size += size.Size("2 MiB")
+
+        self.add_dialog.update_size_areas_limits(min_size=min_size)
 
     def on_partition_type_changed(self, combo):
 
