@@ -633,8 +633,10 @@ class AddDialog(Gtk.Dialog):
             for area, _parent in self.size_areas:
                 area.set_selected_size(selected_size)
 
-    def update_size_areas_limits(self, min_size=None, max_size=None):
+    def update_size_areas_limits(self, min_size=None, max_size=None, min_plus=None):
         for area, _parent in self.size_areas:
+            if min_plus and not min_size:
+                min_size = area.min_size + min_plus
             area.update_size_limits(min_size, max_size)
 
     def _destroy_size_areas(self):
@@ -862,8 +864,7 @@ class AddDialog(Gtk.Dialog):
 
         self.widgets_dict["passphrase"] = [pass_label, pass_entry]
 
-        encrypt_check.connect("toggled", lambda event: [pass_entry.set_visible(not pass_entry.get_visible()),
-            pass_label.set_visible(not pass_label.get_visible())])
+        encrypt_check.connect("toggled", self.on_encrypt_check)
 
         return encrypt_check, pass_entry
 
@@ -911,6 +912,14 @@ class AddDialog(Gtk.Dialog):
             else:
                 for widget in self.widgets_dict[widget_type]:
                     widget.hide()
+
+    def on_encrypt_check(self, _toggle):
+        if self.encrypt_check.get_active():
+            self.show_widgets(["passphrase"])
+            self.update_size_areas_limits(min_plus=size.Size("2 MiB"))
+        else:
+            self.hide_widgets(["passphrase"])
+            self.update_size_areas_limits(min_plus=size.Size("-2 MiB"))
 
     def on_devices_combo_changed(self, _event):
 
