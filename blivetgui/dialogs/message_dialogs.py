@@ -150,6 +150,7 @@ def show_actions_list(scrolledwindow, treestore_actions, win_width, win_height):
         scrolledwindow.set_size_request(width, win_height)
         scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
     elif width >= win_width and height < win_height:
+        scrolledwindow.set_size_request(win_width, height)
         scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
     else:
         scrolledwindow.set_size_request(win_width, win_height)
