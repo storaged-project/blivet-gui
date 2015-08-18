@@ -29,6 +29,7 @@ gi.require_version("Pango", "1.0")
 from gi.repository import Gtk, Pango
 
 from .size_chooser import SizeChooserArea
+from .helpers import check_mountpoint
 
 from ..communication.proxy_utils import ProxyDataContainer
 
@@ -42,7 +43,7 @@ class PartitionEditDialog(Gtk.Dialog):
     """
 
     def __init__(self, parent_window, edited_device, resize_info, supported_fs,
-                 kickstart=False):
+                 mountpoints, kickstart=False):
         """
 
             :param parent_window: parent window
@@ -63,6 +64,7 @@ class PartitionEditDialog(Gtk.Dialog):
         self.kickstart = kickstart
         self.parent_window = parent_window
         self.supported_fs = supported_fs
+        self.mountpoints = mountpoints
 
         Gtk.Dialog.__init__(self, _("Edit device"), None, 0,
                             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -101,6 +103,9 @@ class PartitionEditDialog(Gtk.Dialog):
             self.show_widgets(["mountpoint"])
 
         self.show_widgets(["fs"])
+
+        ok_button = self.get_widget_for_response(Gtk.ResponseType.OK)
+        ok_button.connect("clicked", self.on_ok_clicked)
 
     def add_resize_info(self):
 
@@ -183,6 +188,9 @@ class PartitionEditDialog(Gtk.Dialog):
 
         self.widgets_dict["mountpoint"] = [label_mountpoint, mountpoint_entry]
 
+        if self.kickstart and self.edited_device.format and self.edited_device.format.mountpoint:
+            mountpoint_entry.set_text(self.edited_device.format.mountpoint)
+
         return mountpoint_entry
 
     def on_format_changed(self, _event):
@@ -198,7 +206,7 @@ class PartitionEditDialog(Gtk.Dialog):
         else:
             self.filesystems_combo.set_sensitive(False)
             self.fslabel_entry.set_sensitive(False)
-            self.fslabel_entry.set_text(None)
+            self.fslabel_entry.set_text("")
             self.filesystems_combo.set_active(-1)
 
     def update_size_areas(self, size):
@@ -243,6 +251,26 @@ class PartitionEditDialog(Gtk.Dialog):
         for widget_type in widget_types:
             for widget in self.widgets_dict[widget_type]:
                 widget.set_sensitive(sensitivity)
+
+    def validate_user_input(self):
+        """ Validate data input
+        """
+
+        user_input = self.get_selection()
+
+        if self.kickstart and user_input.mountpoint:
+            if user_input.mountpoint == self.edited_device.format.mountpoint:
+                return True
+            elif check_mountpoint(self, self.mountpoints, user_input.mountpoint):
+                return True
+            else:
+                return False
+
+        return True
+
+    def on_ok_clicked(self, _event):
+        if not self.validate_user_input():
+            self.run()
 
     def get_selection(self):
 
