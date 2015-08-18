@@ -22,8 +22,15 @@
 #
 #------------------------------------------------------------------------------#
 
+import os
+
+from ..dialogs import message_dialogs
+from ..i18n import _
+
 from blivet.devices.btrfs import BTRFSDevice
 from blivet.devices.lvm import  LVMVolumeGroupDevice, LVMLogicalVolumeDevice
+
+#------------------------------------------------------------------------------#
 
 def is_name_valid(device_type, name):
     if device_type in ("lvmvg", "lvm"):
@@ -34,3 +41,29 @@ def is_name_valid(device_type, name):
         return BTRFSDevice.isNameValid(name)
     else:
         return True
+
+def check_mountpoint(parent_window, used_mountpoints, mountpoint):
+    """ Kickstart mode; check for duplicate mountpoints
+
+        :param used_mountpoints: list of mountpoints currently in use
+        :type used_mountpoints: list of str
+        :param mountpoint: mountpoint selected by user
+        :type mountpoint: str
+        :returns: mountpoint validity
+        :rtype: bool
+    """
+
+    if not mountpoint:
+        return True
+
+    elif not os.path.isabs(mountpoint):
+        msg = _("{0} is not a valid mountpoint.").format(mountpoint)
+        message_dialogs.ErrorDialog(parent_window, msg)
+
+    elif mountpoint not in used_mountpoints:
+        return True
+
+    else:
+        msg = _("Selected mountpoint \"{0}\" is already set for another device").format(mountpoint)
+        message_dialogs.ErrorDialog(parent_window, msg)
+        return False

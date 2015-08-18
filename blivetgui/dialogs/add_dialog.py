@@ -39,7 +39,7 @@ from ..dialogs import message_dialogs
 from ..communication.proxy_utils import ProxyDataContainer
 
 from . size_chooser import SizeChooserArea
-from .helpers import is_name_valid
+from .helpers import is_name_valid, check_mountpoint
 
 from ..i18n import _
 
@@ -48,46 +48,6 @@ from ..i18n import _
 SUPPORTED_PESIZE = ["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"]
 
 #------------------------------------------------------------------------------#
-
-def check_mountpoint(parent_window, used_mountpoints, mountpoint):
-    """ Kickstart mode; check for duplicate mountpoints
-
-        :param used_mountpoints: list of mountpoints currently in use
-        :type used_mountpoints: list of str
-        :param mountpoint: mountpoint selected by user
-        :type mountpoint: str
-        :returns: mountpoint validity
-        :rtype: bool
-    """
-
-    if not mountpoint:
-        return True
-
-    elif not os.path.isabs(mountpoint):
-
-        msg = _("{0} is not a valid mountpoint.").format(mountpoint)
-        message_dialogs.ErrorDialog(parent_window, msg)
-
-
-    elif mountpoint not in used_mountpoints:
-        return True
-
-    else:
-
-        old_device = used_mountpoints[mountpoint]
-
-        title = _("Duplicate mountpoint detected")
-        msg = _("Selected mountpoint \"{0}\" is already used for \"{1}\" " \
-                "device. Do you want to remove this mountpoint?").format(mountpoint, old_device.name)
-
-        dialog = message_dialogs.ConfirmDialog(parent_window, title, msg)
-
-        response = dialog.run()
-
-        if response:
-            old_device.format.mountpoint = None
-
-        return response
 
 class AdvancedOptions(object):
 
