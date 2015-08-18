@@ -85,6 +85,8 @@ class ListPartitions(object):
                     child_iter = self._add_to_store(child)
                     if hasattr(child, "isExtended") and child.isExtended:
                         for logical in childs.logicals:
+                            if self._is_group_device(logical):
+                                logical = self.blivet_gui.client.remote_call("get_group_device", logical)
                             self._add_to_store(logical, child_iter)
 
         # lvmvg always has some children, at least a free space
