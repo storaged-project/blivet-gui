@@ -133,7 +133,10 @@ class ListPartitions(object):
         devtype = "lvm" if device.type == "lvmvg" else "raid" if device.type == "mdarray" else device.type
         name = device.name if len(device.name) < 18 else device.name[:15] + "..." #FIXME
         fmt = device.format.type if device.format else None
-        mnt = device.format.systemMountpoint if (device.format and device.format.mountable) else None
+        if self.kickstart_mode:
+            mnt = device.format.mountpoint if (device.format and device.format.mountable) else None
+        else:
+            mnt = device.format.systemMountpoint if (device.format and device.format.mountable) else None
 
         device_iter = self.partitions_list.append(parent_iter, [device, name, devtype, fmt, str(device.size), mnt])
 
