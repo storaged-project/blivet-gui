@@ -599,9 +599,18 @@ class BlivetUtils(object):
 
         """
 
-        if blivet_device.format.type in (None, "swap") or not blivet_device.format.exists:
+        if blivet_device.format.type in ("swap",) or not blivet_device.format.exists:
             return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
+
+        elif not blivet_device.format.type:
+            if blivet_device.type == "partition" and blivet_device.isExtended and blivet_device.maxSize > blivet_device.size:
+                return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.size,
+                                          max_size=blivet_device.maxSize)
+            else:
+                return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
+                                          max_size=blivet_device.size)
+
 
         if blivet_device.type in ("lvmlv",) and self._has_snapshots(blivet_device):
             msg = _("Logical Volumes with snapshots couldn't be resized.")
@@ -650,7 +659,10 @@ class BlivetUtils(object):
                 aligned_size = blivet_device.alignTargetSize(user_input.size)
             else:
                 aligned_size = user_input.size
-            actions.append(blivet.deviceaction.ActionResizeFormat(blivet_device, aligned_size))
+
+            # do not resize format on extended partitions
+            if not (blivet_device.type == "partition" and blivet_device.isExtended):
+                actions.append(blivet.deviceaction.ActionResizeFormat(blivet_device, aligned_size))
             actions.append(blivet.deviceaction.ActionResizeDevice(blivet_device, aligned_size))
 
         if user_input.fmt:
