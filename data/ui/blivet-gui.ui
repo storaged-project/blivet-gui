@@ -2,11 +2,66 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
-  <object class="GtkAccelGroup" id="accelgroup_mainmenu"/>
+  <object class="GtkAccelGroup" id="accelgroup"/>
+  <object class="GtkMenu" id="actions_menu">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="accel_group">accelgroup</property>
+    <child>
+      <object class="GtkMenuItem" id="menuitem_add">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">New</property>
+        <property name="use_underline">True</property>
+        <accelerator key="Insert" signal="activate"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitem_delete">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Delete</property>
+        <property name="use_underline">True</property>
+        <accelerator key="Delete" signal="activate"/>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitem_edit">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Edit</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitem_unmount">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Unmount</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitem_decrypt">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Decrypt</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitem_info">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Information</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+  </object>
   <object class="GtkMenu" id="main_menu">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
-    <property name="accel_group">accelgroup_mainmenu</property>
+    <property name="accel_group">accelgroup</property>
     <child>
       <object class="GtkMenuItem" id="menuitem_reload">
         <property name="visible">True</property>
@@ -103,6 +158,9 @@
     <property name="height_request">600</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">blivet-gui</property>
+    <accel-groups>
+      <group name="accelgroup"/>
+    </accel-groups>
     <signal name="destroy" handler="gtk_main_quit" swapped="no"/>
     <child>
       <object class="GtkBox" id="vbox">
@@ -335,6 +393,7 @@
                                 <property name="label" translatable="yes">add</property>
                                 <property name="use_underline">True</property>
                                 <property name="icon_name">list-add-symbolic</property>
+                                <accelerator key="Insert" signal="clicked"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -349,6 +408,7 @@
                                 <property name="label" translatable="yes">remove</property>
                                 <property name="use_underline">True</property>
                                 <property name="icon_name">edit-delete-symbolic</property>
+                                <accelerator key="Delete" signal="clicked"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>

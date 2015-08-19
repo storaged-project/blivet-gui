@@ -21,22 +21,13 @@
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #------------------------------------------------------------------------------#
 
-import gi
-gi.require_version("Gtk", "3.0")
-
-from gi.repository import Gtk
-
-from .i18n import _
-
-#------------------------------------------------------------------------------#
-
 class ActionsMenu(object):
     """ Popup context menu for devices
     """
 
     def __init__(self, blivet_gui):
         self.blivet_gui = blivet_gui
-        self.menu = Gtk.Menu()
+        self.menu = self.blivet_gui.builder.get_object("actions_menu")
 
         # Dict to translate menu item names (str) to menu items (Gtk.MenuItem)
         self.menu_items = {}
@@ -47,24 +38,19 @@ class ActionsMenu(object):
         """ Create popup menu
         """
 
-        items = [(_("New"), "add", self.blivet_gui.add_partition),
-                 (_("Delete"), "delete", self.blivet_gui.delete_selected_partition),
-                 (_("Edit"), "edit", self.blivet_gui.edit_device),
-                 (_("Unmount"), "unmount", self.blivet_gui.umount_partition),
-                 (_("Decrypt"), "decrypt", self.blivet_gui.decrypt_device),
-                 (_("Information"), "info", self.blivet_gui.device_information)]
+        items = [("add", self.blivet_gui.add_partition),
+                 ("delete", self.blivet_gui.delete_selected_partition),
+                 ("edit", self.blivet_gui.edit_device),
+                 ("unmount", self.blivet_gui.umount_partition),
+                 ("decrypt", self.blivet_gui.decrypt_device),
+                 ("info", self.blivet_gui.device_information)]
 
         for item in items:
-            menu_item = Gtk.MenuItem()
-            menu_item.set_label(item[0])
-
-            menu_item.connect("activate", item[2])
+            menu_item = self.blivet_gui.builder.get_object("menuitem_" + item[0])
+            menu_item.connect("activate", item[1])
             menu_item.set_sensitive(False)
-            self.menu.add(menu_item)
 
-            self.menu_items[item[1]] = menu_item
-
-        self.menu.show_all()
+            self.menu_items[item[0]] = menu_item
 
     def activate_menu_items(self, menu_item_names):
         """ Activate selected menu items
