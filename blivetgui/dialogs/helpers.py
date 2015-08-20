@@ -30,6 +30,8 @@ from ..i18n import _
 from blivet.devices.btrfs import BTRFSDevice
 from blivet.devices.lvm import  LVMVolumeGroupDevice, LVMLogicalVolumeDevice
 
+from blivet.tasks.fslabeling import Ext2FSLabeling, FATFSLabeling, JFSLabeling, ReiserFSLabeling, XFSLabeling, NTFSLabeling
+
 #------------------------------------------------------------------------------#
 
 def is_name_valid(device_type, name):
@@ -39,6 +41,22 @@ def is_name_valid(device_type, name):
         return LVMLogicalVolumeDevice.isNameValid(name)
     elif device_type in ("btrfs volume", "btrfs subvolume"):
         return BTRFSDevice.isNameValid(name)
+    else:
+        return True
+
+def is_label_valid(format_type, label):
+    if format_type in ("ext2", "ext3", "ext4"):
+        return Ext2FSLabeling.labelFormatOK(label)
+    elif format_type == "vfat":
+        return FATFSLabeling.labelFormatOK(label)
+    elif format_type == "jfs":
+        return JFSLabeling.labelFormatOK(label)
+    elif format_type == "raiserfs":
+        return ReiserFSLabeling.labelFormatOK(label)
+    elif format_type == "xfs":
+        return XFSLabeling.labelFormatOK(label)
+    elif format_type == "ntfs":
+        return NTFSLabeling.labelFormatOK(label)
     else:
         return True
 
@@ -53,12 +71,15 @@ def check_mountpoint(parent_window, used_mountpoints, mountpoint):
         :rtype: bool
     """
 
+    # FIXME: do not open the dialog, just return true or false
+
     if not mountpoint:
         return True
 
     elif not os.path.isabs(mountpoint):
         msg = _("{0} is not a valid mountpoint.").format(mountpoint)
         message_dialogs.ErrorDialog(parent_window, msg)
+        return False
 
     elif mountpoint not in used_mountpoints:
         return True

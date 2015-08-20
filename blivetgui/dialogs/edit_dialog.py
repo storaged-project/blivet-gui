@@ -28,8 +28,10 @@ gi.require_version("Pango", "1.0")
 
 from gi.repository import Gtk, Pango
 
+from ..dialogs import message_dialogs
+
 from .size_chooser import SizeChooserArea
-from .helpers import check_mountpoint
+from .helpers import check_mountpoint, is_label_valid
 
 from ..communication.proxy_utils import ProxyDataContainer
 
@@ -265,6 +267,11 @@ class PartitionEditDialog(Gtk.Dialog):
                 return True
             else:
                 return False
+
+        if user_input.label and not is_label_valid(user_input.filesystem, user_input.label):
+            msg = _("\"{0}\" is not a valid label.").format(user_input.label)
+            message_dialogs.ErrorDialog(self, msg)
+            return False
 
         return True
 

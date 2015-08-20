@@ -39,7 +39,7 @@ from ..dialogs import message_dialogs
 from ..communication.proxy_utils import ProxyDataContainer
 
 from . size_chooser import SizeChooserArea
-from .helpers import is_name_valid, check_mountpoint
+from .helpers import is_name_valid, is_label_valid, check_mountpoint
 
 from ..i18n import _
 
@@ -970,44 +970,45 @@ class AddDialog(Gtk.Dialog):
 
             return False
 
-        elif not user_input.filesystem and user_input.device_type == "lvmlv":
+        if not user_input.filesystem and user_input.device_type == "lvmlv":
             msg = _("Filesystem type must be specified when creating new logical volume.")
             message_dialogs.ErrorDialog(self, msg)
 
             return False
 
-        elif user_input.encrypt and not user_input.passphrase:
+        if user_input.encrypt and not user_input.passphrase:
             msg = _("Passphrase not specified.")
             message_dialogs.ErrorDialog(self, msg)
 
             return False
 
-        elif user_input.mountpoint and not os.path.isabs(user_input.mountpoint):
+        if user_input.mountpoint and not os.path.isabs(user_input.mountpoint):
             msg = _("\"{0}\" is not a valid mountpoint.").format(user_input.mountpoint)
             message_dialogs.ErrorDialog(self, msg)
 
             return False
 
-        elif user_input.device_type == "mdraid" and len(user_input.parents) == 1:
+        if user_input.device_type == "mdraid" and len(user_input.parents) == 1:
             msg = _("Please select at least two parent devices.")
             message_dialogs.ErrorDialog(self, msg)
 
             return False
 
-        elif self.kickstart_mode and user_input.mountpoint:
-            if check_mountpoint(self, self.mountpoints, user_input.mountpoint):
-                return True
-
-            else:
+        if self.kickstart_mode and user_input.mountpoint:
+            if not check_mountpoint(self, self.mountpoints, user_input.mountpoint):
                 return False
 
-        elif user_input.name and not is_name_valid(user_input.device_type, user_input.name):
+        if user_input.name and not is_name_valid(user_input.device_type, user_input.name):
             msg = _("\"{0}\" is not a valid name.").format(user_input.name)
             message_dialogs.ErrorDialog(self, msg)
             return False
 
-        else:
-            return True
+        if user_input.label and not is_label_valid(user_input.filesystem, user_input.label):
+            msg = _("\"{0}\" is not a valid label.").format(user_input.label)
+            message_dialogs.ErrorDialog(self, msg)
+            return False
+
+        return True
 
     def on_ok_clicked(self, _event):
         if not self.validate_user_input():
