@@ -160,6 +160,7 @@ class PartitionEditDialog(Gtk.Dialog):
 
         filesystems_combo = Gtk.ComboBoxText()
         filesystems_combo.set_entry_text_column(0)
+        filesystems_combo.set_id_column(0)
         filesystems_combo.set_sensitive(False)
 
         for fs in self.supported_fs:

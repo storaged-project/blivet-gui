@@ -14,6 +14,7 @@ from gi.repository import Gtk
 
 class PartitionEditDialogTest(unittest.TestCase):
 
+    error_dialog = MagicMock()
     parent_window = MagicMock(spec=Gtk.Window)
     edited_device = MagicMock(size=Size("1 GiB"), format=MagicMock(mountpoint=""))
     edited_device.configure_mock(name="vda1") # set name paremeter
@@ -94,6 +95,31 @@ class PartitionEditDialogTest(unittest.TestCase):
         self.assertFalse(selection.fmt)
         self.assertIsNone(selection.filesystem)
         self.assertEqual(selection.mountpoint, "/home")
+
+    @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_label_validity_check(self):
+        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs, [], True)
+
+        # valid label
+        label = "a" * 5
+        dialog.format_check.set_active(True)
+        dialog.filesystems_combo.set_active_id("ext4")
+        dialog.fslabel_entry.set_text(label)
+
+        dialog.validate_user_input()
+        self.assertFalse(self.error_dialog.called) # valid label, no error_dialog
+        self.error_dialog.reset_mock()
+
+        # invalid label for ext4 (too long)
+        label = "a" * 50
+        dialog.format_check.set_active(True)
+        dialog.filesystems_combo.set_active_id("ext4")
+        dialog.fslabel_entry.set_text(label)
+
+        dialog.validate_user_input()
+        self.error_dialog.assert_any_call(dialog, "\"%s\" is not a valid label." % label)
+        self.error_dialog.reset_mock()
 
 if __name__ == "__main__":
     unittest.main()
