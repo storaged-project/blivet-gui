@@ -79,6 +79,26 @@ class AdvancedOptionsTest(unittest.TestCase):
         self.assertFalse(hasattr(advanced_options, "partition_combo"))
         self.assertTrue(hasattr(advanced_options, "pesize_combo"))
 
+    def test_allowed_pesize(self):
+        # test allowed pesize options based on free space available
+        parent_device = Mock(type="disk", format=Mock(labelType="gpt", extendedPartition=None))
+
+        # only 8 MiB free space, allow only 2 and 4 MiB PE Size
+        free_device = Mock(isLogical=False, size=Size("8 MiB"))
+        advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvm",
+            parent_device=parent_device, free_device=free_device)
+
+        pesizes = [i[0] for i in advanced_options.pesize_combo.get_model()]
+        self.assertEqual(["2 MiB", "4 MiB"], pesizes)
+
+        # enough free space, allow up to 64 MiB PE Size
+        free_device = Mock(isLogical=False, size=Size("1 GiB"))
+        advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvm",
+            parent_device=parent_device, free_device=free_device)
+
+        pesizes = [i[0] for i in advanced_options.pesize_combo.get_model()]
+        self.assertEqual(["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"], pesizes)
+
     def test_partition_options(self):
         # test partition options are displayed for partition type
 
