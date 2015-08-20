@@ -28,6 +28,8 @@ gi.require_version("GLib", "2.0")
 
 from gi.repository import Gtk, GLib
 
+from blivet.size import Size
+
 from .list_devices import ListDevices
 from .list_partitions import ListPartitions
 from .list_parents import ListParents
@@ -331,19 +333,23 @@ class BlivetGUI(object):
         """ Allow add device?
         """
 
+        msg = None
+
         if parent_device_type == "lvmvg" and not parent_device.complete:
             msg = _("{name} is not complete. It is not possible to add new LVs to VG with " \
                 "missing PVs.").format(name=parent_device.name)
-            return (False, msg)
+
+        # not enough free space for at least two 2 MiB physical extents
+        if parent_device_type == "lvmpv" and parent_device.size < Size("4 MiB"):
+            msg = _("Not enough free space for a new LVM Volume Group.")
 
         if parent_device.isDisk and parent_device.format and parent_device.format.type == "disklabel":
             disk = parent_device.format.partedDisk
             if disk.primaryPartitionCount >= disk.maxPrimaryPartitionCount:
-                msg = _("Disk {name} already reached maximum allowed count of primary partitions " \
+                msg = _("Disk {name} already reached maximum allowed number of primary partitions " \
                         "for {label} disklabel.").format(name=parent_device.name, label=parent_device.format.labelType)
-                return (False, msg)
 
-        return (True, None)
+        return (False, msg) if msg else (True, None)
 
     def add_partition(self, _widget=None, btrfs_pt=False):
         """ Add new partition
