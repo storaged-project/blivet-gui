@@ -136,13 +136,13 @@ class FreeSpaceDevice(object):
             self.parents[0].format.type not in ("iso9660",)
 
     @property
-    def isUnitializedDisk(self):
+    def isUninitializedDisk(self):
         return len(self.parents) == 1 and self.parents[0].type == "disk" and \
             self.parents[0].kids == 0 and self.parents[0].format.type == None
 
     @property
     def isFreeRegion(self):
-        return not (self.isEmptyDisk or self.isUnitializedDisk)
+        return not (self.isEmptyDisk or self.isUninitializedDisk)
 
     def __str__(self):
         return "existing " + str(self.size) + " free space"

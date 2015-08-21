@@ -26,13 +26,13 @@ class FreeSpaceDeviceTest(unittest.TestCase):
         free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
 
         self.assertTrue(free.isEmptyDisk)
-        self.assertFalse(free.isUnitializedDisk)
+        self.assertFalse(free.isUninitializedDisk)
         self.assertFalse(free.isFreeRegion)
 
         disk = MagicMock(type="disk", kids=0, isDisk=True, format=MagicMock(type=None))
         free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
 
-        self.assertTrue(free.isUnitializedDisk)
+        self.assertTrue(free.isUninitializedDisk)
         self.assertFalse(free.isEmptyDisk)
         self.assertFalse(free.isFreeRegion)
 
@@ -41,7 +41,7 @@ class FreeSpaceDeviceTest(unittest.TestCase):
 
         self.assertTrue(free.isFreeRegion)
         self.assertFalse(free.isEmptyDisk)
-        self.assertFalse(free.isUnitializedDisk)
+        self.assertFalse(free.isUninitializedDisk)
 
 class BlivetUtilsTest(unittest.TestCase):
 

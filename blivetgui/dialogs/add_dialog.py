@@ -448,7 +448,7 @@ class AddDialog(Gtk.Dialog):
         button1.show()
         button2.show()
 
-        if self.free_device.isUnitializedDisk:
+        if self.free_device.isUninitializedDisk:
             button1.toggled()
             button1.set_sensitive(False)
             button2.set_sensitive(False)

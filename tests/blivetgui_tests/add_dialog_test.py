@@ -197,7 +197,7 @@ class AddDialogTest(unittest.TestCase):
             parent.configure_mock(name="vda", size=size, type="disk")
 
         return MagicMock(type="free_space", size=size, isLogical=logical, parents=[parent], isFreeRegion=region,
-                         isUnitializedDisk=not region)
+                         isUninitializedDisk=not region)
 
     def _get_parent_device(self, name=None, dtype="disk", size=Size("8 GiB"), ftype="disklabel"):
         if not name:
