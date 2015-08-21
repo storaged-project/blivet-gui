@@ -312,6 +312,7 @@ class AddDialog(Gtk.Dialog):
 
         devices_combo = Gtk.ComboBox.new_with_model(devices_store)
         devices_combo.set_entry_text_column(0)
+        devices_combo.set_id_column(1)
 
         if len(devices) == 1:
             devices_combo.set_sensitive(False)
