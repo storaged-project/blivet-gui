@@ -472,7 +472,10 @@ class BlivetUtils(object):
         if blivet_device.isDisk:
             return blivet_device
 
-        elif blivet_device.parents[0] in ("mdarray",):
+        elif blivet_device.type in ("mdarray",):
+            return blivet_device
+
+        elif blivet_device.parents[0].type in ("mdarray", "mdmember"):
             return blivet_device.parents[0]
 
         elif blivet_device.type in ("luks/dm-crypt",):

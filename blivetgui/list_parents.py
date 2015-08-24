@@ -44,6 +44,8 @@ class ListParents(object):
             root_iter = self.parents_list.append(None, [root, False])
             if root.isDisk:
                 childs = self.blivet_gui.client.remote_call("get_disk_children", root).partitions
+            elif root.type == "mdarray":
+                childs = [root]
             else:
                 childs = self.blivet_gui.client.remote_call("get_children", root)
 
