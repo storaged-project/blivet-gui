@@ -361,6 +361,8 @@ class BlivetGUI(object):
 
         selected_device = self.list_partitions.selected_partition[0]
 
+        parent_device_type = None
+
         # btrfs volume has no special free space device -- parent device for newly
         # created subvolume is not parent of selected device but device (btrfs volume)
         # itself
@@ -369,16 +371,16 @@ class BlivetGUI(object):
             parent_device = selected_device
 
         # empty lvmpv doesn't have a special free space device
-        elif selected_device.type in ("partition", "luks/dm-crypt") and selected_device.format.type == "lvmpv":
+        elif selected_device.type in ("partition", "luks/dm-crypt", "mdarray") and selected_device.format.type == "lvmpv":
             parent_device = selected_device
+            parent_device_type = "lvmpv"
 
         else:
             parent_device = selected_device.parents[0]
 
-        parent_device_type = parent_device.type
+        if not parent_device_type:
+            parent_device_type = parent_device.type
 
-        if parent_device_type == "partition" and parent_device.format.type == "lvmpv":
-            parent_device_type = "lvmpv"
 
         # allow adding new device?
         allow, msg = self._allow_add_device(parent_device, parent_device_type)
