@@ -874,6 +874,9 @@ class AddDialog(Gtk.Dialog):
                 for widget in self.widgets_dict[widget_type]:
                     widget.hide()
 
+                    if isinstance(widget, Gtk.Entry):
+                        widget.set_text("")
+
     def on_encrypt_check(self, _toggle):
         if self.encrypt_check.get_active():
             self.show_widgets(["passphrase"])
