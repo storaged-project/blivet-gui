@@ -455,16 +455,16 @@ class BlivetUtils(object):
     def get_roots(self, blivet_device):
         """ Get list of parents for selected device with its structure """
 
-        roots = []
+        roots = set([])
 
         if blivet_device.type == "lvmvg":
             for pv in blivet_device.pvs:
-                roots.append(self._get_root_device(pv))
+                roots.add(self._get_root_device(pv))
         elif blivet_device.type in ("mdarray", "btrfs volume"):
             for member in blivet_device.members:
-                roots.append(self._get_root_device(member))
+                roots.add(self._get_root_device(member))
         elif blivet_device.type in ("luks/dm-crypt",):
-            roots.append(self._get_root_device(blivet_device.slave))
+            roots.add(self._get_root_device(blivet_device.slave))
 
         return roots
 

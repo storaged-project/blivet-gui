@@ -50,6 +50,10 @@ class ListParents(object):
             for child in childs:
                 if child.type == "btrfs volume" and root.isDisk and root.format.type == "btrfs":
                     self.parents_list.append(root_iter, [root, True])
+                elif child.type == "partition" and child.isExtended:
+                    for parent in parent_devices:
+                        if parent.isLogical and parent.disk.name == child.disk.name:
+                            self.parents_list.append(root_iter, [parent, True])
                 elif child.name in [d.name for d in parent_devices]:
                     self.parents_list.append(root_iter, [child, True])
                 else:
