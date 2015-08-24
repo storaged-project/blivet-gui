@@ -891,8 +891,8 @@ class AddDialog(Gtk.Dialog):
 
         self.update_parent_list()
         self.add_advanced_options()
-        self.size_grid, self.size_scroll = self.add_size_areas()
         self.encrypt_check.set_active(False)
+        self.size_grid, self.size_scroll = self.add_size_areas()
 
         if self.free_type_chooser and device_type != "btrfs volume":
             self.remove_free_type_chooser()
