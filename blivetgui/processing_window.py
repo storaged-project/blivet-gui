@@ -54,7 +54,7 @@ class ProcessingActions(Gtk.Dialog):
         self.set_transient_for(self.blivet_gui.main_window)
 
         self.set_border_width(8)
-        self.set_position(Gtk.WindowPosition.CENTER)
+        self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
         self.set_response_sensitive(Gtk.ResponseType.OK, False)
 
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
