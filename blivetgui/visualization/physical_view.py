@@ -24,8 +24,9 @@
 
 import gi
 gi.require_version("Gtk", "3.0")
+gi.require_version("Gdk", "3.0")
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from .rectangle import Rectangle
 
@@ -177,6 +178,7 @@ class PhysicalView(object):
         label = not rtype.startswith("child-invalid-")
 
         rect = Rectangle(rtype, None, width, height, device, label)
+        rect.connect("button-press-event", self._on_button_press)
         self.rectangles.append(rect)
 
         return rect
@@ -191,3 +193,8 @@ class PhysicalView(object):
             return "last"
         else:
             return "inner"
+
+    def _on_button_press(self, button, event):
+        if event.type == Gdk.EventType._2BUTTON_PRESS:
+            if button.device.isDisk or button.device.type in ("lvmvg", "btrfs volume", "mdarray"):
+                self.blivet_gui.switch_device_view(button.device)
