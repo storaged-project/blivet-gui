@@ -175,8 +175,9 @@ class AdvancedOptionsTest(unittest.TestCase):
 
 class AddDialogTest(unittest.TestCase):
 
+    error_dialog = MagicMock()
     parent_window = MagicMock(spec=Gtk.Window)
-    supported_fs = ["ext4", "xfs"]
+    supported_fs = ["ext4", "xfs", "swap"]
 
     @property
     def supported_raids(self):
@@ -188,6 +189,8 @@ class AddDialogTest(unittest.TestCase):
         raid0.configure_mock(name="raid0", min_members=2)
         raid1 = MagicMock()
         raid1.configure_mock(name="raid1", min_members=2)
+        raid5 = MagicMock()
+        raid5.configure_mock(name="raid5", min_members=3)
 
         return {"btrfs volume" : (single, raid0, raid1), "mdraid" : (linear, raid0, raid1)}
 
@@ -361,7 +364,278 @@ class AddDialogTest(unittest.TestCase):
         self.assertIsNone(add_dialog.advanced)
         self.assertTrue(add_dialog.md_type_combo.get_visible())
 
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_partition_parents(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
 
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device, self._get_free_device(), self._get_free_device()],
+                               self.supported_raids, self.supported_fs, [])
+        add_dialog.devices_combo.set_active_id("partition")
+
+        # partition allows only one parent -- make sure we have the right one and it is selected
+        self.assertEqual(len(add_dialog.parents_store), 1)
+        self.assertEqual(add_dialog.parents_store[0][0], parent_device)
+        self.assertEqual(add_dialog.parents_store[0][1], free_device)
+        self.assertTrue(add_dialog.parents_store[0][2])
+        self.assertTrue(add_dialog.parents_store[0][3])
+        self.assertEqual(add_dialog.parents_store[0][5], "disk")
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_lvm_parents(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device, self._get_free_device(), self._get_free_device()],
+                               self.supported_raids, self.supported_fs, [])
+        add_dialog.devices_combo.set_active_id("lvm")
+
+        # lvm allows multiple parents -- make sure we have all available and the right one is selected
+        self.assertEqual(len(add_dialog.parents_store), 3)
+        self.assertEqual(add_dialog.parents_store[0][0], parent_device)
+        self.assertEqual(add_dialog.parents_store[0][1], free_device)
+        self.assertTrue(add_dialog.parents_store[0][2])
+        self.assertFalse(add_dialog.parents_store[1][2]) # other two free devices shouldn't be selected
+        self.assertFalse(add_dialog.parents_store[2][2])
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_parents_update(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device, self._get_free_device(), self._get_free_device()],
+                               self.supported_raids, self.supported_fs, [])
+
+        # partition -- only one parent
+        add_dialog.devices_combo.set_active_id("partition")
+        self.assertEqual(len(add_dialog.parents_store), 1)
+
+        # lvm -- all available parents
+        add_dialog.devices_combo.set_active_id("lvm")
+        self.assertEqual(len(add_dialog.parents_store), 3)
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_parents_selection(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device, self._get_free_device(), self._get_free_device()],
+                               self.supported_raids, self.supported_fs, [])
+
+        # partition -- only one parent, shouldn't be allowed to deselect it
+        add_dialog.devices_combo.set_active_id("partition")
+        add_dialog.on_cell_toggled(None, 0)
+        self.assertTrue(add_dialog.parents_store[0][2])
+        self.assertTrue(add_dialog.parents_store[0][3])
+
+        # lvm -- allow secting other parents
+        add_dialog.devices_combo.set_active_id("lvm")
+        # it is not possible to the emmit toggle programmatically, we need to call the signal handler manually and
+        # set the value in the TreeStore to True
+        add_dialog.on_cell_toggled(None, 1)
+        add_dialog.parents_store[1][2] = True
+
+        self.assertTrue(add_dialog.parents_store[1][3])
+        self.assertEqual(len(add_dialog.size_areas), 2) # two parents --> two size areas
+
+        # deselect second parent
+        add_dialog.parents_store[1][2] = False
+        add_dialog.on_cell_toggled(None, 1)
+
+        self.assertFalse(add_dialog.parents_store[1][3])
+        self.assertEqual(len(add_dialog.size_areas), 1) # only one size area again
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_fs_chooser(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device], self.supported_raids, self.supported_fs, [], True) # with kickstart_mode=True
+
+        # we have all supported fs in the combo
+        self.assertEqual(len(add_dialog.filesystems_combo.get_model()), len(self.supported_fs))
+
+        # swap -- mountpoint and label entries shouldn't be visible
+        add_dialog.filesystems_combo.set_active(self.supported_fs.index("swap"))
+        self.assertEqual(add_dialog.filesystems_combo.get_active_text(), "swap")
+        self.assertFalse(add_dialog.mountpoint_entry.get_visible())
+        self.assertFalse(add_dialog.label_entry.get_visible())
+
+        # ext4 -- mountpoint and label entries should be visible
+        add_dialog.filesystems_combo.set_active(self.supported_fs.index("ext4"))
+        self.assertEqual(add_dialog.filesystems_combo.get_active_text(), "ext4")
+        self.assertTrue(add_dialog.mountpoint_entry.get_visible())
+        self.assertTrue(add_dialog.label_entry.get_visible())
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_encrypt_check(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device], self.supported_raids, self.supported_fs, [])
+
+        min_size = add_dialog.size_areas[0][0].min_size # device minimal size before update
+        # check the encrypt check, passphrase entry should be visible and 2 MiB should be added to device min size
+        add_dialog.encrypt_check.set_active(True)
+        self.assertTrue(add_dialog.pass_entry.get_visible())
+        self.assertEqual(add_dialog.size_areas[0][0].min_size, min_size + Size("2 MiB"))
+
+        # check the encrypt check, passphrase entry should be hidden and min size should be back to original min size
+        add_dialog.encrypt_check.set_active(False)
+        self.assertFalse(add_dialog.pass_entry.get_visible())
+        self.assertEqual(add_dialog.size_areas[0][0].min_size, min_size)
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_md_type(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device, self._get_free_device()], self.supported_raids, self.supported_fs, [])
+
+        add_dialog.devices_combo.set_active_id("mdraid")
+
+        # mdraid -- raid type combo should be visible
+        self.assertTrue(add_dialog.md_type_combo.get_visible())
+
+        # select partition --> filesystem chooser should be visible
+        add_dialog.md_type_combo.set_active_id("partition")
+        self.assertTrue(add_dialog.filesystems_combo.get_visible())
+        # select lvmpv --> filesystem chooser should be hidden
+        add_dialog.md_type_combo.set_active_id("lvmpv")
+        self.assertFalse(add_dialog.filesystems_combo.get_visible())
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_raid_type(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"))
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device, self._get_free_device(size=Size("4 GiB"))], self.supported_raids,
+                               self.supported_fs, [])
+
+        add_dialog.devices_combo.set_active_id("mdraid")
+        # select second parent --> raid combo should be visible
+        add_dialog.on_cell_toggled(None, 1)
+        add_dialog.parents_store[1][2] = True
+        self.assertTrue(add_dialog.raid_combo.get_visible())
+        self.assertEqual(add_dialog.raid_combo.get_active_id(), "linear") # linear is default value for mdraid
+
+        # only 2 parents --> only "linear", "raid1" and "raid0" should be available; "raid5" needs at least 3 parents
+        # set_active_id returns True or False based on success --> it should return False for "raid5" and True otherwise
+        self.assertTrue(add_dialog.raid_combo.set_active_id("raid0"))
+        self.assertTrue(add_dialog.raid_combo.set_active_id("raid1"))
+        self.assertFalse(add_dialog.raid_combo.set_active_id("raid5"))
+
+        # raid1 type is selected --> we should have 2 size areas, both with max size 4 GiB (smaller free space size)
+        self.assertEqual(len(add_dialog.size_areas), 2)
+        self.assertEqual(add_dialog.size_areas[0][0].max_size, Size("4 GiB"))
+        self.assertEqual(add_dialog.size_areas[1][0].max_size, Size("4 GiB"))
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_encrypt_validity_check(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device], self.supported_raids, self.supported_fs, [])
+
+        # passphrase specified
+        add_dialog.encrypt_check.set_active(True)
+        add_dialog.pass_entry.set_text("aaaaa")
+        add_dialog.validate_user_input()
+        self.assertFalse(self.error_dialog.called) # passphrase specified --> no error
+        self.error_dialog.reset_mock()
+
+        # no passphrase specified
+        add_dialog.encrypt_check.set_active(True)
+        add_dialog.pass_entry.set_text("")
+        add_dialog.validate_user_input()
+        self.error_dialog.assert_any_call(add_dialog, "Passphrase not specified.")
+        self.error_dialog.reset_mock()
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_mountpoint_validity_check(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device], self.supported_raids, self.supported_fs, [], True)
+
+        # valid mountpoint
+        add_dialog.mountpoint_entry.set_text("/home")
+        add_dialog.validate_user_input()
+        self.assertFalse(self.error_dialog.called) # passphrase specified --> no error
+        self.error_dialog.reset_mock()
+
+        # invalid mountpoint
+        mnt = "home"
+        add_dialog.mountpoint_entry.set_text(mnt)
+        add_dialog.validate_user_input()
+        add_dialog.validate_user_input()
+        self.error_dialog.assert_any_call(add_dialog, "\"%s\" is not a valid mountpoint." % mnt)
+        self.error_dialog.reset_mock()
+
+        # duplicate mountpoint -- FIXME: need to fix mountpoint duplicate check first, see dialogs/hepers/check_mountpoint.py
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_name_validity_check(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device], self.supported_raids, self.supported_fs, [])
+
+        add_dialog.devices_combo.set_active_id("lvm") # select device type that has a name option
+
+        # valid name
+        name = "aaaaa"
+        add_dialog.name_entry.set_text(name)
+        add_dialog.validate_user_input()
+        self.assertFalse(self.error_dialog.called) # passphrase specified --> no error
+        self.error_dialog.reset_mock()
+
+        # invalid name
+        name = "?*#%@"
+        add_dialog.name_entry.set_text(name)
+        add_dialog.validate_user_input()
+        self.error_dialog.assert_any_call(add_dialog, "\"%s\" is not a valid name." % name)
+        self.error_dialog.reset_mock()
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_label_validity_check(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device], self.supported_raids, self.supported_fs, [])
+
+        add_dialog.devices_combo.set_active_id("partition") # select device type that has a label option
+        add_dialog.filesystems_combo.set_active_id("ext4")
+
+        # valid label for ext4
+        label = "a" * 5
+        add_dialog.label_entry.set_text(label)
+        add_dialog.validate_user_input()
+        self.assertFalse(self.error_dialog.called) # passphrase specified --> no error
+        self.error_dialog.reset_mock()
+
+        # invalid label for ext4
+        label = "a" * 50
+        add_dialog.label_entry.set_text(label)
+        add_dialog.validate_user_input()
+        self.error_dialog.assert_any_call(add_dialog, "\"%s\" is not a valid label." % label)
+        self.error_dialog.reset_mock()
 
 if __name__ == "__main__":
     unittest.main()
