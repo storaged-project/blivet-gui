@@ -31,7 +31,7 @@ from gi.repository import Gtk, Pango
 from ..dialogs import message_dialogs
 
 from .size_chooser import SizeChooserArea
-from .helpers import check_mountpoint, is_label_valid
+from .helpers import is_mountpoint_valid, is_label_valid
 
 from ..communication.proxy_utils import ProxyDataContainer
 
@@ -264,10 +264,12 @@ class PartitionEditDialog(Gtk.Dialog):
         if self.kickstart and user_input.mountpoint:
             if user_input.mountpoint == self.edited_device.format.mountpoint:
                 return True
-            elif check_mountpoint(self, self.mountpoints, user_input.mountpoint):
-                return True
-            else:
+            valid, msg = is_mountpoint_valid(self.mountpoints, user_input.mountpoint)
+            if not valid:
+                message_dialogs.ErrorDialog(self, msg)
                 return False
+            else:
+                return True
 
         if user_input.label and not is_label_valid(user_input.filesystem, user_input.label):
             msg = _("\"{0}\" is not a valid label.").format(user_input.label)

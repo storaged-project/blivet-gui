@@ -39,7 +39,7 @@ from ..dialogs import message_dialogs
 from ..communication.proxy_utils import ProxyDataContainer
 
 from . size_chooser import SizeChooserArea
-from .helpers import is_name_valid, is_label_valid, check_mountpoint
+from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid
 
 from ..i18n import _
 
@@ -999,7 +999,9 @@ class AddDialog(Gtk.Dialog):
             return False
 
         if self.kickstart_mode and user_input.mountpoint:
-            if not check_mountpoint(self, self.mountpoints, user_input.mountpoint):
+            valid, msg = is_mountpoint_valid(self.mountpoints, user_input.mountpoint)
+            if not valid:
+                message_dialogs.ErrorDialog(self, msg)
                 return False
 
         if user_input.name and not is_name_valid(user_input.device_type, user_input.name):
