@@ -6,6 +6,8 @@ from unittest.mock import Mock, MagicMock, patch
 from blivetgui.dialogs.size_chooser import SizeChooserArea, SUPPORTED_UNITS
 from blivetgui.dialogs.add_dialog import AdvancedOptions, AddDialog
 
+import os
+
 import gi
 gi.require_version("Gtk", "3.0")
 
@@ -13,9 +15,13 @@ from gi.repository import Gtk
 
 from blivet.size import Size
 
+@unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class SizeChooserAreaTest(unittest.TestCase):
 
-    size_area = SizeChooserArea(dialog_type="add", device_name="sda", max_size=Size("100 GiB"), min_size=Size("1 MiB"), update_clbk=lambda x: None)
+    @classmethod
+    def setUpClass(cls):
+        cls.size_area = SizeChooserArea(dialog_type="add", device_name="sda", max_size=Size("100 GiB"),
+                                        min_size=Size("1 MiB"), update_clbk=lambda x: None)
 
     def test_unit_change(self):
         original_size = self.size_area.get_selected_size()
@@ -63,9 +69,12 @@ class SizeChooserAreaTest(unittest.TestCase):
         for widget in self.size_area.widgets:
             self.assertTrue(widget.get_sensitive())
 
+@unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class AdvancedOptionsTest(unittest.TestCase):
 
-    add_dialog = Mock(show_widgets=Mock(return_value=True), hide_widgets=Mock(return_value=True))
+    @classmethod
+    def setUpClass(cls):
+        cls.add_dialog = Mock(show_widgets=Mock(return_value=True), hide_widgets=Mock(return_value=True))
 
     def test_lvm_options(self):
         # test lvm options are displayed for lvm/lvmvg type
@@ -173,11 +182,15 @@ class AdvancedOptionsTest(unittest.TestCase):
         self.assertEqual(len(part_types), 1)
         self.assertEqual(part_types[0][1], "primary")
 
+@unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class AddDialogTest(unittest.TestCase):
 
     error_dialog = MagicMock()
-    parent_window = MagicMock(spec=Gtk.Window)
-    supported_fs = ["ext4", "xfs", "swap"]
+
+    @classmethod
+    def setUpClass(cls):
+        cls.parent_window = MagicMock(spec=Gtk.Window)
+        cls.supported_fs = ["ext4", "xfs", "swap"]
 
     @property
     def supported_raids(self):

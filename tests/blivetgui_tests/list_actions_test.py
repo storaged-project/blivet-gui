@@ -3,8 +3,11 @@
 import unittest
 from unittest.mock import MagicMock
 
+import os
+
 from blivetgui.list_actions import ListActions
 
+@unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class ListActionsTest(unittest.TestCase):
 
     buttons_state = None

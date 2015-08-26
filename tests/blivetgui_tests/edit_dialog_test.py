@@ -7,19 +7,25 @@ from blivetgui.dialogs.edit_dialog import PartitionEditDialog
 
 from blivet.size import Size
 
+import os
+
 import gi
 gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
+@unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class PartitionEditDialogTest(unittest.TestCase):
 
     error_dialog = MagicMock()
-    parent_window = MagicMock(spec=Gtk.Window)
-    edited_device = MagicMock(size=Size("1 GiB"), format=MagicMock(mountpoint=""))
-    edited_device.configure_mock(name="vda1") # set name paremeter
-    resize_info = MagicMock(resizable=True, error="Not resizable.", min_size=Size("1 MiB"), max_size=Size("1 GiB"))
-    supported_fs = ["ext4", "xfs"]
+
+    @classmethod
+    def setUpClass(cls):
+        cls.parent_window = MagicMock(spec=Gtk.Window)
+        cls.edited_device = MagicMock(size=Size("1 GiB"), format=MagicMock(mountpoint=""))
+        cls.edited_device.configure_mock(name="vda1") # set name paremeter
+        cls.resize_info = MagicMock(resizable=True, error="Not resizable.", min_size=Size("1 MiB"), max_size=Size("1 GiB"))
+        cls.supported_fs = ["ext4", "xfs"]
 
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
     def test_resizable(self):
