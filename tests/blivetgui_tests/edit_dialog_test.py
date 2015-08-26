@@ -127,5 +127,38 @@ class PartitionEditDialogTest(unittest.TestCase):
         self.error_dialog.assert_any_call(dialog, "\"%s\" is not a valid label." % label)
         self.error_dialog.reset_mock()
 
+    @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_mountpoint_validity_check(self):
+        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs, ["/root", "/var"], True)
+
+        # valid mountpoint
+        dialog.mountpoint_entry.set_text("/home")
+        dialog.validate_user_input()
+        self.assertFalse(self.error_dialog.called)
+        self.error_dialog.reset_mock()
+
+        # invalid mountpoint
+        mnt = "home"
+        dialog.mountpoint_entry.set_text(mnt)
+        dialog.validate_user_input()
+        self.error_dialog.assert_any_call(dialog, "\"%s\" is not a valid mountpoint." % mnt)
+        self.error_dialog.reset_mock()
+
+        # duplicate mountpoint
+        mnt = "/root"
+        dialog.mountpoint_entry.set_text(mnt)
+        dialog.validate_user_input()
+        self.error_dialog.assert_any_call(dialog, "Selected mountpoint \"%s\" is already set for another device." % mnt)
+        self.error_dialog.reset_mock()
+
+        # same mountpoint
+        self.edited_device.format.configure_mock(mountpoint="/var")
+        dialog.mountpoint_entry.set_text("/var")
+        dialog.validate_user_input()
+        self.assertFalse(self.error_dialog.called) # no change --> no error
+        self.error_dialog.reset_mock()
+        self.edited_device.format.configure_mock(mountpoint="")
+
 if __name__ == "__main__":
     unittest.main()

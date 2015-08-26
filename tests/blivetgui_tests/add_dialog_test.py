@@ -207,13 +207,17 @@ class AddDialogTest(unittest.TestCase):
 
         return {"btrfs volume" : (single, raid0, raid1), "mdraid" : (linear, raid0, raid1)}
 
-    def _get_free_device(self, size=Size("8 GiB"), logical=False, parent=None, region=True):
+    def _get_free_device(self, size=Size("8 GiB"), logical=False, parent=None, **kwargs):
         if not parent:
             parent = MagicMock()
             parent.configure_mock(name="vda", size=size, type="disk")
 
-        return MagicMock(type="free_space", size=size, isLogical=logical, parents=[parent], isFreeRegion=region,
-                         isUninitializedDisk=not region)
+        free_region = kwargs.get("isFreeRegion", True)
+        empty_disk = kwargs.get("isEmptyDisk", False)
+        uninitialized_disk = kwargs.get("isUninitializedDisk", False)
+
+        return MagicMock(type="free_space", size=size, isLogical=logical, parents=[parent],
+                         isFreeRegion=free_region, isEmptyDisk=empty_disk, isUninitializedDisk=uninitialized_disk)
 
     def _get_parent_device(self, name=None, dtype="disk", size=Size("8 GiB"), ftype="disklabel"):
         if not name:
@@ -296,6 +300,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(len(add_dialog.size_areas) == 1)
         self.assertIsNotNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
+        self.assertTrue(add_dialog.size_areas[0][0].get_sensitive())
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     def test_lvm_widgets(self):
@@ -316,6 +321,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(len(add_dialog.size_areas) == 1)
         self.assertIsNotNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
+        self.assertTrue(add_dialog.size_areas[0][0].get_sensitive())
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     def test_lvmpv_widgets(self):
@@ -336,6 +342,30 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(len(add_dialog.size_areas) == 1)
         self.assertIsNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
+        self.assertTrue(add_dialog.size_areas[0][0].get_sensitive())
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_lvmvg_widgets(self):
+        parent_device = self._get_parent_device(dtype="lvmpv", ftype=None)
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "lvmpv", parent_device, free_device,
+                               [(parent_device, free_device)], [free_device], self.supported_raids,
+                               self.supported_fs, [])
+
+        # for lvmpv 'parent' only lvmvg should be available
+        self.assertFalse(add_dialog.devices_combo.get_sensitive())
+        self.assertEqual(add_dialog._get_selected_device_type(), "lvmvg")
+
+        self.assertIsNone(add_dialog.free_type_chooser)
+        self.assertFalse(add_dialog.filesystems_combo.get_visible())
+        self.assertTrue(add_dialog.name_entry.get_visible())
+        self.assertFalse(add_dialog.encrypt_check.get_visible())
+        self.assertFalse(add_dialog.raid_combo.get_visible())
+        self.assertTrue(len(add_dialog.size_areas) == 1)
+        self.assertIsNotNone(add_dialog.advanced)
+        self.assertFalse(add_dialog.md_type_combo.get_visible())
+        self.assertFalse(add_dialog.size_areas[0][0].get_sensitive())
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     def test_btrfsvolume_widgets(self):
@@ -356,6 +386,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(len(add_dialog.size_areas) == 1)
         self.assertIsNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
+        self.assertTrue(add_dialog.size_areas[0][0].get_sensitive())
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     def test_mdraid_widgets(self):
@@ -376,6 +407,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(len(add_dialog.size_areas) == 1)
         self.assertIsNone(add_dialog.advanced)
         self.assertTrue(add_dialog.md_type_combo.get_visible())
+        self.assertTrue(add_dialog.size_areas[0][0].get_sensitive())
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     def test_partition_parents(self):
@@ -552,6 +584,69 @@ class AddDialogTest(unittest.TestCase):
         self.assertEqual(add_dialog.size_areas[1][0].max_size, Size("4 GiB"))
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_free_type1(self): # TODO: test available parent types
+        # empty disk --> free type chooser should be added and sensitive
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), isFreeRegion=False,
+                                            isEmptyDisk=True)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [], [free_device],
+                               self.supported_raids, self.supported_fs, [])
+
+        add_dialog.devices_combo.set_active_id("btrfs volume")
+
+        self.assertIsNotNone(add_dialog.free_type_chooser)
+        self.assertTrue(all(widget.get_sensitive() for widget in add_dialog.free_type_chooser))
+
+        ## partitions should be selected by default and size chooser should be sensitive
+        self.assertEqual(add_dialog.free_type_chooser[2].get_label(), "Partitions") # just to make sure we are testing right button
+        self.assertTrue(add_dialog.free_type_chooser[2].get_active())
+        self.assertTrue(add_dialog.size_areas[0][0].get_sensitive())
+
+        # change type to disks --> size areas should be insensitive
+        add_dialog.free_type_chooser[1].set_active(True)
+        self.assertFalse(add_dialog.size_areas[0][0].get_sensitive())
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_free_type2(self):
+        # disk region --> free type chooser should be added and insensitive
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), isFreeRegion=True)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [], [free_device],
+                               self.supported_raids, self.supported_fs, [])
+
+        add_dialog.devices_combo.set_active_id("btrfs volume")
+
+        self.assertIsNotNone(add_dialog.free_type_chooser)
+        self.assertFalse(all(widget.get_sensitive() for widget in add_dialog.free_type_chooser))
+
+        ## partitions should be selected by default and size chooser should be sensitive
+        self.assertEqual(add_dialog.free_type_chooser[2].get_label(), "Partitions") # just to make sure we are testing right button
+        self.assertTrue(add_dialog.free_type_chooser[2].get_active())
+        self.assertTrue(add_dialog.size_areas[0][0].get_sensitive())
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_free_type3(self):
+        # uninitialized disk --> free type chooser should be added and insensitive
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), isFreeRegion=False,
+                                            isUninitializedDisk=True)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [], [free_device],
+                               self.supported_raids, self.supported_fs, [])
+
+        add_dialog.devices_combo.set_active_id("btrfs volume")
+
+        self.assertIsNotNone(add_dialog.free_type_chooser)
+        self.assertFalse(all(widget.get_sensitive() for widget in add_dialog.free_type_chooser))
+
+        ## disks should be selected by default and size chooser should be insensitive
+        self.assertEqual(add_dialog.free_type_chooser[1].get_label(), "Disks") # just to make sure we are testing right button
+        self.assertTrue(add_dialog.free_type_chooser[1].get_active())
+        self.assertFalse(add_dialog.size_areas[0][0].get_sensitive())
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_encrypt_validity_check(self):
         parent_device = self._get_parent_device()
@@ -581,7 +676,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
-                               [free_device], self.supported_raids, self.supported_fs, [], True)
+                               [free_device], self.supported_raids, self.supported_fs, ["/root"], True)
 
         # valid mountpoint
         add_dialog.mountpoint_entry.set_text("/home")
@@ -593,11 +688,15 @@ class AddDialogTest(unittest.TestCase):
         mnt = "home"
         add_dialog.mountpoint_entry.set_text(mnt)
         add_dialog.validate_user_input()
-        add_dialog.validate_user_input()
         self.error_dialog.assert_any_call(add_dialog, "\"%s\" is not a valid mountpoint." % mnt)
         self.error_dialog.reset_mock()
 
-        # duplicate mountpoint -- FIXME: need to fix mountpoint duplicate check first, see dialogs/hepers/check_mountpoint.py
+        # duplicate mountpoint
+        mnt = "/root"
+        add_dialog.mountpoint_entry.set_text(mnt)
+        add_dialog.validate_user_input()
+        self.error_dialog.assert_any_call(add_dialog, "Selected mountpoint \"%s\" is already set for another device." % mnt)
+        self.error_dialog.reset_mock()
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
