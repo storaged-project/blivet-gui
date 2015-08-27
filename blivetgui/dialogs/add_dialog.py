@@ -34,6 +34,8 @@ from gi.repository import Gtk, Gdk
 
 from blivet import size
 
+from decimal import Decimal
+
 from ..dialogs import message_dialogs
 
 from ..communication.proxy_utils import ProxyDataContainer
@@ -594,10 +596,18 @@ class AddDialog(Gtk.Dialog):
             for area, _parent in self.size_areas:
                 area.set_selected_size(selected_size)
 
-    def update_size_areas_limits(self, min_size=None, max_size=None, min_plus=None):
+    def update_size_areas_limits(self, min_size=None, max_size=None, min_plus=None, max_plus=None, min_multi=None, max_multi=None):
         for area, _parent in self.size_areas:
             if min_plus and not min_size:
                 min_size = area.min_size + min_plus
+            if min_multi and not min_size:
+                min_size = area.min_size * min_multi
+
+            if max_plus and not max_size:
+                max_size = area.max_size + max_plus
+            if max_multi and not max_size:
+                max_size = area.max_size * max_multi
+
             area.update_size_limits(min_size, max_size)
 
     def _destroy_size_areas(self):
@@ -938,6 +948,7 @@ class AddDialog(Gtk.Dialog):
         elif device_type == "lvmthinpool":
             self.show_widgets(["name", "size"])
             self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint"])
+            self.update_size_areas_limits(max_multi=Decimal(0.8))
 
         self.update_raid_type_chooser()
 
