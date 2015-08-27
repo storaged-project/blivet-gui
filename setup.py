@@ -14,6 +14,7 @@ icon_files = glob.glob('help/C/icons/*.png')
 polkit_files = glob.glob('org.fedoraproject.pkexec.blivet-gui.policy')
 desktop_files = glob.glob('blivet-gui.desktop')
 man_files = glob.glob('man/blivet-gui.1')
+
 data_files.append(('/usr/share/blivet-gui/ui', ui_files))
 data_files.append(('/usr/share/blivet-gui/css', css_files))
 data_files.append(('/usr/share/blivet-gui/img', img_files))
@@ -24,20 +25,25 @@ data_files.append(('/usr/share/polkit-1/actions', polkit_files))
 data_files.append(('/usr/share/applications', desktop_files))
 data_files.append(('/usr/share/man/man1', man_files))
 
+for size in ("16x16", "22x22", "24x24", "32x32", "48x48", "64x64", "256x256"):
+    icons = glob.glob('data/icons/hicolor/' + size + '/blivet-gui.png')
+    data_files.append(('/usr/share/icons/hicolor/' + size + '/apps', icons))
+
 print(data_files)
 
 setup(
-	name='blivet-gui',
-	packages=['blivetgui'],
-	version='0.3.6',
-	description = 'Tool for data storages configuration',
-	author='Vojtech Trefny',
-	author_email='vtrefny@redhat.com',
-	url='http://github.com/vojtechtrefny/blivet-gui',
-	package_dir={'blivetgui' : 'blivetgui'},
-	package_data={'blivetgui' : ['help/C/*.page',
-			'help/C/*.xml', 'help/C/icons/*', 'help/C/images/*',
-			'visualization/*.py', 'communication/*.py', 'dialogs/*.py']},
-	data_files=data_files,
-	scripts = ['blivet-gui', 'blivet-gui-daemon']
+    name='blivet-gui',
+    packages=['blivetgui'],
+    version='0.3.6',
+    description = 'Tool for data storages configuration',
+    author='Vojtech Trefny',
+    author_email='vtrefny@redhat.com',
+    url='http://github.com/rhinstaller/blivet-gui',
+    package_dir={'blivetgui' : 'blivetgui'},
+    package_data={'blivetgui' : ['help/C/*.page', 'help/C/*.xml', 'help/C/icons/*',
+                                 'help/C/images/*', 'visualization/*.py',
+                                 'communication/*.py', 'dialogs/*.py',
+                                 'data/icons/hicolor/*/apps/blivet-gui.png']},
+    data_files=data_files,
+    scripts = ['blivet-gui', 'blivet-gui-daemon']
 )

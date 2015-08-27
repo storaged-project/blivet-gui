@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=blivet-gui
 Exec=/usr/bin/blivet-gui
+Icon=blivet-gui
 Terminal=false
 Type=Application
 Categories=GNOME;System;Filesystem;X-Fedora;GTK;

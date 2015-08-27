@@ -40,6 +40,18 @@ make DESTDIR=%{buildroot} install
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 
+%post
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+
+%postun
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+
 %find_lang %{name}
 
 %files -f %{name}.lang
