@@ -182,6 +182,29 @@ class AdvancedOptionsTest(unittest.TestCase):
         self.assertEqual(len(part_types), 1)
         self.assertEqual(part_types[0][1], "primary")
 
+    def test_selection(self):
+        # partition
+        parent_device = Mock(type="disk", format=Mock(labelType="msdos", extendedPartition=None))
+        free_device = Mock(isLogical=False)
+        advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
+                                           parent_device=parent_device, free_device=free_device)
+
+        advanced_options.partition_combo.set_active_id("extended")
+
+        selection = advanced_options.get_selection()
+        self.assertEqual(selection["parttype"], "extended")
+
+        # lvm
+        parent_device = Mock(type="disk", format=Mock(labelType="gpt", extendedPartition=None))
+        free_device = Mock(isLogical=False, size=Size("8 GiB"))
+        advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvm",
+                                           parent_device=parent_device, free_device=free_device)
+
+        advanced_options.pesize_combo.set_active_id("64 MiB")
+
+        selection = advanced_options.get_selection()
+        self.assertEqual(selection["pesize"], Size("64 MiB"))
+
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class AddDialogTest(unittest.TestCase):
 
@@ -748,6 +771,160 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.validate_user_input()
         self.error_dialog.assert_any_call(add_dialog, "\"%s\" is not a valid label." % label)
         self.error_dialog.reset_mock()
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_partition_selection(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device], self.supported_raids, self.supported_fs, [], True)
+
+        fstype = "xfs"
+        label = "label"
+        size = Size("1 GiB")
+        mountpoint = "/home"
+        password = "password"
+
+        add_dialog.devices_combo.set_active_id("partition")
+        add_dialog.filesystems_combo.set_active_id(fstype)
+        add_dialog.size_areas[0][0].set_selected_size(size)
+        add_dialog.label_entry.set_text(label)
+        add_dialog.mountpoint_entry.set_text(mountpoint)
+        add_dialog.encrypt_check.set_active(True)
+        add_dialog.pass_entry.set_text(password)
+
+        selection = add_dialog.get_selection()
+
+        self.assertEqual(selection.device_type, "partition")
+        self.assertEqual(selection.size, size)
+        self.assertEqual(selection.filesystem, fstype)
+        self.assertTrue(selection.name in (None, ""))
+        self.assertEqual(selection.label, label)
+        self.assertEqual(selection.mountpoint, mountpoint)
+        self.assertTrue(selection.encrypt)
+        self.assertEqual(selection.passphrase, password)
+        self.assertEqual(selection.parents, [[parent_device, size]])
+        self.assertIsNone(selection.btrfs_type)
+        self.assertIsNone(selection.raid_level)
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_lvm_selection(self):
+        parent_device1 = self._get_parent_device()
+        parent_device2 = self._get_parent_device()
+        free_device1 = self._get_free_device(parent=parent_device1)
+        free_device2 = self._get_free_device(parent=parent_device2)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device1, free_device1, [],
+                               [free_device1, free_device2], self.supported_raids,
+                               self.supported_fs, [], True)
+
+        name = "name"
+        size1 = Size("4 GiB")
+        size2 = Size("6 GiB")
+
+        add_dialog.devices_combo.set_active_id("lvm")
+
+        # select second free space
+        add_dialog.on_cell_toggled(None, 1)
+        add_dialog.parents_store[1][2] = True
+
+        add_dialog.size_areas[0][0].set_selected_size(size1)
+        add_dialog.size_areas[1][0].set_selected_size(size2)
+
+        add_dialog.name_entry.set_text(name)
+
+        selection = add_dialog.get_selection()
+
+        self.assertEqual(selection.device_type, "lvm")
+        self.assertEqual(selection.size, size1 + size2)
+        self.assertEqual(selection.filesystem, None)
+        self.assertEqual(selection.name, name)
+        self.assertTrue(selection.label in (None, ""))
+        self.assertTrue(selection.mountpoint in (None, ""))
+        self.assertFalse(selection.encrypt)
+        self.assertTrue(selection.passphrase in (None, ""))
+        self.assertEqual(selection.parents, [[parent_device1, size1], [parent_device2, size2]])
+        self.assertIsNone(selection.btrfs_type)
+        self.assertIsNone(selection.raid_level)
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_md_selection(self):
+        parent_device1 = self._get_parent_device()
+        parent_device2 = self._get_parent_device()
+        free_device1 = self._get_free_device(parent=parent_device1)
+        free_device2 = self._get_free_device(parent=parent_device2)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device1, free_device1, [],
+                               [free_device1, free_device2], self.supported_raids,
+                               self.supported_fs, [], True)
+
+        fstype = "xfs"
+        raidtype = "raid0"
+        size = Size("4 GiB")
+        name = "name"
+
+        add_dialog.devices_combo.set_active_id("mdraid")
+
+        # select second free space
+        add_dialog.on_cell_toggled(None, 1)
+        add_dialog.parents_store[1][2] = True
+
+        add_dialog.raid_combo.set_active_id(raidtype)
+
+        # raid 0 --> second size area should be updated
+        add_dialog.size_areas[0][0].set_selected_size(size)
+
+        add_dialog.name_entry.set_text(name)
+
+        add_dialog.md_type_combo.set_active_id("partition")
+        add_dialog.filesystems_combo.set_active_id(fstype)
+
+        selection = add_dialog.get_selection()
+
+        self.assertEqual(selection.device_type, "mdraid")
+        self.assertEqual(selection.size, 2*size)
+        self.assertEqual(selection.filesystem, fstype)
+        self.assertEqual(selection.name, name)
+        self.assertTrue(selection.label in (None, ""))
+        self.assertTrue(selection.mountpoint in (None, ""))
+        self.assertFalse(selection.encrypt)
+        self.assertTrue(selection.passphrase in (None, ""))
+        self.assertEqual(selection.parents, [[parent_device1, size], [parent_device2, size]])
+        self.assertIsNone(selection.btrfs_type)
+        self.assertEqual(selection.raid_level, "raid0")
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_btrfs_selection(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), isFreeRegion=False,
+                                            isEmptyDisk=True)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device], self.supported_raids, self.supported_fs, [])
+
+        add_dialog.devices_combo.set_active_id("btrfs volume")
+
+        name = "name"
+
+        add_dialog.name_entry.set_text(name)
+
+        # select free space type to "disks"
+        add_dialog.free_type_chooser[1].set_active(True)
+
+        selection = add_dialog.get_selection()
+
+        self.assertEqual(selection.device_type, "btrfs volume")
+        self.assertEqual(selection.size, free_device.size)
+        self.assertTrue(selection.filesystem in (None, ""))
+        self.assertEqual(selection.name, name)
+        self.assertTrue(selection.label in (None, ""))
+        self.assertTrue(selection.mountpoint in (None, ""))
+        self.assertFalse(selection.encrypt)
+        self.assertTrue(selection.passphrase in (None, ""))
+        self.assertEqual(selection.parents, [[parent_device, free_device.size]])
+        self.assertEqual(selection.btrfs_type, "disks")
+        self.assertTrue(selection.raid_level in (None, ""))
 
 if __name__ == "__main__":
     unittest.main()

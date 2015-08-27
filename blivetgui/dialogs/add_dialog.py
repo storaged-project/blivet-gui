@@ -740,6 +740,7 @@ class AddDialog(Gtk.Dialog):
 
         filesystems_combo = Gtk.ComboBoxText()
         filesystems_combo.set_entry_text_column(0)
+        filesystems_combo.set_id_column(0)
 
         for fs in self.supported_fs:
             filesystems_combo.append_text(fs)
@@ -1055,8 +1056,10 @@ class AddDialog(Gtk.Dialog):
 
         if device_type == "mdraid" and self.md_type_combo.get_active_id() == "lvmpv":
             filesystem = "lvmpv"
-        else:
+        elif device_type in ("mdraid", "partition", "lvmlv"):
             filesystem = self.filesystems_combo.get_active_text()
+        else:
+            filesystem = None
 
         return ProxyDataContainer(device_type=device_type,
                                   size=total_size,
