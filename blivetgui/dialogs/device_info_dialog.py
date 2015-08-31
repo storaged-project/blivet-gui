@@ -83,7 +83,8 @@ class DeviceInformationDialog(Gtk.Dialog):
                           "lvmthinlv" : (_("LVM2 Thin Logical Volume"), self._get_lvmlv_info),
                           "luks/dm-crypt" : (_("LUKS/DM-Crypt Device"), None),
                           "btrfs volume" : (_("Btrfs Volume"), self._get_btrfs_info),
-                          "btrfs subvolume" : (_("Btrfs Subvolume"), self._get_btrfs_info)}
+                          "btrfs subvolume" : (_("Btrfs Subvolume"), self._get_btrfs_info),
+                          "mdarray" : (_("MD RAID Array"), self._get_mdarray_info)}
 
         # Fill dialog with information
         self.device_info = self.add_device_info()
@@ -135,6 +136,16 @@ class DeviceInformationDialog(Gtk.Dialog):
         info = _(" • <i>Subvol ID:</i> {id}\n").format(id=self.device.format.subvolspec)
         info += _(" • <i>Data Level:</i> {level}\n").format(level=self.device.dataLevel)
         info += _(" • <i>Metadata Level:</i> {level}\n").format(level=self.device.metaDataLevel)
+
+        return info
+
+    def _get_mdarray_info(self):
+        info = _(" • <i>Level:</i> {level}\n").format(level=str(self.device.level))
+        info += _(" • <i>Devices:</i> {dcount}\n").format(dcount=self.device.totalDevices)
+        info += _(" • <i>Spares:</i> {spares}\n").format(spares=str(self.device.spares))
+        info += _(" • <i>Degraded:</i> {degraded}\n").format(degraded=self.device.degraded)
+        info += _(" • <i>Metadata Version:</i> {metadata}\n").format(metadata=self.device.metadataVersion)
+        info += _(" • <i>Complete:</i> {complete}\n").format(complete=self.device.complete)
 
         return info
 
