@@ -40,6 +40,8 @@ make DESTDIR=%{buildroot} install
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 
+%find_lang %{name}
+
 %post
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
@@ -52,13 +54,12 @@ fi
 %posttrans
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
-%find_lang %{name}
-
 %files -f %{name}.lang
 %{_mandir}/man1/blivet-gui.1*
 %{python3_sitelib}/*
 %{_datadir}/applications/blivet-gui.desktop
 %{_datadir}/polkit-1/actions/org.fedoraproject.pkexec.blivet-gui.policy
+%{_datadir}/icons/hicolor/*/apps/blivet-gui.png
 %{_datadir}/blivet-gui
 %{_datadir}/help/C/blivet-gui
 %{_bindir}/blivet-gui
