@@ -54,7 +54,7 @@ class ListParents(object):
                     self.parents_list.append(root_iter, [root, True])
                 elif child.type == "partition" and child.isExtended:
                     for parent in parent_devices:
-                        if parent.isLogical and parent.disk.name == child.disk.name:
+                        if parent.type == "partition" and parent.isLogical and parent.disk.name == child.disk.name:
                             self.parents_list.append(root_iter, [parent, True])
                 elif child.name in [d.name for d in parent_devices]:
                     self.parents_list.append(root_iter, [child, True])
