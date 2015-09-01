@@ -14,6 +14,7 @@ img_files = glob.glob('data/img/*.png')
 polkit_files = glob.glob('org.fedoraproject.pkexec.blivet-gui.policy')
 desktop_files = glob.glob('blivet-gui.desktop')
 man_files = glob.glob('man/blivet-gui.1')
+appdata_files = glob.glob('appdata/*.xml')
 
 data_files.append(('/usr/share/blivet-gui/ui', ui_files))
 data_files.append(('/usr/share/blivet-gui/css', css_files))
@@ -24,6 +25,7 @@ data_files.append(('/usr/share/blivet-gui/img', img_files))
 data_files.append(('/usr/share/polkit-1/actions', polkit_files))
 data_files.append(('/usr/share/applications', desktop_files))
 data_files.append(('/usr/share/man/man1', man_files))
+data_files.append(('/usr/share/appdata', appdata_files))
 
 for size in ("16x16", "22x22", "24x24", "32x32", "48x48", "64x64", "256x256"):
     icons = glob.glob('data/icons/hicolor/' + size + '/blivet-gui.png')

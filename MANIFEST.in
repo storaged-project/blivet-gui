@@ -2,3 +2,4 @@ include blivet-gui README.txt Makefile COPYING
 recursive-include help *
 recursive-include data *
 recursive-include po *
+recursive-include appdata *

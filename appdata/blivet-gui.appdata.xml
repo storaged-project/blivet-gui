@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application>
+ <id type="desktop">blivet-gui.desktop</id>
+ <metadata_license>CC-BY-SA</metadata_license>
+ <project_license>GPL-2.0+</project_license>
+ <name>blivet-gui</name>
+ <summary>Graphical tool for storage manipulation and configuration</summary>
+ <description>
+  <p>
+    Blivet-gui is a graphical tool that provides an easy way to create, delete or edit partitions, LVM, RAID or Btrfs volumes.
+  </p>
+  <p>
+    Available advanced options includes setting up encrypted devices (LUKS), LVM or Btrfs volumes spanning more drives and creating kickstart files for automated installations.
+  </p>
+ </description>
+ <screenshots>
+   <screenshot type="default" width="800" height="637">
+     https://raw.github.com/rhinstaller/blivet-gui/devel/appdata/blivet-gui-main-window.png
+   </screenshot>
+   <screenshot width="617" height="699">
+     https://raw.github.com/rhinstaller/blivet-gui/devel/appdata/blivet-gui-add-dialog.png
+   </screenshot>
+ </screenshots>
+ <url type="homepage">https://github.com/rhinstaller/blivet-gui</url>
+ <updatecontact>vtrefny@redhat.com</updatecontact>
+</application>
