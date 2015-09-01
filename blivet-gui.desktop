@@ -5,4 +5,5 @@ Icon=blivet-gui
 Terminal=false
 Type=Application
 Categories=GNOME;System;Filesystem;X-Fedora;GTK;
+Keywords=Partition;Disk;LVM;RAID;Storage;
 StartupNotify=true
