@@ -12,6 +12,7 @@ BuildRequires: intltool
 BuildRequires: gettext
 BuildRequires: python-setuptools
 BuildRequires: python3-pocketlint >= 0.4
+BuildRequires: libappstream-glib
 Requires: python3
 Requires: pygobject3
 Requires: gettext
@@ -39,6 +40,7 @@ make %{?_smp_mflags}
 make DESTDIR=%{buildroot} install
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
+appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/blivet-gui.appdata.xml
 
 %find_lang %{name}
 
