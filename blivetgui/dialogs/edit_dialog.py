@@ -272,7 +272,7 @@ class PartitionEditDialog(Gtk.Dialog):
                 return True
 
         if user_input.label and not is_label_valid(user_input.filesystem, user_input.label):
-            msg = _("\"{0}\" is not a valid label.").format(user_input.label)
+            msg = _("\"{label}\" is not a valid label.").format(label=user_input.label)
             message_dialogs.ErrorDialog(self, msg)
             return False
 
@@ -392,7 +392,7 @@ class LVMEditDialog(Gtk.Dialog):
 
         if len(self.free_disks_regions) + len(self.free_pvs) == 0:
             label_none = Gtk.Label(label=_("There are currently no empty physical volumes or\n"\
-                                           "disks with enough empty space to create one."))
+                                           "disks with enough free space to create one."))
             self.grid.attach(label_none, 0, 5, 4, 1)
 
             self.widgets_dict["add"] = [label_none]
@@ -454,8 +454,8 @@ class LVMEditDialog(Gtk.Dialog):
     def remove_parents(self):
 
         if len(self.removable_pvs) == 0:
-            label_none = Gtk.Label(label=_("It's currently not possible to remove\n"\
-                                           "a physical volume from existing volume group."))
+            label_none = Gtk.Label(label=_("There is no physical volume that could be\n"\
+                                           "removed from this volume group."))
             self.grid.attach(label_none, 0, 5, 4, 1)
 
             self.widgets_dict["remove"] = [label_none]
@@ -466,8 +466,7 @@ class LVMEditDialog(Gtk.Dialog):
             parents_store = Gtk.ListStore(object, object, bool, str, str, str)
             parents_view = Gtk.TreeView(model=parents_store)
 
-            parents_view.set_tooltip_text(_("Currently is possible to remove only one parent "\
-                                            "at time."))
+            parents_view.set_tooltip_text(_("Currently is possible to remove only one parent at time."))
 
             renderer_radio = Gtk.CellRendererToggle()
             renderer_radio.connect("toggled", self.on_cell_radio_toggled, parents_store)

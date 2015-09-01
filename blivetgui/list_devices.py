@@ -100,12 +100,12 @@ class ListDevices(object):
         icon_group = Gtk.IconTheme.load_icon(icon_theme, "drive-multidisk", 32, 0)
 
         if gdevices["lvm"]:
-            self.device_list.append([None, None, _("<b>LVMs</b>")])
+            self.device_list.append([None, None, _("<b>LVM</b>")])
             for device in gdevices["lvm"]:
                 self.device_list.append([device, icon_group, str(device.name + "\n<i><small>LVM2 VG</small></i>")])
 
         if gdevices["raid"]:
-            self.device_list.append([None, None, _("<b>RAIDs</b>")])
+            self.device_list.append([None, None, _("<b>RAID</b>")])
             for device in gdevices["raid"]:
                 self.device_list.append([device, icon_group, str(device.name + "\n<i><small>MDArray</small></i>")])
 

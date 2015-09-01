@@ -321,7 +321,7 @@ class BlivetGUI(object):
 
             else:
                 if result.actions:
-                    action_str = _("edit {0} {1}").format(device.name, device.type)
+                    action_str = _("edit {name} {type}").format(name=device.name, type=device.type)
                     self.list_actions.append("edit", action_str, result.actions)
 
             self.update_partitions_view()
@@ -410,7 +410,7 @@ class BlivetGUI(object):
 
                 else:
                     if result.actions:
-                        action_str = _("create new disklabel on {0}").format(self.list_devices.selected_device.name)
+                        action_str = _("create new disklabel on {name}").format(name=self.list_devices.selected_device.name)
                         self.list_actions.append("add", action_str, result.actions)
                 self.update_partitions_view()
             return
@@ -451,11 +451,11 @@ class BlivetGUI(object):
             else:
                 if result.actions:
                     if not user_input.filesystem:
-                        action_str = _("add {0} {1} device").format(str(user_input.size),
-                                                                    user_input.device_type)
+                        action_str = _("add {size} {type} device").format(size=str(user_input.size),
+                                                                          type=user_input.device_type)
                     else:
-                        action_str = _("add {0} {1} partition").format(str(user_input.size),
-                                                                       user_input.filesystem)
+                        action_str = _("add {size} {fmt} partition").format(size=str(user_input.size),
+                                                                            fmt=user_input.filesystem)
 
                     self.list_actions.append("add", action_str, result.actions)
 
@@ -476,7 +476,7 @@ class BlivetGUI(object):
         deleted_device = self.list_partitions.selected_partition[0]
 
         title = _("Confirm delete operation")
-        msg = _("Are you sure you want delete device {0}?").format(deleted_device.name)
+        msg = _("Are you sure you want delete device {name}?").format(name=deleted_device.name)
 
         dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
         response = dialog.run()
@@ -492,7 +492,7 @@ class BlivetGUI(object):
                     self._reraise_exception(result.exception, result.traceback)
 
             else:
-                action_str = _("delete partition {0}").format(deleted_device.name)
+                action_str = _("delete partition {name}").format(name=deleted_device.name)
                 self.list_actions.append("delete", action_str, result.actions)
 
             self.update_partitions_view()
@@ -559,7 +559,7 @@ class BlivetGUI(object):
 
             if response:
                 if os.path.isfile(response):
-                    title = _("File exists")
+                    title = _("File already exists")
                     msg = _("Selected file already exists, do you want to overwrite it?")
                     dialog_file = message_dialogs.ConfirmDialog(self.main_window, title, msg)
                     response_file = dialog_file.run()
@@ -570,7 +570,7 @@ class BlivetGUI(object):
                 self.client.remote_call("create_kickstart_file", response)
 
                 msg = _("File with your Kickstart configuration was successfully saved to:\n\n" \
-                    "{0}").format(response)
+                    "{filename}").format(filename=response)
                 message_dialogs.InfoDialog(self.main_window, msg)
 
         else:
@@ -700,7 +700,7 @@ class BlivetGUI(object):
 
         if self.list_actions.actions:
             title = _("Are you sure you want to quit?")
-            msg = _("There are unapplied actions. Are you sure you want to quit blivet-gui now?")
+            msg = _("There are pending operations. Are you sure you want to quit blivet-gui now?")
 
             response = self.show_confirmation_dialog(title, msg)
 

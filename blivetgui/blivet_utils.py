@@ -544,7 +544,7 @@ class BlivetUtils(object):
                         parent.teardown()
 
                     except BlockDev.CryptoError:
-                        msg = _("Failed to remove device {0}. Are you sure it is not in use?").format(parent.name)
+                        msg = _("Failed to remove device {name}. Are you sure it's not in use?").format(name=parent.name)
 
                         # cancel destroy action for luks device
                         self.blivet_cancel_actions(actions)
