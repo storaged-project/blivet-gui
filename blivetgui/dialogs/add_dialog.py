@@ -1067,7 +1067,7 @@ class AddDialog(Gtk.Dialog):
 
         if device_type == "mdraid" and self.md_type_combo.get_active_id() == "lvmpv":
             filesystem = "lvmpv"
-        elif device_type in ("mdraid", "partition", "lvmlv"):
+        elif device_type in ("mdraid", "partition", "lvmlv", "lvmthinlv"):
             filesystem = self.filesystems_combo.get_active_text()
         else:
             filesystem = None
