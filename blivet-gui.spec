@@ -61,7 +61,6 @@ fi
 %{_datadir}/polkit-1/actions/org.fedoraproject.pkexec.blivet-gui.policy
 %{_datadir}/icons/hicolor/*/apps/blivet-gui.png
 %{_datadir}/blivet-gui
-%{_datadir}/help/C/blivet-gui
 %{_bindir}/blivet-gui
 %{_bindir}/blivet-gui-daemon
 

@@ -46,8 +46,8 @@ class MainMenu(object):
         menuitem_quit = self.blivet_gui.builder.get_object("menuitem_quit")
         menuitem_quit.connect("activate", self.blivet_gui.quit)
 
-        menuitem_help = self.blivet_gui.builder.get_object("menuitem_help")
-        menuitem_help.connect("activate", self.on_help_item)
+        # menuitem_help = self.blivet_gui.builder.get_object("menuitem_help")
+        # menuitem_help.connect("activate", self.on_help_item)
 
         menuitem_about = self.blivet_gui.builder.get_object("menuitem_about")
         menuitem_about.connect("activate", self.on_about_item)
