@@ -248,7 +248,7 @@ class AddDialog(Gtk.Dialog):
 
         self.filesystems_combo = self.add_fs_chooser()
         self.label_entry, self.name_entry = self.add_name_chooser()
-        self.encrypt_check, self.pass_entry = self.add_encrypt_chooser()
+        self.encrypt_check, self.pass_entry, self.pass2_entry = self.add_encrypt_chooser()
         self.parents_store = self.add_parent_list()
 
         self.raid_combo, self.raid_changed_signal = self.add_raid_type_chooser()
@@ -834,11 +834,23 @@ class AddDialog(Gtk.Dialog):
         pass_entry.set_property("caps-lock-warning", True)
         self.grid.attach(pass_entry, 1, 12, 2, 1)
 
-        self.widgets_dict["passphrase"] = [pass_label, pass_entry]
+        pass2_label = Gtk.Label(label=_("Repeat Passphrase:"), xalign=1)
+        pass2_label.get_style_context().add_class("dim-label")
+        self.grid.attach(pass2_label, 0, 13, 1, 1)
+
+        pass2_entry = Gtk.Entry()
+        pass2_entry.set_visibility(False)
+        pass2_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "dialog-error-symbolic.symbolic")
+        pass2_entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, False)
+        pass2_entry.set_icon_tooltip_markup(Gtk.EntryIconPosition.SECONDARY, _("Passphrases don't match."))
+        pass2_entry.connect("changed", self.on_passphrase_changed, pass_entry)
+        self.grid.attach(pass2_entry, 1, 13, 2, 1)
+
+        self.widgets_dict["passphrase"] = [pass_label, pass_entry, pass2_label, pass2_entry]
 
         encrypt_check.connect("toggled", self.on_encrypt_check)
 
-        return encrypt_check, pass_entry
+        return encrypt_check, pass_entry, pass2_entry
 
     def add_advanced_options(self):
 
@@ -851,7 +863,7 @@ class AddDialog(Gtk.Dialog):
             self.advanced = AdvancedOptions(self, device_type, self.parent_device, self.free_device)
             self.widgets_dict["advanced"] = [self.advanced]
 
-            self.grid.attach(self.advanced.expander, 0, 13, 6, 1)
+            self.grid.attach(self.advanced.expander, 0, 14, 6, 1)
 
         else:
             self.advanced = None
@@ -895,6 +907,14 @@ class AddDialog(Gtk.Dialog):
         else:
             self.hide_widgets(["passphrase"])
             self.update_size_areas_limits(min_plus=size.Size("-2 MiB"))
+
+    def on_passphrase_changed(self, confirm_entry, passphrase_entry):
+        if passphrase_entry.get_text() == confirm_entry.get_text():
+            confirm_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "emblem-ok-symbolic.symbolic")
+            confirm_entry.set_icon_tooltip_markup(Gtk.EntryIconPosition.SECONDARY, _("Passphrases match."))
+        else:
+            confirm_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "dialog-error-symbolic.symbolic")
+            confirm_entry.set_icon_tooltip_markup(Gtk.EntryIconPosition.SECONDARY, _("Passphrases don't match."))
 
     def on_devices_combo_changed(self, _event):
 
@@ -1023,6 +1043,11 @@ class AddDialog(Gtk.Dialog):
 
         if user_input.label and not is_label_valid(user_input.filesystem, user_input.label):
             msg = _("\"{0}\" is not a valid label.").format(user_input.label)
+            message_dialogs.ErrorDialog(self, msg)
+            return False
+
+        if self.pass_entry.get_text() != self.pass2_entry.get_text():
+            msg = _("Provided passphrases do not match.")
             message_dialogs.ErrorDialog(self, msg)
             return False
 

@@ -549,15 +549,36 @@ class AddDialogTest(unittest.TestCase):
                                [free_device], self.supported_raids, self.supported_fs, [])
 
         min_size = add_dialog.size_areas[0][0].min_size # device minimal size before update
-        # check the encrypt check, passphrase entry should be visible and 2 MiB should be added to device min size
+        # check the encrypt check, passphrase entries should be visible and 2 MiB should be added to device min size
         add_dialog.encrypt_check.set_active(True)
         self.assertTrue(add_dialog.pass_entry.get_visible())
+        self.assertTrue(add_dialog.pass2_entry.get_visible())
         self.assertEqual(add_dialog.size_areas[0][0].min_size, min_size + Size("2 MiB"))
 
-        # check the encrypt check, passphrase entry should be hidden and min size should be back to original min size
+        # check the encrypt check, passphrase entries should be hidden and min size should be back to original min size
         add_dialog.encrypt_check.set_active(False)
         self.assertFalse(add_dialog.pass_entry.get_visible())
+        self.assertFalse(add_dialog.pass2_entry.get_visible())
         self.assertEqual(add_dialog.size_areas[0][0].min_size, min_size)
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_passphrase_entry(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device], self.supported_raids, self.supported_fs, [])
+
+        add_dialog.encrypt_check.set_active(True)
+
+        # passphrases don't match -> error icon
+        add_dialog.pass_entry.set_text("aa")
+        add_dialog.pass2_entry.set_text("bb")
+        self.assertEqual(add_dialog.pass2_entry.get_icon_name(Gtk.EntryIconPosition.SECONDARY), "dialog-error-symbolic.symbolic")
+
+        # passphrases match -> ok icon
+        add_dialog.pass2_entry.set_text("aa")
+        self.assertEqual(add_dialog.pass2_entry.get_icon_name(Gtk.EntryIconPosition.SECONDARY), "emblem-ok-symbolic.symbolic")
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     def test_md_type(self):
@@ -678,11 +699,20 @@ class AddDialogTest(unittest.TestCase):
         add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
                                [free_device], self.supported_raids, self.supported_fs, [])
 
-        # passphrase specified
+        # passphrases specified and matches
         add_dialog.encrypt_check.set_active(True)
         add_dialog.pass_entry.set_text("aaaaa")
+        add_dialog.pass2_entry.set_text("aaaaa")
         add_dialog.validate_user_input()
-        self.assertFalse(self.error_dialog.called) # passphrase specified --> no error
+        self.assertFalse(self.error_dialog.called) # passphrases specified and matches --> no error
+        self.error_dialog.reset_mock()
+
+        # passphrases specified but don't matche
+        add_dialog.encrypt_check.set_active(True)
+        add_dialog.pass_entry.set_text("aaaaa")
+        add_dialog.pass2_entry.set_text("bbbb")
+        add_dialog.validate_user_input()
+        self.error_dialog.assert_any_call(add_dialog, "Provided passphrases do not match.")
         self.error_dialog.reset_mock()
 
         # no passphrase specified
