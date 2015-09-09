@@ -155,7 +155,9 @@ class BlivetUtils(object):
 
     def __init__(self, kickstart=False, test_run=False):
 
-        if kickstart:
+        self.kickstart = kickstart
+
+        if self.kickstart:
             self.ksparser = pykickstart.parser.KickstartParser(makeVersion())
             self.storage = blivet.Blivet(ksdata=self.ksparser.handler)
         else:
@@ -513,6 +515,10 @@ class BlivetUtils(object):
         """
 
         actions = []
+
+        # in kickstart mode set formats to non-existing to be able to remove them
+        if self.kickstart and blivet_device.format.type:
+            blivet_device.format.exists = False
 
         if isinstance(blivet_device, RawFormatDevice):
             # raw device, not going to delete device but destroy disk format instead
