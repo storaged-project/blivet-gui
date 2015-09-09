@@ -153,7 +153,7 @@ class BlivetUtils(object):
     """ Class with utils directly working with blivet itselves
     """
 
-    def __init__(self, kickstart=False, test_run=False):
+    def __init__(self, kickstart=False):
 
         self.kickstart = kickstart
 
@@ -163,11 +163,10 @@ class BlivetUtils(object):
         else:
             self.storage = blivet.Blivet()
 
-        if not test_run:
-            self.blivet_logfile, self.program_logfile = self.set_logging()
+        self.blivet_logfile, self.program_logfile = self.set_logging()
 
-            self.storage.reset()
-            self._update_min_sizes_info()
+        self.storage.reset()
+        self._update_min_sizes_info()
 
     def set_logging(self):
         """ Set logging for blivet-gui-daemon process
