@@ -130,7 +130,7 @@ class ConfirmDialog(object):
 
         return response == Gtk.ResponseType.OK
 
-def show_actions_list(scrolledwindow, treestore_actions, win_width, win_height):
+def show_actions_list(treestore_actions):
     builder = Gtk.Builder()
     builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
@@ -138,11 +138,11 @@ def show_actions_list(scrolledwindow, treestore_actions, win_width, win_height):
     treeview_actions.set_model(treestore_actions)
     treeview_actions.expand_all()
 
-    scrolledwindow.add(treeview_actions)
+    return treeview_actions
 
-    # add scrollbars when there is too many actions
-    width = treeview_actions.size_request().width
-    height = treeview_actions.size_request().height
+def adjust_actions_list(scrolledwindow, win_width, win_height):
+    width = scrolledwindow.size_request().width
+    height = scrolledwindow.size_request().height
 
     if width < win_width and height < win_height:
         scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
@@ -173,8 +173,16 @@ class ConfirmActionsDialog(object):
 
         win_width = int(parent_window.get_allocated_width()*0.60)
         win_height = int(parent_window.get_allocated_height()*0.60)
-        show_actions_list(scrolledwindow, treestore_actions, win_width, win_height)
+
+        treeview_actions = show_actions_list(treestore_actions)
+        scrolledwindow.add(treeview_actions)
+
+        adjust_actions_list(scrolledwindow, win_width, win_height)
+
         self.dialog.show_all()
+
+        # yes, it is neccessary to call this twice, don't know why, just some Gtk magic
+        adjust_actions_list(scrolledwindow, win_width, win_height)
 
     def run(self):
         """ Run the dialog
@@ -203,8 +211,16 @@ class ShowActionsDialog(object):
 
         win_width = int(parent_window.get_allocated_width()*0.60)
         win_height = int(parent_window.get_allocated_height()*0.60)
-        show_actions_list(scrolledwindow, treestore_actions, win_width, win_height)
+
+        treeview_actions = show_actions_list(treestore_actions)
+        scrolledwindow.add(treeview_actions)
+
+        adjust_actions_list(scrolledwindow, win_width, win_height)
+
         self.dialog.show_all()
+
+        # yes, it is neccessary to call this twice, don't know why, just some Gtk magic
+        adjust_actions_list(scrolledwindow, win_width, win_height)
 
     def run(self):
         """ Run the dialog
