@@ -33,12 +33,25 @@ import meh.handler
 import meh.dump
 import meh.ui.gui
 
+import traceback
+
 import atexit
 
 #------------------------------------------------------------------------------#
 
 APP_NAME='blivet-gui'
 APP_VERSION='1.0'
+
+#------------------------------------------------------------------------------#
+
+class BlivetGUIExceptionDump(meh.dump.ExceptionDump):
+
+    @property
+    def desc(self):
+        if self.type and self.value:
+            return traceback.format_exception_only(self.type, self.value)[0].split("\nTraceback")[0].strip()
+        else:
+            return ""
 
 #------------------------------------------------------------------------------#
 
@@ -90,7 +103,7 @@ def set_python_meh(log_files):
 
     intf = meh.ui.gui.GraphicalIntf()
 
-    handler = meh.handler.ExceptionHandler(config, intf, meh.dump.ExceptionDump)
+    handler = meh.handler.ExceptionHandler(config, intf, BlivetGUIExceptionDump)
 
     return handler
 
