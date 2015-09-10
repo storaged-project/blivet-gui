@@ -172,7 +172,7 @@ class ListPartitions(object):
 
         else:
             if device.type == "partition" and device.isExtended:
-                return device.resizable and device.maxSize > device.size
+                return device.resizable and (device.maxSize > device.size or device.minSize < device.size)
 
             elif self.kickstart_mode:
                 return device.format.mountable

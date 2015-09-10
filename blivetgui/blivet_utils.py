@@ -612,8 +612,9 @@ class BlivetUtils(object):
                                       max_size=blivet_device.size)
 
         elif not blivet_device.format.type:
-            if blivet_device.type == "partition" and blivet_device.isExtended and blivet_device.maxSize > blivet_device.size:
-                return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.size,
+            if blivet_device.type == "partition" and blivet_device.isExtended and (blivet_device.maxSize > blivet_device.size
+             or blivet_device.minSize < blivet_device.size):
+                return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.minSize,
                                           max_size=blivet_device.maxSize)
             else:
                 return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
