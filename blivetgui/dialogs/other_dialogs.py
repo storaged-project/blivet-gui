@@ -29,6 +29,7 @@ gi.require_version("GdkPixbuf", "2.0")
 from gi.repository import Gtk, GdkPixbuf
 
 from blivetgui.gui_utils import locate_ui_file
+from .helpers import adjust_scrolled_size
 
 from ..i18n import _
 
@@ -169,7 +170,7 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
                              Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
-
+        self.set_resizable(False)
         self.set_border_width(10)
 
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
@@ -177,10 +178,16 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
         box = self.get_content_area()
         box.add(self.grid)
 
-        self.disks_store = self.add_device_list()
+        self.disks_store, scrolledwindow = self.add_device_list()
         self.boot_check, self.boot_device_combo = self.add_bootloader_chooser()
 
+        screen = self.parent_window.get_screen()
+        adjust_scrolled_size(scrolledwindow, screen.get_width()*0.5, screen.get_height()*0.5)
+
         self.show_all()
+
+        # yes, it is neccessary to call this twice, don't know why, just some Gtk magic
+        adjust_scrolled_size(scrolledwindow, screen.get_width()*0.5, screen.get_height()*0.5)
 
     def add_device_list(self):
 
@@ -217,10 +224,13 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
         label_list = Gtk.Label(label=_("Please select at least one of shown devices:"), xalign=1)
         label_list.get_style_context().add_class("dim-label")
 
-        self.grid.attach(label_list, 0, 1, 1, 1)
-        self.grid.attach(disks_view, 0, 2, 4, 2)
+        scrolledwindow = Gtk.ScrolledWindow()
+        scrolledwindow.add(disks_view)
 
-        return disks_store
+        self.grid.attach(label_list, 0, 1, 1, 1)
+        self.grid.attach(scrolledwindow, 0, 2, 4, 2)
+
+        return disks_store, scrolledwindow
 
     def on_cell_toggled(self, _event, path):
         self.disks_store[path][1] = not self.disks_store[path][1]
