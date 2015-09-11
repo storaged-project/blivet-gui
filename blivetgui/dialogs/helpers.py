@@ -26,12 +26,45 @@ import os
 
 from ..i18n import _
 
+import gi
+gi.require_version("Gtk", "3.0")
+
+from gi.repository import Gtk
+
 from blivet.devices.btrfs import BTRFSDevice
 from blivet.devices.lvm import  LVMVolumeGroupDevice, LVMLogicalVolumeDevice
 
 from blivet.tasks.fslabeling import Ext2FSLabeling, FATFSLabeling, JFSLabeling, ReiserFSLabeling, XFSLabeling, NTFSLabeling
 
 #------------------------------------------------------------------------------#
+
+def adjust_scrolled_size(scrolledwindow, width_limit, height_limit):
+    """ Adjust size of Gtk.ScrolledWindow -- show scrollbars only when its size
+        would be bigger than limits
+
+        :param scrolledwindow: Gtk.ScrolledWindow
+        :type scrolledwindow: Gtk.ScrolledWindow
+        :param width_limit: width limit px
+        :type width_limit: int
+        :param height_limit: height limit in px
+        :type height_limit: int
+
+    """
+
+    width = scrolledwindow.size_request().width
+    height = scrolledwindow.size_request().height
+
+    if width < width_limit and height < height_limit:
+        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+    elif width < width_limit and height >= height_limit:
+        scrolledwindow.set_size_request(width, height_limit)
+        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+    elif width >= width_limit and height < height_limit:
+        scrolledwindow.set_size_request(width_limit, height)
+        scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+    else:
+        scrolledwindow.set_size_request(width_limit, height_limit)
+        scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
 def is_name_valid(device_type, name):
     if device_type in ("lvmvg", "lvm"):

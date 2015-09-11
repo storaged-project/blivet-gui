@@ -28,6 +28,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from blivetgui.gui_utils import locate_ui_file
+from .helpers import adjust_scrolled_size
 
 from ..i18n import _
 
@@ -140,22 +141,6 @@ def show_actions_list(treestore_actions):
 
     return treeview_actions
 
-def adjust_actions_list(scrolledwindow, win_width, win_height):
-    width = scrolledwindow.size_request().width
-    height = scrolledwindow.size_request().height
-
-    if width < win_width and height < win_height:
-        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
-    elif width < win_width and height >= win_height:
-        scrolledwindow.set_size_request(width, win_height)
-        scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-    elif width >= win_width and height < win_height:
-        scrolledwindow.set_size_request(win_width, height)
-        scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
-    else:
-        scrolledwindow.set_size_request(win_width, win_height)
-        scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-
 class ConfirmActionsDialog(object):
     """ Confirm execute actions
     """
@@ -177,12 +162,12 @@ class ConfirmActionsDialog(object):
         treeview_actions = show_actions_list(treestore_actions)
         scrolledwindow.add(treeview_actions)
 
-        adjust_actions_list(scrolledwindow, win_width, win_height)
+        adjust_scrolled_size(scrolledwindow, win_width, win_height)
 
         self.dialog.show_all()
 
         # yes, it is neccessary to call this twice, don't know why, just some Gtk magic
-        adjust_actions_list(scrolledwindow, win_width, win_height)
+        adjust_scrolled_size(scrolledwindow, win_width, win_height)
 
     def run(self):
         """ Run the dialog
@@ -215,12 +200,12 @@ class ShowActionsDialog(object):
         treeview_actions = show_actions_list(treestore_actions)
         scrolledwindow.add(treeview_actions)
 
-        adjust_actions_list(scrolledwindow, win_width, win_height)
+        adjust_scrolled_size(scrolledwindow, win_width, win_height)
 
         self.dialog.show_all()
 
         # yes, it is neccessary to call this twice, don't know why, just some Gtk magic
-        adjust_actions_list(scrolledwindow, win_width, win_height)
+        adjust_scrolled_size(scrolledwindow, win_width, win_height)
 
     def run(self):
         """ Run the dialog
