@@ -672,6 +672,7 @@ class AddDialog(Gtk.Dialog):
             if device_type in ("lvmvg", "btrfs subvolume") or self._get_free_type() == "disks":
                 area.set_sensitive(False)
 
+        # TODO: this needs better rewrite, maybe own method
         size_area_height = size_grid.size_request().height
         size_area_width = size_grid.size_request().width
         screen_height = Gdk.Screen.get_default().get_height()
@@ -685,6 +686,9 @@ class AddDialog(Gtk.Dialog):
             areas_to_display = len(self.size_areas) - (abs(size_diff) / (size_area_height / len(self.size_areas)))
 
             if areas_to_display < 1:
+                # always display at least one size area
+
+                size_scroll.set_size_request(size_area_width, int(size_area_height/len(self.size_areas)))
                 size_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
             else:
