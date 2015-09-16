@@ -6,19 +6,19 @@ RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE) | sed -e 's|%.*$$||g'
 RELEASE_TAG=$(VERSION)-$(RELEASE)
 VERSION_TAG=$(VERSION)
 
-L10N_FILES = po
-ZANATA_PULL_ARGS = -B
-ZANATA_PUSH_ARGS = -B
+ZANATA_PULL_ARGS = --transdir ./po/
+ZANATA_PUSH_ARGS = --srcdir ./po/ --push-type source --force
 PYTHON=/usr/bin/python3
 
 all:
 	$(MAKE) -C po
 
 po-pull:
-	zanata-cli pull $(ZANATA_PULL_ARGS) -s $(L10N_FILES) -t $(L10N_FILES)
+	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: yum install zanata-python-client"; exit 1 )
+	zanata pull $(ZANATA_PULL_ARGS)
 
 po-push: potfile
-	zanata-cli push $(ZANATA_PUSH_ARGS) -s $(L10N_FILES) -t $(L10N_FILES)
+	zanata push
 
 potfile:
 	$(MAKE) -C po potfile
