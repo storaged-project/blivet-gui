@@ -68,6 +68,17 @@ archive: po-pull
 	git checkout -- po/$(APPNAME).pot
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
 
+local: po-pull
+	@rm -f ChangeLog
+	@make ChangeLog
+	@rm -rf $(APPNAME)-$(VERSION).tar.gz
+	@rm -rf /tmp/$(APPNAME)-$(VERSION) /tmp/$(APPNAME)
+	@dir=$$PWD; cp -a $$dir /tmp/$(APPNAME)-$(VERSION)
+	@cd /tmp/$(APPNAME)-$(VERSION) ; $(PYTHON) setup.py -q sdist
+	@cp /tmp/$(APPNAME)-$(VERSION)/dist/$(APPNAME)-$(VERSION).tar.gz .
+	@rm -rf /tmp/$(APPNAME)-$(VERSION)
+	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
+
 bumpver:
 	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 3` + 1)) ; \
 	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,2,4` ; \
