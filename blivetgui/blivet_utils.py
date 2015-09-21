@@ -302,7 +302,7 @@ class BlivetUtils(object):
         """ Get luks device based on underlying partition
         """
 
-        if not blivet_device.format or blivet_device.format.type != "luks" or not blivet_device.format.status:
+        if not blivet_device.format or blivet_device.format.type != "luks":
             return None
         if blivet_device.kids != 1:
             return None

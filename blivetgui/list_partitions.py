@@ -77,7 +77,7 @@ class ListPartitions(object):
                     new_child = self.blivet_gui.client.remote_call("get_group_device", child)
                     self._add_to_store(new_child, None)
 
-                elif child.format and child.format.type == "luks" and child.format.status:
+                elif child.format and child.format.type == "luks" and child.kids:
                     new_child = self.blivet_gui.client.remote_call("get_luks_device", child)
                     self._add_to_store(new_child, None)
 
