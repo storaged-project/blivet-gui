@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 1.0
+Version: 1.1
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -16,7 +16,7 @@ BuildRequires: libappstream-glib
 Requires: python3
 Requires: pygobject3
 Requires: gettext
-Requires: python3-blivet >= 1:1.10
+Requires: python3-blivet >= 1:1.14
 Requires: gtk3
 Requires: gnome-icon-theme
 Requires: polkit-gnome
@@ -68,6 +68,22 @@ fi
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Wed Sep 23 2015 Vojtech Trefny <vtrefny@redhat.com> - 1.1-1
+- Fix make bumpver to work with 1.x versions (vtrefny)
+- Fix finished actions visualisation in processing window (vtrefny)
+- Remove MANIFEST file from git (vtrefny)
+- Fix visualization for non-existing encrypted partitions (vtrefny)
+- Add "local" target to Makefile (vtrefny)
+- Use zanata-python-client instead of zanata-cli (vtrefny)
+- AddDialog: Always display at least one size area (vtrefny)
+- Fix max size of KickstartSelectDevicesDialog (vtrefny)
+- Fix dialogs with actions list height (vtrefny)
+- Allow shrinking extended partitions (vtrefny)
+- Fix bug description when reporting using python-meh (vtrefny)
+- AddDialog: Add a second passphrase entry for verification (vtrefny)
+- Remove obsolete test run mode from BlivetUtils (vtrefny)
+- Allow deleting of active formats in kickstart mode (vtrefny)
+
 * Wed Sep 02 2015 Vojtech Trefny <vtrefny@redhat.com> - 1.0-1
 - Update man page (vtrefny)
 - Add AppData validation to spec file (vtrefny)

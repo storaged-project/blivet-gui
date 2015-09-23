@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-02 10:54+0200\n"
+"POT-Creation-Date: 2015-09-23 11:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 msgid "<b>All queued actions have been processed.</b>"
 msgstr ""
 
-#: ../blivetgui/processing_window.py:153
+#: ../blivetgui/processing_window.py:154
 #, python-brace-format
 msgid ""
 "<b>Proccessing action {num} of {total}</b>:\n"
@@ -68,12 +68,12 @@ msgstr ""
 msgid "free space"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:547
+#: ../blivetgui/blivet_utils.py:552
 #, python-brace-format
 msgid "Failed to remove device {name}. Are you sure it's not in use?"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:619
+#: ../blivetgui/blivet_utils.py:625
 msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr ""
 
@@ -203,12 +203,12 @@ msgstr ""
 msgid "Volume size:"
 msgstr ""
 
-#: ../blivetgui/dialogs/helpers.py:77 ../blivetgui/dialogs/add_dialog.py:1002
+#: ../blivetgui/dialogs/helpers.py:110 ../blivetgui/dialogs/add_dialog.py:1026
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr ""
 
-#: ../blivetgui/dialogs/helpers.py:84
+#: ../blivetgui/dialogs/helpers.py:117
 #, python-brace-format
 msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr ""
@@ -242,17 +242,17 @@ msgid "Format?:"
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:157
-#: ../blivetgui/dialogs/add_dialog.py:747
+#: ../blivetgui/dialogs/add_dialog.py:751
 msgid "Filesystem:"
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:171
-#: ../blivetgui/dialogs/add_dialog.py:786
+#: ../blivetgui/dialogs/add_dialog.py:790
 msgid "Label:"
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:185
-#: ../blivetgui/dialogs/add_dialog.py:807
+#: ../blivetgui/dialogs/add_dialog.py:811
 msgid "Mountpoint:"
 msgstr ""
 
@@ -316,23 +316,23 @@ msgstr ""
 msgid "Currently is possible to remove only one parent at time."
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:48
+#: ../blivetgui/dialogs/other_dialogs.py:49
 msgid "translator-credits"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:167
+#: ../blivetgui/dialogs/other_dialogs.py:168
 msgid "Select devices"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:217
+#: ../blivetgui/dialogs/other_dialogs.py:224
 msgid "Please select at least one of shown devices:"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:230
+#: ../blivetgui/dialogs/other_dialogs.py:240
 msgid "Install bootloader?:"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:238
+#: ../blivetgui/dialogs/other_dialogs.py:248
 msgid "Device to install bootloader:"
 msgstr ""
 
@@ -369,7 +369,7 @@ msgstr ""
 #. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:278
 #: ../blivetgui/dialogs/add_dialog.py:294
-#: ../blivetgui/dialogs/add_dialog.py:719
+#: ../blivetgui/dialogs/add_dialog.py:723
 #: ../blivetgui/dialogs/device_info_dialog.py:78
 msgid "Partition"
 msgstr ""
@@ -445,53 +445,70 @@ msgstr ""
 msgid "Partitions"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:713
+#: ../blivetgui/dialogs/add_dialog.py:717
 msgid "MDArray type:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:720
+#: ../blivetgui/dialogs/add_dialog.py:724
 msgid "LVM Physical Volume"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:795
+#: ../blivetgui/dialogs/add_dialog.py:799
 msgid "Name:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:819
+#: ../blivetgui/dialogs/add_dialog.py:823
 msgid "Encrypt:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:828 tmp/luks_passphrase_dialog.ui.h:3
+#: ../blivetgui/dialogs/add_dialog.py:832 tmp/luks_passphrase_dialog.ui.h:3
 msgid "Passphrase:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:984
-msgid "Filesystem type must be specified when creating new partition."
+#: ../blivetgui/dialogs/add_dialog.py:841
+msgid "Repeat Passphrase:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:990
-msgid "Filesystem type must be specified when creating new logical volume."
+#: ../blivetgui/dialogs/add_dialog.py:849
+#: ../blivetgui/dialogs/add_dialog.py:921
+msgid "Passphrases don't match."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:996
-msgid "Passphrase not specified."
+#: ../blivetgui/dialogs/add_dialog.py:918
+msgid "Passphrases match."
 msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:1008
-msgid "Please select at least two parent devices."
+msgid "Filesystem type must be specified when creating new partition."
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1014
+msgid "Filesystem type must be specified when creating new logical volume."
 msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:1020
+msgid "Passphrase not specified."
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1032
+msgid "Please select at least two parent devices."
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1044
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1025
+#: ../blivetgui/dialogs/add_dialog.py:1049
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
 msgstr ""
 
-#: ../blivetgui/dialogs/message_dialogs.py:200
+#: ../blivetgui/dialogs/add_dialog.py:1054
+msgid "Provided passphrases do not match."
+msgstr ""
+
+#: ../blivetgui/dialogs/message_dialogs.py:193
 msgid "There are no pending actions."
 msgstr ""
 
