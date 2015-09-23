@@ -80,8 +80,8 @@ local: po-pull
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
 
 bumpver:
-	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 3` + 1)) ; \
-	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,2,4` ; \
+	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
+	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
 	DATELINE="* `LANG="en_US" date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
 	cl=`grep -n %changelog blivet-gui.spec |cut -d : -f 1` ; \
 	tail --lines=+$$(($$cl + 1)) blivet-gui.spec > speclog ; \
