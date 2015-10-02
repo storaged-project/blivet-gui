@@ -41,6 +41,7 @@ class WarningDialog(object):
     def __init__(self, parent_window, msg):
 
         builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file('warning_dialog.ui'))
         dialog = builder.get_object("warning_dialog")
 
@@ -58,6 +59,7 @@ class ErrorDialog(object):
     def __init__(self, parent_window, msg):
 
         builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file('error_dialog.ui'))
         dialog = builder.get_object("error_dialog")
 
@@ -75,6 +77,7 @@ class InfoDialog(object):
     def __init__(self, parent_window, msg):
 
         builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file('info_dialog.ui'))
         dialog = builder.get_object("info_dialog")
 
@@ -92,6 +95,7 @@ class ExceptionDialog(object):
     def __init__(self, parent_window, msg, traceback):
 
         builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file('exception_dialog.ui'))
         dialog = builder.get_object("exception_dialog")
 
@@ -112,6 +116,7 @@ class ConfirmDialog(object):
     def __init__(self, parent_window, title, msg):
 
         builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file('confirm_dialog.ui'))
         self.dialog = builder.get_object("confirm_dialog")
 
@@ -133,6 +138,7 @@ class ConfirmDialog(object):
 
 def show_actions_list(treestore_actions):
     builder = Gtk.Builder()
+    builder.set_translation_domain("blivet-gui")
     builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
     treeview_actions = builder.get_object("treeview_actions")
@@ -147,6 +153,7 @@ class ConfirmActionsDialog(object):
 
     def __init__(self, parent_window, title, msg, treestore_actions):
         builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file("confirm_actions_dialog.ui"))
         self.dialog = builder.get_object("confirm_actions_dialog")
 
@@ -184,6 +191,7 @@ class ShowActionsDialog(object):
 
     def __init__(self, parent_window, treestore_actions):
         builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file("show_actions_dialog.ui"))
         self.dialog = builder.get_object("show_actions_dialog")
 
