@@ -42,6 +42,7 @@ class AboutDialog(object):
     def __init__(self, parent_window, version):
 
         builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file('about_dialog.ui'))
         dialog = builder.get_object("about_dialog")
 
@@ -66,6 +67,7 @@ class AddLabelDialog(object):
         """
 
         builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file('add_disklabel_dialog.ui'))
         self.dialog = builder.get_object("dialog")
         self.pttype_combo = builder.get_object("pttype_combo")
@@ -103,6 +105,7 @@ class LuksPassphraseDialog(object):
         """
 
         builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file('luks_passphrase_dialog.ui'))
         self.dialog = builder.get_object("dialog")
 
@@ -129,6 +132,7 @@ class KickstartFileSaveDialog(object):
     def __init__(self, parent_window):
 
         builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file('kickstart_filesave_dialog.ui'))
         self.dialog = builder.get_object("kickstart_filesave_dialog")
 

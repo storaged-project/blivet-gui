@@ -68,6 +68,7 @@ class BlivetGUI(object):
         self.kickstart_mode = kickstart_mode
 
         self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("blivet-gui")
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
         ### MainWindow
