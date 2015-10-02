@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 1.0.0
+Version: 1.0.1
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -68,6 +68,17 @@ fi
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Fri Oct 02 2015 Vojtech Trefny <vtrefny@redhat.com> - 1.0.1-1
+- Set translation domain for glade files (#1268264)
+- AddDialog: Always display at least one size area
+- Fix max size of KickstartSelectDevicesDialog
+- Fix dialogs with actions list height
+- Fix bug description when reporting using python-meh
+- Allow deleting of active formats in kickstart mode
+- Require newest f23 version of blivet
+- New translate branch on Zanata
+- New version 1.0
+
 * Wed Sep 02 2015 Vojtech Trefny <vtrefny@redhat.com> - 1.0-1
 - Update man page (vtrefny)
 - Add AppData validation to spec file (vtrefny)
