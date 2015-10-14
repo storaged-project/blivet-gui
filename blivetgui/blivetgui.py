@@ -47,6 +47,7 @@ from .i18n import _
 from .gui_utils import locate_ui_file
 from .dialogs import message_dialogs, other_dialogs, edit_dialog, add_dialog, device_info_dialog
 from .processing_window import ProcessingActions
+from .loading_window import LoadingWindow
 
 import threading
 import os
@@ -77,7 +78,8 @@ class BlivetGUI(object):
 
         ### BlivetUtils
         self.client = BlivetGUIClient(self, self.server_socket, self.secret)
-        ret = self.client.remote_control("init", self.kickstart_mode)
+        dialog = LoadingWindow(self.main_window)
+        ret = self.blivet_init(dialog)
 
         if not ret.success: # pylint: disable=maybe-no-member
             msg = _("blivet-gui is already running.")
@@ -663,6 +665,26 @@ class BlivetGUI(object):
         dialog.run()
 
         return True
+
+    def blivet_init(self, dialog):
+        """ Perform queued actions
+        """
+
+        ret = []
+
+        def end():
+            dialog.stop()
+
+        def do_it(ret):
+            ret.append(self.client.remote_control("init", self.kickstart_mode))
+            GLib.idle_add(end)
+
+        thread = threading.Thread(target=do_it, args=(ret,))
+        thread.start()
+        dialog.start()
+        thread.join()
+
+        return ret[0]
 
     def reload(self, _widget=None):
         """ Reload storage information
