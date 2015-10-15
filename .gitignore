@@ -24,3 +24,5 @@ blivet-gui*.tar.bz2
 doc/_build
 
 .directory
+
+.coverage

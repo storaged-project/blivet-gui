@@ -8,7 +8,8 @@ VERSION_TAG=$(VERSION)
 
 ZANATA_PULL_ARGS = --transdir ./
 ZANATA_PUSH_ARGS = --srcdir ./ --push-type source --force
-PYTHON=/usr/bin/python3
+PYTHON=python3
+COVERAGE=coverage3
 
 all:
 	$(MAKE) -C po
@@ -26,6 +27,11 @@ potfile:
 test:
 	@echo "*** Running unittests ***"
 	PYTHONPATH=.:tests/ python3 -m unittest discover -v -s tests/ -p '*_test.py'
+
+coverage:
+	@echo "*** Running unittests with $(COVERAGE) for $(PYTHON) ***"
+	PYTHONPATH=.:tests/ $(COVERAGE) run --branch -m unittest discover -v -s tests/ -p '*_test.py'
+	$(COVERAGE) report --include="blivetgui/*" --show-missing
 
 check:
 	PYTHONPATH=. tests/pylint/runpylint.py
