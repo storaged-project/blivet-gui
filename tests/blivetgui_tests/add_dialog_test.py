@@ -6,6 +6,8 @@ from unittest.mock import Mock, MagicMock, patch
 from blivetgui.dialogs.size_chooser import SizeChooserArea, SUPPORTED_UNITS
 from blivetgui.dialogs.add_dialog import AdvancedOptions, AddDialog
 
+from blivetgui.i18n import _
+
 import os
 
 import gi
@@ -643,7 +645,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(all(widget.get_sensitive() for widget in add_dialog.free_type_chooser))
 
         ## partitions should be selected by default and size chooser should be sensitive
-        self.assertEqual(add_dialog.free_type_chooser[2].get_label(), "Partitions") # just to make sure we are testing right button
+        self.assertEqual(add_dialog.free_type_chooser[2].get_label(), _("Partitions")) # just to make sure we are testing right button
         self.assertTrue(add_dialog.free_type_chooser[2].get_active())
         self.assertTrue(add_dialog.size_areas[0][0].get_sensitive())
 
@@ -666,7 +668,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertFalse(all(widget.get_sensitive() for widget in add_dialog.free_type_chooser))
 
         ## partitions should be selected by default and size chooser should be sensitive
-        self.assertEqual(add_dialog.free_type_chooser[2].get_label(), "Partitions") # just to make sure we are testing right button
+        self.assertEqual(add_dialog.free_type_chooser[2].get_label(), _("Partitions")) # just to make sure we are testing right button
         self.assertTrue(add_dialog.free_type_chooser[2].get_active())
         self.assertTrue(add_dialog.size_areas[0][0].get_sensitive())
 
@@ -686,7 +688,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertFalse(all(widget.get_sensitive() for widget in add_dialog.free_type_chooser))
 
         ## disks should be selected by default and size chooser should be insensitive
-        self.assertEqual(add_dialog.free_type_chooser[1].get_label(), "Disks") # just to make sure we are testing right button
+        self.assertEqual(add_dialog.free_type_chooser[1].get_label(), _("Disks")) # just to make sure we are testing right button
         self.assertTrue(add_dialog.free_type_chooser[1].get_active())
         self.assertFalse(add_dialog.size_areas[0][0].get_sensitive())
 
@@ -712,14 +714,14 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.pass_entry.set_text("aaaaa")
         add_dialog.pass2_entry.set_text("bbbb")
         add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, "Provided passphrases do not match.")
+        self.error_dialog.assert_any_call(add_dialog, _("Provided passphrases do not match."))
         self.error_dialog.reset_mock()
 
         # no passphrase specified
         add_dialog.encrypt_check.set_active(True)
         add_dialog.pass_entry.set_text("")
         add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, "Passphrase not specified.")
+        self.error_dialog.assert_any_call(add_dialog, _("Passphrase not specified."))
         self.error_dialog.reset_mock()
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
@@ -741,14 +743,14 @@ class AddDialogTest(unittest.TestCase):
         mnt = "home"
         add_dialog.mountpoint_entry.set_text(mnt)
         add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, "\"%s\" is not a valid mountpoint." % mnt)
+        self.error_dialog.assert_any_call(add_dialog, _("\"{0}\" is not a valid mountpoint.").format(mnt))
         self.error_dialog.reset_mock()
 
         # duplicate mountpoint
         mnt = "/root"
         add_dialog.mountpoint_entry.set_text(mnt)
         add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, "Selected mountpoint \"%s\" is already set for another device." % mnt)
+        self.error_dialog.assert_any_call(add_dialog, _("Selected mountpoint \"{0}\" is already set for another device.").format(mnt))
         self.error_dialog.reset_mock()
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
@@ -773,7 +775,7 @@ class AddDialogTest(unittest.TestCase):
         name = "?*#%@"
         add_dialog.name_entry.set_text(name)
         add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, "\"%s\" is not a valid name." % name)
+        self.error_dialog.assert_any_call(add_dialog, _("\"{0}\" is not a valid name.").format(name))
         self.error_dialog.reset_mock()
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)

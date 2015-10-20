@@ -5,6 +5,8 @@ from unittest.mock import MagicMock, patch
 
 from blivetgui.dialogs.edit_dialog import PartitionEditDialog
 
+from blivetgui.i18n import _
+
 from blivet.size import Size
 
 import os
@@ -124,7 +126,7 @@ class PartitionEditDialogTest(unittest.TestCase):
         dialog.fslabel_entry.set_text(label)
 
         dialog.validate_user_input()
-        self.error_dialog.assert_any_call(dialog, "\"%s\" is not a valid label." % label)
+        self.error_dialog.assert_any_call(dialog, _("\"{label}\" is not a valid label.").format(label=label))
         self.error_dialog.reset_mock()
 
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
@@ -142,7 +144,7 @@ class PartitionEditDialogTest(unittest.TestCase):
         mnt = "home"
         dialog.mountpoint_entry.set_text(mnt)
         dialog.validate_user_input()
-        self.error_dialog.assert_any_call(dialog, "\"%s\" is not a valid mountpoint." % mnt)
+        self.error_dialog.assert_any_call(dialog, _("\"{0}\" is not a valid mountpoint.").format(mnt))
         self.error_dialog.reset_mock()
 
         # duplicate mountpoint
