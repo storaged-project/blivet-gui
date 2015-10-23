@@ -82,11 +82,14 @@ class BlivetGUI(object):
         ret = self.blivet_init(dialog)
 
         if not ret.success: # pylint: disable=maybe-no-member
-            msg = _("blivet-gui is already running.")
+            if ret.reason == "running":
+                msg = _("blivet-gui is already running.")
 
-            self.show_error_dialog(msg)
-            self.client.quit()
-            sys.exit(1)
+                self.show_error_dialog(msg)
+                self.client.quit()
+                sys.exit(1)
+            else:
+                self._reraise_exception(ret.exception, ret.traceback)
 
         ### Logging
         blivetgui_logfile, self.log = set_logging(component="blivet-gui")

@@ -277,15 +277,18 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
             raise RuntimeError("Server already received request for initialization.")
 
         if self.server.other_running: # pylint: disable=no-member
-            exc = RuntimeError("Another instance of blivet-gui-daemon is already running.")
-            answer = ProxyDataContainer(success=False, exception=exc)
+            answer = ProxyDataContainer(success=False, reason="running")
 
         else:
             args = self._args_convertTo_objects(data[2])
 
-            self.blivet_utils = BlivetUtils(*args)
-
-            answer = ProxyDataContainer(success=True)
+            try:
+                self.blivet_utils = BlivetUtils(*args)
+            except Exception as e: # pylint: disable=broad-except
+                answer = ProxyDataContainer(success=False, reason="exception", exception=e,
+                                            traceback=traceback.format_exc())
+            else:
+                answer = ProxyDataContainer(success=True)
 
         pickled_answer = self._pickle_answer(answer)
 
