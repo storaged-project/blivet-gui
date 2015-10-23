@@ -68,6 +68,7 @@ Rectangle:checked GtkLabel {
 
 Rectangle#root-device:checked {
   background-color: @theme_bg_color;
+  border-color: @theme_fg_color;
 }
 
 Rectangle#child-valid-inner {
@@ -92,8 +93,8 @@ Rectangle#child-invalid-inner {
   background-color: @theme_bg_color;
   background-image: url("../img/line.png");
   background-repeat: space;
-  border-top: 2px solid @theme_text_color;
-  border-bottom: 2px solid @theme_text_color;
+  border-top: 2px solid @theme_fg_color;
+  border-bottom: 2px solid @theme_fg_color;
   border-left: none;
   border-right: 1px solid @borders;
   border-radius: 0;
@@ -103,9 +104,9 @@ Rectangle#child-invalid-first {
   background-color: @theme_bg_color;
   background-image: url("../img/line.png");
   background-repeat: space;
-  border-top: 2px solid @theme_text_color;
-  border-bottom: 2px solid @theme_text_color;
-  border-left: 2px solid @theme_text_color;
+  border-top: 2px solid @theme_fg_color;
+  border-bottom: 2px solid @theme_fg_color;
+  border-left: 2px solid @theme_fg_color;
   border-right: 1px solid @borders;
   border-radius: 0;
 }
@@ -114,19 +115,27 @@ Rectangle#child-invalid-last {
   background-color: @theme_bg_color;
   background-image: url("../img/line.png");
   background-repeat: space;
-  border-top: 2px solid @theme_text_color;
-  border-bottom: 2px solid @theme_text_color;
-  border-right: 2px solid @theme_text_color;
+  border-top: 2px solid @theme_fg_color;
+  border-bottom: 2px solid @theme_fg_color;
+  border-right: 2px solid @theme_fg_color;
   border-left: none;
   border-radius: 0;
   color: @theme_fg_color;
 }
 
+/* PhysicalView - Labels inside rectangles */
 Rectangle#root-device:checked GtkLabel {
   color: @theme_fg_color;
 }
 
-/* Colored Gtk.Label */
-GtkLabel#dark {
+Rectangle#child-valid-inner:checked GtkLabel {
+  color: @theme_fg_color;
+}
+
+Rectangle#child-valid-first:checked GtkLabel {
+  color: @theme_fg_color;
+}
+
+Rectangle#child-valid-last:checked GtkLabel {
   color: @theme_fg_color;
 }
