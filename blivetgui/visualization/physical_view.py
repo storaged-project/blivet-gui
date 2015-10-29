@@ -133,6 +133,10 @@ class PhysicalView(object):
 
         total_size = self._get_total_device_size(treeiter)
         remaining_space = (available_width - allocated_width)
+
+        if not remaining_space:
+            return
+
         while treeiter:
             device = self._devices_list[treeiter][0]
             extra_space = int(remaining_space * (device.size.convertTo() / total_size))
