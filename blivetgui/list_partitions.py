@@ -251,6 +251,9 @@ class ListPartitions(object):
             self.selected_partition = model[treeiter]
             self.blivet_gui.logical_view.select_rectanlge(device=self.selected_partition[0])
 
+        else:
+            self.blivet_gui.deactivate_all_actions()
+
     def on_right_click_event(self, treeview, event):
         """ Right click event on partition treeview
         """

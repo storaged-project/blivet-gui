@@ -59,6 +59,10 @@ class LogicalView(object):
 
         self._clear()
         root_iter = devices_list.get_iter_first()
+
+        if not root_iter:
+            return
+
         self._visualization_loop(rect_widths, root_iter, self.hbox)
 
         self.select_rectanlge(devices_list[root_iter][0])
@@ -176,6 +180,11 @@ class LogicalView(object):
         total_size = self._get_total_device_size(treeiter)
         remaining_space = (available_width - allocated_width)
 
+        total_size = self._get_total_device_size(treeiter)
+        if total_size == 0:
+            return
+
+        remaining_space = (available_width - allocated_width)
         if not remaining_space:
             return
 
