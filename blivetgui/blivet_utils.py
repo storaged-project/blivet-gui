@@ -165,6 +165,10 @@ class BlivetUtils(object):
 
         self.blivet_logfile, self.program_logfile = self.set_logging()
 
+        # allow creating of ntfs format
+        blivet.formats.fs.NTFS._formattable = True
+        blivet.formats.fs.NTFS._supported = True
+
         self.storage.reset()
         self._update_min_sizes_info()
 
