@@ -793,9 +793,16 @@ class BlivetUtils(object):
         # non-encrypted partition -- just format the partition
         else:
             if partition_type != "extended":
-                new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem,
+                fmt_type = user_input.filesystem
+                if fmt_type == "ntfs":
+                    fmt_options = "-f"
+                else:
+                    fmt_options = ""
+
+                new_fmt = blivet.formats.getFormat(fmt_type=fmt_type,
                                                    label=user_input.label,
-                                                   mountpoint=user_input.mountpoint)
+                                                   mountpoint=user_input.mountpoint,
+                                                   createOptions=fmt_options)
                 actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
 
         return actions
@@ -816,8 +823,15 @@ class BlivetUtils(object):
                                 parents=[i[0] for i in user_input.parents])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
+        fmt_type = user_input.filesystem
+        if fmt_type == "ntfs":
+            fmt_options = "-f"
+        else:
+            fmt_options = ""
+
         new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem,
-                                           mountpoint=user_input.mountpoint)
+                                           mountpoint=user_input.mountpoint,
+                                           createOptions=fmt_options)
         actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
 
         return actions
