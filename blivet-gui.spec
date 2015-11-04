@@ -11,7 +11,6 @@ BuildRequires: desktop-file-utils
 BuildRequires: intltool
 BuildRequires: gettext
 BuildRequires: python-setuptools
-BuildRequires: python3-pocketlint >= 0.4
 BuildRequires: libappstream-glib
 Requires: python3
 Requires: pygobject3
