@@ -149,6 +149,9 @@ class ListPartitions(object):
         return device_iter
 
     def _allow_delete_device(self, device):
+        if device.protected:
+            return False
+
         if device.type in ("free space",) or not device.isleaf:
             return False
 
@@ -167,6 +170,9 @@ class ListPartitions(object):
                     return not device.format.status
 
     def _allow_edit_device(self, device):
+        if device.protected:
+            return False
+
         if device.type not in ("partition", "lvmvg", "lvmlv"):
             return False
 
@@ -188,6 +194,9 @@ class ListPartitions(object):
                     return not device.format.status
 
     def _allow_add_device(self, device):
+        if device.protected:
+            return False
+
         if device.type in ("free space", "btrfs volume", "lvmthinpool"):
             return True
 

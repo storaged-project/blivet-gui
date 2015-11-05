@@ -81,6 +81,10 @@ class RawFormatDevice(object):
         else:
             self.name = _("{0} disklabel").format(self.type)
 
+    @property
+    def protected(self):
+        return self.disk.protected
+
 #------------------------------------------------------------------------------#
 
 class FreeSpaceDevice(object):
@@ -117,7 +121,7 @@ class FreeSpaceDevice(object):
         self.isFreeSpace = True
         self.isDisk = False
 
-        self.format = DeviceFormat()
+        self.format = DeviceFormat(exists=True)
         self.type = "free space"
         self.kids = 0
         self.parents = blivet.devices.lib.ParentList(items=parents)
@@ -128,6 +132,8 @@ class FreeSpaceDevice(object):
             return self.parents[0]
         else:
             return self.parents[0].disk
+    def protected(self):
+        return self.parents[0].protected
 
     @property
     def isEmptyDisk(self):
