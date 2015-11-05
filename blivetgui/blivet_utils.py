@@ -126,12 +126,20 @@ class FreeSpaceDevice(object):
         self.kids = 0
         self.parents = blivet.devices.lib.ParentList(items=parents)
 
+        self.disk = self._get_disk()
+
+    def _get_disk(self):
+        parents = self.parents
+
+        while parents:
+            if parents[0].isDisk:
+                return parents[0]
+
+            parents = parents[0].parents
+
+        return None
+
     @property
-    def disk(self):
-        if len(self.parents) == 1 and self.parents[0].type == "disk":
-            return self.parents[0]
-        else:
-            return self.parents[0].disk
     def protected(self):
         return self.parents[0].protected
 
