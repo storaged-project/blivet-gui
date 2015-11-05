@@ -346,7 +346,8 @@ class BlivetGUI(object):
 
         if parent_device.isDisk and parent_device.format and parent_device.format.type == "disklabel":
             disk = parent_device.format.partedDisk
-            if disk.primaryPartitionCount >= disk.maxPrimaryPartitionCount:
+            selected_device = self.list_partitions.selected_partition[0]
+            if disk.primaryPartitionCount >= disk.maxPrimaryPartitionCount and selected_device.isPrimary:
                 msg = _("Disk {name} already reached maximum allowed number of primary partitions " \
                         "for {label} disklabel.").format(name=parent_device.name, label=parent_device.format.labelType)
 
