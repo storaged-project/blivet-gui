@@ -62,7 +62,8 @@ class Rectangle(Gtk.RadioButton):
                      "decrypted" : ("changes-allow-symbolic", "Encrypted device (open)"),
                      "empty" : ("radio-symbolic", "Empty device"),
                      "snapshot" : ("camera-photo-symbolic", "Snapshot"),
-                     "nodisklabel" : ("drive-harddisk-symbolic", "Missing partition table")}
+                     "nodisklabel" : ("drive-harddisk-symbolic", "Missing partition table"),
+                     "protected" : ("action-unavailable-symbolic", "Device or format is write protected")}
 
     def _add_device_icons(self):
         device_properties = self._get_device_properties()
@@ -96,5 +97,8 @@ class Rectangle(Gtk.RadioButton):
             properties.append("empty")
         if self.device.type == "free space" and self.device.isUninitializedDisk:
             properties.append("nodisklabel")
+
+        if self.device.format.exists and self.device.protected:
+            properties.append("protected")
 
         return properties
