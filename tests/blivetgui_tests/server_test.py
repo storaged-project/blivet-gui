@@ -97,12 +97,17 @@ class BlivetUtilsServerTest(unittest.TestCase):
 
 class BlivetProxyObjectTest(unittest.TestCase):
 
-    blivet_object = MagicMock()
-    obj_id = ProxyID()
-    proxy_object = BlivetProxyObject(blivet_object, obj_id)
+    @classmethod
+    def setUpClass(cls):
+        cls.blivet_object = MagicMock()
+        del cls.blivet_object.non_existing # mock non-existing attribude
+        cls.obj_id = ProxyID()
+        cls.proxy_object = BlivetProxyObject(cls.blivet_object, cls.obj_id)
 
     def test_getattr(self):
-        self.assertEqual(self.proxy_object.attr, self.blivet_object.attr)
+        self.assertEqual(self.proxy_object.existing, self.blivet_object.existing)
+        with self.assertRaises(AttributeError):
+            self.proxy_object.non_existing # pylint: disable=W0104
 
     def test_getitem(self):
         self.assertEqual(self.proxy_object["key"], self.blivet_object["key"])
