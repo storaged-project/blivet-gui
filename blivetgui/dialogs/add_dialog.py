@@ -502,7 +502,8 @@ class AddDialog(Gtk.Dialog):
             free = row[1]
 
             if dev.name == self.parent_device.name and \
-                (not self.free_device.start or self.free_device.start == free.start):
+              (not hasattr(self.free_device, "start") or not self.free_device.start or \
+               self.free_device.start == free.start):
                 row[2] = row[3] = True
 
         # TODO move selected iter at the top of the list
