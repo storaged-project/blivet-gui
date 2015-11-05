@@ -43,6 +43,25 @@ class FreeSpaceDeviceTest(unittest.TestCase):
         self.assertFalse(free.isEmptyDisk)
         self.assertFalse(free.isUninitializedDisk)
 
+    def test_free_disk(self):
+        # free space on a disk
+        disk = MagicMock(type="disk", kids=0, isDisk=True, format=MagicMock(type=None))
+        free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
+        self.assertEqual(free.disk, disk)
+
+        # free space in a vg
+        parent = MagicMock(type="lvmvg", kids=0, isDisk=False, format=MagicMock(type=None),
+                           parents=[MagicMock(type="partition", kids=1, isDisk=False, parents=[disk],
+                                    format=MagicMock(type="lvmpv"))])
+        free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[parent])
+        self.assertEqual(free.disk, disk)
+
+    def test_free_protected(self):
+        disk = MagicMock(type="disk", kids=0, isDisk=True, format=MagicMock(type=None))
+        free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
+
+        self.assertEqual(free.protected, disk.protected)
+
 class BlivetUtilsTest(unittest.TestCase):
 
     @patch("blivetgui.blivet_utils.BlivetUtils._has_snapshots", lambda device: True)
