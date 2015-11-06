@@ -24,7 +24,7 @@ class PartitionEditDialogTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.parent_window = MagicMock(spec=Gtk.Window)
-        cls.edited_device = MagicMock(size=Size("1 GiB"), format=MagicMock(mountpoint=""))
+        cls.edited_device = MagicMock(type="partition", size=Size("1 GiB"), format=MagicMock(mountpoint=""))
         cls.edited_device.configure_mock(name="vda1") # set name paremeter
         cls.resize_info = MagicMock(resizable=True, error="Not resizable.", min_size=Size("1 MiB"), max_size=Size("1 GiB"))
         cls.supported_fs = ["ext4", "xfs"]
@@ -44,6 +44,20 @@ class PartitionEditDialogTest(unittest.TestCase):
         self.assertTrue("info" in dialog.widgets_dict.keys())
 
         self.resize_info.configure_mock(resizable=True) # set mock settings back to default
+
+    @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
+    def test_formattable(self):
+        self.edited_device.configure_mock(isExtended=True)
+        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs, [])
+
+        # extended partition -- all fs widgets should be inactive
+        self.assertFalse(any(w.get_sensitive() for w in dialog.widgets_dict["fs"]))
+
+        self.edited_device.configure_mock(isExtended=False)
+        dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs, [])
+
+        # 'normal' partition -- format check should be active
+        self.assertTrue(dialog.format_check.get_sensitive())
 
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
     def test_format_check(self):
