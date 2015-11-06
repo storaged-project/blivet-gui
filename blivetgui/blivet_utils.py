@@ -30,11 +30,6 @@ from blivet.formats import DeviceFormat
 
 from  .communication.proxy_utils import ProxyDataContainer
 
-import gi
-gi.require_version("BlockDev", "1.0")
-
-from gi.overrides import BlockDev
-
 import socket, platform, re
 import traceback
 import parted
@@ -563,7 +558,7 @@ class BlivetUtils(object):
                     try:
                         parent.teardown()
 
-                    except BlockDev.CryptoError:
+                    except blivet.errors.LUKSError:
                         msg = _("Failed to remove device {name}. Are you sure it's not in use?").format(name=parent.name)
 
                         # cancel destroy action for luks device
@@ -1274,7 +1269,7 @@ class BlivetUtils(object):
         try:
             blivet_device.format.setup()
 
-        except BlockDev.CryptoError:
+        except blivet.errors.LUKSError:
             return False
 
         else:
