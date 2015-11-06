@@ -269,7 +269,6 @@ class BlivetGUI(object):
 
     def switch_device_view(self, device):
         if not (device.isDisk or device.type in ("lvmvg", "btrfs volume", "mdarray")):
-            print(device.type)
             raise ValueError
 
         self.list_devices.select_device_by_name(device.name)
