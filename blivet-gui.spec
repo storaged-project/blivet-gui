@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 1.0.1
+Version: 1.0.2
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -68,6 +68,17 @@ fi
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Mon Nov 09 2015 Vojtech Trefny <vtrefny@redhat.com> - 1.0.2-1
+- Catch blivet.errors.LUKSError instead of BlockDev.CryptoError (vtrefny)
+- Fix 'disk' attribute for FreeSpaceDevices (vtrefny)
+- Visualization: add protected icon to protected devices (vtrefny)
+- Do not allow deleting/editting protected devices (vtrefny)
+- AddDialog: fix displaying parents for MDArray PVs (vtrefny)
+- Fix check for allowed max partitions count (vtrefny)
+- Run mkfs.ntfs with '-f' option (fast formatting) (#1253013) (vtrefny)
+- Fix visualisation of group devices with 0 size (#1275815) (vtrefny)
+- Visualization: do not allocate remaing space when there is no space left (vtrefny)
+
 * Fri Oct 02 2015 Vojtech Trefny <vtrefny@redhat.com> - 1.0.1-1
 - Set translation domain for glade files (#1268264)
 - AddDialog: Always display at least one size area
