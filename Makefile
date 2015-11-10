@@ -33,8 +33,15 @@ coverage:
 	PYTHONPATH=.:tests/ $(COVERAGE) run --branch -m unittest discover -v -s tests/ -p '*_test.py'
 	$(COVERAGE) report --include="blivetgui/*" --show-missing
 
-check:
+pylint:
+	@echo "*** Running pylint ***"
 	PYTHONPATH=. tests/pylint/runpylint.py
+
+pep8:
+	@echo "*** Running pep8 compliance check ***"
+	python3-pep8 --ignore=E501 blivetgui/ tests/ blivet-gui blivet-gui-daemon
+
+check: pylint pep8
 
 clean:
 	-rm blivetgui/*.pyc blivetgui/*/*.pyc ChangeLog
@@ -104,4 +111,4 @@ rpmlog:
 	@git log --pretty="format:- %s (%ae)" $(RELEASE_TAG).. |sed -e 's/@.*)/)/'
 	@echo
 
-.PHONY: check clean install tag archive local
+.PHONY: check pep8 pylint clean install tag archive local
