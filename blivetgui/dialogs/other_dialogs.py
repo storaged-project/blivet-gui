@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -33,7 +33,8 @@ from .helpers import adjust_scrolled_size
 
 from ..i18n import _
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class AboutDialog(object):
     """ Standard 'about application' dialog
@@ -53,6 +54,7 @@ class AboutDialog(object):
         dialog.show_all()
         dialog.run()
         dialog.destroy()
+
 
 class AddLabelDialog(object):
     """ Dialog window allowing user to add disklabel to disk
@@ -92,6 +94,7 @@ class AddLabelDialog(object):
         else:
             return None
 
+
 class LuksPassphraseDialog(object):
     """ Dialog window allowing user to enter passphrase to decrypt
     """
@@ -126,6 +129,7 @@ class LuksPassphraseDialog(object):
         else:
             return None
 
+
 class KickstartFileSaveDialog(object):
     """ File choose dialog for kickstart file save
     """
@@ -150,6 +154,7 @@ class KickstartFileSaveDialog(object):
         else:
             self.dialog.destroy()
             return
+
 
 class KickstartSelectDevicesDialog(Gtk.Dialog):
     """ Dialog window allowing user to select which devices will be used in
@@ -186,12 +191,12 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
         self.boot_check, self.boot_device_combo = self.add_bootloader_chooser()
 
         screen = self.parent_window.get_screen()
-        adjust_scrolled_size(scrolledwindow, screen.get_width()*0.5, screen.get_height()*0.5)
+        adjust_scrolled_size(scrolledwindow, screen.get_width() * 0.5, screen.get_height() * 0.5)
 
         self.show_all()
 
         # yes, it is neccessary to call this twice, don't know why, just some Gtk magic
-        adjust_scrolled_size(scrolledwindow, screen.get_width()*0.5, screen.get_height()*0.5)
+        adjust_scrolled_size(scrolledwindow, screen.get_width() * 0.5, screen.get_height() * 0.5)
 
     def add_device_list(self):
 

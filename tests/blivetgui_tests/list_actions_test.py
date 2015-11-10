@@ -7,6 +7,7 @@ import os
 
 from blivetgui.list_actions import ListActions
 
+
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class ListActionsTest(unittest.TestCase):
 
@@ -54,8 +55,8 @@ class ListActionsTest(unittest.TestCase):
         self.assertEqual(pop, [action2])
         self.assertEqual(self.actions_list.actions, 1)
         self.assertEqual(len(self.actions_list.history), 1)
-        self.assertTrue([action1] in self.actions_list.history) # action1 should stay there
-        self.assertFalse([action2] in self.actions_list.history) # action2 shouldn't
+        self.assertTrue([action1] in self.actions_list.history)  # action1 should stay there
+        self.assertFalse([action2] in self.actions_list.history)  # action2 shouldn't
         self.assertTrue(self.buttons_state)
         self.assertTrue("1" in self.actions_label)
 

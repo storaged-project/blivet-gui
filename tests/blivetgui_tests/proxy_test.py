@@ -36,7 +36,7 @@ class ProxyUtilsTest(unittest.TestCase):
         self.assertEqual(container.b, "b")
 
         with self.assertRaises(AttributeError):
-            container.d # pylint: disable=W0104
+            container.d  # pylint: disable=W0104
 
 
 if __name__ == "__main__":

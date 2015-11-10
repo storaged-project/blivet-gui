@@ -20,11 +20,12 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import os
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 def locate_ui_file(filename):
     """ Locate Glade ui files
@@ -39,6 +40,7 @@ def locate_ui_file(filename):
             return filepath
 
     raise RuntimeError("Unable to find glade file %s" % filename)
+
 
 def locate_css_file(filename):
     """ Locate Glade ui files

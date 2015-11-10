@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -30,11 +30,12 @@ from gi.repository import Gtk, Gdk
 
 from .rectangle import Rectangle
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 RECT_MIN_SIZE = 100
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class LogicalView(object):
 
@@ -113,7 +114,7 @@ class LogicalView(object):
             treeiter = self._devices_list.iter_next(treeiter)
 
     def _compute_rect_widths(self):
-        allocated_width = len(self._devices_list) - 1 # spacing
+        allocated_width = len(self._devices_list) - 1  # spacing
         width_dict = {}
 
         # set minimal sizes
@@ -256,7 +257,7 @@ class LogicalView(object):
 
     def _on_button_release(self, button, event):
         if event.button == 3:
-            self._on_rectangle_toggle(button) # select the button
+            self._on_rectangle_toggle(button)  # select the button
             self.blivet_gui.popup_menu.menu.popup(None, None, None, None, event.button, event.time)
 
     def _on_button_press(self, button, event):

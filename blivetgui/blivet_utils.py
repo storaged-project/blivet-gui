@@ -19,16 +19,18 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice, LVMSnapShotDevice, LVMThinLogicalVolumeDevice, LVMThinPoolDevice
 from blivet.formats import DeviceFormat
 
-from  .communication.proxy_utils import ProxyDataContainer
+from .communication.proxy_utils import ProxyDataContainer
 
-import socket, platform, re
+import socket
+import platform
+import re
 import traceback
 import parted
 
@@ -40,13 +42,14 @@ from pykickstart.version import makeVersion
 from .logs import set_logging, set_python_meh, remove_logs
 from .i18n import _
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
-PARTITION_TYPE = {"primary" : parted.PARTITION_NORMAL,
-                  "logical" : parted.PARTITION_LOGICAL,
-                  "extended" : parted.PARTITION_EXTENDED}
+PARTITION_TYPE = {"primary": parted.PARTITION_NORMAL,
+                  "logical": parted.PARTITION_LOGICAL,
+                  "extended": parted.PARTITION_EXTENDED}
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class RawFormatDevice(object):
     """ Special class to represent formatted disk without a disklabel
@@ -78,7 +81,6 @@ class RawFormatDevice(object):
     def protected(self):
         return self.disk.protected
 
-#------------------------------------------------------------------------------#
 
 class FreeSpaceDevice(object):
     """ Special class to represent free space on disk (device)
@@ -145,7 +147,7 @@ class FreeSpaceDevice(object):
     @property
     def isUninitializedDisk(self):
         return len(self.parents) == 1 and self.parents[0].type == "disk" and \
-            self.parents[0].kids == 0 and self.parents[0].format.type == None
+            self.parents[0].kids == 0 and not self.parents[0].format.type
 
     @property
     def isFreeRegion(self):
@@ -154,7 +156,6 @@ class FreeSpaceDevice(object):
     def __str__(self):
         return "existing " + str(self.size) + " free space"
 
-#------------------------------------------------------------------------------#
 
 class BlivetUtils(object):
     """ Class with utils directly working with blivet itselves
@@ -284,7 +285,7 @@ class BlivetUtils(object):
             return pvs
 
         for parent in blivet_device.parents:
-            if int((parent.size-parent.format.peStart) / blivet_device.peSize) <= blivet_device.freeExtents:
+            if int((parent.size - parent.format.peStart) / blivet_device.peSize) <= blivet_device.freeExtents:
                 pvs.append(parent)
 
         return pvs
@@ -345,14 +346,14 @@ class BlivetUtils(object):
         if not blivet_device.isDisk:
             raise TypeError("device %s is not a disk" % blivet_device.name)
 
-        if blivet_device.isDisk and blivet_device.format.type == None:
+        if blivet_device.isDisk and not blivet_device.format.type:
             # empty disk without disk label
             partitions = [FreeSpaceDevice(blivet_device.size, self.storage.nextID, 0, blivet_device.currentSize, [blivet_device], False)]
             return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
 
         if blivet_device.format and blivet_device.format.type not in ("disklabel", "btrfs", None):
             # special occasion -- raw device format
-            partitions =  [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format, dev_id=self.storage.nextID)]
+            partitions = [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format, dev_id=self.storage.nextID)]
             return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
 
         if blivet_device.format and blivet_device.format.type == "btrfs" and blivet_device.kids:
@@ -367,8 +368,8 @@ class BlivetUtils(object):
         # primary partitions + 'primary' free space
         primaries = self._get_primary_partitions(blivet_device) + self._get_free_primary(blivet_device)
 
-        def _sort_partitions(part): # FIXME: move to separate 'utils' file
-            if not part.type in ("free space", "partition"):
+        def _sort_partitions(part):  # FIXME: move to separate 'utils' file
+            if part.type not in ("free space", "partition"):
                 raise ValueError
             if part.type == "free space":
                 return part.start
@@ -392,7 +393,7 @@ class BlivetUtils(object):
         for part in partitions:
             if part.type == "partition" and part.isExtended:
                 extended = part
-                break # only one extended partition
+                break  # only one extended partition
 
         return extended
 
@@ -456,7 +457,7 @@ class BlivetUtils(object):
             if region_size < blivet.size.Size("4 MiB"):
                 continue
 
-            if extended and not (region.start >= extended.partedPartition.geometry.start and \
+            if extended and not (region.start >= extended.partedPartition.geometry.start and
                region.end <= extended.partedPartition.geometry.end):
                 free_primary.append(FreeSpaceDevice(region_size, self.storage.nextID, region.start, region.end, [blivet_device], False))
             elif not extended:
@@ -510,7 +511,7 @@ class BlivetUtils(object):
             action = blivet.deviceaction.ActionDestroyFormat(disk_device)
             self.storage.devicetree.registerAction(action)
 
-        except Exception as e: # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
                                       traceback=traceback.format_exc())
 
@@ -546,7 +547,7 @@ class BlivetUtils(object):
             self.storage.devicetree.registerAction(ac_dev)
             actions.append(ac_dev)
 
-        except Exception as e: # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
                                       traceback=traceback.format_exc())
 
@@ -554,8 +555,7 @@ class BlivetUtils(object):
         if blivet_device.type in ("luks/dm-crypt",):
             for parent in blivet_device.parents:
 
-                if parent.exists:
-                # teardown existing parent before
+                if parent.exists:  # teardown existing parent before
                     try:
                         parent.teardown()
 
@@ -623,14 +623,13 @@ class BlivetUtils(object):
                                       max_size=blivet_device.size)
 
         elif not blivet_device.format.type:
-            if blivet_device.type == "partition" and blivet_device.isExtended and (blivet_device.maxSize > blivet_device.size
-             or blivet_device.minSize < blivet_device.size):
+            if (blivet_device.type == "partition" and blivet_device.isExtended and (blivet_device.maxSize > blivet_device.size
+               or blivet_device.minSize < blivet_device.size)):
                 return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.minSize,
                                           max_size=blivet_device.maxSize)
             else:
                 return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
                                           max_size=blivet_device.size)
-
 
         if blivet_device.type in ("lvmlv",) and self._has_snapshots(blivet_device):
             msg = _("Logical Volumes with snapshots couldn't be resized.")
@@ -695,7 +694,7 @@ class BlivetUtils(object):
             blivet.partitioning.doPartitioning(self.storage)
             return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
-        except Exception as e: # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
                                       traceback=traceback.format_exc())
 
@@ -847,8 +846,8 @@ class BlivetUtils(object):
         actions = []
 
         new_part = PartitionDevice(name="req%d" % self.storage.nextID,
-                              size=user_input.size,
-                              parents=[i[0] for i in user_input.parents])
+                                   size=user_input.size,
+                                   parents=[i[0] for i in user_input.parents])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
         # encrypted lvmpv
@@ -1041,17 +1040,17 @@ class BlivetUtils(object):
 
         return actions
 
-    add_dict = {"partition" : _create_partition,
-                "lvm" : _create_lvm,
-                "lvmlv" : _create_lvmlv,
-                "lvmthinlv" : _create_lvmlv,
-                "lvmthinpool" : _create_lvmthinpool,
-                "lvmvg" : _create_lvmvg,
-                "lvmpv" : _create_lvmpv,
-                "btrfs volume" : _create_btrfs_volume,
-                "btrfs subvolume" : _create_btrfs_subvolume,
-                "mdraid" : _create_mdraid,
-                "lvm snapshot" : _create_snapshot}
+    add_dict = {"partition": _create_partition,
+                "lvm": _create_lvm,
+                "lvmlv": _create_lvmlv,
+                "lvmthinlv": _create_lvmlv,
+                "lvmthinpool": _create_lvmthinpool,
+                "lvmvg": _create_lvmvg,
+                "lvmpv": _create_lvmpv,
+                "btrfs volume": _create_btrfs_volume,
+                "btrfs subvolume": _create_btrfs_subvolume,
+                "mdraid": _create_mdraid,
+                "lvm snapshot": _create_snapshot}
 
     def add_device(self, user_input):
         """ Create new device
@@ -1067,7 +1066,7 @@ class BlivetUtils(object):
 
         try:
             actions = add_function(self, user_input)
-        except Exception as e: # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None,
                                       exception=e, traceback=traceback.format_exc())
         try:
@@ -1077,7 +1076,7 @@ class BlivetUtils(object):
 
             blivet.partitioning.doPartitioning(self.storage)
 
-        except Exception as e: # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None,
                                       exception=e, traceback=traceback.format_exc())
 
@@ -1098,7 +1097,7 @@ class BlivetUtils(object):
             ac_rm = blivet.deviceaction.ActionRemoveMember(container, parent)
             self.storage.devicetree.registerAction(ac_rm)
 
-        except Exception as e: # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
                                       traceback=traceback.format_exc())
 
@@ -1139,7 +1138,7 @@ class BlivetUtils(object):
 
             actions.append(ac_add)
 
-        except Exception as e: # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
                                       traceback=traceback.format_exc())
 
@@ -1303,7 +1302,7 @@ class BlivetUtils(object):
         try:
             self.storage.doIt(callbacks=callbacks_reg)
 
-        except Exception as e: # pylint: disable=broad-except
+        except Exception as e:  # pylint: disable=broad-except
             return (True, ProxyDataContainer(success=False, exception=e, traceback=traceback.format_exc()))
 
         else:

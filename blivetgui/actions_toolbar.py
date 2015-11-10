@@ -20,7 +20,8 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class BlivetGUIToolbar(object):
 
@@ -51,6 +52,7 @@ class BlivetGUIToolbar(object):
         for button in button_names:
             if button in self.buttons.keys():
                 self.buttons[button].set_sensitive(False)
+
 
 class DeviceToolbar(BlivetGUIToolbar):
     """ Create toolbar with action buttons
@@ -89,6 +91,7 @@ class DeviceToolbar(BlivetGUIToolbar):
 
         for button in self.buttons:
             self.buttons[button].set_sensitive(False)
+
 
 class ActionsToolbar(BlivetGUIToolbar):
 

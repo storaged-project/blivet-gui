@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import os
 
@@ -32,11 +32,12 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from blivet.devices.btrfs import BTRFSDevice
-from blivet.devices.lvm import  LVMVolumeGroupDevice, LVMLogicalVolumeDevice
+from blivet.devices.lvm import LVMVolumeGroupDevice, LVMLogicalVolumeDevice
 
 from blivet.tasks.fslabeling import Ext2FSLabeling, FATFSLabeling, JFSLabeling, ReiserFSLabeling, XFSLabeling, NTFSLabeling
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 def adjust_scrolled_size(scrolledwindow, width_limit, height_limit):
     """ Adjust size of Gtk.ScrolledWindow -- show scrollbars only when its size
@@ -66,6 +67,7 @@ def adjust_scrolled_size(scrolledwindow, width_limit, height_limit):
         scrolledwindow.set_size_request(width_limit, height_limit)
         scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
+
 def is_name_valid(device_type, name):
     if device_type in ("lvmvg", "lvm"):
         return LVMVolumeGroupDevice.isNameValid(name)
@@ -75,6 +77,7 @@ def is_name_valid(device_type, name):
         return BTRFSDevice.isNameValid(name)
     else:
         return True
+
 
 def is_label_valid(format_type, label):
     if format_type in ("ext2", "ext3", "ext4"):
@@ -91,6 +94,7 @@ def is_label_valid(format_type, label):
         return NTFSLabeling.labelFormatOK(label)
     else:
         return True
+
 
 def is_mountpoint_valid(used_mountpoints, mountpoint):
     """ Kickstart mode; check for duplicate mountpoints

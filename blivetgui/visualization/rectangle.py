@@ -20,12 +20,13 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import gi
 gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
+
 
 class Rectangle(Gtk.RadioButton):
     """ Rectangle object """
@@ -56,14 +57,14 @@ class Rectangle(Gtk.RadioButton):
             icons = self._add_device_icons()
             hbox.pack_start(child=icons, expand=False, fill=False, padding=0)
 
-    device_icons = { "group" : ("drive-multidisk-symbolic", "Group device"),
-                     "livecd" : ("media-optical-symbolic", "LiveUSB device"),
-                     "encrypted" : ("changes-prevent-symbolic", "Enctypted device (closed)"),
-                     "decrypted" : ("changes-allow-symbolic", "Encrypted device (open)"),
-                     "empty" : ("radio-symbolic", "Empty device"),
-                     "snapshot" : ("camera-photo-symbolic", "Snapshot"),
-                     "nodisklabel" : ("drive-harddisk-symbolic", "Missing partition table"),
-                     "protected" : ("action-unavailable-symbolic", "Device or format is write protected")}
+    device_icons = {"group": ("drive-multidisk-symbolic", "Group device"),
+                    "livecd": ("media-optical-symbolic", "LiveUSB device"),
+                    "encrypted": ("changes-prevent-symbolic", "Enctypted device (closed)"),
+                    "decrypted": ("changes-allow-symbolic", "Encrypted device (open)"),
+                    "empty": ("radio-symbolic", "Empty device"),
+                    "snapshot": ("camera-photo-symbolic", "Snapshot"),
+                    "nodisklabel": ("drive-harddisk-symbolic", "Missing partition table"),
+                    "protected": ("action-unavailable-symbolic", "Device or format is write protected")}
 
     def _add_device_icons(self):
         device_properties = self._get_device_properties()

@@ -10,6 +10,7 @@ from blivetgui.communication.proxy_utils import ProxyID, ProxyDataContainer
 
 from blivet.size import Size
 
+
 class BlivetUtilsServerTest(unittest.TestCase):
 
     def test_pickle_answer(self):
@@ -43,7 +44,7 @@ class BlivetUtilsServerTest(unittest.TestCase):
         # unpicklable object
         test_dict = {}
 
-        msg = MagicMock() # MagicMock is definitely not in picklable_types
+        msg = MagicMock()  # MagicMock is definitely not in picklable_types
         pickled_msg = BlivetUtilsServer._pickle_answer(MagicMock(object_dict=test_dict), msg)
         unpickled_msg = pickle.loads(pickled_msg)
         # unpicklable objects are not pickled, instead a BlivetProxyObject is created
@@ -73,10 +74,10 @@ class BlivetUtilsServerTest(unittest.TestCase):
         test_dict = {}
 
         arg1 = ProxyID()
-        arg1_obj = MagicMock(blivet_object = MagicMock())
+        arg1_obj = MagicMock(blivet_object=MagicMock())
         test_dict[arg1.id] = arg1_obj
         arg2 = ProxyID()
-        arg2_obj = MagicMock(blivet_object = MagicMock())
+        arg2_obj = MagicMock(blivet_object=MagicMock())
         test_dict[arg2.id] = arg2_obj
 
         converted_args = BlivetUtilsServer._args_convertTo_objects(MagicMock(object_dict=test_dict), [arg1, arg2])
@@ -86,28 +87,29 @@ class BlivetUtilsServerTest(unittest.TestCase):
         test_dict = {}
 
         arg3 = ProxyID()
-        arg3_obj = MagicMock(blivet_object = MagicMock())
+        arg3_obj = MagicMock(blivet_object=MagicMock())
         test_dict[arg3.id] = arg3_obj
 
-        args = [ProxyDataContainer(data1 = "abcdef", data2 = 1, data3 = arg3)]
-        converted_args = BlivetUtilsServer._args_convertTo_objects(MagicMock(object_dict = test_dict), args)
+        args = [ProxyDataContainer(data1="abcdef", data2=1, data3=arg3)]
+        converted_args = BlivetUtilsServer._args_convertTo_objects(MagicMock(object_dict=test_dict), args)
         self.assertEqual(converted_args[0]["data1"], "abcdef")
         self.assertEqual(converted_args[0]["data2"], 1)
         self.assertEqual(converted_args[0]["data3"], arg3_obj.blivet_object)
+
 
 class BlivetProxyObjectTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
         cls.blivet_object = MagicMock()
-        del cls.blivet_object.non_existing # mock non-existing attribude
+        del cls.blivet_object.non_existing  # mock non-existing attribude
         cls.obj_id = ProxyID()
         cls.proxy_object = BlivetProxyObject(cls.blivet_object, cls.obj_id)
 
     def test_getattr(self):
         self.assertEqual(self.proxy_object.existing, self.blivet_object.existing)
         with self.assertRaises(AttributeError):
-            self.proxy_object.non_existing # pylint: disable=W0104
+            self.proxy_object.non_existing  # pylint: disable=W0104
 
     def test_getitem(self):
         self.assertEqual(self.proxy_object["key"], self.blivet_object["key"])

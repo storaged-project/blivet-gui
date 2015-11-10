@@ -19,10 +19,11 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import functools
 import itertools
+
 
 class ProxyDataContainer(object):
     """ A picklable container for multiple objects similar to namedtuple
@@ -49,6 +50,7 @@ class ProxyDataContainer(object):
 
     def __repr__(self):
         return "ProxyDataContainer:\n%s" % str(self.kwargs)
+
 
 class ProxyID(object):
     """ A simple picklable object with a unique ID

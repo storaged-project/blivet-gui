@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 from __future__ import print_function
 
@@ -37,9 +37,10 @@ import socketserver
 
 from blivetgui.communication.server import BlivetUtilsServer
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
-class BlivetGUIServer(socketserver.UnixStreamServer): # pylint: disable=no-init
+
+class BlivetGUIServer(socketserver.UnixStreamServer):  # pylint: disable=no-init
     """ Custom UnixStreamServer instance
     """
 
@@ -47,13 +48,14 @@ class BlivetGUIServer(socketserver.UnixStreamServer): # pylint: disable=no-init
     other_running = False
     secret = None
 
-    def serve_forever(self): #pylint: disable=arguments-differ
+    def serve_forever(self):  # pylint: disable=arguments-differ
         """ Serve until interrupted
         """
         while not self.quit:
-            self.handle_request() # pylint: disable=no-member
+            self.handle_request()  # pylint: disable=no-member
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 def remove_temp_files(files, folders=None):
     """ Remove temporary files and folders
@@ -70,6 +72,7 @@ def remove_temp_files(files, folders=None):
     except OSError:
         pass
 
+
 def create_sock_file():
     """ Create a sock file
     """
@@ -82,6 +85,7 @@ def create_sock_file():
 
     return socket
 
+
 def main():
     """ Main for blivet-gui-daemon
     """
@@ -91,7 +95,7 @@ def main():
     server = BlivetGUIServer(sock_file, BlivetUtilsServer)
     server.secret = random.getrandbits(32)
 
-    os.chmod(sock_file, 0o707) #FIXME
+    os.chmod(sock_file, 0o707)  # FIXME
 
     pidfile = pid.PidFile(pidname="blivet-gui-daemon", register_term_signal_handler=False)
     try:
@@ -106,7 +110,7 @@ def main():
 
     server.serve_forever()
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 if __name__ == "__main__":
     main()

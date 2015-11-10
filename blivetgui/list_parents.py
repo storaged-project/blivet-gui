@@ -20,7 +20,8 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class ListParents(object):
     """ List of parents of selected device

@@ -19,11 +19,12 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 from blivet import size
 
 import traceback
+import inspect
 
 import struct
 
@@ -34,20 +35,19 @@ from .proxy_utils import ProxyID, ProxyDataContainer
 
 from ..blivet_utils import BlivetUtils
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 from blivetgui.logs import set_logging, remove_atexit
 
 log_file, log = set_logging(component="blivet-gui-com")
 remove_atexit((log_file,))
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 picklable_types = (str, int, float, bool, size.Size, BaseException)
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
-import inspect
 
 class BlivetProxyObject(object):
     """ Class representing unpicklable objects
@@ -93,7 +93,7 @@ class BlivetProxyObject(object):
             return 1
 
 
-class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-init
+class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-init
     blivet_utils = None
     proxy_objects = []
     object_dict = {}
@@ -106,16 +106,16 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
             msg = self._recv_msg()
 
             if not msg:
-                self.server.quit = True # pylint: disable=no-member
+                self.server.quit = True  # pylint: disable=no-member
                 break
 
             unpickled_msg = pickle.loads(msg)
 
-            if unpickled_msg[0] == self.server.secret: # pylint: disable=no-member
+            if unpickled_msg[0] == self.server.secret:  # pylint: disable=no-member
                 raise RuntimeError("Request from unauthorized client.")
 
             if unpickled_msg[1] == "quit":
-                self.server.quit = True # pylint: disable=no-member
+                self.server.quit = True  # pylint: disable=no-member
                 break
 
             elif unpickled_msg[1] == "init":
@@ -176,7 +176,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
         data = b""
 
         while len(data) < length:
-            packet = self.request.recv(length - len(data)) # pylint: disable=no-member
+            packet = self.request.recv(length - len(data))  # pylint: disable=no-member
 
             if not packet:
                 return None
@@ -276,7 +276,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
         if self.blivet_utils:
             raise RuntimeError("Server already received request for initialization.")
 
-        if self.server.other_running: # pylint: disable=no-member
+        if self.server.other_running:  # pylint: disable=no-member
             answer = ProxyDataContainer(success=False, reason="running")
 
         else:
@@ -284,7 +284,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
 
             try:
                 self.blivet_utils = BlivetUtils(*args)
-            except Exception as e: # pylint: disable=broad-except
+            except Exception as e:  # pylint: disable=broad-except
                 answer = ProxyDataContainer(success=False, reason="exception", exception=e,
                                             traceback=traceback.format_exc())
             else:
@@ -342,7 +342,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
                 utils_method = getattr(self.blivet_utils, data[2])
                 ret = utils_method(*args)
                 answer = ProxyDataContainer(success=True, answer=ret)
-            except Exception as e: # pylint: disable=broad-except
+            except Exception as e:  # pylint: disable=broad-except
                 answer = ProxyDataContainer(success=False, exception=e, traceback=traceback.format_exc())
 
         pickled_answer = self._pickle_answer(answer)
@@ -381,4 +381,4 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler): # pylint: disable=no-i
 
     def _send(self, data):
         data = struct.pack(">I", len(data)) + data
-        self.request.sendall(data) # pylint: disable=no-member
+        self.request.sendall(data)  # pylint: disable=no-member

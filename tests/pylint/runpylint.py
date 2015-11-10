@@ -4,6 +4,7 @@ import sys
 
 from pocketlint import PocketLintConfig, PocketLinter
 
+
 class BlivetGUILintConfig(PocketLintConfig):
     def __init__(self):
         PocketLintConfig.__init__(self)
@@ -17,11 +18,11 @@ class BlivetGUILintConfig(PocketLintConfig):
 
     @property
     def disabledOptions(self):
-        return [ "W0142",           # Used * or ** magic
-                 "W0212",           # Access to a protected member of a client class
-                 "W0511",           # Used when a warning note as FIXME or XXX is detected.
-                 "I0011",           # Locally disabling %s
-               ]
+        return ["W0142",           # Used * or ** magic
+                "W0212",           # Access to a protected member of a client class
+                "W0511",           # Used when a warning note as FIXME or XXX is detected.
+                "I0011",           # Locally disabling %s
+                ]
 
 if __name__ == "__main__":
     conf = BlivetGUILintConfig()

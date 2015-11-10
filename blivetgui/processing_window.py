@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -31,7 +31,8 @@ from gi.repository import Gtk, GdkPixbuf, Pango
 
 from .i18n import _
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class ProcessingActions(Gtk.Dialog):
     """ Processing actions dialog
@@ -151,8 +152,10 @@ class ProcessingActions(Gtk.Dialog):
         self._set_applied_icon(self.finished_actions - 1)
 
     def progress_msg(self, message):
-        self.label.set_markup(_("<b>Proccessing action {num} of {total}</b>:" \
-            "\n<i>{action}</i>").format(num=self.finished_actions, total=len(self.actions), action=message))
+        self.label.set_markup(_("<b>Proccessing action {num} of {total}</b>:"
+                                "\n<i>{action}</i>").format(num=self.finished_actions,
+                                                            total=len(self.actions),
+                                                            action=message))
 
         if self.finished_actions:
             self._set_applied_icon(self.finished_actions - 1)

@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -29,7 +29,8 @@ from gi.repository import Gtk
 
 from .i18n import P_
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class ListActions(object):
     """ List of childs of selected device
@@ -59,7 +60,7 @@ class ListActions(object):
         icon_delete = Gtk.IconTheme.load_icon(icon_theme, "edit-delete", 16, 0)
         icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all", 16, 0)
 
-        self.action_icons = {"add" : icon_add, "delete" : icon_delete, "edit" : icon_edit}
+        self.action_icons = {"add": icon_add, "delete": icon_delete, "edit": icon_edit}
 
         self.blivet_gui.activate_action_buttons(False)
         self.blivet_gui.label_actions.set_markup("No pending actions")
@@ -107,7 +108,7 @@ class ListActions(object):
         # self.blivet_gui.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 
         # remove actions from view
-        self.actions_list.remove(self.actions_list.get_iter(len(self.actions_list)-1))
+        self.actions_list.remove(self.actions_list.get_iter(len(self.actions_list) - 1))
 
         # deactivate 'actions-related' options (if there are no actions)
         if not self.actions:

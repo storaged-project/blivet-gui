@@ -1,4 +1,4 @@
- # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # list_partitions.py
 # Main blivet-gui class for GUI
 #
@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -54,7 +54,8 @@ import os
 import sys
 import atexit
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class BlivetGUI(object):
     """ Class representing the GUI part of the application. It creates all the
@@ -72,16 +73,16 @@ class BlivetGUI(object):
         self.builder.set_translation_domain("blivet-gui")
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
-        ### MainWindow
+        # MainWindow
         self.main_window = self.builder.get_object("main_window")
         self.main_window.connect("delete-event", self.quit)
 
-        ### BlivetUtils
+        # BlivetUtils
         self.client = BlivetGUIClient(self, self.server_socket, self.secret)
         dialog = LoadingWindow(self.main_window)
         ret = self.blivet_init(dialog)
 
-        if not ret.success: # pylint: disable=maybe-no-member
+        if not ret.success:  # pylint: disable=maybe-no-member
             if ret.reason == "running":
                 msg = _("blivet-gui is already running.")
 
@@ -91,7 +92,7 @@ class BlivetGUI(object):
             else:
                 self._reraise_exception(ret.exception, ret.traceback)
 
-        ### Logging
+        # Logging
         blivetgui_logfile, self.log = set_logging(component="blivet-gui")
 
         server_logs = self.client.remote_control("logs", blivetgui_logfile)
@@ -103,38 +104,38 @@ class BlivetGUI(object):
         atexit.register(remove_logs, log_files=[blivetgui_logfile])
         atexit.register(self.client.quit)
 
-        ### Supported types
+        # Supported types
         self._get_supported_types()
 
-        ### Kickstart devices dialog
+        # Kickstart devices dialog
         if self.kickstart_mode:
             self.use_disks = self.kickstart_disk_selection()
 
-        ### MainMenu
+        # MainMenu
         self.main_menu = MainMenu(self)
 
-        ### ActionsMenu
+        # ActionsMenu
         self.popup_menu = ActionsMenu(self)
 
-        ### ActionsToolbar
+        # ActionsToolbar
         self.device_toolbar = DeviceToolbar(self)
         self.actions_toolbar = ActionsToolbar(self)
 
-        ### ListDevices
+        # ListDevices
         self.list_devices = ListDevices(self)
 
-        ### ListPartitions
+        # ListPartitions
         self.list_partitions = ListPartitions(self)
 
-        ### ListParents
+        # ListParents
         self.list_parents = ListParents(self)
 
-        ### ListActions
+        # ListActions
         self.label_actions = self.builder.get_object("label_actions")
         self.label_actions.connect("activate-link", self.show_actions)
         self.list_actions = ListActions(self)
 
-        ### Vizualisation
+        # Vizualisation
         self.logical_view = LogicalView(self)
         self.builder.get_object("image_window").add(self.logical_view.hbox)
 
@@ -151,8 +152,8 @@ class BlivetGUI(object):
             blivet and store them for future use
         """
 
-        self._supported_raid_levels = {"btrfs volume" : self.client.remote_call("get_available_raid_levels", "btrfs volume"),
-                                       "mdraid" : self.client.remote_call("get_available_raid_levels", "mdraid")}
+        self._supported_raid_levels = {"btrfs volume": self.client.remote_call("get_available_raid_levels", "btrfs volume"),
+                                       "mdraid": self.client.remote_call("get_available_raid_levels", "mdraid")}
         self._supported_filesystems = self.client.remote_call("get_available_filesystems")
         self._supported_disklabels = self.client.remote_call("get_available_disklabels", True)
 
@@ -222,7 +223,7 @@ class BlivetGUI(object):
         disks = self.client.remote_call("get_disks")
 
         if len(disks) == 0:
-            msg = _("blivet-gui failed to find at least one storage device to work with.\n\n" \
+            msg = _("blivet-gui failed to find at least one storage device to work with.\n\n"
                     "Please connect a storage device to your computer and re-run blivet-gui.")
 
             self.show_error_dialog(msg)
@@ -341,8 +342,8 @@ class BlivetGUI(object):
         msg = None
 
         if parent_device_type == "lvmvg" and not parent_device.complete:
-            msg = _("{name} is not complete. It is not possible to add new LVs to VG with " \
-                "missing PVs.").format(name=parent_device.name)
+            msg = _("{name} is not complete. It is not possible to add new LVs to VG with "
+                    "missing PVs.").format(name=parent_device.name)
 
         # not enough free space for at least two 2 MiB physical extents
         if parent_device_type == "lvmpv" and parent_device.size < Size("4 MiB"):
@@ -352,7 +353,7 @@ class BlivetGUI(object):
             disk = parent_device.format.partedDisk
             selected_device = self.list_partitions.selected_partition[0]
             if disk.primaryPartitionCount >= disk.maxPrimaryPartitionCount and selected_device.isPrimary:
-                msg = _("Disk {name} already reached maximum allowed number of primary partitions " \
+                msg = _("Disk {name} already reached maximum allowed number of primary partitions "
                         "for {label} disklabel.").format(name=parent_device.name, label=parent_device.format.labelType)
 
         return (False, msg) if msg else (True, None)
@@ -387,7 +388,6 @@ class BlivetGUI(object):
         if not parent_device_type:
             parent_device_type = parent_device.type
 
-
         # allow adding new device?
         allow, msg = self._allow_add_device(parent_device, parent_device_type)
 
@@ -396,7 +396,7 @@ class BlivetGUI(object):
             return
 
         if parent_device_type == "disk" and self.list_devices.selected_device.format.type != "disklabel" \
-            and btrfs_pt == False:
+           and not btrfs_pt:
 
             dialog = other_dialogs.AddLabelDialog(self.main_window, self._supported_disklabels)
 
@@ -515,7 +515,7 @@ class BlivetGUI(object):
             else:
                 dialog.destroy()
                 self.main_window.set_sensitive(False)
-                self._reraise_exception(error, traceback) # pylint: disable=raising-bad-type
+                self._reraise_exception(error, traceback)  # pylint: disable=raising-bad-type
 
         def show_progress(message):
             dialog.progress_msg(message)
@@ -575,8 +575,8 @@ class BlivetGUI(object):
 
                 self.client.remote_call("create_kickstart_file", response)
 
-                msg = _("File with your Kickstart configuration was successfully saved to:\n\n" \
-                    "{filename}").format(filename=response)
+                msg = _("File with your Kickstart configuration was successfully saved to:\n\n"
+                        "{filename}").format(filename=response)
                 message_dialogs.InfoDialog(self.main_window, msg)
 
         else:

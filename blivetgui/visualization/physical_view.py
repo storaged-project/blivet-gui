@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -30,7 +30,8 @@ from gi.repository import Gtk, Gdk
 
 from .rectangle import Rectangle
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class PhysicalView(object):
     def __init__(self, blivet_gui):
@@ -82,7 +83,7 @@ class PhysicalView(object):
 
                 # it's not possible to get width of child box, so we take width
                 # of the vbox a substract width of parent device and its padding
-                box_width = self.vbox.get_allocation().width - 100 -2*10
+                box_width = self.vbox.get_allocation().width - 100 - 2 * 10
                 # compute rectangle widths for children
                 widths = self._compute_rect_widths(parent_iter=treeiter, view_width=box_width)
 
@@ -100,9 +101,9 @@ class PhysicalView(object):
         while treeiter:
             (device, is_valid) = self._devices_list[treeiter]
             if is_valid:
-                min_size = 100 # min_size for valid devices
+                min_size = 100  # min_size for valid devices
             else:
-                min_size = 10 # min_size for invalid devices
+                min_size = 10  # min_size for invalid devices
             width_dict[device] = min_size
             allocated_width += min_size
 
@@ -150,7 +151,7 @@ class PhysicalView(object):
         # still some space remaining, probably because of rounding
         # just add it to the first device in dict
         if allocated_width < available_width:
-            if width_dict: # empty dict
+            if width_dict:  # empty dict
                 width_dict[list(width_dict.keys())[0]] += (allocated_width - available_width)
 
     def _get_total_device_size(self, treeiter):

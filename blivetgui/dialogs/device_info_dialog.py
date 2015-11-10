@@ -1,4 +1,4 @@
- # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # device_information_dialog.py
 # Dialog showing information about selected device
 #
@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import parted
 
@@ -32,13 +32,14 @@ from gi.repository import Gtk, Pango
 
 from ..i18n import _
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
-PARTITION_TYPE = {parted.PARTITION_NORMAL : _("primary"), # pylint: disable=found-_-in-module-class
-                  parted.PARTITION_LOGICAL : _("logical"), # pylint: disable=found-_-in-module-class
-                  parted.PARTITION_EXTENDED : _("extended")} # pylint: disable=found-_-in-module-class
+PARTITION_TYPE = {parted.PARTITION_NORMAL: _("primary"),  # pylint: disable=found-_-in-module-class
+                  parted.PARTITION_LOGICAL: _("logical"),  # pylint: disable=found-_-in-module-class
+                  parted.PARTITION_EXTENDED: _("extended")}  # pylint: disable=found-_-in-module-class
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class DeviceInformationDialog(Gtk.Dialog):
     """ Dialog showing information about selected device
@@ -73,16 +74,16 @@ class DeviceInformationDialog(Gtk.Dialog):
         box.add(self.grid)
 
         # dictionary with 'human-readable' device names and methods providing detailed information
-        self.type_dict = {"partition" : (_("Partition"), self._get_partition_info),
-                          "lvmvg" : (_("LVM2 Volume Group"), self._get_lvmvg_info),
-                          "lvmlv" : (_("LVM2 Logical Volume"), self._get_lvmlv_info),
-                          "lvmsnapshot" : (_("LVM2 Snapshot"), self._get_lvmlv_info),
-                          "lvmthinpool" : (_("LVM2 ThinPool"), self._get_lvmlv_info),
-                          "lvmthinlv" : (_("LVM2 Thin Logical Volume"), self._get_lvmlv_info),
-                          "luks/dm-crypt" : (_("LUKS/DM-Crypt Device"), None),
-                          "btrfs volume" : (_("Btrfs Volume"), self._get_btrfs_info),
-                          "btrfs subvolume" : (_("Btrfs Subvolume"), self._get_btrfs_info),
-                          "mdarray" : (_("MD RAID Array"), self._get_mdarray_info)}
+        self.type_dict = {"partition": (_("Partition"), self._get_partition_info),
+                          "lvmvg": (_("LVM2 Volume Group"), self._get_lvmvg_info),
+                          "lvmlv": (_("LVM2 Logical Volume"), self._get_lvmlv_info),
+                          "lvmsnapshot": (_("LVM2 Snapshot"), self._get_lvmlv_info),
+                          "lvmthinpool": (_("LVM2 ThinPool"), self._get_lvmlv_info),
+                          "lvmthinlv": (_("LVM2 Thin Logical Volume"), self._get_lvmlv_info),
+                          "luks/dm-crypt": (_("LUKS/DM-Crypt Device"), None),
+                          "btrfs volume": (_("Btrfs Volume"), self._get_btrfs_info),
+                          "btrfs subvolume": (_("Btrfs Subvolume"), self._get_btrfs_info),
+                          "mdarray": (_("MD RAID Array"), self._get_mdarray_info)}
 
         # Fill dialog with information
         self.device_info = self.add_device_info()
@@ -125,7 +126,7 @@ class DeviceInformationDialog(Gtk.Dialog):
         info += _(" • <i>Free Space:</i> {free}\n").format(free=str(self.device.free))
         info += _(" • <i>PE Free:</i> {pefree}\n").format(pefree=self.device.peFree)
         info += _(" • <i>Reserved Space:</i> {res} ({resp} %)\n").format(res=self.device.reservedSpace,
-            resp=self.device.reserved_percent)
+                                                                         resp=self.device.reserved_percent)
         info += _(" • <i>Complete:</i> {complete}\n").format(complete=self.device.complete)
 
         return info
@@ -161,7 +162,7 @@ class DeviceInformationDialog(Gtk.Dialog):
 
         else:
             info = "<b>{type} {name}</b>".format(type=self.type_dict[self.device.type][0],
-                name=self.device.name)
+                                                 name=self.device.name)
         device_type_label.set_markup(info)
 
         # device info header
@@ -242,7 +243,9 @@ class DeviceInformationDialog(Gtk.Dialog):
         for parent in parents:
             exists = _("existing") if parent.exists else _("non-existing")
             info += _(" • {exists} {size} {type} {name}\n").format(exists=exists,
-                size=str(parent.size), name=parent.name, type=parent.type)
+                                                                   size=str(parent.size),
+                                                                   name=parent.name,
+                                                                   type=parent.type)
 
         parent_info_label.set_markup(info)
         parent_info_label.set_alignment(xalign=0, yalign=0)

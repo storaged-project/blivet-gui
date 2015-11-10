@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import os
 
@@ -43,11 +43,12 @@ from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid
 
 from ..i18n import _
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 SUPPORTED_PESIZE = ["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"]
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class AdvancedOptions(object):
 
@@ -59,8 +60,7 @@ class AdvancedOptions(object):
         self.free_device = free_device
 
         self.expander = Gtk.Expander(label=_("Show advanced options"))
-        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10,
-            column_spacing=5)
+        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
         self.grid.set_border_width(15)
         self.expander.add(self.grid)
 
@@ -147,7 +147,7 @@ class AdvancedOptions(object):
 
     def on_pesize_changed(self, combo):
         pesize = combo.get_active_id()
-        min_size = size.Size(pesize)*2
+        min_size = size.Size(pesize) * 2
 
         if self.add_dialog.encrypt_check.get_active():
             min_size += size.Size("2 MiB")
@@ -184,10 +184,11 @@ class AdvancedOptions(object):
     def get_selection(self):
 
         if self.device_type in ("lvm", "lvmvg"):
-            return {"pesize" : size.Size(self.pesize_combo.get_active_text())}
+            return {"pesize": size.Size(self.pesize_combo.get_active_text())}
 
         elif self.device_type in ("partition"):
-            return {"parttype" : self.partition_combo.get_active_id()}
+            return {"parttype": self.partition_combo.get_active_id()}
+
 
 class AddDialog(Gtk.Dialog):
     """ Dialog window allowing user to add new partition including selecting
@@ -227,11 +228,11 @@ class AddDialog(Gtk.Dialog):
         self.mountpoints = mountpoints
 
         Gtk.Dialog.__init__(self, _("Create new device"), None, 0,
-            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK))
+                            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
 
-        self.set_resizable(False) # auto shrink after removing widgets
+        self.set_resizable(False)  # auto shrink after removing widgets
 
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
         self.grid.set_border_width(10)
@@ -273,16 +274,15 @@ class AddDialog(Gtk.Dialog):
     def add_device_chooser(self):
 
         map_type_devices = {
-            "disk" : [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
-            (_("LVM2 Physical Volume"), "lvmpv")],
-            "lvmpv" : [(_("LVM2 Volume Group"), "lvmvg")],
-            "lvmvg" : [(_("LVM2 Logical Volume"), "lvmlv"), (_("LVM2 ThinPool"), "lvmthinpool")],
-            "luks/dm-crypt" : [(_("LVM2 Volume Group"), "lvmvg")],
-            "mdarray" : [(_("LVM2 Volume Group"), "lvmvg")],
-            "btrfs volume" : [(_("Btrfs Subvolume"), "btrfs subvolume")],
-            "lvmlv" : [(_("LVM2 Snaphost"), "lvm snapshot")],
-            "lvmthinpool" : [(_("LVM2 Thin Logical Volume"), "lvmthinlv")]
-            }
+            "disk": [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
+                     (_("LVM2 Physical Volume"), "lvmpv")],
+            "lvmpv": [(_("LVM2 Volume Group"), "lvmvg")],
+            "lvmvg": [(_("LVM2 Logical Volume"), "lvmlv"), (_("LVM2 ThinPool"), "lvmthinpool")],
+            "luks/dm-crypt": [(_("LVM2 Volume Group"), "lvmvg")],
+            "mdarray": [(_("LVM2 Volume Group"), "lvmvg")],
+            "btrfs volume": [(_("Btrfs Subvolume"), "btrfs subvolume")],
+            "lvmlv": [(_("LVM2 Snaphost"), "lvm snapshot")],
+            "lvmthinpool": [(_("LVM2 Thin Logical Volume"), "lvmthinlv")]}
 
         label_devices = Gtk.Label(label=_("Device type:"), xalign=1)
         label_devices.get_style_context().add_class("dim-label")
@@ -292,8 +292,8 @@ class AddDialog(Gtk.Dialog):
             devices = [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
                        (_("LVM2 Physical Volume"), "lvmpv")]
 
-        elif self.parent_type == "disk" and not self.parent_device.format.type \
-            and self.free_device.size > size.Size("256 MiB"):
+        elif (self.parent_type == "disk" and not self.parent_device.format.type
+              and self.free_device.size > size.Size("256 MiB")):
             devices = [(_("Btrfs Volume"), "btrfs volume")]
 
         else:
@@ -499,9 +499,9 @@ class AddDialog(Gtk.Dialog):
             dev = row[0]
             free = row[1]
 
-            if dev.name == self.parent_device.name and \
-              (not hasattr(self.free_device, "start") or not self.free_device.start or \
-               self.free_device.start == free.start):
+            if (dev.name == self.parent_device.name and
+                (not hasattr(self.free_device, "start") or not self.free_device.start or
+                 self.free_device.start == free.start)):
                 row[2] = row[3] = True
 
         # TODO move selected iter at the top of the list
@@ -515,7 +515,7 @@ class AddDialog(Gtk.Dialog):
         if device_type == "lvmvg":
             for pv, free in self.free_pvs:
                 self.parents_store.append([pv, free, False, False, pv.name,
-                    "lvmpv", str(free.size)])
+                                           "lvmpv", str(free.size)])
 
         elif device_type in ("btrfs volume", "lvm", "mdraid"):
 
@@ -525,19 +525,19 @@ class AddDialog(Gtk.Dialog):
 
                 if free.isFreeRegion and (parent_type == "partitions" or device_type in ("lvm", "mdraid")):
                     self.parents_store.append([disk, free, False, False, disk.name,
-                        "disk region", str(free.size)])
+                                               "disk region", str(free.size)])
 
                 elif not free.isFreeRegion:
                     self.parents_store.append([disk, free, False, False, disk.name,
-                        "disk", str(free.size)])
+                                               "disk", str(free.size)])
 
         elif device_type in ("lvm snapshot",):
             self.parents_store.append([self.parent_device, self.free_device, False, False,
-                self.free_device.parents[0].name, "lvmvg", str(self.free_device.size)])
+                                       self.free_device.parents[0].name, "lvmvg", str(self.free_device.size)])
 
         else:
             self.parents_store.append([self.parent_device, self.free_device, False, False,
-                self.parent_device.name, "disk", str(self.free_device.size)])
+                                       self.parent_device.name, "disk", str(self.free_device.size)])
 
         self.select_selected_free_region()
 
@@ -656,7 +656,8 @@ class AddDialog(Gtk.Dialog):
                 if not raid:
                     max_size = row[1].size
 
-                area = SizeChooserArea(dialog_type="add", device_name=row[0].name, max_size=max_size, min_size=min_size, update_clbk=self.update_size_areas_selections)
+                area = SizeChooserArea(dialog_type="add", device_name=row[0].name, max_size=max_size,
+                                       min_size=min_size, update_clbk=self.update_size_areas_selections)
 
                 size_grid.attach(area.frame, 0, posititon, 1, 1)
 
@@ -678,7 +679,7 @@ class AddDialog(Gtk.Dialog):
         screen_width = Gdk.Screen.get_default().get_width()
         dialog_height = self.size_request().height
 
-        size_diff = int((screen_height*0.7) - dialog_height)
+        size_diff = int((screen_height * 0.7) - dialog_height)
 
         if size_diff < 0:
             # dialog is largen than 70 % of screen
@@ -687,23 +688,23 @@ class AddDialog(Gtk.Dialog):
             if areas_to_display < 1:
                 # always display at least one size area
 
-                size_scroll.set_size_request(size_area_width, int(size_area_height/len(self.size_areas)))
+                size_scroll.set_size_request(size_area_width, int(size_area_height / len(self.size_areas)))
                 size_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
             else:
-                if size_area_height > screen_width*0.7:
-                    size_scroll.set_size_request(screen_width*0.7,
-                        int(size_area_height/len(self.size_areas))*areas_to_display)
+                if size_area_height > screen_width * 0.7:
+                    size_scroll.set_size_request(screen_width * 0.7,
+                                                 int(size_area_height / len(self.size_areas)) * areas_to_display)
                     size_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
                 else:
                     size_scroll.set_size_request(size_area_width,
-                        int(size_area_height/len(self.size_areas))*areas_to_display)
+                                                 int(size_area_height / len(self.size_areas)) * areas_to_display)
                     size_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
 
         else:
-            if size_area_width > screen_width*0.7:
-                size_scroll.set_size_request(screen_width*0.7, size_area_height)
+            if size_area_width > screen_width * 0.7:
+                size_scroll.set_size_request(screen_width * 0.7, size_area_height)
                 size_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
 
             else:
@@ -719,8 +720,7 @@ class AddDialog(Gtk.Dialog):
 
         md_type_store = Gtk.ListStore(str, str)
 
-        for md_type in ((_("Partition"), "partition"),
-            (_("LVM Physical Volume"), "lvmpv")):
+        for md_type in ((_("Partition"), "partition"), (_("LVM Physical Volume"), "lvmpv")):
             md_type_store.append(md_type)
 
         md_type_combo = Gtk.ComboBox.new_with_model(md_type_store)
@@ -978,7 +978,7 @@ class AddDialog(Gtk.Dialog):
     def _get_selected_device_type(self):
         tree_iter = self.devices_combo.get_active_iter()
 
-        if tree_iter != None:
+        if tree_iter:
             model = self.devices_combo.get_model()
             device_type = model[tree_iter][1]
 

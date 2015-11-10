@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import os
 
@@ -35,12 +35,13 @@ import traceback
 
 import atexit
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
-APP_NAME='blivet-gui'
-APP_VERSION='1.1'
+APP_NAME = 'blivet-gui'
+APP_VERSION = '1.1'
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class BlivetGUIExceptionDump(meh.dump.ExceptionDump):
 
@@ -51,7 +52,8 @@ class BlivetGUIExceptionDump(meh.dump.ExceptionDump):
         else:
             return ""
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 def set_logging(component, logging_level=logging.DEBUG, log_file=None):
     """ Configure logging
@@ -88,6 +90,7 @@ def set_logging(component, logging_level=logging.DEBUG, log_file=None):
 
     return log_file, logger
 
+
 def set_python_meh(log_files):
     """ Configure python-meh
 
@@ -105,6 +108,7 @@ def set_python_meh(log_files):
 
     return handler
 
+
 def remove_logs(log_files):
     """ Remove log files
 
@@ -119,6 +123,7 @@ def remove_logs(log_files):
 
     except OSError as e:
         print("Failed to remove log file\n" + str(e))
+
 
 def remove_atexit(log_files):
     """ Remove log files using atexit

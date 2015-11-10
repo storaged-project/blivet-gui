@@ -16,6 +16,7 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
+
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class PartitionEditDialogTest(unittest.TestCase):
 
@@ -25,7 +26,7 @@ class PartitionEditDialogTest(unittest.TestCase):
     def setUpClass(cls):
         cls.parent_window = MagicMock(spec=Gtk.Window)
         cls.edited_device = MagicMock(type="partition", size=Size("1 GiB"), format=MagicMock(mountpoint=""))
-        cls.edited_device.configure_mock(name="vda1") # set name paremeter
+        cls.edited_device.configure_mock(name="vda1")  # set name paremeter
         cls.resize_info = MagicMock(resizable=True, error="Not resizable.", min_size=Size("1 MiB"), max_size=Size("1 GiB"))
         cls.supported_fs = ["ext4", "xfs"]
 
@@ -43,7 +44,7 @@ class PartitionEditDialogTest(unittest.TestCase):
         self.assertFalse(dialog.widgets_dict["size"][0].get_sensitive())
         self.assertTrue("info" in dialog.widgets_dict.keys())
 
-        self.resize_info.configure_mock(resizable=True) # set mock settings back to default
+        self.resize_info.configure_mock(resizable=True)  # set mock settings back to default
 
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
     def test_formattable(self):
@@ -130,7 +131,7 @@ class PartitionEditDialogTest(unittest.TestCase):
         dialog.fslabel_entry.set_text(label)
 
         dialog.validate_user_input()
-        self.assertFalse(self.error_dialog.called) # valid label, no error_dialog
+        self.assertFalse(self.error_dialog.called)  # valid label, no error_dialog
         self.error_dialog.reset_mock()
 
         # invalid label for ext4 (too long)
@@ -172,7 +173,7 @@ class PartitionEditDialogTest(unittest.TestCase):
         self.edited_device.format.configure_mock(mountpoint="/var")
         dialog.mountpoint_entry.set_text("/var")
         dialog.validate_user_input()
-        self.assertFalse(self.error_dialog.called) # no change --> no error
+        self.assertFalse(self.error_dialog.called)  # no change --> no error
         self.error_dialog.reset_mock()
         self.edited_device.format.configure_mock(mountpoint="")
 

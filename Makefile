@@ -95,8 +95,8 @@ bumpver:
 	mv blivet-gui.spec.new blivet-gui.spec ; rm -f speclog ; \
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" blivet-gui.spec ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
-	sed -i "s/APP_VERSION='$(VERSION)'/APP_VERSION='$$NEWVERSION'/" blivet-gui ; \
-	sed -i "s/APP_VERSION='$(VERSION)'/APP_VERSION='$$NEWVERSION'/" blivetgui/logs.py ; \
+	sed -i "s/APP_VERSION\ =\ '$(VERSION)'/APP_VERSION\ =\ '$$NEWVERSION'/" blivet-gui ; \
+	sed -i "s/APP_VERSION\ =\ '$(VERSION)'/APP_VERSION\ =\ '$$NEWVERSION'/" blivetgui/logs.py ; \
 	$(MAKE) po-push
 	$(MAKE) -C po clean
 

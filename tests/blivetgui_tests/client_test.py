@@ -8,6 +8,7 @@ from blivetgui.communication.proxy_utils import ProxyID, ProxyDataContainer
 
 from blivet.size import Size
 
+
 class BlivetGUIClientTest(unittest.TestCase):
 
     def test_convert_answer(self):
@@ -26,7 +27,7 @@ class BlivetGUIClientTest(unittest.TestCase):
         msg = ProxyID()
         converted_answer = BlivetGUIClient._answer_convertTo_object(MagicMock(id_dict=test_dict), msg)
         self.assertTrue(isinstance(converted_answer, ClientProxyObject))
-        self.assertEqual(converted_answer.proxy_id, msg) # pylint: disable=no-member
+        self.assertEqual(converted_answer.proxy_id, msg)  # pylint: disable=no-member
 
     def test_convert_args(self):
         # 'normal' arguments

@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -37,7 +37,8 @@ from ..communication.proxy_utils import ProxyDataContainer
 
 from ..i18n import _
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class PartitionEditDialog(Gtk.Dialog):
     """ Dialog window allowing user to edit partition including selecting size,
@@ -73,7 +74,7 @@ class PartitionEditDialog(Gtk.Dialog):
                              Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
-        self.set_resizable(False) # auto shrink after removing/hiding widgets
+        self.set_resizable(False)  # auto shrink after removing/hiding widgets
 
         self.widgets_dict = {}
 
@@ -299,12 +300,13 @@ class PartitionEditDialog(Gtk.Dialog):
             selected_size = None
 
         return ProxyDataContainer(edit_device=self.edited_device,
-                                 resize=resize,
-                                 size=selected_size,
-                                 fmt=self.format_check.get_active(),
-                                 filesystem=self.filesystems_combo.get_active_text(),
-                                 label=self.fslabel_entry.get_text(),
-                                 mountpoint=mountpoint)
+                                  resize=resize,
+                                  size=selected_size,
+                                  fmt=self.format_check.get_active(),
+                                  filesystem=self.filesystems_combo.get_active_text(),
+                                  label=self.fslabel_entry.get_text(),
+                                  mountpoint=mountpoint)
+
 
 class LVMEditDialog(Gtk.Dialog):
     """ Dialog window allowing user to edit lvmvg
@@ -331,7 +333,7 @@ class LVMEditDialog(Gtk.Dialog):
                              Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
-        self.set_resizable(False) # auto shrink after removing/hiding widgets
+        self.set_resizable(False)  # auto shrink after removing/hiding widgets
 
         self.widgets_dict = {}
 
@@ -391,7 +393,7 @@ class LVMEditDialog(Gtk.Dialog):
     def add_parents(self):
 
         if len(self.free_disks_regions) + len(self.free_pvs) == 0:
-            label_none = Gtk.Label(label=_("There are currently no empty physical volumes or\n"\
+            label_none = Gtk.Label(label=_("There are currently no empty physical volumes or\n"
                                            "disks with enough free space to create one."))
             self.grid.attach(label_none, 0, 5, 4, 1)
 
@@ -454,7 +456,7 @@ class LVMEditDialog(Gtk.Dialog):
     def remove_parents(self):
 
         if len(self.removable_pvs) == 0:
-            label_none = Gtk.Label(label=_("There is no physical volume that could be\n"\
+            label_none = Gtk.Label(label=_("There is no physical volume that could be\n"
                                            "removed from this volume group."))
             self.grid.attach(label_none, 0, 5, 4, 1)
 
@@ -546,5 +548,5 @@ class LVMEditDialog(Gtk.Dialog):
             action_type = None
 
         return ProxyDataContainer(edit_device=self.edited_device,
-                                 action_type=action_type,
-                                 parents_list=parents_list)
+                                  action_type=action_type,
+                                  parents_list=parents_list)

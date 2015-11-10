@@ -19,7 +19,8 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class ActionsMenu(object):
     """ Popup context menu for devices

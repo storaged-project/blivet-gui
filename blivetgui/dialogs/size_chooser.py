@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -31,14 +31,15 @@ from blivet import size
 
 from ..i18n import _
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 SUPPORTED_UNITS = ["B", "kB", "MB", "GB", "TB", "kiB", "MiB", "GiB", "TiB"]
-UNIT_DICT = {"B" : size.B, "kB" : size.KB, "MB" : size.MB, "GB" : size.GB,
-              "TB" : size.TB, "kiB" : size.KiB, "MiB" : size.MiB,
-              "GiB" : size.GiB, "TiB" : size.TiB}
+UNIT_DICT = {"B": size.B, "kB": size.KB, "MB": size.MB, "GB": size.GB,
+             "TB": size.TB, "kiB": size.KiB, "MiB": size.MiB,
+             "GiB": size.GiB, "TiB": size.TiB}
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 def conv(unit):
     """ Convert unit string to blivet.size unit
@@ -48,6 +49,7 @@ def conv(unit):
         raise ValueError
 
     return UNIT_DICT[unit]
+
 
 def get_size_precision(down_limit, up_limit):
     """ Get precision for scale
@@ -65,13 +67,14 @@ def get_size_precision(down_limit, up_limit):
         digits += 1
 
     # always offer at least 10 steps to adjust size
-    if up_limit - down_limit < 10*step:
+    if up_limit - down_limit < 10 * step:
         step /= 10
         digits += 1
 
     return step, digits
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class SizeChooserArea(object):
 
@@ -149,8 +152,8 @@ class SizeChooserArea(object):
         self.frame_grid.attach(label_size, 4, 1, 1, 1)
 
         spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0,
-            self.min_size.convertTo(conv(unit)),
-            self.max_size.convertTo(conv(unit)), 1, 10, 0))
+                                   self.min_size.convertTo(conv(unit)),
+                                   self.max_size.convertTo(conv(unit)), 1, 10, 0))
 
         spin_size.set_numeric(True)
 
@@ -200,7 +203,7 @@ class SizeChooserArea(object):
         self.scale.clear_marks()
 
         increment, digits = get_size_precision(self.min_size.convertTo(conv(unit)), self.max_size.convertTo(conv(unit)))
-        self.scale.set_increments(increment, increment*10)
+        self.scale.set_increments(increment, increment * 10)
         self.scale.set_digits(digits)
 
         self.scale.add_mark(0, Gtk.PositionType.BOTTOM,
@@ -210,7 +213,7 @@ class SizeChooserArea(object):
 
         self.spin_size.set_range(self.min_size.convertTo(conv(unit)),
                                  self.max_size.convertTo(conv(unit)))
-        self.spin_size.set_increments(increment, increment*10)
+        self.spin_size.set_increments(increment, increment * 10)
         self.spin_size.set_digits(digits)
 
         if selected_size > self.max_size:

@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -31,7 +31,8 @@ import sys
 
 from .i18n import _
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class ListDevices(object):
     """ List of parent devices
@@ -57,8 +58,8 @@ class ListDevices(object):
         num_devices = self.load_devices()
 
         if not num_devices:
-            msg = _("blivet-gui failed to find at least one storage device to work with." \
-                "\n\nPlease connect a storage device to your computer and re-run blivet-gui.")
+            msg = _("blivet-gui failed to find at least one storage device to work with."
+                    "\n\nPlease connect a storage device to your computer and re-run blivet-gui.")
             self.blivet_gui.show_error_dialog(msg)
             sys.exit(0)
 
@@ -151,7 +152,7 @@ class ListDevices(object):
         selected = False
 
         for device in self.device_list:
-            if device[0] != None and device[0].name == selected_device:
+            if device[0] and device[0].name == selected_device:
                 self.disks_view.set_cursor(i)
                 selected = True
 
@@ -176,7 +177,7 @@ class ListDevices(object):
             # 'Disks', 'LVM2 Volume Groups' and 'LVM2 Physical Volumes' are just
             # labels. If user select one of these, we need to unselect this and
             # select previous choice
-            if model[treeiter][0] == None:
+            if not model[treeiter][0]:
                 selection.handler_block(self.selection_signal)
                 selection.unselect_iter(treeiter)
                 selection.handler_unblock(self.selection_signal)

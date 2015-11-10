@@ -20,7 +20,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import gi
 gi.require_version("Gtk", "3.0")
@@ -32,7 +32,8 @@ from .helpers import adjust_scrolled_size
 
 from ..i18n import _
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class WarningDialog(object):
     """ Basic warning dialog
@@ -52,6 +53,7 @@ class WarningDialog(object):
         dialog.run()
         dialog.destroy()
 
+
 class ErrorDialog(object):
     """ Basic error dialog
     """
@@ -70,6 +72,7 @@ class ErrorDialog(object):
         dialog.run()
         dialog.destroy()
 
+
 class InfoDialog(object):
     """ Basic error dialog
     """
@@ -87,6 +90,7 @@ class InfoDialog(object):
         dialog.show_all()
         dialog.run()
         dialog.destroy()
+
 
 class ExceptionDialog(object):
     """ Error dialog with traceback
@@ -108,6 +112,7 @@ class ExceptionDialog(object):
         dialog.show_all()
         dialog.run()
         dialog.destroy()
+
 
 class ConfirmDialog(object):
     """ General confirmation dialog
@@ -136,6 +141,7 @@ class ConfirmDialog(object):
 
         return response == Gtk.ResponseType.OK
 
+
 def show_actions_list(treestore_actions):
     builder = Gtk.Builder()
     builder.set_translation_domain("blivet-gui")
@@ -146,6 +152,7 @@ def show_actions_list(treestore_actions):
     treeview_actions.expand_all()
 
     return treeview_actions
+
 
 class ConfirmActionsDialog(object):
     """ Confirm execute actions
@@ -163,8 +170,8 @@ class ConfirmActionsDialog(object):
 
         scrolledwindow = builder.get_object("scrolledwindow")
 
-        win_width = int(parent_window.get_allocated_width()*0.60)
-        win_height = int(parent_window.get_allocated_height()*0.60)
+        win_width = int(parent_window.get_allocated_width() * 0.60)
+        win_height = int(parent_window.get_allocated_height() * 0.60)
 
         treeview_actions = show_actions_list(treestore_actions)
         scrolledwindow.add(treeview_actions)
@@ -185,6 +192,7 @@ class ConfirmActionsDialog(object):
 
         return response == Gtk.ResponseType.OK
 
+
 class ShowActionsDialog(object):
     """ Show dialog with scheduled actions
     """
@@ -202,8 +210,8 @@ class ShowActionsDialog(object):
 
         scrolledwindow = builder.get_object("scrolledwindow")
 
-        win_width = int(parent_window.get_allocated_width()*0.60)
-        win_height = int(parent_window.get_allocated_height()*0.60)
+        win_width = int(parent_window.get_allocated_width() * 0.60)
+        win_height = int(parent_window.get_allocated_height() * 0.60)
 
         treeview_actions = show_actions_list(treestore_actions)
         scrolledwindow.add(treeview_actions)

@@ -7,6 +7,7 @@ from blivetgui.blivet_utils import BlivetUtils, FreeSpaceDevice
 
 from blivet.size import Size
 
+
 class FreeSpaceDeviceTest(unittest.TestCase):
 
     def test_free_basic(self):
@@ -61,6 +62,7 @@ class FreeSpaceDeviceTest(unittest.TestCase):
         free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
 
         self.assertEqual(free.protected, disk.protected)
+
 
 class BlivetUtilsTest(unittest.TestCase):
 

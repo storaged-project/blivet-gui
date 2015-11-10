@@ -17,6 +17,7 @@ from gi.repository import Gtk
 
 from blivet.size import Size
 
+
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class SizeChooserAreaTest(unittest.TestCase):
 
@@ -71,6 +72,7 @@ class SizeChooserAreaTest(unittest.TestCase):
         for widget in self.size_area.widgets:
             self.assertTrue(widget.get_sensitive())
 
+
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class AdvancedOptionsTest(unittest.TestCase):
 
@@ -84,13 +86,13 @@ class AdvancedOptionsTest(unittest.TestCase):
         free_device = Mock(isLogical=False, size=Size("8 GiB"))
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvm",
-            parent_device=parent_device, free_device=free_device)
+                                           parent_device=parent_device, free_device=free_device)
 
         self.assertFalse(hasattr(advanced_options, "partition_combo"))
         self.assertTrue(hasattr(advanced_options, "pesize_combo"))
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvmvg",
-            parent_device=parent_device, free_device=free_device)
+                                           parent_device=parent_device, free_device=free_device)
 
         self.assertFalse(hasattr(advanced_options, "partition_combo"))
         self.assertTrue(hasattr(advanced_options, "pesize_combo"))
@@ -102,7 +104,7 @@ class AdvancedOptionsTest(unittest.TestCase):
         # only 8 MiB free space, allow only 2 and 4 MiB PE Size
         free_device = Mock(isLogical=False, size=Size("8 MiB"))
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvm",
-            parent_device=parent_device, free_device=free_device)
+                                           parent_device=parent_device, free_device=free_device)
 
         pesizes = [i[0] for i in advanced_options.pesize_combo.get_model()]
         self.assertEqual(["2 MiB", "4 MiB"], pesizes)
@@ -110,7 +112,7 @@ class AdvancedOptionsTest(unittest.TestCase):
         # enough free space, allow up to 64 MiB PE Size
         free_device = Mock(isLogical=False, size=Size("1 GiB"))
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvm",
-            parent_device=parent_device, free_device=free_device)
+                                           parent_device=parent_device, free_device=free_device)
 
         pesizes = [i[0] for i in advanced_options.pesize_combo.get_model()]
         self.assertEqual(["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"], pesizes)
@@ -122,7 +124,7 @@ class AdvancedOptionsTest(unittest.TestCase):
         free_device = Mock(isLogical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
-            parent_device=parent_device, free_device=free_device)
+                                           parent_device=parent_device, free_device=free_device)
 
         self.assertTrue(hasattr(advanced_options, "partition_combo"))
         self.assertFalse(hasattr(advanced_options, "pesize_combo"))
@@ -135,7 +137,7 @@ class AdvancedOptionsTest(unittest.TestCase):
         free_device = Mock(isLogical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
-            parent_device=parent_device, free_device=free_device)
+                                           parent_device=parent_device, free_device=free_device)
 
         part_types = advanced_options.partition_combo.get_model()
 
@@ -150,7 +152,7 @@ class AdvancedOptionsTest(unittest.TestCase):
         free_device = Mock(isLogical=True)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
-            parent_device=parent_device, free_device=free_device)
+                                           parent_device=parent_device, free_device=free_device)
 
         part_types = advanced_options.partition_combo.get_model()
 
@@ -164,7 +166,7 @@ class AdvancedOptionsTest(unittest.TestCase):
         free_device = Mock(isLogical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
-            parent_device=parent_device, free_device=free_device)
+                                           parent_device=parent_device, free_device=free_device)
 
         part_types = advanced_options.partition_combo.get_model()
 
@@ -177,7 +179,7 @@ class AdvancedOptionsTest(unittest.TestCase):
         free_device = Mock(isLogical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
-            parent_device=parent_device, free_device=free_device)
+                                           parent_device=parent_device, free_device=free_device)
 
         part_types = advanced_options.partition_combo.get_model()
 
@@ -207,6 +209,7 @@ class AdvancedOptionsTest(unittest.TestCase):
         selection = advanced_options.get_selection()
         self.assertEqual(selection["pesize"], Size("64 MiB"))
 
+
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class AddDialogTest(unittest.TestCase):
 
@@ -230,7 +233,7 @@ class AddDialogTest(unittest.TestCase):
         raid5 = MagicMock()
         raid5.configure_mock(name="raid5", min_members=3)
 
-        return {"btrfs volume" : (single, raid0, raid1), "mdraid" : (linear, raid0, raid1)}
+        return {"btrfs volume": (single, raid0, raid1), "mdraid": (linear, raid0, raid1)}
 
     def _get_free_device(self, size=Size("8 GiB"), logical=False, parent=None, **kwargs):
         if not parent:
@@ -467,7 +470,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertEqual(add_dialog.parents_store[0][0], parent_device)
         self.assertEqual(add_dialog.parents_store[0][1], free_device)
         self.assertTrue(add_dialog.parents_store[0][2])
-        self.assertFalse(add_dialog.parents_store[1][2]) # other two free devices shouldn't be selected
+        self.assertFalse(add_dialog.parents_store[1][2])  # other two free devices shouldn't be selected
         self.assertFalse(add_dialog.parents_store[2][2])
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
@@ -510,14 +513,14 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.parents_store[1][2] = True
 
         self.assertTrue(add_dialog.parents_store[1][3])
-        self.assertEqual(len(add_dialog.size_areas), 2) # two parents --> two size areas
+        self.assertEqual(len(add_dialog.size_areas), 2)  # two parents --> two size areas
 
         # deselect second parent
         add_dialog.parents_store[1][2] = False
         add_dialog.on_cell_toggled(None, 1)
 
         self.assertFalse(add_dialog.parents_store[1][3])
-        self.assertEqual(len(add_dialog.size_areas), 1) # only one size area again
+        self.assertEqual(len(add_dialog.size_areas), 1)  # only one size area again
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     def test_fs_chooser(self):
@@ -525,7 +528,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
-                               [free_device], self.supported_raids, self.supported_fs, [], True) # with kickstart_mode=True
+                               [free_device], self.supported_raids, self.supported_fs, [], True)  # with kickstart_mode=True
 
         # we have all supported fs in the combo
         self.assertEqual(len(add_dialog.filesystems_combo.get_model()), len(self.supported_fs))
@@ -550,7 +553,7 @@ class AddDialogTest(unittest.TestCase):
         add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
                                [free_device], self.supported_raids, self.supported_fs, [])
 
-        min_size = add_dialog.size_areas[0][0].min_size # device minimal size before update
+        min_size = add_dialog.size_areas[0][0].min_size  # device minimal size before update
         # check the encrypt check, passphrase entries should be visible and 2 MiB should be added to device min size
         add_dialog.encrypt_check.set_active(True)
         self.assertTrue(add_dialog.pass_entry.get_visible())
@@ -616,7 +619,7 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.on_cell_toggled(None, 1)
         add_dialog.parents_store[1][2] = True
         self.assertTrue(add_dialog.raid_combo.get_visible())
-        self.assertEqual(add_dialog.raid_combo.get_active_id(), "linear") # linear is default value for mdraid
+        self.assertEqual(add_dialog.raid_combo.get_active_id(), "linear")  # linear is default value for mdraid
 
         # only 2 parents --> only "linear", "raid1" and "raid0" should be available; "raid5" needs at least 3 parents
         # set_active_id returns True or False based on success --> it should return False for "raid5" and True otherwise
@@ -630,7 +633,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertEqual(add_dialog.size_areas[1][0].max_size, Size("4 GiB"))
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
-    def test_free_type1(self): # TODO: test available parent types
+    def test_free_type1(self):  # TODO: test available parent types
         # empty disk --> free type chooser should be added and sensitive
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), isFreeRegion=False,
@@ -644,8 +647,8 @@ class AddDialogTest(unittest.TestCase):
         self.assertIsNotNone(add_dialog.free_type_chooser)
         self.assertTrue(all(widget.get_sensitive() for widget in add_dialog.free_type_chooser))
 
-        ## partitions should be selected by default and size chooser should be sensitive
-        self.assertEqual(add_dialog.free_type_chooser[2].get_label(), _("Partitions")) # just to make sure we are testing right button
+        # partitions should be selected by default and size chooser should be sensitive
+        self.assertEqual(add_dialog.free_type_chooser[2].get_label(), _("Partitions"))  # just to make sure we are testing right button
         self.assertTrue(add_dialog.free_type_chooser[2].get_active())
         self.assertTrue(add_dialog.size_areas[0][0].get_sensitive())
 
@@ -667,8 +670,8 @@ class AddDialogTest(unittest.TestCase):
         self.assertIsNotNone(add_dialog.free_type_chooser)
         self.assertFalse(all(widget.get_sensitive() for widget in add_dialog.free_type_chooser))
 
-        ## partitions should be selected by default and size chooser should be sensitive
-        self.assertEqual(add_dialog.free_type_chooser[2].get_label(), _("Partitions")) # just to make sure we are testing right button
+        # partitions should be selected by default and size chooser should be sensitive
+        self.assertEqual(add_dialog.free_type_chooser[2].get_label(), _("Partitions"))  # just to make sure we are testing right button
         self.assertTrue(add_dialog.free_type_chooser[2].get_active())
         self.assertTrue(add_dialog.size_areas[0][0].get_sensitive())
 
@@ -687,8 +690,8 @@ class AddDialogTest(unittest.TestCase):
         self.assertIsNotNone(add_dialog.free_type_chooser)
         self.assertFalse(all(widget.get_sensitive() for widget in add_dialog.free_type_chooser))
 
-        ## disks should be selected by default and size chooser should be insensitive
-        self.assertEqual(add_dialog.free_type_chooser[1].get_label(), _("Disks")) # just to make sure we are testing right button
+        # disks should be selected by default and size chooser should be insensitive
+        self.assertEqual(add_dialog.free_type_chooser[1].get_label(), _("Disks"))  # just to make sure we are testing right button
         self.assertTrue(add_dialog.free_type_chooser[1].get_active())
         self.assertFalse(add_dialog.size_areas[0][0].get_sensitive())
 
@@ -706,7 +709,7 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.pass_entry.set_text("aaaaa")
         add_dialog.pass2_entry.set_text("aaaaa")
         add_dialog.validate_user_input()
-        self.assertFalse(self.error_dialog.called) # passphrases specified and matches --> no error
+        self.assertFalse(self.error_dialog.called)  # passphrases specified and matches --> no error
         self.error_dialog.reset_mock()
 
         # passphrases specified but don't matche
@@ -736,7 +739,7 @@ class AddDialogTest(unittest.TestCase):
         # valid mountpoint
         add_dialog.mountpoint_entry.set_text("/home")
         add_dialog.validate_user_input()
-        self.assertFalse(self.error_dialog.called) # passphrase specified --> no error
+        self.assertFalse(self.error_dialog.called)  # passphrase specified --> no error
         self.error_dialog.reset_mock()
 
         # invalid mountpoint
@@ -762,13 +765,13 @@ class AddDialogTest(unittest.TestCase):
         add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
                                [free_device], self.supported_raids, self.supported_fs, [])
 
-        add_dialog.devices_combo.set_active_id("lvm") # select device type that has a name option
+        add_dialog.devices_combo.set_active_id("lvm")  # select device type that has a name option
 
         # valid name
         name = "aaaaa"
         add_dialog.name_entry.set_text(name)
         add_dialog.validate_user_input()
-        self.assertFalse(self.error_dialog.called) # passphrase specified --> no error
+        self.assertFalse(self.error_dialog.called)  # passphrase specified --> no error
         self.error_dialog.reset_mock()
 
         # invalid name
@@ -787,14 +790,14 @@ class AddDialogTest(unittest.TestCase):
         add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
                                [free_device], self.supported_raids, self.supported_fs, [])
 
-        add_dialog.devices_combo.set_active_id("partition") # select device type that has a label option
+        add_dialog.devices_combo.set_active_id("partition")  # select device type that has a label option
         add_dialog.filesystems_combo.set_active_id("ext4")
 
         # valid label for ext4
         label = "a" * 5
         add_dialog.label_entry.set_text(label)
         add_dialog.validate_user_input()
-        self.assertFalse(self.error_dialog.called) # passphrase specified --> no error
+        self.assertFalse(self.error_dialog.called)  # passphrase specified --> no error
         self.error_dialog.reset_mock()
 
         # invalid label for ext4
@@ -915,7 +918,7 @@ class AddDialogTest(unittest.TestCase):
         selection = add_dialog.get_selection()
 
         self.assertEqual(selection.device_type, "mdraid")
-        self.assertEqual(selection.size, 2*size)
+        self.assertEqual(selection.size, 2 * size)
         self.assertEqual(selection.filesystem, fstype)
         self.assertEqual(selection.name, name)
         self.assertTrue(selection.label in (None, ""))

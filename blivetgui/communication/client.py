@@ -19,7 +19,7 @@
 #
 # Red Hat Author(s): Vojtech Trefny <vtrefny@redhat.com>
 #
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 import pickle
 
@@ -32,7 +32,8 @@ from .proxy_utils import ProxyID, ProxyDataContainer
 from ..dialogs.message_dialogs import ErrorDialog
 from ..i18n import _
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
+
 
 class ClientProxyObject(object):
 
@@ -79,9 +80,10 @@ class ClientProxyObject(object):
         else:
             return remote_attr
 
-#------------------------------------------------------------------------------#
+# ---------------------------------------------------------------------------- #
 
 from threading import Lock
+
 
 class BlivetGUIClient(object):
 
@@ -103,11 +105,11 @@ class BlivetGUIClient(object):
         """
 
         if isinstance(answer, ProxyID):
-            if answer.id in self.id_dict.keys(): # we already recieved this id before and have our proxy object for it
+            if answer.id in self.id_dict.keys():  # we already recieved this id before and have our proxy object for it
                 return self.id_dict[answer]
             else:
-                self.id_dict[answer] = ClientProxyObject(client=self, proxy_id=answer) # new id, create new proxy object
-                return self.id_dict[answer] # and return iz
+                self.id_dict[answer] = ClientProxyObject(client=self, proxy_id=answer)  # new id, create new proxy object
+                return self.id_dict[answer]  # and return it
         elif isinstance(answer, (list, tuple)):
             new_answer = []
             for item in answer:
@@ -155,11 +157,11 @@ class BlivetGUIClient(object):
 
         ret = self._answer_convertTo_object(answer)
 
-        if not ret.success: # pylint: disable=maybe-no-member
-            raise type(ret.exception)(str(ret.exception) + "\n" + ret.traceback) # pylint: disable=maybe-no-member
+        if not ret.success:  # pylint: disable=maybe-no-member
+            raise type(ret.exception)(str(ret.exception) + "\n" + ret.traceback)  # pylint: disable=maybe-no-member
 
         else:
-            return ret.answer # pylint: disable=maybe-no-member
+            return ret.answer  # pylint: disable=maybe-no-member
 
     def remote_param(self, proxy_id, param_name):
         """ Get a param of proxy_id object
@@ -232,7 +234,7 @@ class BlivetGUIClient(object):
             ret = self._answer_convertTo_object(answer)
 
             while True:
-                if ret[0]: # pylint: disable=maybe-no-member
+                if ret[0]:  # pylint: disable=maybe-no-member
                     break
 
                 show_progress_clbk(ret[1])
