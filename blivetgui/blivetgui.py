@@ -174,7 +174,7 @@ class BlivetGUI(object):
         self.list_parents.update_parents_list(self.list_devices.selected_device)
         self.physical_view.visualize_parents(self.list_parents.parents_list)
 
-        if self.list_devices.selected_device.isDisk:
+        if self.list_devices.selected_device.is_disk:
             self._set_physical_view_visible(False)
         else:
             self._set_physical_view_visible(True)
@@ -269,7 +269,7 @@ class BlivetGUI(object):
         raise exception.with_traceback(traceback)
 
     def switch_device_view(self, device):
-        if not (device.isDisk or device.type in ("lvmvg", "btrfs volume", "mdarray")):
+        if not (device.is_disk or device.type in ("lvmvg", "btrfs volume", "mdarray")):
             raise ValueError
 
         self.list_devices.select_device_by_name(device.name)
@@ -349,12 +349,12 @@ class BlivetGUI(object):
         if parent_device_type == "lvmpv" and parent_device.size < Size("4 MiB"):
             msg = _("Not enough free space for a new LVM Volume Group.")
 
-        if parent_device.isDisk and parent_device.format and parent_device.format.type == "disklabel":
-            disk = parent_device.format.partedDisk
+        if parent_device.is_disk and parent_device.format and parent_device.format.type == "disklabel":
+            disk = parent_device.format.parted_disk
             selected_device = self.list_partitions.selected_partition[0]
-            if disk.primaryPartitionCount >= disk.maxPrimaryPartitionCount and selected_device.isPrimary:
+            if disk.primaryPartitionCount >= disk.maxPrimaryPartitionCount and selected_device.is_primary:
                 msg = _("Disk {name} already reached maximum allowed number of primary partitions "
-                        "for {label} disklabel.").format(name=parent_device.name, label=parent_device.format.labelType)
+                        "for {label} disklabel.").format(name=parent_device.name, label=parent_device.format.label_type)
 
         return (False, msg) if msg else (True, None)
 

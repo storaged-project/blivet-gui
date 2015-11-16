@@ -70,7 +70,7 @@ class ListPartitions(object):
                 else:
                     self._add_to_store(child, parent_iter)
 
-        if selected_device.isDisk:
+        if selected_device.is_disk:
             childs = self.blivet_gui.client.remote_call("get_disk_children", selected_device)
 
             for child in childs.partitions:
@@ -84,7 +84,7 @@ class ListPartitions(object):
 
                 else:
                     child_iter = self._add_to_store(child)
-                    if hasattr(child, "isExtended") and child.isExtended:
+                    if hasattr(child, "is_extended") and child.is_extended:
                         for logical in childs.logicals:
                             if self._is_group_device(logical):
                                 logical = self.blivet_gui.client.remote_call("get_group_device", logical)
@@ -143,7 +143,7 @@ class ListPartitions(object):
         if self.kickstart_mode:
             mnt = device.format.mountpoint if (device.format and device.format.mountable) else None
         else:
-            mnt = device.format.systemMountpoint if (device.format and device.format.mountable) else None
+            mnt = device.format.system_mountpoint if (device.format and device.format.mountable) else None
 
         device_iter = self.partitions_list.append(parent_iter, [device, name, devtype, fmt, str(device.size), mnt])
 
@@ -178,8 +178,8 @@ class ListPartitions(object):
             return False
 
         else:
-            if device.type == "partition" and device.isExtended:
-                return device.resizable and (device.maxSize > device.size or device.minSize < device.size)
+            if device.type == "partition" and device.is_extended:
+                return device.resizable and (device.max_size > device.size or device.min_size < device.size)
 
             elif self.kickstart_mode:
                 return device.format.mountable
@@ -207,7 +207,7 @@ class ListPartitions(object):
 
         # snapshot of lvmlv -- only if there is free space in the vg
         if device.type == "lmvlv":
-            return device.vg.freeSpace >= device.vg.peSize
+            return device.vg.free_space >= device.vg.pe_size
 
     def activate_action_buttons(self, selected_device):
         """ Activate buttons in toolbar based on selected device
@@ -237,7 +237,7 @@ class ListPartitions(object):
             if device.format.type == "luks" and not device.format.status and device.format.exists:
                 self.blivet_gui.activate_device_actions(["decrypt"])
 
-            elif device.format.mountable and device.format.systemMountpoint:
+            elif device.format.mountable and device.format.system_mountpoint:
                 self.blivet_gui.activate_device_actions(["unmount"])
 
     def select_device(self, device):

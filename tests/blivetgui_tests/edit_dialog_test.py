@@ -48,13 +48,13 @@ class PartitionEditDialogTest(unittest.TestCase):
 
     @patch("blivetgui.dialogs.edit_dialog.PartitionEditDialog.set_transient_for", lambda dialog, window: True)
     def test_formattable(self):
-        self.edited_device.configure_mock(isExtended=True)
+        self.edited_device.configure_mock(is_extended=True)
         dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs, [])
 
         # extended partition -- all fs widgets should be inactive
         self.assertFalse(any(w.get_sensitive() for w in dialog.widgets_dict["fs"]))
 
-        self.edited_device.configure_mock(isExtended=False)
+        self.edited_device.configure_mock(is_extended=False)
         dialog = PartitionEditDialog(self.parent_window, self.edited_device, self.resize_info, self.supported_fs, [])
 
         # 'normal' partition -- format check should be active

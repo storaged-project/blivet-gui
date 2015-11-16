@@ -35,7 +35,7 @@ class ListParents(object):
         self.parents_list.clear()
 
         # no physical view for disks, empty list and return
-        if selected_device.isDisk:
+        if selected_device.is_disk:
             return
 
         parent_devices = self._get_parent_devices(selected_device)
@@ -43,7 +43,7 @@ class ListParents(object):
 
         for root in root_devices:
             root_iter = self.parents_list.append(None, [root, False])
-            if root.isDisk:
+            if root.is_disk:
                 childs = self.blivet_gui.client.remote_call("get_disk_children", root).partitions
             elif root.type == "mdarray":
                 childs = [root]
@@ -51,11 +51,11 @@ class ListParents(object):
                 childs = self.blivet_gui.client.remote_call("get_children", root)
 
             for child in childs:
-                if child.type == "btrfs volume" and root.isDisk and root.format.type == "btrfs":
+                if child.type == "btrfs volume" and root.is_disk and root.format.type == "btrfs":
                     self.parents_list.append(root_iter, [root, True])
-                elif child.type == "partition" and child.isExtended:
+                elif child.type == "partition" and child.is_extended:
                     for parent in parent_devices:
-                        if parent.type == "partition" and parent.isLogical and parent.disk.name == child.disk.name:
+                        if parent.type == "partition" and parent.is_logical and parent.disk.name == child.disk.name:
                             self.parents_list.append(root_iter, [parent, True])
                 elif child.name in [d.name for d in parent_devices]:
                     self.parents_list.append(root_iter, [child, True])

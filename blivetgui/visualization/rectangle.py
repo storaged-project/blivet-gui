@@ -96,7 +96,7 @@ class Rectangle(Gtk.RadioButton):
         if self.device.type == "free space" or (self.device.format and self.device.format.type == "lvmpv"
                                                 and not self.device.kids):
             properties.append("empty")
-        if self.device.type == "free space" and self.device.isUninitializedDisk:
+        if self.device.type == "free space" and self.device.is_uninitialized_disk:
             properties.append("nodisklabel")
 
         if self.device.format.exists and self.device.protected:

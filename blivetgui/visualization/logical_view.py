@@ -191,7 +191,7 @@ class LogicalView(object):
 
         while treeiter:
             device = self._devices_list[treeiter][0]
-            extra_space = int(remaining_space * (device.size.convertTo() / total_size))
+            extra_space = int(remaining_space * (device.size.convert_to() / total_size))
             width_dict[device] += extra_space
             allocated_width += extra_space
 
@@ -215,7 +215,7 @@ class LogicalView(object):
 
         total_size = 0
         while treeiter:
-            total_size += self._devices_list[treeiter][0].size.convertTo()
+            total_size += self._devices_list[treeiter][0].size.convert_to()
             treeiter = self._devices_list.iter_next(treeiter)
 
         return total_size
@@ -262,5 +262,5 @@ class LogicalView(object):
 
     def _on_button_press(self, button, event):
         if event.type == Gdk.EventType._2BUTTON_PRESS:
-            if button.device.isDisk or button.device.type in ("lvmvg", "btrfs volume", "mdarray"):
+            if button.device.is_disk or button.device.type in ("lvmvg", "btrfs volume", "mdarray"):
                 self.blivet_gui.switch_device_view(button.device)

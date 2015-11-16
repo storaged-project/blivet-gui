@@ -94,12 +94,12 @@ class DeviceInformationDialog(Gtk.Dialog):
         self.show_all()
 
     def _get_partition_info(self):
-        info = _(" • <i>Type:</i> {type}\n").format(type=PARTITION_TYPE[self.device.partType])
+        info = _(" • <i>Type:</i> {type}\n").format(type=PARTITION_TYPE[self.device.part_type])
 
-        if self.device.partedPartition:
-            info += _(" • <i>Length:</i> {length}\n").format(length=self.device.partedPartition.geometry.length)
-            info += _(" • <i>Start:</i> {start}\n").format(start=self.device.partedPartition.geometry.start)
-            info += _(" • <i>End:</i> {end}\n").format(end=self.device.partedPartition.geometry.end)
+        if self.device.parted_partition:
+            info += _(" • <i>Length:</i> {length}\n").format(length=self.device.parted_partition.geometry.length)
+            info += _(" • <i>Start:</i> {start}\n").format(start=self.device.parted_partition.geometry.start)
+            info += _(" • <i>End:</i> {end}\n").format(end=self.device.parted_partition.geometry.end)
 
         return info
 
@@ -107,43 +107,42 @@ class DeviceInformationDialog(Gtk.Dialog):
         info = ""
         if self.device.type == "lvmsnapshot":
             info += _(" • <i>Origin:</i> {origin}\n").format(origin=self.device.origin.name)
-            info += _(" • <i>Segment type:</i> {segtype}\n").format(segtype=self.device.segType)
+            info += _(" • <i>Segment type:</i> {segtype}\n").format(segtype=self.device.seg_type)
             info += _(" • <i>Mirror copies:</i> {copies}\n").format(copies=self.device.copies)
         elif self.device.type == "lvmthinpool":
-            info += _(" • <i>Segment type:</i> {segtype}\n").format(segtype=self.device.segType)
+            info += _(" • <i>Segment type:</i> {segtype}\n").format(segtype=self.device.seg_type)
             info += _(" • <i>Mirror copies:</i> {copies}\n").format(copies=self.device.copies)
-            info += _(" • <i>Free space:</i> {free}\n").format(free=str(self.device.freeSpace))
-            info += _(" • <i>Space used:</i> {used}\n").format(used=str(self.device.usedSpace))
+            info += _(" • <i>Free space:</i> {free}\n").format(free=str(self.device.free_space))
+            info += _(" • <i>Space used:</i> {used}\n").format(used=str(self.device.used_space))
         else:
-            info += _(" • <i>Segment type:</i> {segtype}\n").format(segtype=self.device.segType)
+            info += _(" • <i>Segment type:</i> {segtype}\n").format(segtype=self.device.seg_type)
             info += _(" • <i>Mirror copies:</i> {copies}\n").format(copies=self.device.copies)
 
         return info
 
     def _get_lvmvg_info(self):
-        info = _(" • <i>PE Size:</i> {pesize}\n").format(pesize=str(self.device.peSize))
-        info += _(" • <i>PE Count:</i> {pecount}\n").format(pecount=self.device.peCount)
+        info = _(" • <i>PE Size:</i> {pesize}\n").format(pesize=str(self.device.pe_size))
+        info += _(" • <i>PE Count:</i> {pecount}\n").format(pecount=self.device.pe_count)
         info += _(" • <i>Free Space:</i> {free}\n").format(free=str(self.device.free))
-        info += _(" • <i>PE Free:</i> {pefree}\n").format(pefree=self.device.peFree)
-        info += _(" • <i>Reserved Space:</i> {res} ({resp} %)\n").format(res=self.device.reservedSpace,
-                                                                         resp=self.device.reserved_percent)
+        info += _(" • <i>PE Free:</i> {pefree}\n").format(pefree=self.device.pe_free)
+        info += _(" • <i>Reserved Space:</i> {res}\n").format(res=self.device.reserved_space)
         info += _(" • <i>Complete:</i> {complete}\n").format(complete=self.device.complete)
 
         return info
 
     def _get_btrfs_info(self):
         info = _(" • <i>Subvol ID:</i> {id}\n").format(id=self.device.format.subvolspec)
-        info += _(" • <i>Data Level:</i> {level}\n").format(level=self.device.dataLevel)
-        info += _(" • <i>Metadata Level:</i> {level}\n").format(level=self.device.metaDataLevel)
+        info += _(" • <i>Data Level:</i> {level}\n").format(level=self.device.data_level)
+        info += _(" • <i>Metadata Level:</i> {level}\n").format(level=self.device.metadata_level)
 
         return info
 
     def _get_mdarray_info(self):
         info = _(" • <i>Level:</i> {level}\n").format(level=str(self.device.level))
-        info += _(" • <i>Devices:</i> {dcount}\n").format(dcount=self.device.totalDevices)
+        info += _(" • <i>Devices:</i> {dcount}\n").format(dcount=self.device.total_devices)
         info += _(" • <i>Spares:</i> {spares}\n").format(spares=str(self.device.spares))
         info += _(" • <i>Degraded:</i> {degraded}\n").format(degraded=self.device.degraded)
-        info += _(" • <i>Metadata Version:</i> {metadata}\n").format(metadata=self.device.metadataVersion)
+        info += _(" • <i>Metadata Version:</i> {metadata}\n").format(metadata=self.device.metadata_version)
         info += _(" • <i>Complete:</i> {complete}\n").format(complete=self.device.complete)
 
         return info
@@ -214,8 +213,8 @@ class DeviceInformationDialog(Gtk.Dialog):
             info += _(" • <i>UUID:</i> {uuid}\n").format(uuid=self.device.format.uuid)
             if hasattr(self.device.format, "label") and self.device.format.label:
                 info += _(" • <i>Label:</i> {label}\n").format(label=self.device.format.label)
-            if hasattr(self.device.format, "systemMountpoint") and self.device.format.systemMountpoint:
-                info += _(" • <i>Mountpoint:</i> {mountpoint}\n").format(mountpoint=self.device.format.systemMountpoint)
+            if hasattr(self.device.format, "system_mountpoint") and self.device.format.system_mountpoint:
+                info += _(" • <i>Mountpoint:</i> {mountpoint}\n").format(mountpoint=self.device.format.system_mountpoint)
 
         else:
             info = _(" • <i>Type:</i> None")

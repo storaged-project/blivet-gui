@@ -107,13 +107,13 @@ class AdvancedOptions(object):
 
         types = []
 
-        if self.free_device.isLogical:
+        if self.free_device.is_logical:
             types = [(_("Logical"), "logical")]
 
         elif self._has_extended:
             types = [(_("Primary"), "primary")]
 
-        elif self.parent_device.format.labelType in ("gpt",):
+        elif self.parent_device.format.label_type in ("gpt",):
             types = [(_("Primary"), "primary")]
 
         else:
@@ -141,7 +141,7 @@ class AdvancedOptions(object):
     @property
     def _has_extended(self):
         if self.parent_device.type == "disk":
-            return self.parent_device.format.extendedPartition is not None
+            return self.parent_device.format.extended_partition is not None
 
         return False
 
@@ -288,7 +288,7 @@ class AddDialog(Gtk.Dialog):
         label_devices.get_style_context().add_class("dim-label")
         self.grid.attach(label_devices, 0, 0, 1, 1)
 
-        if self.parent_type == "disk" and self.free_device.isLogical:
+        if self.parent_type == "disk" and self.free_device.is_logical:
             devices = [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
                        (_("LVM2 Physical Volume"), "lvmpv")]
 
@@ -448,12 +448,12 @@ class AddDialog(Gtk.Dialog):
         button1.show()
         button2.show()
 
-        if self.free_device.isUninitializedDisk:
+        if self.free_device.is_uninitialized_disk:
             button1.toggled()
             button1.set_sensitive(False)
             button2.set_sensitive(False)
 
-        elif self.free_device.isFreeRegion:
+        elif self.free_device.is_free_region:
             button2.set_active(True)
             button1.set_sensitive(False)
             button2.set_sensitive(False)
@@ -523,11 +523,11 @@ class AddDialog(Gtk.Dialog):
 
                 disk = free.parents[0]
 
-                if free.isFreeRegion and (parent_type == "partitions" or device_type in ("lvm", "mdraid")):
+                if free.is_free_region and (parent_type == "partitions" or device_type in ("lvm", "mdraid")):
                     self.parents_store.append([disk, free, False, False, disk.name,
                                                "disk region", str(free.size)])
 
-                elif not free.isFreeRegion:
+                elif not free.is_free_region:
                     self.parents_store.append([disk, free, False, False, disk.name,
                                                "disk", str(free.size)])
 

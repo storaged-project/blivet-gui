@@ -82,8 +82,8 @@ class AdvancedOptionsTest(unittest.TestCase):
 
     def test_lvm_options(self):
         # test lvm options are displayed for lvm/lvmvg type
-        parent_device = Mock(type="disk", format=Mock(labelType="gpt", extendedPartition=None))
-        free_device = Mock(isLogical=False, size=Size("8 GiB"))
+        parent_device = Mock(type="disk", format=Mock(label_type="gpt", extended_partition=None))
+        free_device = Mock(is_logical=False, size=Size("8 GiB"))
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvm",
                                            parent_device=parent_device, free_device=free_device)
@@ -99,10 +99,10 @@ class AdvancedOptionsTest(unittest.TestCase):
 
     def test_allowed_pesize(self):
         # test allowed pesize options based on free space available
-        parent_device = Mock(type="disk", format=Mock(labelType="gpt", extendedPartition=None))
+        parent_device = Mock(type="disk", format=Mock(label_type="gpt", extended_partition=None))
 
         # only 8 MiB free space, allow only 2 and 4 MiB PE Size
-        free_device = Mock(isLogical=False, size=Size("8 MiB"))
+        free_device = Mock(is_logical=False, size=Size("8 MiB"))
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvm",
                                            parent_device=parent_device, free_device=free_device)
 
@@ -110,7 +110,7 @@ class AdvancedOptionsTest(unittest.TestCase):
         self.assertEqual(["2 MiB", "4 MiB"], pesizes)
 
         # enough free space, allow up to 64 MiB PE Size
-        free_device = Mock(isLogical=False, size=Size("1 GiB"))
+        free_device = Mock(is_logical=False, size=Size("1 GiB"))
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvm",
                                            parent_device=parent_device, free_device=free_device)
 
@@ -120,8 +120,8 @@ class AdvancedOptionsTest(unittest.TestCase):
     def test_partition_options(self):
         # test partition options are displayed for partition type
 
-        parent_device = Mock(type="disk", format=Mock(labelType="msdos", extendedPartition=None))
-        free_device = Mock(isLogical=False)
+        parent_device = Mock(type="disk", format=Mock(label_type="msdos", extended_partition=None))
+        free_device = Mock(is_logical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
                                            parent_device=parent_device, free_device=free_device)
@@ -133,8 +133,8 @@ class AdvancedOptionsTest(unittest.TestCase):
         # "standard" situation -- disk with msdos part table, no existing extended partition
         # → both "primary and extended" types should be allowed
 
-        parent_device = Mock(type="disk", format=Mock(labelType="msdos", extendedPartition=None))
-        free_device = Mock(isLogical=False)
+        parent_device = Mock(type="disk", format=Mock(label_type="msdos", extended_partition=None))
+        free_device = Mock(is_logical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
                                            parent_device=parent_device, free_device=free_device)
@@ -148,8 +148,8 @@ class AdvancedOptionsTest(unittest.TestCase):
     def test_logical_partition(self):
         # adding partition to free space inside extended partition -> only "logical allowed"
 
-        parent_device = Mock(type="disk", format=Mock(labelType="msdos", extendedPartition=Mock()))
-        free_device = Mock(isLogical=True)
+        parent_device = Mock(type="disk", format=Mock(label_type="msdos", extended_partition=Mock()))
+        free_device = Mock(is_logical=True)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
                                            parent_device=parent_device, free_device=free_device)
@@ -162,8 +162,8 @@ class AdvancedOptionsTest(unittest.TestCase):
     def test_extended_partition(self):
         # extended partition already exists -> allow only "primary" type
 
-        parent_device = Mock(type="disk", format=Mock(labelType="msdos", extendedPartition=Mock()))
-        free_device = Mock(isLogical=False)
+        parent_device = Mock(type="disk", format=Mock(label_type="msdos", extended_partition=Mock()))
+        free_device = Mock(is_logical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
                                            parent_device=parent_device, free_device=free_device)
@@ -175,8 +175,8 @@ class AdvancedOptionsTest(unittest.TestCase):
 
     def test_gpt_partitions(self):
         # adding partition on gpt disk -> only "primary" type allowed
-        parent_device = Mock(type="disk", format=Mock(labelType="gpt", extendedPartition=None))
-        free_device = Mock(isLogical=False)
+        parent_device = Mock(type="disk", format=Mock(label_type="gpt", extended_partition=None))
+        free_device = Mock(is_logical=False)
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
                                            parent_device=parent_device, free_device=free_device)
@@ -188,8 +188,8 @@ class AdvancedOptionsTest(unittest.TestCase):
 
     def test_selection(self):
         # partition
-        parent_device = Mock(type="disk", format=Mock(labelType="msdos", extendedPartition=None))
-        free_device = Mock(isLogical=False)
+        parent_device = Mock(type="disk", format=Mock(label_type="msdos", extended_partition=None))
+        free_device = Mock(is_logical=False)
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="partition",
                                            parent_device=parent_device, free_device=free_device)
 
@@ -199,8 +199,8 @@ class AdvancedOptionsTest(unittest.TestCase):
         self.assertEqual(selection["parttype"], "extended")
 
         # lvm
-        parent_device = Mock(type="disk", format=Mock(labelType="gpt", extendedPartition=None))
-        free_device = Mock(isLogical=False, size=Size("8 GiB"))
+        parent_device = Mock(type="disk", format=Mock(label_type="gpt", extended_partition=None))
+        free_device = Mock(is_logical=False, size=Size("8 GiB"))
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvm",
                                            parent_device=parent_device, free_device=free_device)
 
@@ -240,12 +240,12 @@ class AddDialogTest(unittest.TestCase):
             parent = MagicMock()
             parent.configure_mock(name="vda", size=size, type="disk")
 
-        free_region = kwargs.get("isFreeRegion", True)
-        empty_disk = kwargs.get("isEmptyDisk", False)
-        uninitialized_disk = kwargs.get("isUninitializedDisk", False)
+        free_region = kwargs.get("is_free_region", True)
+        empty_disk = kwargs.get("is_empty_disk", False)
+        uninitialized_disk = kwargs.get("is_uninitialized_disk", False)
 
-        return MagicMock(type="free_space", size=size, isLogical=logical, parents=[parent],
-                         isFreeRegion=free_region, isEmptyDisk=empty_disk, isUninitializedDisk=uninitialized_disk)
+        return MagicMock(type="free_space", size=size, is_logical=logical, parents=[parent],
+                         is_free_region=free_region, is_empty_disk=empty_disk, is_uninitialized_disk=uninitialized_disk)
 
     def _get_parent_device(self, name=None, dtype="disk", size=Size("8 GiB"), ftype="disklabel"):
         if not name:
@@ -636,8 +636,8 @@ class AddDialogTest(unittest.TestCase):
     def test_free_type1(self):  # TODO: test available parent types
         # empty disk --> free type chooser should be added and sensitive
         parent_device = self._get_parent_device()
-        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), isFreeRegion=False,
-                                            isEmptyDisk=True)
+        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), is_free_region=False,
+                                            is_empty_disk=True)
 
         add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [], [free_device],
                                self.supported_raids, self.supported_fs, [])
@@ -660,7 +660,7 @@ class AddDialogTest(unittest.TestCase):
     def test_free_type2(self):
         # disk region --> free type chooser should be added and insensitive
         parent_device = self._get_parent_device()
-        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), isFreeRegion=True)
+        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), is_free_region=True)
 
         add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [], [free_device],
                                self.supported_raids, self.supported_fs, [])
@@ -679,8 +679,8 @@ class AddDialogTest(unittest.TestCase):
     def test_free_type3(self):
         # uninitialized disk --> free type chooser should be added and insensitive
         parent_device = self._get_parent_device()
-        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), isFreeRegion=False,
-                                            isUninitializedDisk=True)
+        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), is_free_region=False,
+                                            is_uninitialized_disk=True)
 
         add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [], [free_device],
                                self.supported_raids, self.supported_fs, [])
@@ -932,8 +932,8 @@ class AddDialogTest(unittest.TestCase):
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     def test_btrfs_selection(self):
         parent_device = self._get_parent_device()
-        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), isFreeRegion=False,
-                                            isEmptyDisk=True)
+        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), is_free_region=False,
+                                            is_empty_disk=True)
 
         add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
                                [free_device], self.supported_raids, self.supported_fs, [])

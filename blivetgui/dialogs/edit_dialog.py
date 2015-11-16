@@ -98,7 +98,7 @@ class PartitionEditDialog(Gtk.Dialog):
             self.add_resize_info()
             self.show_widgets(["info"])
 
-        if self.edited_device.type == "partition" and self.edited_device.isExtended:
+        if self.edited_device.type == "partition" and self.edited_device.is_extended:
             self.set_widgets_sensitive(["fs"], False)
             self.format_check.set_tooltip_text(_("Extended partitions cannot be formatted."))
 
@@ -435,7 +435,7 @@ class LVMEditDialog(Gtk.Dialog):
 
                 disk = free.parents[0]
 
-                if free.isFreeRegion:
+                if free.is_free_region:
                     parents_store.append([disk, free, False, disk.name, "disk region",
                                           str(free.size)])
 

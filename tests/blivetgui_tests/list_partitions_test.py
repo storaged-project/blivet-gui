@@ -67,7 +67,7 @@ class ListPartitionsTest(unittest.TestCase):
 
         # simple partition -- test if added to store correctly
         device = MagicMock(type="partition", size=Size("1 GiB"),
-                           format=MagicMock(type="ext4", mountable=True, mountpoint=None, systemMountpoint="/"))
+                           format=MagicMock(type="ext4", mountable=True, mountpoint=None, system_mountpoint="/"))
         device.configure_mock(name="vda1")
 
         it = self.list_partitions._add_to_store(device)
@@ -75,11 +75,11 @@ class ListPartitionsTest(unittest.TestCase):
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 2), device.type)
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 3), device.format.type)
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 4), str(device.size))
-        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 5), device.format.systemMountpoint)
+        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 5), device.format.system_mountpoint)
 
         # lvmvg with long name -- name should be elipsized and type should be 'lvm'
         device = MagicMock(type="lvmvg", size=Size("1 GiB"),
-                           format=MagicMock(type=None, mountable=False, mountpoint=None, systemMountpoint=None))
+                           format=MagicMock(type=None, mountable=False, mountpoint=None, system_mountpoint=None))
         device.configure_mock(name="".join(["a" for i in range(20)]))
 
         it = self.list_partitions._add_to_store(device)
@@ -91,7 +91,7 @@ class ListPartitionsTest(unittest.TestCase):
 
         # child device of previously added device
         device = MagicMock(type="lvmlv", size=Size("1 GiB"),
-                           format=MagicMock(type="ext4", mountable=True, mountpoint=None, systemMountpoint="/home"))
+                           format=MagicMock(type="ext4", mountable=True, mountpoint=None, system_mountpoint="/home"))
         device.configure_mock(name="aaa")
 
         child_it = self.list_partitions._add_to_store(device, it)
@@ -102,7 +102,7 @@ class ListPartitionsTest(unittest.TestCase):
         self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 2), "lvmlv")
         self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 3), device.format.type)
         self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 4), str(device.size))
-        self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 5), device.format.systemMountpoint)
+        self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 5), device.format.system_mountpoint)
 
 
 if __name__ == "__main__":

@@ -63,9 +63,9 @@ class RawFormatDevice(object):
         self.type = "raw format"
         self.size = self.disk.size
 
-        self.isLogical = False
-        self.isFreeSpace = False
-        self.isDisk = False
+        self.is_logical = False
+        self.is_free_space = False
+        self.is_disk = False
         self.isleaf = True
 
         self.kids = 0
@@ -110,11 +110,11 @@ class FreeSpaceDevice(object):
         self.start = start
         self.end = end
 
-        self.isLogical = logical
-        self.isExtended = False
-        self.isPrimary = not logical
-        self.isFreeSpace = True
-        self.isDisk = False
+        self.is_logical = logical
+        self.is_extended = False
+        self.is_primary = not logical
+        self.is_free_space = True
+        self.is_disk = False
 
         self.format = DeviceFormat(exists=True)
         self.type = "free space"
@@ -127,7 +127,7 @@ class FreeSpaceDevice(object):
         parents = self.parents
 
         while parents:
-            if parents[0].isDisk:
+            if parents[0].is_disk:
                 return parents[0]
 
             parents = parents[0].parents
@@ -139,19 +139,19 @@ class FreeSpaceDevice(object):
         return self.parents[0].protected
 
     @property
-    def isEmptyDisk(self):
+    def is_empty_disk(self):
         return len(self.parents) == 1 and self.parents[0].type == "disk" and \
             self.parents[0].kids == 0 and self.parents[0].format.type and \
             self.parents[0].format.type not in ("iso9660",)
 
     @property
-    def isUninitializedDisk(self):
+    def is_uninitialized_disk(self):
         return len(self.parents) == 1 and self.parents[0].type == "disk" and \
             self.parents[0].kids == 0 and not self.parents[0].format.type
 
     @property
-    def isFreeRegion(self):
-        return not (self.isEmptyDisk or self.isUninitializedDisk)
+    def is_free_region(self):
+        return not (self.is_empty_disk or self.is_uninitialized_disk)
 
     def __str__(self):
         return "existing " + str(self.size) + " free space"
@@ -220,7 +220,7 @@ class BlivetUtils(object):
         devices = {}
         devices["lvm"] = self.storage.vgs
         devices["raid"] = self.storage.mdarrays
-        devices["btrfs"] = self.storage.btrfsVolumes
+        devices["btrfs"] = self.storage.btrfs_volumes
 
         return devices
 
@@ -238,7 +238,7 @@ class BlivetUtils(object):
 
         for pv in pvs:
             if pv.kids == 0:
-                free_pvs.append((pv, FreeSpaceDevice(pv.size, self.storage.nextID, None, None, pv.parents)))
+                free_pvs.append((pv, FreeSpaceDevice(pv.size, self.storage.next_id, None, None, pv.parents)))
 
         return free_pvs
 
@@ -249,7 +249,7 @@ class BlivetUtils(object):
         if blivet_device.type != "lvmvg":
             return None
 
-        return FreeSpaceDevice(blivet_device.freeSpace, self.storage.nextID, None, None, [blivet_device])
+        return FreeSpaceDevice(blivet_device.free_space, self.storage.next_id, None, None, [blivet_device])
 
     def get_free_disks_regions(self, include_uninitialized=False):
         """ Returns list of non-empty disks with free space
@@ -259,19 +259,19 @@ class BlivetUtils(object):
 
         for disk in self.storage.disks:
             if not disk.format.type and include_uninitialized:
-                free_disks.append(FreeSpaceDevice(disk.size, self.storage.nextID, 0, disk.currentSize, [disk]))
+                free_disks.append(FreeSpaceDevice(disk.size, self.storage.next_id, 0, disk.current_size, [disk]))
                 continue
 
             elif disk.format.type not in ("disklabel",):
                 continue
 
-            free_space = blivet.partitioning.getFreeRegions([disk], align=True)
+            free_space = blivet.partitioning.get_free_regions([disk], align=True)
 
             for free in free_space:
                 free_size = blivet.size.Size(free.length * free.device.sectorSize)
 
                 if free_size > blivet.size.Size("2 MiB"):
-                    free_disks.append(FreeSpaceDevice(free_size, self.storage.nextID, free.start, free.end, [disk]))
+                    free_disks.append(FreeSpaceDevice(free_size, self.storage.next_id, free.start, free.end, [disk]))
 
         return free_disks
 
@@ -285,7 +285,7 @@ class BlivetUtils(object):
             return pvs
 
         for parent in blivet_device.parents:
-            if int((parent.size - parent.format.peStart) / blivet_device.peSize) <= blivet_device.freeExtents:
+            if int((parent.size - parent.format.pe_start) / blivet_device.pe_size) <= blivet_device.free_extents:
                 pvs.append(parent)
 
         return pvs
@@ -307,7 +307,7 @@ class BlivetUtils(object):
         if blivet_device.kids != 1:
             return None
 
-        group_device = self.storage.devicetree.getChildren(blivet_device)[0]
+        group_device = self.storage.devicetree.get_children(blivet_device)[0]
         return group_device
 
     def get_luks_device(self, blivet_device):
@@ -319,7 +319,7 @@ class BlivetUtils(object):
         if blivet_device.kids != 1:
             return None
 
-        luks_device = self.storage.devicetree.getChildren(blivet_device)[0]
+        luks_device = self.storage.devicetree.get_children(blivet_device)[0]
         return luks_device
 
     def get_children(self, blivet_device):
@@ -335,30 +335,30 @@ class BlivetUtils(object):
         if not blivet_device:
             return []
 
-        childs = self.storage.devicetree.getChildren(blivet_device)
+        childs = self.storage.devicetree.get_children(blivet_device)
 
-        if blivet_device.type == "lvmvg" and blivet_device.freeSpace > blivet.size.Size(0):
-            childs.append(FreeSpaceDevice(blivet_device.freeSpace, self.storage.nextID, None, None, [blivet_device]))
+        if blivet_device.type == "lvmvg" and blivet_device.free_space > blivet.size.Size(0):
+            childs.append(FreeSpaceDevice(blivet_device.free_space, self.storage.next_id, None, None, [blivet_device]))
 
         return childs
 
     def get_disk_children(self, blivet_device):
-        if not blivet_device.isDisk:
+        if not blivet_device.is_disk:
             raise TypeError("device %s is not a disk" % blivet_device.name)
 
-        if blivet_device.isDisk and not blivet_device.format.type:
+        if blivet_device.is_disk and not blivet_device.format.type:
             # empty disk without disk label
-            partitions = [FreeSpaceDevice(blivet_device.size, self.storage.nextID, 0, blivet_device.currentSize, [blivet_device], False)]
+            partitions = [FreeSpaceDevice(blivet_device.size, self.storage.next_id, 0, blivet_device.current_size, [blivet_device], False)]
             return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
 
         if blivet_device.format and blivet_device.format.type not in ("disklabel", "btrfs", None):
             # special occasion -- raw device format
-            partitions = [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format, dev_id=self.storage.nextID)]
+            partitions = [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format, dev_id=self.storage.next_id)]
             return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
 
         if blivet_device.format and blivet_device.format.type == "btrfs" and blivet_device.kids:
             # btrfs volume on raw device
-            btrfs_volume = self.storage.devicetree.getChildren(blivet_device)[0]
+            btrfs_volume = self.storage.devicetree.get_children(blivet_device)[0]
             return ProxyDataContainer(partitions=[btrfs_volume], extended=None, logicals=None)
 
         # extended partition
@@ -374,7 +374,7 @@ class BlivetUtils(object):
             if part.type == "free space":
                 return part.start
             else:
-                return part.partedPartition.geometry.start
+                return part.parted_partition.geometry.start
 
         if extended:
             partitions = sorted(primaries + [extended], key=_sort_partitions)
@@ -385,44 +385,44 @@ class BlivetUtils(object):
         return ProxyDataContainer(partitions=partitions, extended=extended, logicals=logicals)
 
     def _get_extended_partition(self, blivet_device):
-        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+        if not blivet_device.is_disk or not blivet_device.format or blivet_device.format.type != "disklabel":
             return None
 
         extended = None
-        partitions = self.storage.devicetree.getChildren(blivet_device)
+        partitions = self.storage.devicetree.get_children(blivet_device)
         for part in partitions:
-            if part.type == "partition" and part.isExtended:
+            if part.type == "partition" and part.is_extended:
                 extended = part
                 break  # only one extended partition
 
         return extended
 
     def _get_logical_partitions(self, blivet_device):
-        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+        if not blivet_device.is_disk or not blivet_device.format or blivet_device.format.type != "disklabel":
             return []
 
         logicals = []
-        partitions = self.storage.devicetree.getChildren(blivet_device)
+        partitions = self.storage.devicetree.get_children(blivet_device)
         for part in partitions:
-            if part.type == "partition" and part.isLogical:
+            if part.type == "partition" and part.is_logical:
                 logicals.append(part)
 
         return logicals
 
     def _get_primary_partitions(self, blivet_device):
-        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+        if not blivet_device.is_disk or not blivet_device.format or blivet_device.format.type != "disklabel":
             return []
 
         primaries = []
-        partitions = self.storage.devicetree.getChildren(blivet_device)
+        partitions = self.storage.devicetree.get_children(blivet_device)
         for part in partitions:
-            if part.type == "partition" and part.isPrimary:
+            if part.type == "partition" and part.is_primary:
                 primaries.append(part)
 
         return primaries
 
     def _get_free_logical(self, blivet_device):
-        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+        if not blivet_device.is_disk or not blivet_device.format or blivet_device.format.type != "disklabel":
             return []
 
         extended = self._get_extended_partition(blivet_device)
@@ -431,24 +431,24 @@ class BlivetUtils(object):
 
         free_logical = []
 
-        free_regions = blivet.partitioning.getFreeRegions([blivet_device], align=True)
+        free_regions = blivet.partitioning.get_free_regions([blivet_device], align=True)
         for region in free_regions:
             region_size = blivet.size.Size(region.length * region.device.sectorSize)
             if region_size < blivet.size.Size("4 MiB"):
                 continue
 
-            if region.start >= extended.partedPartition.geometry.start and \
-               region.end <= extended.partedPartition.geometry.end:
-                free_logical.append(FreeSpaceDevice(region_size, self.storage.nextID, region.start, region.end, [blivet_device], True))
+            if region.start >= extended.parted_partition.geometry.start and \
+               region.end <= extended.parted_partition.geometry.end:
+                free_logical.append(FreeSpaceDevice(region_size, self.storage.next_id, region.start, region.end, [blivet_device], True))
 
         return free_logical
 
     def _get_free_primary(self, blivet_device):
-        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+        if not blivet_device.is_disk or not blivet_device.format or blivet_device.format.type != "disklabel":
             return []
 
         free_primary = []
-        free_regions = blivet.partitioning.getFreeRegions([blivet_device], align=True)
+        free_regions = blivet.partitioning.get_free_regions([blivet_device], align=True)
 
         extended = self._get_extended_partition(blivet_device)
 
@@ -457,11 +457,11 @@ class BlivetUtils(object):
             if region_size < blivet.size.Size("4 MiB"):
                 continue
 
-            if extended and not (region.start >= extended.partedPartition.geometry.start and
-               region.end <= extended.partedPartition.geometry.end):
-                free_primary.append(FreeSpaceDevice(region_size, self.storage.nextID, region.start, region.end, [blivet_device], False))
+            if extended and not (region.start >= extended.parted_partition.geometry.start and
+               region.end <= extended.parted_partition.geometry.end):
+                free_primary.append(FreeSpaceDevice(region_size, self.storage.next_id, region.start, region.end, [blivet_device], False))
             elif not extended:
-                free_primary.append(FreeSpaceDevice(region_size, self.storage.nextID, region.start, region.end, [blivet_device], False))
+                free_primary.append(FreeSpaceDevice(region_size, self.storage.next_id, region.start, region.end, [blivet_device], False))
 
         return free_primary
 
@@ -482,7 +482,7 @@ class BlivetUtils(object):
         return roots
 
     def _get_root_device(self, blivet_device):
-        if blivet_device.isDisk:
+        if blivet_device.is_disk:
             return blivet_device
 
         elif blivet_device.type in ("mdarray",):
@@ -509,7 +509,7 @@ class BlivetUtils(object):
             if disk_device.format.exists:
                 disk_device.format.teardown()
             action = blivet.deviceaction.ActionDestroyFormat(disk_device)
-            self.storage.devicetree.registerAction(action)
+            self.storage.devicetree.actions.add(action)
 
         except Exception as e:  # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
@@ -540,11 +540,11 @@ class BlivetUtils(object):
         try:
             if blivet_device.type in ("partition", "lvmlv", "lvmthinlv") and blivet_device.format.type:
                 ac_fmt = blivet.deviceaction.ActionDestroyFormat(blivet_device)
-                self.storage.devicetree.registerAction(ac_fmt)
+                self.storage.devicetree.actions.add(ac_fmt)
                 actions.append(ac_fmt)
 
             ac_dev = blivet.deviceaction.ActionDestroyDevice(blivet_device)
-            self.storage.devicetree.registerAction(ac_dev)
+            self.storage.devicetree.actions.add(ac_dev)
             actions.append(ac_dev)
 
         except Exception as e:  # pylint: disable=broad-except
@@ -590,7 +590,7 @@ class BlivetUtils(object):
 
     def _has_snapshots(self, blivet_device):
 
-        for lvs in self.storage.devicetree.getChildren(blivet_device.vg):
+        for lvs in self.storage.devicetree.get_children(blivet_device.vg):
             if isinstance(lvs, LVMSnapShotDevice) and lvs.origin == blivet_device:
                 return True
 
@@ -602,9 +602,9 @@ class BlivetUtils(object):
 
         for device in self.storage.devices:
             if device.type in ("partition", "lvmlv"):
-                if device.format and device.format.type and hasattr(device.format, "updateSizeInfo"):
+                if device.format and device.format.type and hasattr(device.format, "update_size_info"):
                     try:
-                        device.format.updateSizeInfo()
+                        device.format.update_size_info()
                     except blivet.errors.FSError:
                         pass
 
@@ -613,7 +613,7 @@ class BlivetUtils(object):
 
             :param blivet_device: blivet device
             :type blivet_device: blivet.Device
-            :returns: device resizable, minSize, maxSize, size
+            :returns: device resizable, min_size, max_size, size
             :rtype: tuple
 
         """
@@ -623,10 +623,10 @@ class BlivetUtils(object):
                                       max_size=blivet_device.size)
 
         elif not blivet_device.format.type:
-            if (blivet_device.type == "partition" and blivet_device.isExtended and (blivet_device.maxSize > blivet_device.size
-               or blivet_device.minSize < blivet_device.size)):
-                return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.minSize,
-                                          max_size=blivet_device.maxSize)
+            if (blivet_device.type == "partition" and blivet_device.is_extended and (blivet_device.max_size > blivet_device.size
+               or blivet_device.min_size < blivet_device.size)):
+                return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.min_size,
+                                          max_size=blivet_device.max_size)
             else:
                 return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
                                           max_size=blivet_device.size)
@@ -637,7 +637,7 @@ class BlivetUtils(object):
                                       max_size=blivet_device.size)
 
         try:
-            blivet_device.format.updateSizeInfo()
+            blivet_device.format.update_size_info()
 
         except blivet.errors.FSError as e:
             return ProxyDataContainer(resizable=False, error=str(e),
@@ -645,8 +645,8 @@ class BlivetUtils(object):
                                       max_size=blivet_device.size)
 
         if blivet_device.resizable and blivet_device.format.resizable:
-            return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.minSize,
-                                      max_size=blivet_device.maxSize)
+            return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.min_size,
+                                      max_size=blivet_device.max_size)
 
         else:
             return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
@@ -675,23 +675,23 @@ class BlivetUtils(object):
 
         if user_input.resize:
             if blivet_device.type == "partition":
-                aligned_size = blivet_device.alignTargetSize(user_input.size)
+                aligned_size = blivet_device.align_target_size(user_input.size)
             else:
                 aligned_size = user_input.size
 
             # do not resize format on extended partitions
-            if not (blivet_device.type == "partition" and blivet_device.isExtended):
+            if not (blivet_device.type == "partition" and blivet_device.is_extended):
                 actions.append(blivet.deviceaction.ActionResizeFormat(blivet_device, aligned_size))
             actions.append(blivet.deviceaction.ActionResizeDevice(blivet_device, aligned_size))
 
         if user_input.fmt:
-            new_fmt = blivet.formats.getFormat(user_input.filesystem, label=user_input.label, mountpoint=user_input.mountpoint)
+            new_fmt = blivet.formats.get_format(user_input.filesystem, label=user_input.label, mountpoint=user_input.mountpoint)
             actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_fmt))
 
         try:
             for ac in actions:
-                self.storage.devicetree.registerAction(ac)
-            blivet.partitioning.doPartitioning(self.storage)
+                self.storage.devicetree.actions.add(ac)
+            blivet.partitioning.do_partitioning(self.storage)
             return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
         except Exception as e:  # pylint: disable=broad-except
@@ -739,19 +739,19 @@ class BlivetUtils(object):
 
         if not name:
             if parent_device:
-                name = self.storage.suggestDeviceName(parent=parent_device, swap=False)
+                name = self.storage.suggest_device_name(parent=parent_device, swap=False)
             elif snapshot:
-                name = self.storage.suggestDeviceName(parent=parent_device, swap=False, prefix="snapshot")
+                name = self.storage.suggest_device_name(parent=parent_device, swap=False, prefix="snapshot")
             else:
                 if hasattr(platform, "linux_distribution"):
                     prefix = re.sub(r"\W+", "", platform.linux_distribution()[0].lower())
                 else:
                     prefix = ""
 
-                name = self.storage.suggestContainerName(hostname=socket.gethostname(), prefix=prefix)
+                name = self.storage.suggest_container_name(hostname=socket.gethostname(), prefix=prefix)
 
         else:
-            name = self.storage.safeDeviceName(name)
+            name = self.storage.safe_device_name(name)
 
             # if name exists add -XX suffix
             if name in self.storage.names or (parent_device and parent_device.name + "-" + name in self.storage.names):
@@ -775,25 +775,25 @@ class BlivetUtils(object):
             partition_type = "primary"
 
         # create new partition
-        new_part = PartitionDevice(name="req%d" % self.storage.nextID,
+        new_part = PartitionDevice(name="req%d" % self.storage.next_id,
                                    size=user_input.size,
                                    parents=[i[0] for i in user_input.parents],
-                                   partType=PARTITION_TYPE[partition_type])
+                                   part_type=PARTITION_TYPE[partition_type])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
         # encrypted partition -- create a luks device and format it to desired format
         if user_input.encrypt:
-            part_fmt = blivet.formats.getFormat(fmt_type="luks",
-                                                passphrase=user_input.passphrase,
-                                                device=new_part.path)
+            part_fmt = blivet.formats.get_format(fmt_type="luks",
+                                                 passphrase=user_input.passphrase,
+                                                 device=new_part.path)
             actions.append(blivet.deviceaction.ActionCreateFormat(new_part, part_fmt))
 
             luks_dev = LUKSDevice("luks-%s" % new_part.name, size=new_part.size, parents=[new_part])
             actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
 
-            luks_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem,
-                                                device=new_part.path,
-                                                mountpoint=user_input.mountpoint)
+            luks_fmt = blivet.formats.get_format(fmt_type=user_input.filesystem,
+                                                 device=new_part.path,
+                                                 mountpoint=user_input.mountpoint)
             actions.append(blivet.deviceaction.ActionCreateFormat(luks_dev, luks_fmt))
 
         # non-encrypted partition -- just format the partition
@@ -805,10 +805,10 @@ class BlivetUtils(object):
                 else:
                     fmt_options = ""
 
-                new_fmt = blivet.formats.getFormat(fmt_type=fmt_type,
-                                                   label=user_input.label,
-                                                   mountpoint=user_input.mountpoint,
-                                                   createOptions=fmt_options)
+                new_fmt = blivet.formats.get_format(fmt_type=fmt_type,
+                                                    label=user_input.label,
+                                                    mountpoint=user_input.mountpoint,
+                                                    create_options=fmt_options)
                 actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
 
         return actions
@@ -835,9 +835,9 @@ class BlivetUtils(object):
         else:
             fmt_options = ""
 
-        new_fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem,
-                                           mountpoint=user_input.mountpoint,
-                                           createOptions=fmt_options)
+        new_fmt = blivet.formats.get_format(fmt_type=user_input.filesystem,
+                                            mountpoint=user_input.mountpoint,
+                                            create_options=fmt_options)
         actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
 
         return actions
@@ -845,27 +845,27 @@ class BlivetUtils(object):
     def _create_lvmpv(self, user_input):
         actions = []
 
-        new_part = PartitionDevice(name="req%d" % self.storage.nextID,
+        new_part = PartitionDevice(name="req%d" % self.storage.next_id,
                                    size=user_input.size,
                                    parents=[i[0] for i in user_input.parents])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
         # encrypted lvmpv
         if user_input.encrypt:
-            part_fmt = blivet.formats.getFormat(fmt_type="luks",
-                                                passphrase=user_input.passphrase,
-                                                device=new_part.path)
+            part_fmt = blivet.formats.get_format(fmt_type="luks",
+                                                 passphrase=user_input.passphrase,
+                                                 device=new_part.path)
             actions.append(blivet.deviceaction.ActionCreateFormat(new_part, part_fmt))
 
             luks_dev = LUKSDevice("luks-%s" % new_part.name, size=new_part.size, parents=[new_part])
             actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
 
-            luks_fmt = blivet.formats.getFormat(fmt_type="lvmpv")
+            luks_fmt = blivet.formats.get_format(fmt_type="lvmpv")
             actions.append(blivet.deviceaction.ActionCreateFormat(luks_dev, luks_fmt))
 
         else:
 
-            part_fmt = blivet.formats.getFormat(fmt_type="lvmpv")
+            part_fmt = blivet.formats.get_format(fmt_type="lvmpv")
             actions.append(blivet.deviceaction.ActionCreateFormat(new_part, part_fmt))
 
         return actions
@@ -877,7 +877,7 @@ class BlivetUtils(object):
 
         new_vg = LVMVolumeGroupDevice(name=device_name,
                                       parents=[i[0] for i in user_input.parents],
-                                      peSize=user_input.advanced["pesize"])
+                                      pe_size=user_input.advanced["pesize"])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_vg))
 
         return actions
@@ -909,11 +909,11 @@ class BlivetUtils(object):
 
             # we need to try to register create actions immediately, if something fails, fail now
             for ac in pv_actions:
-                self.storage.devicetree.registerAction(ac)
+                self.storage.devicetree.actions.add(ac)
             actions.extend(pv_actions)
 
         # we don't have a list of newly created pvs but we have the list of actions
-        vg_parents = [(ac.device, ac.device.size) for ac in actions if ac.isFormat and ac._format.type == "lvmpv"]
+        vg_parents = [(ac.device, ac.device.size) for ac in actions if ac.is_format and ac._format.type == "lvmpv"]
         vg_input = ProxyDataContainer(name=user_input.name,
                                       parents=vg_parents,
                                       advanced=user_input.advanced)
@@ -956,18 +956,18 @@ class BlivetUtils(object):
 
             # we need to try to create partitions immediately, if something fails, fail now
             for ac in part_actions:
-                self.storage.devicetree.registerAction(ac)
+                self.storage.devicetree.actions.add(ac)
             actions.extend(part_actions)
 
-        md_parents = [ac.device for ac in actions if ac.isFormat and ac._format.type == "mdmember"]
+        md_parents = [ac.device for ac in actions if ac.is_format and ac._format.type == "mdmember"]
         new_md = MDRaidArrayDevice(parents=md_parents,
                                    name=device_name,
                                    level=user_input.raid_level,
-                                   memberDevices=len(md_parents),
-                                   totalDevices=len(md_parents))
+                                   member_devices=len(md_parents),
+                                   total_devices=len(md_parents))
         actions.append(blivet.deviceaction.ActionCreateDevice(new_md))
 
-        fmt = blivet.formats.getFormat(fmt_type=user_input.filesystem)
+        fmt = blivet.formats.get_format(fmt_type=user_input.filesystem)
         actions.append(blivet.deviceaction.ActionCreateFormat(new_md, fmt))
 
         return actions
@@ -985,10 +985,10 @@ class BlivetUtils(object):
             else:
                 actions.extend(result.actions)
 
-        fmt = blivet.formats.getFormat(fmt_type="btrfs")
+        fmt = blivet.formats.get_format(fmt_type="btrfs")
         ac_fmt = blivet.deviceaction.ActionCreateFormat(blivet_disk, fmt)
 
-        self.storage.devicetree.registerAction(ac_fmt)
+        self.storage.devicetree.actions.add(ac_fmt)
 
         return actions
 
@@ -1017,15 +1017,15 @@ class BlivetUtils(object):
                 # we need to try to create partitions immediately, if something
                 # fails, fail now
                 for ac in part_actions:
-                    self.storage.devicetree.registerAction(ac)
+                    self.storage.devicetree.actions.add(ac)
                 actions.extend(part_actions)
 
         if user_input.btrfs_type == "disks":
             btrfs_parents = [parent[0] for parent in user_input.parents]
         else:
-            btrfs_parents = [ac.device for ac in actions if (ac.isFormat and ac.isCreate) and ac._format.type == "btrfs"]
+            btrfs_parents = [ac.device for ac in actions if (ac.is_format and ac.is_create) and ac._format.type == "btrfs"]
         new_btrfs = BTRFSVolumeDevice(device_name, parents=btrfs_parents)
-        new_btrfs.format = blivet.formats.getFormat("btrfs", label=device_name, mountpoint=user_input.mountpoint)
+        new_btrfs.format = blivet.formats.get_format("btrfs", label=device_name, mountpoint=user_input.mountpoint)
         actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
 
         return actions
@@ -1035,7 +1035,7 @@ class BlivetUtils(object):
         device_name = self._pick_device_name(user_input.name, user_input.parents[0][0])
 
         new_btrfs = BTRFSSubVolumeDevice(device_name, parents=[i[0] for i in user_input.parents])
-        new_btrfs.format = blivet.formats.getFormat("btrfs", mountpoint=user_input.mountpoint)
+        new_btrfs.format = blivet.formats.get_format("btrfs", mountpoint=user_input.mountpoint)
         actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
 
         return actions
@@ -1072,9 +1072,9 @@ class BlivetUtils(object):
         try:
             for ac in actions:
                 if not ac._applied:
-                    self.storage.devicetree.registerAction(ac)
+                    self.storage.devicetree.actions.add(ac)
 
-            blivet.partitioning.doPartitioning(self.storage)
+            blivet.partitioning.do_partitioning(self.storage)
 
         except Exception as e:  # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None,
@@ -1095,7 +1095,7 @@ class BlivetUtils(object):
 
         try:
             ac_rm = blivet.deviceaction.ActionRemoveMember(container, parent)
-            self.storage.devicetree.registerAction(ac_rm)
+            self.storage.devicetree.actions.add(ac_rm)
 
         except Exception as e:  # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
@@ -1116,25 +1116,25 @@ class BlivetUtils(object):
         actions = []
 
         if parent.type == "free space":
-            dev = PartitionDevice(name="req%d" % self.storage.nextID,
+            dev = PartitionDevice(name="req%d" % self.storage.next_id,
                                   size=parent.size,
                                   parents=[i for i in parent.parents])
             ac_part = blivet.deviceaction.ActionCreateDevice(dev)
 
-            fmt = blivet.formats.getFormat(fmt_type="lvmpv")
+            fmt = blivet.formats.get_format(fmt_type="lvmpv")
             ac_fmt = blivet.deviceaction.ActionCreateFormat(dev, fmt)
 
             actions.extend([ac_part, ac_fmt])
 
             for ac in (ac_part, ac_fmt):
-                self.storage.devicetree.registerAction(ac)
+                self.storage.devicetree.actions.add(ac)
 
-            blivet.partitioning.doPartitioning(self.storage)
+            blivet.partitioning.do_partitioning(self.storage)
             parent = dev
 
         try:
             ac_add = blivet.deviceaction.ActionAddMember(container, parent)
-            self.storage.devicetree.registerAction(ac_add)
+            self.storage.devicetree.actions.add(ac_add)
 
             actions.append(ac_add)
 
@@ -1148,7 +1148,7 @@ class BlivetUtils(object):
         """ Unmount selected device
         """
 
-        if not blivet_device.format.mountable or not blivet_device.format.systemMountpoint:
+        if not blivet_device.format.mountable or not blivet_device.format.system_mountpoint:
             return False
 
         else:
@@ -1163,7 +1163,7 @@ class BlivetUtils(object):
         """ Return list of currently registered actions
         """
 
-        return self.storage.devicetree.findActions()
+        return self.storage.devicetree.actions.find()
 
     def get_available_disklabels(self, allow_btrfs=False):
         """ Return disklabels available on current platform
@@ -1174,7 +1174,7 @@ class BlivetUtils(object):
         """
 
         dl_types = []
-        dl_types.extend(blivet.platform.getPlatform().diskLabelTypes)
+        dl_types.extend(blivet.platform.get_platform().disklabel_types)
 
         if allow_btrfs:
             dl_types.append("btrfs")
@@ -1230,18 +1230,18 @@ class BlivetUtils(object):
         if blivet_device.format.type:
             actions.append(blivet.deviceaction.ActionDestroyFormat(blivet_device))
 
-        new_label = blivet.formats.getFormat("disklabel", device=blivet_device.path,
-                                             labelType=label_type)
+        new_label = blivet.formats.get_format("disklabel", device=blivet_device.path,
+                                              label_type=label_type)
         actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_label))
 
         for ac in actions:
-            self.storage.devicetree.registerAction(ac)
+            self.storage.devicetree.actions.add(ac)
 
         return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
     def set_bootloader_device(self, disk_name):
         self.ksparser.handler.bootloader.location = "mbr"
-        self.ksparser.handler.bootloader.bootDrive = disk_name
+        self.ksparser.handler.bootloader.boot_drive = disk_name
 
         self.storage.ksdata = self.ksparser.handler
 
@@ -1250,7 +1250,7 @@ class BlivetUtils(object):
         """
 
         for name in disk_names:
-            disk_device = self.storage.devicetree.getDeviceByName(name)
+            disk_device = self.storage.devicetree.get_device_by_name(name)
             self.storage.devicetree.hide(disk_device)
 
         self.storage.devicetree.populate()
@@ -1265,7 +1265,7 @@ class BlivetUtils(object):
 
         """
 
-        blivet_device.format._setPassphrase(passphrase)
+        blivet_device.format._set_passphrase(passphrase)
 
         try:
             blivet_device.format.setup()
@@ -1283,7 +1283,7 @@ class BlivetUtils(object):
 
         actions.reverse()
         for action in actions:
-            self.storage.devicetree.cancelAction(action)
+            self.storage.devicetree.actions.remove(action)
 
     def blivet_reset(self):
         """ Blivet.reset()
@@ -1292,7 +1292,7 @@ class BlivetUtils(object):
         self.storage.reset()
 
     def blivet_do_it(self, progress_report_hook):
-        """ Blivet.doIt()
+        """ Blivet.do_it()
         """
 
         progress_clbk = lambda clbk_data: progress_report_hook(clbk_data.msg)
@@ -1300,7 +1300,7 @@ class BlivetUtils(object):
         callbacks_reg = blivet.callbacks.create_new_callbacks_register(report_progress=progress_clbk)
 
         try:
-            self.storage.doIt(callbacks=callbacks_reg)
+            self.storage.do_it(callbacks=callbacks_reg)
 
         except Exception as e:  # pylint: disable=broad-except
             return (True, ProxyDataContainer(success=False, exception=e, traceback=traceback.format_exc()))
@@ -1312,7 +1312,7 @@ class BlivetUtils(object):
         """ Create kickstart config file
         """
 
-        self.storage.updateKSData()
+        self.storage.update_ksdata()
 
         with open(fname, "w") as outfile:
             outfile.write(self.storage.ksdata.__str__())

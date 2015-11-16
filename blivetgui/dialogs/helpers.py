@@ -70,28 +70,28 @@ def adjust_scrolled_size(scrolledwindow, width_limit, height_limit):
 
 def is_name_valid(device_type, name):
     if device_type in ("lvmvg", "lvm"):
-        return LVMVolumeGroupDevice.isNameValid(name)
+        return LVMVolumeGroupDevice.is_name_valid(name)
     elif device_type == "lvmlv":
-        return LVMLogicalVolumeDevice.isNameValid(name)
+        return LVMLogicalVolumeDevice.is_name_valid(name)
     elif device_type in ("btrfs volume", "btrfs subvolume"):
-        return BTRFSDevice.isNameValid(name)
+        return BTRFSDevice.is_name_valid(name)
     else:
         return True
 
 
 def is_label_valid(format_type, label):
     if format_type in ("ext2", "ext3", "ext4"):
-        return Ext2FSLabeling.labelFormatOK(label)
+        return Ext2FSLabeling.label_format_ok(label)
     elif format_type == "vfat":
-        return FATFSLabeling.labelFormatOK(label)
+        return FATFSLabeling.label_format_ok(label)
     elif format_type == "jfs":
-        return JFSLabeling.labelFormatOK(label)
+        return JFSLabeling.label_format_ok(label)
     elif format_type == "raiserfs":
-        return ReiserFSLabeling.labelFormatOK(label)
+        return ReiserFSLabeling.label_format_ok(label)
     elif format_type == "xfs":
-        return XFSLabeling.labelFormatOK(label)
+        return XFSLabeling.label_format_ok(label)
     elif format_type == "ntfs":
-        return NTFSLabeling.labelFormatOK(label)
+        return NTFSLabeling.label_format_ok(label)
     else:
         return True
 

@@ -98,9 +98,9 @@ class ProcessingActions(Gtk.Dialog):
         actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf, str, GdkPixbuf.Pixbuf)
 
         for action in self.actions:
-            if action.isDestroy or action.isRemove:
+            if action.is_destroy or action.is_remove:
                 actions_list.append([icon_delete, str(action), None])
-            elif action.isAdd or action.isCreate:
+            elif action.is_add or action.is_create:
                 actions_list.append([icon_add, str(action), None])
             else:
                 actions_list.append([icon_edit, str(action), None])

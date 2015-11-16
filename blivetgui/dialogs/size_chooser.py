@@ -125,7 +125,7 @@ class SizeChooserArea(object):
         """ Add basic size widgets (Gtk.Scale, Gtk.SpinButton)
         """
 
-        scale_adj = Gtk.Adjustment(0, self.min_size.convertTo(conv(unit)), self.max_size.convertTo(conv(unit)), 1, 10, 0)
+        scale_adj = Gtk.Adjustment(0, self.min_size.convert_to(conv(unit)), self.max_size.convert_to(conv(unit)), 1, 10, 0)
 
         scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=scale_adj)
 
@@ -135,15 +135,15 @@ class SizeChooserArea(object):
         scale.set_hexpand(True)
         scale.set_valign(Gtk.Align.START)
         scale.set_digits(0)
-        scale.add_mark(self.min_size.convertTo(conv(unit)), Gtk.PositionType.BOTTOM, str(self.min_size))
+        scale.add_mark(self.min_size.convert_to(conv(unit)), Gtk.PositionType.BOTTOM, str(self.min_size))
 
         if self.dialog_type == "add":
-            scale.set_value(self.max_size.convertTo(conv(unit)))
-            scale.add_mark(self.max_size.convertTo(conv(unit)), Gtk.PositionType.BOTTOM, str(self.max_size))
+            scale.set_value(self.max_size.convert_to(conv(unit)))
+            scale.add_mark(self.max_size.convert_to(conv(unit)), Gtk.PositionType.BOTTOM, str(self.max_size))
 
         elif self.dialog_type == "edit":
-            scale.set_value(self.current_size.convertTo(conv(unit)))
-            scale.add_mark(self.max_size.convertTo(conv(unit)), Gtk.PositionType.BOTTOM, str(self.max_size))
+            scale.set_value(self.current_size.convert_to(conv(unit)))
+            scale.add_mark(self.max_size.convert_to(conv(unit)), Gtk.PositionType.BOTTOM, str(self.max_size))
 
         self.frame_grid.attach(scale, 0, 0, 4, 3)
 
@@ -152,16 +152,16 @@ class SizeChooserArea(object):
         self.frame_grid.attach(label_size, 4, 1, 1, 1)
 
         spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0,
-                                   self.min_size.convertTo(conv(unit)),
-                                   self.max_size.convertTo(conv(unit)), 1, 10, 0))
+                                   self.min_size.convert_to(conv(unit)),
+                                   self.max_size.convert_to(conv(unit)), 1, 10, 0))
 
         spin_size.set_numeric(True)
 
         if self.dialog_type == "add":
-            spin_size.set_value(self.max_size.convertTo(conv(unit)))
+            spin_size.set_value(self.max_size.convert_to(conv(unit)))
 
         elif self.dialog_type == "edit":
-            spin_size.set_value(self.current_size.convertTo(conv(unit)))
+            spin_size.set_value(self.current_size.convert_to(conv(unit)))
 
         self.frame_grid.attach(spin_size, 5, 1, 1, 1)
 
@@ -199,29 +199,29 @@ class SizeChooserArea(object):
         """ Adjust size scale with selected size and unit
         """
 
-        self.scale.set_range(self.min_size.convertTo(conv(unit)), self.max_size.convertTo(conv(unit)))
+        self.scale.set_range(self.min_size.convert_to(conv(unit)), self.max_size.convert_to(conv(unit)))
         self.scale.clear_marks()
 
-        increment, digits = get_size_precision(self.min_size.convertTo(conv(unit)), self.max_size.convertTo(conv(unit)))
+        increment, digits = get_size_precision(self.min_size.convert_to(conv(unit)), self.max_size.convert_to(conv(unit)))
         self.scale.set_increments(increment, increment * 10)
         self.scale.set_digits(digits)
 
         self.scale.add_mark(0, Gtk.PositionType.BOTTOM,
-                            format(self.min_size.convertTo(conv(unit)), "." + str(digits) + "f") + " " + unit)
-        self.scale.add_mark(float(self.max_size.convertTo(conv(unit))), Gtk.PositionType.BOTTOM,
-                            format(self.max_size.convertTo(conv(unit)), "." + str(digits) + "f") + " " + unit)
+                            format(self.min_size.convert_to(conv(unit)), "." + str(digits) + "f") + " " + unit)
+        self.scale.add_mark(float(self.max_size.convert_to(conv(unit))), Gtk.PositionType.BOTTOM,
+                            format(self.max_size.convert_to(conv(unit)), "." + str(digits) + "f") + " " + unit)
 
-        self.spin_size.set_range(self.min_size.convertTo(conv(unit)),
-                                 self.max_size.convertTo(conv(unit)))
+        self.spin_size.set_range(self.min_size.convert_to(conv(unit)),
+                                 self.max_size.convert_to(conv(unit)))
         self.spin_size.set_increments(increment, increment * 10)
         self.spin_size.set_digits(digits)
 
         if selected_size > self.max_size:
-            self.scale.set_value(self.max_size.convertTo(conv(unit)))
+            self.scale.set_value(self.max_size.convert_to(conv(unit)))
         elif selected_size < self.min_size:
-            self.scale.set_value(self.min_size.convertTo(conv(unit)))
+            self.scale.set_value(self.min_size.convert_to(conv(unit)))
         else:
-            self.scale.set_value(selected_size.convertTo(conv(unit)))
+            self.scale.set_value(selected_size.convert_to(conv(unit)))
 
     def update_size_limits(self, min_size=None, max_size=None):
         if min_size:
@@ -232,7 +232,7 @@ class SizeChooserArea(object):
         self.adjust_size_scale(self.get_selected_size(), self.selected_unit)
 
     def set_selected_size(self, selected_size):
-        self.scale.set_value(selected_size.convertTo(conv(self.selected_unit)))
+        self.scale.set_value(selected_size.convert_to(conv(self.selected_unit)))
 
     def get_selected_size(self):
         return size.Size(str(self.scale.get_value()) + " " + self.selected_unit)
