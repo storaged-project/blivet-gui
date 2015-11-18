@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 1.1
+Version: 1.2
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -67,6 +67,35 @@ fi
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Wed Nov 18 2015 Vojtech Trefny <vtrefny@redhat.com> - 1.2-1
+- Add PEP8 compliance check to 'make check' (vtrefny)
+- Fix PEP8 violations. (vtrefny)
+- Remove some obsolete/debug prints and imports (vtrefny)
+- Catch blivet.errors.LUKSError instead of BlockDev.CryptoError (vtrefny)
+- Add test for adding device to partitions list (vtrefny)
+- EditDialog: add test for formatting extended partitions (vtrefny)
+- Add test for communication.proxy_utils (vtrefny)
+- Fix BlivetProxyObjectTest (vtrefny)
+- Add tests for new FreeSpaceDevice features (vtrefny)
+- Fix check for allowed max partitions count (vtrefny)
+- AddDialog: fix displaying parents for MDArray PVs (vtrefny)
+- Fix 'disk' attribute for FreeSpaceDevices (vtrefny)
+- Visualization: add protected icon to protected devices (vtrefny)
+- Do not allow deleting/editting protected devices (vtrefny)
+- Remove pocketlint from BuildRequires (vtrefny)
+- Remove 'check' from 'make release' target (vtrefny)
+- Run mkfs.ntfs with '-f' option (fast formatting) (#1253013) (vtrefny)
+- Add support for creating NTFS format (vtrefny)
+- Fix visualisation of group devices with 0 size (#1275815) (vtrefny)
+- Visualization: do not allocate remaing space when there is no space left (vtrefny)
+- Fix device visualisation with high contrast theme (vtrefny)
+- Properly catch and reraise exceptions from BlivetUtils initialization (vtrefny)
+- Fix tests to work with localization (vtrefny)
+- Add make coverage target (vtrefny)
+- Add loading window when starting blivet-gui (vtrefny)
+- Fix make po-pull/push target (vtrefny)
+- Set translation domain for glade files (vtrefny)
+
 * Wed Sep 23 2015 Vojtech Trefny <vtrefny@redhat.com> - 1.1-1
 - Fix make bumpver to work with 1.x versions (vtrefny)
 - Fix finished actions visualisation in processing window (vtrefny)
