@@ -206,7 +206,7 @@ class ListPartitions(object):
             return not device.kids
 
         # snapshot of lvmlv -- only if there is free space in the vg
-        if device.type == "lmvlv":
+        if device.type == "lvmlv":
             return device.vg.freeSpace >= device.vg.peSize
 
     def activate_action_buttons(self, selected_device):
