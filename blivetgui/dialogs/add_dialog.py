@@ -521,6 +521,9 @@ class AddDialog(Gtk.Dialog):
 
             for free in self.free_disks_regions:
 
+                if device_type == "btrfs volume" and free.size < size.Size("256 MiB"):
+                    continue
+
                 disk = free.parents[0]
 
                 if free.isFreeRegion and (parent_type == "partitions" or device_type in ("lvm", "mdraid")):
