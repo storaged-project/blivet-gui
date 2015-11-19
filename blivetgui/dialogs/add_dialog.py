@@ -538,6 +538,10 @@ class AddDialog(Gtk.Dialog):
             self.parents_store.append([self.parent_device, self.free_device, False, False,
                                        self.free_device.parents[0].name, "lvmvg", str(self.free_device.size)])
 
+        elif device_type in ("lvmlv"):
+            self.parents_store.append([self.parent_device, self.free_device, False, False,
+                                       self.parent_device.name, "lvmvg", str(self.free_device.size)])
+
         else:
             self.parents_store.append([self.parent_device, self.free_device, False, False,
                                        self.parent_device.name, "disk", str(self.free_device.size)])
