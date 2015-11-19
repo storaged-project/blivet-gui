@@ -651,8 +651,12 @@ class AddDialog(Gtk.Dialog):
 
         raid, max_size = self.raid_member_max_size()
 
-        if device_type in ("lvmpv", "lvm", "lvm snapshot"):
+        if device_type in ("lvmpv", "lvm"):
             min_size = size.Size("8 MiB")
+        elif device_type in ("lvmlv", "lvmthinpool"):
+            min_size = max(self.parent_device.peSize, size.Size("1 MiB"))
+        elif device_type in ("lvmthinlv", "lvm snapshot"):
+            min_size = max(self.parent_device.vg.peSize, size.Size("1 MiB"))
         elif device_type == "btrfs volume":
             min_size = size.Size("256 MiB")
         else:
