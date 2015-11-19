@@ -361,12 +361,13 @@ class BlivetUtils(object):
             btrfs_volume = self.storage.devicetree.get_children(blivet_device)[0]
             return ProxyDataContainer(partitions=[btrfs_volume], extended=None, logicals=None)
 
+        partitions = self.storage.devicetree.getChildren(blivet_device)
         # extended partition
-        extended = self._get_extended_partition(blivet_device)
+        extended = self._get_extended_partition(blivet_device, partitions)
         # logical partitions + 'logical' free space
-        logicals = self._get_logical_partitions(blivet_device) + self._get_free_logical(blivet_device)
+        logicals = self._get_logical_partitions(blivet_device, partitions) + self._get_free_logical(blivet_device)
         # primary partitions + 'primary' free space
-        primaries = self._get_primary_partitions(blivet_device) + self._get_free_primary(blivet_device)
+        primaries = self._get_primary_partitions(blivet_device, partitions) + self._get_free_primary(blivet_device)
 
         def _sort_partitions(part):  # FIXME: move to separate 'utils' file
             if part.type not in ("free space", "partition"):
@@ -384,12 +385,13 @@ class BlivetUtils(object):
 
         return ProxyDataContainer(partitions=partitions, extended=extended, logicals=logicals)
 
-    def _get_extended_partition(self, blivet_device):
-        if not blivet_device.is_disk or not blivet_device.format or blivet_device.format.type != "disklabel":
+    def _get_extended_partition(self, blivet_device, partitions=None):
+        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
             return None
 
         extended = None
-        partitions = self.storage.devicetree.get_children(blivet_device)
+        if partitions is None:
+            partitions = self.storage.devicetree.get_children(blivet_device)
         for part in partitions:
             if part.type == "partition" and part.is_extended:
                 extended = part
@@ -397,24 +399,26 @@ class BlivetUtils(object):
 
         return extended
 
-    def _get_logical_partitions(self, blivet_device):
-        if not blivet_device.is_disk or not blivet_device.format or blivet_device.format.type != "disklabel":
+    def _get_logical_partitions(self, blivet_device, partitions=None):
+        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
             return []
 
         logicals = []
-        partitions = self.storage.devicetree.get_children(blivet_device)
+        if partitions is None:
+            partitions = self.storage.devicetree.get_children(blivet_device)
         for part in partitions:
             if part.type == "partition" and part.is_logical:
                 logicals.append(part)
 
         return logicals
 
-    def _get_primary_partitions(self, blivet_device):
-        if not blivet_device.is_disk or not blivet_device.format or blivet_device.format.type != "disklabel":
+    def _get_primary_partitions(self, blivet_device, partitions=None):
+        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
             return []
 
         primaries = []
-        partitions = self.storage.devicetree.get_children(blivet_device)
+        if partitions is None:
+            partitions = self.storage.devicetree.get_children(blivet_device)
         for part in partitions:
             if part.type == "partition" and part.is_primary:
                 primaries.append(part)
@@ -425,7 +429,7 @@ class BlivetUtils(object):
         if not blivet_device.is_disk or not blivet_device.format or blivet_device.format.type != "disklabel":
             return []
 
-        extended = self._get_extended_partition(blivet_device)
+        extended = blivet_device.format.extended_partition
         if not extended:
             return []
 
@@ -437,8 +441,8 @@ class BlivetUtils(object):
             if region_size < blivet.size.Size("4 MiB"):
                 continue
 
-            if region.start >= extended.parted_partition.geometry.start and \
-               region.end <= extended.parted_partition.geometry.end:
+            if region.start >= extended.geometry.start and \
+               region.end <= extended.geometry.end:
                 free_logical.append(FreeSpaceDevice(region_size, self.storage.next_id, region.start, region.end, [blivet_device], True))
 
         return free_logical
@@ -448,17 +452,16 @@ class BlivetUtils(object):
             return []
 
         free_primary = []
+        extended = blivet_device.format.extended_partition
         free_regions = blivet.partitioning.get_free_regions([blivet_device], align=True)
-
-        extended = self._get_extended_partition(blivet_device)
 
         for region in free_regions:
             region_size = blivet.size.Size(region.length * region.device.sectorSize)
             if region_size < blivet.size.Size("4 MiB"):
                 continue
 
-            if extended and not (region.start >= extended.parted_partition.geometry.start and
-               region.end <= extended.parted_partition.geometry.end):
+            if extended and not (region.start >= extended.geometry.start and
+               region.end <= extended.geometry.end):
                 free_primary.append(FreeSpaceDevice(region_size, self.storage.next_id, region.start, region.end, [blivet_device], False))
             elif not extended:
                 free_primary.append(FreeSpaceDevice(region_size, self.storage.next_id, region.start, region.end, [blivet_device], False))
