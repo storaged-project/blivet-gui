@@ -63,6 +63,27 @@ class ListPartitionsTest(unittest.TestCase):
         device = MagicMock(type="partition", isleaf=False, protected=False)
         self.assertFalse(self.list_partitions._allow_delete_device(device))
 
+    def test_allow_add(self):
+        # do not allow adding on protected devices
+        device = MagicMock(type="free space", protected=True)
+        self.assertFalse(self.list_partitions._allow_add_device(device))
+
+        # allow adding on free space and btrfs volumes
+        device = MagicMock(type="free space", protected=False)
+        self.assertTrue(self.list_partitions._allow_add_device(device))
+        device = MagicMock(type="btrfs volume", protected=False)
+        self.assertTrue(self.list_partitions._allow_add_device(device))
+
+        # allow adding on empty lvmpv
+        device = MagicMock(type="partition", protected=False, kids=0, format=MagicMock(type="lvmpv"))
+        self.assertTrue(self.list_partitions._allow_add_device(device))
+        device = MagicMock(type="partition", protected=False, kids=1, format=MagicMock(type="lvmpv"))
+        self.assertFalse(self.list_partitions._allow_add_device(device))
+
+        # allow adding lvm snapshots
+        device = MagicMock(type="lvmlv", protected=False, vg=MagicMock(freeSpace=Size("1 GiB"), peSize=Size("4 MiB")))
+        self.assertTrue(self.list_partitions._allow_add_device(device))
+
     def test_add_to_store(self):
 
         # simple partition -- test if added to store correctly
