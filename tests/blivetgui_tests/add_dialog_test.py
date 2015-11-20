@@ -474,6 +474,41 @@ class AddDialogTest(unittest.TestCase):
         self.assertFalse(add_dialog.parents_store[2][2])
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_lvmlv_parents(self):
+        parent_device = self._get_parent_device(dtype="lvmvg", ftype=None)
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "lvmvg", parent_device, free_device, [],
+                               [free_device, self._get_free_device(), self._get_free_device()],
+                               self.supported_raids, self.supported_fs, [])
+        add_dialog.devices_combo.set_active_id("lvmlv")
+
+        # lvmlv allows only one parent -- make sure we have the right one and it is selected
+        self.assertEqual(len(add_dialog.parents_store), 1)
+        self.assertEqual(add_dialog.parents_store[0][0], parent_device)
+        self.assertEqual(add_dialog.parents_store[0][1], free_device)
+        self.assertTrue(add_dialog.parents_store[0][2])
+        self.assertTrue(add_dialog.parents_store[0][3])
+        self.assertEqual(add_dialog.parents_store[0][5], "lvmvg")
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
+    def test_btrfs_parents(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device, [],
+                               [free_device, self._get_free_device(size=Size("200 MiB")), self._get_free_device()],
+                               self.supported_raids, self.supported_fs, [])
+        add_dialog.devices_combo.set_active_id("btrfs volume")
+
+        # lvm allows multiple parents -- make sure we have all available (= larger than 256 MiB) and the right one is selected
+        self.assertEqual(len(add_dialog.parents_store), 2)  # third device is smaller than min size for btrfs
+        self.assertEqual(add_dialog.parents_store[0][0], parent_device)
+        self.assertEqual(add_dialog.parents_store[0][1], free_device)
+        self.assertTrue(add_dialog.parents_store[0][2])
+        self.assertFalse(add_dialog.parents_store[1][2])  # other free device shouldn't be selected
+
+    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     def test_parents_update(self):
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device)
