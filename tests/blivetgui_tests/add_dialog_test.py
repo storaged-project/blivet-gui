@@ -256,6 +256,10 @@ class AddDialogTest(unittest.TestCase):
 
         dev = MagicMock()
         dev.configure_mock(name=name, type=dtype, size=size, format=MagicMock(type=ftype))
+        if dtype == "lvmvg":
+            pv = MagicMock()
+            pv.configure_mock(name="vda1", size=size, format=MagicMock(free=size), disk=self._get_parent_device())
+            dev.configure_mock(pe_size=Size("4 MiB"), free_space=size, pvs=[pv])
 
         return dev
 
