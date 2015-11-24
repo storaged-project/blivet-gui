@@ -363,6 +363,8 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
         for arg in args:
             if isinstance(arg, ProxyDataContainer):
                 for item in arg:
+                    if isinstance(arg[item], ProxyDataContainer):
+                        arg[item] = self._args_convertTo_objects([arg[item]])[0]
                     if isinstance(arg[item], ProxyID):
                         arg[item] = self.object_dict[arg[item].id].blivet_object
                     elif isinstance(arg[item], (list, tuple)):

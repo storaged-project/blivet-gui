@@ -129,7 +129,9 @@ class BlivetGUIClient(object):
             if isinstance(arg, ProxyDataContainer):
                 arg_id = ProxyDataContainer()
                 for item in arg:
-                    if isinstance(arg[item], ClientProxyObject):
+                    if isinstance(arg[item], ProxyDataContainer):
+                        arg_id[item] = self._args_convertTo_id([arg[item]])[0]
+                    elif isinstance(arg[item], ClientProxyObject):
                         arg_id[item] = arg[item].proxy_id
                     elif isinstance(arg[item], (list, tuple)):
                         arg_id[item] = self._args_convertTo_id(arg[item])
