@@ -24,6 +24,7 @@
 import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice, LVMSnapShotDevice, LVMThinLogicalVolumeDevice, LVMThinPoolDevice
+from blivet.devices.lvm import LVMCacheRequest
 from blivet.formats import DeviceFormat
 
 from .communication.proxy_utils import ProxyDataContainer
@@ -361,7 +362,7 @@ class BlivetUtils(object):
             btrfs_volume = self.storage.devicetree.get_children(blivet_device)[0]
             return ProxyDataContainer(partitions=[btrfs_volume], extended=None, logicals=None)
 
-        partitions = self.storage.devicetree.getChildren(blivet_device)
+        partitions = self.storage.devicetree.get_children(blivet_device)
         # extended partition
         extended = self._get_extended_partition(blivet_device, partitions)
         # logical partitions + 'logical' free space
@@ -386,7 +387,7 @@ class BlivetUtils(object):
         return ProxyDataContainer(partitions=partitions, extended=extended, logicals=logicals)
 
     def _get_extended_partition(self, blivet_device, partitions=None):
-        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+        if not blivet_device.is_disk or not blivet_device.format or blivet_device.format.type != "disklabel":
             return None
 
         extended = None
@@ -400,7 +401,7 @@ class BlivetUtils(object):
         return extended
 
     def _get_logical_partitions(self, blivet_device, partitions=None):
-        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+        if not blivet_device.is_disk or not blivet_device.format or blivet_device.format.type != "disklabel":
             return []
 
         logicals = []
@@ -413,7 +414,7 @@ class BlivetUtils(object):
         return logicals
 
     def _get_primary_partitions(self, blivet_device, partitions=None):
-        if not blivet_device.isDisk or not blivet_device.format or blivet_device.format.type != "disklabel":
+        if not blivet_device.is_disk or not blivet_device.format or blivet_device.format.type != "disklabel":
             return []
 
         primaries = []
@@ -816,20 +817,46 @@ class BlivetUtils(object):
 
         return actions
 
+    def _create_lvmthinlv(self, user_input):
+        actions = []
+
+        device_name = self._pick_device_name(user_input.name, user_input.parents[0][0].vg)
+
+        new_part = LVMThinLogicalVolumeDevice(name=device_name,
+                                              size=user_input.size,
+                                              parents=[i[0] for i in user_input.parents])
+        actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
+
+        fmt_type = user_input.filesystem
+        if fmt_type == "ntfs":
+            fmt_options = "-f"
+        else:
+            fmt_options = ""
+
+        new_fmt = blivet.formats.get_format(fmt_type=user_input.filesystem,
+                                            mountpoint=user_input.mountpoint,
+                                            create_options=fmt_options)
+        actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
+
+        return actions
+
     def _create_lvmlv(self, user_input):
         actions = []
 
-        if user_input.device_type == "lvmthinlv":
-            create_class = LVMThinLogicalVolumeDevice
-            # for thinlv, parent (for name suggestion) is not thinpool but the vg
-            device_name = self._pick_device_name(user_input.name, user_input.parents[0][0].vg)
-        elif user_input.device_type == "lvmlv":
-            create_class = LVMLogicalVolumeDevice
-            device_name = self._pick_device_name(user_input.name, user_input.parents[0][0])
+        device_name = self._pick_device_name(user_input.name, user_input.parents[0][0])
 
-        new_part = create_class(name=device_name,
-                                size=user_input.size,
-                                parents=[i[0] for i in user_input.parents])
+        if user_input.advanced.cache:
+            cache_request = LVMCacheRequest(size=user_input.advanced.size,
+                                            pvs=user_input.advanced.parents,
+                                            mode=user_input.advanced.type)
+        else:
+            cache_request = None
+
+        new_part = LVMLogicalVolumeDevice(name=device_name,
+                                          size=user_input.size,
+                                          parents=[i[0] for i in user_input.parents],
+                                          cache_request=cache_request)
+
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
         fmt_type = user_input.filesystem
@@ -1046,7 +1073,7 @@ class BlivetUtils(object):
     add_dict = {"partition": _create_partition,
                 "lvm": _create_lvm,
                 "lvmlv": _create_lvmlv,
-                "lvmthinlv": _create_lvmlv,
+                "lvmthinlv": _create_lvmthinlv,
                 "lvmthinpool": _create_lvmthinpool,
                 "lvmvg": _create_lvmvg,
                 "lvmpv": _create_lvmpv,
