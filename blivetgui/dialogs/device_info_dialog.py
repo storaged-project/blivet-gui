@@ -108,15 +108,16 @@ class DeviceInformationDialog(Gtk.Dialog):
         if self.device.type == "lvmsnapshot":
             info += _(" • <i>Origin:</i> {origin}\n").format(origin=self.device.origin.name)
             info += _(" • <i>Segment type:</i> {segtype}\n").format(segtype=self.device.seg_type)
-            info += _(" • <i>Mirror copies:</i> {copies}\n").format(copies=self.device.copies)
         elif self.device.type == "lvmthinpool":
             info += _(" • <i>Segment type:</i> {segtype}\n").format(segtype=self.device.seg_type)
-            info += _(" • <i>Mirror copies:</i> {copies}\n").format(copies=self.device.copies)
             info += _(" • <i>Free space:</i> {free}\n").format(free=str(self.device.free_space))
             info += _(" • <i>Space used:</i> {used}\n").format(used=str(self.device.used_space))
         else:
             info += _(" • <i>Segment type:</i> {segtype}\n").format(segtype=self.device.seg_type)
-            info += _(" • <i>Mirror copies:</i> {copies}\n").format(copies=self.device.copies)
+            if self.device.cached:
+                info += _(" • <i>Cached:</i> Yes (cache size: {cache_size})\n").format(cache_size=str(self.device.cache.size))
+            else:
+                info += _(" • <i>Cached:</i> No)\n")
 
         return info
 
