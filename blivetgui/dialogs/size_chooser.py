@@ -30,13 +30,13 @@ from gi.repository import Gtk
 from blivet import size
 
 from ..i18n import _
+from ..gui_utils import locate_ui_file
 
 # ---------------------------------------------------------------------------- #
 
 SUPPORTED_UNITS = ["B", "kB", "MB", "GB", "TB", "kiB", "MiB", "GiB", "TiB"]
-UNIT_DICT = {"B": size.B, "kB": size.KB, "MB": size.MB, "GB": size.GB,
-             "TB": size.TB, "kiB": size.KiB, "MiB": size.MiB,
-             "GiB": size.GiB, "TiB": size.TiB}
+UNIT_DICT = {"B": size.B, "kB": size.KB, "MB": size.MB, "GB": size.GB, "TB": size.TB,
+             "kiB": size.KiB, "MiB": size.MiB, "GiB": size.GiB, "TiB": size.TiB}
 
 # ---------------------------------------------------------------------------- #
 
@@ -106,94 +106,56 @@ class SizeChooserArea(object):
 
         self.update_clbk = update_clbk
 
-        self.widgets = []
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("blivet-gui")
+        self.builder.add_from_file(locate_ui_file("size_area.ui"))
+
+        self.widgets = self.builder.get_objects()
 
         self.selected_unit = None
 
-        self.frame = Gtk.Frame()
+        self.frame = self.builder.get_object("frame_size")
         self.frame.set_label(device_name)
 
-        self.frame_grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
+        self.scale, self.spin_size, self.unit_chooser = self.set_size_widgets()
 
-        self.frame.add(self.frame_grid)
-
-        self.widgets.extend([self.frame, self.frame_grid])
-
-        self.scale, self.spin_size, self.unit_chooser = self.add_size_widgets()
-
-    def add_size_widgets(self, unit="MiB"):
-        """ Add basic size widgets (Gtk.Scale, Gtk.SpinButton)
+    def set_size_widgets(self, unit=_("MiB")):
+        """ Configure size widgets (Gtk.Scale, Gtk.SpinButton)
         """
 
-        scale_adj = Gtk.Adjustment(0, self.min_size.convert_to(conv(unit)), self.max_size.convert_to(conv(unit)), 1, 10, 0)
+        scale = self.builder.get_object("scale_size")
+        spin = self.builder.get_object("spinbutton_size")
 
-        scale = Gtk.Scale(orientation=Gtk.Orientation.HORIZONTAL, adjustment=scale_adj)
+        adjustment = Gtk.Adjustment(0, self.min_size.convert_to(conv(unit)), self.max_size.convert_to(conv(unit)), 1, 10, 0)
 
-        scale.set_margin_left(10)
-        scale.set_margin_bottom(5)
+        scale.set_adjustment(adjustment)
+        spin.set_adjustment(adjustment)
 
-        scale.set_hexpand(True)
-        scale.set_valign(Gtk.Align.START)
-        scale.set_digits(0)
         scale.add_mark(self.min_size.convert_to(conv(unit)), Gtk.PositionType.BOTTOM, str(self.min_size))
 
         if self.dialog_type == "add":
             scale.set_value(self.max_size.convert_to(conv(unit)))
             scale.add_mark(self.max_size.convert_to(conv(unit)), Gtk.PositionType.BOTTOM, str(self.max_size))
+            spin.set_value(self.max_size.convert_to(conv(unit)))
 
         elif self.dialog_type == "edit":
             scale.set_value(self.current_size.convert_to(conv(unit)))
             scale.add_mark(self.max_size.convert_to(conv(unit)), Gtk.PositionType.BOTTOM, str(self.max_size))
+            spin.set_value(self.current_size.convert_to(conv(unit)))
 
-        self.frame_grid.attach(scale, 0, 0, 4, 3)
-
-        label_size = Gtk.Label(label=_("Volume size:"), xalign=1)
-        label_size.get_style_context().add_class("dim-label")
-        self.frame_grid.attach(label_size, 4, 1, 1, 1)
-
-        spin_size = Gtk.SpinButton(adjustment=Gtk.Adjustment(0,
-                                   self.min_size.convert_to(conv(unit)),
-                                   self.max_size.convert_to(conv(unit)), 1, 10, 0))
-
-        spin_size.set_numeric(True)
-
-        if self.dialog_type == "add":
-            spin_size.set_value(self.max_size.convert_to(conv(unit)))
-
-        elif self.dialog_type == "edit":
-            spin_size.set_value(self.current_size.convert_to(conv(unit)))
-
-        self.frame_grid.attach(spin_size, 5, 1, 1, 1)
-
-        unit_chooser = self.add_unit_chooser(unit)
-        self.frame_grid.attach(unit_chooser, 6, 1, 1, 1)
-
-        scale.connect("value-changed", self.scale_moved, spin_size)
-        spin_size.connect("value-changed", self.spin_size_moved, scale)
-
-        scale.set_size_request(250, -1)
-        scale.set_margin_right(18)
-
-        self.widgets.extend([scale, label_size, spin_size, unit_chooser])
-
-        return scale, spin_size, unit_chooser
-
-    def add_unit_chooser(self, default_unit):
-        """ Add unit chooser
-        """
-
-        unit_chooser = Gtk.ComboBoxText()
-        unit_chooser.set_margin_right(10)
-
+        combobox_size = self.builder.get_object("combobox_size")
         for unit in SUPPORTED_UNITS:
-            unit_chooser.append_text(unit)
+            combobox_size.append_text(unit)
 
-        self.selected_unit = default_unit
+        # set MiB as default
+        self.selected_unit = "MiB"
+        combobox_size.set_active(SUPPORTED_UNITS.index("MiB"))
 
-        unit_chooser.set_active(SUPPORTED_UNITS.index(default_unit))
-        unit_chooser.connect("changed", self.on_unit_combo_changed)
+        combobox_size.connect("changed", self.on_unit_combo_changed)
+        scale.connect("value-changed", self.scale_moved, spin)
+        spin.connect("value-changed", self.spin_size_moved, scale)
 
-        return unit_chooser
+        return scale, spin, combobox_size
 
     def adjust_size_scale(self, selected_size, unit="MiB"):
         """ Adjust size scale with selected size and unit
@@ -250,43 +212,51 @@ class SizeChooserArea(object):
         self.adjust_size_scale(selected_size, new_unit)
         return
 
-    def scale_moved(self, scale, spin_size):
+    def scale_moved(self, scale, spin):
         """ On-change action for size scale
         """
 
-        spin_size.set_value(scale.get_value())
+        spin.set_value(scale.get_value())
 
         selected_size = size.Size(str(self.scale.get_value()) + " " + self.selected_unit)
 
         if self.update_clbk:
             self.update_clbk(selected_size)
 
-    def spin_size_moved(self, spin_size, scale):
+    def spin_size_moved(self, spin, scale):
         """ On-change action for size spin
         """
 
-        scale.set_value(spin_size.get_value())
+        scale.set_value(spin.get_value())
 
     def destroy(self):
         """ Destroy all size widgets
         """
 
         for widget in self.widgets:
-            widget.hide()
-            widget.destroy()
+            if hasattr(widget, "hide"):
+                widget.hide()
+                widget.destroy()
 
     def show(self):
         """ Show all size widgets
         """
 
-        for widget in self.widgets:
-            widget.show()
+        self.set_visible(True)
 
     def hide(self):
         """ Hide all size widgets
         """
+
+        self.set_visible(False)
+
+    def set_visible(self, visibility):
+        """ Hide/show all size widgets
+        """
+
         for widget in self.widgets:
-            widget.hide()
+            if hasattr(widget, "set_visible"):
+                widget.set_visible(visibility)
 
     def set_sensitive(self, sensitivity):
         """ Set all widgets sensitivity
@@ -296,15 +266,17 @@ class SizeChooserArea(object):
 
         """
         for widget in self.widgets:
-            widget.set_sensitive(sensitivity)
+            if hasattr(widget, "set_sensitive"):
+                widget.set_sensitive(sensitivity)
 
     def get_sensitive(self):
-        return all([widget.get_sensitive() for widget in self.widgets])
+        return all([widget.get_sensitive() for widget in self.widgets if hasattr(widget, "get_sensitive")])
 
     def get_selection(self):
         """ Get selected size
         """
 
-        selected_size = size.Size(str(self.scale.get_value()) + " " + self.selected_unit)
+        unit = UNIT_DICT[self.selected_unit].abbr + "B"  # selected_unit is localized
+        selected_size = size.Size(str(self.scale.get_value()) + " " + unit)
 
         return selected_size

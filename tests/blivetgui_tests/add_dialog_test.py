@@ -58,19 +58,23 @@ class SizeChooserAreaTest(unittest.TestCase):
     def test_widget_status(self):
         self.size_area.hide()
         for widget in self.size_area.widgets:
-            self.assertFalse(widget.get_visible())
+            if hasattr(widget, "get_visible"):
+                self.assertFalse(widget.get_visible())
 
         self.size_area.show()
         for widget in self.size_area.widgets:
-            self.assertTrue(widget.get_visible())
+            if hasattr(widget, "get_visible"):
+                self.assertTrue(widget.get_visible())
 
         self.size_area.set_sensitive(False)
         for widget in self.size_area.widgets:
-            self.assertFalse(widget.get_sensitive())
+            if hasattr(widget, "get_sensitive"):
+                self.assertFalse(widget.get_sensitive())
 
         self.size_area.set_sensitive(True)
         for widget in self.size_area.widgets:
-            self.assertTrue(widget.get_sensitive())
+            if hasattr(widget, "get_sensitive"):
+                self.assertTrue(widget.get_sensitive())
 
 
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
