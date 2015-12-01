@@ -621,7 +621,8 @@ class BlivetUtils(object):
 
         """
 
-        if blivet_device.format.type in ("swap",) or not blivet_device.format.exists:
+        if (blivet_device.format.type in ("swap",) or not blivet_device.format.exists
+           or not hasattr(blivet_device.format, "updateSizeInfo")):
             return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
