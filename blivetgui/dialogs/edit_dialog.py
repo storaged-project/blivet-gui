@@ -30,7 +30,7 @@ from gi.repository import Gtk, Pango
 
 from ..dialogs import message_dialogs
 
-from .size_chooser import SizeChooserArea
+from .size_chooser import SizeChooser
 from .helpers import is_mountpoint_valid, is_label_valid
 
 from ..communication.proxy_utils import ProxyDataContainer
@@ -94,7 +94,7 @@ class PartitionEditDialog(Gtk.Dialog):
 
         if not self.resize_info.resizable:
             self.hide_widgets(["size"])
-            self.size_area.frame.set_tooltip_text(_("This device cannot be resized."))
+            self.size_area.grid.set_tooltip_text(_("This device cannot be resized."))
             self.add_resize_info()
             self.show_widgets(["info"])
 
@@ -112,7 +112,7 @@ class PartitionEditDialog(Gtk.Dialog):
 
     def add_resize_info(self):
 
-        width = self.size_area.frame.size_request().width
+        width = self.size_area.grid.size_request().width
 
         label_info = Gtk.Label()
         label_info.set_size_request(width, -1)
@@ -133,13 +133,11 @@ class PartitionEditDialog(Gtk.Dialog):
         self.widgets_dict["info"] = [table, label_info]
 
     def add_size_chooser(self):
-        size_area = SizeChooserArea(dialog_type="edit",
-                                    device_name=self.edited_device.name,
-                                    max_size=self.resize_info.max_size,
-                                    min_size=self.resize_info.min_size,
-                                    current_size=self.edited_device.size)
+        size_area = SizeChooser(max_size=self.resize_info.max_size,
+                                min_size=self.resize_info.min_size,
+                                current_size=self.edited_device.size)
 
-        self.grid.attach(size_area.frame, 0, 0, 6, 1)
+        self.grid.attach(size_area.grid, 0, 0, 6, 1)
 
         self.widgets_dict["size"] = [size_area]
 

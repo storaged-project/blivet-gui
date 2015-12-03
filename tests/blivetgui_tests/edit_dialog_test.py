@@ -105,7 +105,7 @@ class PartitionEditDialogTest(unittest.TestCase):
 
         # select new size
         size_area = dialog.widgets_dict["size"][0]
-        size_area.scale.set_value(size_area.scale.get_value() // 2)
+        size_area._scale.set_value(size_area._scale.get_value() // 2)
 
         # select new mountpoint
         dialog.mountpoint_entry.get_buffer().set_text("/home", len("/home"))

@@ -29,26 +29,16 @@ from gi.repository import Gtk
 
 from blivet import size
 
-from ..i18n import _
 from ..gui_utils import locate_ui_file
 
-# ---------------------------------------------------------------------------- #
-
-SUPPORTED_UNITS = ["B", "kB", "MB", "GB", "TB", "kiB", "MiB", "GiB", "TiB"]
-UNIT_DICT = {"B": size.B, "kB": size.KB, "MB": size.MB, "GB": size.GB, "TB": size.TB,
-             "kiB": size.KiB, "MiB": size.MiB, "GiB": size.GiB, "TiB": size.TiB}
+from collections import OrderedDict, namedtuple
 
 # ---------------------------------------------------------------------------- #
 
-
-def conv(unit):
-    """ Convert unit string to blivet.size unit
-    """
-
-    if unit not in UNIT_DICT.keys():
-        raise ValueError
-
-    return UNIT_DICT[unit]
+UNITS = OrderedDict([("B", size.B), ("kB", size.KB), ("MB", size.MB),
+                     ("GB", size.GB), ("TB", size.TB), ("KiB", size.KiB),
+                     ("MiB", size.MiB), ("GiB", size.GiB), ("TiB", size.TiB)])
+# ---------------------------------------------------------------------------- #
 
 
 def get_size_precision(down_limit, up_limit):
@@ -76,114 +66,145 @@ def get_size_precision(down_limit, up_limit):
 # ---------------------------------------------------------------------------- #
 
 
-class SizeChooserArea(object):
+SignalHandler = namedtuple("SignalHandler", ["method", "args"])
 
-    def __init__(self, dialog_type, device_name, max_size, min_size, current_size=None, update_clbk=None):
+
+class SizeChooser(object):
+
+    def __init__(self, max_size, min_size, current_size=None):
         """
-
-            :param dialog_type: type of dialog ('add' or 'edit')
-            :type dialog_type: str
-            :param device_name: name of device (edited or parent)
-            :type device_name: str
             :param max_size: maximum size that user can choose
             :type max_size: blivet.size.Size
             :param min_size: minimum size that user can choose
             :type min_size: blivet.size.Size
             :param current_size: current size of edited device
             :type current_size: blivet.size.Size
-            :param update_clbk: callback to update other size chooser in dialog
-            :type update_clbk: method
-
         """
 
-        self.dialog_type = dialog_type
-
-        self.device_name = device_name
-
-        self.max_size = max_size
-        self.min_size = min_size
-        self.current_size = current_size
-
-        self.update_clbk = update_clbk
+        self._max_size = max_size
+        self._min_size = min_size
 
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain("blivet-gui")
-        self.builder.add_from_file(locate_ui_file("size_area.ui"))
+        self.builder.add_from_file(locate_ui_file("size_chooser.ui"))
 
         self.widgets = self.builder.get_objects()
 
-        self.selected_unit = None
+        self.grid = self.builder.get_object("grid")
 
-        self.frame = self.builder.get_object("frame_size")
-        self.frame.set_label(device_name)
+        self.selected_unit = size.MiB
+        self.size_change_handler = None
+        self.unit_change_handler = None
 
-        self.scale, self.spin_size, self.unit_chooser = self.set_size_widgets()
+        self._scale, self._spin, self._unit_chooser = self._set_size_widgets()
 
-    def set_size_widgets(self, unit=_("MiB")):
-        """ Configure size widgets (Gtk.Scale, Gtk.SpinButton)
-        """
+        # for edited device, set its current size
+        if current_size is not None:
+            self.selected_size = current_size
+        else:
+            self.selected_size = max_size
+
+    @property
+    def selected_size(self):
+        return size.Size(str(self._scale.get_value()) + " " + self.selected_unit.abbr + "B")
+
+    @selected_size.setter
+    def selected_size(self, selected_size):
+        self._scale.set_value(selected_size.convert_to(self.selected_unit))
+
+    @property
+    def max_size(self):
+        return self._max_size
+
+    @max_size.setter
+    def max_size(self, max_size):
+        self._max_size = max_size
+        self._reset_size_widgets(self.selected_size)
+
+    @property
+    def min_size(self):
+        return self._min_size
+
+    @min_size.setter
+    def min_size(self, min_size):
+        self._min_size = min_size
+        self._reset_size_widgets(self.selected_size)
+
+    def connect(self, signal, method, *args):
+        """ Connect a signal hadler """
+
+        if signal == "size-changed":
+            self.size_change_handler = SignalHandler(method=method, args=args)
+
+        elif signal == "unit-changed":
+            self.unit_change_handler = SignalHandler(method=method, args=args)
+
+        else:
+            raise TypeError("Unknown signal type %s" % signal)
+
+    def _set_size_widgets(self):
+        """ Configure size widgets (Gtk.Scale, Gtk.SpinButton) """
 
         scale = self.builder.get_object("scale_size")
         spin = self.builder.get_object("spinbutton_size")
 
-        adjustment = Gtk.Adjustment(0, self.min_size.convert_to(conv(unit)), self.max_size.convert_to(conv(unit)), 1, 10, 0)
+        adjustment = Gtk.Adjustment(0, self.min_size.convert_to(size.MiB),
+                                    self.max_size.convert_to(size.MiB), 1, 10, 0)
 
         scale.set_adjustment(adjustment)
         spin.set_adjustment(adjustment)
 
-        scale.add_mark(self.min_size.convert_to(conv(unit)), Gtk.PositionType.BOTTOM, str(self.min_size))
-
-        if self.dialog_type == "add":
-            scale.set_value(self.max_size.convert_to(conv(unit)))
-            scale.add_mark(self.max_size.convert_to(conv(unit)), Gtk.PositionType.BOTTOM, str(self.max_size))
-            spin.set_value(self.max_size.convert_to(conv(unit)))
-
-        elif self.dialog_type == "edit":
-            scale.set_value(self.current_size.convert_to(conv(unit)))
-            scale.add_mark(self.max_size.convert_to(conv(unit)), Gtk.PositionType.BOTTOM, str(self.max_size))
-            spin.set_value(self.current_size.convert_to(conv(unit)))
+        scale.add_mark(self.min_size.convert_to(size.MiB),
+                       Gtk.PositionType.BOTTOM, str(self.min_size))
+        scale.add_mark(self.max_size.convert_to(size.MiB),
+                       Gtk.PositionType.BOTTOM, str(self.max_size))
 
         combobox_size = self.builder.get_object("combobox_size")
-        for unit in SUPPORTED_UNITS:
+        for unit in list(UNITS.keys()):
             combobox_size.append_text(unit)
 
         # set MiB as default
-        self.selected_unit = "MiB"
-        combobox_size.set_active(SUPPORTED_UNITS.index("MiB"))
+        self.selected_unit = size.MiB
+        combobox_size.set_active(list(UNITS.keys()).index("MiB"))
 
-        combobox_size.connect("changed", self.on_unit_combo_changed)
-        scale.connect("value-changed", self.scale_moved, spin)
-        spin.connect("value-changed", self.spin_size_moved, scale)
+        combobox_size.connect("changed", self._on_unit_changed)
+        scale.connect("value-changed", self._on_scale_moved, spin)
+        spin.connect("value-changed", self._on_spin_moved, scale)
 
         return scale, spin, combobox_size
 
-    def adjust_size_scale(self, selected_size, unit="MiB"):
-        """ Adjust size scale with selected size and unit
-        """
+    def _reset_size_widgets(self, selected_size):
+        """ Adjust size scale with selected size and unit """
 
-        self.scale.set_range(self.min_size.convert_to(conv(unit)), self.max_size.convert_to(conv(unit)))
-        self.scale.clear_marks()
+        unit = self.selected_unit
 
-        increment, digits = get_size_precision(self.min_size.convert_to(conv(unit)), self.max_size.convert_to(conv(unit)))
-        self.scale.set_increments(increment, increment * 10)
-        self.scale.set_digits(digits)
+        self._scale.set_range(self.min_size.convert_to(unit),
+                              self.max_size.convert_to(unit))
+        self._scale.clear_marks()
 
-        self.scale.add_mark(0, Gtk.PositionType.BOTTOM,
-                            format(self.min_size.convert_to(conv(unit)), "." + str(digits) + "f") + " " + unit)
-        self.scale.add_mark(float(self.max_size.convert_to(conv(unit))), Gtk.PositionType.BOTTOM,
-                            format(self.max_size.convert_to(conv(unit)), "." + str(digits) + "f") + " " + unit)
+        increment, digits = get_size_precision(self.min_size.convert_to(unit),
+                                               self.max_size.convert_to(unit))
+        self._scale.set_increments(increment, increment * 10)
+        self._scale.set_digits(digits)
 
-        self.spin_size.set_range(self.min_size.convert_to(conv(unit)),
-                                 self.max_size.convert_to(conv(unit)))
-        self.spin_size.set_increments(increment, increment * 10)
-        self.spin_size.set_digits(digits)
+        self._scale.add_mark(0, Gtk.PositionType.BOTTOM,
+                             format(self.min_size.convert_to(unit),
+                                    "." + str(digits) + "f") + " " + unit.abbr + "B")
+        self._scale.add_mark(float(self.max_size.convert_to(unit)), Gtk.PositionType.BOTTOM,
+                             format(self.max_size.convert_to(unit),
+                                    "." + str(digits) + "f") + " " + unit.abbr + "B")
+
+        self._spin.set_range(self.min_size.convert_to(unit),
+                             self.max_size.convert_to(unit))
+        self._spin.set_increments(increment, increment * 10)
+        self._spin.set_digits(digits)
 
         if selected_size > self.max_size:
-            self.scale.set_value(self.max_size.convert_to(conv(unit)))
+            self.selected_size = self.max_size
         elif selected_size < self.min_size:
-            self.scale.set_value(self.min_size.convert_to(conv(unit)))
+            self.selected_size = self.min_size
         else:
-            self.scale.set_value(selected_size.convert_to(conv(unit)))
+            self.selected_size = selected_size
 
     def update_size_limits(self, min_size=None, max_size=None):
         if min_size:
@@ -191,72 +212,62 @@ class SizeChooserArea(object):
         if max_size:
             self.max_size = max_size
 
-        self.adjust_size_scale(self.get_selected_size(), self.selected_unit)
+        self._reset_size_widgets(self.selected_size)
 
-    def set_selected_size(self, selected_size):
-        self.scale.set_value(selected_size.convert_to(conv(self.selected_unit)))
+    def _on_unit_changed(self, combo):
+        """ On-change action for unit combo """
 
-    def get_selected_size(self):
-        return size.Size(str(self.scale.get_value()) + " " + self.selected_unit)
-
-    def on_unit_combo_changed(self, combo):
-        """ On-change action for unit combo
-        """
-
-        new_unit = combo.get_active_text()
+        new_unit = UNITS[combo.get_active_text()]
         old_unit = self.selected_unit
         self.selected_unit = new_unit
 
-        selected_size = size.Size(str(self.scale.get_value()) + " " + old_unit)
+        selected_size = size.Size(str(self._scale.get_value()) + " " + old_unit.abbr + "B")
 
-        self.adjust_size_scale(selected_size, new_unit)
-        return
+        self._reset_size_widgets(selected_size)
 
-    def scale_moved(self, scale, spin):
-        """ On-change action for size scale
-        """
+        if self.unit_change_handler is not None:
+            self.unit_change_handler.method(self.selected_unit, *self.unit_change_handler.args)
+
+    def _on_scale_moved(self, scale, spin):
+        """ On-change action for size scale """
 
         spin.set_value(scale.get_value())
 
-        selected_size = size.Size(str(self.scale.get_value()) + " " + self.selected_unit)
+        if self.size_change_handler is not None:
+            self.size_change_handler.method(self.selected_size, *self.size_change_handler.args)
 
-        if self.update_clbk:
-            self.update_clbk(selected_size)
-
-    def spin_size_moved(self, spin, scale):
-        """ On-change action for size spin
-        """
+    def _on_spin_moved(self, spin, scale):
+        """ On-change action for size spin """
 
         scale.set_value(spin.get_value())
 
     def destroy(self):
-        """ Destroy all size widgets
-        """
+        """ Destroy all size widgets """
 
         for widget in self.widgets:
-            if hasattr(widget, "hide"):
-                widget.hide()
-                widget.destroy()
+            widget.hide()
+            widget.destroy()
 
     def show(self):
-        """ Show all size widgets
-        """
+        """ Show all size widgets """
 
         self.set_visible(True)
 
     def hide(self):
-        """ Hide all size widgets
-        """
+        """ Hide all size widgets """
 
         self.set_visible(False)
 
     def set_visible(self, visibility):
         """ Hide/show all size widgets
+
+            :param visibility: visibility
+            :type visibility: bool
+
         """
 
         for widget in self.widgets:
-            if hasattr(widget, "set_visible"):
-                widget.set_visible(visibility)
+            widget.set_visible(visibility)
 
     def set_sensitive(self, sensitivity):
         """ Set all widgets sensitivity
@@ -266,17 +277,12 @@ class SizeChooserArea(object):
 
         """
         for widget in self.widgets:
-            if hasattr(widget, "set_sensitive"):
-                widget.set_sensitive(sensitivity)
+            widget.set_sensitive(sensitivity)
 
     def get_sensitive(self):
-        return all([widget.get_sensitive() for widget in self.widgets if hasattr(widget, "get_sensitive")])
+        return all([widget.get_sensitive() for widget in self.widgets])
 
     def get_selection(self):
-        """ Get selected size
-        """
+        """ Get selected size """
 
-        unit = UNIT_DICT[self.selected_unit].abbr + "B"  # selected_unit is localized
-        selected_size = size.Size(str(self.scale.get_value()) + " " + unit)
-
-        return selected_size
+        return self.selected_size

@@ -3,7 +3,7 @@
 import unittest
 from unittest.mock import Mock, MagicMock, patch
 
-from blivetgui.dialogs.size_chooser import SizeChooserArea, SUPPORTED_UNITS
+from blivetgui.dialogs.size_chooser import SizeChooser, UNITS
 from blivetgui.dialogs.add_dialog import AdvancedOptions, AddDialog
 
 from blivetgui.i18n import _
@@ -23,37 +23,36 @@ class SizeChooserAreaTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.size_area = SizeChooserArea(dialog_type="add", device_name="sda", max_size=Size("100 GiB"),
-                                        min_size=Size("1 MiB"), update_clbk=lambda x: None)
+        cls.size_area = SizeChooser(max_size=Size("100 GiB"), min_size=Size("1 MiB"))
 
     def test_unit_change(self):
-        original_size = self.size_area.get_selected_size()
+        original_size = self.size_area.selected_size
 
-        for idx, unit in enumerate(SUPPORTED_UNITS):
-            self.size_area.unit_chooser.set_active(idx)
-            self.assertEqual(unit, self.size_area.selected_unit)
+        for idx, unit in enumerate(list(UNITS.keys())):
+            self.size_area._unit_chooser.set_active(idx)
+            self.assertEqual(unit, self.size_area.selected_unit.abbr + "B")
 
-            new_size = Size(str(self.size_area.spin_size.get_value()) + " " + unit)
+            new_size = Size(str(self.size_area._spin.get_value()) + " " + unit)
             self.assertEqual(original_size, new_size)
 
     def test_scale_spin(self):
-        old_value = self.size_area.scale.get_value()
+        old_value = self.size_area._scale.get_value()
         new_value = old_value // 2
 
-        self.size_area.scale.set_value(new_value)
-        self.assertEqual(new_value, self.size_area.spin_size.get_value())
+        self.size_area._scale.set_value(new_value)
+        self.assertEqual(new_value, self.size_area._spin.get_value())
 
-        self.size_area.spin_size.set_value(old_value)
-        self.assertEqual(old_value, self.size_area.scale.get_value())
+        self.size_area._spin.set_value(old_value)
+        self.assertEqual(old_value, self.size_area._scale.get_value())
 
     def test_get_size(self):
-        selected_size = Size(str(self.size_area.spin_size.get_value()) + " " + self.size_area.selected_unit)
-        self.assertEqual(selected_size, self.size_area.get_selected_size())
+        selected_size = Size(str(self.size_area._spin.get_value()) + " " + self.size_area.selected_unit.abbr + "B")
+        self.assertEqual(selected_size, self.size_area.selected_size)
 
     def test_set_size(self):
         selected_size = (self.size_area.max_size - self.size_area.min_size) // 2
-        self.size_area.set_selected_size(selected_size)
-        self.assertEqual(selected_size, self.size_area.get_selected_size())
+        self.size_area.selected_size = selected_size
+        self.assertEqual(selected_size, self.size_area.selected_size)
 
     def test_widget_status(self):
         self.size_area.hide()
@@ -866,7 +865,7 @@ class AddDialogTest(unittest.TestCase):
 
         add_dialog.devices_combo.set_active_id("partition")
         add_dialog.filesystems_combo.set_active_id(fstype)
-        add_dialog.size_areas[0][0].set_selected_size(size)
+        add_dialog.size_areas[0][0].selected_size = size
         add_dialog.label_entry.set_text(label)
         add_dialog.mountpoint_entry.set_text(mountpoint)
         add_dialog.encrypt_check.set_active(True)
@@ -907,8 +906,8 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.on_cell_toggled(None, 1)
         add_dialog.parents_store[1][2] = True
 
-        add_dialog.size_areas[0][0].set_selected_size(size1)
-        add_dialog.size_areas[1][0].set_selected_size(size2)
+        add_dialog.size_areas[0][0].selected_size = size1
+        add_dialog.size_areas[1][0].selected_size = size2
 
         add_dialog.name_entry.set_text(name)
 
@@ -951,7 +950,7 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.raid_combo.set_active_id(raidtype)
 
         # raid 0 --> second size area should be updated
-        add_dialog.size_areas[0][0].set_selected_size(size)
+        add_dialog.size_areas[0][0].selected_size = size
 
         add_dialog.name_entry.set_text(name)
 

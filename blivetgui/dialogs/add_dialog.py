@@ -38,7 +38,7 @@ from ..dialogs import message_dialogs
 
 from ..communication.proxy_utils import ProxyDataContainer
 
-from . size_chooser import SizeChooserArea
+from . size_chooser import SizeChooser
 from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid
 
 from ..i18n import _
@@ -73,10 +73,10 @@ class CacheArea(object):
                               self.combobox_type]
         self._all_widgets = self.builder.get_objects()
 
+        self.size_area = self.add_size_area()
+
         for widget in self.cache_widgets:
             widget.hide()
-
-        self.size_area = self.add_size_area()
 
     def set_cache_button(self):
         checkbutton_cache = self.builder.get_object("checkbutton_cache")
@@ -101,11 +101,11 @@ class CacheArea(object):
         return liststore_pvs
 
     def add_size_area(self):
-        area = SizeChooserArea(dialog_type="add", device_name="Cache device", max_size=self._cache_max_size,
-                               min_size=self._cache_min_size, update_clbk=self._update_lv_max_size)
-        area.set_selected_size(self.add_dialog.parent_device.pe_size)  # set the minimal size for the cache
+        area = SizeChooser(max_size=self._cache_max_size, min_size=self._cache_min_size)
+        area.connect("size-changed", self._update_lv_max_size)
+        area.selected_size = self.add_dialog.parent_device.pe_size  # set the minimal size for the cache
 
-        self.grid.attach(area.frame, left=0, top=3, width=6, height=1)
+        self.grid.attach(area.grid, left=0, top=3, width=6, height=1)
         self.cache_widgets.append(area)
 
         return area
@@ -197,7 +197,7 @@ class CacheArea(object):
             if line[1]:
                 parents.append(line[0])
 
-        total_size = self.size_area.get_selected_size()
+        total_size = self.size_area.selected_size
 
         return ProxyDataContainer(cache=create_cache, type=cache_type, parents=parents, size=total_size)
 
@@ -764,7 +764,7 @@ class AddDialog(Gtk.Dialog):
 
         else:
             for area, _parent in self.size_areas:
-                area.set_selected_size(selected_size)
+                area.selected_size = selected_size
 
     def update_size_areas_limits(self, min_size=None, max_size=None, min_plus=None, max_plus=None, min_multi=None, max_multi=None):
         for area, _parent in self.size_areas:
@@ -778,7 +778,10 @@ class AddDialog(Gtk.Dialog):
             if max_multi and not max_size:
                 max_size = area.max_size * max_multi
 
-            area.update_size_limits(min_size, max_size)
+            if min_size is not None:
+                area.min_size = min_size
+            if max_size is not None:
+                area.max_size = max_size
 
     def _destroy_size_areas(self):
         """ Remove existing size areas
@@ -831,10 +834,10 @@ class AddDialog(Gtk.Dialog):
                 if not raid:
                     max_size = row[1].size
 
-                area = SizeChooserArea(dialog_type="add", device_name=row[0].name, max_size=max_size,
-                                       min_size=min_size, update_clbk=self.update_size_areas_selections)
+                area = SizeChooser(max_size=max_size, min_size=min_size)
+                area.connect("size-changed", self.update_size_areas_selections)
 
-                size_grid.attach(area.frame, 0, posititon, 1, 1)
+                size_grid.attach(area.grid, 0, posititon, 1, 1)
 
                 self.widgets_dict["size"].append(area)
                 self.size_areas.append((area, row[0]))
