@@ -352,7 +352,7 @@ class BlivetUtils(object):
             partitions = [FreeSpaceDevice(blivet_device.size, self.storage.next_id, 0, blivet_device.current_size, [blivet_device], False)]
             return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
 
-        if blivet_device.format and blivet_device.format.type not in ("disklabel", "btrfs", None):
+        if blivet_device.format and blivet_device.format.type not in ("disklabel", "btrfs", "luks", None):
             # special occasion -- raw device format
             partitions = [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format, dev_id=self.storage.next_id)]
             return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
@@ -361,6 +361,14 @@ class BlivetUtils(object):
             # btrfs volume on raw device
             btrfs_volume = self.storage.devicetree.get_children(blivet_device)[0]
             return ProxyDataContainer(partitions=[btrfs_volume], extended=None, logicals=None)
+
+        if blivet_device.format and blivet_device.format.type == "luks":
+            if blivet_device.kids:
+                luks = self.storage.devicetree.get_children(blivet_device)[0]
+            else:
+                luks = RawFormatDevice(disk=blivet_device, fmt=blivet_device.format, dev_id=self.storage.next_id)
+
+            return ProxyDataContainer(partitions=[luks], extended=None, logicals=None)
 
         partitions = self.storage.devicetree.get_children(blivet_device)
         # extended partition
@@ -538,7 +546,10 @@ class BlivetUtils(object):
         if isinstance(blivet_device, RawFormatDevice):
             # raw device, not going to delete device but destroy disk format instead
             result = self.delete_disk_label(blivet_device.parents[0])
+            return result
 
+        if blivet_device.is_disk:
+            result = self.delete_disk_label(blivet_device)
             return result
 
         try:
