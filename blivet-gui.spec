@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 1.0.2
+Version: 1.0.3
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -68,6 +68,10 @@ fi
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Mon Dec 07 2015 Vojtech Trefny <vtrefny@redhat.com> - 1.0.3-1
+- Fix visualization of raw format LUKS devices (#1288943) (vtrefny)
+- Fix updateSizeInfo on BIOSBoot partitions (#1286616) (vtrefny)
+
 * Mon Nov 09 2015 Vojtech Trefny <vtrefny@redhat.com> - 1.0.2-1
 - Catch blivet.errors.LUKSError instead of BlockDev.CryptoError (vtrefny)
 - Fix 'disk' attribute for FreeSpaceDevices (vtrefny)
