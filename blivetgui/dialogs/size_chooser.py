@@ -49,7 +49,7 @@ def get_size_precision(down_limit, up_limit):
     digits = 0
 
     while True:
-        if down_limit >= 1.0:
+        if down_limit >= 1.0 or down_limit >= 0:
             break
 
         down_limit *= 10
@@ -69,7 +69,182 @@ def get_size_precision(down_limit, up_limit):
 SignalHandler = namedtuple("SignalHandler", ["method", "args"])
 
 
-class SizeChooser(object):
+from blivet.devicelibs.raid import get_raid_level
+
+class GUIWidget(object):
+
+    def __init__(self, glade_file):
+
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("blivet-gui")
+        self.builder.add_from_file(locate_ui_file(glade_file))
+
+        self.widgets = self.builder.get_objects()
+
+    def destroy(self):
+        """ Destroy all size widgets """
+
+        for widget in self.widgets:
+            widget.hide()
+            widget.destroy()
+
+    def show(self):
+        """ Show all size widgets """
+
+        self.set_visible(True)
+
+    def hide(self):
+        """ Hide all size widgets """
+
+        self.set_visible(False)
+
+    def set_visible(self, visibility):
+        """ Hide/show all size widgets
+
+            :param visibility: visibility
+            :type visibility: bool
+
+        """
+
+        for widget in self.widgets:
+            widget.set_visible(visibility)
+
+    def set_sensitive(self, sensitivity):
+        """ Set all widgets sensitivity
+
+            :param sensitivity: sensitivity
+            :type sensitivity: bool
+
+        """
+        for widget in self.widgets:
+            widget.set_sensitive(sensitivity)
+
+    def get_sensitive(self):
+        return all([widget.get_sensitive() for widget in self.widgets])
+
+
+
+class SizeArea(GUIWidget):
+
+    def __init__(self, device_type, parent, raid_type):
+
+        GUIWidget.__init__(self, "size_area.ui")
+
+        self.device_type = device_type
+        self.parent = parent
+        self.raid_type = raid_type
+
+        self.frame = self.builder.get_object("frame_size")
+        self.grid = self.builder.get_object("grid")
+
+        self._min_size = None
+        self._max_size = None
+
+        self.main_chooser = SizeChooser(max_size=self.max_size, min_size=self.min_size)
+        self.grid.attach(self.main_chooser.grid, 0, 0, 5, 1)
+
+        checkbutton_manual = self.builder.get_object("checkbutton_manual")
+        checkbutton_manual.connect("toggled", self._on_manual_toggled)
+
+        self.parent_area = ParentArea(self.parent.pvs)
+        self.grid.attach(self.parent_area.frame, 0, 2, 5, 1)
+        self.widgets.append(self.parent_area)
+
+        self.show()
+        self.parent_area.hide()
+
+    @property
+    def min_size(self):
+        if self._min_size is None:
+            if self.device_type in ("lvmlv", "lvmthinpool"):
+                self._min_size = max(self.parent.pe_size, size.Size("1 MiB"))
+
+        return self._min_size
+
+    @property
+    def max_size(self):
+        if self._max_size is None:
+            if self.raid_type not in ("linear", "single", None, False): # FIXME: raid_type
+                raid_level = get_raid_level(self.raid_type)
+                self._max_size = raid_level.get_net_array_size(len(self.parent.pvs),
+                                                               min([pv.format.free for pv in self.parent.pvs]))
+            else:
+                self._max_size = sum([pv.format.free for pv in self.parent.pvs])
+
+        return self._max_size
+
+    def _on_manual_toggled(self, checkbutton):
+        if checkbutton.get_active():
+            self.parent_area.show()
+            self.main_chooser.set_sensitive(False)
+        else:
+            self.parent_area.hide()
+            self.main_chooser.set_sensitive(True)
+
+
+class ParentArea(GUIWidget):
+
+    def __init__(self, parents):
+
+        GUIWidget.__init__(self, "parent_area.ui")
+
+        self.parents = parents
+
+        self.frame = self.builder.get_object("frame")
+        self.grid = self.builder.get_object("grid")
+
+        for idx, parent in enumerate(self.parents):
+            chooser = ParentChooser(parent, size.Size("1 MiB"), parent.format.free) # FIXME: min_size calculation
+            self.widgets.append(chooser)
+            self.grid.attach(chooser.grid, 0, idx, 1, 1)
+
+        self.show()
+
+
+class ParentChooser(GUIWidget):
+
+    def __init__(self, parent, min_size, max_size=None):
+
+        GUIWidget.__init__(self, "parent_chooser.ui")
+
+        self.parent = parent
+        self.max_size = max_size
+        self.min_size = min_size
+
+        self.grid = self.builder.get_object("grid")
+
+        checkbutton_use = self.builder.get_object("checkbutton_use")
+        checkbutton_use.connect("toggled", self._on_parent_toggled)
+
+        label_device = self.builder.get_object("label_device")
+        label_device.set_text(parent.name)
+
+        label_size = self.builder.get_object("label_size")
+        label_size.set_text(str(parent.format.free))
+
+        if self.max_size is None:
+            self.max_size = parent.format.free
+
+        self.size_chooser = SizeChooser(max_size=max_size, min_size=min_size)
+        self.grid.attach(self.size_chooser.grid, 3, 0, 1, 1)
+        self.widgets.append(self.size_chooser)
+
+        self.show()
+
+    def _on_parent_toggled(self, checkbutton):
+        if checkbutton.get_active():
+            self.size_chooser.set_sensitive(True)
+            self.size_chooser.max_size = self.max_size
+            self.size_chooser.min_size = self.min_size
+            self.size_chooser.selected_size = self.max_size
+        else:
+            self.size_chooser.set_sensitive(False)
+            self.size_chooser.max_size = self.max_size
+            self.size_chooser.min_size = size.Size(0)
+            self.size_chooser.selected_size = size.Size(0)
+
+
+class SizeChooser(GUIWidget):
 
     def __init__(self, max_size, min_size, current_size=None):
         """
@@ -81,14 +256,10 @@ class SizeChooser(object):
             :type current_size: blivet.size.Size
         """
 
+        GUIWidget.__init__(self, "size_chooser.ui")
+
         self._max_size = max_size
         self._min_size = min_size
-
-        self.builder = Gtk.Builder()
-        self.builder.set_translation_domain("blivet-gui")
-        self.builder.add_from_file(locate_ui_file("size_chooser.ui"))
-
-        self.widgets = self.builder.get_objects()
 
         self.grid = self.builder.get_object("grid")
 
@@ -240,47 +411,6 @@ class SizeChooser(object):
         """ On-change action for size spin """
 
         scale.set_value(spin.get_value())
-
-    def destroy(self):
-        """ Destroy all size widgets """
-
-        for widget in self.widgets:
-            widget.hide()
-            widget.destroy()
-
-    def show(self):
-        """ Show all size widgets """
-
-        self.set_visible(True)
-
-    def hide(self):
-        """ Hide all size widgets """
-
-        self.set_visible(False)
-
-    def set_visible(self, visibility):
-        """ Hide/show all size widgets
-
-            :param visibility: visibility
-            :type visibility: bool
-
-        """
-
-        for widget in self.widgets:
-            widget.set_visible(visibility)
-
-    def set_sensitive(self, sensitivity):
-        """ Set all widgets sensitivity
-
-            :param sensitivity: sensitivity
-            :type sensitivity: bool
-
-        """
-        for widget in self.widgets:
-            widget.set_sensitive(sensitivity)
-
-    def get_sensitive(self):
-        return all([widget.get_sensitive() for widget in self.widgets])
 
     def get_selection(self):
         """ Get selected size """

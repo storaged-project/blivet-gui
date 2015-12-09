@@ -38,7 +38,7 @@ from ..dialogs import message_dialogs
 
 from ..communication.proxy_utils import ProxyDataContainer
 
-from . size_chooser import SizeChooser
+from . size_chooser import SizeChooser, SizeArea
 from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid
 
 from ..i18n import _
@@ -829,26 +829,32 @@ class AddDialog(Gtk.Dialog):
         else:
             min_size = size.Size("1 MiB")
 
-        for row in self.parents_store:
-            if row[3]:
-                if not raid:
-                    max_size = row[1].size
+        if device_type == "lvmlv":
+            size_area = SizeArea(device_type="lvmlv", parent=self.parents_store[0][0], raid_type=raid)
+            size_grid.attach(size_area.frame, 0, posititon, 1, 1)
+            self.size_areas.append((size_area, self.parents_store[0][0]))
 
-                area = SizeChooser(max_size=max_size, min_size=min_size)
-                area.connect("size-changed", self.update_size_areas_selections)
+        else:
+            for row in self.parents_store:
+                if row[3]:
+                    if not raid:
+                        max_size = row[1].size
 
-                size_grid.attach(area.grid, 0, posititon, 1, 1)
+                    area = SizeChooser(max_size=max_size, min_size=min_size)
+                    area.connect("size-changed", self.update_size_areas_selections)
 
-                self.widgets_dict["size"].append(area)
-                self.size_areas.append((area, row[0]))
+                    size_grid.attach(area.grid, 0, posititon, 1, 1)
 
-                posititon += 1
+                    self.widgets_dict["size"].append(area)
+                    self.size_areas.append((area, row[0]))
 
-        for area, _parent in self.size_areas:
-            area.show()
+                    posititon += 1
 
-            if device_type in ("lvmvg", "btrfs subvolume") or self._get_free_type() == "disks":
-                area.set_sensitive(False)
+            for area, _parent in self.size_areas:
+                area.show()
+
+                if device_type in ("lvmvg", "btrfs subvolume") or self._get_free_type() == "disks":
+                    area.set_sensitive(False)
 
         # TODO: this needs better rewrite, maybe own method
         size_area_height = size_grid.size_request().height
