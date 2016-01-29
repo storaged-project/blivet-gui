@@ -174,7 +174,7 @@ class ListPartitions(object):
         if device.protected:
             return False
 
-        if device.type not in ("partition", "lvmvg", "lvmlv"):
+        if device.type not in ("partition", "lvmvg", "lvmlv", "luks/dm-crypt"):
             return False
 
         else:
@@ -188,7 +188,7 @@ class ListPartitions(object):
                 if device.type in ("lvmvg",):
                     return device.exists
 
-                elif device.format.type in ("btrfs", "lvmpv", "luks", "mdmember"):
+                elif device.format.type in ("btrfs", "lvmpv", "mdmember"):
                     return False
 
                 else:

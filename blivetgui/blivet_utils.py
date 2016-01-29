@@ -27,6 +27,8 @@ from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LV
 from blivet.devices.lvm import LVMCacheRequest
 from blivet.formats import DeviceFormat
 
+from blivet.devicelibs.crypto import LUKS_METADATA_SIZE
+
 from .communication.proxy_utils import ProxyDataContainer
 
 import socket
@@ -617,7 +619,7 @@ class BlivetUtils(object):
 
         for device in self.storage.devices:
             if device.type in ("partition", "lvmlv"):
-                if device.format and device.format.type and hasattr(device.format, "update_size_info"):
+                if device.format and device.format.type and device.format.resizable and hasattr(device.format, "update_size_info"):
                     try:
                         device.format.update_size_info()
                     except blivet.errors.FSError:
@@ -655,18 +657,56 @@ class BlivetUtils(object):
         try:
             blivet_device.format.update_size_info()
 
+            if blivet_device.type == "luks/dm-crypt":
+                blivet_device.slave.format.update_size_info()
+
         except blivet.errors.FSError as e:
             return ProxyDataContainer(resizable=False, error=str(e),
                                       min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
         if blivet_device.resizable and blivet_device.format.resizable:
-            return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.min_size,
-                                      max_size=blivet_device.max_size)
+
+            if blivet_device.type == "luks/dm-crypt":
+                return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.min_size,
+                                          max_size=blivet_device.slave.max_size - LUKS_METADATA_SIZE)
+            else:
+                return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.min_size,
+                                          max_size=blivet_device.max_size)
 
         else:
             return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
+
+    def _resize_device(self, device, newsize):
+
+        resize_actions = []
+
+        # align size first
+        if device.type == "partition":
+            aligned_size = device.align_target_size(newsize)
+        elif device.type == "luks/dm-crypt":
+            aligned_size = device.slave.align_target_size(newsize)
+        else:
+            aligned_size = newsize
+
+        # resize format
+        if device.format.resizable:
+            resize_actions.append(blivet.deviceaction.ActionResizeFormat(device, aligned_size))
+
+        # resize device
+        if device.type == "luks/dm-crypt":
+            resize_actions.append(blivet.deviceaction.ActionResizeDevice(device, aligned_size))
+            resize_actions.append(blivet.deviceaction.ActionResizeFormat(device.slave, aligned_size))
+            resize_actions.append(blivet.deviceaction.ActionResizeDevice(device.slave, aligned_size + LUKS_METADATA_SIZE))
+        else:
+            resize_actions.append(blivet.deviceaction.ActionResizeDevice(device, aligned_size))
+
+        # reverse order if grow
+        if newsize > device.current_size:
+            resize_actions.reverse()
+
+        return resize_actions
 
     def edit_partition_device(self, user_input):
         """ Edit device
@@ -690,15 +730,7 @@ class BlivetUtils(object):
             return ProxyDataContainer(success=True, actions=None, message=None, exception=None, traceback=None)
 
         if user_input.resize:
-            if blivet_device.type == "partition":
-                aligned_size = blivet_device.align_target_size(user_input.size)
-            else:
-                aligned_size = user_input.size
-
-            # do not resize format on extended partitions
-            if not (blivet_device.type == "partition" and blivet_device.is_extended):
-                actions.append(blivet.deviceaction.ActionResizeFormat(blivet_device, aligned_size))
-            actions.append(blivet.deviceaction.ActionResizeDevice(blivet_device, aligned_size))
+            actions.extend(self._resize_device(blivet_device, user_input.size))
 
         if user_input.fmt:
             new_fmt = blivet.formats.get_format(user_input.filesystem, label=user_input.label, mountpoint=user_input.mountpoint)

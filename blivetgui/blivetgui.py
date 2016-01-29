@@ -294,7 +294,7 @@ class BlivetGUI(object):
 
         device = self.list_partitions.selected_partition[0]
 
-        if device.type in ("partition", "lvmlv"):
+        if device.type in ("partition", "lvmlv", "luks/dm-crypt"):
             dialog = edit_dialog.PartitionEditDialog(self.main_window, device,
                                                      self.client.remote_call("device_resizable", device),
                                                      self._supported_filesystems,
@@ -312,7 +312,7 @@ class BlivetGUI(object):
         if response == Gtk.ResponseType.OK:
             user_input = dialog.get_selection()
 
-            if device.type in ("partition", "lvmlv"):
+            if device.type in ("partition", "lvmlv", "luks/dm-crypt"):
                 result = self.client.remote_call("edit_partition_device", user_input)
 
             elif device.type in ("lvmvg",):
