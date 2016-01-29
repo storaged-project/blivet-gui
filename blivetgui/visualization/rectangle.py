@@ -85,7 +85,7 @@ class Rectangle(Gtk.RadioButton):
         if self.device.format and self.device.format.type in ("iso9660", "udf"):
             properties.append("livecd")
         if self.device.type == "partition" and self.device.format.type == "luks":
-            if self.device.kids:
+            if self.device.children:
                 properties.append("decrypted")
             else:
                 properties.append("encrypted")
@@ -94,7 +94,7 @@ class Rectangle(Gtk.RadioButton):
         if self.device.type in ("lvmsnapshot", "btrfs snapshot"):
             properties.append("snapshot")
         if self.device.type == "free space" or (self.device.format and self.device.format.type == "lvmpv"
-                                                and not self.device.kids):
+                                                and not self.device.children):
             properties.append("empty")
         if self.device.type == "free space" and self.device.is_uninitialized_disk:
             properties.append("nodisklabel")

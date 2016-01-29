@@ -63,7 +63,7 @@ class ListPartitions(object):
                     new_child = self.blivet_gui.client.remote_call("get_luks_device", child)
                     self._add_to_store(new_child, None)
 
-                elif child.kids:
+                elif child.children:
                     child_iter = self._add_to_store(child, parent_iter)
                     _add_chilren(self.blivet_gui.client.remote_call("get_children", child), child_iter)
 
@@ -78,7 +78,7 @@ class ListPartitions(object):
                     new_child = self.blivet_gui.client.remote_call("get_group_device", child)
                     self._add_to_store(new_child, None)
 
-                elif child.format and child.format.type == "luks" and child.kids:
+                elif child.format and child.format.type == "luks" and child.children:
                     new_child = self.blivet_gui.client.remote_call("get_luks_device", child)
                     self._add_to_store(new_child, None)
 
@@ -98,7 +98,7 @@ class ListPartitions(object):
         # for btrfs volumes and mdarrays its necessary to add the device itself to the view
         # because these devices don't need to have children (only btrfs volume or only mdarray
         # is a valid, usable device)
-        elif selected_device.type == "btrfs volume" or (selected_device.type == "mdarray" and not selected_device.kids):
+        elif selected_device.type == "btrfs volume" or (selected_device.type == "mdarray" and not selected_device.children):
             parent_iter = self._add_to_store(selected_device)
             childs = self.blivet_gui.client.remote_call("get_children", selected_device)
             _add_chilren(childs, parent_iter)
@@ -118,13 +118,13 @@ class ListPartitions(object):
             return True
 
         if blivet_device.format and blivet_device.format.type in ("lvmpv", "btrfs", "mdmember"):
-            return (blivet_device.kids > 0)
+            return (len(blivet_device.children) > 0)
 
         # encrypted group device
         if blivet_device.format and blivet_device.format.type == "luks" and blivet_device.format.status:
             luks_device = self.blivet_gui.client.remote_call("get_luks_device", blivet_device)
             if luks_device.format and luks_device.format.type in ("lvmpv", "btrfs", "mdmember"):
-                return (luks_device.kids > 0)
+                return (len(luks_device.children) > 0)
 
         return False
 
@@ -203,7 +203,7 @@ class ListPartitions(object):
 
         # empty lvmpv
         if device.format and device.format.type == "lvmpv":
-            return not device.kids
+            return not device.children
 
         # snapshot of lvmlv -- only if there is free space in the vg
         if device.type == "lvmlv":

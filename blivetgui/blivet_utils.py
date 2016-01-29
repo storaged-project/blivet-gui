@@ -69,7 +69,7 @@ class RawFormatDevice(object):
         self.is_disk = False
         self.isleaf = True
 
-        self.kids = 0
+        self.children = []
         self.parents = blivet.devices.lib.ParentList(items=[self.disk])
 
         if hasattr(self.format, "label") and self.format.label:
@@ -119,7 +119,7 @@ class FreeSpaceDevice(object):
 
         self.format = DeviceFormat(exists=True)
         self.type = "free space"
-        self.kids = 0
+        self.children = []
         self.parents = blivet.devices.lib.ParentList(items=parents)
 
         self.disk = self._get_disk()
@@ -142,13 +142,13 @@ class FreeSpaceDevice(object):
     @property
     def is_empty_disk(self):
         return len(self.parents) == 1 and self.parents[0].type == "disk" and \
-            self.parents[0].kids == 0 and self.parents[0].format.type and \
+            not self.parents[0].children and self.parents[0].format.type and \
             self.parents[0].format.type not in ("iso9660",)
 
     @property
     def is_uninitialized_disk(self):
         return len(self.parents) == 1 and self.parents[0].type == "disk" and \
-            self.parents[0].kids == 0 and not self.parents[0].format.type
+            not self.parents[0].children and not self.parents[0].format.type
 
     @property
     def is_free_region(self):
@@ -238,7 +238,7 @@ class BlivetUtils(object):
         free_pvs = []
 
         for pv in pvs:
-            if pv.kids == 0:
+            if not pv.children:
                 free_pvs.append((pv, FreeSpaceDevice(pv.size, self.storage.next_id, None, None, pv.parents)))
 
         return free_pvs
@@ -305,10 +305,10 @@ class BlivetUtils(object):
 
         if not blivet_device.format or blivet_device.format.type not in ("lvmpv", "btrfs", "mdmember", "luks"):
             return None
-        if blivet_device.kids != 1:
+        if len(blivet_device.children) != 1:
             return None
 
-        group_device = self.storage.devicetree.get_children(blivet_device)[0]
+        group_device = blivet_device.children[0]
         return group_device
 
     def get_luks_device(self, blivet_device):
@@ -317,10 +317,10 @@ class BlivetUtils(object):
 
         if not blivet_device.format or blivet_device.format.type != "luks":
             return None
-        if blivet_device.kids != 1:
+        if len(blivet_device.children) != 1:
             return None
 
-        luks_device = self.storage.devicetree.get_children(blivet_device)[0]
+        luks_device = blivet_device.children[0]
         return luks_device
 
     def get_children(self, blivet_device):
@@ -336,7 +336,7 @@ class BlivetUtils(object):
         if not blivet_device:
             return []
 
-        childs = self.storage.devicetree.get_children(blivet_device)
+        childs = blivet_device.children
 
         if blivet_device.type == "lvmvg" and blivet_device.free_space > blivet.size.Size(0):
             childs.append(FreeSpaceDevice(blivet_device.free_space, self.storage.next_id, None, None, [blivet_device]))
@@ -357,20 +357,20 @@ class BlivetUtils(object):
             partitions = [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format, dev_id=self.storage.next_id)]
             return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
 
-        if blivet_device.format and blivet_device.format.type == "btrfs" and blivet_device.kids:
+        if blivet_device.format and blivet_device.format.type == "btrfs" and blivet_device.children:
             # btrfs volume on raw device
-            btrfs_volume = self.storage.devicetree.get_children(blivet_device)[0]
+            btrfs_volume = blivet_device.children[0]
             return ProxyDataContainer(partitions=[btrfs_volume], extended=None, logicals=None)
 
         if blivet_device.format and blivet_device.format.type == "luks":
-            if blivet_device.kids:
-                luks = self.storage.devicetree.get_children(blivet_device)[0]
+            if blivet_device.children:
+                luks = blivet_device.children[0]
             else:
                 luks = RawFormatDevice(disk=blivet_device, fmt=blivet_device.format, dev_id=self.storage.next_id)
 
             return ProxyDataContainer(partitions=[luks], extended=None, logicals=None)
 
-        partitions = self.storage.devicetree.get_children(blivet_device)
+        partitions = blivet_device.children
         # extended partition
         extended = self._get_extended_partition(blivet_device, partitions)
         # logical partitions + 'logical' free space
@@ -400,7 +400,7 @@ class BlivetUtils(object):
 
         extended = None
         if partitions is None:
-            partitions = self.storage.devicetree.get_children(blivet_device)
+            partitions = blivet_device.children
         for part in partitions:
             if part.type == "partition" and part.is_extended:
                 extended = part
@@ -414,7 +414,7 @@ class BlivetUtils(object):
 
         logicals = []
         if partitions is None:
-            partitions = self.storage.devicetree.get_children(blivet_device)
+            partitions = blivet_device.children
         for part in partitions:
             if part.type == "partition" and part.is_logical:
                 logicals.append(part)
@@ -427,7 +427,7 @@ class BlivetUtils(object):
 
         primaries = []
         if partitions is None:
-            partitions = self.storage.devicetree.get_children(blivet_device)
+            partitions = blivet_device.children
         for part in partitions:
             if part.type == "partition" and part.is_primary:
                 primaries.append(part)
@@ -605,7 +605,7 @@ class BlivetUtils(object):
 
     def _has_snapshots(self, blivet_device):
 
-        for lvs in self.storage.devicetree.get_children(blivet_device.vg):
+        for lvs in blivet_device.vg.children:
             if isinstance(lvs, LVMSnapShotDevice) and lvs.origin == blivet_device:
                 return True
 
