@@ -140,18 +140,25 @@ class SizeArea(GUIWidget):
         self._min_size = None
         self._max_size = None
 
+        # is the advanced selection active?
+        self.advanced_selection = False
+
         self.main_chooser = SizeChooser(max_size=self.max_size, min_size=self.min_size)
+        self.main_chooser.connect("size-changed", self._on_main_size_changed)
         self.grid.attach(self.main_chooser.grid, 0, 0, 5, 1)
 
         checkbutton_manual = self.builder.get_object("checkbutton_manual")
         checkbutton_manual.connect("toggled", self._on_manual_toggled)
 
         self.parent_area = ParentArea(self.parent.pvs)
+        self.parent_area.connect("size-changed", self._on_advanced_size_changed)
         self.grid.attach(self.parent_area.frame, 0, 2, 5, 1)
         self.widgets.append(self.parent_area)
 
         self.show()
         self.parent_area.hide()
+
+        self.parent_area.total_size = self.max_size  # update selected size of parent areas
 
     @property
     def min_size(self):
@@ -174,12 +181,28 @@ class SizeArea(GUIWidget):
         return self._max_size
 
     def _on_manual_toggled(self, checkbutton):
+        """ Advanced selection toggled """
+
         if checkbutton.get_active():
             self.parent_area.show()
             self.main_chooser.set_sensitive(False)
+            self.advanced_selection = True
         else:
             self.parent_area.hide()
             self.main_chooser.set_sensitive(True)
+            self.advanced_selection = False
+
+    def _on_advanced_size_changed(self, total_size):
+        """ Handler for size change in advanced selection """
+
+        if self.advanced_selection:
+            self.main_chooser.selected_size = total_size
+
+    def _on_main_size_changed(self, total_size):
+        """ Handler for size change in main size selection """
+
+        if not self.advanced_selection:
+            self.parent_area.total_size = total_size
 
 
 class ParentArea(GUIWidget):
@@ -188,17 +211,79 @@ class ParentArea(GUIWidget):
 
         GUIWidget.__init__(self, "parent_area.ui")
 
+        self.status = False  # is parent area visible/active?
+
         self.parents = parents
+        self.choosers = []  # parent choosers in this area
+
+        self.size_change_handler = None
 
         self.frame = self.builder.get_object("frame")
         self.grid = self.builder.get_object("grid")
 
         for idx, parent in enumerate(self.parents):
             chooser = ParentChooser(parent, size.Size("1 MiB"), parent.format.free) # FIXME: min_size calculation
+            chooser.connect("size-changed", self._on_parent_changed)
+            self.choosers.append(chooser)
             self.widgets.append(chooser)
             self.grid.attach(chooser.grid, 0, idx, 1, 1)
 
         self.show()
+
+    def connect(self, signal, method, *args):
+        """ Connect a signal hadler """
+
+        if signal == "size-changed":
+            self.size_change_handler = SignalHandler(method=method, args=args)
+
+        else:
+            raise TypeError("Unknown signal type %s" % signal)
+
+    def _on_parent_changed(self, *_args):
+        """ Parent selection changed -- either size or parent toggled """
+
+        if self.size_change_handler is not None:
+            self.size_change_handler.method(self.total_size, *self.size_change_handler.args)
+
+    @property
+    def total_size(self):
+        """ Total size selected in this area """
+        total_size = size.Size(0)
+
+        for chooser in self.choosers:
+            total_size += chooser.size_chooser.selected_size
+
+        return total_size
+
+    @total_size.setter
+    def total_size(self, new_size):
+        if self.status:
+            raise RuntimeError("Can't adjust parent area size when active.")
+
+        if new_size > sum([chooser.size_chooser.max_size for chooser in self.choosers]):
+            raise ValueError("New size is bigger than allowed maximum size.")
+
+        allocated = size.Size(0)
+        for chooser in self.choosers:
+            if allocated < new_size:
+                chooser.selected = True
+
+                if chooser.size_chooser.max_size < (new_size - allocated):
+                    chooser.size_chooser.selected_size = chooser.size_chooser.max_size
+                    allocated += chooser.size_chooser.max_size
+                else:
+                    chooser.size_chooser.selected_size = (new_size - allocated)
+                    allocated = new_size
+            else:
+                chooser.selected = False
+
+    def show(self):
+        super().show()
+        self.status = True
+
+    def hide(self):
+        super().hide()
+        self.status = False
 
 
 class ParentChooser(GUIWidget):
@@ -211,10 +296,14 @@ class ParentChooser(GUIWidget):
         self.max_size = max_size
         self.min_size = min_size
 
+        self._selected = False
+
+        self.parent_toggled_handler = None
+
         self.grid = self.builder.get_object("grid")
 
-        checkbutton_use = self.builder.get_object("checkbutton_use")
-        checkbutton_use.connect("toggled", self._on_parent_toggled)
+        self.checkbutton_use = self.builder.get_object("checkbutton_use")
+        self.checkbutton_use.connect("toggled", self._on_parent_toggled)
 
         label_device = self.builder.get_object("label_device")
         label_device.set_text(parent.name)
@@ -231,8 +320,23 @@ class ParentChooser(GUIWidget):
 
         self.show()
 
-    def _on_parent_toggled(self, checkbutton):
-        if checkbutton.get_active():
+    @property
+    def selected(self):
+        return self._selected
+
+    @selected.setter
+    def selected(self, status):
+        self._selected = status
+        self.checkbutton_use.set_active(status)
+
+        # call the signal handler to set the size limits but don't emit the signal
+        self._on_parent_toggled(self.checkbutton_use, False)
+
+    def _on_parent_toggled(self, checkbutton, emit_signal=True):
+
+        self._selected = checkbutton.get_active()
+
+        if self._selected:
             self.size_chooser.set_sensitive(True)
             self.size_chooser.max_size = self.max_size
             self.size_chooser.min_size = self.min_size
@@ -242,6 +346,23 @@ class ParentChooser(GUIWidget):
             self.size_chooser.max_size = self.max_size
             self.size_chooser.min_size = size.Size(0)
             self.size_chooser.selected_size = size.Size(0)
+
+        # call the signal handler for the parent-toggled event
+        if self.parent_toggled_handler is not None and emit_signal:
+            self.parent_toggled_handler.method(self._selected, self.parent, *self.parent_toggled_handler.args)
+
+    def connect(self, signal, method, *args):
+        """ Connect a signal hadler """
+
+        if signal == "parent-toggled":
+            self.parent_toggled_handler = SignalHandler(method=method, args=args)
+
+        elif signal == "size-changed":
+            # just pass the method to SizeChooser
+            self.size_chooser.connect("size-changed", method, args)
+
+        else:
+            raise TypeError("Unknown signal type %s" % signal)
 
 
 class SizeChooser(GUIWidget):
