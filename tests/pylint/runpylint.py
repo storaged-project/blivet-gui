@@ -12,7 +12,6 @@ class BlivetGUILintConfig(PocketLintConfig):
     @property
     def pylintPlugins(self):
         retval = super(BlivetGUILintConfig, self).pylintPlugins
-        retval.remove("pocketlint.checkers.eintr")
         retval.remove("pocketlint.checkers.markup")
         return retval
 
