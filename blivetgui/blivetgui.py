@@ -385,6 +385,9 @@ class BlivetGUI(object):
         else:
             parent_device = selected_device.parents[0]
 
+            if parent_device.isDisk:
+                parent_device_type = "disk"
+
         if not parent_device_type:
             parent_device_type = parent_device.type
 
