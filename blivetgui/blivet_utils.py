@@ -23,7 +23,7 @@
 
 import blivet
 
-from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, LVMLogicalVolumeDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice, LVMSnapShotDevice, LVMThinLogicalVolumeDevice, LVMThinPoolDevice
+from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice
 from blivet.devices.lvm import LVMCacheRequest
 from blivet.formats import DeviceFormat
 
@@ -608,7 +608,7 @@ class BlivetUtils(object):
     def _has_snapshots(self, blivet_device):
 
         for lvs in blivet_device.vg.children:
-            if isinstance(lvs, LVMSnapShotDevice) and lvs.origin == blivet_device:
+            if lvs.is_snapshot_lv and lvs.origin == blivet_device:
                 return True
 
         return False
@@ -866,9 +866,10 @@ class BlivetUtils(object):
 
         device_name = self._pick_device_name(user_input.name, user_input.parents[0][0].vg)
 
-        new_part = LVMThinLogicalVolumeDevice(name=device_name,
-                                              size=user_input.size,
-                                              parents=[i[0] for i in user_input.parents])
+        new_part = self.storage.new_lv(thin_volume=True,
+                                       name=device_name,
+                                       size=user_input.size,
+                                       parents=[i[0] for i in user_input.parents])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
         fmt_type = user_input.filesystem
@@ -896,10 +897,10 @@ class BlivetUtils(object):
         else:
             cache_request = None
 
-        new_part = LVMLogicalVolumeDevice(name=device_name,
-                                          size=user_input.size,
-                                          parents=[i[0] for i in user_input.parents],
-                                          cache_request=cache_request)
+        new_part = self.storage.new_lv(name=device_name,
+                                       size=user_input.size,
+                                       parents=[i[0] for i in user_input.parents],
+                                       cache_request=cache_request)
 
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
@@ -961,9 +962,10 @@ class BlivetUtils(object):
 
         device_name = self._pick_device_name(user_input.name, user_input.parents[0][0])
 
-        new_thin = LVMThinPoolDevice(name=device_name,
-                                     size=user_input.size,
-                                     parents=[i[0] for i in user_input.parents])
+        new_thin = self.storage.new_lv(thin_pool=True,
+                                       name=device_name,
+                                       size=user_input.size,
+                                       parents=[i[0] for i in user_input.parents])
 
         actions.append(blivet.deviceaction.ActionCreateDevice(new_thin))
 
@@ -1004,11 +1006,10 @@ class BlivetUtils(object):
             origin_lv = user_input.parents[0][0]
             snapshot_size = user_input.parents[0][1]
             device_name = self._pick_device_name(user_input.name, origin_lv.parents[0])
-
-            new_snap = LVMSnapShotDevice(name=device_name,
-                                         parents=[origin_lv.parents[0]],
-                                         origin=origin_lv,
-                                         size=snapshot_size)
+            new_snap = self.storage.new_lv(name=device_name,
+                                           parents=[origin_lv.parents[0]],
+                                           origin=origin_lv,
+                                           size=snapshot_size)
             actions.append(blivet.deviceaction.ActionCreateDevice(new_snap))
 
         return actions
