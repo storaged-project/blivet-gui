@@ -104,9 +104,6 @@ class BlivetGUI(object):
         atexit.register(remove_logs, log_files=[blivetgui_logfile])
         atexit.register(self.client.quit)
 
-        # Supported types
-        self._get_supported_types()
-
         # Kickstart devices dialog
         if self.kickstart_mode:
             self.use_disks = self.kickstart_disk_selection()
@@ -146,16 +143,6 @@ class BlivetGUI(object):
         self.list_devices.disks_view.set_cursor(1)
         self.main_window.show_all()
         self.list_devices.disks_view.set_cursor(0)
-
-    def _get_supported_types(self):
-        """ Get various supported 'types' (filesystems, raid levels...) from
-            blivet and store them for future use
-        """
-
-        self._supported_raid_levels = {"btrfs volume": self.client.remote_call("get_available_raid_levels", "btrfs volume"),
-                                       "mdraid": self.client.remote_call("get_available_raid_levels", "mdraid")}
-        self._supported_filesystems = self.client.remote_call("get_available_filesystems")
-        self._supported_disklabels = self.client.remote_call("get_available_disklabels", True)
 
     def _set_physical_view_visible(self, visible):
         notebook = self.builder.get_object("notebook_views")

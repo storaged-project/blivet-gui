@@ -33,6 +33,8 @@ from .helpers import adjust_scrolled_size
 
 from ..i18n import _
 
+from blivet.platform import platform
+
 # ---------------------------------------------------------------------------- #
 
 
@@ -60,7 +62,7 @@ class AddLabelDialog(object):
     """ Dialog window allowing user to add disklabel to disk
     """
 
-    def __init__(self, parent_window, disklabels):
+    def __init__(self, parent_window):
         """
 
             :param parent_window: parent window
@@ -76,7 +78,7 @@ class AddLabelDialog(object):
 
         self.dialog.set_transient_for(parent_window)
 
-        for disklabel in disklabels:
+        for disklabel in platform.disk_label_types:
             self.pttype_combo.append_text(disklabel)
 
         self.pttype_combo.set_active(0)

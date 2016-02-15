@@ -1240,50 +1240,6 @@ class BlivetUtils(object):
 
         return self.storage.devicetree.actions.find()
 
-    def get_available_disklabels(self, allow_btrfs=False):
-        """ Return disklabels available on current platform
-
-            :returns: list of disklabel types
-            :rtype: list of str
-
-        """
-
-        dl_types = []
-        dl_types.extend(blivet.platform.get_platform().disklabel_types)
-
-        if allow_btrfs:
-            dl_types.append("btrfs")
-
-        return dl_types
-
-    def get_available_raid_levels(self, device_type):
-        """ Return dict of supported raid levels for device types
-        """
-
-        if device_type == "btrfs volume":
-            return blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_BTRFS)
-
-        if device_type == "mdraid":
-            return blivet.devicefactory.get_supported_raid_levels(blivet.devicefactory.DEVICE_TYPE_MD)
-
-    def get_available_filesystems(self):
-        """ Return list of currently available (supported and with tools) formats
-        """
-
-        _fs_types = []
-
-        for cls in blivet.formats.device_formats.values():
-            obj = cls()
-
-            supported_fs = (obj.type not in ("btrfs", "tmpfs") and
-                            obj.supported and obj.formattable and
-                            (isinstance(obj, blivet.formats.fs.FS) or
-                             obj.type in ("swap",)))
-            if supported_fs:
-                _fs_types.append(obj.name)
-
-        return sorted(_fs_types)
-
     def get_mountpoints(self):
         """ Return list of current mountpoints
         """
