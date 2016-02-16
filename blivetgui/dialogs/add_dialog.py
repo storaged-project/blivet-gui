@@ -713,12 +713,12 @@ class AddDialog(Gtk.Dialog):
         if self.size_area is not None:
             self.size_area.destroy()
 
-        raid, max_size = self.raid_member_max_size()
-
+        parent_devices = []
         if self.selected_parent.type == "lvmvg":
-            parent_devices = [(pv, pv.format.free) for pv in self.selected_parent.pvs]
+            for pv in self.selected_parent.pvs:
+                if pv.format.free >= self.selected_parent.pe_size:
+                    parent_devices.append((pv, pv.format.free))
         else:
-            parent_devices = []
             for row in self.parents_store:
                 if row[3]:
                     parent_devices.append((row[0], row[1]))
