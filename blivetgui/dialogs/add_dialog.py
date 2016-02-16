@@ -447,41 +447,46 @@ class AddDialog(Gtk.Dialog):
         ok_button = self.get_widget_for_response(Gtk.ResponseType.OK)
         ok_button.connect("clicked", self.on_ok_clicked)
 
-    def add_device_chooser(self):
+    def _available_add_types(self):
+        """ Get device types available to add to this device """
 
-        map_type_devices = {
-            "disk": [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
-                     (_("LVM2 Physical Volume"), "lvmpv")],
-            "lvmpv": [(_("LVM2 Volume Group"), "lvmvg")],
-            "lvmvg": [(_("LVM2 Logical Volume"), "lvmlv"), (_("LVM2 ThinPool"), "lvmthinpool")],
-            "luks/dm-crypt": [(_("LVM2 Volume Group"), "lvmvg")],
-            "mdarray": [(_("LVM2 Volume Group"), "lvmvg")],
-            "btrfs volume": [(_("Btrfs Subvolume"), "btrfs subvolume")],
-            "lvmlv": [(_("LVM2 Snaphost"), "lvm snapshot")],
-            "lvmthinpool": [(_("LVM2 Thin Logical Volume"), "lvmthinlv")]}
+        types = []
+
+        if self.selected_parent.type == "disk":
+            types.append((_("Partition"), "partition"))
+
+            if self.selected_parent.size > size.Size("8 MiB"):
+                types.extend([(_("LVM2 Physical Volume"), "lvmpv"), (_("LVM2 Storage"), "lvm")])
+
+            if self.selected_parent.size > size.Size("256 MiB"):
+                types.append((_("Btrfs Volume"), "btrfs volume"))
+
+        elif self.selected_parent.type == "lvmvg":
+            types.extend([(_("LVM2 Logical Volume"), "lvmlv"), (_("LVM2 ThinPool"), "lvmthinpool")])
+
+        elif self.selected_parent.type in ("partition", "luks/dm-crypt", "mdarray") and self.selected_parent.format.type == "lvmpv":
+            types.append((_("LVM2 Volume Group"), "lvmvg"))
+
+        elif self.selected_parent.type == "lvmlv":
+            types.append((_("LVM2 Snaphost"), "lvm snapshot"))
+
+        elif self.selected_parent.type == "lvmthinpool":
+            types.append((_("LVM2 Thin Logical Volume"), "lvmthinlv"))
+
+        elif self.selected_parent.type == "btrfs volume":
+            types.append((_("Btrfs Subvolume"), "btrfs subvolume"))
+
+        return types
+
+    def add_device_chooser(self):
 
         label_devices = Gtk.Label(label=_("Device type:"), xalign=1)
         label_devices.get_style_context().add_class("dim-label")
         self.grid.attach(label_devices, 0, 0, 1, 1)
 
-        if self.parent_type == "disk" and self.free_device.is_logical:
-            devices = [(_("Partition"), "partition"), (_("LVM2 Storage"), "lvm"),
-                       (_("LVM2 Physical Volume"), "lvmpv")]
-
-        elif (self.parent_type == "disk" and not self.parent_device.format.type
-              and self.free_device.size > size.Size("256 MiB")):
-            devices = [(_("Btrfs Volume"), "btrfs volume")]
-
-        else:
-            devices = map_type_devices[self.parent_type]
-
-            if self.parent_type == "disk" and len(self.free_disks_regions) > 1:
-                devices.append((_("Software RAID"), "mdraid"))
-
-            if self.parent_type == "disk" and self.free_device.size > size.Size("256 MiB"):
-                devices.append((_("Btrfs Volume"), "btrfs volume"))
-
         devices_store = Gtk.ListStore(str, str)
+
+        devices = self._available_add_types()
 
         for device in devices:
             devices_store.append([device[0], device[1]])
@@ -501,7 +506,6 @@ class AddDialog(Gtk.Dialog):
         return devices_combo
 
     def add_parent_list(self):
-
         parents_store = Gtk.ListStore(object, object, bool, bool, str, str, str)
 
         parents_view = Gtk.TreeView(model=parents_store)
@@ -532,8 +536,7 @@ class AddDialog(Gtk.Dialog):
         return parents_store
 
     def update_raid_type_chooser(self):
-
-        device_type = self._get_selected_device_type()
+        device_type = self.selected_type
         num_parents = self._get_number_selected_parents()
 
         if device_type not in self.supported_raids.keys() or num_parents == 1:
@@ -616,23 +619,23 @@ class AddDialog(Gtk.Dialog):
 
         self.parents_store.clear()
 
-        if self.device_type == "lvmvg":
+        if self.selected_type == "lvmvg":
             for ftype, fdevice in self.available_free:
                 if ftype == "lvmpv":
                     self.parents_store.append([fdevice.parents[0], fdevice.size, False, False,
                                                fdevice.parents[0].name, ftype, str(fdevice.size)])
 
-        elif self.device_type in ("btrfs volume", "lvm", "mdraid"):
+        elif self.selected_type in ("btrfs volume", "lvm", "mdraid"):
             for ftype, fdevice in self.available_free:
                 if ftype == "free":
-                    if self.device_type == "btrfs volume" and fdevice.size < size.Size("256 MiB"):
+                    if self.selected_type == "btrfs volume" and fdevice.size < size.Size("256 MiB"):
                         # too small for new btrfs
                         continue
 
                     self.parents_store.append([fdevice.disk, fdevice.size, False, False,
                                                fdevice.disk.name, "disk region", str(fdevice.size)])
 
-        elif self.device_type in ("lvm snapshot",):
+        elif self.selected_type in ("lvm snapshot",):
             # parent for a LVM snaphost is actually the VG, not the selected LV
             self.parents_store.append([self.selected_parent, self.selected_parent.vg.free, False, False,
                                        self.selected_parent.vg.name, "lvmvg", str(self.selected_parent.vg.free)])
@@ -656,7 +659,7 @@ class AddDialog(Gtk.Dialog):
 
     def raid_member_max_size(self):
 
-        device_type = self._get_selected_device_type()
+        device_type = self.selected_type
         num_parents = self._get_number_selected_parents()
 
         if device_type not in self.supported_raids.keys() or num_parents == 1:
@@ -893,7 +896,7 @@ class AddDialog(Gtk.Dialog):
             self.hide_widgets(["label", "mountpoint"])
 
         else:
-            device_type = self._get_selected_device_type()
+            device_type = self.selected_type
 
             if device_type == "partition":
                 self.show_widgets(["label", "mountpoint"])
@@ -972,7 +975,7 @@ class AddDialog(Gtk.Dialog):
 
     def add_advanced_options(self):
 
-        device_type = self._get_selected_device_type()
+        device_type = self.selected_type
 
         if self.advanced:
             self.advanced.destroy()
@@ -1036,7 +1039,7 @@ class AddDialog(Gtk.Dialog):
 
     def on_devices_combo_changed(self, _event):
 
-        device_type = self._get_selected_device_type()
+        device_type = self.selected_type
 
         self.update_parent_list()
         self.add_advanced_options()
@@ -1093,7 +1096,8 @@ class AddDialog(Gtk.Dialog):
 
         self.update_raid_type_chooser()
 
-    def _get_selected_device_type(self):
+    @property
+    def selected_type(self):
         tree_iter = self.devices_combo.get_active_iter()
 
         if tree_iter:
