@@ -28,7 +28,7 @@ import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("Gdk", "3.0")
 
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 
 from blivet import size, devicefactory, formats
 
@@ -129,7 +129,7 @@ class CacheArea(object):
         return area
 
     def _update_lv_max_size(self, selected_size):
-        self.add_dialog.update_size_areas_limits(max_size=self.add_dialog.selected_parent.free_space - selected_size)
+        self.add_dialog.update_size_area_limits(max_size=self.add_dialog.selected_parent.free_space - selected_size)
 
     @property
     def _cache_max_size(self):
@@ -167,11 +167,11 @@ class CacheArea(object):
         if button.get_active():
             for widget in self.cache_widgets:
                 widget.show()
-            self.add_dialog.update_size_areas_limits(max_plus=-self._cache_min_size)
+            self.add_dialog.update_size_area_limits(max_plus=-self._cache_min_size)
         else:
             for widget in self.cache_widgets:
                 widget.hide()
-            self.add_dialog.update_size_areas_limits(max_size=self.add_dialog.selected_parent.free_space)
+            self.add_dialog.update_size_area_limits(max_size=self.add_dialog.selected_parent.free_space)
 
     def _on_pv_toggled(self, _button, path, store):
         store[path][1] = not store[path][1]
@@ -181,7 +181,7 @@ class CacheArea(object):
             self.size_area.update_size_limits(min_size=self.add_dialog.selected_parent.pe_size,
                                               max_size=self.add_dialog.selected_parent.free_space)
             # set the max size for LV
-            self.add_dialog.update_size_areas_limits(max_size=self.add_dialog.selected_parent.free_space)
+            self.add_dialog.update_size_area_limits(max_size=self.add_dialog.selected_parent.free_space)
             self.size_area.set_sensitive(False)
         else:
             self.size_area.update_size_limits(max_size=self._cache_max_size)
@@ -331,7 +331,7 @@ class AdvancedOptions(object):
         if self.add_dialog.encrypt_check.get_active():
             min_size += size.Size("2 MiB")
 
-        self.add_dialog.update_size_areas_limits(min_size=min_size)
+        self.add_dialog.update_size_area_limits(min_size=min_size)
 
     def on_partition_type_changed(self, combo):
 
@@ -434,8 +434,8 @@ class AddDialog(Gtk.Dialog):
         self.devices_combo = self.add_device_chooser()
         self.devices_combo.connect("changed", self.on_devices_combo_changed)
 
-        self.size_areas = []
-        self.size_grid, self.size_scroll = self.add_size_areas()
+        self.size_area = None
+        self.add_size_area()
 
         self.advanced = None
 
@@ -577,7 +577,7 @@ class AddDialog(Gtk.Dialog):
         return
 
     def on_raid_type_changed(self, _event):
-        self.size_grid, self.size_scroll = self.add_size_areas()
+        self.add_size_area()
 
     def add_raid_type_chooser(self):
 
@@ -654,7 +654,7 @@ class AddDialog(Gtk.Dialog):
         else:
             self.parents_store[path][3] = not self.parents_store[path][3]
 
-            self.size_grid, self.size_scroll = self.add_size_areas()
+            self.add_size_area()
             self.update_raid_type_chooser()
 
     def raid_member_max_size(self):
@@ -682,154 +682,66 @@ class AddDialog(Gtk.Dialog):
 
             return (True, max_size)
 
-    def update_size_areas_selections(self, selected_size):
-        """ Update all size areas to selected size
-            (used for raids where all parents has same size)
-        """
+    def update_size_area_limits(self, min_size=None, max_size=None, min_plus=None, max_plus=None, min_multi=None, max_multi=None):
+        if min_plus and not min_size:
+            min_size = self.size_area.min_size + min_plus
+        if min_multi and not min_size:
+            min_size = self.size_area.min_size * min_multi
 
-        device_type = self._get_selected_device_type()
-        num_parents = self._get_number_selected_parents()
+        if max_plus and not max_size:
+            max_size = self.size_area.max_size + max_plus
+        if max_multi and not max_size:
+            max_size = self.size_area.max_size * max_multi
 
-        if device_type not in self.supported_raids.keys() or num_parents == 1:
-            return
-
-        elif self.raid_combo.get_active_text() in ("linear", "single"):
-            return
-
-        else:
-            for area, _parent in self.size_areas:
-                area.selected_size = selected_size
-
-    def update_size_areas_limits(self, min_size=None, max_size=None, min_plus=None, max_plus=None, min_multi=None, max_multi=None):
-        for area, _parent in self.size_areas:
-            if min_plus and not min_size:
-                min_size = area.min_size + min_plus
-            if min_multi and not min_size:
-                min_size = area.min_size * min_multi
-
-            if max_plus and not max_size:
-                max_size = area.max_size + max_plus
-            if max_multi and not max_size:
-                max_size = area.max_size * max_multi
-
-            if min_size is not None:
-                area.min_size = min_size
-            if max_size is not None:
-                area.max_size = max_size
+        if min_size is not None:
+            self.size_area.min_size = min_size
+        if max_size is not None:
+            self.size_area.max_size = max_size
 
     def _destroy_size_areas(self):
         """ Remove existing size areas
         """
 
-        self.widgets_dict["size"] = []
+        if self.widgets_dict["size"]:
+            self.widgets_dict["size"] = []
+            self.size_area.destroy()
 
-        if self.size_areas:
-            for area, _parent in self.size_areas:
-                area.destroy()
+    def add_size_area(self):
+        device_type = self.selected_type
 
-            self.size_scroll.destroy()
-            self.size_grid.destroy()
-
-            self.size_areas = []
-
-    def add_size_areas(self):
-        device_type = self._get_selected_device_type()
-
-        # remove all existing size areas
-        self._destroy_size_areas()
-
-        size_scroll = Gtk.ScrolledWindow()
-        size_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
-        self.grid.attach(size_scroll, 0, 6, 6, 1)
-        size_scroll.show()
-
-        size_grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
-
-        size_scroll.add(size_grid)
-        size_grid.show()
-
-        posititon = 0
+        # destroy existing size area
+        if self.size_area is not None:
+            self.size_area.destroy()
 
         raid, max_size = self.raid_member_max_size()
 
-        if device_type in ("lvmpv", "lvm"):
+        if self.selected_parent.type == "lvmvg":
+            parent_devices = [(pv, pv.format.free) for pv in self.selected_parent.pvs]
+        else:
+            parent_devices = []
+            for row in self.parents_store:
+                if row[3]:
+                    parent_devices.append((row[0], row[1]))
+
+        if not parent_devices:
+            parent_devices = [(self.selected_parent, self.selected_free.size)]  # FIXME
+
+        if device_type in ("lvmlv", "lvmthinpool"):
+            min_size = max(self.selected_parent.pe_size, size.Size("1 MiB"))
+        elif device_type in ("lvmpv", "lvm"):
             min_size = size.Size("8 MiB")
-        elif device_type in ("lvmlv", "lvmthinpool"):
-            min_size = max(self.parent_device.pe_size, size.Size("1 MiB"))
         elif device_type in ("lvmthinlv", "lvm snapshot"):
-            min_size = max(self.parent_device.vg.pe_size, size.Size("1 MiB"))
+            min_size = max(self.selected_parent.vg.pe_size, size.Size("1 MiB"))
         elif device_type == "btrfs volume":
             min_size = size.Size("256 MiB")
         else:
             min_size = size.Size("1 MiB")
 
-        if device_type == "lvmlv":
-            size_area = SizeArea(device_type="lvmlv", parent=self.parents_store[0][0], raid_type=raid)
-            size_grid.attach(size_area.frame, 0, posititon, 1, 1)
-            self.size_areas.append((size_area, self.parents_store[0][0]))
+        size_area = SizeArea(device_type=device_type, parents=parent_devices, min_size=min_size, raid_type=None)
+        self.grid.attach(size_area.frame, 0, 6, 6, 1)
 
-        else:
-            for row in self.parents_store:
-                if row[3]:
-                    if not raid:
-                        max_size = row[1].size
-
-                    area = SizeChooser(max_size=max_size, min_size=min_size)
-                    area.connect("size-changed", self.update_size_areas_selections)
-
-                    size_grid.attach(area.grid, 0, posititon, 1, 1)
-
-                    self.widgets_dict["size"].append(area)
-                    self.size_areas.append((area, row[0]))
-
-                    posititon += 1
-
-            for area, _parent in self.size_areas:
-                area.show()
-
-                if device_type in ("lvmvg", "btrfs subvolume") or self._get_free_type() == "disks":
-                    area.set_sensitive(False)
-
-        # TODO: this needs better rewrite, maybe own method
-        size_area_height = size_grid.size_request().height
-        size_area_width = size_grid.size_request().width
-        screen_height = Gdk.Screen.get_default().get_height()
-        screen_width = Gdk.Screen.get_default().get_width()
-        dialog_height = self.size_request().height
-
-        size_diff = int((screen_height * 0.7) - dialog_height)
-
-        if size_diff < 0:
-            # dialog is largen than 70 % of screen
-            areas_to_display = len(self.size_areas) - (abs(size_diff) / (size_area_height / len(self.size_areas)))
-
-            if areas_to_display < 1:
-                # always display at least one size area
-
-                size_scroll.set_size_request(size_area_width, int(size_area_height / len(self.size_areas)))
-                size_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-
-            else:
-                if size_area_height > screen_width * 0.7:
-                    size_scroll.set_size_request(screen_width * 0.7,
-                                                 int(size_area_height / len(self.size_areas)) * areas_to_display)
-                    size_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
-
-                else:
-                    size_scroll.set_size_request(size_area_width,
-                                                 int(size_area_height / len(self.size_areas)) * areas_to_display)
-                    size_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
-
-        else:
-            if size_area_width > screen_width * 0.7:
-                size_scroll.set_size_request(screen_width * 0.7, size_area_height)
-                size_scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
-
-            else:
-                size_grid.set_size_request(size_area_width, size_area_height + 20)
-                size_scroll.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
-
-        return size_grid, size_scroll
+        self.widgets_dict["size"] = [size_area]
+        self.size_area = size_area
 
     def add_md_type_chooser(self):
         label_md_type = Gtk.Label(label=_("MDArray type:"), xalign=1)
@@ -1024,10 +936,10 @@ class AddDialog(Gtk.Dialog):
     def on_encrypt_check(self, _toggle):
         if self.encrypt_check.get_active():
             self.show_widgets(["passphrase"])
-            self.update_size_areas_limits(min_plus=size.Size("2 MiB"))
+            self.update_size_area_limits(min_plus=size.Size("2 MiB"))
         else:
             self.hide_widgets(["passphrase"])
-            self.update_size_areas_limits(min_plus=size.Size("-2 MiB"))
+            self.update_size_area_limits(min_plus=size.Size("-2 MiB"))
 
     def on_passphrase_changed(self, confirm_entry, passphrase_entry):
         if passphrase_entry.get_text() == confirm_entry.get_text():
@@ -1044,7 +956,7 @@ class AddDialog(Gtk.Dialog):
         self.update_parent_list()
         self.add_advanced_options()
         self.encrypt_check.set_active(False)
-        self.size_grid, self.size_scroll = self.add_size_areas()
+        self.add_size_area()
 
         if device_type == "partition":
             self.show_widgets(["label", "fs", "encrypt", "mountpoint", "size", "advanced"])
@@ -1092,7 +1004,7 @@ class AddDialog(Gtk.Dialog):
         elif device_type == "lvmthinpool":
             self.show_widgets(["name", "size"])
             self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint"])
-            self.update_size_areas_limits(max_multi=Decimal(0.8))
+            self.update_size_area_limits(max_multi=Decimal(0.8))
 
         self.update_raid_type_chooser()
 
@@ -1183,22 +1095,14 @@ class AddDialog(Gtk.Dialog):
             self.run()
 
     def get_selection(self):
-        device_type = self._get_selected_device_type()
+        device_type = self.selected_type
 
         parents = []
         total_size = 0
 
-        for size_area, parent in self.size_areas:
-            parents.append([parent, size_area.get_selection()])
-            total_size += size_area.get_selection()
-
-        if self.free_type_chooser:
-            if self.free_type_chooser[1].get_active():
-                btrfs_type = "disks"
-            elif self.free_type_chooser[2].get_active():
-                btrfs_type = "partitions"
-        else:
-            btrfs_type = None
+        for parent, size in self.size_area.get_selection():
+            parents.append([parent, size])
+            total_size += size
 
         if device_type in ("btrfs volume", "lvmlv", "mdraid"):
             raid_level = self.raid_combo.get_active_text()
