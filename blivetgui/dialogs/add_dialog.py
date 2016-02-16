@@ -108,7 +108,7 @@ class CacheArea(object):
         renderer_toggle = self.builder.get_object("cellrenderertoggle1")
         renderer_toggle.connect("toggled", self._on_pv_toggled, liststore_pvs)
 
-        for pv in self.add_dialog.parent_device.pvs:
+        for pv in self.add_dialog.selected_parent.pvs:
             if pv.format.free < self._cache_min_size:
                 continue  # not enough free space to be usable
             liststore_pvs.append([pv, False, pv.name, "lvmpv", str(pv.format.free), pv.disk.name])
@@ -121,7 +121,7 @@ class CacheArea(object):
     def add_size_area(self):
         area = SizeChooser(max_size=self._cache_max_size, min_size=self._cache_min_size)
         area.connect("size-changed", self._update_lv_max_size)
-        area.selected_size = self.add_dialog.parent_device.pe_size  # set the minimal size for the cache
+        area.selected_size = self.add_dialog.selected_parent.pe_size  # set the minimal size for the cache
 
         self.grid.attach(area.grid, left=0, top=3, width=6, height=1)
         self.cache_widgets.append(area)
@@ -129,7 +129,7 @@ class CacheArea(object):
         return area
 
     def _update_lv_max_size(self, selected_size):
-        self.add_dialog.update_size_areas_limits(max_size=self.add_dialog.parent_device.free_space - selected_size)
+        self.add_dialog.update_size_areas_limits(max_size=self.add_dialog.selected_parent.free_space - selected_size)
 
     @property
     def _cache_max_size(self):
@@ -144,22 +144,22 @@ class CacheArea(object):
 
         if selected_pvs == total_pvs:
             # leave some space for the LV
-            max_size -= self.add_dialog.parent_device.pe_size
+            max_size -= self.add_dialog.selected_parent.pe_size
 
         # max size of cache is limited by total vg free space available (minus min size of cached LV)
-        return min(max_size, (self.add_dialog.parent_device.free_space - self.add_dialog.parent_device.pe_size))
+        return min(max_size, (self.add_dialog.selected_parent.free_space - self.add_dialog.selected_parent.pe_size))
 
     @property
     def _cache_min_size(self):
         # metada size - 8 MiB or 1 PE (if pe_size > 8 MiB)
-        min_size = max(size.Size("8 MiB"), self.add_dialog.parent_device.pe_size)
+        min_size = max(size.Size("8 MiB"), self.add_dialog.selected_parent.pe_size)
 
         # at least 1 PE for the cache itself
-        min_size += self.add_dialog.parent_device.pe_size
+        min_size += self.add_dialog.selected_parent.pe_size
 
         # at least 8 MiB for pmspare (if it doesn't exist)
-        if self.add_dialog.parent_device.pmspare_size < min_size:
-            min_size += max(size.Size("8 MiB"), self.add_dialog.parent_device.pe_size)
+        if self.add_dialog.selected_parent.pmspare_size < min_size:
+            min_size += max(size.Size("8 MiB"), self.add_dialog.selected_parent.pe_size)
 
         return min_size
 
@@ -171,17 +171,17 @@ class CacheArea(object):
         else:
             for widget in self.cache_widgets:
                 widget.hide()
-            self.add_dialog.update_size_areas_limits(max_size=self.add_dialog.parent_device.free_space)
+            self.add_dialog.update_size_areas_limits(max_size=self.add_dialog.selected_parent.free_space)
 
     def _on_pv_toggled(self, _button, path, store):
         store[path][1] = not store[path][1]
 
         if self._cache_max_size <= size.Size(0):
             # just to have same sane numbers when no PV is selected
-            self.size_area.update_size_limits(min_size=self.add_dialog.parent_device.pe_size,
-                                              max_size=self.add_dialog.parent_device.free_space)
+            self.size_area.update_size_limits(min_size=self.add_dialog.selected_parent.pe_size,
+                                              max_size=self.add_dialog.selected_parent.free_space)
             # set the max size for LV
-            self.add_dialog.update_size_areas_limits(max_size=self.add_dialog.parent_device.free_space)
+            self.add_dialog.update_size_areas_limits(max_size=self.add_dialog.selected_parent.free_space)
             self.size_area.set_sensitive(False)
         else:
             self.size_area.update_size_limits(max_size=self._cache_max_size)
@@ -377,8 +377,7 @@ class AddDialog(Gtk.Dialog):
          size, fs, label etc.
     """
 
-    def __init__(self, parent_window, parent_type, parent_device, free_device, free_pvs,
-                 free_disks_regions, supported_raids, supported_fs, mountpoints, kickstart_mode=False):
+    def __init__(self, parent_window, selected_parent, selected_free, available_free, kickstart_mode=False, mountpoints=None):
         """
 
             :param str parent_type: type of (future) parent device
@@ -396,14 +395,13 @@ class AddDialog(Gtk.Dialog):
 
         self.parent_window = parent_window
 
-        self.parent_type = parent_type
-        self.free_device = free_device
-        self.parent_device = parent_device
+        self.selected_parent = selected_parent
+        self.selected_free = selected_free
 
-        self.free_pvs = free_pvs
-        self.free_disks_regions = free_disks_regions
+        self.available_free = available_free
 
         self.kickstart_mode = kickstart_mode
+        self.mountpoints = mountpoints
 
         self.supported_raids = _supported_raids()
         self.supported_fs = _supported_filesystems()
@@ -433,7 +431,7 @@ class AddDialog(Gtk.Dialog):
 
         self.raid_combo, self.raid_changed_signal = self.add_raid_type_chooser()
 
-        if kickstart_mode:
+        if self.kickstart_mode:
             self.mountpoint_entry = self.add_mountpoint()
 
         self.devices_combo = self.add_device_chooser()
@@ -680,52 +678,39 @@ class AddDialog(Gtk.Dialog):
             dev = row[0]
             free = row[1]
 
-            if (dev.name == self.parent_device.name and
-                (not hasattr(self.free_device, "start") or not self.free_device.start or
-                 self.free_device.start == free.start)):
+            if dev.name == self.selected_parent.name and free == self.selected_free.size:
                 row[2] = row[3] = True
 
         # TODO move selected iter at the top of the list
 
-    def update_parent_list(self, parent_type=None):
+    def update_parent_list(self):
 
         self.parents_store.clear()
 
-        device_type = self._get_selected_device_type()
+        if self.device_type == "lvmvg":
+            for ftype, fdevice in self.available_free:
+                if ftype == "lvmpv":
+                    self.parents_store.append([fdevice.parents[0], fdevice.size, False, False,
+                                               fdevice.parents[0].name, ftype, str(fdevice.size)])
 
-        if device_type == "lvmvg":
-            for pv, free in self.free_pvs:
-                self.parents_store.append([pv, free, False, False, pv.name,
-                                           "lvmpv", str(free.size)])
+        elif self.device_type in ("btrfs volume", "lvm", "mdraid"):
+            for ftype, fdevice in self.available_free:
+                if ftype == "free":
+                    if self.device_type == "btrfs volume" and fdevice.size < size.Size("256 MiB"):
+                        # too small for new btrfs
+                        continue
 
-        elif device_type in ("btrfs volume", "lvm", "mdraid"):
+                    self.parents_store.append([fdevice.disk, fdevice.size, False, False,
+                                               fdevice.disk.name, "disk region", str(fdevice.size)])
 
-            for free in self.free_disks_regions:
-
-                if device_type == "btrfs volume" and free.size < size.Size("256 MiB"):
-                    continue
-
-                disk = free.parents[0]
-
-                if free.is_free_region and (parent_type == "partitions" or device_type in ("lvm", "mdraid")):
-                    self.parents_store.append([disk, free, False, False, disk.name,
-                                               "disk region", str(free.size)])
-
-                elif not free.is_free_region:
-                    self.parents_store.append([disk, free, False, False, disk.name,
-                                               "disk", str(free.size)])
-
-        elif device_type in ("lvm snapshot",):
-            self.parents_store.append([self.parent_device, self.free_device, False, False,
-                                       self.free_device.parents[0].name, "lvmvg", str(self.free_device.size)])
-
-        elif device_type in ("lvmlv"):
-            self.parents_store.append([self.parent_device, self.free_device, False, False,
-                                       self.parent_device.name, "lvmvg", str(self.free_device.size)])
+        elif self.device_type in ("lvm snapshot",):
+            # parent for a LVM snaphost is actually the VG, not the selected LV
+            self.parents_store.append([self.selected_parent, self.selected_parent.vg.free, False, False,
+                                       self.selected_parent.vg.name, "lvmvg", str(self.selected_parent.vg.free)])
 
         else:
-            self.parents_store.append([self.parent_device, self.free_device, False, False,
-                                       self.parent_device.name, "disk", str(self.free_device.size)])
+            self.parents_store.append([self.selected_parent, self.selected_free.size, False, False,
+                                       self.selected_parent.name, self.selected_parent.type, str(self.selected_free.size)])
 
         self.select_selected_free_region()
 
@@ -1064,7 +1049,7 @@ class AddDialog(Gtk.Dialog):
             self.advanced.destroy()
 
         if device_type in ("lvm", "lvmvg", "partition", "lvmlv"):
-            self.advanced = AdvancedOptions(self, device_type, self.parent_device, self.free_device)
+            self.advanced = AdvancedOptions(self, device_type, self.selected_parent, self.selected_free)
             self.widgets_dict["advanced"] = [self.advanced]
 
             self.grid.attach(self.advanced.expander, 0, 14, 6, 1)
@@ -1152,7 +1137,7 @@ class AddDialog(Gtk.Dialog):
             self.show_widgets(["name", "fs", "mountpoint", "size", "advanced"])
             self.hide_widgets(["label", "encrypt", "passphrase", "mdraid"])
 
-            if self.parent_device.free_space < self.advanced.cache_area._cache_min_size:
+            if self.selected_parent.free_space < self.advanced.cache_area._cache_min_size:
                 self.advanced.cache_area.set_sensitive(False)
 
         elif device_type in ("lvmthinlv"):

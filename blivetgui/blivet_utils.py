@@ -254,18 +254,21 @@ class BlivetUtils(object):
 
         return FreeSpaceDevice(blivet_device.free_space, self.storage.next_id, None, None, [blivet_device])
 
-    def get_free_disks_regions(self, include_uninitialized=False):
-        """ Returns list of non-empty disks with free space
+    def get_free_info(self):
+        """ Get list of free 'devices' (PVs and disk regions) that can be used
+            as parents for newly added devices
         """
 
-        free_disks = []
+        free_devices = []
 
+        # free pvs
+        for pv in self.storage.pvs:
+            if not pv.children:
+                free_devices.append(("lvmpv", FreeSpaceDevice(pv.size, self.storage.next_id, None, None, [pv])))
+
+        # free disks and disk regions
         for disk in self.storage.disks:
-            if not disk.format.type and include_uninitialized:
-                free_disks.append(FreeSpaceDevice(disk.size, self.storage.next_id, 0, disk.current_size, [disk]))
-                continue
-
-            elif disk.format.type not in ("disklabel",):
+            if disk.format.type not in ("disklabel",):
                 continue
 
             free_space = blivet.partitioning.get_free_regions([disk], align=True)
@@ -273,10 +276,10 @@ class BlivetUtils(object):
             for free in free_space:
                 free_size = blivet.size.Size(free.length * free.device.sectorSize)
 
-                if free_size > blivet.size.Size("2 MiB"):
-                    free_disks.append(FreeSpaceDevice(free_size, self.storage.next_id, free.start, free.end, [disk]))
+                if free_size > blivet.size.Size("2 MiB"):  # skip very small free regions
+                    free_devices.append(("free", FreeSpaceDevice(free_size, self.storage.next_id, free.start, free.end, [disk])))
 
-        return free_disks
+        return free_devices
 
     def get_removable_pvs_info(self, blivet_device):
         """ Get information about PVs that can be removed from the VG
