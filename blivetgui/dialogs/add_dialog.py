@@ -421,9 +421,6 @@ class AddDialog(Gtk.Dialog):
 
         self.widgets_dict = {}
 
-        # do we have free_type_chooser?
-        self.free_type_chooser = None
-
         self.filesystems_combo = self.add_fs_chooser()
         self.label_entry, self.name_entry = self.add_name_chooser()
         self.encrypt_check, self.pass_entry, self.pass2_entry = self.add_encrypt_chooser()
@@ -596,74 +593,6 @@ class AddDialog(Gtk.Dialog):
         self.widgets_dict["raid"] = [label_raid, raid_combo]
 
         return raid_combo, raid_changed_signal
-
-    def on_free_space_type_toggled(self, button, name):
-        if button.get_active():
-            self.update_parent_list(parent_type=name)
-            self.update_raid_type_chooser()
-
-            self.size_grid, self.size_scroll = self.add_size_areas()
-
-            if name == "disks":
-                self.hide_widgets(["size"])
-
-            else:
-                self.show_widgets(["size"])
-
-    def add_free_type_chooser(self):
-        label_empty_type = Gtk.Label(label=_("Volumes based on:"), xalign=1)
-        label_empty_type.get_style_context().add_class("dim-label")
-        self.grid.attach(label_empty_type, 0, 1, 1, 1)
-
-        button1 = Gtk.RadioButton.new_with_label_from_widget(None, _("Disks"))
-        button1.connect("toggled", self.on_free_space_type_toggled, "disks")
-        self.grid.attach(button1, 1, 1, 1, 1)
-
-        button2 = Gtk.RadioButton.new_with_label_from_widget(button1, _("Partitions"))
-        button2.connect("toggled", self.on_free_space_type_toggled, "partitions")
-        self.grid.attach(button2, 2, 1, 1, 1)
-
-        label_empty_type.show()
-        button1.show()
-        button2.show()
-
-        if self.free_device.is_uninitialized_disk:
-            button1.toggled()
-            button1.set_sensitive(False)
-            button2.set_sensitive(False)
-
-        elif self.free_device.is_free_region:
-            button2.set_active(True)
-            button1.set_sensitive(False)
-            button2.set_sensitive(False)
-
-        else:
-            button2.set_active(True)
-
-        self.free_type_chooser = (label_empty_type, button1, button2)
-
-    def _get_free_type(self):
-        if self.free_type_chooser:
-            button_disks = self.free_type_chooser[1]
-            button_partitions = self.free_type_chooser[2]
-
-        else:
-            return None
-
-        if button_disks.get_active():
-            return "disks"
-
-        elif button_partitions.get_active():
-            return "partitions"
-
-        else:
-            return None
-
-    def remove_free_type_chooser(self):
-        for widget in self.free_type_chooser:
-            widget.destroy()
-
-        self.free_type_chooser = None
 
     def select_selected_free_region(self):
         """ In parent list select the free region user selected checkbox as checked
@@ -1114,9 +1043,6 @@ class AddDialog(Gtk.Dialog):
         self.encrypt_check.set_active(False)
         self.size_grid, self.size_scroll = self.add_size_areas()
 
-        if self.free_type_chooser and device_type != "btrfs volume":
-            self.remove_free_type_chooser()
-
         if device_type == "partition":
             self.show_widgets(["label", "fs", "encrypt", "mountpoint", "size", "advanced"])
             self.hide_widgets(["name", "passphrase", "mdraid"])
@@ -1147,7 +1073,6 @@ class AddDialog(Gtk.Dialog):
         elif device_type == "btrfs volume":
             self.show_widgets(["name", "size", "mountpoint"])
             self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid"])
-            self.add_free_type_chooser()
 
         elif device_type == "btrfs subvolume":
             self.show_widgets(["name", "mountpoint"])
@@ -1302,6 +1227,5 @@ class AddDialog(Gtk.Dialog):
                                   encrypt=self.encrypt_check.get_active(),
                                   passphrase=self.pass_entry.get_text(),
                                   parents=parents,
-                                  btrfs_type=btrfs_type,
                                   raid_level=raid_level,
                                   advanced=advanced)

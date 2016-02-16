@@ -1050,58 +1050,28 @@ class BlivetUtils(object):
 
         return actions
 
-    def _create_btrfs_disk(self, blivet_disk):
-        """ Create a btrfs label on selected disk
-        """
-
-        actions = []
-
-        if blivet_disk.format.type:
-            result = self.delete_disk_label(blivet_disk)
-            if not result.success:
-                return result
-            else:
-                actions.extend(result.actions)
-
-        fmt = blivet.formats.get_format(fmt_type="btrfs")
-        ac_fmt = blivet.deviceaction.ActionCreateFormat(blivet_disk, fmt)
-
-        self.storage.devicetree.actions.add(ac_fmt)
-
-        return actions
-
     def _create_btrfs_volume(self, user_input):
         actions = []
         device_name = self._pick_device_name(user_input.name)
 
         for parent, size in user_input.parents:
+            # _create_partition needs user_input but we actually don't have it for individual
+            # parent partitions so we need to 'create' it
+            part_input = ProxyDataContainer(size=size,
+                                            parents=[(parent, size)],
+                                            filesystem="btrfs",
+                                            encrypt=False,
+                                            label=None,
+                                            mountpoint=None)
+            part_actions = self._create_partition(part_input)
 
-            if user_input.btrfs_type == "disks":
-                disk_ac = self._create_btrfs_disk(parent)
+            # we need to try to create partitions immediately, if something
+            # fails, fail now
+            for ac in part_actions:
+                self.storage.devicetree.actions.add(ac)
+            actions.extend(part_actions)
 
-                actions.extend(disk_ac)
-
-            else:
-                # _create_partition needs user_input but we actually don't have it for individual
-                # parent partitions so we need to 'create' it
-                part_input = ProxyDataContainer(size=size,
-                                                parents=[(parent, size)],
-                                                filesystem="btrfs",
-                                                encrypt=False,
-                                                label=None,
-                                                mountpoint=None)
-                part_actions = self._create_partition(part_input)
-
-                # we need to try to create partitions immediately, if something
-                # fails, fail now
-                for ac in part_actions:
-                    self.storage.devicetree.actions.add(ac)
-                actions.extend(part_actions)
-
-        if user_input.btrfs_type == "disks":
-            btrfs_parents = [parent[0] for parent in user_input.parents]
-        else:
-            btrfs_parents = [ac.device for ac in actions if (ac.is_format and ac.is_create) and ac._format.type == "btrfs"]
+        btrfs_parents = [ac.device for ac in actions if (ac.is_format and ac.is_create) and ac._format.type == "btrfs"]
         new_btrfs = BTRFSVolumeDevice(device_name, parents=btrfs_parents)
         new_btrfs.format = blivet.formats.get_format("btrfs", label=device_name, mountpoint=user_input.mountpoint)
         actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
