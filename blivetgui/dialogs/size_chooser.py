@@ -126,12 +126,13 @@ class GUIWidget(object):
 
 class SizeArea(GUIWidget):
 
-    def __init__(self, device_type, parent, raid_type):
+    def __init__(self, device_type, parents, min_size, raid_type):
 
         GUIWidget.__init__(self, "size_area.ui")
 
         self.device_type = device_type
-        self.parent = parent
+        self.parents = parents
+        self.min_size = min_size
         self.raid_type = raid_type
 
         self.frame = self.builder.get_object("frame_size")
@@ -147,10 +148,20 @@ class SizeArea(GUIWidget):
         self.main_chooser.connect("size-changed", self._on_main_size_changed)
         self.grid.attach(self.main_chooser.grid, 0, 0, 5, 1)
 
+        self._add_advanced_area()
+
+    def _add_advanced_area(self):
+
         checkbutton_manual = self.builder.get_object("checkbutton_manual")
         checkbutton_manual.connect("toggled", self._on_manual_toggled)
 
-        self.parent_area = ParentArea(self.parent.pvs)
+        if self.device_type in ("lvmlv",):
+            checkbutton_manual.set_sensitive(True)
+        else:
+            checkbutton_manual.set_sensitive(False)
+
+        self.parent_area = ParentArea(self.parents)
+
         self.parent_area.connect("size-changed", self._on_advanced_size_changed)
         self.grid.attach(self.parent_area.frame, 0, 2, 5, 1)
         self.widgets.append(self.parent_area)
@@ -161,22 +172,14 @@ class SizeArea(GUIWidget):
         self.parent_area.total_size = self.max_size  # update selected size of parent areas
 
     @property
-    def min_size(self):
-        if self._min_size is None:
-            if self.device_type in ("lvmlv", "lvmthinpool"):
-                self._min_size = max(self.parent.pe_size, size.Size("1 MiB"))
-
-        return self._min_size
-
-    @property
     def max_size(self):
         if self._max_size is None:
             if self.raid_type not in ("linear", "single", None, False): # FIXME: raid_type
                 raid_level = get_raid_level(self.raid_type)
-                self._max_size = raid_level.get_net_array_size(len(self.parent.pvs),
-                                                               min([pv.format.free for pv in self.parent.pvs]))
+                self._max_size = raid_level.get_net_array_size(len(self.parents[0].pvs),
+                                                               min([pv.format.free for pv in self.parents[0].pvs]))
             else:
-                self._max_size = sum([pv.format.free for pv in self.parent.pvs])
+                self._max_size = sum([free for _parent, free in self.parents])
 
         return self._max_size
 
@@ -204,6 +207,9 @@ class SizeArea(GUIWidget):
         if not self.advanced_selection:
             self.parent_area.total_size = total_size
 
+    def get_selection(self):
+        return self.parent_area.get_selection()
+
 
 class ParentArea(GUIWidget):
 
@@ -221,8 +227,8 @@ class ParentArea(GUIWidget):
         self.frame = self.builder.get_object("frame")
         self.grid = self.builder.get_object("grid")
 
-        for idx, parent in enumerate(self.parents):
-            chooser = ParentChooser(parent, size.Size("1 MiB"), parent.format.free) # FIXME: min_size calculation
+        for idx, (parent, free) in enumerate(self.parents):
+            chooser = ParentChooser(parent, size.Size("1 MiB"), free) # FIXME: min_size calculation
             chooser.connect("size-changed", self._on_parent_changed)
             self.choosers.append(chooser)
             self.widgets.append(chooser)
@@ -285,10 +291,17 @@ class ParentArea(GUIWidget):
         super().hide()
         self.status = False
 
+    def get_selection(self):
+        selection = []
+        for chooser in self.choosers:
+            selection.append((chooser.parent, chooser.size_chooser.selected_size))
+
+        return selection
+
 
 class ParentChooser(GUIWidget):
 
-    def __init__(self, parent, min_size, max_size=None):
+    def __init__(self, parent, min_size, max_size):
 
         GUIWidget.__init__(self, "parent_chooser.ui")
 
@@ -309,7 +322,7 @@ class ParentChooser(GUIWidget):
         label_device.set_text(parent.name)
 
         label_size = self.builder.get_object("label_size")
-        label_size.set_text(str(parent.format.free))
+        label_size.set_text(str(max_size))
 
         if self.max_size is None:
             self.max_size = parent.format.free
