@@ -39,7 +39,7 @@ class ActionsMenu(object):
         """ Create popup menu
         """
 
-        items = [("add", self.blivet_gui.add_partition),
+        items = [("add", self.blivet_gui.add_device),
                  ("delete", self.blivet_gui.delete_selected_partition),
                  ("edit", self.blivet_gui.edit_device),
                  ("unmount", self.blivet_gui.umount_partition),

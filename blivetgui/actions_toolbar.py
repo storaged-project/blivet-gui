@@ -62,7 +62,7 @@ class DeviceToolbar(BlivetGUIToolbar):
         super(DeviceToolbar, self).__init__(blivet_gui)
 
         toolbutton_add = self.blivet_gui.builder.get_object("toolbutton_add")
-        toolbutton_add.connect("clicked", self.blivet_gui.add_partition)
+        toolbutton_add.connect("clicked", self.blivet_gui.add_device)
         self.buttons["add"] = toolbutton_add
 
         toolbutton_remove = self.blivet_gui.builder.get_object("toolbutton_remove")

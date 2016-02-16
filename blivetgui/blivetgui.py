@@ -322,21 +322,26 @@ class BlivetGUI(object):
         dialog.destroy()
         return
 
-    def _allow_add_device(self, parent_device, parent_device_type):
+    def _allow_add_device(self, selected_device):
         """ Allow add device?
         """
 
         msg = None
 
-        if parent_device_type == "lvmvg" and not parent_device.complete:
+        if selected_device.type == "free space":
+            parent_device = selected_device.parents[0]
+        else:
+            parent_device = selected_device
+
+        if parent_device.type == "lvmvg" and not parent_device.complete:
             msg = _("{name} is not complete. It is not possible to add new LVs to VG with "
                     "missing PVs.").format(name=parent_device.name)
 
         # not enough free space for at least two 2 MiB physical extents
-        if parent_device_type == "lvmpv" and parent_device.size < Size("4 MiB"):
+        if parent_device.format.type == "lvmpv" and parent_device.size < Size("4 MiB"):
             msg = _("Not enough free space for a new LVM Volume Group.")
 
-        if parent_device.is_disk and parent_device.format and parent_device.format.type == "disklabel":
+        if parent_device.is_disk and parent_device.format.type == "disklabel":
             disk = parent_device.format.parted_disk
             selected_device = self.list_partitions.selected_partition[0]
             if disk.primaryPartitionCount >= disk.maxPrimaryPartitionCount and selected_device.is_primary:
@@ -345,113 +350,74 @@ class BlivetGUI(object):
 
         return (False, msg) if msg else (True, None)
 
-    def add_partition(self, _widget=None, btrfs_pt=False):
-        """ Add new partition
-            :param widget: widget calling this function (only for calls via signal.connect)
-            :type widget: Gtk.Widget()
-            :param btrfs_pt: create btrfs as partition table
-            :type btrfs_pt: bool
-        """
+    def _add_disklabel(self, disk):
+        """ Create a new disklabel on disk """
+
+        dialog = other_dialogs.AddLabelDialog(self.main_window)
+        selection = dialog.run()
+
+        if selection:
+            result = self.client.remote_call("create_disk_label", disk, selection)
+            if not result.success:
+                if not result.exception:
+                    self.show_error_dialog(result.message)
+                else:
+                    self._reraise_exception(result.exception, result.traceback)
+
+            else:
+                if result.actions:
+                    action_str = _("create new disklabel on {name}").format(name=disk.name)
+                    self.list_actions.append("add", action_str, result.actions)
+            self.update_partitions_view()
+
+    def add_device(self, _widget=None):
+        """ Show dialog for adding new device and create the device based on
+            user selection """
 
         selected_device = self.list_partitions.selected_partition[0]
 
-        parent_device_type = None
-
-        # btrfs volume has no special free space device -- parent device for newly
-        # created subvolume is not parent of selected device but device (btrfs volume)
-        # itself
-        # for snapshots 'parent' is the LV we are making snapshot
-        if selected_device.type in ("btrfs volume", "lvmlv", "lvmthinpool"):
-            parent_device = selected_device
-
-        # empty lvmpv doesn't have a special free space device
-        elif selected_device.type in ("partition", "luks/dm-crypt", "mdarray") and selected_device.format.type == "lvmpv":
-            parent_device = selected_device
-            parent_device_type = "lvmpv"
-
-        else:
-            parent_device = selected_device.parents[0]
-
-            if parent_device.is_disk:
-                parent_device_type = "disk"
-
-        if not parent_device_type:
-            parent_device_type = parent_device.type
-
         # allow adding new device?
-        allow, msg = self._allow_add_device(parent_device, parent_device_type)
+        allow, msg = self._allow_add_device(selected_device)
 
         if not allow:
             message_dialogs.ErrorDialog(self.main_window, msg)
             return
 
-        if parent_device_type == "disk" and self.list_devices.selected_device.format.type != "disklabel" \
-           and not btrfs_pt:
-
-            dialog = other_dialogs.AddLabelDialog(self.main_window, self._supported_disklabels)
-
-            selection = dialog.run()
-
-            if selection == "btrfs":
-                self.add_partition(btrfs_pt=True)
-                return
-
-            if selection:
-                result = self.client.remote_call("create_disk_label", self.list_devices.selected_device, selection)
-                if not result.success:
-                    if not result.exception:
-                        self.show_error_dialog(result.message)
-                    else:
-                        self._reraise_exception(result.exception, result.traceback)
-
-                else:
-                    if result.actions:
-                        action_str = _("create new disklabel on {name}").format(name=self.list_devices.selected_device.name)
-                        self.list_actions.append("add", action_str, result.actions)
-                self.update_partitions_view()
+        # uninitialized disk -> add a disklabel
+        if selected_device.type == "free space" and selected_device.is_uninitialized_disk:
+            self._add_disklabel(disk=selected_device.disk)
             return
 
-        # for snapshots we don't know the free space device because user doesn't choose one
-        # we have the lvmlv and lvmvg information only
-        if parent_device_type == "lvmlv":
-            free_device = self.client.remote_call("get_vg_free", parent_device.parents[0])
-
+        # adding a new device is allowed when selected both free space and some
+        # "normal" devices -- we need both information: "future" parent and
+        # selected free space (if available)
+        if selected_device.type == "free space":
+            selected_parent = selected_device.parents[0]
+            selected_free = selected_device
         else:
-            free_device = self.list_partitions.selected_partition[0]
+            selected_parent = selected_device
+            selected_free = None
 
-        dialog = add_dialog.AddDialog(self.main_window,
-                                      parent_device_type,
-                                      parent_device,
-                                      free_device,
-                                      self.client.remote_call("get_free_pvs_info"),
-                                      self.client.remote_call("get_free_disks_regions", btrfs_pt),
-                                      self._supported_raid_levels,
-                                      self._supported_filesystems,
-                                      self.client.remote_call("get_mountpoints"),
-                                      self.kickstart_mode)
+        dialog = add_dialog.AddDialog(parent_window=self.main_window,
+                                      selected_parent=selected_parent,
+                                      selected_free=selected_free,
+                                      available_free=self.client.remote_call("get_free_info"))
 
         response = dialog.run()
 
         if response == Gtk.ResponseType.OK:
-
             user_input = dialog.get_selection()
             result = self.client.remote_call("add_device", user_input)
 
             if not result.success:
                 if not result.exception:
                     self.show_error_dialog(result.message)
-
                 else:
                     self._reraise_exception(result.exception, result.traceback)
 
             else:
                 if result.actions:
-                    if not user_input.filesystem:
-                        action_str = _("add {size} {type} device").format(size=str(user_input.size),
-                                                                          type=user_input.device_type)
-                    else:
-                        action_str = _("add {size} {fmt} partition").format(size=str(user_input.size),
-                                                                            fmt=user_input.filesystem)
+                    action_str = _("add {size} {type} device").format(size=str(user_input.size), type=user_input.device_type)
 
                     self.list_actions.append("add", action_str, result.actions)
 
@@ -459,7 +425,6 @@ class BlivetGUI(object):
             self.update_partitions_view()
 
         dialog.destroy()
-        return
 
     def delete_selected_partition(self, _widget=None):
         """ Delete selected partition
