@@ -132,13 +132,12 @@ class SizeArea(GUIWidget):
 
         self.device_type = device_type
         self.parents = parents
-        self.min_size = min_size
         self.raid_type = raid_type
 
         self.frame = self.builder.get_object("frame_size")
         self.grid = self.builder.get_object("grid")
 
-        self._min_size = None
+        self._min_size = min_size
         self._max_size = None
 
         # is the advanced selection active?
@@ -155,33 +154,64 @@ class SizeArea(GUIWidget):
         checkbutton_manual = self.builder.get_object("checkbutton_manual")
         checkbutton_manual.connect("toggled", self._on_manual_toggled)
 
-        if self.device_type in ("lvmlv",):
+        # remove checkbutton_manual from widgets so it isn't affected when setting size area (in)sensitive
+        self.widgets.remove(checkbutton_manual)
+
+        if len(self.parents) > 1:
             checkbutton_manual.set_sensitive(True)
         else:
             checkbutton_manual.set_sensitive(False)
 
-        self.parent_area = ParentArea(self.parents)
+        self.parent_area = ParentArea(self.device_type, self.parents, self.min_size, self.raid_type)
 
         self.parent_area.connect("size-changed", self._on_advanced_size_changed)
         self.grid.attach(self.parent_area.frame, 0, 2, 5, 1)
         self.widgets.append(self.parent_area)
 
         self.show()
-        self.parent_area.hide()
 
-        self.parent_area.total_size = self.max_size  # update selected size of parent areas
+        # raid selected, only advanced size selection should be available
+        if self.raid_type not in ("linear", "single", None):
+            checkbutton_manual.set_active(True)
+            checkbutton_manual.set_sensitive(False)
+        else:
+            self.parent_area.hide()
+            self.parent_area.total_size = self.max_size  # update selected size of parent areas
+
+    @property
+    def min_size(self):
+        return self._min_size
+
+    @min_size.setter
+    def min_size(self, new_size):
+
+        if new_size >= self.max_size:
+            raise ValueError("New minimum size is larger than current maximum size.")
+
+        self._min_size = new_size
+
+        # set min size for main chooser
+        self.main_chooser.min_size = new_size
+
+        # set min size for all size chooser areas
+        for chooser in self.parent_area.choosers:
+            chooser.size_chooser.min_size = new_size
 
     @property
     def max_size(self):
         if self._max_size is None:
-            if self.raid_type not in ("linear", "single", None, False): # FIXME: raid_type
+            if self.raid_type not in ("linear", "single", None):
                 raid_level = get_raid_level(self.raid_type)
-                self._max_size = raid_level.get_net_array_size(len(self.parents[0].pvs),
-                                                               min([pv.format.free for pv in self.parents[0].pvs]))
+                self._max_size = raid_level.get_net_array_size(len(self.parents),
+                                                               min([free for _parent, free in self.parents]))
             else:
                 self._max_size = sum([free for _parent, free in self.parents])
 
         return self._max_size
+
+    @max_size.setter
+    def max_size(self, new_size):
+        pass  # FIXME
 
     def _on_manual_toggled(self, checkbutton):
         """ Advanced selection toggled """
@@ -213,13 +243,17 @@ class SizeArea(GUIWidget):
 
 class ParentArea(GUIWidget):
 
-    def __init__(self, parents):
+    def __init__(self, device_type, parents, min_size, raid_type):
 
         GUIWidget.__init__(self, "parent_area.ui")
 
         self.status = False  # is parent area visible/active?
 
+        self.device_type = device_type
         self.parents = parents
+        self.min_size = min_size
+        self.raid_type = raid_type
+
         self.choosers = []  # parent choosers in this area
 
         self.size_change_handler = None
@@ -228,11 +262,22 @@ class ParentArea(GUIWidget):
         self.grid = self.builder.get_object("grid")
 
         for idx, (parent, free) in enumerate(self.parents):
-            chooser = ParentChooser(parent, size.Size("1 MiB"), free) # FIXME: min_size calculation
+            # with raid selected, all parents have to has the same size (and max size)
+            if self.raid_type not in ("linear", "single", None):
+                max_size = min([free for _parent, free in self.parents])
+            else:
+                max_size = free
+
+            chooser = ParentChooser(parent, self.min_size, max_size)
             chooser.connect("size-changed", self._on_parent_changed)
             self.choosers.append(chooser)
             self.widgets.append(chooser)
             self.grid.attach(chooser.grid, 0, idx, 1, 1)
+
+            # for non-lvm raids parents are already selected, changes are not allowed
+            if self.raid_type is not None and self.device_type not in ("lvmlv",):
+                chooser.selected = True  # select parent
+                chooser.selectable = False  # make the select button insentive
 
         self.show()
 
@@ -245,8 +290,13 @@ class ParentArea(GUIWidget):
         else:
             raise TypeError("Unknown signal type %s" % signal)
 
-    def _on_parent_changed(self, *_args):
+    def _on_parent_changed(self, new_size, *_args):
         """ Parent selection changed -- either size or parent toggled """
+
+        # raid -- all parents have to has the same size
+        if self.raid_type not in ("linear", "single", None):
+            for chooser in self.choosers:
+                chooser.size_chooser.selected_size = new_size
 
         if self.size_change_handler is not None:
             self.size_change_handler.method(self.total_size, *self.size_change_handler.args)
@@ -256,8 +306,14 @@ class ParentArea(GUIWidget):
         """ Total size selected in this area """
         total_size = size.Size(0)
 
-        for chooser in self.choosers:
-            total_size += chooser.size_chooser.selected_size
+        # for raids, total size must be calculated separately
+        if self.raid_type not in ("linear", "single", None):
+            raid_level = get_raid_level(self.raid_type)
+            total_size = raid_level.get_net_array_size(len([chooser for chooser in self.choosers if chooser.selected]),
+                                                       next(chooser.size_chooser.selected_size for chooser in self.choosers if chooser.selected))
+        else:
+            for chooser in self.choosers:
+                total_size += chooser.size_chooser.selected_size
 
         return total_size
 
@@ -324,9 +380,6 @@ class ParentChooser(GUIWidget):
         label_size = self.builder.get_object("label_size")
         label_size.set_text(str(max_size))
 
-        if self.max_size is None:
-            self.max_size = parent.format.free
-
         self.size_chooser = SizeChooser(max_size=max_size, min_size=min_size)
         self.grid.attach(self.size_chooser.grid, 3, 0, 1, 1)
         self.widgets.append(self.size_chooser)
@@ -344,6 +397,14 @@ class ParentChooser(GUIWidget):
 
         # call the signal handler to set the size limits but don't emit the signal
         self._on_parent_toggled(self.checkbutton_use, False)
+
+    @property
+    def selectable(self):
+        return self.checkbutton_use.get_sensitive()
+
+    @selectable.setter
+    def selectable(self, status):
+        self.checkbutton_use.set_sensitive(status)
 
     def _on_parent_toggled(self, checkbutton, emit_signal=True):
 

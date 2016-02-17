@@ -461,6 +461,9 @@ class AddDialog(Gtk.Dialog):
             if self.selected_parent.size > size.Size("256 MiB"):
                 types.append((_("Btrfs Volume"), "btrfs volume"))
 
+            if len([f[0] for f in self.available_free if f[0] == "free"]) > 1:  # number of free disk regions
+                types.append((_("Software RAID"), "mdraid"))
+
         elif self.selected_parent.type == "lvmvg":
             types.extend([(_("LVM2 Logical Volume"), "lvmlv"), (_("LVM2 ThinPool"), "lvmthinpool")])
 
@@ -698,33 +701,10 @@ class AddDialog(Gtk.Dialog):
         if max_size is not None:
             self.size_area.max_size = max_size
 
-    def _destroy_size_areas(self):
-        """ Remove existing size areas
-        """
+    def _get_min_size(self):
+        """ Get minimal size for newly created device """
 
-        if self.widgets_dict["size"]:
-            self.widgets_dict["size"] = []
-            self.size_area.destroy()
-
-    def add_size_area(self):
         device_type = self.selected_type
-
-        # destroy existing size area
-        if self.size_area is not None:
-            self.size_area.destroy()
-
-        parent_devices = []
-        if self.selected_parent.type == "lvmvg":
-            for pv in self.selected_parent.pvs:
-                if pv.format.free >= self.selected_parent.pe_size:
-                    parent_devices.append((pv, pv.format.free))
-        else:
-            for row in self.parents_store:
-                if row[3]:
-                    parent_devices.append((row[0], row[1]))
-
-        if not parent_devices:
-            parent_devices = [(self.selected_parent, self.selected_free.size)]  # FIXME
 
         if device_type in ("lvmlv", "lvmthinpool"):
             min_size = max(self.selected_parent.pe_size, size.Size("1 MiB"))
@@ -737,7 +717,40 @@ class AddDialog(Gtk.Dialog):
         else:
             min_size = size.Size("1 MiB")
 
-        size_area = SizeArea(device_type=device_type, parents=parent_devices, min_size=min_size, raid_type=None)
+        return min_size
+
+    def _get_parents(self):
+        """ Get selected parents for newly created device """
+
+        parent_devices = []
+        if self.selected_parent.type == "lvmvg":
+            for pv in self.selected_parent.pvs:
+                if pv.format.free >= self.selected_parent.pe_size:
+                    parent_devices.append((pv, pv.format.free))
+        else:
+            for row in self.parents_store:
+                if row[3]:
+                    parent_devices.append((row[0], row[1]))
+
+        if not parent_devices:  # FIXME
+            parent_devices = [(self.selected_parent, self.selected_free.size)]
+
+        return parent_devices
+
+    def add_size_area(self):
+        device_type = self.selected_type
+
+        # destroy existing size area
+        if self.size_area is not None:
+            self.size_area.destroy()
+
+        # raid level -- FIXME
+        if device_type in ("btrfs volume", "lvmlv", "mdraid"):
+            raid_level = self.raid_combo.get_active_text()
+        else:
+            raid_level = None
+
+        size_area = SizeArea(device_type=device_type, parents=self._get_parents(), min_size=self._get_min_size(), raid_type=raid_level)
         self.grid.attach(size_area.frame, 0, 6, 6, 1)
 
         self.widgets_dict["size"] = [size_area]
