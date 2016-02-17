@@ -228,14 +228,15 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
         proxy_object = self.object_dict[data[2].id]
         param_name = data[3]
 
-        if not hasattr(proxy_object.blivet_object, param_name):
-            answer = AttributeError("%s has no attribute %s" % (proxy_object.blivet_object.name, param_name))
-
-        elif proxy_object.is_method(param_name):
-            raise ValueError("Calling method, not attribute")
-
-        else:
+        try:
             answer = getattr(proxy_object, param_name)
+        except AttributeError:
+            answer = AttributeError("%s has no attribute %s" % (proxy_object.blivet_object.name, param_name))
+        except Exception as e:  # pylint: disable=broad-except
+            answer = e
+        else:
+            if proxy_object.is_method(param_name):
+                answer = ValueError("%s is method not attribute %s" % param_name)
 
         pickled_answer = self._pickle_answer(answer)
 
