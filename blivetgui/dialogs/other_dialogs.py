@@ -78,7 +78,7 @@ class AddLabelDialog(object):
 
         self.dialog.set_transient_for(parent_window)
 
-        for disklabel in platform.disk_label_types:
+        for disklabel in platform.disklabel_types:
             self.pttype_combo.append_text(disklabel)
 
         self.pttype_combo.set_active(0)
