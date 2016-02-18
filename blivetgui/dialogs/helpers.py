@@ -31,6 +31,7 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
+from blivet import devicefactory
 from blivet.devices.btrfs import BTRFSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMLogicalVolumeDevice
 
@@ -120,3 +121,9 @@ def is_mountpoint_valid(used_mountpoints, mountpoint):
     else:
         msg = _("Selected mountpoint \"{0}\" is already set for another device.").format(mountpoint)
         return (False, msg)
+
+
+def supported_raids():
+    return {"btrfs volume" : devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_BTRFS),
+            "mdraid" :  devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_MD),
+            "lvmlv" : devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_LVM)}

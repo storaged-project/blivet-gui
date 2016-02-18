@@ -33,6 +33,8 @@ from ..gui_utils import locate_ui_file
 
 from collections import OrderedDict, namedtuple
 
+from . helpers import supported_raids
+
 # ---------------------------------------------------------------------------- #
 
 UNITS = OrderedDict([("B", size.B), ("kB", size.KB), ("MB", size.MB),
@@ -109,7 +111,8 @@ class GUIWidget(object):
         """
 
         for widget in self.widgets:
-            widget.set_visible(visibility)
+            if hasattr(widget, "set_visible"):  # for liststores
+                widget.set_visible(visibility)
 
     def set_sensitive(self, sensitivity):
         """ Set all widgets sensitivity
@@ -119,7 +122,8 @@ class GUIWidget(object):
 
         """
         for widget in self.widgets:
-            widget.set_sensitive(sensitivity)
+            if hasattr(widget, "set_sensitive"):  # for liststores
+                widget.set_sensitive(sensitivity)
 
     def block_signal(self, signal, block):
         if block:
@@ -129,8 +133,38 @@ class GUIWidget(object):
                 self.blocked_signals.remove(signal)
 
     def get_sensitive(self):
-        return all([widget.get_sensitive() for widget in self.widgets])
+        return all([widget.get_sensitive() for widget in self.widgets if hasattr(widget, "get_sensitive")])
 
+
+class RaidChooser(GUIWidget):
+
+    def __init__(self):
+
+        GUIWidget.__init__(self, "raid_chooser.ui")
+
+        self.supported_raids = supported_raids()
+
+        self.box = self.builder.get_object("box")
+        self.combobox_raid = self.builder.get_object("combobox_raid")
+        self.liststore_raid = self.builder.get_object("liststore_raid")
+
+    def update(self, device_type, parents):
+        self.liststore_raid.clear()
+
+        for raid in self.supported_raids[device_type]:
+            if raid.name == "container":
+                continue
+            if len(parents) >= raid.min_members:
+                self.liststore_raid.append((raid.name, raid))
+
+        if len(self.liststore_raid) > 1:
+            self.set_sensitive(True)
+        else:
+            self.set_sensitive(False)
+
+    def connect(self, signal, method, *args):
+        """ Connect a signal hadler """
+        pass
 
 
 class SizeArea(GUIWidget):
@@ -278,6 +312,9 @@ class ParentArea(GUIWidget):
         self.frame = self.builder.get_object("frame")
         self.grid = self.builder.get_object("grid")
 
+        self.raid_chooser = RaidChooser()
+        self.grid.attach(self.raid_chooser.box, 0, 0, 1, 1)
+
         self._add_parent_choosers()
         self.show()
 
@@ -296,7 +333,7 @@ class ParentArea(GUIWidget):
             chooser.connect("size-changed", self._on_parent_changed)
             self.choosers.append(chooser)
             self.widgets.append(chooser)
-            self.grid.attach(chooser.grid, 0, idx, 1, 1)
+            self.grid.attach(chooser.grid, 0, idx + 1, 1, 1)
 
             # for non-lvm raids parents are already selected, changes are not allowed
             if self.raid_type is not None and self.device_type not in ("lvmlv",):

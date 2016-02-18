@@ -30,7 +30,7 @@ gi.require_version("Gdk", "3.0")
 
 from gi.repository import Gtk
 
-from blivet import size, devicefactory, formats
+from blivet import size, formats
 
 from decimal import Decimal
 
@@ -39,7 +39,7 @@ from ..dialogs import message_dialogs
 from ..communication.proxy_utils import ProxyDataContainer
 
 from . size_chooser import SizeChooser, SizeArea
-from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid
+from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid, supported_raids
 
 from ..i18n import _
 from ..gui_utils import locate_ui_file
@@ -65,9 +65,6 @@ def _supported_filesystems():
 
     return sorted(_fs_types)
 
-def _supported_raids():
-    return {"btrfs volume" : devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_BTRFS),
-            "mdraid" :  devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_MD)}
 
 class CacheArea(object):
 
@@ -403,7 +400,7 @@ class AddDialog(Gtk.Dialog):
         self.kickstart_mode = kickstart_mode
         self.mountpoints = mountpoints
 
-        self.supported_raids = _supported_raids()
+        self.supported_raids = supported_raids()
         self.supported_fs = _supported_filesystems()
 
         Gtk.Dialog.__init__(self, _("Create new device"), None, 0,
