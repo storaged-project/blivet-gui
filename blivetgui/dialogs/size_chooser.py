@@ -81,6 +81,8 @@ class GUIWidget(object):
 
         self.widgets = self.builder.get_objects()
 
+        self.blocked_signals = []
+
     def destroy(self):
         """ Destroy all size widgets """
 
@@ -118,6 +120,13 @@ class GUIWidget(object):
         """
         for widget in self.widgets:
             widget.set_sensitive(sensitivity)
+
+    def block_signal(self, signal, block):
+        if block:
+            self.blocked_signals.append(signal)
+        else:
+            if signal in self.blocked_signals:
+                self.blocked_signals.remove(signal)
 
     def get_sensitive(self):
         return all([widget.get_sensitive() for widget in self.widgets])
@@ -195,7 +204,7 @@ class SizeArea(GUIWidget):
 
         # set min size for all size chooser areas
         for chooser in self.parent_area.choosers:
-            chooser.size_chooser.min_size = new_size
+            chooser.min_size = new_size
 
     @property
     def max_size(self):
@@ -211,14 +220,22 @@ class SizeArea(GUIWidget):
 
     @max_size.setter
     def max_size(self, new_size):
-        pass  # FIXME
+        if self.device_type == "lvmlv":
+            return  # FIXME
+
+        if self.device_type not in ("lvmthinpool", None):  # FIXME
+            raise RuntimeError("Setting maximum size is not allowed for %s device type." % self.device_type)
+
+        self._max_size = new_size
+        self.main_chooser.max_size = new_size
 
     def _on_manual_toggled(self, checkbutton):
         """ Advanced selection toggled """
 
         if checkbutton.get_active():
             self.parent_area.show()
-            self.main_chooser.set_sensitive(False)
+            if self.device_type not in ("lvmlv", "lvmthinpool", "lvm snapshot"):
+                self.main_chooser.set_sensitive(False)
             self.advanced_selection = True
         else:
             self.parent_area.hide()
@@ -228,13 +245,13 @@ class SizeArea(GUIWidget):
     def _on_advanced_size_changed(self, total_size):
         """ Handler for size change in advanced selection """
 
-        if self.advanced_selection:
+        if self.main_chooser.selected_size != total_size:
             self.main_chooser.selected_size = total_size
 
     def _on_main_size_changed(self, total_size):
         """ Handler for size change in main size selection """
 
-        if not self.advanced_selection:
+        if self.parent_area.total_size != total_size:
             self.parent_area.total_size = total_size
 
     def get_selection(self):
@@ -261,6 +278,10 @@ class ParentArea(GUIWidget):
         self.frame = self.builder.get_object("frame")
         self.grid = self.builder.get_object("grid")
 
+        self._add_parent_choosers()
+        self.show()
+
+    def _add_parent_choosers(self):
         for idx, (parent, free) in enumerate(self.parents):
             # with raid selected, all parents have to has the same size (and max size)
             if self.raid_type not in ("linear", "single", None):
@@ -268,7 +289,10 @@ class ParentArea(GUIWidget):
             else:
                 max_size = free
 
-            chooser = ParentChooser(parent, self.min_size, max_size)
+            if self.device_type in ("lvmlv", "lvmthinpool", "lvm snapshot"):
+                chooser = ParentChooser(parent, False, self.min_size, max_size)
+            else:
+                chooser = ParentChooser(parent, True, self.min_size, max_size)
             chooser.connect("size-changed", self._on_parent_changed)
             self.choosers.append(chooser)
             self.widgets.append(chooser)
@@ -278,8 +302,6 @@ class ParentArea(GUIWidget):
             if self.raid_type is not None and self.device_type not in ("lvmlv",):
                 chooser.selected = True  # select parent
                 chooser.selectable = False  # make the select button insentive
-
-        self.show()
 
     def connect(self, signal, method, *args):
         """ Connect a signal hadler """
@@ -296,7 +318,8 @@ class ParentArea(GUIWidget):
         # raid -- all parents have to has the same size
         if self.raid_type not in ("linear", "single", None):
             for chooser in self.choosers:
-                chooser.size_chooser.selected_size = new_size
+                if chooser.selected_size != new_size:
+                    chooser.selected_size = new_size
 
         if self.size_change_handler is not None:
             self.size_change_handler.method(self.total_size, *self.size_change_handler.args)
@@ -310,19 +333,16 @@ class ParentArea(GUIWidget):
         if self.raid_type not in ("linear", "single", None):
             raid_level = get_raid_level(self.raid_type)
             total_size = raid_level.get_net_array_size(len([chooser for chooser in self.choosers if chooser.selected]),
-                                                       next(chooser.size_chooser.selected_size for chooser in self.choosers if chooser.selected))
+                                                       next(chooser.selected_size for chooser in self.choosers if chooser.selected))
         else:
             for chooser in self.choosers:
-                total_size += chooser.size_chooser.selected_size
+                total_size += chooser.selected_size
 
         return total_size
 
     @total_size.setter
     def total_size(self, new_size):
-        if self.status:
-            raise RuntimeError("Can't adjust parent area size when active.")
-
-        if new_size > sum([chooser.size_chooser.max_size for chooser in self.choosers]):
+        if new_size > sum([chooser.max_size for chooser in self.choosers]):
             raise ValueError("New size is bigger than allowed maximum size.")
 
         allocated = size.Size(0)
@@ -330,11 +350,11 @@ class ParentArea(GUIWidget):
             if allocated < new_size:
                 chooser.selected = True
 
-                if chooser.size_chooser.max_size < (new_size - allocated):
-                    chooser.size_chooser.selected_size = chooser.size_chooser.max_size
-                    allocated += chooser.size_chooser.max_size
+                if chooser.max_size < (new_size - allocated):
+                    chooser.selected_size = chooser.max_size
+                    allocated += chooser.max_size
                 else:
-                    chooser.size_chooser.selected_size = (new_size - allocated)
+                    chooser.selected_size = (new_size - allocated)
                     allocated = new_size
             else:
                 chooser.selected = False
@@ -350,24 +370,27 @@ class ParentArea(GUIWidget):
     def get_selection(self):
         selection = []
         for chooser in self.choosers:
-            selection.append((chooser.parent, chooser.size_chooser.selected_size))
+            selection.append((chooser.parent, chooser.selected_size))
 
         return selection
 
 
 class ParentChooser(GUIWidget):
 
-    def __init__(self, parent, min_size, max_size):
+    def __init__(self, parent, show_size, min_size=None, max_size=None):
 
         GUIWidget.__init__(self, "parent_chooser.ui")
 
         self.parent = parent
-        self.max_size = max_size
-        self.min_size = min_size
+        self.show_size = show_size
+        self._max_size = max_size
+        self._min_size = min_size
+        self._selected_size = max_size
 
         self._selected = False
 
         self.parent_toggled_handler = None
+        self.size_change_handler = None
 
         self.grid = self.builder.get_object("grid")
 
@@ -380,9 +403,11 @@ class ParentChooser(GUIWidget):
         label_size = self.builder.get_object("label_size")
         label_size.set_text(str(max_size))
 
-        self.size_chooser = SizeChooser(max_size=max_size, min_size=min_size)
-        self.grid.attach(self.size_chooser.grid, 3, 0, 1, 1)
-        self.widgets.append(self.size_chooser)
+        if self.show_size:
+            self.size_chooser = SizeChooser(max_size=max_size, min_size=min_size)
+            self.size_chooser.connect("size-changed", self._on_size_chooser_changed)
+            self.grid.attach(self.size_chooser.grid, 3, 0, 1, 1)
+            self.widgets.append(self.size_chooser)
 
         self.show()
 
@@ -411,19 +436,23 @@ class ParentChooser(GUIWidget):
         self._selected = checkbutton.get_active()
 
         if self._selected:
-            self.size_chooser.set_sensitive(True)
-            self.size_chooser.max_size = self.max_size
-            self.size_chooser.min_size = self.min_size
-            self.size_chooser.selected_size = self.max_size
+            if self.show_size:
+                self.size_chooser.set_sensitive(True)
+                self.size_chooser.min_size = self.min_size
+            self.selected_size = self.max_size
         else:
-            self.size_chooser.set_sensitive(False)
-            self.size_chooser.max_size = self.max_size
-            self.size_chooser.min_size = size.Size(0)
-            self.size_chooser.selected_size = size.Size(0)
+            if self.show_size:
+                self.size_chooser.set_sensitive(False)
+                self.size_chooser.min_size = size.Size(0)
+            self.selected_size = size.Size(0)
 
         # call the signal handler for the parent-toggled event
         if self.parent_toggled_handler is not None and emit_signal:
             self.parent_toggled_handler.method(self._selected, self.parent, *self.parent_toggled_handler.args)
+
+    def _on_size_chooser_changed(self, new_size, *args):
+        if self.show_size and self.selected_size != new_size:
+            self.selected_size = new_size
 
     def connect(self, signal, method, *args):
         """ Connect a signal hadler """
@@ -432,11 +461,43 @@ class ParentChooser(GUIWidget):
             self.parent_toggled_handler = SignalHandler(method=method, args=args)
 
         elif signal == "size-changed":
-            # just pass the method to SizeChooser
-            self.size_chooser.connect("size-changed", method, args)
+            self.size_change_handler = SignalHandler(method=method, args=args)
 
         else:
             raise TypeError("Unknown signal type %s" % signal)
+
+    @property
+    def selected_size(self):
+        return self._selected_size
+
+    @selected_size.setter
+    def selected_size(self, new_size):
+        if self.show_size and self.size_chooser.selected_size != new_size:
+            self.size_chooser.selected_size = new_size
+        self._selected_size = new_size
+
+        if self.size_change_handler is not None:
+            self.size_change_handler.method(new_size, *self.size_change_handler.args)
+
+    @property
+    def min_size(self):
+        return self._min_size
+
+    @min_size.setter
+    def min_size(self, new_size):
+        if self.show_size:
+            self.size_chooser.min_size = new_size
+        self._min_size = new_size
+
+    @property
+    def max_size(self):
+        return self._max_size
+
+    @max_size.setter
+    def max_size(self, new_size):
+        if self.show_size:
+            self.size_chooser.max_size = new_size
+        self._max_size = new_size
 
 
 class SizeChooser(GUIWidget):

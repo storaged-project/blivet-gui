@@ -542,6 +542,9 @@ class AddDialog(Gtk.Dialog):
         device_type = self.selected_type
         num_parents = self._get_number_selected_parents()
 
+        if self.selected_parent.type == "lvmvg" and device_type == "lvmlv":
+            num_parents = len([pv for pv in self.selected_parent.pvs if pv.format.free > self.selected_parent.pe_size])
+
         if device_type not in self.supported_raids.keys() or num_parents == 1:
             for widget in self.widgets_dict["raid"]:
                 widget.hide()
@@ -657,8 +660,8 @@ class AddDialog(Gtk.Dialog):
         else:
             self.parents_store[path][3] = not self.parents_store[path][3]
 
-            self.add_size_area()
             self.update_raid_type_chooser()
+            self.add_size_area()
 
     def raid_member_max_size(self):
 
