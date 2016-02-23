@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 09:59+0100\n"
+"POT-Creation-Date: 2016-02-23 10:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,12 +68,12 @@ msgstr ""
 msgid "free space"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:562
+#: ../blivetgui/blivet_utils.py:573
 #, python-brace-format
 msgid "Failed to remove device {name}. Are you sure it's not in use?"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:634
+#: ../blivetgui/blivet_utils.py:646
 msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr ""
 
@@ -121,44 +121,44 @@ msgid ""
 "{label} disklabel."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:415
+#: ../blivetgui/blivetgui.py:418
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:456
+#: ../blivetgui/blivetgui.py:459
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:459
+#: ../blivetgui/blivetgui.py:462
 #, python-brace-format
 msgid "add {size} {fmt} partition"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:480
+#: ../blivetgui/blivetgui.py:483
 msgid "Confirm delete operation"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:481
+#: ../blivetgui/blivetgui.py:484
 #, python-brace-format
 msgid "Are you sure you want delete device {name}?"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:497
+#: ../blivetgui/blivetgui.py:500
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:564
+#: ../blivetgui/blivetgui.py:567
 msgid "File already exists"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:565
+#: ../blivetgui/blivetgui.py:568
 msgid "Selected file already exists, do you want to overwrite it?"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:574
+#: ../blivetgui/blivetgui.py:577
 #, python-brace-format
 msgid ""
 "File with your Kickstart configuration was successfully saved to:\n"
@@ -166,35 +166,35 @@ msgid ""
 "{filename}"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:579
+#: ../blivetgui/blivetgui.py:582
 msgid "Confirm scheduled actions"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:580
+#: ../blivetgui/blivetgui.py:583
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:602
+#: ../blivetgui/blivetgui.py:605
 msgid "Unmount failed. Are you sure device is not in use?"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:622
+#: ../blivetgui/blivetgui.py:625
 msgid "Device decryption failed. Are you sure provided password is correct?"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:677
+#: ../blivetgui/blivetgui.py:680
 msgid "Confirm reload storage"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:678
+#: ../blivetgui/blivetgui.py:681
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:704
+#: ../blivetgui/blivetgui.py:707
 msgid "Are you sure you want to quit?"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:705
+#: ../blivetgui/blivetgui.py:708
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
