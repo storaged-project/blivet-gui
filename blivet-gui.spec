@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 1.2
+Version: 1.2.1
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -15,7 +15,7 @@ BuildRequires: libappstream-glib
 Requires: python3
 Requires: pygobject3
 Requires: gettext
-Requires: python3-blivet >= 1:1.14
+Requires: python3-blivet >= 1:1.19
 Requires: gtk3
 Requires: gnome-icon-theme
 Requires: polkit-gnome
@@ -67,6 +67,18 @@ fi
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Wed Feb 24 2016 Vojtech Trefny <vtrefny@redhat.com> - 1.2.1-1
+- Fix adding devices on DASD and zFCP disks (#1305495) (vtrefny)
+- Fix visualization of raw format LUKS devices (#1288943) (vtrefny)
+- Fix updateSizeInfo on BIOSBoot partitions (#1286616) (vtrefny)
+- Add tests for recently found bugs (vtrefny)
+- Fix allow creating lvm snapshots (vtrefny)
+- AddDialog: Fix min size for vg children (vtrefny)
+- AddDialog: Fix parent type when adding LMV LV (vtrefny)
+- Don't allow adding btrfs volume to devices smaller than 256 MiB (vtrefny)
+- Do not call getChildren more than necessary (vtrefny)
+- New version 1.2 (vtrefny)
+
 * Wed Nov 18 2015 Vojtech Trefny <vtrefny@redhat.com> - 1.2-1
 - Add PEP8 compliance check to 'make check' (vtrefny)
 - Fix PEP8 violations. (vtrefny)
