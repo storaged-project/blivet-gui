@@ -30,7 +30,7 @@ gi.require_version("Gdk", "3.0")
 
 from gi.repository import Gtk
 
-from blivet import size, formats
+from blivet import size
 
 from decimal import Decimal
 
@@ -39,7 +39,7 @@ from ..dialogs import message_dialogs
 from ..communication.proxy_utils import ProxyDataContainer
 
 from . size_chooser import SizeChooser, SizeArea
-from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid, supported_raids
+from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid, supported_raids, supported_filesystems
 
 from ..i18n import _
 from ..gui_utils import locate_ui_file
@@ -49,22 +49,6 @@ from ..gui_utils import locate_ui_file
 SUPPORTED_PESIZE = ["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"]
 
 # ---------------------------------------------------------------------------- #
-
-def _supported_filesystems():
-    _fs_types = []
-
-    for cls in formats.device_formats.values():
-        obj = cls()
-
-        supported_fs = (obj.type not in ("btrfs", "tmpfs") and
-                        obj.supported and obj.formattable and
-                        (isinstance(obj, formats.fs.FS) or
-                         obj.type in ("swap",)))
-        if supported_fs:
-            _fs_types.append(obj.name)
-
-    return sorted(_fs_types)
-
 
 class CacheArea(object):
 
@@ -401,7 +385,7 @@ class AddDialog(Gtk.Dialog):
         self.mountpoints = mountpoints
 
         self.supported_raids = supported_raids()
-        self.supported_fs = _supported_filesystems()
+        self.supported_fs = supported_filesystems()
 
         Gtk.Dialog.__init__(self, _("Create new device"), None, 0,
                             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK))

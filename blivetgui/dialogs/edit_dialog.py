@@ -31,7 +31,7 @@ from gi.repository import Gtk, Pango
 from ..dialogs import message_dialogs
 
 from .size_chooser import SizeChooser
-from .helpers import is_mountpoint_valid, is_label_valid
+from .helpers import is_mountpoint_valid, is_label_valid, supported_filesystems
 
 from ..communication.proxy_utils import ProxyDataContainer
 
@@ -45,8 +45,8 @@ class PartitionEditDialog(Gtk.Dialog):
         fs, label etc.
     """
 
-    def __init__(self, parent_window, edited_device, resize_info, supported_fs,
-                 mountpoints, kickstart=False):
+    def __init__(self, parent_window, edited_device, resize_info, mountpoints,
+                 kickstart=False):
         """
 
             :param parent_window: parent window
@@ -55,8 +55,6 @@ class PartitionEditDialog(Gtk.Dialog):
             :type partition_name: str
             :param resize_info: is partition resizable, error, min_size, max_size
             :type resize_info: namedtuple
-            :param supported_fs: list of supported filesystems
-            :type supported_fs: list of str
             :param kickstart: kickstart mode
             :type kickstart: bool
 
@@ -66,8 +64,9 @@ class PartitionEditDialog(Gtk.Dialog):
         self.resize_info = resize_info
         self.kickstart = kickstart
         self.parent_window = parent_window
-        self.supported_fs = supported_fs
         self.mountpoints = mountpoints
+
+        self.supported_fs = supported_filesystems()
 
         Gtk.Dialog.__init__(self, _("Edit device"), None, 0,
                             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,

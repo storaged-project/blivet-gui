@@ -284,7 +284,6 @@ class BlivetGUI(object):
         if device.type in ("partition", "lvmlv", "luks/dm-crypt"):
             dialog = edit_dialog.PartitionEditDialog(self.main_window, device,
                                                      self.client.remote_call("device_resizable", device),
-                                                     self._supported_filesystems,
                                                      self.client.remote_call("get_mountpoints"),
                                                      self.kickstart_mode)
 

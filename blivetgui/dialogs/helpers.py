@@ -31,7 +31,7 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
-from blivet import devicefactory
+from blivet import devicefactory, formats
 from blivet.devices.btrfs import BTRFSDevice
 from blivet.devices.lvm import LVMVolumeGroupDevice, LVMLogicalVolumeDevice
 
@@ -127,3 +127,19 @@ def supported_raids():
     return {"btrfs volume" : devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_BTRFS),
             "mdraid" :  devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_MD),
             "lvmlv" : devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_LVM)}
+
+
+def supported_filesystems():
+    _fs_types = []
+
+    for cls in formats.device_formats.values():
+        obj = cls()
+
+        supported_fs = (obj.type not in ("btrfs", "tmpfs") and
+                        obj.supported and obj.formattable and
+                        (isinstance(obj, formats.fs.FS) or
+                         obj.type in ("swap",)))
+        if supported_fs:
+            _fs_types.append(obj.name)
+
+    return sorted(_fs_types)
