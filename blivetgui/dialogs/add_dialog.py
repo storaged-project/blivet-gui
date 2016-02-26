@@ -523,9 +523,6 @@ class AddDialog(Gtk.Dialog):
         device_type = self.selected_type
         num_parents = self._get_number_selected_parents()
 
-        if self.selected_parent.type == "lvmvg" and device_type == "lvmlv":
-            num_parents = len([pv for pv in self.selected_parent.pvs if pv.format.free > self.selected_parent.pe_size])
-
         if device_type not in self.supported_raids.keys() or num_parents == 1:
             for widget in self.widgets_dict["raid"]:
                 widget.hide()
@@ -1094,15 +1091,20 @@ class AddDialog(Gtk.Dialog):
     def get_selection(self):
         device_type = self.selected_type
 
-        parents = []
-        total_size = 0
+        size_selection = self.size_area.get_selection()
+        if device_type == "lvmlv":
+            total_size = next(psize for _parent, psize in size_selection)  # just total size for every parent in size selection
+            parents = [(size_selection[0][0].children[0], size_selection[0][1])]  # parents in size_selection are PVs not the VG
+            pvs = [parent for parent, _psize in size_selection]
+        else:
+            total_size = sum([psize for _parent, psize in size_selection])
+            parents = size_selection
+            pvs = None
 
-        for parent, size in self.size_area.get_selection():
-            parents.append([parent, size])
-            total_size += size
-
-        if device_type in ("btrfs volume", "lvmlv", "mdraid"):
+        if device_type in ("btrfs volume", "mdraid"):
             raid_level = self.raid_combo.get_active_text()
+        elif device_type == "lvmlv":
+            raid_level = self.size_area.parent_area.raid_chooser.selected
         else:
             raid_level = None
 
@@ -1132,5 +1134,6 @@ class AddDialog(Gtk.Dialog):
                                   encrypt=self.encrypt_check.get_active(),
                                   passphrase=self.pass_entry.get_text(),
                                   parents=parents,
+                                  pvs=pvs,
                                   raid_level=raid_level,
                                   advanced=advanced)

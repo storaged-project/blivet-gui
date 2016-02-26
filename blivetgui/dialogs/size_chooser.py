@@ -148,7 +148,14 @@ class RaidChooser(GUIWidget):
         self.combobox_raid = self.builder.get_object("combobox_raid")
         self.liststore_raid = self.builder.get_object("liststore_raid")
 
+        self._changed_signal = None
+
+        self.raid_change_handler = None
+
     def update(self, device_type, parents):
+        if self._changed_signal:
+            self.combobox_raid.handler_block(self._changed_signal)
+
         self.liststore_raid.clear()
 
         for raid in self.supported_raids[device_type]:
@@ -157,14 +164,51 @@ class RaidChooser(GUIWidget):
             if len(parents) >= raid.min_members:
                 self.liststore_raid.append((raid.name, raid))
 
+        if self._changed_signal:
+            self.combobox_raid.handler_unblock(self._changed_signal)
+
+        self.combobox_raid.set_active(0)
+
+        # select linear raid type for lvs
+        try:
+            self.selected = "linear"
+        except ValueError:
+            pass
+
         if len(self.liststore_raid) > 1:
             self.set_sensitive(True)
         else:
             self.set_sensitive(False)
 
+    @property
+    def selected(self):
+        it = self.combobox_raid.get_active_iter()
+
+        if it is None:
+            return
+        else:
+            return self.liststore_raid[it][0]
+
+    @selected.setter
+    def selected(self, raid_type):
+
+        for idx, raid in enumerate(self.liststore_raid):
+            if raid[0] == raid_type:
+                self.combobox_raid.set_active(idx)
+                return
+
+        # selected raid type not found
+        raise ValueError("RAID type %s is not available for selection." % raid_type)
+
+
     def connect(self, signal, method, *args):
         """ Connect a signal hadler """
-        pass
+
+        if signal == "changed":
+            self._changed_signal = self.combobox_raid.connect("changed", method, args)
+
+        else:
+            raise TypeError("Unknown signal type %s" % signal)
 
 
 class SizeArea(GUIWidget):
@@ -201,11 +245,14 @@ class SizeArea(GUIWidget):
         self.widgets.remove(checkbutton_manual)
 
         if len(self.parents) > 1:
-            checkbutton_manual.set_sensitive(True)
+            if self.device_type in ("lvmthinpool", "lvm snapshot"):
+                checkbutton_manual.set_sensitive(False)
+            else:
+                checkbutton_manual.set_sensitive(True)
         else:
             checkbutton_manual.set_sensitive(False)
 
-        self.parent_area = ParentArea(self.device_type, self.parents, self.min_size, self.raid_type)
+        self.parent_area = ParentArea(self.device_type, self.parents, self.min_size, self.raid_type, self.main_chooser)
 
         self.parent_area.connect("size-changed", self._on_advanced_size_changed)
         self.grid.attach(self.parent_area.frame, 0, 2, 5, 1)
@@ -254,10 +301,7 @@ class SizeArea(GUIWidget):
 
     @max_size.setter
     def max_size(self, new_size):
-        if self.device_type == "lvmlv":
-            return  # FIXME
-
-        if self.device_type not in ("lvmthinpool", None):  # FIXME
+        if self.device_type not in ("lvmthinpool", "lvmlv", None):  # FIXME
             raise RuntimeError("Setting maximum size is not allowed for %s device type." % self.device_type)
 
         self._max_size = new_size
@@ -271,10 +315,21 @@ class SizeArea(GUIWidget):
             if self.device_type not in ("lvmlv", "lvmthinpool", "lvm snapshot"):
                 self.main_chooser.set_sensitive(False)
             self.advanced_selection = True
+
+            # for lvmlv show raid chooser inside parent area
+            if self.device_type == "lvmlv":
+                self.parent_area.raid_chooser.update(self.device_type, self.parents)
+
         else:
             self.parent_area.hide()
             self.main_chooser.set_sensitive(True)
             self.advanced_selection = False
+
+            # when hiding advanced selection, automatically choose all parents
+            for chooser in self.parent_area.choosers:
+                chooser.selected = True
+            self.main_chooser.max_size = self.parent_area.total_max
+            self.main_chooser.selected_size = self.main_chooser.max_size
 
     def _on_advanced_size_changed(self, total_size):
         """ Handler for size change in advanced selection """
@@ -294,7 +349,7 @@ class SizeArea(GUIWidget):
 
 class ParentArea(GUIWidget):
 
-    def __init__(self, device_type, parents, min_size, raid_type):
+    def __init__(self, device_type, parents, min_size, raid_type, main_chooser):
 
         GUIWidget.__init__(self, "parent_area.ui")
 
@@ -305,6 +360,8 @@ class ParentArea(GUIWidget):
         self.min_size = min_size
         self.raid_type = raid_type
 
+        self.main_chooser = main_chooser
+
         self.choosers = []  # parent choosers in this area
 
         self.size_change_handler = None
@@ -313,6 +370,7 @@ class ParentArea(GUIWidget):
         self.grid = self.builder.get_object("grid")
 
         self.raid_chooser = RaidChooser()
+        self.raid_chooser.connect("changed", self._on_raid_changed)
         self.grid.attach(self.raid_chooser.box, 0, 0, 1, 1)
 
         self._add_parent_choosers()
@@ -331,12 +389,13 @@ class ParentArea(GUIWidget):
             else:
                 chooser = ParentChooser(parent, True, self.min_size, max_size)
             chooser.connect("size-changed", self._on_parent_changed)
+            chooser.connect("parent-toggled", self._on_parent_toggled)
             self.choosers.append(chooser)
             self.widgets.append(chooser)
             self.grid.attach(chooser.grid, 0, idx + 1, 1, 1)
 
-            # for non-lvm raids parents are already selected, changes are not allowed
-            if self.raid_type is not None and self.device_type not in ("lvmlv",):
+            # for non-lvms parents are already selected, changes are not allowed
+            if self.device_type not in ("lvmlv",):
                 chooser.selected = True  # select parent
                 chooser.selectable = False  # make the select button insentive
 
@@ -352,6 +411,10 @@ class ParentArea(GUIWidget):
     def _on_parent_changed(self, new_size, *_args):
         """ Parent selection changed -- either size or parent toggled """
 
+        # no size choosers for lvmlv parents
+        if self.device_type == "lvmlv":
+            return
+
         # raid -- all parents have to has the same size
         if self.raid_type not in ("linear", "single", None):
             for chooser in self.choosers:
@@ -360,6 +423,55 @@ class ParentArea(GUIWidget):
 
         if self.size_change_handler is not None:
             self.size_change_handler.method(self.total_size, *self.size_change_handler.args)
+
+    def _on_parent_toggled(self, *_args):
+        """ Parent selection changed -- either size or parent toggled """
+
+        # hidden, do not change max size
+        if not self.status:
+            return
+
+        # update raid chooser but keep selection, if possible
+        selected_raid = self.raid_chooser.selected
+        parents = [chooser.parent for chooser in self.choosers if chooser.selected]
+        if parents:  # do not update if there are currently no parents selected
+            self.raid_chooser.update(self.device_type, parents)
+
+        try:
+            self.raid_chooser.selected = selected_raid
+        except ValueError:
+            pass
+
+        max_size = self.total_max
+        if max_size == size.Size(0):          # just to make Gtk.Scale happy and not set max size < min size
+            self.main_chooser.max_size = self.main_chooser.min_size
+        else:
+            self.main_chooser.max_size = max_size
+
+    def _on_raid_changed(self, *_args):
+        """ Raid type selection changed """
+
+        self.raid_type = self.raid_chooser.selected
+
+        # update main chooser max size based on the raid type selected
+        self.main_chooser.max_size = self.total_max
+
+    @property
+    def total_max(self):
+        """ Max size selectable in this area """
+        total_max = size.Size(0)
+
+        # for raids, total size must be calculated separately
+        if self.raid_type not in ("linear", "single", None):
+            raid_level = get_raid_level(self.raid_type)
+            total_max = raid_level.get_net_array_size(len([chooser for chooser in self.choosers if chooser.max_size]),
+                                                       min([chooser.max_size for chooser in self.choosers if chooser.selected]))
+        else:
+            for chooser in self.choosers:
+                if chooser.selected:
+                    total_max += chooser.max_size
+
+        return total_max
 
     @property
     def total_size(self):
@@ -370,7 +482,7 @@ class ParentArea(GUIWidget):
         if self.raid_type not in ("linear", "single", None):
             raid_level = get_raid_level(self.raid_type)
             total_size = raid_level.get_net_array_size(len([chooser for chooser in self.choosers if chooser.selected]),
-                                                       next(chooser.selected_size for chooser in self.choosers if chooser.selected))
+                                                       min([chooser.selected_size for chooser in self.choosers if chooser.selected]))
         else:
             for chooser in self.choosers:
                 total_size += chooser.selected_size
@@ -381,6 +493,10 @@ class ParentArea(GUIWidget):
     def total_size(self, new_size):
         if new_size > sum([chooser.max_size for chooser in self.choosers]):
             raise ValueError("New size is bigger than allowed maximum size.")
+
+        # don't update total size for lvs with advanced selection
+        if self.device_type in ("lvmlv", "lvmthinpool") and self.status:
+            return
 
         allocated = size.Size(0)
         for chooser in self.choosers:
@@ -407,7 +523,12 @@ class ParentArea(GUIWidget):
     def get_selection(self):
         selection = []
         for chooser in self.choosers:
-            selection.append((chooser.parent, chooser.selected_size))
+            # for lvs just return total size -- we don't support choosing parent sizes for lvs
+            if self.device_type == "lvmlv":
+                selected_size = self.main_chooser.selected_size
+            else:
+                selected_size = chooser.selected_size
+            selection.append((chooser.parent, selected_size))
 
         return selection
 

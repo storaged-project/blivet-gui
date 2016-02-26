@@ -395,7 +395,7 @@ class BlivetGUI(object):
             selected_free = selected_device
         else:
             selected_parent = selected_device
-            selected_free = None
+            selected_free = selected_device
 
         dialog = add_dialog.AddDialog(parent_window=self.main_window,
                                       selected_parent=selected_parent,
