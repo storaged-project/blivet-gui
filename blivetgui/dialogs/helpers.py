@@ -70,14 +70,15 @@ def adjust_scrolled_size(scrolledwindow, width_limit, height_limit):
 
 
 def is_name_valid(device_type, name):
-    if device_type in ("lvmvg", "lvm"):
-        return LVMVolumeGroupDevice.is_name_valid(name)
-    elif device_type == "lvmlv":
-        return LVMLogicalVolumeDevice.is_name_valid(name)
-    elif device_type in ("btrfs volume", "btrfs subvolume"):
-        return BTRFSDevice.is_name_valid(name)
-    else:
-        return True
+    # if device_type in ("lvmvg", "lvm"):
+    #     return LVMVolumeGroupDevice.is_name_valid(name)
+    # elif device_type == "lvmlv":
+    #     return LVMLogicalVolumeDevice.is_name_valid(name)
+    # elif device_type in ("btrfs volume", "btrfs subvolume"):
+    #     return BTRFSDevice.is_name_valid(name)
+    # else:
+    #     return True
+    return True  # FIXME
 
 
 def is_label_valid(format_type, label):
