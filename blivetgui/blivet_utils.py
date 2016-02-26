@@ -24,7 +24,7 @@
 import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice
-from blivet.devices.lvm import LVMCacheRequest
+from blivet.devices.lvm import LVMCacheRequest, LVPVSpec
 from blivet.formats import DeviceFormat
 
 from blivet.devicelibs.crypto import LUKS_METADATA_SIZE
@@ -900,9 +900,27 @@ class BlivetUtils(object):
         else:
             cache_request = None
 
+        # XXX hack to make linear lvs work with pvs
+        if user_input.raid_level in ("linear", None):
+            pvs = []
+            total_size = user_input.size
+
+            for pv in user_input.pvs:
+                if pv.format.free < total_size:
+                    pvs.append(LVPVSpec(pv, pv.format.free))
+                    total_size -= pv.format.free
+                else:
+                    pvs.append(LVPVSpec(pv, total_size))
+                    total_size = blivet.size.Size(0)
+        else:
+            pvs = [LVPVSpec(pv, None) for pv in user_input.pvs]
+
+
         new_part = self.storage.new_lv(name=device_name,
                                        size=user_input.size,
                                        parents=[i[0] for i in user_input.parents],
+                                       pvs=pvs,
+                                       seg_type=user_input.raid_level,
                                        cache_request=cache_request)
 
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
