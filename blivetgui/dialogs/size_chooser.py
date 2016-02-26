@@ -376,6 +376,10 @@ class ParentArea(GUIWidget):
         self._add_parent_choosers()
         self.show()
 
+        # hide raid chooser for non-lvs
+        if self.device_type != "lvmlv":
+            self.raid_chooser.hide()
+
     def _add_parent_choosers(self):
         for idx, (parent, free) in enumerate(self.parents):
             # with raid selected, all parents have to has the same size (and max size)
