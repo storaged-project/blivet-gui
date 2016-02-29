@@ -558,7 +558,7 @@ class BlivetUtils(object):
             return result
 
         try:
-            if blivet_device.type in ("partition", "lvmlv", "lvmthinlv") and blivet_device.format.type:
+            if blivet_device.format.type and not blivet_device.format_immutable:
                 ac_fmt = blivet.deviceaction.ActionDestroyFormat(blivet_device)
                 self.storage.devicetree.actions.add(ac_fmt)
                 actions.append(ac_fmt)
