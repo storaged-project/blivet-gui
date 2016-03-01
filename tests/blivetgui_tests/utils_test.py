@@ -16,7 +16,7 @@ class FreeSpaceDeviceTest(unittest.TestCase):
         self.assertTrue(free.is_logical)
         self.assertFalse(free.is_extended)
         self.assertFalse(free.is_primary)
-        self.assertEqual(free.kids, 0)
+        self.assertEqual(len(free.children), 0)
         self.assertEqual(free.type, "free space")
         self.assertIsNotNone(free.format)
         self.assertIsNone(free.format.type)

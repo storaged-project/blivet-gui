@@ -915,7 +915,6 @@ class BlivetUtils(object):
         else:
             pvs = [LVPVSpec(pv, None) for pv in user_input.pvs]
 
-
         new_part = self.storage.new_lv(name=device_name,
                                        size=user_input.size,
                                        parents=[i[0] for i in user_input.parents],

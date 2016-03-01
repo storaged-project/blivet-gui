@@ -73,6 +73,7 @@ SignalHandler = namedtuple("SignalHandler", ["method", "args"])
 
 from blivet.devicelibs.raid import get_raid_level
 
+
 class GUIWidget(object):
 
     def __init__(self, glade_file):
@@ -199,7 +200,6 @@ class RaidChooser(GUIWidget):
 
         # selected raid type not found
         raise ValueError("RAID type %s is not available for selection." % raid_type)
-
 
     def connect(self, signal, method, *args):
         """ Connect a signal hadler """
@@ -469,7 +469,7 @@ class ParentArea(GUIWidget):
         if self.raid_type not in ("linear", "single", None):
             raid_level = get_raid_level(self.raid_type)
             total_max = raid_level.get_net_array_size(len([chooser for chooser in self.choosers if chooser.max_size]),
-                                                       min([chooser.max_size for chooser in self.choosers if chooser.selected]))
+                                                      min([chooser.max_size for chooser in self.choosers if chooser.selected]))
         else:
             for chooser in self.choosers:
                 if chooser.selected:
@@ -612,7 +612,7 @@ class ParentChooser(GUIWidget):
         if self.parent_toggled_handler is not None and emit_signal:
             self.parent_toggled_handler.method(self._selected, self.parent, *self.parent_toggled_handler.args)
 
-    def _on_size_chooser_changed(self, new_size, *args):
+    def _on_size_chooser_changed(self, new_size, *_args):
         if self.show_size and self.selected_size != new_size:
             self.selected_size = new_size
 

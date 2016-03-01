@@ -125,9 +125,9 @@ def is_mountpoint_valid(used_mountpoints, mountpoint):
 
 
 def supported_raids():
-    return {"btrfs volume" : devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_BTRFS),
-            "mdraid" :  devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_MD),
-            "lvmlv" : devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_LVM)}
+    return {"btrfs volume": devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_BTRFS),
+            "mdraid": devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_MD),
+            "lvmlv": devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_LVM)}
 
 
 def supported_filesystems():

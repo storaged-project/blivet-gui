@@ -50,6 +50,7 @@ SUPPORTED_PESIZE = ["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"]
 
 # ---------------------------------------------------------------------------- #
 
+
 class CacheArea(object):
 
     def __init__(self, add_dialog):
