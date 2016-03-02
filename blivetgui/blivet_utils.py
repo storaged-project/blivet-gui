@@ -227,33 +227,6 @@ class BlivetUtils(object):
 
         return devices
 
-    def get_free_pvs_info(self):
-        """ Return list of PVs without VGs
-
-            :returns: list of free PVs with name and size
-            :rtype: tuple
-
-        """
-
-        pvs = self.storage.pvs
-
-        free_pvs = []
-
-        for pv in pvs:
-            if not pv.children:
-                free_pvs.append((pv, FreeSpaceDevice(pv.size, self.storage.next_id, None, None, pv.parents)))
-
-        return free_pvs
-
-    def get_vg_free(self, blivet_device):
-        """ Return FreeSpaceDevice for selected LVM VG
-        """
-
-        if blivet_device.type != "lvmvg":
-            return None
-
-        return FreeSpaceDevice(blivet_device.free_space, self.storage.next_id, None, None, [blivet_device])
-
     def get_free_info(self):
         """ Get list of free 'devices' (PVs and disk regions) that can be used
             as parents for newly added devices
@@ -280,21 +253,6 @@ class BlivetUtils(object):
                     free_devices.append(("free", FreeSpaceDevice(free_size, self.storage.next_id, free.start, free.end, [disk])))
 
         return free_devices
-
-    def get_removable_pvs_info(self, blivet_device):
-        """ Get information about PVs that can be removed from the VG
-        """
-
-        pvs = []
-
-        if len(blivet_device.parents) == 1:
-            return pvs
-
-        for parent in blivet_device.parents:
-            if int((parent.size - parent.format.pe_start) / blivet_device.pe_size) <= blivet_device.free_extents:
-                pvs.append(parent)
-
-        return pvs
 
     def get_group_device(self, blivet_device):
         """ Get 'group' device based on underlying device (lvmpv/btrfs/mdmember/luks partition)
@@ -514,7 +472,7 @@ class BlivetUtils(object):
         else:
             return blivet_device.disk
 
-    def delete_disk_label(self, disk_device):
+    def _delete_disk_label(self, disk_device):
         """ Delete current disk label
 
             :param disk_device: blivet device
@@ -550,11 +508,11 @@ class BlivetUtils(object):
 
         if isinstance(blivet_device, RawFormatDevice):
             # raw device, not going to delete device but destroy disk format instead
-            result = self.delete_disk_label(blivet_device.parents[0])
+            result = self._delete_disk_label(blivet_device.parents[0])
             return result
 
         if blivet_device.is_disk:
-            result = self.delete_disk_label(blivet_device)
+            result = self._delete_disk_label(blivet_device)
             return result
 
         try:
@@ -599,7 +557,7 @@ class BlivetUtils(object):
                 if parent.type == "partition":
                     result = self.delete_device(parent)
                 elif parent.type == "disk":
-                    result = self.delete_disk_label(parent)
+                    result = self._delete_disk_label(parent)
 
                 if not result.success:
                     return result
