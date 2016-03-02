@@ -309,7 +309,7 @@ class LVMEditDialog(Gtk.Dialog):
     """ Dialog window allowing user to edit lvmvg
     """
 
-    def __init__(self, parent_window, edited_device, free_pvs, free_disks_regions, removable_pvs):
+    def __init__(self, parent_window, edited_device, free_info):
         """
 
             :param parent_window: parent window
@@ -321,9 +321,7 @@ class LVMEditDialog(Gtk.Dialog):
 
         self.edited_device = edited_device
         self.parent_window = parent_window
-        self.free_pvs = free_pvs
-        self.free_disks_regions = free_disks_regions
-        self.removable_pvs = removable_pvs
+        self.free_info = free_info
 
         Gtk.Dialog.__init__(self, _("Edit device"), None, 0,
                             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -389,7 +387,7 @@ class LVMEditDialog(Gtk.Dialog):
 
     def add_parents(self):
 
-        if len(self.free_disks_regions) + len(self.free_pvs) == 0:
+        if len(self.free_info) == 0:
             label_none = Gtk.Label(label=_("There are currently no empty physical volumes or\n"
                                            "disks with enough free space to create one."))
             self.grid.attach(label_none, 0, 5, 4, 1)
@@ -425,19 +423,13 @@ class LVMEditDialog(Gtk.Dialog):
             self.grid.attach(label_list, 0, 5, 1, 1)
             self.grid.attach(parents_view, 1, 5, 4, 3)
 
-            for pv, free in self.free_pvs:
-                parents_store.append([pv, free, False, pv.name, "lvmpv", str(free.size)])
-
-            for free in self.free_disks_regions:
-
-                disk = free.parents[0]
-
-                if free.is_free_region:
-                    parents_store.append([disk, free, False, disk.name, "disk region",
-                                          str(free.size)])
-
+            for ftype, free in self.free_info:
+                if ftype == "lvmpv":
+                    pv = free.parents[0]
+                    parents_store.append([pv, free, False, pv.name, "lvmpv", str(free.size)])
                 else:
-                    parents_store.append([disk, free, False, disk.name, "disk", str(free.size)])
+                    disk = free.parents[0]
+                    parents_store.append([disk, free, False, disk.name, "free region", str(free.size)])
 
             self.widgets_dict["add"] = [label_list, parents_view]
 
@@ -452,7 +444,10 @@ class LVMEditDialog(Gtk.Dialog):
 
     def remove_parents(self):
 
-        if len(self.removable_pvs) == 0:
+        # get removable pvs
+        removable_pvs = [pv for pv in self.edited_device.pvs if (pv.size // self.edited_device.pe_size) <= self.edited_device.free_extents]
+
+        if len(removable_pvs) == 0:
             label_none = Gtk.Label(label=_("There is no physical volume that could be\n"
                                            "removed from this volume group."))
             self.grid.attach(label_none, 0, 5, 4, 1)
@@ -491,7 +486,7 @@ class LVMEditDialog(Gtk.Dialog):
             self.grid.attach(label_list, 0, 5, 1, 1)
             self.grid.attach(parents_view, 1, 5, 4, 3)
 
-            for pv in self.removable_pvs:
+            for pv in removable_pvs:
                 parents_store.append([pv, None, False, pv.name, "lvmpv", str(pv.size)])
 
             self.widgets_dict["remove"] = [label_list, parents_view]

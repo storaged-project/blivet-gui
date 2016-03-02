@@ -621,7 +621,7 @@ class BlivetUtils(object):
         """
 
         for device in self.storage.devices:
-            if device.type in ("partition", "lvmlv"):
+            if device.type in ("partition", "lvmlv", "lvmpv"):
                 if device.format and device.format.type and device.format.resizable and hasattr(device.format, "update_size_info"):
                     try:
                         device.format.update_size_info()

@@ -289,9 +289,7 @@ class BlivetGUI(object):
 
         elif device.type in ("lvmvg",):
             dialog = edit_dialog.LVMEditDialog(self.main_window, device,
-                                               self.client.remote_call("get_free_pvs_info"),
-                                               self.client.remote_call("get_free_disks_regions"),
-                                               self.client.remote_call("get_removable_pvs_info", device))
+                                               self.client.remote_call("get_free_info"))
 
         response = dialog.run()
 
