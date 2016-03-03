@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 1.0.4
+Version: 1.0.5
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -68,6 +68,9 @@ fi
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Thu Mar 03 2016 Vojtech Trefny <vtrefny@redhat.com> - 1.0.5-1
+- Set communication socket to be owned by user not root (vtrefny)
+
 * Tue Feb 23 2016 Vojtech Trefny <vtrefny@redhat.com> - 1.0.4-1
 - Fix adding devices on DASD and zFCP disks (#1305495) (vtrefny)
 - New version 1.0.3 (vtrefny)
