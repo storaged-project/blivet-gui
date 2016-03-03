@@ -25,6 +25,7 @@
 from __future__ import print_function
 
 import sys
+import os
 import optparse
 import signal
 
@@ -98,7 +99,7 @@ def main():
         sys.exit(0)
 
     else:
-        p = Popen("pkexec blivet-gui-daemon", stdout=PIPE, shell=True, preexec_fn=daemon_preexec)
+        p = Popen("pkexec blivet-gui-daemon %d" % os.geteuid(), stdout=PIPE, shell=True, preexec_fn=daemon_preexec)
         output = p.stdout.readline()
 
         # we expect exactly two parameters

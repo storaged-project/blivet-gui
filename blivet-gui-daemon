@@ -86,7 +86,7 @@ def create_sock_file():
     return socket
 
 
-def main():
+def main(argv):
     """ Main for blivet-gui-daemon
     """
 
@@ -95,7 +95,9 @@ def main():
     server = BlivetGUIServer(sock_file, BlivetUtilsServer)
     server.secret = random.getrandbits(32)
 
-    os.chmod(sock_file, 0o707)  # FIXME
+    user_id = int(argv[0])
+    os.chown(sock_file, user_id, user_id)
+    os.chmod(sock_file, 0o600)
 
     pidfile = pid.PidFile(pidname="blivet-gui-daemon", register_term_signal_handler=False)
     try:
@@ -113,4 +115,4 @@ def main():
 # ---------------------------------------------------------------------------- #
 
 if __name__ == "__main__":
-    main()
+    main(sys.argv[1:])
