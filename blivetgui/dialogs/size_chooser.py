@@ -528,7 +528,7 @@ class ParentArea(GUIWidget):
         selection = []
         for chooser in self.choosers:
             # for lvs just return total size -- we don't support choosing parent sizes for lvs
-            if self.device_type == "lvmlv":
+            if self.device_type in ("lvmlv", "lvmthinpool"):
                 selected_size = self.main_chooser.selected_size
             else:
                 selected_size = chooser.selected_size

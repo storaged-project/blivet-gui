@@ -1091,7 +1091,7 @@ class AddDialog(Gtk.Dialog):
         device_type = self.selected_type
 
         size_selection = self.size_area.get_selection()
-        if device_type == "lvmlv":
+        if device_type in ("lvmlv", "lvmthinpool"):
             total_size = next(psize for _parent, psize in size_selection)  # just total size for every parent in size selection
             parents = [(size_selection[0][0].children[0], size_selection[0][1])]  # parents in size_selection are PVs not the VG
             pvs = [parent for parent, _psize in size_selection]
