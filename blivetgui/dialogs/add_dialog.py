@@ -32,8 +32,6 @@ from gi.repository import Gtk
 
 from blivet import size
 
-from decimal import Decimal
-
 from ..dialogs import message_dialogs
 
 from ..communication.proxy_utils import ProxyDataContainer
@@ -999,7 +997,7 @@ class AddDialog(Gtk.Dialog):
         elif device_type == "lvmthinpool":
             self.show_widgets(["name", "size"])
             self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint"])
-            self.update_size_area_limits(max_multi=Decimal(0.8))
+            self.update_size_area_limits(max_multi=0.8)
 
         self.update_raid_type_chooser()
 

@@ -695,7 +695,7 @@ class SizeChooser(GUIWidget):
 
     @property
     def selected_size(self):
-        return size.Size(str(self._scale.get_value()) + " " + self.selected_unit.abbr + "B")
+        return size.Size(str(self._scale.get_value()) + " " + size.unit_str(self.selected_unit))
 
     @selected_size.setter
     def selected_size(self, selected_size):
@@ -778,10 +778,10 @@ class SizeChooser(GUIWidget):
 
         self._scale.add_mark(0, Gtk.PositionType.BOTTOM,
                              format(self.min_size.convert_to(unit),
-                                    "." + str(digits) + "f") + " " + unit.abbr + "B")
+                                    "." + str(digits) + "f") + " " + size.unit_str(unit))
         self._scale.add_mark(float(self.max_size.convert_to(unit)), Gtk.PositionType.BOTTOM,
                              format(self.max_size.convert_to(unit),
-                                    "." + str(digits) + "f") + " " + unit.abbr + "B")
+                                    "." + str(digits) + "f") + " " + size.unit_str(unit))
 
         self._spin.set_range(self.min_size.convert_to(unit),
                              self.max_size.convert_to(unit))
@@ -810,7 +810,7 @@ class SizeChooser(GUIWidget):
         old_unit = self.selected_unit
         self.selected_unit = new_unit
 
-        selected_size = size.Size(str(self._scale.get_value()) + " " + old_unit.abbr + "B")
+        selected_size = size.Size(str(self._scale.get_value()) + " " + size.unit_str(old_unit))
 
         self._reset_size_widgets(selected_size)
 
