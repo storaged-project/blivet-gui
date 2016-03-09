@@ -48,9 +48,6 @@ class MainMenu(object):
         menuitem_quit = self.blivet_gui.builder.get_object("menuitem_quit")
         menuitem_quit.connect("activate", self.blivet_gui.quit)
 
-        # menuitem_help = self.blivet_gui.builder.get_object("menuitem_help")
-        # menuitem_help.connect("activate", self.on_help_item)
-
         menuitem_about = self.blivet_gui.builder.get_object("menuitem_about")
         menuitem_about.connect("activate", self.on_about_item)
 
@@ -59,26 +56,3 @@ class MainMenu(object):
         """
 
         AboutDialog(self.blivet_gui.main_window, self.blivet_gui.version)
-
-    def on_help_item(self, *_args):
-        """ Onselect action for 'Help'
-        """
-
-        if not os.access('/usr/share/help/C/blivet-gui/index.page', os.R_OK):
-            msg = _("Documentation for blivet-gui hasn't been found.\n\n"
-                    "Online version of documentation is available at "
-                    "http://vojtechtrefny.github.io/blivet-gui")
-
-            self.blivet_gui.show_warning_dialog(msg)
-            return
-
-        try:
-            subprocess.Popen(["yelp", "/usr/share/help/C/blivet-gui/index.page"],
-                             stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
-
-        except OSError:
-            msg = _("You need \"Yelp\" to see the documentation.\n\n"
-                    "Online version of documentation is available at "
-                    "http://vojtechtrefny.github.io/blivet-gui")
-
-            self.blivet_gui.show_error_dialog(msg)
