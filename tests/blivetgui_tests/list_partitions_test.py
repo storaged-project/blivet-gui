@@ -8,12 +8,15 @@ from blivet.size import Size
 from blivetgui.list_partitions import ListPartitions
 from blivetgui.gui_utils import locate_ui_file
 
+import os
+
 import gi
 gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
 
+@unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class ListPartitionsTest(unittest.TestCase):
 
     def setUp(self):
