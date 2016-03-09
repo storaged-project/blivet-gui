@@ -84,6 +84,8 @@ class GUIWidget(object):
 
         self.widgets = self.builder.get_objects()
 
+        self.sensitive = True
+
         self.blocked_signals = []
 
     def destroy(self):
@@ -124,7 +126,7 @@ class GUIWidget(object):
         """
         for widget in self.widgets:
             if hasattr(widget, "set_sensitive"):  # for liststores
-                widget.set_sensitive(sensitivity)
+                widget.set_sensitive(sensitivity and self.sensitive)
 
     def block_signal(self, signal, block):
         if block:
@@ -233,6 +235,11 @@ class SizeArea(GUIWidget):
         self.main_chooser = SizeChooser(max_size=self.max_size, min_size=self.min_size)
         self.main_chooser.connect("size-changed", self._on_main_size_changed)
         self.grid.attach(self.main_chooser.grid, 0, 0, 5, 1)
+
+        # it's not allowed to set size when adding lvmvg (it depends on pvs size)
+        if self.device_type == "lvmvg":
+            self.main_chooser.sensitive = False
+            self.main_chooser.set_sensitive(False)
 
         self._add_advanced_area()
 
@@ -392,6 +399,12 @@ class ParentArea(GUIWidget):
                 chooser = ParentChooser(parent, False, self.min_size, max_size)
             else:
                 chooser = ParentChooser(parent, True, self.min_size, max_size)
+
+                # do not allow to set size for parent pvs
+                if parent.format.type == "lvmpv":
+                    chooser.size_chooser.sensitive = False
+                    chooser.size_chooser.set_sensitive(False)
+
             chooser.connect("size-changed", self._on_parent_changed)
             chooser.connect("parent-toggled", self._on_parent_toggled)
             self.choosers.append(chooser)
