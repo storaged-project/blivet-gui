@@ -231,7 +231,7 @@ class AddDialogTest(unittest.TestCase):
         empty_disk = kwargs.get("is_empty_disk", False)
         uninitialized_disk = kwargs.get("is_uninitialized_disk", False)
 
-        return MagicMock(type="free_space", size=size, is_logical=logical, parents=[parent],
+        return MagicMock(type="free_space", size=size, is_logical=logical, parents=[parent], disk=parent,
                          is_free_region=free_region, is_empty_disk=empty_disk, is_uninitialized_disk=uninitialized_disk)
 
     def _get_parent_device(self, name=None, dtype="disk", size=Size("8 GiB"), ftype="disklabel"):
@@ -246,7 +246,7 @@ class AddDialogTest(unittest.TestCase):
         if dtype == "lvmvg":
             pv = MagicMock()
             pv.configure_mock(name="vda1", size=size, format=MagicMock(free=size), disk=self._get_parent_device())
-            dev.configure_mock(pe_size=Size("4 MiB"), free_space=size, pvs=[pv])
+            dev.configure_mock(pe_size=Size("4 MiB"), free_space=size, pvs=[pv], pmspare_size=Size("4 MiB"))
 
         return dev
 
@@ -257,7 +257,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device), self._get_free_device()], [])
+                               [("free", free_device), ("free", self._get_free_device())], [])
 
         types = sorted([i[1] for i in add_dialog.devices_combo.get_model()])
 
@@ -277,27 +277,15 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog.devices_combo.get_sensitive())
 
         # lvmpv
-        parent_device = self._get_parent_device(dtype="lvmpv", ftype=None)
+        parent_device = self._get_parent_device(dtype="partition", ftype="lvmpv")
         free_device = parent_device
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [])
+                               [("lvmpv", free_device)], [])
 
         types = sorted([i[1] for i in add_dialog.devices_combo.get_model()])
 
         self.assertTrue(sorted(["lvmvg"]) == types)
-        self.assertFalse(add_dialog.devices_combo.get_sensitive())
-
-        # btrfs as partition table
-        parent_device = self._get_parent_device(dtype="disk", ftype=None)
-        free_device = self._get_free_device(size=parent_device.size, parent=parent_device)
-
-        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [])
-
-        types = sorted([i[1] for i in add_dialog.devices_combo.get_model()])
-
-        self.assertTrue(sorted(["btrfs volume"]) == types)
         self.assertFalse(add_dialog.devices_combo.get_sensitive())
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
@@ -358,26 +346,6 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog.size_area.get_sensitive())
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
-    def test_lvmvg_widgets(self):
-        parent_device = self._get_parent_device(dtype="lvmpv", ftype=None)
-        free_device = self._get_free_device(parent=parent_device)
-
-        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("lvmpv", parent_device), ("free", free_device)], [])
-
-        # for lvmpv 'parent' only lvmvg should be available
-        self.assertFalse(add_dialog.devices_combo.get_sensitive())
-        self.assertEqual(add_dialog.selected_type, "lvmvg")
-
-        self.assertFalse(add_dialog.filesystems_combo.get_visible())
-        self.assertTrue(add_dialog.name_entry.get_visible())
-        self.assertFalse(add_dialog.encrypt_check.get_visible())
-        self.assertFalse(add_dialog.raid_combo.get_visible())
-        self.assertIsNotNone(add_dialog.advanced)
-        self.assertFalse(add_dialog.md_type_combo.get_visible())
-        self.assertFalse(add_dialog.size_area.get_sensitive())
-
-    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     def test_btrfsvolume_widgets(self):
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device)
@@ -410,10 +378,8 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog.filesystems_combo.get_visible())
         self.assertTrue(add_dialog.name_entry.get_visible())
         self.assertFalse(add_dialog.encrypt_check.get_visible())
-        self.assertFalse(add_dialog.raid_combo.get_visible())
         self.assertIsNone(add_dialog.advanced)
         self.assertTrue(add_dialog.md_type_combo.get_visible())
-        self.assertTrue(add_dialog.size_area.get_sensitive())
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     def test_partition_parents(self):
@@ -427,7 +393,7 @@ class AddDialogTest(unittest.TestCase):
         # partition allows only one parent -- make sure we have the right one and it is selected
         self.assertEqual(len(add_dialog.parents_store), 1)
         self.assertEqual(add_dialog.parents_store[0][0], parent_device)
-        self.assertEqual(add_dialog.parents_store[0][1], free_device)
+        self.assertEqual(add_dialog.parents_store[0][1], free_device.size)
         self.assertTrue(add_dialog.parents_store[0][2])
         self.assertTrue(add_dialog.parents_store[0][3])
         self.assertEqual(add_dialog.parents_store[0][5], "disk")
@@ -438,13 +404,13 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device), ("free", self._get_free_device()), ("free", self._get_free_device())], [])
+                               [("free", free_device), ("free", self._get_free_device(size=Size("4 GiB"))), ("free", self._get_free_device(size=Size("4 GiB")))], [])
         add_dialog.devices_combo.set_active_id("lvm")
 
         # lvm allows multiple parents -- make sure we have all available and the right one is selected
         self.assertEqual(len(add_dialog.parents_store), 3)
         self.assertEqual(add_dialog.parents_store[0][0], parent_device)
-        self.assertEqual(add_dialog.parents_store[0][1], free_device)
+        self.assertEqual(add_dialog.parents_store[0][1], free_device.size)
         self.assertTrue(add_dialog.parents_store[0][2])
         self.assertFalse(add_dialog.parents_store[1][2])  # other two free devices shouldn't be selected
         self.assertFalse(add_dialog.parents_store[2][2])
@@ -461,7 +427,7 @@ class AddDialogTest(unittest.TestCase):
         # lvmlv allows only one parent -- make sure we have the right one and it is selected
         self.assertEqual(len(add_dialog.parents_store), 1)
         self.assertEqual(add_dialog.parents_store[0][0], parent_device)
-        self.assertEqual(add_dialog.parents_store[0][1], free_device)
+        self.assertEqual(add_dialog.parents_store[0][1], free_device.size)
         self.assertTrue(add_dialog.parents_store[0][2])
         self.assertTrue(add_dialog.parents_store[0][3])
         self.assertEqual(add_dialog.parents_store[0][5], "lvmvg")
@@ -472,13 +438,13 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device), ("free", self._get_free_device(size=Size("200 MiB"))), ("free", self._get_free_device())], [])
+                               [("free", free_device), ("free", self._get_free_device(size=Size("200 MiB"))), ("free", self._get_free_device(size=Size("4 GiB")))], [])
         add_dialog.devices_combo.set_active_id("btrfs volume")
 
         # lvm allows multiple parents -- make sure we have all available (= larger than 256 MiB) and the right one is selected
         self.assertEqual(len(add_dialog.parents_store), 2)  # third device is smaller than min size for btrfs
         self.assertEqual(add_dialog.parents_store[0][0], parent_device)
-        self.assertEqual(add_dialog.parents_store[0][1], free_device)
+        self.assertEqual(add_dialog.parents_store[0][1], free_device.size)
         self.assertTrue(add_dialog.parents_store[0][2])
         self.assertFalse(add_dialog.parents_store[1][2])  # other free device shouldn't be selected
 
@@ -597,9 +563,6 @@ class AddDialogTest(unittest.TestCase):
 
         add_dialog.devices_combo.set_active_id("mdraid")
 
-        # mdraid -- raid type combo should be visible
-        self.assertTrue(add_dialog.md_type_combo.get_visible())
-
         # select partition --> filesystem chooser should be visible
         add_dialog.md_type_combo.set_active_id("partition")
         self.assertTrue(add_dialog.filesystems_combo.get_visible())
@@ -612,10 +575,12 @@ class AddDialogTest(unittest.TestCase):
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"))
 
-        add_dialog = AddDialog(self.parent_window, parent_device, free_device, [],
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
                                [("free", free_device), ("free", self._get_free_device(size=Size("4 GiB")))], [])
 
         add_dialog.devices_combo.set_active_id("mdraid")
+
+        self.assertEqual(len(add_dialog.parents_store), 2)
         # select second parent --> raid combo should be visible
         add_dialog.on_cell_toggled(None, 1)
         add_dialog.parents_store[1][2] = True
@@ -637,7 +602,7 @@ class AddDialogTest(unittest.TestCase):
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device)
 
-        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device,
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
                                [("free", free_device)], [])
 
         # passphrases specified and matches
@@ -694,11 +659,12 @@ class AddDialogTest(unittest.TestCase):
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    @unittest.skip("name validity check temporarily disabled")
     def test_name_validity_check(self):
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device)
 
-        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device,
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
                                [("free", free_device)], [])
 
         add_dialog.devices_combo.set_active_id("lvm")  # select device type that has a name option
@@ -723,7 +689,7 @@ class AddDialogTest(unittest.TestCase):
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device)
 
-        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device,
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
                                [("free", free_device)], [])
 
         add_dialog.devices_combo.set_active_id("partition")  # select device type that has a label option
@@ -759,7 +725,7 @@ class AddDialogTest(unittest.TestCase):
 
         add_dialog.devices_combo.set_active_id("partition")
         add_dialog.filesystems_combo.set_active_id(fstype)
-        add_dialog.size_area.selected_size = size
+        add_dialog.size_area.main_chooser.selected_size = size
         add_dialog.label_entry.set_text(label)
         add_dialog.mountpoint_entry.set_text(mountpoint)
         add_dialog.encrypt_check.set_active(True)
@@ -775,8 +741,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertEqual(selection.mountpoint, mountpoint)
         self.assertTrue(selection.encrypt)
         self.assertEqual(selection.passphrase, password)
-        self.assertEqual(selection.parents, [[parent_device, size]])
-        self.assertIsNone(selection.btrfs_type)
+        self.assertEqual(selection.parents, [(parent_device, size)])
         self.assertIsNone(selection.raid_level)
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
@@ -799,7 +764,7 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.on_cell_toggled(None, 1)
         add_dialog.parents_store[1][2] = True
 
-        add_dialog.size_area.selected_size = size1 + size2
+        add_dialog.size_area.main_chooser.selected_size = size1 + size2
 
         add_dialog.name_entry.set_text(name)
 
@@ -813,8 +778,6 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(selection.mountpoint in (None, ""))
         self.assertFalse(selection.encrypt)
         self.assertTrue(selection.passphrase in (None, ""))
-        self.assertEqual(selection.parents, [[parent_device1, size1], [parent_device2, size2]])
-        self.assertIsNone(selection.btrfs_type)
         self.assertIsNone(selection.raid_level)
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
@@ -841,7 +804,7 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.raid_combo.set_active_id(raidtype)
 
         # raid 0 --> second size area should be updated
-        add_dialog.size_area.selected_size = size
+        add_dialog.size_area.parent_area.choosers[0].selected_size = size
 
         add_dialog.name_entry.set_text(name)
 
@@ -858,8 +821,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(selection.mountpoint in (None, ""))
         self.assertFalse(selection.encrypt)
         self.assertTrue(selection.passphrase in (None, ""))
-        self.assertEqual(selection.parents, [[parent_device1, size], [parent_device2, size]])
-        self.assertIsNone(selection.btrfs_type)
+        self.assertEqual(selection.parents, [(parent_device1, size), (parent_device2, size)])
         self.assertEqual(selection.raid_level, "raid0")
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
@@ -868,7 +830,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), is_free_region=False,
                                             is_empty_disk=True)
 
-        add_dialog = AddDialog(self.parent_window, "disk", parent_device, free_device,
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
                                [("free", free_device)], [])
 
         add_dialog.devices_combo.set_active_id("btrfs volume")
@@ -887,7 +849,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(selection.mountpoint in (None, ""))
         self.assertFalse(selection.encrypt)
         self.assertTrue(selection.passphrase in (None, ""))
-        self.assertEqual(selection.parents, [[parent_device, free_device.size]])
+        self.assertEqual(selection.parents, [(parent_device, free_device.size)])
         self.assertTrue(selection.raid_level in (None, ""))
 
 if __name__ == "__main__":

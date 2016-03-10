@@ -78,9 +78,9 @@ class ListPartitionsTest(unittest.TestCase):
         self.assertTrue(self.list_partitions._allow_add_device(device))
 
         # allow adding on empty lvmpv
-        device = MagicMock(type="partition", protected=False, kids=0, format=MagicMock(type="lvmpv"))
+        device = MagicMock(type="partition", protected=False, children=[], format=MagicMock(type="lvmpv"))
         self.assertTrue(self.list_partitions._allow_add_device(device))
-        device = MagicMock(type="partition", protected=False, kids=1, format=MagicMock(type="lvmpv"))
+        device = MagicMock(type="partition", protected=False, children=[MagicMock()], format=MagicMock(type="lvmpv"))
         self.assertFalse(self.list_partitions._allow_add_device(device))
 
         # allow adding lvm snapshots

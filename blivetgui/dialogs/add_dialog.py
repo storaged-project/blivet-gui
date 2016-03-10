@@ -357,7 +357,7 @@ class AddDialog(Gtk.Dialog):
          size, fs, label etc.
     """
 
-    def __init__(self, parent_window, selected_parent, selected_free, available_free, kickstart_mode=False, mountpoints=None):
+    def __init__(self, parent_window, selected_parent, selected_free, available_free, mountpoints=None, kickstart_mode=False):
         """
 
             :param str parent_type: type of (future) parent device

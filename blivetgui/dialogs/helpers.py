@@ -32,8 +32,8 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from blivet import devicefactory, formats
-from blivet.devices.btrfs import BTRFSDevice
-from blivet.devices.lvm import LVMVolumeGroupDevice, LVMLogicalVolumeDevice
+# from blivet.devices.btrfs import BTRFSDevice
+# from blivet.devices.lvm import LVMVolumeGroupDevice, LVMLogicalVolumeDevice
 
 from blivet.tasks.fslabeling import Ext2FSLabeling, FATFSLabeling, JFSLabeling, ReiserFSLabeling, XFSLabeling, NTFSLabeling
 
@@ -69,7 +69,8 @@ def adjust_scrolled_size(scrolledwindow, width_limit, height_limit):
         scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
 
-def is_name_valid(device_type, name):
+def is_name_valid(_device_type, _name):
+    # temporarily disabled because of changes in blivet
     # if device_type in ("lvmvg", "lvm"):
     #     return LVMVolumeGroupDevice.is_name_valid(name)
     # elif device_type == "lvmlv":

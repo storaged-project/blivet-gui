@@ -23,21 +23,21 @@ class FreeSpaceDeviceTest(unittest.TestCase):
         self.assertEqual(free.disk, free.parents[0])
 
     def test_free_type(self):
-        disk = MagicMock(type="disk", kids=0, is_disk=True, format=MagicMock(type="disklabel"))
+        disk = MagicMock(type="disk", children=[], is_disk=True, format=MagicMock(type="disklabel"))
         free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
 
         self.assertTrue(free.is_empty_disk)
         self.assertFalse(free.is_uninitialized_disk)
         self.assertFalse(free.is_free_region)
 
-        disk = MagicMock(type="disk", kids=0, is_disk=True, format=MagicMock(type=None))
+        disk = MagicMock(type="disk", children=[], is_disk=True, format=MagicMock(type=None))
         free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
 
         self.assertTrue(free.is_uninitialized_disk)
         self.assertFalse(free.is_empty_disk)
         self.assertFalse(free.is_free_region)
 
-        disk = MagicMock(type="disk", kids=1, is_disk=True, format=MagicMock(type="disklabel"))
+        disk = MagicMock(type="disk", children=[MagicMock()], is_disk=True, format=MagicMock(type="disklabel"))
         free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
 
         self.assertTrue(free.is_free_region)
@@ -46,19 +46,19 @@ class FreeSpaceDeviceTest(unittest.TestCase):
 
     def test_free_disk(self):
         # free space on a disk
-        disk = MagicMock(type="disk", kids=0, is_disk=True, format=MagicMock(type=None))
+        disk = MagicMock(type="disk", children=[], is_disk=True, format=MagicMock(type=None))
         free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
         self.assertEqual(free.disk, disk)
 
         # free space in a vg
-        parent = MagicMock(type="lvmvg", kids=0, is_disk=False, format=MagicMock(type=None),
-                           parents=[MagicMock(type="partition", kids=1, is_disk=False, parents=[disk],
+        parent = MagicMock(type="lvmvg", children=[], is_disk=False, format=MagicMock(type=None),
+                           parents=[MagicMock(type="partition", children=[MagicMock()], is_disk=False, parents=[disk],
                                     format=MagicMock(type="lvmpv"))])
         free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[parent])
         self.assertEqual(free.disk, disk)
 
     def test_free_protected(self):
-        disk = MagicMock(type="disk", kids=0, is_disk=True, format=MagicMock(type=None))
+        disk = MagicMock(type="disk", children=[], is_disk=True, format=MagicMock(type=None))
         free = FreeSpaceDevice(free_size=Size("8 GiB"), dev_id=0, start=0, end=1, parents=[disk])
 
         self.assertEqual(free.protected, disk.protected)

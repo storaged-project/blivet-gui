@@ -596,14 +596,14 @@ class BlivetUtils(object):
 
         """
 
-        if (blivet_device.format.type in ("swap",) or not blivet_device.format.exists
-           or not hasattr(blivet_device.format, "update_size_info")):
+        if (blivet_device.format.type in ("swap",) or not blivet_device.format.exists or
+           not hasattr(blivet_device.format, "update_size_info")):
             return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
         elif not blivet_device.format.type:
-            if (blivet_device.type == "partition" and blivet_device.is_extended and (blivet_device.max_size > blivet_device.size
-               or blivet_device.min_size < blivet_device.size)):
+            if (blivet_device.type == "partition" and blivet_device.is_extended and (blivet_device.max_size > blivet_device.size or
+               blivet_device.min_size < blivet_device.size)):
                 return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.min_size,
                                           max_size=blivet_device.max_size)
             else:
@@ -753,7 +753,7 @@ class BlivetUtils(object):
                 name = self.storage.suggest_device_name(parent=parent_device, swap=False, prefix="snapshot")
             else:
                 if hasattr(platform, "linux_distribution"):
-                    prefix = re.sub(r"\W+", "", platform.linux_distribution()[0].lower())
+                    prefix = re.sub(r"\W+", "", platform.linux_distribution()[0].lower())  # pylint: disable=deprecated-method
                 else:
                     prefix = ""
 

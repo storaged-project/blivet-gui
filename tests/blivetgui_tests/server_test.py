@@ -112,7 +112,7 @@ class BlivetProxyObjectTest(unittest.TestCase):
             self.proxy_object.non_existing  # pylint: disable=W0104
 
     def test_getitem(self):
-        self.assertEqual(self.proxy_object["key"], self.blivet_object["key"])
+        self.assertEqual(self.proxy_object["key"], self.blivet_object["key"])  # pylint: disable=unsubscriptable-object
 
     def test_str(self):
         self.assertEqual(str(self.proxy_object), str(self.blivet_object))

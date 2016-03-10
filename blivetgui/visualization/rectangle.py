@@ -93,8 +93,8 @@ class Rectangle(Gtk.RadioButton):
             properties.append("decrypted")
         if self.device.type in ("lvmsnapshot", "btrfs snapshot"):
             properties.append("snapshot")
-        if self.device.type == "free space" or (self.device.format and self.device.format.type == "lvmpv"
-                                                and not self.device.children):
+        if self.device.type == "free space" or (self.device.format and self.device.format.type == "lvmpv" and
+                                                not self.device.children):
             properties.append("empty")
         if self.device.type == "free space" and self.device.is_uninitialized_disk:
             properties.append("nodisklabel")

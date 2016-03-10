@@ -244,7 +244,7 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
         return disks_store, scrolledwindow
 
     def on_cell_toggled(self, _event, path):
-        self.disks_store[path][1] = not self.disks_store[path][1]
+        self.disks_store[path][1] = not self.disks_store[path][1]  # pylint: disable=unsubscriptable-object
 
     def add_bootloader_chooser(self):
 
@@ -279,7 +279,7 @@ class KickstartSelectDevicesDialog(Gtk.Dialog):
 
         selected_disks_names = []
 
-        for row in self.disks_store:
+        for row in self.disks_store:  # pylint: disable=unsubscriptable-object,not-an-iterable
             if not row[1]:
                 selected_disks_names.append(row[0].name)
 

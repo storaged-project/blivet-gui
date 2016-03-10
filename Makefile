@@ -39,7 +39,7 @@ pylint:
 
 pep8:
 	@echo "*** Running pep8 compliance check ***"
-	python3-pep8 --ignore=E501 blivetgui/ tests/ blivet-gui blivet-gui-daemon
+	python3-pep8 --ignore=E501,E402,E731 blivetgui/ tests/ blivet-gui blivet-gui-daemon
 
 check: pylint pep8
 
