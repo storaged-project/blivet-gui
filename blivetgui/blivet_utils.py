@@ -1244,7 +1244,7 @@ class BlivetUtils(object):
 
         """
 
-        blivet_device.format._set_passphrase(passphrase)
+        blivet_device.format.passphrase = passphrase
 
         try:
             blivet_device.format.setup()
