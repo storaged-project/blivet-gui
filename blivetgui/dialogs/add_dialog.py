@@ -91,7 +91,7 @@ class CacheArea(object):
         for pv in self.add_dialog.selected_parent.pvs:
             if pv.format.free < self._cache_min_size:
                 continue  # not enough free space to be usable
-            liststore_pvs.append([pv, False, pv.name, "lvmpv", str(pv.format.free), pv.disk.name])
+            liststore_pvs.append([pv, False, pv.name, "lvmpv", str(pv.format.free), pv.parents[0].name])
 
         if len(liststore_pvs) > 0:  # just in some crazy case when there are no pvs
             liststore_pvs[0][1] = True  # pre-select first PV
