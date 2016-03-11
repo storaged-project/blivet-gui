@@ -15,7 +15,7 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
-from blivet.size import Size
+from blivet.size import Size, unit_str
 
 
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
@@ -30,7 +30,7 @@ class SizeChooserAreaTest(unittest.TestCase):
 
         for idx, unit in enumerate(list(UNITS.keys())):
             self.size_area._unit_chooser.set_active(idx)
-            self.assertEqual(unit, self.size_area.selected_unit.abbr + "B")
+            self.assertEqual(unit.upper(), unit_str(self.size_area.selected_unit).upper())  # kB vs KB
 
             new_size = Size(str(self.size_area._spin.get_value()) + " " + unit)
             self.assertEqual(original_size, new_size)
@@ -46,7 +46,7 @@ class SizeChooserAreaTest(unittest.TestCase):
         self.assertEqual(old_value, self.size_area._scale.get_value())
 
     def test_get_size(self):
-        selected_size = Size(str(self.size_area._spin.get_value()) + " " + self.size_area.selected_unit.abbr + "B")
+        selected_size = Size(str(self.size_area._spin.get_value()) + " " + unit_str(self.size_area.selected_unit))
         self.assertEqual(selected_size, self.size_area.selected_size)
 
     def test_set_size(self):
