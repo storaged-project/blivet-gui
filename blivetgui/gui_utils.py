@@ -31,7 +31,7 @@ def locate_ui_file(filename):
     """ Locate Glade ui files
     """
 
-    path = [os.path.split(os.path.abspath(__file__))[0] + '/../../data/ui/',
+    path = [os.path.split(os.path.abspath(__file__))[0] + '/../data/ui/',
             '/usr/share/blivet-gui/ui/']
 
     for folder in path:
@@ -46,7 +46,7 @@ def locate_css_file(filename):
     """ Locate Glade ui files
     """
 
-    path = [os.path.split(os.path.abspath(__file__))[0] + '/../../data/css/',
+    path = [os.path.split(os.path.abspath(__file__))[0] + '/../data/css/',
             '/usr/share/blivet-gui/css/']
 
     for folder in path:
