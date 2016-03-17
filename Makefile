@@ -11,6 +11,13 @@ ZANATA_PUSH_ARGS = --srcdir ./ --push-type source --force
 PYTHON=python3
 COVERAGE=coverage3
 
+TEST_DEPENDENCIES += python3-mock
+TEST_DEPENDENCIES += python3-coverage
+TEST_DEPENDENCIES += python3-pocketlint python3-bugzilla
+TEST_DEPENDENCIES += python3-pep8
+TEST_DEPENDENCIES += xorg-x11-server-Xvfb
+TEST_DEPENDENCIES := $(shell echo $(sort $(TEST_DEPENDENCIES)) | uniq)
+
 all:
 	$(MAKE) -C po
 
@@ -24,24 +31,44 @@ po-push: potfile
 potfile:
 	$(MAKE) -C po potfile
 
-test:
-	@echo "*** Running unittests ***"
-	PYTHONPATH=.:tests/ python3 -m unittest discover -v -s tests/ -p '*_test.py'
+check-requires:
+	@echo "*** Checking if the dependencies required for testing and analysis are available ***"
+	@status=0 ; \
+	for pkg in $(TEST_DEPENDENCIES) ; do \
+		test_output="$$(rpm -q --whatprovides "$$pkg")" ; \
+		if [ $$? != 0 ]; then \
+			echo "$$test_output" ; \
+			status=1 ; \
+		fi ; \
+	done ; \
+	exit $$status
 
-coverage:
+install-requires:
+	@echo "*** Installing the dependencies required for testing and analysis ***"
+	dnf install -y $(TEST_DEPENDENCIES)
+
+test: check-requires
+	@echo "*** Running unittests ***"
+	PYTHONPATH=.:tests/ xvfb-run python3 -m unittest discover -v -s tests/ -p '*_test.py'
+
+coverage: check-requires
 	@echo "*** Running unittests with $(COVERAGE) for $(PYTHON) ***"
 	PYTHONPATH=.:tests/ $(COVERAGE) run --branch -m unittest discover -v -s tests/ -p '*_test.py'
 	$(COVERAGE) report --include="blivetgui/*" --show-missing
 
-pylint:
+pylint: check-requires
 	@echo "*** Running pylint ***"
 	PYTHONPATH=. tests/pylint/runpylint.py
 
-pep8:
+pep8: check-requires
 	@echo "*** Running pep8 compliance check ***"
 	python3-pep8 --ignore=E501,E402,E731 blivetgui/ tests/ blivet-gui blivet-gui-daemon
 
-check: pylint pep8
+check:
+	@status=0; \
+	$(MAKE) pylint || status=1; \
+	$(MAKE) pep8 || status=1; \
+	exit $$status
 
 clean:
 	-rm blivetgui/*.pyc blivetgui/*/*.pyc ChangeLog
@@ -110,5 +137,7 @@ bumpver:
 rpmlog:
 	@git log --pretty="format:- %s (%ae)" $(RELEASE_TAG).. |sed -e 's/@.*)/)/'
 	@echo
+
+ci: check test
 
 .PHONY: check pep8 pylint clean install tag archive local
