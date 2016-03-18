@@ -380,10 +380,14 @@ class BlivetGUI(object):
             message_dialogs.ErrorDialog(self.main_window, msg)
             return
 
-        # uninitialized disk -> add a disklabel
-        if selected_device.type == "free space" and selected_device.is_uninitialized_disk:
-            self._add_disklabel(disk=selected_device.disk)
-            return
+        # uninitialized disk or mdarray -> add a disklabel
+        if selected_device.type == "free space":
+            if selected_device.is_uninitialized_disk:
+                self._add_disklabel(disk=selected_device.disk)
+                return
+            elif selected_device.parents[0].type == "mdarray" and not selected_device.parents[0].format.type:
+                self._add_disklabel(disk=selected_device.parents[0])
+                return
 
         # adding a new device is allowed when selected both free space and some
         # "normal" devices -- we need both information: "future" parent and

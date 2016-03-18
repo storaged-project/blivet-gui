@@ -432,7 +432,7 @@ class AddDialog(Gtk.Dialog):
 
         types = []
 
-        if self.selected_parent.type == "disk":
+        if self.selected_parent.type in ("disk", "mdarray"):
             types.append((_("Partition"), "partition"))
 
             if self.selected_parent.size > size.Size("8 MiB"):
