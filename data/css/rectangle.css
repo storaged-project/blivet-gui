@@ -1,20 +1,24 @@
 /* Basic rectangle */
 
-Rectangle {
+box#visualization button {
+  background-color: #ff0000;
+}
+
+box#visualization button {
   border: 1px solid @theme_text_color;
   border-radius: 6px;
   background-image: none;
   background-color: @theme_bg_color;
 }
 
-Rectangle:checked {
+box#visualization button:checked {
   background-image: none;
   background: @theme_selected_bg_color;
 }
 
 /* Parent rectangle */
 
-Rectangle#parent-rect {
+box#visualization button#parent-rect {
   border-color: @theme_text_color;
   border-top: 1px solid;
   border-left: 1px solid;
@@ -23,9 +27,9 @@ Rectangle#parent-rect {
   border-radius: 6px 6px 0 0;
 }
 
-/* Child rectangles */
+/* Child rectangle */
 
-Rectangle#child-rect-inner {
+box#visualization button#child-rect-inner {
   border-top: none;
   border-left: none;
   border-right: 1px solid @borders;
@@ -33,7 +37,7 @@ Rectangle#child-rect-inner {
   border-radius: 0;
 }
 
-Rectangle#child-rect-first {
+box#visualization button#child-rect-first {
   border-top: none;
   border-left: 1px solid;
   border-right: 1px solid @borders;
@@ -41,7 +45,7 @@ Rectangle#child-rect-first {
   border-radius: 0 0 0 6px;
 }
 
-Rectangle#child-rect-last {
+box#visualization button#child-rect-last {
   border-top: none;
   border-left: none;
   border-right: 1px solid;
@@ -49,7 +53,7 @@ Rectangle#child-rect-last {
   border-radius: 0 0 6px 0;
 }
 
-Rectangle#child-rect-single {
+box#visualization button#child-rect-single {
   border-top: none;
   border-left: 1px solid;
   border-right: 1px solid;
@@ -57,39 +61,39 @@ Rectangle#child-rect-single {
   border-radius: 0 0 6px 6px;
 }
 
-/* Labels inside rectangles */
+/* Labels inside box#visualization buttons */
 
-Rectangle:checked GtkLabel {
+box#visualization button:checked label {
   color: @theme_selected_fg_color;
   text-shadow: none;
 }
 
-/* Physical view rectangles */
+/* Physical view box#visualization buttons */
 
-Rectangle#root-device:checked {
+box#visualization button#root-device:checked {
   background-color: @theme_bg_color;
   border-color: @theme_fg_color;
 }
 
-Rectangle#child-valid-inner {
+box#visualization button#child-valid-inner {
   background-color: @theme_bg_color;
   border: 2px solid #FF0000;
   border-radius: 0;
 }
 
-Rectangle#child-valid-first {
+box#visualization button#child-valid-first {
   background-color: @theme_bg_color;
   border: 2px solid #FF0000;
   border-radius: 0;
 }
 
-Rectangle#child-valid-last {
+box#visualization button#child-valid-last {
   background-color: @theme_bg_color;
   border: 2px solid #FF0000;
   border-radius: 0;
 }
 
-Rectangle#child-invalid-inner {
+box#visualization button#child-invalid-inner {
   background-color: @theme_bg_color;
   background-image: url("../img/line.png");
   background-repeat: space;
@@ -100,7 +104,7 @@ Rectangle#child-invalid-inner {
   border-radius: 0;
 }
 
-Rectangle#child-invalid-first {
+box#visualization button#child-invalid-first {
   background-color: @theme_bg_color;
   background-image: url("../img/line.png");
   background-repeat: space;
@@ -111,7 +115,7 @@ Rectangle#child-invalid-first {
   border-radius: 0;
 }
 
-Rectangle#child-invalid-last {
+box#visualization button#child-invalid-last {
   background-color: @theme_bg_color;
   background-image: url("../img/line.png");
   background-repeat: space;
@@ -124,18 +128,18 @@ Rectangle#child-invalid-last {
 }
 
 /* PhysicalView - Labels inside rectangles */
-Rectangle#root-device:checked GtkLabel {
+box#visualization button#root-device:checked label {
   color: @theme_fg_color;
 }
 
-Rectangle#child-valid-inner:checked GtkLabel {
+box#visualization button#child-valid-inner:checked label {
   color: @theme_fg_color;
 }
 
-Rectangle#child-valid-first:checked GtkLabel {
+box#visualization button#child-valid-first:checked label {
   color: @theme_fg_color;
 }
 
-Rectangle#child-valid-last:checked GtkLabel {
+box#visualization button#child-valid-last:checked label {
   color: @theme_fg_color;
 }

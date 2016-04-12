@@ -38,6 +38,7 @@ class PhysicalView(object):
         self.blivet_gui = blivet_gui
 
         self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        self.vbox.set_name("visualization")
 
         self.rectangles = []
         self.boxes = []
