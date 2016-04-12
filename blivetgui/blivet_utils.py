@@ -499,6 +499,9 @@ class BlivetUtils(object):
         elif blivet_device.type in ("mdarray",):
             return blivet_device
 
+        elif blivet_device.type in ("lvmlv", "lvmthinlv"):
+            return blivet_device.vg
+
         elif blivet_device.parents[0].type in ("mdarray", "mdmember"):
             return blivet_device.parents[0]
 
