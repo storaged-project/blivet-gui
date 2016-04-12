@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 1.2.2
+Version: 1.2.3
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -67,6 +67,12 @@ fi
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Tue Apr 12 2016 Vojtech Trefny <vtrefny@redhat.com> - 1.2.3-1
+- Fix visualization of group devices inside VG (#1326175) (vtrefny)
+- Fix visualization CSS styles (vtrefny)
+- Translations moved from translate.zanata.org to fedora.zanata.org (vtrefny)
+- Add new zanata branch for F24 (#1321911) (vtrefny)
+
 * Thu Mar 03 2016 Vojtech Trefny <vtrefny@redhat.com> - 1.2.2-1
 - Set communication socket to be owned by user not root (vtrefny)
 
