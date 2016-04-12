@@ -6,7 +6,7 @@ RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE) | sed -e 's|%.*$$||g'
 RELEASE_TAG=$(VERSION)-$(RELEASE)
 VERSION_TAG=$(VERSION)
 
-ZANATA_PULL_ARGS = --transdir ./po
+ZANATA_PULL_ARGS = --transdir .
 ZANATA_PUSH_ARGS = --srcdir ./po --push-type source --force
 PYTHON=python3
 COVERAGE=coverage3
