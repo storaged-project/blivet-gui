@@ -120,8 +120,8 @@ local: po-pull
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
 
 bumpver:
-	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 2` + 1)) ; \
-	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,3` ; \
+	@NEWSUBVER=$$((`echo $(VERSION) |cut -d . -f 3` + 1)) ; \
+	NEWVERSION=`echo $(VERSION).$$NEWSUBVER |cut -d . -f 1,2,4` ; \
 	DATELINE="* `LANG="en_US" date "+%a %b %d %Y"` `git config user.name` <`git config user.email`> - $$NEWVERSION-1"  ; \
 	cl=`grep -n %changelog blivet-gui.spec |cut -d : -f 1` ; \
 	tail --lines=+$$(($$cl + 1)) blivet-gui.spec > speclog ; \
@@ -131,8 +131,6 @@ bumpver:
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	sed -i "s/APP_VERSION\ =\ '$(VERSION)'/APP_VERSION\ =\ '$$NEWVERSION'/" blivet-gui ; \
 	sed -i "s/APP_VERSION\ =\ '$(VERSION)'/APP_VERSION\ =\ '$$NEWVERSION'/" blivetgui/logs.py ; \
-	$(MAKE) po-push
-	$(MAKE) -C po clean
 
 rpmlog:
 	@git log --pretty="format:- %s (%ae)" $(RELEASE_TAG).. |sed -e 's/@.*)/)/'
