@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 1.2
+Version: 1.3.0
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -15,7 +15,7 @@ BuildRequires: libappstream-glib
 Requires: python3
 Requires: pygobject3
 Requires: gettext
-Requires: python3-blivet >= 1:1.14
+Requires: python3-blivet >= 1:2.0
 Requires: gtk3
 Requires: polkit-gnome
 Requires: python3-meh
@@ -65,6 +65,73 @@ fi
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Tue Apr 12 2016 Vojtech Trefny <vtrefny@redhat.com> - 1.3.0
+- Fix visualization CSS styles (vtrefny@redhat.com)
+- Fix visualization of group devices inside VG (#1326175) (vtrefny@redhat.com)
+- Translations moved from translate.zanata.org to fedora.zanata.org (vtrefny@redhat.com)
+- Remove gnome-icon-theme from requires (vtrefny@redhat.com)
+- Fix adding a new device into an existing mdarray (vtrefny@redhat.com)
+- Add make ci target and test dependencies (vtrefny@redhat.com)
+- Fix methods for locating CSS and UI files (vtrefny@redhat.com)
+- SizeChooserAreaTest: Libbytesize support related fixes (vtrefny@redhat.com)
+- Use property instead of setter method for luks decrypt passphrase (vtrefny@redhat.com)
+- CacheArea: Fix displaying parent name in pv chooser (vtrefny@redhat.com)
+- Pylint/PEP8 fixes, fix AddDialog test cases (vtrefny@redhat.com)
+- Skip ListPartitionsTest when X server is not available (vtrefny@redhat.com)
+- Remove remaining user documentation related code (vtrefny@redhat.com)
+- AddDialog: do not allow to set size when adding vg to pvs (vtrefny@redhat.com)
+- Do not try to display (meta)data level for btrfs subvolumes (vtrefny@redhat.com)
+- Fix adding lvm thinpools (vtrefny@redhat.com)
+- Libbytesize support changes (vtrefny@redhat.com)
+- Set communication socket to be owned by user not root (vtrefny@redhat.com)
+- Remove obsolte/unused methods from BlivetUtils (vtrefny@redhat.com)
+- Fix editting volume groups (vtrefny@redhat.com)
+- Pylint and PEP8 fixes (vtrefny@redhat.com)
+- Always remove format when removing device (vtrefny@redhat.com)
+- Hide second raid chooser for non LVs (vtrefny@redhat.com)
+- LVM RAID support -- utils part (vtrefny@redhat.com)
+- SizeArea,AddDialog -- LVM RAID support, part 2 (vtrefny@redhat.com)
+- Temporary disable device name validation (vtrefny@redhat.com)
+- Move supported fs types to EditDialog (vtrefny@redhat.com)
+- Add RAID chooser into ParentArea when adding new LV (vtrefny@redhat.com)
+- Do not display parent size chooser for LVs (vtrefny@redhat.com)
+- AddLabelDialog: Fix available disklabels (vtrefny@redhat.com)
+- SizeArea -- RAID support, part 1 (vtrefny@redhat.com)
+- Raise exception in client when accesing blivet attribute failed (vtrefny@redhat.com)
+- AddDialog: Do not offer full PVs as possible parents for LVs (vtrefny@redhat.com)
+- AddDialog: Switch to single SizeArea model (vtrefny@redhat.com)
+- Fix ParentArea for non-LVM parents (vtrefny@redhat.com)
+- AddDialog: Fix checking for lvmlv and lvmthinlv device types (vtrefny@redhat.com)
+- AddDialog: Change _get_selected_device_type to property (vtrefny@redhat.com)
+- Remove support for adding btrfs as a disklabel (vtrefny@redhat.com)
+- Refactor add_partition method (vtrefny@redhat.com)
+- Fix passing selected and free devices to AddDialog (vtrefny@redhat.com)
+- Move supported types (fs, raid levels, disklabels) to AddDialog (vtrefny@redhat.com)
+- SizeChooser: Update main size chooser when changing size for parents (vtrefny@redhat.com)
+- SizeChooser: Add ParentArea for parents size selection (vtrefny@redhat.com)
+- Merge branch 'master' of github.com:rhinstaller/blivet-gui (vtrefny@redhat.com)
+- Merge pull request #14 from dashea/eintr (vtrefny@redhat.com)
+- Remove the removal of the eintr checker, which has been removed (dshea@redhat.com)
+- Use new_lv instead of LVM objects constructors (vtrefny@redhat.com)
+- Fix adding devices on DASD and zFCP disks (#1305495) (vtrefny@redhat.com)
+- Make LUKS encrypted partitions resizable (vtrefny@redhat.com)
+- Use list of children for devices instead of get_children (vtrefny@redhat.com)
+- Fix visualization of raw format LUKS devices (#1288943) (vtrefny@redhat.com)
+- Size area refactoring (vtrefny@redhat.com)
+- Fix updateSizeInfo on BIOSBoot partitions (#1286616) (vtrefny@redhat.com)
+- Add cache info to device info dialog (vtrefny@redhat.com)
+- Reimplement size area using Glade (vtrefny@redhat.com)
+- LVM cache support -- utils part (vtrefny@redhat.com)
+- LVM cache support -- UI part (vtrefny@redhat.com)
+- Allow nested ProxyDataContainer in server-cleint communication (vtrefny@redhat.com)
+- Add tests for recently found bugs (vtrefny@redhat.com)
+- Fix allow creating lvm snapshots (vtrefny@redhat.com)
+- AddDialog: Fix min size for vg children (vtrefny@redhat.com)
+- AddDialog: Fix parent type when adding LMV LV (vtrefny@redhat.com)
+- Don't allow adding btrfs volume to devices smaller than 256 MiB (vtrefny@redhat.com)
+- Do not call get_children more than necessary (vtrefny@redhat.com)
+- New version 1.2 (vtrefny@redhat.com)
+
 * Wed Nov 18 2015 Vojtech Trefny <vtrefny@redhat.com> - 1.2-1
 - Add PEP8 compliance check to 'make check' (vtrefny)
 - Fix PEP8 violations. (vtrefny)
