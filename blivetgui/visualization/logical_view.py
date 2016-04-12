@@ -43,6 +43,7 @@ class LogicalView(object):
         self.blivet_gui = blivet_gui
 
         self.hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=1)
+        self.hbox.set_name("visualization")
         self.rectangles = []
         self.boxes = []
 
