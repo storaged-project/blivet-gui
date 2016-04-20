@@ -164,9 +164,10 @@ class BlivetUtils(object):
     """ Class with utils directly working with blivet itselves
     """
 
-    def __init__(self, kickstart=False):
+    def __init__(self, ignored_disks=None, kickstart=False):
 
         self.kickstart = kickstart
+        self.ignored_disks = ignored_disks
 
         if self.kickstart:
             self.ksparser = pykickstart.parser.KickstartParser(makeVersion())
@@ -180,7 +181,7 @@ class BlivetUtils(object):
         blivet.formats.fs.NTFS._formattable = True
         blivet.formats.fs.NTFS._supported = True
 
-        self.storage.reset()
+        self.blivet_reset()
         self._update_min_sizes_info()
 
     def set_logging(self):
@@ -1270,6 +1271,9 @@ class BlivetUtils(object):
     def blivet_reset(self):
         """ Blivet.reset()
         """
+
+        if self.ignored_disks is not None:
+            self.storage.config.ignored_disks = self.ignored_disks
 
         self.storage.reset()
 

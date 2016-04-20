@@ -22,6 +22,7 @@
 # ---------------------------------------------------------------------------- #
 
 from blivet import size
+from blivet.errors import DiskLabelScanError, CorruptGPTError
 
 import traceback
 import inspect
@@ -285,6 +286,9 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
 
             try:
                 self.blivet_utils = BlivetUtils(*args)
+            except (DiskLabelScanError, CorruptGPTError) as e:
+                answer = ProxyDataContainer(success=False, reason="unusable", exception=e,
+                                            traceback=traceback.format_exc(), disk=e.dev_name)
             except Exception as e:  # pylint: disable=broad-except
                 answer = ProxyDataContainer(success=False, reason="exception", exception=e,
                                             traceback=traceback.format_exc())

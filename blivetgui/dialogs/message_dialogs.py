@@ -229,3 +229,29 @@ class ShowActionsDialog(object):
 
         self.dialog.run()
         self.dialog.destroy()
+
+
+class CustomDialog(object):
+    """ Message dialog with custom buttons
+    """
+
+    def __init__(self, parent_window, buttons):
+        builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
+        builder.add_from_file(locate_ui_file("custom_dialog.ui"))
+        self.dialog = builder.get_object("custom_dialog")
+
+        self.details = builder.get_object("label_expanded")
+
+        self.dialog.add_buttons(*buttons)
+
+        self.dialog.set_transient_for(parent_window)
+
+    def run(self):
+        """ Run the dialog
+        """
+
+        response = self.dialog.run()
+        self.dialog.destroy()
+
+        return response

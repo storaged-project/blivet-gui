@@ -73,24 +73,15 @@ class BlivetGUI(object):
         self.builder.set_translation_domain("blivet-gui")
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
+        self.ignored_disks = []
+
         # MainWindow
         self.main_window = self.builder.get_object("main_window")
         self.main_window.connect("delete-event", self.quit)
 
         # BlivetUtils
         self.client = BlivetGUIClient(self, self.server_socket, self.secret)
-        dialog = LoadingWindow(self.main_window)
-        ret = self.blivet_init(dialog)
-
-        if not ret.success:  # pylint: disable=maybe-no-member
-            if ret.reason == "running":
-                msg = _("blivet-gui is already running.")
-
-                self.show_error_dialog(msg)
-                self.client.quit()
-                sys.exit(1)
-            else:
-                self._reraise_exception(ret.exception, ret.traceback)
+        self.blivet_init()
 
         # Logging
         blivetgui_logfile, self.log = set_logging(component="blivet-gui")
@@ -625,9 +616,52 @@ class BlivetGUI(object):
 
         return True
 
-    def blivet_init(self, dialog):
-        """ Perform queued actions
-        """
+    def blivet_init(self):
+        loading_window = LoadingWindow(self.main_window)
+        ret = self._blivet_init_thread(loading_window)
+
+        if not ret.success:  # pylint: disable=maybe-no-member
+            # blivet-gui is already running --> quit
+            if ret.reason == "running":
+                msg = _("blivet-gui is already running.")
+                self.show_error_dialog(msg)
+                self.client.quit()
+                sys.exit(1)
+            # unusable configuration (corrupted/unknow) disklabel --> ask
+            elif ret.reason == "unusable":
+                loading_window.destroy()
+
+                cont = self._blivet_init_ignore(ret.exception, ret.disk)
+
+                if cont:
+                    self.ignored_disks.append(ret.disk)
+                    self.blivet_init()
+                else:
+                    self.client.quit()
+                    sys.exit(1)
+            # unknow problem --> re-raise exception
+            else:
+                self._reraise_exception(ret.exception, ret.traceback)
+
+    def _blivet_init_ignore(self, exception, device_name):
+
+        dialog = message_dialogs.CustomDialog(parent_window=self.main_window,
+                                              buttons=[_("Quit blivet-gui"),
+                                                       Gtk.ResponseType.REJECT,
+                                                       _("Ignore disk and continue"),
+                                                       Gtk.ResponseType.ACCEPT])
+
+        dialog.dialog.set_title(_("Error: {error}").format(error=str(exception)))
+        dialog.dialog.set_markup(_("Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
+                                   "You can either quit blivet-gui now or continue without being able to "
+                                   "use this disk.").format(name=device_name))
+        dialog.details.set_markup(exception.suggestion)
+
+        response = dialog.run()
+
+        return response == Gtk.ResponseType.ACCEPT
+
+    def _blivet_init_thread(self, dialog):
 
         ret = []
 
@@ -635,7 +669,7 @@ class BlivetGUI(object):
             dialog.stop()
 
         def do_it(ret):
-            ret.append(self.client.remote_control("init", self.kickstart_mode))
+            ret.append(self.client.remote_control("init", self.ignored_disks, self.kickstart_mode))
             GLib.idle_add(end)
 
         thread = threading.Thread(target=do_it, args=(ret,))
