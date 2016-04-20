@@ -38,13 +38,6 @@ from ..blivet_utils import BlivetUtils
 
 # ---------------------------------------------------------------------------- #
 
-from blivetgui.logs import set_logging, remove_atexit
-
-log_file, log = set_logging(component="blivet-gui-com")
-remove_atexit((log_file,))
-
-# ---------------------------------------------------------------------------- #
-
 picklable_types = (str, int, float, bool, size.Size, BaseException)
 
 # ---------------------------------------------------------------------------- #
@@ -120,35 +113,24 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
                 break
 
             elif unpickled_msg[1] == "init":
-                log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._blivet_utils_init(unpickled_msg)
 
             elif unpickled_msg[1] == "logs":
-                log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._blivet_utils_logs(unpickled_msg)
 
             elif unpickled_msg[1] == "call":
-                if unpickled_msg[2] == "luks_decrypt":
-                    # do not log passwords
-                    log.debug("RECV: " + str(unpickled_msg[1:2]) + str(unpickled_msg[3][0]) + " ***")
-                else:
-                    log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._call_utils_method(unpickled_msg)
 
             elif unpickled_msg[1] == "param":
-                log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._get_param(unpickled_msg)
 
             elif unpickled_msg[1] == "method":
-                log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._call_method(unpickled_msg)
 
             elif unpickled_msg[1] == "next":
-                log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._get_next(unpickled_msg)
 
             elif unpickled_msg[1] == "key":
-                log.debug("RECV: " + str(unpickled_msg[1:]))
                 self._get_key(unpickled_msg)
 
     def _recv_msg(self):
@@ -312,9 +294,9 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
 
         client_logs = data[2]
 
-        self.blivet_utils.set_meh(client_logfile=client_logs[0], communication_logfile=log_file)
+        self.blivet_utils.set_meh(client_logfile=client_logs[0])
 
-        answer = (self.blivet_utils.blivet_logfile, self.blivet_utils.program_logfile, log_file)
+        answer = (self.blivet_utils.blivet_logfile, self.blivet_utils.program_logfile)
         pickled_answer = self._pickle_answer(answer)
 
         self._send(pickled_answer)

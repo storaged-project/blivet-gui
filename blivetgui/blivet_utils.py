@@ -195,12 +195,12 @@ class BlivetUtils(object):
 
         return blivet_logfile, program_logfile
 
-    def set_meh(self, client_logfile, communication_logfile):
+    def set_meh(self, client_logfile):
         """ Set python-meh for blivet-gui-daemon process
         """
 
         handler = set_python_meh(log_files=[self.blivet_logfile, self.program_logfile,
-                                            client_logfile, communication_logfile])
+                                            client_logfile])
         handler.install(self.storage)
 
     def get_disks(self):
