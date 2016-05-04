@@ -702,6 +702,10 @@ class BlivetUtils(object):
                 actions.append(blivet.deviceaction.ActionResizeFormat(blivet_device, aligned_size))
             actions.append(blivet.deviceaction.ActionResizeDevice(blivet_device, aligned_size))
 
+            # reverse resize actions when growing
+            if user_input.size > blivet_device.size:
+                actions.reverse()
+
         if user_input.fmt:
             if blivet_device.format.type is not None:
                 actions.append(blivet.deviceaction.ActionDestroyFormat(blivet_device))
