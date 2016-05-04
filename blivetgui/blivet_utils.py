@@ -698,6 +698,10 @@ class BlivetUtils(object):
                 actions.append(blivet.deviceaction.ActionResizeFormat(blivet_device, aligned_size))
             actions.append(blivet.deviceaction.ActionResizeDevice(blivet_device, aligned_size))
 
+            # reverse resize actions when growing
+            if user_input.size > blivet_device.size:
+                actions.reverse()
+
         if user_input.fmt:
             new_fmt = blivet.formats.getFormat(user_input.filesystem, label=user_input.label, mountpoint=user_input.mountpoint)
             actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_fmt))
