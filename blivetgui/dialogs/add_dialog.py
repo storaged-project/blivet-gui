@@ -768,6 +768,7 @@ class AddDialog(Gtk.Dialog):
 
         for fs in self.supported_fs:
             filesystems_combo.append_text(fs)
+        filesystems_combo.append_text("unformatted")
 
         self.grid.attach(filesystems_combo, 1, 8, 2, 1)
 
@@ -1013,19 +1014,6 @@ class AddDialog(Gtk.Dialog):
 
         user_input = self.get_selection()
 
-        if not user_input.filesystem and user_input.device_type == "partition" \
-           and user_input.advanced["parttype"] != "extended":
-            msg = _("Filesystem type must be specified when creating new partition.")
-            message_dialogs.ErrorDialog(self, msg)
-
-            return False
-
-        if not user_input.filesystem and user_input.device_type == "lvmlv":
-            msg = _("Filesystem type must be specified when creating new logical volume.")
-            message_dialogs.ErrorDialog(self, msg)
-
-            return False
-
         if user_input.encrypt and not user_input.passphrase:
             msg = _("Passphrase not specified.")
             message_dialogs.ErrorDialog(self, msg)
@@ -1108,6 +1096,8 @@ class AddDialog(Gtk.Dialog):
             filesystem = "lvmpv"
         elif device_type in ("mdraid", "partition", "lvmlv", "lvmthinlv"):
             filesystem = self.filesystems_combo.get_active_text()
+            if filesystem == "unformatted":
+                filesystem = None
         else:
             filesystem = None
 
