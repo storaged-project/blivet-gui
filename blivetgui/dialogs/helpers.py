@@ -144,4 +144,6 @@ def supported_filesystems():
         if supported_fs:
             _fs_types.append(obj.name)
 
+    _fs_types.append("unformatted")
+
     return sorted(_fs_types)

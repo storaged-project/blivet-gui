@@ -698,8 +698,11 @@ class BlivetUtils(object):
             actions.extend(self._resize_device(blivet_device, user_input.size))
 
         if user_input.fmt:
-            new_fmt = blivet.formats.get_format(user_input.filesystem, label=user_input.label, mountpoint=user_input.mountpoint)
-            actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_fmt))
+            if blivet_device.format.type is not None:
+                actions.append(blivet.deviceaction.ActionDestroyFormat(blivet_device))
+
+            if user_input.filesystem:
+                actions.append(self._create_format(user_input, blivet_device))
 
         try:
             for ac in actions:
@@ -779,6 +782,21 @@ class BlivetUtils(object):
 
         return name
 
+    def _create_format(self, user_input, device):
+
+        fmt_type = user_input.filesystem
+
+        if fmt_type is not None:
+            if fmt_type == "ntfs":
+                fmt_options = "-f"
+            else:
+                fmt_options = ""
+
+            new_fmt = blivet.formats.get_format(fmt_type=user_input.filesystem,
+                                                mountpoint=user_input.mountpoint,
+                                                create_options=fmt_options)
+            return blivet.deviceaction.ActionCreateFormat(device, new_fmt)
+
     def _create_partition(self, user_input):
         actions = []
 
@@ -804,25 +822,14 @@ class BlivetUtils(object):
             luks_dev = LUKSDevice("luks-%s" % new_part.name, size=new_part.size, parents=[new_part])
             actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
 
-            luks_fmt = blivet.formats.get_format(fmt_type=user_input.filesystem,
-                                                 device=new_part.path,
-                                                 mountpoint=user_input.mountpoint)
-            actions.append(blivet.deviceaction.ActionCreateFormat(luks_dev, luks_fmt))
+            if user_input.filesystem:
+                actions.append(self._create_format(user_input, luks_dev))
 
         # non-encrypted partition -- just format the partition
         else:
             if partition_type != "extended":
-                fmt_type = user_input.filesystem
-                if fmt_type == "ntfs":
-                    fmt_options = "-f"
-                else:
-                    fmt_options = ""
-
-                new_fmt = blivet.formats.get_format(fmt_type=fmt_type,
-                                                    label=user_input.label,
-                                                    mountpoint=user_input.mountpoint,
-                                                    create_options=fmt_options)
-                actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
+                if user_input.filesystem:
+                    actions.append(self._create_format(user_input, new_part))
 
         return actions
 
@@ -837,16 +844,8 @@ class BlivetUtils(object):
                                        parents=[i[0] for i in user_input.parents])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
-        fmt_type = user_input.filesystem
-        if fmt_type == "ntfs":
-            fmt_options = "-f"
-        else:
-            fmt_options = ""
-
-        new_fmt = blivet.formats.get_format(fmt_type=user_input.filesystem,
-                                            mountpoint=user_input.mountpoint,
-                                            create_options=fmt_options)
-        actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
+        if user_input.filesystem:
+            actions.append(self._create_format(user_input, new_part))
 
         return actions
 
@@ -886,16 +885,8 @@ class BlivetUtils(object):
 
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
-        fmt_type = user_input.filesystem
-        if fmt_type == "ntfs":
-            fmt_options = "-f"
-        else:
-            fmt_options = ""
-
-        new_fmt = blivet.formats.get_format(fmt_type=user_input.filesystem,
-                                            mountpoint=user_input.mountpoint,
-                                            create_options=fmt_options)
-        actions.append(blivet.deviceaction.ActionCreateFormat(new_part, new_fmt))
+        if user_input.filesystem:
+            actions.append(self._create_format(user_input, new_part))
 
         return actions
 

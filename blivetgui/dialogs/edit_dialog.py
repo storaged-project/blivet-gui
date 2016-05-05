@@ -296,11 +296,15 @@ class PartitionEditDialog(Gtk.Dialog):
             resize = False
             selected_size = None
 
+        filesystem = self.filesystems_combo.get_active_text()
+        if filesystem == "unformatted":
+            filesystem = None
+
         return ProxyDataContainer(edit_device=self.edited_device,
                                   resize=resize,
                                   size=selected_size,
                                   fmt=self.format_check.get_active(),
-                                  filesystem=self.filesystems_combo.get_active_text(),
+                                  filesystem=filesystem,
                                   label=self.fslabel_entry.get_text(),
                                   mountpoint=mountpoint)
 
