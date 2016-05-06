@@ -1012,7 +1012,8 @@ class BlivetUtils(object):
                                    name=device_name,
                                    level=user_input.raid_level,
                                    member_devices=len(md_parents),
-                                   total_devices=len(md_parents))
+                                   total_devices=len(md_parents),
+                                   chunk_size=user_input.advanced["chunk_size"])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_md))
 
         fmt = blivet.formats.get_format(fmt_type=user_input.filesystem)
