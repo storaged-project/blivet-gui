@@ -8,8 +8,7 @@ Group: Applications/System
 BuildArch: noarch
 BuildRequires: python3-devel
 BuildRequires: desktop-file-utils
-BuildRequires: intltool
-BuildRequires: gettext
+BuildRequires: gettext >= 0.18.3
 BuildRequires: python-setuptools
 BuildRequires: libappstream-glib
 Requires: python3

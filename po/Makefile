@@ -30,19 +30,13 @@ GLADEFILES 	= $(wildcard ../data/ui/*.ui)
 all::update-po $(MOFILES)
 	@rm -rf tmp
 
-potfile: $(PYSRC) glade-po
-	$(XGETTEXT) -L Python --keyword=_ --keyword=N_ --keyword=P_:1,2 $(PYSRC) --from-code utf-8 tmp/*.h
+potfile: $(PYSRC) $(GLADEFILES)
+	$(XGETTEXT) --keyword=_ --keyword=N_ --keyword=P_:1,2 $(PYSRC) $(GLADEFILES) --from-code utf-8
 	@if cmp -s $(NLSPACKAGE).po $(POTFILE); then \
 	    rm -f $(NLSPACKAGE).po; \
 	else \
 	    mv -f $(NLSPACKAGE).po $(POTFILE); \
 	fi; \
-
-glade-po: $(GLADEFILES)
-	rm -rf tmp/
-	for f in $(GLADEFILES); do \
-		intltool-extract --type=gettext/glade -l $$f ;\
-	done
 
 update-po: Makefile potfile refresh-po
 
