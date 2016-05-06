@@ -45,6 +45,8 @@ from ..gui_utils import locate_ui_file
 # ---------------------------------------------------------------------------- #
 
 SUPPORTED_PESIZE = ["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"]
+SUPPORTED_CHUNK = ["32 KiB", "64 KiB", "128 KiB", "256 KiB", "512 KiB", "1 MiB",
+                   "2 MiB", "4 MiB", "8 MiB"]
 
 # ---------------------------------------------------------------------------- #
 
@@ -225,6 +227,9 @@ class AdvancedOptions(object):
         elif self.device_type == "lvmlv":
             self.cache_area = self.lvmlv_options()
 
+        elif self.device_type == "mdraid":
+            self.chunk_combo = self.mdraid_options()
+
     def lvm_options(self):
 
         label_pesize = Gtk.Label(label=_("PE Size:"), xalign=1)
@@ -297,6 +302,26 @@ class AdvancedOptions(object):
 
         return cache_area
 
+    def mdraid_options(self):
+        label_chunk = Gtk.Label(label=_("Chunk Size:"), xalign=1)
+        label_chunk.get_style_context().add_class("dim-label")
+        self.grid.attach(label_chunk, 0, 0, 1, 1)
+
+        chunk_combo = Gtk.ComboBoxText().new_with_entry()
+        chunk_combo.set_entry_text_column(0)
+        chunk_combo.set_id_column(0)
+
+        for chunk in SUPPORTED_CHUNK:
+            chunk_combo.append_text(chunk)
+
+        chunk_combo.set_active_id("512 KiB")
+
+        self.grid.attach(chunk_combo, 1, 0, 2, 1)
+
+        self.widgets.extend([label_chunk, chunk_combo])
+
+        return chunk_combo
+
     @property
     def _has_extended(self):
         if self.parent_device.type == "disk":
@@ -340,6 +365,21 @@ class AdvancedOptions(object):
         for widget in self.widgets:
             widget.set_sensitive(sensitivity)
 
+    def validate_user_input(self):
+        if self.device_type == "mdraid":
+            try:
+                chunk_size = size.Size(self.chunk_combo.get_active_text())
+            except ValueError:
+                msg = _("'{0}' is not a valid chunk size specification.").format(self.chunk_combo.get_active_text())
+                message_dialogs.ErrorDialog(self.add_dialog, msg)
+                return False
+            if chunk_size % size.Size("4 KiB") != size.Size(0):
+                msg = _("Chunk size must be multiple of 4 KiB.")
+                message_dialogs.ErrorDialog(self.add_dialog, msg)
+                return False
+
+        return True
+
     def get_selection(self):
 
         if self.device_type in ("lvm", "lvmvg"):
@@ -350,6 +390,9 @@ class AdvancedOptions(object):
 
         elif self.device_type == "lvmlv":
             return self.cache_area.get_selection()
+
+        elif self.device_type == "mdraid":
+            return {"chunk_size": size.Size(self.chunk_combo.get_active_text())}
 
 
 class AddDialog(Gtk.Dialog):
@@ -885,7 +928,7 @@ class AddDialog(Gtk.Dialog):
         if self.advanced:
             self.advanced.destroy()
 
-        if device_type in ("lvm", "lvmvg", "partition", "lvmlv"):
+        if device_type in ("lvm", "lvmvg", "partition", "lvmlv", "mdraid"):
             self.advanced = AdvancedOptions(self, device_type, self.selected_parent, self.selected_free)
             self.widgets_dict["advanced"] = [self.advanced]
 
@@ -987,8 +1030,8 @@ class AddDialog(Gtk.Dialog):
             self.hide_widgets(["label", "fs", "encrypt", "size", "passphrase", "advanced", "mdraid"])
 
         elif device_type == "mdraid":
-            self.show_widgets(["name", "size", "mountpoint", "fs", "mdraid"])
-            self.hide_widgets(["label", "encrypt", "passphrase", "advanced"])
+            self.show_widgets(["name", "size", "mountpoint", "fs", "mdraid", "advanced"])
+            self.hide_widgets(["label", "encrypt", "passphrase"])
 
         elif device_type == "lvm snapshot":
             self.show_widgets(["name", "size"])
@@ -1071,6 +1114,12 @@ class AddDialog(Gtk.Dialog):
         return True
 
     def on_ok_clicked(self, _event):
+
+        # validate advanced selection first
+        if self.advanced and not self.advanced.validate_user_input():
+            self.run()
+            return
+
         if not self.validate_user_input():
             self.run()
 
