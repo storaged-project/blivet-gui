@@ -23,6 +23,10 @@ class BlivetGUILintConfig(PocketLintConfig):
                 "I0011",           # Locally disabling %s
                 ]
 
+    @property
+    def ignoreNames(self):
+        return {"translation-canary"}
+
 if __name__ == "__main__":
     conf = BlivetGUILintConfig()
     linter = PocketLinter(conf)

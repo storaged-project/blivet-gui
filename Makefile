@@ -64,10 +64,15 @@ pep8: check-requires
 	@echo "*** Running pep8 compliance check ***"
 	python3-pep8 --ignore=E501,E402,E731 blivetgui/ tests/ blivet-gui blivet-gui-daemon
 
+canary: check-requires
+	$(MAKE) -C po potfile
+	PYTHONPATH=translation-canary:$(PYTHONPATH) python3 -m translation_canary.translatable po/blivet-gui.pot
+
 check:
 	@status=0; \
 	$(MAKE) pylint || status=1; \
 	$(MAKE) pep8 || status=1; \
+	$(MAKE) canary || status=1; \
 	exit $$status
 
 clean:

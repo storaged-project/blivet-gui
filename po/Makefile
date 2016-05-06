@@ -3,7 +3,7 @@
 #
 # $Id$
 
-TOP	 = ../..
+TOP	 = ..
 
 # What is this package?
 NLSPACKAGE	= blivet-gui
@@ -17,7 +17,7 @@ INSTALL_NLS_DIR = $(RPM_BUILD_ROOT)/usr/share/locale
 
 # PO catalog handling
 MSGMERGE	= msgmerge -v
-XGETTEXT	= xgettext --default-domain=$(NLSPACKAGE) \
+XGETTEXT	= $(TOP)/translation-canary/xgettext_werror.sh --default-domain=$(NLSPACKAGE) \
 		  --add-comments
 MSGFMT		= msgfmt --statistics --verbose
 
