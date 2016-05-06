@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkGrid" id="grid">
@@ -34,8 +34,11 @@
             <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="valign">center</property>
-            <property name="label" translatable="yes">&lt;small&gt;&lt;i&gt;Parent name:&lt;/i&gt;&lt;/small&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Parent name:</property>
+            <attributes>
+              <attribute name="style" value="italic"/>
+              <attribute name="scale" value="0.83299999999999996"/>
+            </attributes>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -74,8 +77,11 @@
             <property name="can_focus">False</property>
             <property name="halign">start</property>
             <property name="valign">center</property>
-            <property name="label" translatable="yes">&lt;small&gt;&lt;i&gt;Available space:&lt;/i&gt;&lt;/small&gt;</property>
-            <property name="use_markup">True</property>
+            <property name="label" translatable="yes">Available space:</property>
+            <attributes>
+              <attribute name="style" value="italic"/>
+              <attribute name="scale" value="0.83299999999999996"/>
+            </attributes>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -102,9 +108,6 @@
         <property name="left_attach">2</property>
         <property name="top_attach">0</property>
       </packing>
-    </child>
-    <child>
-      <placeholder/>
     </child>
   </object>
 </interface>

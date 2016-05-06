@@ -160,15 +160,15 @@ class DeviceInformationDialog(Gtk.Dialog):
 
         # unknow device type
         if self.device.type not in self.type_dict.keys():
-            info = _("<b>Unknown device {name}</b>").format(name=self.device.name)
+            info = _("Unknown device {name}").format(name=self.device.name)
 
         else:
-            info = "<b>{type} {name}</b>".format(type=self.type_dict[self.device.type][0],
-                                                 name=self.device.name)
-        device_type_label.set_markup(info)
+            info = "{type} {name}".format(type=self.type_dict[self.device.type][0],
+                                          name=self.device.name)
+        device_type_label.set_markup("<b>%s</b>" % info)
 
         # device info header
-        info_type_label = Gtk.Label(label=_("<i>Basic information</i>"), use_markup=True)
+        info_type_label = Gtk.Label(label="<i>%s</i>" % _("Basic information"), use_markup=True)
         self.grid.attach(child=info_type_label, left=0, top=1, width=2, height=1)
         info_type_label.set_alignment(xalign=0, yalign=0)
 
@@ -200,7 +200,7 @@ class DeviceInformationDialog(Gtk.Dialog):
         """
 
         # device format header
-        info_type_label = Gtk.Label(label=_("<i>Device format</i>"), use_markup=True)
+        info_type_label = Gtk.Label(label="<i>%s</i>" % _("Device format"), use_markup=True)
         self.grid.attach(child=info_type_label, left=0, top=3, width=2, height=1)
         info_type_label.set_alignment(xalign=0, yalign=0)
 
@@ -232,7 +232,7 @@ class DeviceInformationDialog(Gtk.Dialog):
         parents = self.device.parents
 
         # device parents header
-        info_parents_label = Gtk.Label(label=_("<i>Parents</i>"), use_markup=True)
+        info_parents_label = Gtk.Label(label="<i>%s</i>" % _("Parents"), use_markup=True)
         self.grid.attach(child=info_parents_label, left=0, top=5, width=2, height=1)
         info_parents_label.set_alignment(xalign=0, yalign=0)
 

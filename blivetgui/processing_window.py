@@ -148,7 +148,7 @@ class ProcessingActions(Gtk.Dialog):
 
         self.progressbar.set_fraction(1)
         self.set_response_sensitive(Gtk.ResponseType.OK, True)
-        self.label.set_markup(_("<b>All queued actions have been processed.</b>"))
+        self.label.set_markup("<b>%s</b>" % _("All queued actions have been processed."))
         self._set_applied_icon(self.finished_actions - 1)
 
     def progress_msg(self, message):
