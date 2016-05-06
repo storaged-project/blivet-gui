@@ -31,7 +31,7 @@ all::update-po $(MOFILES)
 	@rm -rf tmp
 
 potfile: $(PYSRC) glade-po
-	$(XGETTEXT) -L Python --keyword=_ --keyword=N_ $(PYSRC) --from-code utf-8 tmp/*.h
+	$(XGETTEXT) -L Python --keyword=_ --keyword=N_ --keyword=P_:1,2 $(PYSRC) --from-code utf-8 tmp/*.h
 	@if cmp -s $(NLSPACKAGE).po $(POTFILE); then \
 	    rm -f $(NLSPACKAGE).po; \
 	else \
