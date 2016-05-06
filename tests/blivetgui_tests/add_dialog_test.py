@@ -79,6 +79,8 @@ class SizeChooserAreaTest(unittest.TestCase):
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class AdvancedOptionsTest(unittest.TestCase):
 
+    error_dialog = MagicMock()
+
     @classmethod
     def setUpClass(cls):
         cls.add_dialog = Mock(show_widgets=Mock(return_value=True), hide_widgets=Mock(return_value=True))
@@ -93,12 +95,14 @@ class AdvancedOptionsTest(unittest.TestCase):
 
         self.assertFalse(hasattr(advanced_options, "partition_combo"))
         self.assertTrue(hasattr(advanced_options, "pesize_combo"))
+        self.assertFalse(hasattr(advanced_options, "chunk_combo"))
 
         advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="lvmvg",
                                            parent_device=parent_device, free_device=free_device)
 
         self.assertFalse(hasattr(advanced_options, "partition_combo"))
         self.assertTrue(hasattr(advanced_options, "pesize_combo"))
+        self.assertFalse(hasattr(advanced_options, "chunk_combo"))
 
     def test_allowed_pesize(self):
         # test allowed pesize options based on free space available
@@ -131,6 +135,7 @@ class AdvancedOptionsTest(unittest.TestCase):
 
         self.assertTrue(hasattr(advanced_options, "partition_combo"))
         self.assertFalse(hasattr(advanced_options, "pesize_combo"))
+        self.assertFalse(hasattr(advanced_options, "chunk_combo"))
 
     def test_normal_partition(self):
         # "standard" situation -- disk with msdos part table, no existing extended partition
@@ -189,6 +194,45 @@ class AdvancedOptionsTest(unittest.TestCase):
         self.assertEqual(len(part_types), 1)
         self.assertEqual(part_types[0][1], "primary")
 
+    def test_mdraid_options(self):
+        parent_device = Mock(type="disk", format=Mock(label_type="gpt", extended_partition=None))
+        free_device = Mock(is_logical=False, size=Size("8 GiB"))
+
+        advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="mdraid",
+                                           parent_device=parent_device, free_device=free_device)
+
+        self.assertFalse(hasattr(advanced_options, "partition_combo"))
+        self.assertFalse(hasattr(advanced_options, "pesize_combo"))
+        self.assertTrue(hasattr(advanced_options, "chunk_combo"))
+
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_mdraid_validation(self):
+        parent_device = Mock(type="disk", format=Mock(label_type="gpt", extended_partition=None))
+        free_device = Mock(is_logical=False, size=Size("8 GiB"))
+
+        advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="mdraid",
+                                           parent_device=parent_device, free_device=free_device)
+
+        entry = advanced_options.chunk_combo.get_child()
+
+        # invalid size specification
+        entry.set_text("aaaaaaa")
+        advanced_options.validate_user_input()
+        self.error_dialog.assert_any_call(self.add_dialog, _("'aaaaaaa' is not a valid chunk size specification."))
+        self.error_dialog.reset_mock()
+
+        # invalid size
+        entry.set_text("1 KiB")
+        advanced_options.validate_user_input()
+        self.error_dialog.assert_any_call(self.add_dialog, _("Chunk size must be multiple of 4 KiB."))
+        self.error_dialog.reset_mock()
+
+        # valid size
+        entry.set_text("64 KiB")
+        advanced_options.validate_user_input()
+        self.assertFalse(self.error_dialog.called)
+        self.error_dialog.reset_mock()
+
     def test_selection(self):
         # partition
         parent_device = Mock(type="disk", format=Mock(label_type="msdos", extended_partition=None))
@@ -211,6 +255,17 @@ class AdvancedOptionsTest(unittest.TestCase):
 
         selection = advanced_options.get_selection()
         self.assertEqual(selection["pesize"], Size("64 MiB"))
+
+        # mdraid
+        parent_device = Mock(type="disk", format=Mock(label_type="msdos", extended_partition=None))
+        free_device = Mock(is_logical=False)
+        advanced_options = AdvancedOptions(add_dialog=self.add_dialog, device_type="mdraid",
+                                           parent_device=parent_device, free_device=free_device)
+
+        advanced_options.chunk_combo.set_active_id("64 KiB")
+
+        selection = advanced_options.get_selection()
+        self.assertEqual(selection["chunk_size"], Size("64 KiB"))
 
 
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
@@ -378,7 +433,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog.filesystems_combo.get_visible())
         self.assertTrue(add_dialog.name_entry.get_visible())
         self.assertFalse(add_dialog.encrypt_check.get_visible())
-        self.assertIsNone(add_dialog.advanced)
+        self.assertIsNotNone(add_dialog.advanced)
         self.assertTrue(add_dialog.md_type_combo.get_visible())
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
