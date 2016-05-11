@@ -618,7 +618,7 @@ class BlivetGUI(object):
 
     def blivet_init(self):
         loading_window = LoadingWindow(self.main_window)
-        ret = self._blivet_init_thread(loading_window)
+        ret = self._run_thread(loading_window, self.client.remote_control, ("init", self.ignored_disks, self.kickstart_mode))
 
         if not ret.success:  # pylint: disable=maybe-no-member
             # blivet-gui is already running --> quit
@@ -661,7 +661,7 @@ class BlivetGUI(object):
 
         return response == Gtk.ResponseType.ACCEPT
 
-    def _blivet_init_thread(self, dialog):
+    def _run_thread(self, dialog, method, args):
 
         ret = []
 
@@ -669,7 +669,7 @@ class BlivetGUI(object):
             dialog.stop()
 
         def do_it(ret):
-            ret.append(self.client.remote_control("init", self.ignored_disks, self.kickstart_mode))
+            ret.append(method(*args))
             GLib.idle_add(end)
 
         thread = threading.Thread(target=do_it, args=(ret,))
@@ -696,7 +696,8 @@ class BlivetGUI(object):
             if not response:
                 return
 
-        self.client.remote_call("blivet_reset")
+        loading_window = LoadingWindow(self.main_window)
+        self._run_thread(loading_window, self.client.remote_call, ("blivet_reset",))
 
         if self.kickstart_mode:
             self.client.remote_call("kickstart_hide_disks", self.use_disks)
