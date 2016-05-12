@@ -61,29 +61,20 @@ class DeviceToolbar(BlivetGUIToolbar):
     def __init__(self, blivet_gui):
         super(DeviceToolbar, self).__init__(blivet_gui)
 
-        toolbutton_add = self.blivet_gui.builder.get_object("toolbutton_add")
-        toolbutton_add.connect("clicked", self.blivet_gui.add_device)
-        self.buttons["add"] = toolbutton_add
+        items = [("add", "clicked", self.blivet_gui.add_device),
+                 ("delete", "clicked", self.blivet_gui.delete_selected_partition),
+                 ("resize", "activate", self.blivet_gui.resize_device),
+                 ("format", "activate", self.blivet_gui.format_device),
+                 ("unmount", "clicked", self.blivet_gui.umount_partition),
+                 ("decrypt", "clicked", self.blivet_gui.decrypt_device),
+                 ("info", "clicked", self.blivet_gui.device_information)]
 
-        toolbutton_remove = self.blivet_gui.builder.get_object("toolbutton_remove")
-        toolbutton_remove.connect("clicked", self.blivet_gui.delete_selected_partition)
-        self.buttons["delete"] = toolbutton_remove
+        for item in items:
+            menu_item = self.blivet_gui.builder.get_object("button_" + item[0])
+            menu_item.connect(item[1], item[2])
+            menu_item.set_sensitive(False)
 
-        toolbutton_edit = self.blivet_gui.builder.get_object("toolbutton_edit")
-        toolbutton_edit.connect("clicked", self.blivet_gui.edit_device)
-        self.buttons["edit"] = toolbutton_edit
-
-        toolbutton_unmount = self.blivet_gui.builder.get_object("toolbutton_unmount")
-        toolbutton_unmount.connect("clicked", self.blivet_gui.umount_partition)
-        self.buttons["unmount"] = toolbutton_unmount
-
-        toolbutton_decrypt = self.blivet_gui.builder.get_object("toolbutton_decrypt")
-        toolbutton_decrypt.connect("clicked", self.blivet_gui.decrypt_device)
-        self.buttons["decrypt"] = toolbutton_decrypt
-
-        toolbutton_info = self.blivet_gui.builder.get_object("toolbutton_info")
-        toolbutton_info.connect("clicked", self.blivet_gui.device_information)
-        self.buttons["info"] = toolbutton_info
+            self.buttons[item[0]] = menu_item
 
     def deactivate_all(self):
         """ Deactivate all partition based buttons

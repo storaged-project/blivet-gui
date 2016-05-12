@@ -41,7 +41,8 @@ class ActionsMenu(object):
 
         items = [("add", self.blivet_gui.add_device),
                  ("delete", self.blivet_gui.delete_selected_partition),
-                 ("edit", self.blivet_gui.edit_device),
+                 ("resize", self.blivet_gui.resize_device),
+                 ("format", self.blivet_gui.format_device),
                  ("unmount", self.blivet_gui.umount_partition),
                  ("decrypt", self.blivet_gui.decrypt_device),
                  ("info", self.blivet_gui.device_information)]

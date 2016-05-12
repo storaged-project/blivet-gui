@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkAccelGroup" id="accelgroup"/>
@@ -31,6 +31,28 @@
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">Edit</property>
         <property name="use_underline">True</property>
+        <child type="submenu">
+          <object class="GtkMenu" id="submenu_edit">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <child>
+              <object class="GtkMenuItem" id="menuitem_resize">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Resize</property>
+                <property name="use_underline">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="menuitem_format">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Format</property>
+                <property name="use_underline">True</property>
+              </object>
+            </child>
+          </object>
+        </child>
       </object>
     </child>
     <child>
@@ -103,6 +125,31 @@
       </object>
     </child>
   </object>
+  <object class="GtkMenu" id="edit_button_menu">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkMenuItem" id="button_resize">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Resize</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="button_format">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Format</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkImage" id="image_add">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">list-add-symbolic</property>
+  </object>
   <object class="GtkImage" id="image_apply">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -117,6 +164,26 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">edit-clear-all-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_decrypt">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">dialog-password-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_delete">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">edit-delete-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_info">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">dialog-information-symbolic</property>
+  </object>
+  <object class="GtkImage" id="image_unmount">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">media-eject-symbolic</property>
   </object>
   <object class="GtkListStore" id="liststore_devices">
     <columns>
@@ -372,94 +439,103 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkToolbar" id="toolbar_device_actions">
+                          <object class="GtkBox" id="box_toolbar">
+                            <property name="name">toolbar</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="icon_size">2</property>
                             <child>
-                              <object class="GtkToolButton" id="toolbutton_add">
+                              <object class="GtkButton" id="button_add">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="tooltip_text" translatable="yes">Add Device</property>
-                                <property name="label" translatable="yes">add</property>
-                                <property name="use_underline">True</property>
-                                <property name="icon_name">list-add-symbolic</property>
-                                <accelerator key="Insert" signal="clicked"/>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="image">image_add</property>
+                                <property name="relief">none</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkToolButton" id="toolbutton_remove">
+                              <object class="GtkButton" id="button_delete">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="tooltip_text" translatable="yes">Remove Device</property>
-                                <property name="label" translatable="yes">remove</property>
-                                <property name="use_underline">True</property>
-                                <property name="icon_name">edit-delete-symbolic</property>
-                                <accelerator key="Delete" signal="clicked"/>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="image">image_delete</property>
+                                <property name="relief">none</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkToolButton" id="toolbutton_edit">
+                              <object class="GtkMenuButton" id="button_edit">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="tooltip_text" translatable="yes">Edit Device</property>
-                                <property name="label" translatable="yes">edit</property>
-                                <property name="use_underline">True</property>
-                                <property name="icon_name">edit-select-all-symbolic</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="halign">center</property>
+                                <property name="valign">center</property>
+                                <property name="relief">none</property>
+                                <property name="popup">edit_button_menu</property>
+                                <child>
+                                  <object class="GtkImage" id="image_edit">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="margin_top">2</property>
+                                    <property name="margin_bottom">3</property>
+                                    <property name="icon_name">edit-select-all-symbolic</property>
+                                  </object>
+                                </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">2</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkToolButton" id="toolbutton_unmount">
+                              <object class="GtkButton" id="button_unmount">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="tooltip_text" translatable="yes">Unmount Device</property>
-                                <property name="label" translatable="yes">unmount</property>
-                                <property name="use_underline">True</property>
-                                <property name="icon_name">media-eject-symbolic</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="image">image_unmount</property>
+                                <property name="relief">none</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkToolButton" id="toolbutton_decrypt">
+                              <object class="GtkButton" id="button_decrypt">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="tooltip_text" translatable="yes">Decrypt Device</property>
-                                <property name="label" translatable="yes">decrypt</property>
-                                <property name="use_underline">True</property>
-                                <property name="icon_name">dialog-password-symbolic</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="image">image_decrypt</property>
+                                <property name="relief">none</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">4</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkToolButton" id="toolbutton_info">
+                              <object class="GtkButton" id="button_info">
                                 <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="tooltip_text" translatable="yes">Device Information</property>
-                                <property name="label" translatable="yes">info</property>
-                                <property name="use_underline">True</property>
-                                <property name="icon_name">dialog-information-symbolic</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">True</property>
+                                <property name="image">image_info</property>
+                                <property name="relief">none</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="homogeneous">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">5</property>
                               </packing>
                             </child>
                           </object>
