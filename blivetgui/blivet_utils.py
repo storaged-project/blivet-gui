@@ -584,7 +584,7 @@ class BlivetUtils(object):
 
         for device in self.storage.devices:
             if device.type in ("partition", "lvmlv", "lvmpv"):
-                if device.format and device.format.type and device.format.resizable and hasattr(device.format, "update_size_info"):
+                if device.format.type and not device.format.status and hasattr(device.format, "update_size_info"):
                     try:
                         device.format.update_size_info()
                     except blivet.errors.FSError:
@@ -643,17 +643,39 @@ class BlivetUtils(object):
             return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
-    def _resize_device(self, device, newsize):
+    def format_device(self, user_input):
+        fmt_actions = []
+
+        if user_input.edit_device.format.type is not None:
+            fmt_actions.append(blivet.deviceaction.ActionDestroyFormat(user_input.edit_device))
+
+        if user_input.filesystem:
+            fmt_actions.append(self._create_format(user_input, user_input.edit_device))
+
+        try:
+            for ac in fmt_actions:
+                self.storage.devicetree.actions.add(ac)
+            return ProxyDataContainer(success=True, actions=fmt_actions, message=None, exception=None, traceback=None)
+
+        except Exception as e:  # pylint: disable=broad-except
+            return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
+                                      traceback=traceback.format_exc())
+
+    def resize_device(self, user_input):
+        device = user_input.edit_device
+
+        if not user_input.resize or user_input.size == device.size:
+            return ProxyDataContainer(success=True, actions=None, message=None, exception=None, traceback=None)
 
         resize_actions = []
 
         # align size first
         if device.type == "partition":
-            aligned_size = device.align_target_size(newsize)
+            aligned_size = device.align_target_size(user_input.size)
         elif device.type == "luks/dm-crypt":
-            aligned_size = device.slave.align_target_size(newsize)
+            aligned_size = device.slave.align_target_size(user_input.size)
         else:
-            aligned_size = newsize
+            aligned_size = user_input.size
 
         # resize format
         if device.format.resizable:
@@ -668,47 +690,14 @@ class BlivetUtils(object):
             resize_actions.append(blivet.deviceaction.ActionResizeDevice(device, aligned_size))
 
         # reverse order if grow
-        if newsize > device.current_size:
+        if aligned_size > device.current_size:
             resize_actions.reverse()
 
-        return resize_actions
-
-    def edit_partition_device(self, user_input):
-        """ Edit device
-
-            :param blivet_device: blivet.Device
-            :type blivet_device: blivet.Device
-            :param user_input: user selection
-            :type user_input: class dialogs.edit_dialog.UserSelection
-            :returns: success
-            :rtype: bool
-
-        """
-
-        blivet_device = user_input.edit_device
-        actions = []
-
-        if user_input.mountpoint:
-            blivet_device.format.mountpoint = user_input.mountpoint
-
-        if not user_input.resize and not user_input.fmt:
-            return ProxyDataContainer(success=True, actions=None, message=None, exception=None, traceback=None)
-
-        if user_input.resize:
-            actions.extend(self._resize_device(blivet_device, user_input.size))
-
-        if user_input.fmt:
-            if blivet_device.format.type is not None:
-                actions.append(blivet.deviceaction.ActionDestroyFormat(blivet_device))
-
-            if user_input.filesystem:
-                actions.append(self._create_format(user_input, blivet_device))
-
         try:
-            for ac in actions:
+            for ac in resize_actions:
                 self.storage.devicetree.actions.add(ac)
             blivet.partitioning.do_partitioning(self.storage)
-            return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
+            return ProxyDataContainer(success=True, actions=resize_actions, message=None, exception=None, traceback=None)
 
         except Exception as e:  # pylint: disable=broad-except
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
@@ -793,7 +782,6 @@ class BlivetUtils(object):
                 fmt_options = ""
 
             new_fmt = blivet.formats.get_format(fmt_type=user_input.filesystem,
-                                                mountpoint=user_input.mountpoint,
                                                 create_options=fmt_options)
             return blivet.deviceaction.ActionCreateFormat(device, new_fmt)
 
