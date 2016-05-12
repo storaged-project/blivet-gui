@@ -170,6 +170,31 @@ class ListPartitions(object):
                 else:
                     return not device.format.status
 
+    def _allow_resize_device(self, device):
+        if device.protected or device.children:
+            return False
+
+        if device.type not in ("partition", "lvmlv", "luks/dm-crypt"):
+            return False
+
+        return device.resizable and device.format.resizable \
+            and (device.max_size > device.size or device.min_size < device.size)
+
+    def _allow_format_device(self, device):
+        if device.protected or device.children:
+            return False
+
+        if device.type not in ("partition", "lvmlv", "luks/dm-crypt"):
+            return False
+
+        if device.type == "partition" and device.is_extended:
+            return False
+
+        if device.format.type in ("mdmember", "btrfs"):
+            return False
+
+        return not device.format.status
+
     def _allow_edit_device(self, device):
         if device.protected:
             return False
@@ -227,8 +252,11 @@ class ListPartitions(object):
         if self._allow_delete_device(device):
             self.blivet_gui.activate_device_actions(["delete"])
 
-        if self._allow_edit_device(device):
-            self.blivet_gui.activate_device_actions(["edit"])
+        if self._allow_resize_device(device):
+            self.blivet_gui.activate_device_actions(["resize"])
+
+        if self._allow_format_device(device):
+            self.blivet_gui.activate_device_actions(["format"])
 
         if self._allow_add_device(device):
             self.blivet_gui.activate_device_actions(["add"])

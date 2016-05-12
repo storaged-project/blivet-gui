@@ -262,6 +262,47 @@ class BlivetGUI(object):
         dialog.run()
         dialog.destroy()
 
+    def resize_device(self, _widget=None):
+        device = self.list_partitions.selected_partition[0]
+
+        dialog = edit_dialog.ResizeDialog(self.main_window, device,
+                                          self.client.remote_call("device_resizable", device))
+
+        user_input = dialog.run()
+        if user_input.resize:
+            result = self.client.remote_call("resize_device", user_input)
+
+            if not result.success:
+                if not result.exception:
+                    self.show_error_dialog(result.message)
+                else:
+                    self._reraise_exception(result.exception, result.traceback)
+            else:
+                if result.actions:
+                    action_str = _("resize {name} {type}").format(name=device.name, type=device.type)
+                    self.list_actions.append("edit", action_str, result.actions)
+                self.update_partitions_view()
+
+    def format_device(self, _widget=None):
+        device = self.list_partitions.selected_partition[0]
+
+        dialog = edit_dialog.FormatDialog(self.main_window, device)
+
+        user_input = dialog.run()
+        if user_input.format:
+            result = self.client.remote_call("format_device", user_input)
+
+            if not result.success:
+                if not result.exception:
+                    self.show_error_dialog(result.message)
+                else:
+                    self._reraise_exception(result.exception, result.traceback)
+            else:
+                if result.actions:
+                    action_str = _("format {name} {type}").format(name=device.name, type=device.type)
+                    self.list_actions.append("edit", action_str, result.actions)
+                self.update_partitions_view()
+
     def edit_device(self, _widget=None):
         """ Edit selected device
 
