@@ -45,7 +45,8 @@ class ActionsMenu(object):
                  ("format", self.blivet_gui.format_device),
                  ("unmount", self.blivet_gui.umount_partition),
                  ("decrypt", self.blivet_gui.decrypt_device),
-                 ("info", self.blivet_gui.device_information)]
+                 ("info", self.blivet_gui.device_information),
+                 ("parents", self.blivet_gui.edit_lvmvg)]
 
         for item in items:
             menu_item = self.blivet_gui.builder.get_object("menuitem_" + item[0])

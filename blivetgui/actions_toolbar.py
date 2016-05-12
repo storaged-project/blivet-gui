@@ -67,7 +67,8 @@ class DeviceToolbar(BlivetGUIToolbar):
                  ("format", "activate", self.blivet_gui.format_device),
                  ("unmount", "clicked", self.blivet_gui.umount_partition),
                  ("decrypt", "clicked", self.blivet_gui.decrypt_device),
-                 ("info", "clicked", self.blivet_gui.device_information)]
+                 ("info", "clicked", self.blivet_gui.device_information),
+                 ("parents", "activate", self.blivet_gui.edit_lvmvg)]
 
         for item in items:
             menu_item = self.blivet_gui.builder.get_object("button_" + item[0])

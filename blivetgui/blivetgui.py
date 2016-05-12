@@ -303,44 +303,25 @@ class BlivetGUI(object):
                     self.list_actions.append("edit", action_str, result.actions)
                 self.update_partitions_view()
 
-    def edit_device(self, _widget=None):
-        """ Edit selected device
-
-            :param widget: widget calling this function (only for calls via signal.connect)
-            :type widget: Gtk.Widget()
-
+    def edit_lvmvg(self, _widget=None):
+        """ Edit selected lvmvg
         """
 
         device = self.list_partitions.selected_partition[0]
-
-        if device.type in ("partition", "lvmlv", "luks/dm-crypt"):
-            dialog = edit_dialog.PartitionEditDialog(self.main_window, device,
-                                                     self.client.remote_call("device_resizable", device),
-                                                     self.client.remote_call("get_mountpoints"),
-                                                     self.kickstart_mode)
-
-        elif device.type in ("lvmvg",):
-            dialog = edit_dialog.LVMEditDialog(self.main_window, device,
-                                               self.client.remote_call("get_free_info"))
+        dialog = edit_dialog.LVMEditDialog(self.main_window, device,
+                                           self.client.remote_call("get_free_info"))
 
         response = dialog.run()
 
         if response == Gtk.ResponseType.OK:
             user_input = dialog.get_selection()
-
-            if device.type in ("partition", "lvmlv", "luks/dm-crypt"):
-                result = self.client.remote_call("edit_partition_device", user_input)
-
-            elif device.type in ("lvmvg",):
-                result = self.client.remote_call("edit_lvmvg_device", user_input)
+            result = self.client.remote_call("edit_lvmvg_device", user_input)
 
             if not result.success:
                 if not result.exception:
                     self.show_error_dialog(result.message)
-
                 else:
                     self._reraise_exception(result.exception, result.traceback)
-
             else:
                 if result.actions:
                     action_str = _("edit {name} {type}").format(name=device.name, type=device.type)

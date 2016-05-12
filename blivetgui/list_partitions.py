@@ -195,30 +195,6 @@ class ListPartitions(object):
 
         return not device.format.status
 
-    def _allow_edit_device(self, device):
-        if device.protected:
-            return False
-
-        if device.type not in ("partition", "lvmvg", "lvmlv", "luks/dm-crypt"):
-            return False
-
-        else:
-            if device.type == "partition" and device.is_extended:
-                return device.resizable and (device.max_size > device.size or device.min_size < device.size)
-
-            elif self.kickstart_mode:
-                return device.format.mountable
-
-            else:
-                if device.type in ("lvmvg",):
-                    return device.exists
-
-                elif device.format.type in ("btrfs", "lvmpv", "mdmember"):
-                    return False
-
-                else:
-                    return not device.format.status
-
     def _allow_add_device(self, device):
         if device.protected:
             return False
@@ -260,6 +236,9 @@ class ListPartitions(object):
 
         if self._allow_add_device(device):
             self.blivet_gui.activate_device_actions(["add"])
+
+        if device.type == "lvmvg":
+            self.blivet_gui.activate_device_actions(["parents"])
 
         if device.format:
             if device.format.type == "luks" and not device.format.status and device.format.exists:
