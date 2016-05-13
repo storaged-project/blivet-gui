@@ -27,6 +27,8 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
+from blivet.size import Size
+
 from .size_chooser import SizeChooser
 from .helpers import supported_filesystems
 from ..gui_utils import locate_ui_file
@@ -122,6 +124,8 @@ class FormatDialog(object):
         self.fs_combo = self.builder.get_object("comboboxtext_format")
 
         supported_fs = supported_filesystems()
+        if self.edit_device.size > Size("8 MiB"):
+            supported_fs.append("lvmpv")
         for fs in supported_fs:
             self.fs_combo.append_text(fs)
 

@@ -142,7 +142,7 @@ def supported_filesystems():
                         (isinstance(obj, formats.fs.FS) or
                          obj.type in ("swap",)))
         if supported_fs:
-            _fs_types.append(obj.name)
+            _fs_types.append(obj.type)
 
     _fs_types.append("unformatted")
 

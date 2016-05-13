@@ -316,7 +316,7 @@ class AddDialogTest(unittest.TestCase):
 
         types = sorted([i[1] for i in add_dialog.devices_combo.get_model()])
 
-        self.assertTrue(sorted(["partition", "lvm", "lvmpv", "btrfs volume", "mdraid"]) == types)
+        self.assertTrue(sorted(["partition", "lvm", "btrfs volume", "mdraid"]) == types)
         self.assertTrue(add_dialog.devices_combo.get_sensitive())
 
         # disk with disklabel and not enough free space, no other disks available
@@ -328,7 +328,7 @@ class AddDialogTest(unittest.TestCase):
 
         types = sorted([i[1] for i in add_dialog.devices_combo.get_model()])
 
-        self.assertTrue(sorted(["partition", "lvm", "lvmpv"]) == types)
+        self.assertTrue(sorted(["partition", "lvm"]) == types)
         self.assertTrue(add_dialog.devices_combo.get_sensitive())
 
         # lvmpv
@@ -378,25 +378,6 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog.encrypt_check.get_visible())
         self.assertFalse(add_dialog.raid_combo.get_visible())
         self.assertIsNotNone(add_dialog.advanced)
-        self.assertFalse(add_dialog.md_type_combo.get_visible())
-        self.assertTrue(add_dialog.size_area.get_sensitive())
-
-    @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
-    def test_lvmpv_widgets(self):
-        parent_device = self._get_parent_device()
-        free_device = self._get_free_device(parent=parent_device)
-
-        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [])
-
-        add_dialog.devices_combo.set_active_id("lvmpv")
-        self.assertEqual(add_dialog.selected_type, "lvmpv")
-
-        self.assertFalse(add_dialog.filesystems_combo.get_visible())
-        self.assertFalse(add_dialog.name_entry.get_visible())
-        self.assertTrue(add_dialog.encrypt_check.get_visible())
-        self.assertFalse(add_dialog.raid_combo.get_visible())
-        self.assertIsNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
         self.assertTrue(add_dialog.size_area.get_sensitive())
 
@@ -557,13 +538,13 @@ class AddDialogTest(unittest.TestCase):
                                [("free", free_device)], [], True)  # with kickstart_mode=True
 
         # swap -- mountpoint and label entries shouldn't be visible
-        add_dialog.filesystems_combo.set_active(add_dialog.supported_fs.index("swap"))
+        add_dialog.filesystems_combo.set_active_id("swap")
         self.assertEqual(add_dialog.filesystems_combo.get_active_text(), "swap")
         self.assertFalse(add_dialog.mountpoint_entry.get_visible())
         self.assertFalse(add_dialog.label_entry.get_visible())
 
         # ext4 -- mountpoint and label entries should be visible
-        add_dialog.filesystems_combo.set_active(add_dialog.supported_fs.index("ext4"))
+        add_dialog.filesystems_combo.set_active_id("ext4")
         self.assertEqual(add_dialog.filesystems_combo.get_active_text(), "ext4")
         self.assertTrue(add_dialog.mountpoint_entry.get_visible())
         self.assertTrue(add_dialog.label_entry.get_visible())
