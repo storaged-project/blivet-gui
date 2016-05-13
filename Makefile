@@ -64,10 +64,15 @@ pep8: check-requires
 	@echo "*** Running pep8 compliance check ***"
 	python3-pep8 --ignore=E501,E402,E731 blivetgui/ tests/ blivet-gui blivet-gui-daemon
 
+canary: check-requires
+	$(MAKE) -C po potfile
+	PYTHONPATH=translation-canary:$(PYTHONPATH) python3 -m translation_canary.translatable po/blivet-gui.pot
+
 check:
 	@status=0; \
 	$(MAKE) pylint || status=1; \
 	$(MAKE) pep8 || status=1; \
+	$(MAKE) canary || status=1; \
 	exit $$status
 
 clean:
@@ -96,27 +101,18 @@ tag:
 release: tag archive
 
 archive: po-pull
-	@rm -f ChangeLog
-	$(MAKE) ChangeLog
-	git archive --format=tar --prefix=$(APPNAME)-$(VERSION)/ $(RELEASE_TAG) > $(APPNAME)-$(VERSION).tar
-	mkdir $(APPNAME)-$(VERSION)
+	$(MAKE) -B ChangeLog
+	git archive --format=tar --prefix=$(APPNAME)-$(VERSION)/ $(VERSION_TAG) | tar -xf -
 	cp -r po $(APPNAME)-$(VERSION)
 	cp ChangeLog $(APPNAME)-$(VERSION)/
-	tar -rf $(APPNAME)-$(VERSION).tar $(APPNAME)-$(VERSION)
-	gzip -9 $(APPNAME)-$(VERSION).tar
+	( cd $(APPNAME)-$(VERSION) && python3 setup.py -q sdist --dist-dir .. )
 	rm -rf $(APPNAME)-$(VERSION)
 	git checkout -- po/$(APPNAME).pot
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
 
 local: po-pull
-	@rm -f ChangeLog
-	@make ChangeLog
-	@rm -rf $(APPNAME)-$(VERSION).tar.gz
-	@rm -rf /tmp/$(APPNAME)-$(VERSION) /tmp/$(APPNAME)
-	@dir=$$PWD; cp -a $$dir /tmp/$(APPNAME)-$(VERSION)
-	@cd /tmp/$(APPNAME)-$(VERSION) ; $(PYTHON) setup.py -q sdist
-	@cp /tmp/$(APPNAME)-$(VERSION)/dist/$(APPNAME)-$(VERSION).tar.gz .
-	@rm -rf /tmp/$(APPNAME)-$(VERSION)
+	@make -B ChangeLog
+	@python3 setup.py -q sdist --dist-dir .
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
 
 bumpver:

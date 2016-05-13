@@ -1,4 +1,4 @@
-include blivet-gui README.txt Makefile COPYING
+include blivet-gui README.txt Makefile COPYING ChangeLog
 recursive-include help *
 recursive-include data *
 recursive-include po *

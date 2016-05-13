@@ -122,7 +122,7 @@ class PartitionEditDialog(Gtk.Dialog):
             label_info.set_markup(_("<b>This device cannot be resized:</b>\n<i>{0}</i>").format(self.resize_info.error))
 
         else:
-            label_info.set_markup(_("<b>This device cannot be resized.</b>"))
+            label_info.set_markup("<b>%s</b>" % _("This device cannot be resized."))
 
         table = Gtk.Table(1, 1, False)
         table.attach(label_info, 0, 1, 0, 1, Gtk.AttachOptions.SHRINK | Gtk.AttachOptions.FILL)

@@ -92,8 +92,9 @@ class ListActions(object):
 
         # activate 'actions-related' options
         self.blivet_gui.activate_action_buttons(True)
-        markup = P_("<a href=\"\">%s pending action</a>", "<a href=\"\">%s pending actions</a>", self.actions)
-        self.blivet_gui.label_actions.set_markup(markup % self.actions)
+        actions_str = P_("%s pending action", "%s pending actions", self.actions) % self.actions
+        markup = "<a href=\"\">%s</a>" % actions_str
+        self.blivet_gui.label_actions.set_markup(markup)
 
     def pop(self):
         """ Remove last action from the list of actions

@@ -79,7 +79,7 @@ class ListDevices(object):
         disks = self.blivet_gui.client.remote_call("get_disks")
 
         if disks:
-            self.device_list.append([None, None, _("<b>Disks</b>")])
+            self.device_list.append([None, None, "<b>%s</b>" % _("Disks")])
 
         for disk in disks:
             if disk.removable:
@@ -101,17 +101,17 @@ class ListDevices(object):
         icon_group = Gtk.IconTheme.load_icon(icon_theme, "drive-multidisk", 32, 0)
 
         if gdevices["lvm"]:
-            self.device_list.append([None, None, _("<b>LVM</b>")])
+            self.device_list.append([None, None, "<b>%s</b>" % _("LVM")])
             for device in gdevices["lvm"]:
                 self.device_list.append([device, icon_group, str(device.name + "\n<i><small>LVM2 VG</small></i>")])
 
         if gdevices["raid"]:
-            self.device_list.append([None, None, _("<b>RAID</b>")])
+            self.device_list.append([None, None, "<b>%s</b>" % _("RAID")])
             for device in gdevices["raid"]:
                 self.device_list.append([device, icon_group, str(device.name + "\n<i><small>MDArray</small></i>")])
 
         if gdevices["btrfs"]:
-            self.device_list.append([None, None, _("<b>Btrfs Volumes</b>")])
+            self.device_list.append([None, None, "<b>%s</b>" % _("Btrfs Volumes")])
             for device in gdevices["btrfs"]:
                 self.device_list.append([device, icon_group, str(device.name + "\n<i><small>Btrfs Volume</small></i>")])
 
