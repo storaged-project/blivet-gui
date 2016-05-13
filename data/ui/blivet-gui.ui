@@ -47,7 +47,7 @@
               <object class="GtkMenuItem" id="menuitem_format">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Format</property>
+                <property name="label" translatable="yes" context="Menu|Edit" comments="Edit format (e.g. delete existing and create a new one) on selected device.">Format</property>
                 <property name="use_underline">True</property>
               </object>
             </child>
@@ -148,7 +148,7 @@
       <object class="GtkMenuItem" id="button_format">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
-        <property name="label" translatable="yes">Format</property>
+        <property name="label" translatable="yes" context="Menu|Edit" comments="Edit format (e.g. delete existing and create a new one) on selected device.">Format</property>
         <property name="use_underline">True</property>
       </object>
     </child>
@@ -594,7 +594,7 @@
                             </child>
                             <child>
                               <object class="GtkTreeViewColumn" id="column_format">
-                                <property name="title" translatable="yes">Format</property>
+                                <property name="title" translatable="yes" context="LogicalView|Column" comments="Format (filesystem) type of selected device.">Format</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="cellrenderertext_format"/>
                                   <attributes>

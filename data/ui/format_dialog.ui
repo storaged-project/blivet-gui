@@ -33,7 +33,7 @@
             </child>
             <child>
               <object class="GtkButton" id="button_format">
-                <property name="label" translatable="yes">Format</property>
+                <property name="label" translatable="yes" context="Dialog|Format" comments="Perform selected format change on this device.">Format</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
