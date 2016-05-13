@@ -24,289 +24,130 @@
 
 import gi
 gi.require_version("Gtk", "3.0")
-gi.require_version("Pango", "1.0")
 
-from gi.repository import Gtk, Pango
-
-from ..dialogs import message_dialogs
+from gi.repository import Gtk
 
 from .size_chooser import SizeChooser
-from .helpers import is_mountpoint_valid, is_label_valid, supported_filesystems
-
+from .helpers import supported_filesystems
+from ..gui_utils import locate_ui_file
 from ..communication.proxy_utils import ProxyDataContainer
-
 from ..i18n import _
 
 # ---------------------------------------------------------------------------- #
 
 
-class PartitionEditDialog(Gtk.Dialog):
-    """ Dialog window allowing user to edit partition including selecting size,
-        fs, label etc.
-    """
+class ResizeDialog(object):
 
-    def __init__(self, parent_window, edited_device, resize_info, mountpoints,
-                 kickstart=False):
-        """
-
-            :param parent_window: parent window
-            :type parent_window: Gtk.Window
-            :param partition_name: name of device
-            :type partition_name: str
-            :param resize_info: is partition resizable, error, min_size, max_size
-            :type resize_info: namedtuple
-            :param kickstart: kickstart mode
-            :type kickstart: bool
-
-        """
-
-        self.edited_device = edited_device
+    def __init__(self, main_window, resize_device, resize_info):
+        self.main_window = main_window
+        self.resize_device = resize_device
         self.resize_info = resize_info
-        self.kickstart = kickstart
-        self.parent_window = parent_window
-        self.mountpoints = mountpoints
 
-        self.supported_fs = supported_filesystems()
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("blivet-gui")
+        self.builder.add_from_file(locate_ui_file("resize_dialog.ui"))
 
-        Gtk.Dialog.__init__(self, _("Edit device"), None, 0,
-                            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                             Gtk.STOCK_OK, Gtk.ResponseType.OK))
+        self.dialog = self.builder.get_object("resize_dialog")
+        self.dialog.set_transient_for(self.main_window)
 
-        self.set_transient_for(self.parent_window)
-        self.set_resizable(False)  # auto shrink after removing/hiding widgets
+        self.box = self.builder.get_object("box")
 
-        self.widgets_dict = {}
+        button_cancel = self.builder.get_object("button_cancel")
+        button_cancel.connect("clicked", self._on_cancel_button)
 
-        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
-        self.grid.set_border_width(10)
+        button_resize = self.builder.get_object("button_resize")
+        button_resize.connect("clicked", self._on_resize_button)
 
-        box = self.get_content_area()
-        box.add(self.grid)
+        if self.resize_info.resizable:
+            self.size_chooser = self._add_size_chooser()
+        else:
+            self._add_resize_info()
 
-        self.size_area = self.add_size_chooser()
+    def _add_size_chooser(self):
+        size_chooser = SizeChooser(max_size=self.resize_info.max_size,
+                                   min_size=self.resize_info.min_size,
+                                   current_size=self.resize_device.size)
+        self.box.pack_start(child=size_chooser.grid, expand=True, fill=True, padding=0)
 
-        self.show_all()
+        return size_chooser
 
-        self.format_check, self.filesystems_combo, self.fslabel_entry = self.add_fs_chooser()
-
-        self.mountpoint_entry = self.add_mountpoint()
-
-        if not self.resize_info.resizable:
-            self.hide_widgets(["size"])
-            self.size_area.grid.set_tooltip_text(_("This device cannot be resized."))
-            self.add_resize_info()
-            self.show_widgets(["info"])
-
-        if self.edited_device.type == "partition" and self.edited_device.is_extended:
-            self.set_widgets_sensitive(["fs"], False)
-            self.format_check.set_tooltip_text(_("Extended partitions cannot be formatted."))
-
-        if self.kickstart:
-            self.show_widgets(["mountpoint"])
-
-        self.show_widgets(["fs"])
-
-        ok_button = self.get_widget_for_response(Gtk.ResponseType.OK)
-        ok_button.connect("clicked", self.on_ok_clicked)
-
-    def add_resize_info(self):
-
-        width = self.size_area.grid.size_request().width
-
+    def _add_resize_info(self):
         label_info = Gtk.Label()
-        label_info.set_size_request(width, -1)
-        label_info.set_line_wrap_mode(Pango.WrapMode.WORD_CHAR)
-        label_info.set_line_wrap(True)
 
         if self.resize_info.error:
             label_info.set_markup(_("<b>This device cannot be resized:</b>\n<i>{0}</i>").format(self.resize_info.error))
-
         else:
             label_info.set_markup("<b>%s</b>" % _("This device cannot be resized."))
 
-        table = Gtk.Table(1, 1, False)
-        table.attach(label_info, 0, 1, 0, 1, Gtk.AttachOptions.SHRINK | Gtk.AttachOptions.FILL)
+        self.box.pack_start(child=label_info, expand=True, fill=True, padding=0)
 
-        self.grid.attach(table, 0, 1, 6, 1)
+    def run(self):
+        response = self.dialog.run()
 
-        self.widgets_dict["info"] = [table, label_info]
-
-    def add_size_chooser(self):
-        size_area = SizeChooser(max_size=self.resize_info.max_size,
-                                min_size=self.resize_info.min_size,
-                                current_size=self.edited_device.size)
-
-        self.grid.attach(size_area.grid, 0, 0, 6, 1)
-
-        self.widgets_dict["size"] = [size_area]
-
-        return size_area
-
-    def add_fs_chooser(self):
-
-        label_format = Gtk.Label(label=_("Format?:"), xalign=1)
-        label_format.get_style_context().add_class("dim-label")
-        self.grid.attach(label_format, 0, 2, 1, 1)
-
-        format_check = Gtk.CheckButton()
-        self.grid.attach(format_check, 1, 2, 1, 1)
-        format_check.connect("toggled", self.on_format_changed)
-
-        label_fs = Gtk.Label(label=_("Filesystem:"), xalign=1)
-        label_fs.get_style_context().add_class("dim-label")
-        self.grid.attach(label_fs, 0, 3, 1, 1)
-
-        filesystems_combo = Gtk.ComboBoxText()
-        filesystems_combo.set_entry_text_column(0)
-        filesystems_combo.set_id_column(0)
-        filesystems_combo.set_sensitive(False)
-
-        for fs in self.supported_fs:
-            filesystems_combo.append_text(fs)
-
-        self.grid.attach(filesystems_combo, 1, 3, 2, 1)
-
-        label_fslabel = Gtk.Label(label=_("Label:"), xalign=1)
-        label_fslabel.get_style_context().add_class("dim-label")
-        self.grid.attach(label_fslabel, 0, 4, 1, 1)
-
-        fslabel_entry = Gtk.Entry()
-        fslabel_entry.set_sensitive(False)
-        self.grid.attach(fslabel_entry, 1, 4, 2, 1)
-
-        self.widgets_dict["fs"] = [label_format, format_check, label_fs, filesystems_combo, label_fslabel, fslabel_entry]
-
-        return (format_check, filesystems_combo, fslabel_entry)
-
-    def add_mountpoint(self):
-
-        label_mountpoint = Gtk.Label(label=_("Mountpoint:"), xalign=1)
-        label_mountpoint.get_style_context().add_class("dim-label")
-        self.grid.attach(label_mountpoint, 0, 5, 1, 1)
-
-        mountpoint_entry = Gtk.Entry()
-        self.grid.attach(mountpoint_entry, 1, 5, 2, 1)
-
-        self.widgets_dict["mountpoint"] = [label_mountpoint, mountpoint_entry]
-
-        if self.kickstart and self.edited_device.format and self.edited_device.format.mountpoint:
-            mountpoint_entry.set_text(self.edited_device.format.mountpoint)
-
-        return mountpoint_entry
-
-    def on_format_changed(self, _event):
-
-        if self.format_check.get_active():
-            self.filesystems_combo.set_sensitive(True)
-            self.fslabel_entry.set_sensitive(True)
-            if "ext4" in self.supported_fs:
-                self.filesystems_combo.set_active(self.supported_fs.index("ext4"))
-            else:
-                self.filesystems_combo.set_active(0)
-
+        if response == Gtk.ResponseType.REJECT:
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.resize_device, resize=False, size=None)
         else:
-            self.filesystems_combo.set_sensitive(False)
-            self.fslabel_entry.set_sensitive(False)
-            self.fslabel_entry.set_text("")
-            self.filesystems_combo.set_active(-1)
+            selected_size = self.size_chooser.get_selection()
+            resize = selected_size != self.resize_device.size
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.resize_device, resize=resize, size=selected_size)
 
-    def update_size_areas(self, size):
-        """ Update all size areas to selected size
-            (used for raids where all parents has same size)
+    def _on_cancel_button(self, _button):
+        self.dialog.response(Gtk.ResponseType.REJECT)
 
-            .. note:: Copied from AddDialog for future use
-        """
+    def _on_resize_button(self, _button):
+        self.dialog.response(Gtk.ResponseType.ACCEPT)
 
-        pass
 
-    def show_widgets(self, widget_types):
+class FormatDialog(object):
 
-        for widget_type in widget_types:
-            if widget_type == "mountpoint" and not self.kickstart:
-                continue
+    def __init__(self, main_window, edit_device):
+        self.main_window = main_window
+        self.edit_device = edit_device
 
-            elif widget_type == "size":
-                for widget in self.widgets_dict[widget_type]:
-                    widget.set_sensitive(True)
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("blivet-gui")
+        self.builder.add_from_file(locate_ui_file("format_dialog.ui"))
 
-            else:
-                for widget in self.widgets_dict[widget_type]:
-                    widget.show()
+        self.dialog = self.builder.get_object("format_dialog")
+        self.dialog.set_transient_for(self.main_window)
 
-    def hide_widgets(self, widget_types):
+        button_cancel = self.builder.get_object("button_cancel")
+        button_cancel.connect("clicked", self._on_cancel_button)
 
-        for widget_type in widget_types:
-            if widget_type == "mountpoint" and not self.kickstart:
-                continue
+        button_format = self.builder.get_object("button_format")
+        button_format.connect("clicked", self._on_format_button)
 
-            elif widget_type == "size":
-                for widget in self.widgets_dict[widget_type]:
-                    widget.set_sensitive(False)
+        self.fs_combo = self.builder.get_object("comboboxtext_format")
 
-            else:
-                for widget in self.widgets_dict[widget_type]:
-                    widget.hide()
+        supported_fs = supported_filesystems()
+        for fs in supported_fs:
+            self.fs_combo.append_text(fs)
 
-    def set_widgets_sensitive(self, widget_types, sensitivity):
-
-        for widget_type in widget_types:
-            for widget in self.widgets_dict[widget_type]:
-                widget.set_sensitive(sensitivity)
-
-    def validate_user_input(self):
-        """ Validate data input
-        """
-
-        user_input = self.get_selection()
-
-        if self.kickstart and user_input.mountpoint:
-            if user_input.mountpoint == self.edited_device.format.mountpoint:
-                return True
-            valid, msg = is_mountpoint_valid(self.mountpoints, user_input.mountpoint)
-            if not valid:
-                message_dialogs.ErrorDialog(self, msg)
-                return False
-            else:
-                return True
-
-        if user_input.label and not is_label_valid(user_input.filesystem, user_input.label):
-            msg = _("\"{label}\" is not a valid label.").format(label=user_input.label)
-            message_dialogs.ErrorDialog(self, msg)
-            return False
-
-        return True
-
-    def on_ok_clicked(self, _event):
-        if not self.validate_user_input():
-            self.run()
-
-    def get_selection(self):
-
-        if self.kickstart:
-            mountpoint = self.mountpoint_entry.get_text()
-
+        if "ext4" in supported_fs:
+            self.fs_combo.set_active(supported_fs.index("ext4"))
         else:
-            mountpoint = None
+            self.fs_combo.set_active(0)
 
-        if self.resize_info.resizable:
-            selected_size = self.size_area.get_selection()
-            resize = selected_size != self.edited_device.size
+    def run(self):
+        response = self.dialog.run()
 
+        if response == Gtk.ResponseType.REJECT:
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, format=False, filesystem=None)
         else:
-            resize = False
-            selected_size = None
+            selected_fmt = self.fs_combo.get_active_text()
+            if selected_fmt == "unformatted":
+                selected_fmt = None
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, format=True, filesystem=selected_fmt)
 
-        filesystem = self.filesystems_combo.get_active_text()
-        if filesystem == "unformatted":
-            filesystem = None
+    def _on_cancel_button(self, _button):
+        self.dialog.response(Gtk.ResponseType.REJECT)
 
-        return ProxyDataContainer(edit_device=self.edited_device,
-                                  resize=resize,
-                                  size=selected_size,
-                                  fmt=self.format_check.get_active(),
-                                  filesystem=filesystem,
-                                  label=self.fslabel_entry.get_text(),
-                                  mountpoint=mountpoint)
+    def _on_format_button(self, _button):
+        self.dialog.response(Gtk.ResponseType.ACCEPT)
 
 
 class LVMEditDialog(Gtk.Dialog):

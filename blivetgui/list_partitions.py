@@ -170,29 +170,30 @@ class ListPartitions(object):
                 else:
                     return not device.format.status
 
-    def _allow_edit_device(self, device):
-        if device.protected:
+    def _allow_resize_device(self, device):
+        if device.protected or device.children:
             return False
 
-        if device.type not in ("partition", "lvmvg", "lvmlv", "luks/dm-crypt"):
+        if device.type not in ("partition", "lvmlv", "luks/dm-crypt"):
             return False
 
-        else:
-            if device.type == "partition" and device.is_extended:
-                return device.resizable and (device.max_size > device.size or device.min_size < device.size)
+        return device.resizable and device.format.resizable \
+            and (device.max_size > device.size or device.min_size < device.size)
 
-            elif self.kickstart_mode:
-                return device.format.mountable
+    def _allow_format_device(self, device):
+        if device.protected or device.children:
+            return False
 
-            else:
-                if device.type in ("lvmvg",):
-                    return device.exists
+        if device.type not in ("partition", "lvmlv", "luks/dm-crypt"):
+            return False
 
-                elif device.format.type in ("btrfs", "lvmpv", "mdmember"):
-                    return False
+        if device.type == "partition" and device.is_extended:
+            return False
 
-                else:
-                    return not device.format.status
+        if device.format.type in ("mdmember", "btrfs"):
+            return False
+
+        return not device.format.status
 
     def _allow_add_device(self, device):
         if device.protected:
@@ -227,11 +228,17 @@ class ListPartitions(object):
         if self._allow_delete_device(device):
             self.blivet_gui.activate_device_actions(["delete"])
 
-        if self._allow_edit_device(device):
-            self.blivet_gui.activate_device_actions(["edit"])
+        if self._allow_resize_device(device):
+            self.blivet_gui.activate_device_actions(["resize"])
+
+        if self._allow_format_device(device):
+            self.blivet_gui.activate_device_actions(["format"])
 
         if self._allow_add_device(device):
             self.blivet_gui.activate_device_actions(["add"])
+
+        if device.type == "lvmvg":
+            self.blivet_gui.activate_device_actions(["parents"])
 
         if device.format:
             if device.format.type == "luks" and not device.format.status and device.format.exists:
