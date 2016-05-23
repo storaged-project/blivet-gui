@@ -834,6 +834,8 @@ class AddDialog(Gtk.Dialog):
         supported_fs = supported_filesystems()
         if self.selected_free.size > size.Size("8 MiB"):
             supported_fs.append("lvmpv")
+        if self.selected_free.size > size.Size("256 MiB"):
+            supported_fs.append("btrfs")
 
         for fs in supported_fs:
             self.filesystems_combo.append_text(fs)
@@ -846,7 +848,7 @@ class AddDialog(Gtk.Dialog):
     def on_filesystems_combo_changed(self, combo):
         selection = combo.get_active_text()
 
-        if selection in ("swap", "lmvpv"):
+        if selection in ("swap", "lvmpv", "btrfs"):
             self.hide_widgets(["label", "mountpoint"])
 
         else:
@@ -861,6 +863,8 @@ class AddDialog(Gtk.Dialog):
         dev_min_size = self._get_min_size()
         if selection == "lvmpv":
             self.update_size_area_limits(min_size=max(dev_min_size, size.Size("8 MiB")))
+        elif selection == "btrfs":
+            self.update_size_area_limits(min_size=max(dev_min_size, size.Size("256 MiB")))
         else:
             self.update_size_area_limits(dev_min_size)
 
