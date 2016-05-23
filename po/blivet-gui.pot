@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-12 10:54+0200\n"
+"POT-Creation-Date: 2016-05-23 13:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,25 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../blivetgui/processing_window.py:53
+msgid "Proccessing"
+msgstr ""
+
+#: ../blivetgui/processing_window.py:81
+msgid "Show actions"
+msgstr ""
+
+#: ../blivetgui/processing_window.py:151
+msgid "<b>All queued actions have been processed.</b>"
+msgstr ""
+
+#: ../blivetgui/processing_window.py:155
+#, python-brace-format
+msgid ""
+"<b>Proccessing action {num} of {total}</b>:\n"
+"<i>{action}</i>"
+msgstr ""
 
 #: ../blivetgui/list_devices.py:61 ../blivetgui/blivetgui.py:226
 msgid ""
@@ -38,25 +57,6 @@ msgstr ""
 
 #: ../blivetgui/list_devices.py:114
 msgid "<b>Btrfs Volumes</b>"
-msgstr ""
-
-#: ../blivetgui/processing_window.py:53
-msgid "Proccessing"
-msgstr ""
-
-#: ../blivetgui/processing_window.py:81
-msgid "Show actions"
-msgstr ""
-
-#: ../blivetgui/processing_window.py:151
-msgid "<b>All queued actions have been processed.</b>"
-msgstr ""
-
-#: ../blivetgui/processing_window.py:155
-#, python-brace-format
-msgid ""
-"<b>Proccessing action {num} of {total}</b>:\n"
-"<i>{action}</i>"
 msgstr ""
 
 #: ../blivetgui/main_menu.py:68
@@ -210,7 +210,7 @@ msgstr ""
 msgid "Volume size:"
 msgstr ""
 
-#: ../blivetgui/dialogs/helpers.py:114 ../blivetgui/dialogs/add_dialog.py:1036
+#: ../blivetgui/dialogs/helpers.py:114 ../blivetgui/dialogs/add_dialog.py:1024
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr ""
@@ -221,7 +221,7 @@ msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:72
-#: ../blivetgui/dialogs/edit_dialog.py:331
+#: ../blivetgui/dialogs/edit_dialog.py:336
 msgid "Edit device"
 msgstr ""
 
@@ -253,73 +253,73 @@ msgstr ""
 msgid "Filesystem:"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:172
-#: ../blivetgui/dialogs/add_dialog.py:800
+#: ../blivetgui/dialogs/edit_dialog.py:173
+#: ../blivetgui/dialogs/add_dialog.py:801
 msgid "Label:"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:186
-#: ../blivetgui/dialogs/add_dialog.py:821
+#: ../blivetgui/dialogs/edit_dialog.py:187
+#: ../blivetgui/dialogs/add_dialog.py:822
 msgid "Mountpoint:"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:276
+#: ../blivetgui/dialogs/edit_dialog.py:277
 #, python-brace-format
 msgid "\"{label}\" is not a valid label."
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:364
-#: ../blivetgui/dialogs/edit_dialog.py:414
-#: ../blivetgui/dialogs/edit_dialog.py:480
+#: ../blivetgui/dialogs/edit_dialog.py:369
+#: ../blivetgui/dialogs/edit_dialog.py:419
+#: ../blivetgui/dialogs/edit_dialog.py:485
 #: ../blivetgui/dialogs/add_dialog.py:339 tmp/blivet-gui.ui.h:25
 msgid "Device"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:365
-#: ../blivetgui/dialogs/edit_dialog.py:415
-#: ../blivetgui/dialogs/edit_dialog.py:481
+#: ../blivetgui/dialogs/edit_dialog.py:370
+#: ../blivetgui/dialogs/edit_dialog.py:420
+#: ../blivetgui/dialogs/edit_dialog.py:486
 #: ../blivetgui/dialogs/add_dialog.py:340 tmp/blivet-gui.ui.h:26
 msgid "Type"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:366
-#: ../blivetgui/dialogs/edit_dialog.py:416
-#: ../blivetgui/dialogs/edit_dialog.py:482
+#: ../blivetgui/dialogs/edit_dialog.py:371
+#: ../blivetgui/dialogs/edit_dialog.py:421
+#: ../blivetgui/dialogs/edit_dialog.py:487
 #: ../blivetgui/dialogs/add_dialog.py:341 tmp/blivet-gui.ui.h:28
 msgid "Size"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:374
+#: ../blivetgui/dialogs/edit_dialog.py:379
 msgid "Parent devices:"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:382
+#: ../blivetgui/dialogs/edit_dialog.py:387
 msgid "Add parent"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:385
+#: ../blivetgui/dialogs/edit_dialog.py:390
 msgid "Remove parent"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:396
+#: ../blivetgui/dialogs/edit_dialog.py:401
 msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:425
-#: ../blivetgui/dialogs/edit_dialog.py:491
+#: ../blivetgui/dialogs/edit_dialog.py:430
+#: ../blivetgui/dialogs/edit_dialog.py:496
 #: ../blivetgui/dialogs/add_dialog.py:350
 msgid "Available devices:"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:459
+#: ../blivetgui/dialogs/edit_dialog.py:464
 msgid ""
 "There is no physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:471
+#: ../blivetgui/dialogs/edit_dialog.py:476
 msgid "Currently is possible to remove only one parent at time."
 msgstr ""
 
@@ -460,58 +460,50 @@ msgstr ""
 msgid "LVM Physical Volume"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:809
+#: ../blivetgui/dialogs/add_dialog.py:810
 msgid "Name:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:833
+#: ../blivetgui/dialogs/add_dialog.py:834
 msgid "Encrypt:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:842 tmp/luks_passphrase_dialog.ui.h:3
+#: ../blivetgui/dialogs/add_dialog.py:843 tmp/luks_passphrase_dialog.ui.h:3
 msgid "Passphrase:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:851
+#: ../blivetgui/dialogs/add_dialog.py:852
 msgid "Repeat Passphrase:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:859
-#: ../blivetgui/dialogs/add_dialog.py:931
+#: ../blivetgui/dialogs/add_dialog.py:860
+#: ../blivetgui/dialogs/add_dialog.py:932
 msgid "Passphrases don't match."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:928
+#: ../blivetgui/dialogs/add_dialog.py:929
 msgid "Passphrases match."
 msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:1018
-msgid "Filesystem type must be specified when creating new partition."
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1024
-msgid "Filesystem type must be specified when creating new logical volume."
-msgstr ""
-
-#: ../blivetgui/dialogs/add_dialog.py:1030
 msgid "Passphrase not specified."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1042
+#: ../blivetgui/dialogs/add_dialog.py:1030
 msgid "Please select at least two parent devices."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1054
+#: ../blivetgui/dialogs/add_dialog.py:1042
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1059
+#: ../blivetgui/dialogs/add_dialog.py:1047
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1064
+#: ../blivetgui/dialogs/add_dialog.py:1052
 msgid "Provided passphrases do not match."
 msgstr ""
 

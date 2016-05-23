@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 1.2.3
+Version: 1.2.4
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -67,6 +67,11 @@ fi
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Mon May 23 2016 Vojtech Trefny <vtrefny@redhat.com> - 1.2.4-1
+- Reverse actions when growing devices (#1326961) (vtrefny)
+- Allow "none" as format when adding/editting devices (vtrefny)
+- Fix downloading po files from Zanata (vtrefny)
+
 * Tue Apr 12 2016 Vojtech Trefny <vtrefny@redhat.com> - 1.2.3-1
 - Fix visualization of group devices inside VG (#1326175) (vtrefny)
 - Fix visualization CSS styles (vtrefny)
