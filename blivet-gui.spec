@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 1.3.0
+Version: 1.3.1
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -14,7 +14,7 @@ BuildRequires: libappstream-glib
 Requires: python3
 Requires: pygobject3
 Requires: gettext
-Requires: python3-blivet >= 1:2.0
+Requires: python3-blivet >= 1:2.1
 Requires: gtk3
 Requires: polkit-gnome
 Requires: python3-meh
@@ -64,6 +64,34 @@ fi
 %{_bindir}/blivet-gui-daemon
 
 %changelog
+* Mon May 23 2016 Vojtech Trefny <vtrefny@redhat.com> - 1.3.1-1
+- Merge pull request #21 from vojtechtrefny/master-split_edit (vtrefny)
+- Merge pull request #19 from dashea/translation-canary (vtrefny)
+- Add translation context for "Format" strings (vtrefny)
+- Add LVMVG edit option to edit menu (vtrefny)
+- Remove EditDialogTest (vtrefny)
+- BlivetGUI: Use new resize and format dialogs instead of edit dialog (vtrefny)
+- Add new submenus for "edit" option in toolbar and popup menu (vtrefny)
+- Replace PartitionEditDialog by ResizeDialog and FormatDialog (vtrefny)
+- BlivetUtils: Add new public methods for device resize and format (vtrefny)
+- Merge pull request #20 from vojtechtrefny/master-reset_progress (vtrefny)
+- Add progress dialog for storage reload (vtrefny)
+- Remove markup from translatable strings where possible. (dshea)
+- Use the translation-canary tests (dshea)
+- Do not use intltool. (dshea)
+- Add P_ to the xgettext keywords. (dshea)
+- Always use setup.py to generate the source archive. (dshea)
+- Merge commit 'e8a62de12f347962c7c9c71e4562f42a2618fce7' as 'translation-canary' (dshea)
+- Squashed 'translation-canary/' content from commit edda4ea (dshea)
+- Merge pull request #18 from vojtechtrefny/master-chunk_size (vtrefny)
+- Add test for chunk size (vtrefny)
+- Add chunk support for mdraid creation (vtrefny)
+- Merge pull request #17 from vojtechtrefny/master-none_format (vtrefny)
+- Allow "none" as format when adding/editting devices (vtrefny)
+- Remove communication log (vtrefny)
+- Allow ignoring disks with corrupted/unknown disklabels (vtrefny)
+- New version 1.3.0 (vtrefny)
+
 * Tue Apr 12 2016 Vojtech Trefny <vtrefny@redhat.com> - 1.3.0
 - Fix visualization CSS styles (vtrefny@redhat.com)
 - Fix visualization of group devices inside VG (#1326175) (vtrefny@redhat.com)
