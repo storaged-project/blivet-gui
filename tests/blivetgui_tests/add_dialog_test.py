@@ -539,13 +539,13 @@ class AddDialogTest(unittest.TestCase):
 
         # swap -- mountpoint and label entries shouldn't be visible
         add_dialog.filesystems_combo.set_active_id("swap")
-        self.assertEqual(add_dialog.filesystems_combo.get_active_text(), "swap")
+        self.assertEqual(add_dialog.filesystems_combo.get_active_id(), "swap")
         self.assertFalse(add_dialog.mountpoint_entry.get_visible())
         self.assertFalse(add_dialog.label_entry.get_visible())
 
         # ext4 -- mountpoint and label entries should be visible
         add_dialog.filesystems_combo.set_active_id("ext4")
-        self.assertEqual(add_dialog.filesystems_combo.get_active_text(), "ext4")
+        self.assertEqual(add_dialog.filesystems_combo.get_active_id(), "ext4")
         self.assertTrue(add_dialog.mountpoint_entry.get_visible())
         self.assertTrue(add_dialog.label_entry.get_visible())
 

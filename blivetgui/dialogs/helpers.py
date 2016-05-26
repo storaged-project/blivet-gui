@@ -137,13 +137,11 @@ def supported_filesystems():
     for cls in formats.device_formats.values():
         obj = cls()
 
-        supported_fs = (obj.type not in ("btrfs", "tmpfs") and
+        supported_fs = (obj.type not in ("tmpfs",) and
                         obj.supported and obj.formattable and
                         (isinstance(obj, formats.fs.FS) or
-                         obj.type in ("swap",)))
+                         obj.type in ("swap", "lvmpv")))
         if supported_fs:
-            _fs_types.append(obj.type)
+            _fs_types.append(obj)
 
-    _fs_types.append("unformatted")
-
-    return sorted(_fs_types)
+    return sorted(_fs_types, key=lambda fs: fs.type)

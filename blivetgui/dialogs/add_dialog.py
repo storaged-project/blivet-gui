@@ -443,7 +443,7 @@ class AddDialog(Gtk.Dialog):
 
         self.widgets_dict = {}
 
-        self.filesystems_combo = self.add_fs_chooser()
+        self.filesystems_store, self.filesystems_combo = self.add_fs_chooser()
         self.label_entry, self.name_entry = self.add_name_chooser()
         self.encrypt_check, self.pass_entry, self.pass2_entry = self.add_encrypt_chooser()
         self.parents_store = self.add_parent_list()
@@ -817,38 +817,39 @@ class AddDialog(Gtk.Dialog):
         label_fs.get_style_context().add_class("dim-label")
         self.grid.attach(label_fs, 0, 8, 1, 1)
 
-        filesystems_combo = Gtk.ComboBoxText()
-        filesystems_combo.set_entry_text_column(0)
-        filesystems_combo.set_id_column(0)
+        filesystems_store = Gtk.ListStore(object, str, str)
+        filesystems_combo = Gtk.ComboBox.new_with_model(filesystems_store)
+        filesystems_combo.set_id_column(1)
+        filesystems_combo.set_entry_text_column(2)
 
         self.grid.attach(filesystems_combo, 1, 8, 2, 1)
+
+        renderer_text = Gtk.CellRendererText()
+        filesystems_combo.pack_start(renderer_text, True)
+        filesystems_combo.add_attribute(renderer_text, "text", 2)
 
         filesystems_combo.connect("changed", self.on_filesystems_combo_changed)
         self.widgets_dict["fs"] = [label_fs, filesystems_combo]
 
-        return filesystems_combo
+        return filesystems_store, filesystems_combo
 
     def update_fs_chooser(self):
-        self.filesystems_combo.remove_all()
+        self.filesystems_store.clear()
 
         supported_fs = supported_filesystems()
-        if self.selected_free.size > size.Size("8 MiB"):
-            supported_fs.append("lvmpv")
-        if self.selected_free.size > size.Size("256 MiB"):
-            supported_fs.append("btrfs")
-
         for fs in supported_fs:
-            self.filesystems_combo.append_text(fs)
+            if self.selected_free.size > fs._min_size:
+                self.filesystems_store.append((fs, fs.type, fs.name))
+        self.filesystems_store.append((None, "unformatted", _("unformatted")))
 
-        if "ext4" in supported_fs:
-            self.filesystems_combo.set_active(supported_fs.index("ext4"))
+        if "ext4" in (fs.type for fs in supported_fs):
+            self.filesystems_combo.set_active_id("ext4")
         else:
             self.filesystems_combo.set_active(0)
 
-    def on_filesystems_combo_changed(self, combo):
-        selection = combo.get_active_text()
+    def on_filesystems_combo_changed(self, _combo):
 
-        if selection in ("swap", "lvmpv", "btrfs"):
+        if self.selected_fs is None or self.selected_fs.type in ("swap", "lvmpv", "btrfs"):
             self.hide_widgets(["label", "mountpoint"])
 
         else:
@@ -859,14 +860,10 @@ class AddDialog(Gtk.Dialog):
             else:
                 self.show_widgets(["mountpoint"])
 
-        # TODO: size limits for all formats
-        dev_min_size = self._get_min_size()
-        if selection == "lvmpv":
-            self.update_size_area_limits(min_size=max(dev_min_size, size.Size("8 MiB")))
-        elif selection == "btrfs":
-            self.update_size_area_limits(min_size=max(dev_min_size, size.Size("256 MiB")))
+        if self.selected_fs:
+            self.update_size_area_limits(min_size=max(self._get_min_size(), self.selected_fs._min_size))
         else:
-            self.update_size_area_limits(dev_min_size)
+            self.update_size_area_limits(min_size=self._get_min_size())
 
     def add_name_chooser(self):
         label_label = Gtk.Label(label=_("Label:"), xalign=1)
@@ -1059,6 +1056,15 @@ class AddDialog(Gtk.Dialog):
         self.update_raid_type_chooser()
 
     @property
+    def selected_fs(self):
+        tree_iter = self.filesystems_combo.get_active_iter()
+
+        if tree_iter:
+            model = self.filesystems_combo.get_model()
+            fs_obj = model[tree_iter][0]
+            return fs_obj
+
+    @property
     def selected_type(self):
         tree_iter = self.devices_combo.get_active_iter()
 
@@ -1170,8 +1176,9 @@ class AddDialog(Gtk.Dialog):
         if device_type == "mdraid" and self.md_type_combo.get_active_id() == "lvmpv":
             filesystem = "lvmpv"
         elif device_type in ("mdraid", "partition", "lvmlv", "lvmthinlv"):
-            filesystem = self.filesystems_combo.get_active_text()
-            if filesystem == "unformatted":
+            if self.selected_fs is not None:
+                filesystem = self.selected_fs.type
+            else:
                 filesystem = None
         else:
             filesystem = None

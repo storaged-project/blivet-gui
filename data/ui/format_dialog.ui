@@ -2,6 +2,16 @@
 <!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
+  <object class="GtkListStore" id="liststore_format">
+    <columns>
+      <!-- column-name format -->
+      <column type="PyObject"/>
+      <!-- column-name type -->
+      <column type="gchararray"/>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkDialog" id="format_dialog">
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Format device</property>
@@ -75,11 +85,18 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBoxText" id="comboboxtext_format">
+              <object class="GtkComboBox" id="combobox_format">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="margin_top">4</property>
+                <property name="model">liststore_format</property>
+                <property name="entry_text_column">2</property>
+                <property name="id_column">1</property>
+                <child>
+                  <object class="GtkCellRendererText" id="cellrenderertext1"/>
+                  <attributes>
+                    <attribute name="text">2</attribute>
+                  </attributes>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
