@@ -558,10 +558,10 @@ class BlivetUtils(object):
         # for btrfs volumes delete parents partition after deleting volume
         if blivet_device.type in ("btrfs volume", "mdarray"):
             for parent in blivet_device.parents:
-                if parent.type == "partition":
-                    result = self.delete_device(parent)
-                elif parent.type == "disk":
+                if parent.is_disk:
                     result = self._delete_disk_label(parent)
+                else:
+                    result = self.delete_device(parent)
 
                 if not result.success:
                     return result
@@ -650,7 +650,7 @@ class BlivetUtils(object):
             fmt_actions.append(blivet.deviceaction.ActionDestroyFormat(user_input.edit_device))
 
         if user_input.filesystem:
-            fmt_actions.append(self._create_format(user_input, user_input.edit_device))
+            fmt_actions.extend(self._create_format(user_input, user_input.edit_device))
 
         try:
             for ac in fmt_actions:
@@ -774,6 +774,9 @@ class BlivetUtils(object):
     def _create_format(self, user_input, device):
 
         fmt_type = user_input.filesystem
+        if fmt_type == "btrfs":
+            actions = self._create_btrfs_format(user_input, device)
+            return actions
 
         if fmt_type is not None:
             if fmt_type == "ntfs":
@@ -783,7 +786,22 @@ class BlivetUtils(object):
 
             new_fmt = blivet.formats.get_format(fmt_type=user_input.filesystem,
                                                 create_options=fmt_options)
-            return blivet.deviceaction.ActionCreateFormat(device, new_fmt)
+            return [blivet.deviceaction.ActionCreateFormat(device, new_fmt)]
+
+    def _create_btrfs_format(self, user_input, device):
+        actions = []
+
+        # format the device to btrfs
+        btrfs_fmt = blivet.formats.get_format(fmt_type="btrfs")
+        actions.append(blivet.deviceaction.ActionCreateFormat(device, btrfs_fmt))
+
+        if getattr(user_input, "create_volume", True):
+            device.format = btrfs_fmt
+            new_btrfs = BTRFSVolumeDevice(parents=[device])
+            new_btrfs.format = blivet.formats.get_format("btrfs", label=user_input.label, mountpoint=user_input.mountpoint)
+            actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
+
+        return actions
 
     def _create_partition(self, user_input):
         actions = []
@@ -811,13 +829,13 @@ class BlivetUtils(object):
             actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
 
             if user_input.filesystem:
-                actions.append(self._create_format(user_input, luks_dev))
+                actions.extend(self._create_format(user_input, luks_dev))
 
         # non-encrypted partition -- just format the partition
         else:
             if partition_type != "extended":
                 if user_input.filesystem:
-                    actions.append(self._create_format(user_input, new_part))
+                    actions.extend(self._create_format(user_input, new_part))
 
         return actions
 
@@ -833,7 +851,7 @@ class BlivetUtils(object):
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
         if user_input.filesystem:
-            actions.append(self._create_format(user_input, new_part))
+            actions.extend(self._create_format(user_input, new_part))
 
         return actions
 
@@ -874,7 +892,7 @@ class BlivetUtils(object):
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
         if user_input.filesystem:
-            actions.append(self._create_format(user_input, new_part))
+            actions.extend(self._create_format(user_input, new_part))
 
         return actions
 
@@ -1021,7 +1039,8 @@ class BlivetUtils(object):
                                             filesystem="btrfs",
                                             encrypt=False,
                                             label=None,
-                                            mountpoint=None)
+                                            mountpoint=None,
+                                            create_volume=False)
             part_actions = self._create_partition(part_input)
 
             # we need to try to create partitions immediately, if something

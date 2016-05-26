@@ -119,14 +119,17 @@ class FormatDialog(object):
         button_format = self.builder.get_object("button_format")
         button_format.connect("clicked", self._on_format_button)
 
-        self.fs_combo = self.builder.get_object("comboboxtext_format")
+        self.fs_combo = self.builder.get_object("combobox_format")
+        self.fs_store = self.builder.get_object("liststore_format")
 
         supported_fs = supported_filesystems()
         for fs in supported_fs:
-            self.fs_combo.append_text(fs)
+            if self.edit_device.size > fs._min_size:
+                self.fs_store.append((fs, fs.type, fs.name))
+        self.fs_store.append((None, "unformatted", _("unformatted")))
 
-        if "ext4" in supported_fs:
-            self.fs_combo.set_active(supported_fs.index("ext4"))
+        if "ext4" in (fs.type for fs in supported_fs):
+            self.fs_combo.set_active_id("ext4")
         else:
             self.fs_combo.set_active(0)
 
@@ -137,7 +140,7 @@ class FormatDialog(object):
             self.dialog.destroy()
             return ProxyDataContainer(edit_device=self.edit_device, format=False, filesystem=None)
         else:
-            selected_fmt = self.fs_combo.get_active_text()
+            selected_fmt = self.fs_combo.get_active_id()
             if selected_fmt == "unformatted":
                 selected_fmt = None
             self.dialog.destroy()
