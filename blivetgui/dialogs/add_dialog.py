@@ -31,6 +31,7 @@ gi.require_version("Gdk", "3.0")
 from gi.repository import Gtk
 
 from blivet import size
+from blivet.devicelibs import crypto, lvm
 
 from ..dialogs import message_dialogs
 
@@ -334,7 +335,7 @@ class AdvancedOptions(object):
         min_size = size.Size(pesize) * 2
 
         if self.add_dialog.encrypt_check.get_active():
-            min_size += size.Size("2 MiB")
+            min_size += crypto.LUKS_METADATA_SIZE
 
         self.add_dialog.update_size_area_limits(min_size=min_size)
 
@@ -477,7 +478,7 @@ class AddDialog(Gtk.Dialog):
         if self.selected_parent.type in ("disk", "mdarray"):
             types.append((_("Partition"), "partition"))
 
-            if self.selected_parent.size > size.Size("8 MiB"):
+            if self.selected_parent.size > lvm.LVM_PE_SIZE * 2:
                 types.extend([(_("LVM2 Storage"), "lvm")])
 
             if self.selected_parent.size > size.Size("256 MiB"):
@@ -490,7 +491,7 @@ class AddDialog(Gtk.Dialog):
             types.extend([(_("LVM2 Logical Volume"), "lvmlv"), (_("LVM2 ThinPool"), "lvmthinpool")])
 
         elif (self.selected_parent.type in ("partition", "luks/dm-crypt", "mdarray") and
-              self.selected_parent.format.type == "lvmpv" and self.selected_parent.size >= size.Size("8 MiB")):
+              self.selected_parent.format.type == "lvmpv" and self.selected_parent.size >= lvm.LVM_PE_SIZE * 2):
             types.append((_("LVM2 Volume Group"), "lvmvg"))
 
         elif self.selected_parent.type == "lvmlv":
@@ -647,7 +648,7 @@ class AddDialog(Gtk.Dialog):
 
         if self.selected_type == "lvmvg":
             for ftype, fdevice in self.available_free:
-                if ftype == "lvmpv" and fdevice.size >= size.Size("8 MiB"):
+                if ftype == "lvmpv" and fdevice.size >= lvm.LVM_PE_SIZE * 2:
                     self.parents_store.append([fdevice.parents[0], fdevice.size, False, False,
                                                fdevice.parents[0].name, ftype, str(fdevice.size)])
 
@@ -732,7 +733,7 @@ class AddDialog(Gtk.Dialog):
         if device_type in ("lvmlv", "lvmthinpool"):
             min_size = max(self.selected_parent.pe_size, size.Size("1 MiB"))
         elif device_type == "lvm":
-            min_size = size.Size("8 MiB")
+            min_size = lvm.LVM_PE_SIZE * 2
         elif device_type in ("lvmthinlv", "lvm snapshot"):
             min_size = max(self.selected_parent.vg.pe_size, size.Size("1 MiB"))
         elif device_type == "btrfs volume":
@@ -986,10 +987,10 @@ class AddDialog(Gtk.Dialog):
     def on_encrypt_check(self, _toggle):
         if self.encrypt_check.get_active():
             self.show_widgets(["passphrase"])
-            self.update_size_area_limits(min_plus=size.Size("2 MiB"))
+            self.update_size_area_limits(min_plus=crypto.LUKS_METADATA_SIZE)
         else:
             self.hide_widgets(["passphrase"])
-            self.update_size_area_limits(min_plus=size.Size("-2 MiB"))
+            self.update_size_area_limits(min_plus=-crypto.LUKS_METADATA_SIZE)
 
     def on_passphrase_changed(self, confirm_entry, passphrase_entry):
         if passphrase_entry.get_text() == confirm_entry.get_text():
