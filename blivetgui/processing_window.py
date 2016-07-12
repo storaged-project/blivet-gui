@@ -41,7 +41,9 @@ class ProcessingActions(Gtk.Dialog):
     def __init__(self, blivet_gui, actions):
         """
             :param blivet-gui: BlivetGUI instance
+            :type blivet-gui: :class:`~.blivetgui.BlivetGUI`
             :param actions: number of actions to process
+            :type actions: int
 
         """
 

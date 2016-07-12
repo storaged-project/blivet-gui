@@ -35,11 +35,11 @@ from .i18n import P_
 class ListActions(object):
     """ List of childs of selected device
 
-        ..note:: There are two types of 'actions': 'blivet actions' -- simply instances of
-                 blivet.DeviceAction and 'blivet-gui actions' created as a reaction on user
-                 action, eg. adding new device or deleting one. One blivet-gui action can
-                 consist of more blivet actions (eg. adding a new partition creates two
-                 blivet actions -- creating of a partition device and creatig format for it)
+        .. note:: There are two types of 'actions': 'blivet actions' -- simply instances of
+                  blivet.DeviceAction and 'blivet-gui actions' created as a reaction on user
+                  action, eg. adding new device or deleting one. One blivet-gui action can
+                  consist of more blivet actions (eg. adding a new partition creates two
+                  blivet actions -- creating of a partition device and creatig format for it)
 
     """
 

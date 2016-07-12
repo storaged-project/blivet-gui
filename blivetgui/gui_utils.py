@@ -43,7 +43,7 @@ def locate_ui_file(filename):
 
 
 def locate_css_file(filename):
-    """ Locate Glade ui files
+    """ Locate CSS files
     """
 
     path = [os.path.split(os.path.abspath(__file__))[0] + '/../data/css/',
