@@ -9,7 +9,11 @@ Welcome to blivet-gui's documentation!
 blivet-gui is a graphical application to manage disks, partitions and LVM2 storages. As backend it uses blivet, powerful python module for storage configuration.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
+
+   intro
+   blivetgui/blivetgui
+   tests/blivetgui_tests
 
 
 Indices and tables
@@ -18,4 +22,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
