@@ -22,6 +22,8 @@ blivet-gui*.tar.gz
 blivet-gui*.tar.bz2
 
 doc/_build
+doc/blivetgui
+doc/tests
 
 .directory
 

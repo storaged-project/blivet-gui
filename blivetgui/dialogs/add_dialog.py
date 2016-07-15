@@ -405,7 +405,7 @@ class AddDialog(Gtk.Dialog):
         """
 
             :param str parent_type: type of (future) parent device
-            :parama parent_device: future parent device
+            :param parent_device: future parent device
             :type parent_device: :class:`blivet.Device` instances
             :param free_device: selected free space device
             :type free_device: :class:`blivetgui.utils.FreeSpaceDevice` instances
