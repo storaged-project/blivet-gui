@@ -35,10 +35,7 @@ import traceback
 
 import atexit
 
-# ---------------------------------------------------------------------------- #
-
-APP_NAME = 'blivet-gui'
-APP_VERSION = '1.3.1'
+from . import __version__, __app_name__
 
 # ---------------------------------------------------------------------------- #
 
@@ -98,8 +95,8 @@ def set_python_meh(log_files):
         :type log_files: list of str
 
     """
-    config = meh.Config(programName=APP_NAME, programVersion=APP_VERSION, programArch="noarch",
-                        localSkipList=["passphrase"],
+    config = meh.Config(programName=__app_name__, programVersion=__version__,
+                        programArch="noarch", localSkipList=["passphrase"],
                         fileList=log_files)
 
     intf = meh.ui.gui.GraphicalIntf()

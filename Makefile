@@ -125,8 +125,8 @@ bumpver:
 	mv blivet-gui.spec.new blivet-gui.spec ; rm -f speclog ; \
 	sed -i "s/Version: $(VERSION)/Version: $$NEWVERSION/" blivet-gui.spec ; \
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
-	sed -i "s/APP_VERSION\ =\ '$(VERSION)'/APP_VERSION\ =\ '$$NEWVERSION'/" blivet-gui ; \
-	sed -i "s/APP_VERSION\ =\ '$(VERSION)'/APP_VERSION\ =\ '$$NEWVERSION'/" blivetgui/logs.py ; \
+	sed -i "s/__version__\ =\ '$(VERSION)'/__version__\ =\ '$$NEWVERSION'/" blivetgui/__init__.py ; \
+	sed -i "s/version\ =\ '$(VERSION)'/version\ =\ '$$NEWVERSION'/" doc/conf.py ; \
 
 rpmlog:
 	@git log --pretty="format:- %s (%ae)" $(RELEASE_TAG).. |sed -e 's/@.*)/)/'

@@ -22,6 +22,7 @@
 #
 # ---------------------------------------------------------------------------- #
 
+from . import __version__
 from .dialogs.other_dialogs import AboutDialog
 
 # ---------------------------------------------------------------------------- #
@@ -51,4 +52,4 @@ class MainMenu(object):
         """ Onselect action for 'About'
         """
 
-        AboutDialog(self.blivet_gui.main_window, self.blivet_gui.version)
+        AboutDialog(self.blivet_gui.main_window, __version__)

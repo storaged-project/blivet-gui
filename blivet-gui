@@ -37,15 +37,11 @@ gi.require_version("Gdk", "3.0")
 
 from gi.repository import Gtk, Gdk
 
+from blivetgui import __version__, __app_name__
 from blivetgui.dialogs.message_dialogs import ErrorDialog
 from blivetgui.gui_utils import locate_ui_file, locate_css_file
 
 from subprocess import Popen, PIPE
-
-# ---------------------------------------------------------------------------- #
-
-APP_NAME = 'blivet-gui'
-APP_VERSION = '1.3.1'
 
 # ---------------------------------------------------------------------------- #
 
@@ -95,7 +91,7 @@ def main():
     options = parse_options()
 
     if options.version:
-        print(APP_NAME, "version", APP_VERSION)
+        print(__app_name__, "version", __version__)
         sys.exit(0)
 
     else:
@@ -112,8 +108,7 @@ def main():
 
             from blivetgui.blivetgui import BlivetGUI
 
-            BlivetGUI(server_socket=sockfile, secret=secret, version=APP_VERSION,
-                      kickstart_mode=options.kickstart)
+            BlivetGUI(server_socket=sockfile, secret=secret, kickstart_mode=options.kickstart)
 
             css_provider = Gtk.CssProvider()
             css_provider.load_from_path(locate_css_file("rectangle.css"))
