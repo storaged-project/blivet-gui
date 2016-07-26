@@ -43,6 +43,7 @@ class ActionsMenu(object):
                  ("delete", self.blivet_gui.delete_selected_partition),
                  ("resize", self.blivet_gui.resize_device),
                  ("format", self.blivet_gui.format_device),
+                 ("label", self.blivet_gui.edit_label),
                  ("unmount", self.blivet_gui.umount_partition),
                  ("decrypt", self.blivet_gui.decrypt_device),
                  ("info", self.blivet_gui.device_information),

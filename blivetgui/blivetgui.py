@@ -328,6 +328,26 @@ class BlivetGUI(object):
         dialog.destroy()
         return
 
+    def edit_label(self, _widget=None):
+        device = self.list_partitions.selected_partition[0]
+        dialog = edit_dialog.LabelDialog(self.main_window, device)
+
+        user_input = dialog.run()
+
+        if user_input.relabel:
+            result = self.client.remote_call("relabel_format", user_input)
+
+            if not result.success:
+                if not result.exception:
+                    self.show_error_dialog(result.message)
+                else:
+                    self._reraise_exception(result.exception, result.traceback)
+            else:
+                if result.actions:
+                    action_str = _("change filesystem label of {name} {type}").format(name=device.name, type=device.type)
+                    self.list_actions.append("edit", action_str, result.actions)
+                self.update_partitions_view()
+
     def _allow_add_device(self, selected_device):
         """ Allow add device?
         """
