@@ -1184,21 +1184,6 @@ class BlivetUtils(object):
 
         return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
-    def unmount_device(self, blivet_device):
-        """ Unmount selected device
-        """
-
-        if not blivet_device.format.mountable or not blivet_device.format.system_mountpoint:
-            return False
-
-        else:
-            try:
-                blivet_device.format.unmount()
-                return True
-
-            except blivet.errors.FSError:
-                return False
-
     def get_actions(self):
         """ Return list of currently registered actions
         """
