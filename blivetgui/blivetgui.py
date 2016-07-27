@@ -29,6 +29,7 @@ gi.require_version("GLib", "2.0")
 from gi.repository import Gtk, GLib
 
 from blivet.size import Size
+from blivet.errors import FSError
 
 from .list_devices import ListDevices
 from .list_partitions import ListPartitions
@@ -570,13 +571,18 @@ class BlivetGUI(object):
 
         """
 
-        result = self.client.remote_call("unmount_device", self.list_partitions.selected_partition[0])
+        device = self.list_partitions.selected_partition[0]
 
-        if not result:
+        if not device.format.mountable or not device.format.system_mountpoint:
+            return ValueError("Selected device is not mounted")
+
+        try:
+            device.format.unmount()
+        except FSError:
             msg = _("Unmount failed. Are you sure device is not in use?")
             self.show_error_dialog(msg)
-
-        self.update_partitions_view()
+        else:
+            self.update_partitions_view()
 
     def decrypt_device(self, _widget=None):
         """ Decrypt selected device
