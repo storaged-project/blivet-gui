@@ -51,7 +51,11 @@ class ClientProxyObject(object):
 
     def __call__(self, *args):
         remote_res = self.client.remote_method(self.proxy_id, "__call__", (args))
-        return remote_res
+
+        if isinstance(remote_res, BaseException):
+            raise remote_res
+        else:
+            return remote_res
 
     def __next__(self):
         remote_ret = self.client.remote_next(self.proxy_id)
