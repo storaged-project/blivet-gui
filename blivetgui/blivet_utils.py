@@ -703,6 +703,20 @@ class BlivetUtils(object):
             return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
                                       traceback=traceback.format_exc())
 
+    def relabel_format(self, user_input):
+        label_ac = blivet.deviceaction.ActionConfigureFormat(device=user_input.edit_device,
+                                                             attr="label",
+                                                             new_value=user_input.label)
+
+        try:
+            self.storage.devicetree.actions.add(label_ac)
+        except Exception as e:  # pylint: disable=broad-except
+            return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
+                                      traceback=traceback.format_exc())
+        else:
+            return ProxyDataContainer(success=True, actions=[label_ac], message=None,
+                                      exception=None, traceback=None)
+
     def edit_lvmvg_device(self, user_input):
         """ Edit LVM Volume group
         """
@@ -1170,21 +1184,6 @@ class BlivetUtils(object):
 
         return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
-    def unmount_device(self, blivet_device):
-        """ Unmount selected device
-        """
-
-        if not blivet_device.format.mountable or not blivet_device.format.system_mountpoint:
-            return False
-
-        else:
-            try:
-                blivet_device.format.unmount()
-                return True
-
-            except blivet.errors.FSError:
-                return False
-
     def get_actions(self):
         """ Return list of currently registered actions
         """
@@ -1272,7 +1271,7 @@ class BlivetUtils(object):
         """
 
         if self.ignored_disks is not None:
-            self.storage.config.ignored_disks = self.ignored_disks
+            self.storage.ignored_disks = self.ignored_disks
 
         self.storage.reset()
 

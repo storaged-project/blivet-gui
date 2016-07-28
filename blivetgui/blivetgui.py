@@ -29,6 +29,7 @@ gi.require_version("GLib", "2.0")
 from gi.repository import Gtk, GLib
 
 from blivet.size import Size
+from blivet.errors import FSError
 
 from .list_devices import ListDevices
 from .list_partitions import ListPartitions
@@ -331,6 +332,26 @@ class BlivetGUI(object):
         dialog.destroy()
         return
 
+    def edit_label(self, _widget=None):
+        device = self.list_partitions.selected_partition[0]
+        dialog = edit_dialog.LabelDialog(self.main_window, device)
+
+        user_input = dialog.run()
+
+        if user_input.relabel:
+            result = self.client.remote_call("relabel_format", user_input)
+
+            if not result.success:
+                if not result.exception:
+                    self.show_error_dialog(result.message)
+                else:
+                    self._reraise_exception(result.exception, result.traceback)
+            else:
+                if result.actions:
+                    action_str = _("change filesystem label of {name} {type}").format(name=device.name, type=device.type)
+                    self.list_actions.append("edit", action_str, result.actions)
+                self.update_partitions_view()
+
     def _allow_add_device(self, selected_device):
         """ Allow add device?
         """
@@ -568,13 +589,18 @@ class BlivetGUI(object):
 
         """
 
-        result = self.client.remote_call("unmount_device", self.list_partitions.selected_partition[0])
+        device = self.list_partitions.selected_partition[0]
 
-        if not result:
+        if not device.format.mountable or not device.format.system_mountpoint:
+            return ValueError("Selected device is not mounted")
+
+        try:
+            device.format.unmount()
+        except FSError:
             msg = _("Unmount failed. Are you sure device is not in use?")
             self.show_error_dialog(msg)
-
-        self.update_partitions_view()
+        else:
+            self.update_partitions_view()
 
     def decrypt_device(self, _widget=None):
         """ Decrypt selected device

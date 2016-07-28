@@ -29,6 +29,7 @@ from gi.repository import Gtk
 
 from .size_chooser import SizeChooser
 from .helpers import supported_filesystems
+from .message_dialogs import ErrorDialog
 from ..gui_utils import locate_ui_file
 from ..communication.proxy_utils import ProxyDataContainer
 from ..i18n import _
@@ -145,6 +146,56 @@ class FormatDialog(object):
                 selected_fmt = None
             self.dialog.destroy()
             return ProxyDataContainer(edit_device=self.edit_device, format=True, filesystem=selected_fmt)
+
+    def _on_cancel_button(self, _button):
+        self.dialog.response(Gtk.ResponseType.REJECT)
+
+    def _on_format_button(self, _button):
+        self.dialog.response(Gtk.ResponseType.ACCEPT)
+
+
+class LabelDialog(object):
+
+    def __init__(self, main_window, edit_device):
+        self.main_window = main_window
+        self.edit_device = edit_device
+
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("blivet-gui")
+        self.builder.add_from_file(locate_ui_file("label_dialog.ui"))
+
+        self.dialog = self.builder.get_object("label_dialog")
+        self.dialog.set_transient_for(self.main_window)
+
+        self.entry_label = self.builder.get_object("entry_label")
+
+        button_cancel = self.builder.get_object("button_cancel")
+        button_cancel.connect("clicked", self._on_cancel_button)
+
+        button_format = self.builder.get_object("button_label")
+        button_format.connect("clicked", self._on_format_button)
+
+    def _validate_user_input(self, label):
+        if not self.edit_device.format.label_format_ok(label):
+            msg = _("'{label}' is not a valid label for this filesystem").format(label=label)
+            ErrorDialog(self.dialog, msg)
+            return False
+        else:
+            return True
+
+    def run(self):
+        response = self.dialog.run()
+
+        if response == Gtk.ResponseType.REJECT:
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, relabel=False, label=None)
+        else:
+            new_label = self.entry_label.get_text()
+            if not self._validate_user_input(new_label):
+                self.run()
+            else:
+                self.dialog.destroy()
+                return ProxyDataContainer(edit_device=self.edit_device, relabel=True, label=new_label)
 
     def _on_cancel_button(self, _button):
         self.dialog.response(Gtk.ResponseType.REJECT)
