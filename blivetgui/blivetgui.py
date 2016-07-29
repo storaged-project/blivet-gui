@@ -88,8 +88,6 @@ class BlivetGUI(object):
         server_logs = self.client.remote_control("logs", blivetgui_logfile)
         log_files = server_logs + [blivetgui_logfile]
 
-        handler = set_python_meh(log_files=log_files)
-        handler.install(None)
 
         atexit.register(remove_logs, log_files=[blivetgui_logfile])
         atexit.register(self.client.quit)
