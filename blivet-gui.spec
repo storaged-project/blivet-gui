@@ -17,8 +17,6 @@ Requires: gettext
 Requires: python3-blivet >= 1:2.1
 Requires: gtk3
 Requires: polkit-gnome
-Requires: python3-meh
-Requires: python3-meh-gui
 Requires: python3-pid
 URL: http://github.com/rhinstaller/blivet-gui
 

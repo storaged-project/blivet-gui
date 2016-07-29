@@ -23,31 +23,7 @@
 # ---------------------------------------------------------------------------- #
 
 import os
-
 import logging
-
-import meh
-import meh.handler
-import meh.dump
-import meh.ui.gui
-
-import traceback
-
-import atexit
-
-from . import __version__, __app_name__
-
-# ---------------------------------------------------------------------------- #
-
-
-class BlivetGUIExceptionDump(meh.dump.ExceptionDump):
-
-    @property
-    def desc(self):
-        if self.type and self.value:
-            return traceback.format_exception_only(self.type, self.value)[0].split("\nTraceback")[0].strip()
-        else:
-            return ""
 
 # ---------------------------------------------------------------------------- #
 
