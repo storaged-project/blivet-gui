@@ -36,6 +36,8 @@ make DESTDIR=%{buildroot} install
 desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/blivet-gui.appdata.xml
 
+mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
+
 %find_lang %{name}
 
 %post
@@ -60,6 +62,7 @@ fi
 %{_datadir}/blivet-gui
 %{_bindir}/blivet-gui
 %{_bindir}/blivet-gui-daemon
+%{_localstatedir}/log/blivet-gui
 
 %changelog
 * Mon Jul 18 2016 Vojtech Trefny <vtrefny@redhat.com> - 2.0.0-1
