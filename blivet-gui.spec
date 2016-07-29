@@ -18,6 +18,7 @@ Requires: python3-blivet >= 1:2.1
 Requires: gtk3
 Requires: polkit-gnome
 Requires: python3-pid
+Requires: libreport
 URL: http://github.com/rhinstaller/blivet-gui
 
 %description
@@ -63,6 +64,7 @@ fi
 %{_bindir}/blivet-gui
 %{_bindir}/blivet-gui-daemon
 %{_localstatedir}/log/blivet-gui
+%{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
 * Mon Jul 18 2016 Vojtech Trefny <vtrefny@redhat.com> - 2.0.0-1
