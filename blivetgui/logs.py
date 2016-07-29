@@ -24,86 +24,43 @@
 
 import os
 import logging
+from logging.handlers import RotatingFileHandler
+
+from . import __app_name__
 
 # ---------------------------------------------------------------------------- #
 
+LOG_DIR = "/var/log/%s" % __app_name__
 
-def set_logging(component, logging_level=logging.DEBUG, log_file=None):
+
+def set_logging(component, logging_level=logging.DEBUG):
     """ Configure logging
 
         :param component: name of a component
         :type component: str
         :param logging_level: loglevel
         :type logging_level: int
-        :param log_file: name of log file
-        :type log_file: str
 
     """
 
-    if not log_file:
-        log_file = "/tmp/" + component + ".log"
+    if not os.path.isdir(LOG_DIR) or not os.access(LOG_DIR, os.W_OK):
+        log_handler = logging.NullHandler()
+        log_file = ""
+    else:
+        log_file = "/var/log/blivet-gui/%s.log" % component
 
-    while os.path.isfile(log_file):
-        if not log_file[-1].isdigit():
-            log_file += ".0"
+        rotate = os.path.isfile(log_file)
 
-        else:
-            num = int(log_file.split(".")[-1])
-            name = ".".join(log_file.split(".")[:-1])
-            log_file = name + "." + str(num + 1)
+        log_handler = RotatingFileHandler(log_file, backupCount=5)
+        log_handler.setLevel(logging_level)
+        formatter = logging.Formatter('%(levelname)s:%(name)s: %(message)s')
+        log_handler.setFormatter(formatter)
 
-    log_handler = logging.FileHandler(log_file)
-    log_handler.setLevel(logging_level)
-    formatter = logging.Formatter('%(levelname)s:%(name)s: %(message)s')
-    log_handler.setFormatter(formatter)
+        if rotate:
+            log_handler.doRollover()
 
     logger = logging.getLogger(component)
     logger.addHandler(log_handler)
     logger.setLevel(logging_level)
 
     return log_file, logger
-
-
-def set_python_meh(log_files):
-    """ Configure python-meh
-
-        :param log_files: list of log files to send
-        :type log_files: list of str
-
-    """
-    config = meh.Config(programName=__app_name__, programVersion=__version__,
-                        programArch="noarch", localSkipList=["passphrase"],
-                        fileList=log_files)
-
-    intf = meh.ui.gui.GraphicalIntf()
-
-    handler = meh.handler.ExceptionHandler(config, intf, BlivetGUIExceptionDump)
-
-    return handler
-
-
-def remove_logs(log_files):
-    """ Remove log files
-
-        :param log_files: list of log files to delete
-        :type log_files: list of str
-
-    """
-
-    try:
-        for log_file in log_files:
-            os.remove(log_file)
-
-    except OSError as e:
-        print("Failed to remove log file\n" + str(e))
-
-
-def remove_atexit(log_files):
-    """ Remove log files using atexit
-
-        :param log_files: list of log files to delete
-        :type log_files: list of str
-
-    """
-
-    atexit.register(remove_logs, log_files)

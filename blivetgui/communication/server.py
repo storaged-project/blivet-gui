@@ -115,9 +115,6 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
             elif unpickled_msg[1] == "init":
                 self._blivet_utils_init(unpickled_msg)
 
-            elif unpickled_msg[1] == "logs":
-                self._blivet_utils_logs(unpickled_msg)
-
             elif unpickled_msg[1] == "call":
                 self._call_utils_method(unpickled_msg)
 
@@ -277,26 +274,6 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
             else:
                 answer = ProxyDataContainer(success=True)
 
-        pickled_answer = self._pickle_answer(answer)
-
-        self._send(pickled_answer)
-
-    def _blivet_utils_logs(self, data):
-        """ Set server logging
-
-            :returns: server log files
-            :rtype: list of str
-
-        """
-
-        if not self.blivet_utils:
-            raise RuntimeError("Got request to start logging before BlivetUtils initialization")
-
-        client_logs = data[2]
-
-        self.blivet_utils.set_meh(client_logfile=client_logs[0])
-
-        answer = (self.blivet_utils.blivet_logfile, self.blivet_utils.program_logfile)
         pickled_answer = self._pickle_answer(answer)
 
         self._send(pickled_answer)
