@@ -42,7 +42,6 @@ from .visualization.physical_view import PhysicalView
 
 from .communication.client import BlivetGUIClient
 
-from .logs import set_logging, set_python_meh, remove_logs
 from .i18n import _
 from .gui_utils import locate_ui_file
 from .dialogs import message_dialogs, other_dialogs, edit_dialog, add_dialog, device_info_dialog
@@ -82,16 +81,7 @@ class BlivetGUI(object):
         self.client = BlivetGUIClient(self, self.server_socket, self.secret)
         self.blivet_init()
 
-        # Logging
-        blivetgui_logfile, self.log = set_logging(component="blivet-gui")
-
-        server_logs = self.client.remote_control("logs", blivetgui_logfile)
-        log_files = server_logs + [blivetgui_logfile]
-
-        handler = set_python_meh(log_files=log_files)
-        handler.install(None)
-
-        atexit.register(remove_logs, log_files=[blivetgui_logfile])
+        # Atexit
         atexit.register(self.client.quit)
 
         # Kickstart devices dialog

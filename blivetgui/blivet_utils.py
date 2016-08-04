@@ -37,12 +37,10 @@ import re
 import traceback
 import parted
 
-import atexit
-
 import pykickstart.parser
 from pykickstart.version import makeVersion
 
-from .logs import set_logging, set_python_meh, remove_logs
+from .logs import set_logging
 from .i18n import _
 
 # ---------------------------------------------------------------------------- #
@@ -175,7 +173,9 @@ class BlivetUtils(object):
         else:
             self.storage = blivet.Blivet()
 
-        self.blivet_logfile, self.program_logfile = self.set_logging()
+        # logging
+        set_logging(component="blivet")
+        set_logging(component="program")
 
         # allow creating of ntfs format
         blivet.formats.fs.NTFS._formattable = True
@@ -183,25 +183,6 @@ class BlivetUtils(object):
 
         self.blivet_reset()
         self._update_min_sizes_info()
-
-    def set_logging(self):
-        """ Set logging for blivet-gui-daemon process
-        """
-
-        blivet_logfile, _blivet_log = set_logging(component="blivet")
-        program_logfile, _program_log = set_logging(component="program")
-
-        atexit.register(remove_logs, log_files=[blivet_logfile, program_logfile])
-
-        return blivet_logfile, program_logfile
-
-    def set_meh(self, client_logfile):
-        """ Set python-meh for blivet-gui-daemon process
-        """
-
-        handler = set_python_meh(log_files=[self.blivet_logfile, self.program_logfile,
-                                            client_logfile])
-        handler.install(self.storage)
 
     def get_disks(self):
         """ Return list of all disk devices on current system

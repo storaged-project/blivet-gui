@@ -17,9 +17,8 @@ Requires: gettext
 Requires: python3-blivet >= 1:2.1
 Requires: gtk3
 Requires: polkit-gnome
-Requires: python3-meh
-Requires: python3-meh-gui
 Requires: python3-pid
+Requires: libreport
 URL: http://github.com/rhinstaller/blivet-gui
 
 %description
@@ -37,6 +36,8 @@ make DESTDIR=%{buildroot} install
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/blivet-gui.appdata.xml
+
+mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 
 %find_lang %{name}
 
@@ -62,6 +63,8 @@ fi
 %{_datadir}/blivet-gui
 %{_bindir}/blivet-gui
 %{_bindir}/blivet-gui-daemon
+%{_localstatedir}/log/blivet-gui
+%{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
 * Mon Jul 18 2016 Vojtech Trefny <vtrefny@redhat.com> - 2.0.0-1
