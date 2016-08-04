@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.0.0
+Version: 2.0.1
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -67,6 +67,12 @@ fi
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Thu Aug 04 2016 Vojtech Trefny <vtrefny@redhat.com> - 2.0.1-1
+- Merge pull request #27 from vojtechtrefny/f25-branch_meh-remove (vtrefny)
+- Add config for abrt to attach blivet logs to reports (vtrefny)
+- Simplify logging (vtrefny)
+- Don't use python-meh (vtrefny)
+
 * Mon Jul 18 2016 Vojtech Trefny <vtrefny@redhat.com> - 2.0.0-1
 - Remove redundant version constants (vtrefny)
 - Merge pull request #24 from vojtechtrefny/master_docs (vtrefny)
