@@ -49,7 +49,7 @@ install-requires:
 
 test: check-requires
 	@echo "*** Running unittests ***"
-	PYTHONPATH=.:tests/ xvfb-run python3 -m unittest discover -v -s tests/ -p '*_test.py'
+	PYTHONPATH=.:tests/ xvfb-run -s '-screen 0 640x480x8 -extension RANDR' python3 -m unittest discover -v -s tests/ -p '*_test.py'
 
 coverage: check-requires
 	@echo "*** Running unittests with $(COVERAGE) for $(PYTHON) ***"
