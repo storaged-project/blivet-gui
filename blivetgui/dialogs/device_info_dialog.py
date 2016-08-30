@@ -117,7 +117,7 @@ class DeviceInformationDialog(Gtk.Dialog):
             if self.device.cached:
                 info += _(" • <i>Cached:</i> Yes (cache size: {cache_size})\n").format(cache_size=str(self.device.cache.size))
             else:
-                info += _(" • <i>Cached:</i> No)\n")
+                info += _(" • <i>Cached:</i> No\n")
 
         return info
 
