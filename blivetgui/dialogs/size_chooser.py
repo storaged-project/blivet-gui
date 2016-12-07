@@ -236,8 +236,8 @@ class SizeArea(GUIWidget):
         self.main_chooser.connect("size-changed", self._on_main_size_changed)
         self.grid.attach(self.main_chooser.grid, 0, 0, 5, 1)
 
-        # it's not allowed to set size when adding lvmvg (it depends on pvs size)
-        if self.device_type == "lvmvg":
+        # it's not allowed to set size when adding lvmvg or lvm thinsnapshot
+        if self.device_type in ("lvmvg", "lvm thinsnapshot"):
             self.main_chooser.sensitive = False
             self.main_chooser.set_sensitive(False)
 

@@ -497,6 +497,9 @@ class AddDialog(Gtk.Dialog):
         elif self.selected_parent.type == "lvmlv":
             types.append((_("LVM2 Snaphost"), "lvm snapshot"))
 
+        elif self.selected_parent.type == "lvmthinlv":
+            types.append((_("LVM2 Thin Snaphost"), "lvm thinsnapshot"))
+
         elif self.selected_parent.type == "lvmthinpool":
             types.append((_("LVM2 Thin Logical Volume"), "lvmthinlv"))
 
@@ -666,6 +669,11 @@ class AddDialog(Gtk.Dialog):
             # parent for a LVM snaphost is actually the VG, not the selected LV
             self.parents_store.append([self.selected_parent, self.selected_parent.vg.free, False, False,
                                        self.selected_parent.vg.name, "lvmvg", str(self.selected_parent.vg.free)])
+
+        elif self.selected_type in ("lvm thinsnapshot",):
+            # parent for an LVM thinsnaphost is actually the pool, not the selected thinLV
+            self.parents_store.append([self.selected_parent, self.selected_parent.size, False, False,
+                                       self.selected_parent.pool.name, "lvmvg", str(self.selected_parent.size)])
 
         else:
             self.parents_store.append([self.selected_parent, self.selected_free.size, False, False,
@@ -1048,6 +1056,10 @@ class AddDialog(Gtk.Dialog):
         elif device_type == "lvm snapshot":
             self.show_widgets(["name", "size"])
             self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint"])
+
+        elif device_type == "lvm thinsnapshot":
+            self.show_widgets(["name"])
+            self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint", "size"])
 
         elif device_type == "lvmthinpool":
             self.show_widgets(["name", "size"])

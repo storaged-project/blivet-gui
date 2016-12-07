@@ -89,7 +89,7 @@ class Rectangle(Gtk.RadioButton):
                 properties.append("encrypted")
         if self.device.type == "luks/dm-crypt" or any(parent.type == "luks/dm-crypt" for parent in self.device.parents):
             properties.append("decrypted")
-        if self.device.type in ("lvmsnapshot", "btrfs snapshot"):
+        if self.device.type in ("lvmsnapshot", "btrfs snapshot", "lvmthinsnapshot"):
             properties.append("snapshot")
         if self.device.type == "free space" or (self.device.format and self.device.format.type == "lvmpv" and
                                                 not self.device.children):

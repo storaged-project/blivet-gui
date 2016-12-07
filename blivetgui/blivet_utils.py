@@ -961,16 +961,22 @@ class BlivetUtils(object):
     def _create_snapshot(self, user_input):
         actions = []
 
-        if user_input.device_type == "lvm snapshot":
+        origin_lv = user_input.parents[0][0]
+        device_name = self._pick_device_name(user_input.name, origin_lv.vg)
 
-            origin_lv = user_input.parents[0][0]
+        if user_input.device_type == "lvm snapshot":
             snapshot_size = user_input.parents[0][1]
-            device_name = self._pick_device_name(user_input.name, origin_lv.parents[0])
             new_snap = self.storage.new_lv(name=device_name,
                                            parents=[origin_lv.parents[0]],
                                            origin=origin_lv,
                                            size=snapshot_size)
-            actions.append(blivet.deviceaction.ActionCreateDevice(new_snap))
+        elif user_input.device_type == "lvm thinsnapshot":
+            new_snap = self.storage.new_lv(name=device_name,
+                                           parents=[origin_lv.pool],
+                                           origin=origin_lv,
+                                           seg_type="thin")
+
+        actions.append(blivet.deviceaction.ActionCreateDevice(new_snap))
 
         return actions
 
@@ -1057,7 +1063,8 @@ class BlivetUtils(object):
                 "btrfs volume": _create_btrfs_volume,
                 "btrfs subvolume": _create_btrfs_subvolume,
                 "mdraid": _create_mdraid,
-                "lvm snapshot": _create_snapshot}
+                "lvm snapshot": _create_snapshot,
+                "lvm thinsnapshot": _create_snapshot}
 
     def add_device(self, user_input):
         """ Create new device
