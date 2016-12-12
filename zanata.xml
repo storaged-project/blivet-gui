@@ -2,7 +2,7 @@
 <config xmlns="http://zanata.org/namespace/config/">
   <url>https://fedora.zanata.org/</url>
   <project>blivet-gui</project>
-  <project-version>f25-branch</project-version>
+  <project-version>f26-branch</project-version>
   <project-type>gettext</project-type>
 
 </config>
