@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.0.1
+Version: 2.0.2
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -67,6 +67,21 @@ fi
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Mon Dec 12 2016 Vojtech Trefny <vtrefny@redhat.com> - 2.0.2-1
+- Merge pull request #32 from vojtechtrefny/f25-branch_exception-handler (vtrefny)
+- Add custom exception handler for blivet-gui (vtrefny)
+- Merge pull request #31 from vojtechtrefny/f25-branch_thin-snapshots (vtrefny)
+- fix typo (chris)
+- Fix typo lvmlv device info (vtrefny)
+- Fix visualisation of thin snapshots (vtrefny)
+- Add support for creating lvm thinsnapshosts (vtrefny)
+- Merge pull request #29 from vojtechtrefny/f25-branch_fix-xvfb (vtrefny)
+- Fix floating point exception when running test using xvfb-run (vtrefny)
+- Merge pull request #28 from vojtechtrefny/f25-branch_appdata-upgrade (vtrefny)
+- Update appdata.xml to new version (vtrefny)
+- New up-to-date screenshots for AppData (vtrefny)
+- New zanata branch (vtrefny)
+
 * Thu Aug 04 2016 Vojtech Trefny <vtrefny@redhat.com> - 2.0.1-1
 - Merge pull request #27 from vojtechtrefny/f25-branch_meh-remove (vtrefny)
 - Add config for abrt to attach blivet logs to reports (vtrefny)
