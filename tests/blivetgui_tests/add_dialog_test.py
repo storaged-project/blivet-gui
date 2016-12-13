@@ -218,13 +218,15 @@ class AdvancedOptionsTest(unittest.TestCase):
         # invalid size specification
         entry.set_text("aaaaaaa")
         advanced_options.validate_user_input()
-        self.error_dialog.assert_any_call(self.add_dialog, _("'aaaaaaa' is not a valid chunk size specification."))
+        self.error_dialog.assert_any_call(self.add_dialog, _("'aaaaaaa' is not a valid chunk size specification."),
+                                          not self.add_dialog.installer_mode)
         self.error_dialog.reset_mock()
 
         # invalid size
         entry.set_text("1 KiB")
         advanced_options.validate_user_input()
-        self.error_dialog.assert_any_call(self.add_dialog, _("Chunk size must be multiple of 4 KiB."))
+        self.error_dialog.assert_any_call(self.add_dialog, _("Chunk size must be multiple of 4 KiB."),
+                                          not self.add_dialog.installer_mode)
         self.error_dialog.reset_mock()
 
         # valid size
@@ -654,14 +656,14 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.pass_entry.set_text("aaaaa")
         add_dialog.pass2_entry.set_text("bbbb")
         add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, _("Provided passphrases do not match."))
+        self.error_dialog.assert_any_call(add_dialog, _("Provided passphrases do not match."), True)
         self.error_dialog.reset_mock()
 
         # no passphrase specified
         add_dialog.encrypt_check.set_active(True)
         add_dialog.pass_entry.set_text("")
         add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, _("Passphrase not specified."))
+        self.error_dialog.assert_any_call(add_dialog, _("Passphrase not specified."), True)
         self.error_dialog.reset_mock()
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
@@ -686,14 +688,14 @@ class AddDialogTest(unittest.TestCase):
         mnt = "home"
         add_dialog.mountpoint_entry.set_text(mnt)
         add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, _("\"{0}\" is not a valid mountpoint.").format(mnt))
+        self.error_dialog.assert_any_call(add_dialog, _("\"{0}\" is not a valid mountpoint.").format(mnt), False)
         self.error_dialog.reset_mock()
 
         # duplicate mountpoint
         mnt = "/root"
         add_dialog.mountpoint_entry.set_text(mnt)
         add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, _("Selected mountpoint \"{0}\" is already set for another device.").format(mnt))
+        self.error_dialog.assert_any_call(add_dialog, _("Selected mountpoint \"{0}\" is already set for another device.").format(mnt), False)
         self.error_dialog.reset_mock()
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
@@ -719,7 +721,7 @@ class AddDialogTest(unittest.TestCase):
         name = "?*#%@"
         add_dialog.name_entry.set_text(name)
         add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, _("\"{0}\" is not a valid name.").format(name))
+        self.error_dialog.assert_any_call(add_dialog, _("\"{0}\" is not a valid name.").format(name), True)
         self.error_dialog.reset_mock()
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
@@ -745,7 +747,7 @@ class AddDialogTest(unittest.TestCase):
         label = "a" * 50
         add_dialog.label_entry.set_text(label)
         add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, "\"%s\" is not a valid label." % label)
+        self.error_dialog.assert_any_call(add_dialog, "\"%s\" is not a valid label." % label, True)
         self.error_dialog.reset_mock()
 
     @patch("blivetgui.dialogs.add_dialog.AddDialog.set_transient_for", lambda dialog, window: True)
