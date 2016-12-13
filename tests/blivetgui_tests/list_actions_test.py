@@ -26,6 +26,7 @@ class ListActionsTest(unittest.TestCase):
         self.blivet_gui.configure_mock(label_actions=MagicMock(set_markup=self._set_actions_label))
 
         self.actions_list = ListActions(self.blivet_gui)
+        self.actions_list.initialize()
 
     def test_initial_state(self):
         self.assertFalse(self.buttons_state)
