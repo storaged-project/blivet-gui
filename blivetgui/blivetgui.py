@@ -207,6 +207,10 @@ class BlivetGUI(object):
 
         return response
 
+    def run_dialog(self, dialog):
+        response = dialog.run()
+        return response
+
     def _raise_exception(self, exception, traceback):
         raise exception.with_traceback(traceback)
 
@@ -223,7 +227,7 @@ class BlivetGUI(object):
         blivet_device = self.list_partitions.selected_partition[0]
 
         dialog = device_info_dialog.DeviceInformationDialog(self.main_window, blivet_device)
-        dialog.run()
+        self.run_dialog(dialog)
         dialog.destroy()
 
     def resize_device(self, _widget=None):
@@ -232,7 +236,7 @@ class BlivetGUI(object):
         dialog = edit_dialog.ResizeDialog(self.main_window, device,
                                           self.client.remote_call("device_resizable", device))
 
-        user_input = dialog.run()
+        user_input = self.run_dialog(dialog)
         if user_input.resize:
             result = self.client.remote_call("resize_device", user_input)
 
@@ -252,7 +256,7 @@ class BlivetGUI(object):
 
         dialog = edit_dialog.FormatDialog(self.main_window, device)
 
-        user_input = dialog.run()
+        user_input = self.run_dialog(dialog)
         if user_input.format:
             result = self.client.remote_call("format_device", user_input)
 
@@ -275,7 +279,7 @@ class BlivetGUI(object):
         dialog = edit_dialog.LVMEditDialog(self.main_window, device,
                                            self.client.remote_call("get_free_info"))
 
-        response = dialog.run()
+        response = self.run_dialog(dialog)
 
         if response == Gtk.ResponseType.OK:
             user_input = dialog.get_selection()
@@ -328,7 +332,7 @@ class BlivetGUI(object):
         """ Create a new disklabel on disk """
 
         dialog = other_dialogs.AddLabelDialog(self.main_window)
-        selection = dialog.run()
+        selection = self.run_dialog(dialog)
 
         if selection:
             result = self.client.remote_call("create_disk_label", disk, selection)
@@ -382,7 +386,7 @@ class BlivetGUI(object):
                                       available_free=self.client.remote_call("get_free_info"),
                                       installer_mode=self.installer_mode)
 
-        response = dialog.run()
+        response = self.run_dialog(dialog)
 
         if response == Gtk.ResponseType.OK:
             user_input = dialog.get_selection()
@@ -495,7 +499,7 @@ class BlivetGUI(object):
 
         dialog = message_dialogs.ConfirmActionsDialog(self.main_window, title, msg, self.list_actions.actions_list)
 
-        response = dialog.run()
+        response = self.run_dialog(dialog)
 
         if response:
             processing_dialog = ProcessingActions(self, actions)
@@ -531,7 +535,7 @@ class BlivetGUI(object):
 
         dialog = other_dialogs.LuksPassphraseDialog(self.main_window)
 
-        response = dialog.run()
+        response = self.run_dialog(dialog)
 
         if response:
             ret = self.client.remote_call("luks_decrypt", self.list_partitions.selected_partition[0], response)
