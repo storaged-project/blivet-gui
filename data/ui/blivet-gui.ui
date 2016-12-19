@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.19.0 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkAccelGroup" id="accelgroup"/>
@@ -91,6 +91,7 @@
   <object class="GtkMenu" id="main_menu">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="halign">end</property>
     <property name="accel_group">accelgroup</property>
     <child>
       <object class="GtkMenuItem" id="menuitem_reload">
@@ -396,6 +397,7 @@
                             <property name="halign">center</property>
                             <property name="valign">center</property>
                             <property name="popup">main_menu</property>
+                            <property name="use_popover">False</property>
                             <child>
                               <object class="GtkImage" id="image_menu">
                                 <property name="visible">True</property>
