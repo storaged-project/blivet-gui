@@ -25,6 +25,8 @@ doc/_build
 doc/blivetgui
 doc/tests
 
+*~
+
 .directory
 
 .coverage
