@@ -37,6 +37,8 @@ from .i18n import _
 
 # ---------------------------------------------------------------------------- #
 
+TRACEBACK = 'Traceback (most recent call last):'
+
 
 class BlivetGUIExceptionHandler(object):
 
@@ -46,18 +48,34 @@ class BlivetGUIExceptionHandler(object):
         self.main_window = main_window
         self.excepthook = excepthook
 
+    def _parse_exception(self, exc_value):
+        if TRACEBACK in str(exc_value):
+            exc = str(exc_value).split(TRACEBACK)[0]  # exception message is always first
+            tr = "".join(str(exc_value).split(TRACEBACK)[1:])  # there might be more exceptions (and tracebacks)
+            return (exc, tr)
+        else:
+            return (str(exc_value), None)
+
     def handle_exception(self, exc_type, exc_value, exc_traceback):
 
-        tr = "".join(traceback.format_tb(exc_traceback))
-        if self.allow_ignore:
-            msg = _("Unknown error occured.\n{error}").format(error=str(exc_value))
+        # exceptions from blivet_utils have 'original' traceback as part of the message
+        # but we want to show the original message and traceback separately
+        exc_str, tr_str = self._parse_exception(exc_value)
+        if tr_str is not None:
+            tr_str += "------------------------------\n"
+            tr_str += "".join(traceback.format_tb(exc_traceback))
         else:
-            msg = _("Unknown error occured. Blivet-gui will be terminated.\n{error}").format(error=str(exc_value))
+            tr_str = "".join(traceback.format_tb(exc_traceback))
+
+        if self.allow_ignore:
+            msg = _("Unknown error occured.\n{error}").format(error=exc_str)
+        else:
+            msg = _("Unknown error occured. Blivet-gui will be terminated.\n{error}").format(error=exc_str)
 
         allow_report = command_exists("gnome-abrt")
 
         dialog = message_dialogs.ExceptionDialog(self.main_window, self.allow_ignore,
-                                                 allow_report, msg, tr)
+                                                 allow_report, msg, tr_str)
         response = dialog.run()
 
         if response == constants.DialogResponseType.BACK:
