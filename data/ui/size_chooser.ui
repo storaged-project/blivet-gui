@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkGrid" id="grid">
@@ -38,6 +38,7 @@
       <object class="GtkSpinButton" id="spinbutton_size">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
+        <property name="valign">center</property>
       </object>
       <packing>
         <property name="left_attach">2</property>
@@ -49,6 +50,7 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="valign">center</property>
+        <property name="margin_right">12</property>
         <property name="vexpand">True</property>
         <property name="active_id">0</property>
       </object>

@@ -70,11 +70,27 @@
             <property name="can_focus">True</property>
             <property name="margin_left">6</property>
             <property name="margin_right">6</property>
+            <property name="margin_bottom">12</property>
             <child>
-              <object class="GtkLabel" id="exception_label">
+              <object class="GtkScrolledWindow">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="selectable">True</property>
+                <property name="can_focus">True</property>
+                <property name="min_content_width">600</property>
+                <property name="min_content_height">250</property>
+                <child>
+                  <object class="GtkViewport">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="shadow_type">none</property>
+                    <child>
+                      <object class="GtkLabel" id="exception_label">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="selectable">True</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
               </object>
             </child>
             <child type="label">
