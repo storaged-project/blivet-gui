@@ -24,8 +24,9 @@
 
 import gi
 gi.require_version("Gtk", "3.0")
+gi.require_version("Gdk", "3.0")
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from .blivetgui import BlivetGUI
 from .list_devices import ListDevices
@@ -39,7 +40,7 @@ from .visualization.physical_view import PhysicalView
 from .blivet_utils import BlivetUtils
 from .dialogs import message_dialogs
 
-from .gui_utils import locate_ui_file
+from .gui_utils import locate_ui_file, locate_css_file
 
 from contextlib import contextmanager
 
@@ -90,6 +91,13 @@ class BlivetGUIAnaconda(BlivetGUI):
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain("blivet-gui")
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
+
+        # CSS styles
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_path(locate_css_file("rectangle.css"))
+        screen = Gdk.Screen.get_default()
+        style_context = Gtk.StyleContext()
+        style_context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
         # get the main vbox from blivet-gui and add it into given Gtk.Container
         vbox = self.builder.get_object("vbox")

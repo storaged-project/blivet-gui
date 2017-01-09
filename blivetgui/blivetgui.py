@@ -25,8 +25,9 @@
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("GLib", "2.0")
+gi.require_version("Gdk", "3.0")
 
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, Gdk
 
 from blivet.size import Size
 from blivet.errors import FSError
@@ -42,7 +43,7 @@ from .visualization.logical_view import LogicalView
 from .visualization.physical_view import PhysicalView
 
 from .i18n import _
-from .gui_utils import locate_ui_file
+from .gui_utils import locate_ui_file, locate_css_file
 from .dialogs import message_dialogs, other_dialogs, edit_dialog, add_dialog, device_info_dialog
 from .processing_window import ProcessingActions
 from .loading_window import LoadingWindow
@@ -71,6 +72,13 @@ class BlivetGUI(object):
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
         self.ignored_disks = []
+
+        # CSS styles
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_path(locate_css_file("rectangle.css"))
+        screen = Gdk.Screen.get_default()
+        style_context = Gtk.StyleContext()
+        style_context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
         # MainWindow
         self.main_window = self.builder.get_object("main_window")
