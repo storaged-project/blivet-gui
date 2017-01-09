@@ -162,6 +162,8 @@ class BlivetGUIAnaconda(BlivetGUI):
 
     def run_dialog(self, dialog):
         with self.enlightbox():
+            if hasattr(dialog, "set_decorated"):  # FIXME
+                dialog.set_decorated(False)
             response = dialog.run()
 
         return response
