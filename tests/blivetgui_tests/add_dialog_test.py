@@ -5,7 +5,7 @@ from unittest.mock import Mock, MagicMock, patch
 
 from blivetgui.dialogs.size_chooser import SizeChooser, UNITS
 from blivetgui.dialogs.add_dialog import AdvancedOptions, AddDialog
-
+from blivetgui.dialogs.helpers import supported_filesystems
 from blivetgui.i18n import _
 
 import os
@@ -758,7 +758,10 @@ class AddDialogTest(unittest.TestCase):
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
                                [("free", free_device)], [], True)
 
-        fstype = "xfs"
+        fstype = next((fs.type for fs in supported_filesystems()), None)
+        if fstype is None:
+            self.skipTest("No supported filesystems found.")
+
         label = "label"
         size = Size("1 GiB")
         mountpoint = "/home"
@@ -831,7 +834,10 @@ class AddDialogTest(unittest.TestCase):
         add_dialog = AddDialog(self.parent_window, parent_device1, free_device1,
                                [("free", free_device1), ("free", free_device2)], [], True)
 
-        fstype = "xfs"
+        fstype = next((fs.type for fs in supported_filesystems()), None)
+        if fstype is None:
+            self.skipTest("No supported filesystems found.")
+
         raidtype = "raid0"
         size = Size("4 GiB")
         name = "name"
