@@ -1,24 +1,24 @@
 /* Basic rectangle */
 
-box#visualization button {
+box#bg-visualization button {
   background-color: #ff0000;
 }
 
-box#visualization button {
+box#bg-visualization button {
   border: 1px solid @theme_text_color;
   border-radius: 6px;
   background-image: none;
   background-color: @theme_bg_color;
 }
 
-box#visualization button:checked {
+box#bg-visualization button:checked {
   background-image: none;
   background: @theme_selected_bg_color;
 }
 
 /* Parent rectangle */
 
-box#visualization button#parent-rect {
+box#bg-visualization button#bg-parent-rect {
   border-color: @theme_text_color;
   border-top: 1px solid;
   border-left: 1px solid;
@@ -29,7 +29,7 @@ box#visualization button#parent-rect {
 
 /* Child rectangle */
 
-box#visualization button#child-rect-inner {
+box#bg-visualization button#bg-child-rect-inner {
   border-top: none;
   border-left: none;
   border-right: 1px solid @borders;
@@ -37,7 +37,7 @@ box#visualization button#child-rect-inner {
   border-radius: 0;
 }
 
-box#visualization button#child-rect-first {
+box#bg-visualization button#bg-child-rect-first {
   border-top: none;
   border-left: 1px solid;
   border-right: 1px solid @borders;
@@ -45,7 +45,7 @@ box#visualization button#child-rect-first {
   border-radius: 0 0 0 6px;
 }
 
-box#visualization button#child-rect-last {
+box#bg-visualization button#bg-child-rect-last {
   border-top: none;
   border-left: none;
   border-right: 1px solid;
@@ -53,7 +53,7 @@ box#visualization button#child-rect-last {
   border-radius: 0 0 6px 0;
 }
 
-box#visualization button#child-rect-single {
+box#bg-visualization button#bg-child-rect-single {
   border-top: none;
   border-left: 1px solid;
   border-right: 1px solid;
@@ -61,39 +61,39 @@ box#visualization button#child-rect-single {
   border-radius: 0 0 6px 6px;
 }
 
-/* Labels inside box#visualization buttons */
+/* Labels inside box#bg-visualization buttons */
 
-box#visualization button:checked label {
+box#bg-visualization button:checked label {
   color: @theme_selected_fg_color;
   text-shadow: none;
 }
 
-/* Physical view box#visualization buttons */
+/* Physical view box#bg-visualization buttons */
 
-box#visualization button#root-device:checked {
+box#bg-visualization button#bg-root-device:checked {
   background-color: @theme_bg_color;
   border-color: @theme_fg_color;
 }
 
-box#visualization button#child-valid-inner {
+box#bg-visualization button#bg-child-valid-inner {
   background-color: @theme_bg_color;
   border: 2px solid #FF0000;
   border-radius: 0;
 }
 
-box#visualization button#child-valid-first {
+box#bg-visualization button#bg-child-valid-first {
   background-color: @theme_bg_color;
   border: 2px solid #FF0000;
   border-radius: 0;
 }
 
-box#visualization button#child-valid-last {
+box#bg-visualization button#bg-child-valid-last {
   background-color: @theme_bg_color;
   border: 2px solid #FF0000;
   border-radius: 0;
 }
 
-box#visualization button#child-invalid-inner {
+box#bg-visualization button#bg-child-invalid-inner {
   background-color: @theme_bg_color;
   background-image: url("../img/line.png");
   background-repeat: space;
@@ -104,7 +104,7 @@ box#visualization button#child-invalid-inner {
   border-radius: 0;
 }
 
-box#visualization button#child-invalid-first {
+box#bg-visualization button#bg-child-invalid-first {
   background-color: @theme_bg_color;
   background-image: url("../img/line.png");
   background-repeat: space;
@@ -115,7 +115,7 @@ box#visualization button#child-invalid-first {
   border-radius: 0;
 }
 
-box#visualization button#child-invalid-last {
+box#bg-visualization button#bg-child-invalid-last {
   background-color: @theme_bg_color;
   background-image: url("../img/line.png");
   background-repeat: space;
@@ -128,18 +128,18 @@ box#visualization button#child-invalid-last {
 }
 
 /* PhysicalView - Labels inside rectangles */
-box#visualization button#root-device:checked label {
+box#bg-visualization button#bg-root-device:checked label {
   color: @theme_fg_color;
 }
 
-box#visualization button#child-valid-inner:checked label {
+box#bg-visualization button#bg-child-valid-inner:checked label {
   color: @theme_fg_color;
 }
 
-box#visualization button#child-valid-first:checked label {
+box#bg-visualization button#bg-child-valid-first:checked label {
   color: @theme_fg_color;
 }
 
-box#visualization button#child-valid-last:checked label {
+box#bg-visualization button#bg-child-valid-last:checked label {
   color: @theme_fg_color;
 }

@@ -25,8 +25,9 @@
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("GLib", "2.0")
+gi.require_version("Gdk", "3.0")
 
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, Gdk
 
 from blivet.size import Size
 from blivet.errors import FSError
@@ -41,17 +42,14 @@ from .actions_toolbar import ActionsToolbar, DeviceToolbar
 from .visualization.logical_view import LogicalView
 from .visualization.physical_view import PhysicalView
 
-from .communication.client import BlivetGUIClient
-
 from .i18n import _
-from .gui_utils import locate_ui_file
+from .gui_utils import locate_ui_file, locate_css_file
 from .dialogs import message_dialogs, other_dialogs, edit_dialog, add_dialog, device_info_dialog
 from .processing_window import ProcessingActions
 from .loading_window import LoadingWindow
 from .exception_handler import BlivetGUIExceptionHandler
 
 import threading
-import os
 import sys
 import atexit
 
@@ -63,17 +61,24 @@ class BlivetGUI(object):
         Gtk.Widgets used in blivet-gui.
     """
 
-    def __init__(self, server_socket, secret, kickstart_mode=False):
+    installer_mode = False
 
-        self.server_socket = server_socket
-        self.secret = secret
-        self.kickstart_mode = kickstart_mode
+    def __init__(self, client):
+
+        self.client = client
 
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain("blivet-gui")
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
         self.ignored_disks = []
+
+        # CSS styles
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_path(locate_css_file("rectangle.css"))
+        screen = Gdk.Screen.get_default()
+        style_context = Gtk.StyleContext()
+        style_context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
         # MainWindow
         self.main_window = self.builder.get_object("main_window")
@@ -85,15 +90,10 @@ class BlivetGUI(object):
         sys.excepthook = self.exc.handle_exception
 
         # BlivetUtils
-        self.client = BlivetGUIClient(self, self.server_socket, self.secret)
         self.blivet_init()
 
         # Atexit
         atexit.register(self.client.quit)
-
-        # Kickstart devices dialog
-        if self.kickstart_mode:
-            self.use_disks = self.kickstart_disk_selection()
 
         # MainMenu
         self.main_menu = MainMenu(self)
@@ -101,9 +101,13 @@ class BlivetGUI(object):
         # ActionsMenu
         self.popup_menu = ActionsMenu(self)
 
-        # ActionsToolbar
+        # DeviceToolbar
         self.device_toolbar = DeviceToolbar(self)
+
+        # ActionsToolbar
         self.actions_toolbar = ActionsToolbar(self)
+        vbox_right = self.builder.get_object("vbox_right")
+        vbox_right.pack_start(self.actions_toolbar.toolbar, expand=False, fill=True, padding=0)
 
         # ListDevices
         self.list_devices = ListDevices(self)
@@ -126,13 +130,19 @@ class BlivetGUI(object):
         self.physical_view = PhysicalView(self)
         self.builder.get_object("scrolledwindow_physical").add(self.physical_view.vbox)
 
+        # allow ignoring exceptions
+        self.exc.allow_ignore = True
+
+        self.initialize()
+
+    def initialize(self):
+        self.list_devices.load_devices()
+        self.list_actions.initialize()
+
         # select first device in ListDevice
         self.list_devices.disks_view.set_cursor(1)
         self.main_window.show_all()
         self.list_devices.disks_view.set_cursor(0)
-
-        # allow ignoring exceptions
-        self.exc.allow_ignore = True
 
     def _set_physical_view_visible(self, visible):
         notebook = self.builder.get_object("notebook_views")
@@ -196,34 +206,6 @@ class BlivetGUI(object):
         self.device_toolbar.deactivate_all()
         self.popup_menu.deactivate_all()
 
-    def kickstart_disk_selection(self):
-        disks = self.client.remote_call("get_disks")
-
-        if len(disks) == 0:
-            msg = _("blivet-gui failed to find at least one storage device to work with.\n\n"
-                    "Please connect a storage device to your computer and re-run blivet-gui.")
-
-            self.show_error_dialog(msg)
-            self.quit()
-
-        dialog = other_dialogs.KickstartSelectDevicesDialog(self.main_window, disks)
-        response = dialog.run()
-
-        if response == Gtk.ResponseType.OK:
-            use_disks, install_bootloader, bootloader_device = dialog.get_selection()
-            dialog.destroy()
-
-        else:
-            dialog.destroy()
-            sys.exit(0)
-
-        if install_bootloader and bootloader_device:
-            self.client.remote_call("set_bootloader_device", bootloader_device)
-
-        self.client.remote_call("kickstart_hide_disks", use_disks)
-
-        return use_disks
-
     def _reraise_exception(self, exception, traceback):
         raise type(exception)(str(exception) + "\n" + traceback)
 
@@ -237,6 +219,10 @@ class BlivetGUI(object):
         dialog = message_dialogs.ConfirmDialog(self.main_window, title, question)
         response = dialog.run()
 
+        return response
+
+    def run_dialog(self, dialog):
+        response = dialog.run()
         return response
 
     def _raise_exception(self, exception, traceback):
@@ -255,7 +241,7 @@ class BlivetGUI(object):
         blivet_device = self.list_partitions.selected_partition[0]
 
         dialog = device_info_dialog.DeviceInformationDialog(self.main_window, blivet_device)
-        dialog.run()
+        self.run_dialog(dialog)
         dialog.destroy()
 
     def resize_device(self, _widget=None):
@@ -264,7 +250,7 @@ class BlivetGUI(object):
         dialog = edit_dialog.ResizeDialog(self.main_window, device,
                                           self.client.remote_call("device_resizable", device))
 
-        user_input = dialog.run()
+        user_input = self.run_dialog(dialog)
         if user_input.resize:
             result = self.client.remote_call("resize_device", user_input)
 
@@ -284,7 +270,7 @@ class BlivetGUI(object):
 
         dialog = edit_dialog.FormatDialog(self.main_window, device)
 
-        user_input = dialog.run()
+        user_input = self.run_dialog(dialog)
         if user_input.format:
             result = self.client.remote_call("format_device", user_input)
 
@@ -307,7 +293,7 @@ class BlivetGUI(object):
         dialog = edit_dialog.LVMEditDialog(self.main_window, device,
                                            self.client.remote_call("get_free_info"))
 
-        response = dialog.run()
+        response = self.run_dialog(dialog)
 
         if response == Gtk.ResponseType.OK:
             user_input = dialog.get_selection()
@@ -360,7 +346,7 @@ class BlivetGUI(object):
         """ Create a new disklabel on disk """
 
         dialog = other_dialogs.AddLabelDialog(self.main_window)
-        selection = dialog.run()
+        selection = self.run_dialog(dialog)
 
         if selection:
             result = self.client.remote_call("create_disk_label", disk, selection)
@@ -386,7 +372,7 @@ class BlivetGUI(object):
         allow, msg = self._allow_add_device(selected_device)
 
         if not allow:
-            message_dialogs.ErrorDialog(self.main_window, msg)
+            self.show_error_dialog(msg)
             return
 
         # uninitialized disk or mdarray -> add a disklabel
@@ -408,12 +394,19 @@ class BlivetGUI(object):
             selected_parent = selected_device
             selected_free = selected_device
 
+        if self.installer_mode:
+            mountpoints = self.client.remote_call("get_mountpoints")
+        else:
+            mountpoints = []
+
         dialog = add_dialog.AddDialog(parent_window=self.main_window,
                                       selected_parent=selected_parent,
                                       selected_free=selected_free,
-                                      available_free=self.client.remote_call("get_free_info"))
+                                      available_free=self.client.remote_call("get_free_info"),
+                                      mountpoints=mountpoints,
+                                      installer_mode=self.installer_mode)
 
-        response = dialog.run()
+        response = self.run_dialog(dialog)
 
         if response == Gtk.ResponseType.OK:
             user_input = dialog.get_selection()
@@ -449,8 +442,7 @@ class BlivetGUI(object):
         title = _("Confirm delete operation")
         msg = _("Are you sure you want delete device {name}?").format(name=deleted_device.name)
 
-        dialog = message_dialogs.ConfirmDialog(self.main_window, title, msg)
-        response = dialog.run()
+        response = self.show_confirmation_dialog(title, msg)
 
         if response:
             result = self.client.remote_call("delete_device", deleted_device)
@@ -517,51 +509,21 @@ class BlivetGUI(object):
 
     def apply_event(self, _widget=None):
         """ Apply event for main menu/toolbar
-
             :param widget: widget calling this function (only for calls via signal.connect)
             :type widget: Gtk.Widget()
-
-        .. note::
-                This is neccessary because of kickstart mode -- in "standard" mode
-                we need only simple confirmation dialog, but in kickstart mode it
-                is neccessary to create file choosing dialog for kickstart file save.
-
         """
 
-        if self.kickstart_mode:
+        title = _("Confirm scheduled actions")
+        msg = _("Are you sure you want to perform scheduled actions?")
+        actions = self.client.remote_call("get_actions")
 
-            dialog = other_dialogs.KickstartFileSaveDialog(self.main_window)
+        dialog = message_dialogs.ConfirmActionsDialog(self.main_window, title, msg, self.list_actions.actions_list)
 
-            response = dialog.run()
+        response = self.run_dialog(dialog)
 
-            if response:
-                if os.path.isfile(response):
-                    title = _("File already exists")
-                    msg = _("Selected file already exists, do you want to overwrite it?")
-                    dialog_file = message_dialogs.ConfirmDialog(self.main_window, title, msg)
-                    response_file = dialog_file.run()
-
-                    if not response_file:
-                        return
-
-                self.client.remote_call("create_kickstart_file", response)
-
-                msg = _("File with your Kickstart configuration was successfully saved to:\n\n"
-                        "{filename}").format(filename=response)
-                message_dialogs.InfoDialog(self.main_window, msg)
-
-        else:
-            title = _("Confirm scheduled actions")
-            msg = _("Are you sure you want to perform scheduled actions?")
-            actions = self.client.remote_call("get_actions")
-
-            dialog = message_dialogs.ConfirmActionsDialog(self.main_window, title, msg, self.list_actions.actions_list)
-
-            response = dialog.run()
-
-            if response:
-                processing_dialog = ProcessingActions(self, actions)
-                self.perform_actions(processing_dialog)
+        if response:
+            processing_dialog = ProcessingActions(self, actions)
+            self.perform_actions(processing_dialog)
 
     def umount_partition(self, _widget=None):
         """ Unmount selected partition
@@ -593,15 +555,14 @@ class BlivetGUI(object):
 
         dialog = other_dialogs.LuksPassphraseDialog(self.main_window)
 
-        response = dialog.run()
+        response = self.run_dialog(dialog)
 
         if response:
             ret = self.client.remote_call("luks_decrypt", self.list_partitions.selected_partition[0], response)
 
             if not ret:
                 msg = _("Device decryption failed. Are you sure provided password is correct?")
-                message_dialogs.ErrorDialog(self.main_window, msg)
-
+                self.show_error_dialog(msg)
                 return
 
         self.list_devices.update_devices_view()
@@ -647,7 +608,7 @@ class BlivetGUI(object):
 
     def blivet_init(self):
         loading_window = LoadingWindow(self.main_window)
-        ret = self._run_thread(loading_window, self.client.remote_control, ("init", self.ignored_disks, self.kickstart_mode))
+        ret = self._run_thread(loading_window, self.client.remote_control, ("init", self.ignored_disks))
 
         if not ret.success:  # pylint: disable=maybe-no-member
             # blivet-gui is already running --> quit
@@ -730,9 +691,6 @@ class BlivetGUI(object):
 
         loading_window = LoadingWindow(self.main_window)
         self._run_thread(loading_window, self.client.remote_call, ("blivet_reset",))
-
-        if self.kickstart_mode:
-            self.client.remote_call("kickstart_hide_disks", self.use_disks)
 
         self.list_actions.clear()
 

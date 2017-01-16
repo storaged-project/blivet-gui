@@ -372,11 +372,13 @@ class AdvancedOptions(object):
                 chunk_size = size.Size(self.chunk_combo.get_active_text())
             except ValueError:
                 msg = _("'{0}' is not a valid chunk size specification.").format(self.chunk_combo.get_active_text())
-                message_dialogs.ErrorDialog(self.add_dialog, msg)
+                message_dialogs.ErrorDialog(self.add_dialog, msg,
+                                            not self.add_dialog.installer_mode)  # do not show decoration in installer mode
                 return False
             if chunk_size % size.Size("4 KiB") != size.Size(0):
                 msg = _("Chunk size must be multiple of 4 KiB.")
-                message_dialogs.ErrorDialog(self.add_dialog, msg)
+                message_dialogs.ErrorDialog(self.add_dialog, msg,
+                                            not self.add_dialog.installer_mode)  # do not show decoration in installer mode
                 return False
 
         return True
@@ -401,7 +403,7 @@ class AddDialog(Gtk.Dialog):
          size, fs, label etc.
     """
 
-    def __init__(self, parent_window, selected_parent, selected_free, available_free, mountpoints=None, kickstart_mode=False):
+    def __init__(self, parent_window, selected_parent, selected_free, available_free, mountpoints=None, installer_mode=False):
         """
 
             :param str parent_type: type of (future) parent device
@@ -413,7 +415,7 @@ class AddDialog(Gtk.Dialog):
             :param free_disks_regions: list of free regions on non-empty disks
             :type free_disks_regions: list of :class:`blivetgui.utils.FreeSpaceDevice` instances
             :param list mountpoints: list of mountpoints in current devicetree
-            :param bool kickstart_mode: kickstart mode
+            :param bool installer_mode: installer mode
 
           """
 
@@ -424,7 +426,7 @@ class AddDialog(Gtk.Dialog):
 
         self.available_free = available_free
 
-        self.kickstart_mode = kickstart_mode
+        self.installer_mode = installer_mode
         self.mountpoints = mountpoints
 
         self.supported_raids = supported_raids()
@@ -433,6 +435,10 @@ class AddDialog(Gtk.Dialog):
                             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.parent_window)
+
+        if self.installer_mode:
+            self.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
+            self.set_decorated(False)
 
         self.set_resizable(False)  # auto shrink after removing widgets
 
@@ -451,7 +457,7 @@ class AddDialog(Gtk.Dialog):
 
         self.raid_combo, self.raid_changed_signal = self.add_raid_type_chooser()
 
-        if self.kickstart_mode:
+        if self.installer_mode:
             self.mountpoint_entry = self.add_mountpoint()
 
         self.devices_combo = self.add_device_chooser()
@@ -964,7 +970,7 @@ class AddDialog(Gtk.Dialog):
     def show_widgets(self, widget_types):
 
         for widget_type in widget_types:
-            if widget_type == "mountpoint" and not self.kickstart_mode:
+            if widget_type == "mountpoint" and not self.installer_mode:
                 continue
 
             elif widget_type == "size":
@@ -978,7 +984,7 @@ class AddDialog(Gtk.Dialog):
     def hide_widgets(self, widget_types):
 
         for widget_type in widget_types:
-            if widget_type == "mountpoint" and not self.kickstart_mode:
+            if widget_type == "mountpoint" and not self.installer_mode:
                 continue
 
             elif widget_type == "size":
@@ -1107,41 +1113,47 @@ class AddDialog(Gtk.Dialog):
 
         if user_input.encrypt and not user_input.passphrase:
             msg = _("Passphrase not specified.")
-            message_dialogs.ErrorDialog(self, msg)
-
+            message_dialogs.ErrorDialog(self, msg,
+                                        not self.installer_mode)  # do not show decoration in installer mode
             return False
 
         if user_input.mountpoint and not os.path.isabs(user_input.mountpoint):
             msg = _("\"{0}\" is not a valid mountpoint.").format(user_input.mountpoint)
-            message_dialogs.ErrorDialog(self, msg)
+            message_dialogs.ErrorDialog(self, msg,
+                                        not self.installer_mode)  # do not show decoration in installer mode
 
             return False
 
         if user_input.device_type == "mdraid" and len(user_input.parents) == 1:
             msg = _("Please select at least two parent devices.")
-            message_dialogs.ErrorDialog(self, msg)
+            message_dialogs.ErrorDialog(self, msg,
+                                        not self.installer_mode)  # do not show decoration in installer mode
 
             return False
 
-        if self.kickstart_mode and user_input.mountpoint:
+        if self.installer_mode and user_input.mountpoint:
             valid, msg = is_mountpoint_valid(self.mountpoints, user_input.mountpoint)
             if not valid:
-                message_dialogs.ErrorDialog(self, msg)
+                message_dialogs.ErrorDialog(self, msg,
+                                            not self.installer_mode)  # do not show decoration in installer mode
                 return False
 
         if user_input.name and not is_name_valid(user_input.device_type, user_input.name):
             msg = _("\"{0}\" is not a valid name.").format(user_input.name)
-            message_dialogs.ErrorDialog(self, msg)
+            message_dialogs.ErrorDialog(self, msg,
+                                        not self.installer_mode)  # do not show decoration in installer mode
             return False
 
         if user_input.label and not is_label_valid(user_input.filesystem, user_input.label):
             msg = _("\"{0}\" is not a valid label.").format(user_input.label)
-            message_dialogs.ErrorDialog(self, msg)
+            message_dialogs.ErrorDialog(self, msg,
+                                        not self.installer_mode)  # do not show decoration in installer mode
             return False
 
         if self.pass_entry.get_text() != self.pass2_entry.get_text():
             msg = _("Provided passphrases do not match.")
-            message_dialogs.ErrorDialog(self, msg)
+            message_dialogs.ErrorDialog(self, msg,
+                                        not self.installer_mode)  # do not show decoration in installer mode
             return False
 
         return True
@@ -1176,7 +1188,7 @@ class AddDialog(Gtk.Dialog):
         else:
             raid_level = None
 
-        if self.kickstart_mode:
+        if self.installer_mode:
             mountpoint = self.mountpoint_entry.get_text()
         else:
             mountpoint = None

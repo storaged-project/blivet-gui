@@ -63,6 +63,15 @@ class ResizeDialog(object):
         else:
             self._add_resize_info()
 
+    def set_decorated(self, decorated):
+        self.dialog.set_decorated(decorated)
+
+        # no decoration --> display dialog title in the dialog
+        if not decorated:
+            label = self.builder.get_object("label_title")
+            title = self.dialog.get_title()
+            label.set_text(title)
+
     def _add_size_chooser(self):
         size_chooser = SizeChooser(max_size=self.resize_info.max_size,
                                    min_size=self.resize_info.min_size,
@@ -132,6 +141,15 @@ class FormatDialog(object):
             self.fs_combo.set_active_id("ext4")
         else:
             self.fs_combo.set_active(0)
+
+    def set_decorated(self, decorated):
+        self.dialog.set_decorated(decorated)
+
+        # no decoration --> display dialog title in the dialog
+        if not decorated:
+            label = self.builder.get_object("label_title")
+            title = self.dialog.get_title()
+            label.set_text(title)
 
     def run(self):
         response = self.dialog.run()

@@ -40,7 +40,7 @@ class Rectangle(Gtk.RadioButton):
         Gtk.RadioButton.__init__(self, group=group, width_request=width, height_request=height)
 
         self.set_mode(False)
-        self.set_name(rtype)
+        self.set_name("bg-" + rtype)
 
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, homogeneous=False, spacing=6)
         self.add(hbox)

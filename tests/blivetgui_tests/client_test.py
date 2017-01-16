@@ -29,9 +29,9 @@ class BlivetGUIClientTest(unittest.TestCase):
         self.assertTrue(isinstance(converted_answer, ClientProxyObject))
         self.assertEqual(converted_answer.proxy_id, msg)  # pylint: disable=no-member
 
-    @patch("blivetgui.communication.client.BlivetGUIClient.__init__", lambda a, b, c, d: None)
+    @patch("blivetgui.communication.client.BlivetGUIClient.__init__", lambda a, b: None)
     def test_convert_args(self):
-        client = BlivetGUIClient(MagicMock(), MagicMock(), MagicMock())
+        client = BlivetGUIClient(MagicMock())
 
         # 'normal' arguments
         args = ["abcdef", 1, 1.01, True, None, Size("8 GiB")]

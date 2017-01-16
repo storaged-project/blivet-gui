@@ -33,13 +33,12 @@ import gettext
 
 import gi
 gi.require_version("Gtk", "3.0")
-gi.require_version("Gdk", "3.0")
 
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 
 from blivetgui import __version__, __app_name__
 from blivetgui.dialogs.message_dialogs import ErrorDialog
-from blivetgui.gui_utils import locate_ui_file, locate_css_file
+from blivetgui.gui_utils import locate_ui_file
 
 from subprocess import Popen, PIPE
 
@@ -76,8 +75,6 @@ def parse_options():
     parser = optparse.OptionParser()
     parser.add_option("-v", "--version", action="store_true", dest="version", default=False,
                       help=_("show version information"))
-    parser.add_option("-k", "--kickstart", action="store_true", dest="kickstart", default=False,
-                      help=_("run blivet-gui in kickstart mode"))
 
     (options, _args) = parser.parse_args()
 
@@ -98,23 +95,19 @@ def main():
         p = Popen("pkexec blivet-gui-daemon %d" % os.geteuid(), stdout=PIPE, shell=True, preexec_fn=daemon_preexec)
         output = p.stdout.readline()
 
-        # we expect exactly two parameters
-        if len(output.split()) != 2:
+        # we expect exactly one parameter
+        if len(output.split()) != 1:
             ErrorDialog(parent_window=None, msg=_("Failed to start blivet-gui-daemon."))
             sys.exit(1)
 
         else:
-            sockfile, secret = output.split()
-
             from blivetgui.blivetgui import BlivetGUI
+            from blivetgui.communication.client import BlivetGUIClient
 
-            BlivetGUI(server_socket=sockfile, secret=secret, kickstart_mode=options.kickstart)
+            sockfile = output.split()[0]
 
-            css_provider = Gtk.CssProvider()
-            css_provider.load_from_path(locate_css_file("rectangle.css"))
-            screen = Gdk.Screen.get_default()
-            style_context = Gtk.StyleContext()
-            style_context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
+            client = BlivetGUIClient(server_socket=sockfile)
+            BlivetGUI(client)
 
 if __name__ == '__main__':
 

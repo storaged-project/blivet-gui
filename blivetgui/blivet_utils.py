@@ -37,9 +37,6 @@ import re
 import traceback
 import parted
 
-import pykickstart.parser
-from pykickstart.version import makeVersion
-
 from .logs import set_logging
 from .i18n import _
 
@@ -162,16 +159,11 @@ class BlivetUtils(object):
     """ Class with utils directly working with blivet itselves
     """
 
-    def __init__(self, ignored_disks=None, kickstart=False):
+    def __init__(self, ignored_disks=None):
 
-        self.kickstart = kickstart
         self.ignored_disks = ignored_disks
 
-        if self.kickstart:
-            self.ksparser = pykickstart.parser.KickstartParser(makeVersion())
-            self.storage = blivet.Blivet(ksdata=self.ksparser.handler)
-        else:
-            self.storage = blivet.Blivet()
+        self.storage = blivet.Blivet()
 
         # logging
         set_logging(component="blivet")
@@ -487,10 +479,6 @@ class BlivetUtils(object):
 
         actions = []
 
-        # in kickstart mode set formats to non-existing to be able to remove them
-        if self.kickstart and blivet_device.format.type:
-            blivet_device.format.exists = False
-
         if isinstance(blivet_device, RawFormatDevice):
             # raw device, not going to delete device but destroy disk format instead
             result = self._delete_disk_label(blivet_device.parents[0])
@@ -766,6 +754,8 @@ class BlivetUtils(object):
                 fmt_options = ""
 
             new_fmt = blivet.formats.get_format(fmt_type=user_input.filesystem,
+                                                label=user_input.label,
+                                                mountpoint=user_input.mountpoint,
                                                 create_options=fmt_options)
             return [blivet.deviceaction.ActionCreateFormat(device, new_fmt)]
 
@@ -1194,22 +1184,6 @@ class BlivetUtils(object):
 
         return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
-    def set_bootloader_device(self, disk_name):
-        self.ksparser.handler.bootloader.location = "mbr"
-        self.ksparser.handler.bootloader.boot_drive = disk_name
-
-        self.storage.ksdata = self.ksparser.handler
-
-    def kickstart_hide_disks(self, disk_names):
-        """ Hide disks not used in kickstart mode
-        """
-
-        for name in disk_names:
-            disk_device = self.storage.devicetree.get_device_by_name(name)
-            self.storage.devicetree.hide(disk_device)
-
-        self.storage.devicetree.populate()
-
     def luks_decrypt(self, blivet_device, passphrase):
         """ Decrypt selected luks device
 
@@ -1265,12 +1239,3 @@ class BlivetUtils(object):
 
         else:
             return (True, ProxyDataContainer(success=True))
-
-    def create_kickstart_file(self, fname):
-        """ Create kickstart config file
-        """
-
-        self.storage.update_ksdata()
-
-        with open(fname, "w") as outfile:
-            outfile.write(self.storage.ksdata.__str__())
