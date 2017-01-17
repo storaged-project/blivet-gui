@@ -195,6 +195,12 @@ class ListPartitions(object):
 
         return not device.format.status
 
+    def _allow_set_mountpoint(self, device):
+        if not self.blivet_gui.installer_mode:
+            return False
+
+        return device.format.mountable
+
     def _allow_add_device(self, device):
         if device.protected:
             return False
@@ -236,6 +242,9 @@ class ListPartitions(object):
 
         if self._allow_add_device(device):
             self.blivet_gui.activate_device_actions(["add"])
+
+        if self._allow_set_mountpoint(device):
+            self.blivet_gui.activate_device_actions(["mountpoint"])
 
         if device.type == "lvmvg":
             self.blivet_gui.activate_device_actions(["parents"])

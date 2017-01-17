@@ -230,6 +230,75 @@ class FormatDialog(object):
         self.dialog.response(Gtk.ResponseType.ACCEPT)
 
 
+class MountpointDialog(object):
+
+    def __init__(self, main_window, edit_device, mountpoints=None, installer_mode=False):
+        self.main_window = main_window
+        self.edit_device = edit_device
+        self.mountpoints = mountpoints
+        self.installer_mode = installer_mode
+
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("blivet-gui")
+        self.builder.add_from_file(locate_ui_file("mountpoint_dialog.ui"))
+
+        self.dialog = self.builder.get_object("mountpoint_dialog")
+        self.dialog.set_transient_for(self.main_window)
+
+        button_cancel = self.builder.get_object("button_cancel")
+        button_cancel.connect("clicked", self._on_cancel_button)
+
+        button_set = self.builder.get_object("button_set")
+        button_set.connect("clicked", self._on_set_button)
+
+        self.mnt_entry = self.builder.get_object("entry_mountpoint")
+
+        self.dialog.show_all()
+
+    def set_decorated(self, decorated):
+        self.dialog.set_decorated(decorated)
+
+        # no decoration --> display dialog title in the dialog
+        if not decorated:
+            label = self.builder.get_object("label_title")
+            title = self.dialog.get_title()
+            label.set_text(title)
+
+    def validate_user_input(self):
+        selected_mnt = self.mnt_entry.get_text()
+
+        if self.installer_mode and selected_mnt:
+            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt)
+            if not valid:
+                message_dialogs.ErrorDialog(self.dialog, msg,
+                                            not self.installer_mode)  # do not show decoration in installer mode
+                return False
+
+        return True
+
+    def run(self):
+        response = self.dialog.run()
+
+        if response == Gtk.ResponseType.REJECT:
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, do_set=False,
+                                      mountpoint=None)
+        else:
+            if not self.validate_user_input():
+                return self.run()
+
+            selected_mnt = self.mnt_entry.get_text()
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, do_set=True,
+                                      mountpoint=selected_mnt)
+
+    def _on_cancel_button(self, _button):
+        self.dialog.response(Gtk.ResponseType.REJECT)
+
+    def _on_set_button(self, _button):
+        self.dialog.response(Gtk.ResponseType.ACCEPT)
+
+
 class LVMEditDialog(Gtk.Dialog):
     """ Dialog window allowing user to edit lvmvg
     """

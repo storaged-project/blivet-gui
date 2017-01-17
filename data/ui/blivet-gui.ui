@@ -59,6 +59,14 @@
                 <property name="use_underline">True</property>
               </object>
             </child>
+            <child>
+              <object class="GtkMenuItem" id="menuitem_mountpoint">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Set mountpoint</property>
+                <property name="use_underline">True</property>
+              </object>
+            </child>
           </object>
         </child>
       </object>
@@ -112,6 +120,14 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">Modify parents</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="button_mountpoint">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="label" translatable="yes">Set mountpoint</property>
         <property name="use_underline">True</property>
       </object>
     </child>
