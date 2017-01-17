@@ -28,7 +28,8 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from .size_chooser import SizeChooser
-from .helpers import supported_filesystems
+from .helpers import supported_filesystems, is_mountpoint_valid
+from ..dialogs import message_dialogs
 from ..gui_utils import locate_ui_file
 from ..communication.proxy_utils import ProxyDataContainer
 from ..i18n import _
@@ -111,9 +112,11 @@ class ResizeDialog(object):
 
 class FormatDialog(object):
 
-    def __init__(self, main_window, edit_device):
+    def __init__(self, main_window, edit_device, mountpoints=None, installer_mode=False):
         self.main_window = main_window
         self.edit_device = edit_device
+        self.mountpoints = mountpoints
+        self.installer_mode = installer_mode
 
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain("blivet-gui")
@@ -130,6 +133,7 @@ class FormatDialog(object):
 
         self.fs_combo = self.builder.get_object("combobox_format")
         self.fs_store = self.builder.get_object("liststore_format")
+        self.mnt_entry = self.builder.get_object("entry_mountpoint")
 
         supported_fs = supported_filesystems()
         for fs in supported_fs:
@@ -137,10 +141,20 @@ class FormatDialog(object):
                 self.fs_store.append((fs, fs.type, fs.name))
         self.fs_store.append((None, "unformatted", _("unformatted")))
 
+        # set the 'changed' signal after adding supported formats to avoid
+        # triggering it for every format
+        self.fs_combo.connect("changed", self._on_fs_combo_changed)
+
         if "ext4" in (fs.type for fs in supported_fs):
             self.fs_combo.set_active_id("ext4")
         else:
             self.fs_combo.set_active(0)
+
+        self.dialog.show_all()
+
+        if not self.installer_mode:
+            self.mnt_box = self.builder.get_object("box_mountpoint")
+            self.mnt_box.hide()
 
     def set_decorated(self, decorated):
         self.dialog.set_decorated(decorated)
@@ -151,18 +165,63 @@ class FormatDialog(object):
             title = self.dialog.get_title()
             label.set_text(title)
 
+    @property
+    def selected_fs(self):
+        tree_iter = self.fs_combo.get_active_iter()
+
+        if tree_iter:
+            model = self.fs_combo.get_model()
+            fs_obj = model[tree_iter][0]
+            return fs_obj
+
+    def get_selection(self):
+        if self.selected_fs is None:
+            selected_fs = None
+        else:
+            selected_fs = self.selected_fs.type
+
+        if self.installer_mode:
+            selected_mnt = self.mnt_entry.get_text()
+        else:
+            selected_mnt = None
+
+        return (selected_fs, selected_mnt)
+
+    def validate_user_input(self):
+        _selected_fs, selected_mnt = self.get_selection()
+
+        if self.installer_mode and selected_mnt:
+            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt)
+            if not valid:
+                message_dialogs.ErrorDialog(self.dialog, msg,
+                                            not self.installer_mode)  # do not show decoration in installer mode
+                return False
+
+        return True
+
     def run(self):
         response = self.dialog.run()
 
         if response == Gtk.ResponseType.REJECT:
             self.dialog.destroy()
-            return ProxyDataContainer(edit_device=self.edit_device, format=False, filesystem=None)
+            return ProxyDataContainer(edit_device=self.edit_device, format=False,
+                                      filesystem=None, label=None, mountpoint=None)
         else:
-            selected_fmt = self.fs_combo.get_active_id()
-            if selected_fmt == "unformatted":
-                selected_fmt = None
+            if not self.validate_user_input():
+                return self.run()
+
+            selected_fs, selected_mnt = self.get_selection()
             self.dialog.destroy()
-            return ProxyDataContainer(edit_device=self.edit_device, format=True, filesystem=selected_fmt)
+            return ProxyDataContainer(edit_device=self.edit_device, format=True,
+                                      filesystem=selected_fs, label=None,
+                                      mountpoint=selected_mnt)
+
+    def _on_fs_combo_changed(self, _widget):
+        if self.selected_fs is None or not self.selected_fs.mountable:
+            self.mnt_entry.set_sensitive(False)
+            self.mnt_entry.set_text("")
+        else:
+            self.mnt_entry.set_sensitive(True)
 
     def _on_cancel_button(self, _button):
         self.dialog.response(Gtk.ResponseType.REJECT)

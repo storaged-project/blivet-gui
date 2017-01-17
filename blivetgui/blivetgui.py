@@ -268,7 +268,15 @@ class BlivetGUI(object):
     def format_device(self, _widget=None):
         device = self.list_partitions.selected_partition[0]
 
-        dialog = edit_dialog.FormatDialog(self.main_window, device)
+        if self.installer_mode:
+            mountpoints = self.client.remote_call("get_mountpoints")
+        else:
+            mountpoints = []
+
+        dialog = edit_dialog.FormatDialog(main_window=self.main_window,
+                                          edit_device=device,
+                                          mountpoints=mountpoints,
+                                          installer_mode=self.installer_mode)
 
         user_input = self.run_dialog(dialog)
         if user_input.format:
