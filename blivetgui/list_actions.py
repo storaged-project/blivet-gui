@@ -51,8 +51,10 @@ class ListActions(object):
         icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
         icon_delete = Gtk.IconTheme.load_icon(icon_theme, "edit-delete", 16, 0)
         icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all", 16, 0)
+        icon_misc = Gtk.IconTheme.load_icon(icon_theme, "edit-paste", 16, 0)
 
-        self.action_icons = {"add": icon_add, "delete": icon_delete, "edit": icon_edit}
+        self.action_icons = {"add": icon_add, "delete": icon_delete, "edit": icon_edit,
+                             "misc": icon_misc}
 
     def initialize(self):
 
@@ -118,7 +120,11 @@ class ListActions(object):
             self.blivet_gui.activate_action_buttons(False)
             self.blivet_gui.label_actions.set_markup("No pending actions")
         else:
-            self.blivet_gui.label_actions.set_markup("<a href=\"\"> %s pending actions</a>" % self.actions)
+            if self.blivet_gui.installer_mode:
+                # this label is actually a button in installer mode, so no link needed
+                self.blivet_gui.label_actions.set_markup("%s pending actions" % self.actions)
+            else:
+                self.blivet_gui.label_actions.set_markup("<a href=\"\"> %s pending actions</a>" % self.actions)
 
         return self.history.pop()
 

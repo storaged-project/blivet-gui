@@ -39,7 +39,7 @@ from .visualization.logical_view import LogicalView
 from .visualization.physical_view import PhysicalView
 from .blivet_utils import BlivetUtils
 from .dialogs import message_dialogs
-
+from .i18n import _
 from .gui_utils import locate_ui_file, locate_css_file
 
 from contextlib import contextmanager
@@ -119,8 +119,6 @@ class BlivetGUIAnaconda(BlivetGUI):
         self.list_parents = ListParents(self)
 
         # ListActions
-        self.label_actions = self.builder.get_object("label_actions")
-        self.label_actions.connect("activate-link", self.show_actions)
         self.list_actions = ListActions(self)
 
         # Vizualisation
@@ -130,8 +128,15 @@ class BlivetGUIAnaconda(BlivetGUI):
         self.physical_view = PhysicalView(self)
         self.builder.get_object("scrolledwindow_physical").add(self.physical_view.vbox)
 
+    @property
+    def label_actions(self):
+        # Gtk.Label with number of currently scheduled actions is placed
+        # in the spoke, not in blivet-gui window
+        return self.spoke.label_actions
+
     def activate_action_buttons(self, activate):
-        pass  # there are no action buttons in installer gui
+        # 'action' buttons (reset and undo) are in the spoke
+        self.spoke.activate_action_buttons(activate)
 
     @property
     def main_window(self):
@@ -167,3 +172,23 @@ class BlivetGUIAnaconda(BlivetGUI):
             response = dialog.run()
 
         return response
+
+    def set_actions(self, blivet_actions):
+        if not blivet_actions:
+            return
+
+        # clear all saved 'blivet-gui actions'
+        self.list_actions.clear()
+
+        # add a new 'placeholder' action for all currently registered blivet actions
+        action_str = _("actions configured by installer")
+        self.list_actions.append("misc", action_str, blivet_actions)
+
+    def reload(self, _widget=None):
+        """ Reload storage information
+        """
+
+        self.list_actions.clear()
+
+        self.list_devices.update_devices_view()
+        self.update_partitions_view()
