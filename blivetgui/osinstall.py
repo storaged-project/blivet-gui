@@ -120,6 +120,8 @@ class BlivetGUIAnaconda(BlivetGUI):
 
         # ListActions
         self.list_actions = ListActions(self)
+        label_actions = self.builder.get_object("label_actions")
+        label_actions.destroy()  # label with actions is part of the spoke
 
         # Vizualisation
         self.logical_view = LogicalView(self)
