@@ -2,19 +2,9 @@
 <!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
-  <object class="GtkListStore" id="liststore_format">
-    <columns>
-      <!-- column-name format -->
-      <column type="PyObject"/>
-      <!-- column-name type -->
-      <column type="gchararray"/>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkDialog" id="format_dialog">
+  <object class="GtkDialog" id="mountpoint_dialog">
     <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Format device</property>
+    <property name="title" translatable="yes">Set mountpoint</property>
     <property name="window_position">center</property>
     <property name="type_hint">dialog</property>
     <property name="gravity">center</property>
@@ -46,8 +36,8 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="button_format">
-                <property name="label" translatable="yes" context="Dialog|Format" comments="Perform selected format change on this device.">Format</property>
+              <object class="GtkButton" id="button_set">
+                <property name="label" translatable="yes" context="Dialog|Format" comments="Perform selected format change on this device.">Set mountpoint</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -77,56 +67,6 @@
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="box_format">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">12</property>
-            <property name="margin_right">12</property>
-            <property name="margin_top">8</property>
-            <property name="margin_bottom">8</property>
-            <property name="homogeneous">True</property>
-            <child>
-              <object class="GtkLabel" id="label_format">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_right">6</property>
-                <property name="label" translatable="yes">Select new format:</property>
-                <property name="justify">center</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBox" id="combobox_format">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="model">liststore_format</property>
-                <property name="entry_text_column">2</property>
-                <property name="id_column">1</property>
-                <child>
-                  <object class="GtkCellRendererText" id="cellrenderertext1"/>
-                  <attributes>
-                    <attribute name="text">2</attribute>
-                  </attributes>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
           </packing>
         </child>
         <child>
