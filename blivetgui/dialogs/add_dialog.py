@@ -892,10 +892,10 @@ class AddDialog(Gtk.Dialog):
 
         name_label = Gtk.Label(label=_("Name:"), xalign=1)
         name_label.get_style_context().add_class("dim-label")
-        self.grid.attach(name_label, 0, 9, 1, 1)
+        self.grid.attach(name_label, 0, 10, 1, 1)
 
         name_entry = Gtk.Entry()
-        self.grid.attach(name_entry, 1, 9, 2, 1)
+        self.grid.attach(name_entry, 1, 10, 2, 1)
 
         self.widgets_dict["name"] = [name_label, name_entry]
 
@@ -904,10 +904,10 @@ class AddDialog(Gtk.Dialog):
     def add_mountpoint(self):
         mountpoint_label = Gtk.Label(label=_("Mountpoint:"), xalign=1)
         mountpoint_label.get_style_context().add_class("dim-label")
-        self.grid.attach(mountpoint_label, 0, 10, 1, 1)
+        self.grid.attach(mountpoint_label, 0, 11, 1, 1)
 
         mountpoint_entry = Gtk.Entry()
-        self.grid.attach(mountpoint_entry, 1, 10, 2, 1)
+        self.grid.attach(mountpoint_entry, 1, 11, 2, 1)
 
         self.widgets_dict["mountpoint"] = [mountpoint_label, mountpoint_entry]
 
@@ -916,25 +916,25 @@ class AddDialog(Gtk.Dialog):
     def add_encrypt_chooser(self):
         encrypt_label = Gtk.Label(label=_("Encrypt:"), xalign=1)
         encrypt_label.get_style_context().add_class("dim-label")
-        self.grid.attach(encrypt_label, 0, 11, 1, 1)
+        self.grid.attach(encrypt_label, 0, 12, 1, 1)
 
         encrypt_check = Gtk.CheckButton()
-        self.grid.attach(encrypt_check, 1, 11, 1, 1)
+        self.grid.attach(encrypt_check, 1, 12, 1, 1)
 
         self.widgets_dict["encrypt"] = [encrypt_label, encrypt_check]
 
         pass_label = Gtk.Label(label=_("Passphrase:"), xalign=1)
         pass_label.get_style_context().add_class("dim-label")
-        self.grid.attach(pass_label, 0, 12, 1, 1)
+        self.grid.attach(pass_label, 0, 13, 1, 1)
 
         pass_entry = Gtk.Entry()
         pass_entry.set_visibility(False)
         pass_entry.set_property("caps-lock-warning", True)
-        self.grid.attach(pass_entry, 1, 12, 2, 1)
+        self.grid.attach(pass_entry, 1, 13, 2, 1)
 
         pass2_label = Gtk.Label(label=_("Repeat Passphrase:"), xalign=1)
         pass2_label.get_style_context().add_class("dim-label")
-        self.grid.attach(pass2_label, 0, 13, 1, 1)
+        self.grid.attach(pass2_label, 0, 14, 1, 1)
 
         pass2_entry = Gtk.Entry()
         pass2_entry.set_visibility(False)
@@ -942,7 +942,7 @@ class AddDialog(Gtk.Dialog):
         pass2_entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, False)
         pass2_entry.set_icon_tooltip_markup(Gtk.EntryIconPosition.SECONDARY, _("Passphrases don't match."))
         pass2_entry.connect("changed", self.on_passphrase_changed, pass_entry)
-        self.grid.attach(pass2_entry, 1, 13, 2, 1)
+        self.grid.attach(pass2_entry, 1, 14, 2, 1)
 
         self.widgets_dict["passphrase"] = [pass_label, pass_entry, pass2_label, pass2_entry]
 
@@ -961,7 +961,7 @@ class AddDialog(Gtk.Dialog):
             self.advanced = AdvancedOptions(self, device_type, self.selected_parent, self.selected_free)
             self.widgets_dict["advanced"] = [self.advanced]
 
-            self.grid.attach(self.advanced.expander, 0, 14, 6, 1)
+            self.grid.attach(self.advanced.expander, 0, 15, 6, 1)
 
         else:
             self.advanced = None
@@ -1037,15 +1037,15 @@ class AddDialog(Gtk.Dialog):
             self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size", "passphrase", "mdraid"])
 
         elif device_type in ("lvmlv",):
-            self.show_widgets(["name", "fs", "mountpoint", "size", "advanced"])
-            self.hide_widgets(["label", "encrypt", "passphrase", "mdraid"])
+            self.show_widgets(["name", "fs", "mountpoint", "size", "advanced", "label"])
+            self.hide_widgets(["encrypt", "passphrase", "mdraid"])
 
             if self.selected_parent.free_space < self.advanced.cache_area._cache_min_size:
                 self.advanced.cache_area.set_sensitive(False)
 
         elif device_type in ("lvmthinlv",):
-            self.show_widgets(["name", "fs", "mountpoint", "size"])
-            self.hide_widgets(["label", "encrypt", "passphrase", "advanced", "mdraid"])
+            self.show_widgets(["name", "fs", "mountpoint", "size", "label"])
+            self.hide_widgets(["encrypt", "passphrase", "advanced", "mdraid"])
 
         elif device_type == "btrfs volume":
             self.show_widgets(["name", "size", "mountpoint"])
