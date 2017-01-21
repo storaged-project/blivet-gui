@@ -999,8 +999,8 @@ class BlivetUtils(object):
                                    chunk_size=user_input.advanced["chunk_size"])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_md))
 
-        fmt = blivet.formats.get_format(fmt_type=user_input.filesystem)
-        actions.append(blivet.deviceaction.ActionCreateFormat(new_md, fmt))
+        if user_input.filesystem:
+            actions.extend(self._create_format(user_input, new_md))
 
         return actions
 
