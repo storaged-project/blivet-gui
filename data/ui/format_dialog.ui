@@ -33,10 +33,11 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="button_cancel">
-                <property name="label" translatable="yes">Cancel</property>
+                <property name="label" translatable="yes">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
                 <property name="yalign">0.62000000476837158</property>
               </object>
               <packing>
@@ -47,10 +48,11 @@
             </child>
             <child>
               <object class="GtkButton" id="button_format">
-                <property name="label" translatable="yes" context="Dialog|Format" comments="Perform selected format change on this device.">Format</property>
+                <property name="label" translatable="yes" context="Dialog|Format" comments="Perform selected format change on this device.">_Format</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="expand">True</property>

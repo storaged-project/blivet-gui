@@ -20,10 +20,11 @@
             <property name="layout_style">expand</property>
             <child>
               <object class="GtkButton" id="button_back">
-                <property name="label" translatable="yes">Back</property>
+                <property name="label" translatable="yes">_Back</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -33,10 +34,11 @@
             </child>
             <child>
               <object class="GtkButton" id="button_report">
-                <property name="label" translatable="yes">Report a bug</property>
+                <property name="label" translatable="yes">_Report a bug</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -46,10 +48,11 @@
             </child>
             <child>
               <object class="GtkButton" id="button_quit">
-                <property name="label" translatable="yes">Quit</property>
+                <property name="label" translatable="yes">_Quit</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="expand">True</property>
