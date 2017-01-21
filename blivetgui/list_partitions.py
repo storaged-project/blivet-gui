@@ -205,16 +205,20 @@ class ListPartitions(object):
         if device.protected:
             return False
 
-        if device.type in ("free space", "btrfs volume", "lvmthinpool", "lvmthinlv"):
+        if device.type in ("free space", "btrfs volume", "lvmthinpool"):
             return True
 
         # empty lvmpv
         if device.format and device.format.type == "lvmpv":
             return not device.children
 
-        # snapshot of lvmlv -- only if there is free space in the vg
+        # snapshot of thin lv -- only if exists
+        if device.type == "lvmthinlv":
+            return device.exists
+
+        # snapshot of lvmlv -- only if there is free space in the vg and if exists
         if device.type == "lvmlv":
-            return device.vg.free_space >= device.vg.pe_size
+            return device.vg.free_space >= device.vg.pe_size and device.exists
 
     def activate_action_buttons(self, selected_device):
         """ Activate buttons in toolbar based on selected device
