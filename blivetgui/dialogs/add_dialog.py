@@ -870,7 +870,7 @@ class AddDialog(Gtk.Dialog):
         else:
             device_type = self.selected_type
 
-            if device_type == "partition":
+            if device_type in ("partition", "mdraid", "lvmlv", "lvmthinlv"):
                 self.show_widgets(["label", "mountpoint"])
             else:
                 self.show_widgets(["mountpoint"])
@@ -1056,8 +1056,8 @@ class AddDialog(Gtk.Dialog):
             self.hide_widgets(["label", "fs", "encrypt", "size", "passphrase", "advanced", "mdraid"])
 
         elif device_type == "mdraid":
-            self.show_widgets(["name", "size", "mountpoint", "fs", "advanced"])
-            self.hide_widgets(["label", "encrypt", "passphrase", "mdraid"])
+            self.show_widgets(["name", "size", "mountpoint", "fs", "advanced", "label"])
+            self.hide_widgets(["encrypt", "passphrase", "mdraid"])
 
         elif device_type == "lvm snapshot":
             self.show_widgets(["name", "size"])
