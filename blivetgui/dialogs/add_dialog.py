@@ -485,7 +485,7 @@ class AddDialog(Gtk.Dialog):
             types.append((_("Partition"), "partition"))
 
             if self.selected_parent.size > lvm.LVM_PE_SIZE * 2:
-                types.extend([(_("LVM2 Storage"), "lvm")])
+                types.extend([(_("LVM2 Volume Group"), "lvm")])
 
             if self.selected_parent.size > size.Size("256 MiB"):
                 types.append((_("Btrfs Volume"), "btrfs volume"))
