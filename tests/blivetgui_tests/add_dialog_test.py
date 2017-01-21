@@ -409,7 +409,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog.name_entry.get_visible())
         self.assertFalse(add_dialog.encrypt_check.get_visible())
         self.assertIsNotNone(add_dialog.advanced)
-        self.assertTrue(add_dialog.md_type_combo.get_visible())
+        self.assertFalse(add_dialog.md_type_combo.get_visible())
 
     def test_partition_parents(self):
         parent_device = self._get_parent_device()
@@ -586,9 +586,6 @@ class AddDialogTest(unittest.TestCase):
         # select partition --> filesystem chooser should be visible
         add_dialog.md_type_combo.set_active_id("partition")
         self.assertTrue(add_dialog.filesystems_combo.get_visible())
-        # select lvmpv --> filesystem chooser should be hidden
-        add_dialog.md_type_combo.set_active_id("lvmpv")
-        self.assertFalse(add_dialog.filesystems_combo.get_visible())
 
     def test_raid_type(self):
         parent_device = self._get_parent_device()

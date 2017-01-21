@@ -801,7 +801,7 @@ class AddDialog(Gtk.Dialog):
 
         md_type_store = Gtk.ListStore(str, str)
 
-        for md_type in ((_("Partition"), "partition"), (_("LVM Physical Volume"), "lvmpv")):
+        for md_type in ((_("Partition"), "partition"),):
             md_type_store.append(md_type)
 
         md_type_combo = Gtk.ComboBox.new_with_model(md_type_store)
@@ -1056,8 +1056,8 @@ class AddDialog(Gtk.Dialog):
             self.hide_widgets(["label", "fs", "encrypt", "size", "passphrase", "advanced", "mdraid"])
 
         elif device_type == "mdraid":
-            self.show_widgets(["name", "size", "mountpoint", "fs", "mdraid", "advanced"])
-            self.hide_widgets(["label", "encrypt", "passphrase"])
+            self.show_widgets(["name", "size", "mountpoint", "fs", "advanced"])
+            self.hide_widgets(["label", "encrypt", "passphrase", "mdraid"])
 
         elif device_type == "lvm snapshot":
             self.show_widgets(["name", "size"])
@@ -1198,9 +1198,7 @@ class AddDialog(Gtk.Dialog):
         else:
             advanced = None
 
-        if device_type == "mdraid" and self.md_type_combo.get_active_id() == "lvmpv":
-            filesystem = "lvmpv"
-        elif device_type in ("mdraid", "partition", "lvmlv", "lvmthinlv"):
+        if device_type in ("mdraid", "partition", "lvmlv", "lvmthinlv"):
             if self.selected_fs is not None:
                 filesystem = self.selected_fs.type
             else:
