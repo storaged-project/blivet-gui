@@ -38,7 +38,7 @@ from ..dialogs import message_dialogs
 from ..communication.proxy_utils import ProxyDataContainer
 
 from . size_chooser import SizeChooser, SizeArea
-from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid, supported_raids, supported_filesystems
+from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid, supported_raids, supported_filesystems, get_monitor_size
 
 from ..i18n import _
 from ..gui_utils import locate_ui_file
@@ -442,11 +442,20 @@ class AddDialog(Gtk.Dialog):
 
         self.set_resizable(False)  # auto shrink after removing widgets
 
+        mwidth, mheight = get_monitor_size(self.parent_window)
+        self.max_height = int(mheight * 0.80)  # take at most 80 % of current monitor height
+        self.max_width = int(mwidth * 0.80)  # take at most 80 % of current monitor width
+
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
         self.grid.set_border_width(10)
 
+        self.scrolledwindow = Gtk.ScrolledWindow()
+        self.scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+
         self.box = self.get_content_area()
-        self.box.add(self.grid)
+        self.box.add(self.scrolledwindow)
+
+        self.scrolledwindow.add(self.grid)
 
         self.widgets_dict = {}
 
@@ -470,11 +479,37 @@ class AddDialog(Gtk.Dialog):
 
         self.md_type_combo = self.add_md_type_chooser()
 
+        # adjust size/scrolling of the dialog with every change of its size
+        self._resize_handler = self.connect("configure-event", self.scrolled_adjust)
+
         self.show_all()
+
         self.devices_combo.set_active(0)
 
         ok_button = self.get_widget_for_response(Gtk.ResponseType.OK)
         ok_button.connect("clicked", self.on_ok_clicked)
+
+    def scrolled_adjust(self, _widget, _event):
+        """ Adjust current size of the dialog (and add scrollbars) if it's bigger
+            than size limits
+        """
+
+        height = self.scrolledwindow.size_request().height
+        width = self.scrolledwindow.size_request().width
+
+        with self.handler_block(self._resize_handler):
+            if height >= self.max_height and width >= self.max_width:
+                self.scrolledwindow.set_size_request(self.max_width, self.max_height)
+                self.scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+            elif height >= self.max_height and width < self.max_width:
+                self.scrolledwindow.set_size_request(-1, self.max_height)
+                self.scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
+            elif height < self.max_height and width >= self.max_width:
+                self.scrolledwindow.set_size_request(self.max_width, -1)
+                self.scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER)
+            else:
+                self.scrolledwindow.set_size_request(-1, -1)
+                self.scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
 
     def _available_add_types(self):
         """ Get device types available to add to this device """

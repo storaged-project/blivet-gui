@@ -271,6 +271,7 @@ class AdvancedOptionsTest(unittest.TestCase):
 
 
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
+@patch("blivetgui.dialogs.add_dialog.get_monitor_size", lambda window: (1024, 768))
 class AddDialogTest(unittest.TestCase):
 
     error_dialog = MagicMock()
