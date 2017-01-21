@@ -633,7 +633,7 @@ class BlivetGUI(object):
         """
 
         dialog = message_dialogs.ShowActionsDialog(self.main_window, self.list_actions.actions_list)
-        dialog.run()
+        self.run_dialog(dialog)
 
         return True
 

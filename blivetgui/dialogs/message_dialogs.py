@@ -235,17 +235,17 @@ class ShowActionsDialog(object):
     """
 
     def __init__(self, parent_window, treestore_actions):
-        builder = Gtk.Builder()
-        builder.set_translation_domain("blivet-gui")
-        builder.add_from_file(locate_ui_file("show_actions_dialog.ui"))
-        self.dialog = builder.get_object("show_actions_dialog")
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("blivet-gui")
+        self.builder.add_from_file(locate_ui_file("show_actions_dialog.ui"))
+        self.dialog = self.builder.get_object("show_actions_dialog")
 
         self.dialog.set_transient_for(parent_window)
 
         if len(treestore_actions) == 0:
             self.dialog.format_secondary_text(_("There are no pending actions."))
 
-        scrolledwindow = builder.get_object("scrolledwindow")
+        scrolledwindow = self.builder.get_object("scrolledwindow")
 
         win_width = int(parent_window.get_allocated_width() * 0.60)
         win_height = int(parent_window.get_allocated_height() * 0.60)
@@ -259,6 +259,9 @@ class ShowActionsDialog(object):
 
         # yes, it is neccessary to call this twice, don't know why, just some Gtk magic
         adjust_scrolled_size(scrolledwindow, win_width, win_height)
+
+    def set_decorated(self, decorated):
+        self.dialog.set_decorated(decorated)
 
     def run(self):
         """ Run the dialog
