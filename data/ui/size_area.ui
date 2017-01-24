@@ -20,7 +20,7 @@
             <property name="column_spacing">6</property>
             <child>
               <object class="GtkCheckButton" id="checkbutton_manual">
-                <property name="label" translatable="yes">Manually assign to parents</property>
+                <property name="label" translatable="yes">Manually specify layout</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
