@@ -271,6 +271,7 @@ class AdvancedOptionsTest(unittest.TestCase):
 
 
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
+@patch("blivetgui.dialogs.add_dialog.get_monitor_size", lambda window: (1024, 768))
 class AddDialogTest(unittest.TestCase):
 
     error_dialog = MagicMock()
@@ -297,10 +298,15 @@ class AddDialogTest(unittest.TestCase):
 
         dev = MagicMock()
         dev.configure_mock(name=name, type=dtype, size=size, format=MagicMock(type=ftype))
+        if dtype != "disk":
+            disk = self._get_parent_device()
+            dev.configure_mock(disk=disk, parents=[disk])
         if dtype == "lvmvg":
             pv = MagicMock()
-            pv.configure_mock(name="vda1", size=size, format=MagicMock(free=size), disk=self._get_parent_device())
-            dev.configure_mock(pe_size=Size("4 MiB"), free_space=size, pvs=[pv], pmspare_size=Size("4 MiB"))
+            disk = self._get_parent_device()
+            pv.configure_mock(name="vda1", size=size, format=MagicMock(free=size), disk=disk, parents=[disk])
+            dev.configure_mock(pe_size=Size("4 MiB"), free_space=size, pvs=[pv], parents=[pv],
+                               pmspare_size=Size("4 MiB"))
 
         return dev
 
@@ -409,7 +415,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog.name_entry.get_visible())
         self.assertFalse(add_dialog.encrypt_check.get_visible())
         self.assertIsNotNone(add_dialog.advanced)
-        self.assertTrue(add_dialog.md_type_combo.get_visible())
+        self.assertFalse(add_dialog.md_type_combo.get_visible())
 
     def test_partition_parents(self):
         parent_device = self._get_parent_device()
@@ -586,9 +592,6 @@ class AddDialogTest(unittest.TestCase):
         # select partition --> filesystem chooser should be visible
         add_dialog.md_type_combo.set_active_id("partition")
         self.assertTrue(add_dialog.filesystems_combo.get_visible())
-        # select lvmpv --> filesystem chooser should be hidden
-        add_dialog.md_type_combo.set_active_id("lvmpv")
-        self.assertFalse(add_dialog.filesystems_combo.get_visible())
 
     def test_raid_type(self):
         parent_device = self._get_parent_device()

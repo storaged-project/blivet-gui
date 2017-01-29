@@ -19,6 +19,7 @@ Requires: gtk3
 Requires: polkit-gnome
 Requires: python3-pid
 Requires: libreport
+Requires: adwaita-icon-theme
 URL: http://github.com/rhinstaller/blivet-gui
 
 %description

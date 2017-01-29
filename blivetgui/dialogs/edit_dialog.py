@@ -28,7 +28,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from .size_chooser import SizeChooser
-from .helpers import supported_filesystems, is_mountpoint_valid
+from .helpers import supported_filesystems, is_mountpoint_valid, is_label_valid
 from ..dialogs import message_dialogs
 from ..gui_utils import locate_ui_file
 from ..communication.proxy_utils import ProxyDataContainer
@@ -133,6 +133,7 @@ class FormatDialog(object):
 
         self.fs_combo = self.builder.get_object("combobox_format")
         self.fs_store = self.builder.get_object("liststore_format")
+        self.label_entry = self.builder.get_object("entry_label")
         self.mnt_entry = self.builder.get_object("entry_mountpoint")
 
         supported_fs = supported_filesystems()
@@ -177,18 +178,28 @@ class FormatDialog(object):
     def get_selection(self):
         if self.selected_fs is None:
             selected_fs = None
+            selected_label = None
         else:
             selected_fs = self.selected_fs.type
+            selected_label = self.label_entry.get_text() or None
 
         if self.installer_mode:
             selected_mnt = self.mnt_entry.get_text()
         else:
             selected_mnt = None
 
-        return (selected_fs, selected_mnt)
+        return (selected_fs, selected_label, selected_mnt)
 
     def validate_user_input(self):
-        _selected_fs, selected_mnt = self.get_selection()
+        selected_fs, selected_label, selected_mnt = self.get_selection()
+
+        if selected_label:
+            valid = is_label_valid(selected_fs, selected_label)
+            if not valid:
+                msg = _("\"{0}\" is not a valid label.").format(selected_label)
+                message_dialogs.ErrorDialog(self.dialog, msg,
+                                            not self.installer_mode)  # do not show decoration in installer mode
+                return False
 
         if self.installer_mode and selected_mnt:
             valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt)
@@ -210,18 +221,26 @@ class FormatDialog(object):
             if not self.validate_user_input():
                 return self.run()
 
-            selected_fs, selected_mnt = self.get_selection()
+            selected_fs, selected_label, selected_mnt = self.get_selection()
             self.dialog.destroy()
             return ProxyDataContainer(edit_device=self.edit_device, format=True,
-                                      filesystem=selected_fs, label=None,
+                                      filesystem=selected_fs, label=selected_label,
                                       mountpoint=selected_mnt)
 
     def _on_fs_combo_changed(self, _widget):
+        # mountpoint entry sensitivity
         if self.selected_fs is None or not self.selected_fs.mountable:
             self.mnt_entry.set_sensitive(False)
             self.mnt_entry.set_text("")
         else:
             self.mnt_entry.set_sensitive(True)
+
+        # label entry sensitivity
+        if self.selected_fs is None or not self.selected_fs.labeling():
+            self.label_entry.set_sensitive(False)
+            self.label_entry.set_text("")
+        else:
+            self.label_entry.set_sensitive(True)
 
     def _on_cancel_button(self, _button):
         self.dialog.response(Gtk.ResponseType.REJECT)

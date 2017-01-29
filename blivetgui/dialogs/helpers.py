@@ -40,6 +40,20 @@ from blivet.tasks.fslabeling import Ext2FSLabeling, FATFSLabeling, JFSLabeling, 
 # ---------------------------------------------------------------------------- #
 
 
+def get_monitor_size(window):
+    """ Get size (width x height) of monitor on which window is located.
+
+        :param window: Gtk window
+        :type window: Gtk.Window
+
+    """
+
+    display = window.get_display()
+    monitor = display.get_monitor_at_window(window.get_window())
+    geometry = monitor.get_geometry()
+    return (geometry.width, geometry.height)
+
+
 def adjust_scrolled_size(scrolledwindow, width_limit, height_limit):
     """ Adjust size of Gtk.ScrolledWindow -- show scrollbars only when its size
         would be bigger than limits
