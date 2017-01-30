@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
   <object class="GtkListStore" id="liststore_raid">
@@ -13,11 +12,16 @@
   <object class="GtkBox" id="box">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
+    <property name="halign">center</property>
+    <property name="spacing">8</property>
     <child>
       <object class="GtkLabel" id="label_raid">
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">RAID level:</property>
+        <style>
+          <class name="dim-label"/>
+        </style>
       </object>
       <packing>
         <property name="expand">False</property>

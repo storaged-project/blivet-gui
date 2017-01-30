@@ -360,7 +360,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog.filesystems_combo.get_visible())
         self.assertFalse(add_dialog.name_entry.get_visible())
         self.assertTrue(add_dialog.encrypt_check.get_visible())
-        self.assertFalse(add_dialog.raid_combo.get_visible())
+        self.assertFalse(add_dialog._raid_chooser.get_visible())
         self.assertIsNotNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
         self.assertTrue(add_dialog.size_area.get_sensitive())
@@ -378,7 +378,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertFalse(add_dialog.filesystems_combo.get_visible())
         self.assertTrue(add_dialog.name_entry.get_visible())
         self.assertTrue(add_dialog.encrypt_check.get_visible())
-        self.assertFalse(add_dialog.raid_combo.get_visible())
+        self.assertFalse(add_dialog._raid_chooser.get_visible())
         self.assertIsNotNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
         self.assertTrue(add_dialog.size_area.get_sensitive())
@@ -396,7 +396,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertFalse(add_dialog.filesystems_combo.get_visible())
         self.assertTrue(add_dialog.name_entry.get_visible())
         self.assertFalse(add_dialog.encrypt_check.get_visible())
-        self.assertFalse(add_dialog.raid_combo.get_visible())
+        self.assertTrue(add_dialog._raid_chooser.get_visible())
         self.assertIsNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
         self.assertTrue(add_dialog.size_area.get_sensitive())
@@ -606,17 +606,11 @@ class AddDialogTest(unittest.TestCase):
         # select second parent --> raid combo should be visible
         add_dialog.on_cell_toggled(None, 1)
         add_dialog.parents_store[1][2] = True
-        self.assertTrue(add_dialog.raid_combo.get_visible())
-        self.assertEqual(add_dialog.raid_combo.get_active_id(), "linear")  # linear is default value for mdraid
+        self.assertTrue(add_dialog._raid_chooser.get_visible())
+        self.assertEqual(add_dialog._raid_chooser.selected_level.name, "raid0")  # linear is default value for mdraid
 
-        # only 2 parents --> only "linear", "raid1" and "raid0" should be available; "raid5" needs at least 3 parents
-        # set_active_id returns True or False based on success --> it should return False for "raid5" and True otherwise
-        self.assertTrue(add_dialog.raid_combo.set_active_id("raid0"))
-        self.assertTrue(add_dialog.raid_combo.set_active_id("raid1"))
-        self.assertFalse(add_dialog.raid_combo.set_active_id("raid5"))
-
-        # raid1 type is selected --> we should have 2 size areas, both with max size 4 GiB (smaller free space size)
-        self.assertEqual(add_dialog.size_area.max_size, Size("4 GiB"))
+        # raid0 type is selected --> we should have 2 size areas, both with max size 4 GiB (smaller free space size)
+        self.assertEqual(add_dialog.size_area.max_size, Size("8 GiB"))
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_encrypt_validity_check(self):
@@ -825,7 +819,7 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.on_cell_toggled(None, 1)
         add_dialog.parents_store[1][2] = True
 
-        add_dialog.raid_combo.set_active_id(raidtype)
+        add_dialog._raid_chooser._combobox_raid.set_active_id(raidtype)
 
         # raid 0 --> second size area should be updated
         add_dialog.size_area.parent_area.choosers[0].selected_size = size
@@ -846,7 +840,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertFalse(selection.encrypt)
         self.assertTrue(selection.passphrase in (None, ""))
         self.assertEqual(selection.parents, [(parent_device1, size), (parent_device2, size)])
-        self.assertEqual(selection.raid_level, "raid0")
+        self.assertEqual(selection.raid_level, raidtype)
 
     def test_btrfs_selection(self):
         parent_device = self._get_parent_device()
@@ -873,7 +867,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertFalse(selection.encrypt)
         self.assertTrue(selection.passphrase in (None, ""))
         self.assertEqual(selection.parents, [(parent_device, free_device.size)])
-        self.assertTrue(selection.raid_level in (None, ""))
+        self.assertEqual(selection.raid_level, "single")
 
 if __name__ == "__main__":
     unittest.main()
