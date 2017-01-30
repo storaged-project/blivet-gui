@@ -38,6 +38,7 @@ from ..dialogs import message_dialogs
 from ..communication.proxy_utils import ProxyDataContainer
 
 from . size_chooser import SizeChooser, SizeArea
+from .widgets import RaidChooser
 from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid, supported_raids, supported_filesystems, get_monitor_size
 
 from ..i18n import _
@@ -464,7 +465,11 @@ class AddDialog(Gtk.Dialog):
         self.encrypt_check, self.pass_entry, self.pass2_entry = self.add_encrypt_chooser()
         self.parents_store = self.add_parent_list()
 
-        self.raid_combo, self.raid_changed_signal = self.add_raid_type_chooser()
+        # raid chooser
+        self._raid_chooser = RaidChooser()
+        self._raid_chooser.connect("changed", self.on_raid_type_changed)
+        self.grid.attach(self._raid_chooser.box, 0, 5, 3, 1)
+        self.widgets_dict["raid"] = [self._raid_chooser]
 
         if self.installer_mode:
             self.mountpoint_entry = self.add_mountpoint()
@@ -606,67 +611,28 @@ class AddDialog(Gtk.Dialog):
 
         return parents_store
 
-    def update_raid_type_chooser(self):
-        device_type = self.selected_type
+    def update_raid_type_chooser(self, keep_selection=False):
+
+        # save previously selected raid type
+        selected = self._raid_chooser.selected_level
+
+        # update the chooser
         num_parents = self._get_number_selected_parents()
+        self._raid_chooser.update(self.selected_type, num_parents)
 
-        if device_type not in self.supported_raids.keys() or num_parents == 1:
-            for widget in self.widgets_dict["raid"]:
-                widget.hide()
-
-            return
-
-        else:
-            # save previously selected raid type
-            selected = self.raid_combo.get_active_text()
-
-            self.raid_combo.handler_block(self.raid_changed_signal)
-            self.raid_combo.remove_all()
-
-            for raid in self.supported_raids[device_type]:
-                if raid.name == "container":
-                    continue
-                if num_parents >= raid.min_members:
-                    self.raid_combo.append_text(raid.name)
-
-            self.raid_combo.handler_unblock(self.raid_changed_signal)
-
-            for widget in self.widgets_dict["raid"]:
-                widget.show()
-
-            if selected:
-                if self.raid_combo.set_active_id(selected):
-                    # set_active_id returns bool
-                    return
-
-            if device_type == "btrfs volume":
-                self.raid_combo.set_active_id("single")
-
+        if keep_selection and selected:
+            try:
+                self._raid_chooser = selected
+            except ValueError:
+                pass
             else:
-                self.raid_combo.set_active_id("linear")
+                return
 
-        return
+        # no previous selection -- just automatically select some 'sane' level
+        self._raid_chooser.autoselect(self.selected_type)
 
-    def on_raid_type_changed(self, _event):
+    def on_raid_type_changed(self, _widget):
         self.add_size_area()
-
-    def add_raid_type_chooser(self):
-
-        label_raid = Gtk.Label(label=_("RAID Level:"), xalign=1)
-        label_raid.get_style_context().add_class("dim-label")
-        self.grid.attach(label_raid, 0, 5, 1, 1)
-
-        raid_combo = Gtk.ComboBoxText()
-        raid_combo.set_entry_text_column(0)
-        raid_combo.set_id_column(0)
-
-        raid_changed_signal = raid_combo.connect("changed", self.on_raid_type_changed)
-
-        self.grid.attach(raid_combo, 1, 5, 1, 1)
-
-        self.widgets_dict["raid"] = [label_raid, raid_combo]
-
-        return raid_combo, raid_changed_signal
 
     def select_selected_free_region(self):
         """ In parent list select the free region user selected checkbox as checked
@@ -741,7 +707,7 @@ class AddDialog(Gtk.Dialog):
         if device_type not in self.supported_raids.keys() or num_parents == 1:
             return (False, None)
 
-        elif self.raid_combo.get_active_text() in ("linear", "single"):
+        elif self._raid_chooser.selected_level.name in ("linear", "single"):
             return (False, None)
 
         else:
@@ -819,7 +785,7 @@ class AddDialog(Gtk.Dialog):
 
         # raid level -- FIXME
         if device_type in ("btrfs volume", "lvmlv", "mdraid"):
-            raid_level = self.raid_combo.get_active_text()
+            raid_level = self._raid_chooser.selected_level.name
         else:
             raid_level = None
 
@@ -1054,6 +1020,7 @@ class AddDialog(Gtk.Dialog):
         device_type = self.selected_type
 
         self.update_parent_list()
+        self.update_raid_type_chooser()
         self.update_fs_chooser()
         self.add_advanced_options()
         self.encrypt_check.set_active(False)
@@ -1106,8 +1073,6 @@ class AddDialog(Gtk.Dialog):
             self.show_widgets(["name", "size"])
             self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint"])
             self.update_size_area_limits(max_multi=0.8)
-
-        self.update_raid_type_chooser()
 
     @property
     def selected_fs(self):
@@ -1217,7 +1182,7 @@ class AddDialog(Gtk.Dialog):
             pvs = None
 
         if device_type in ("btrfs volume", "mdraid"):
-            raid_level = self.raid_combo.get_active_text()
+            raid_level = self._raid_chooser.selected_level.name
         elif device_type == "lvmlv":
             raid_level = self.size_area.parent_area.raid_chooser.selected
         else:
