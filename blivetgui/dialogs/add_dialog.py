@@ -1181,10 +1181,8 @@ class AddDialog(Gtk.Dialog):
             parents = size_selection
             pvs = None
 
-        if device_type in ("btrfs volume", "mdraid"):
+        if device_type in ("btrfs volume", "mdraid", "lvmlv"):
             raid_level = self._raid_chooser.selected_level.name
-        elif device_type == "lvmlv":
-            raid_level = self.size_area.parent_area.raid_chooser.selected
         else:
             raid_level = None
 

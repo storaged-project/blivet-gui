@@ -28,12 +28,11 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from blivet import size
+from blivet.devicelibs.raid import get_raid_level
 
-from ..gui_utils import locate_ui_file
+from .widgets import GUIWidget
 
 from collections import OrderedDict, namedtuple
-
-from . helpers import supported_raids
 
 # ---------------------------------------------------------------------------- #
 
@@ -71,148 +70,6 @@ def get_size_precision(down_limit, up_limit):
 SignalHandler = namedtuple("SignalHandler", ["method", "args"])
 
 
-from blivet.devicelibs.raid import get_raid_level
-
-
-class GUIWidget(object):
-
-    def __init__(self, glade_file):
-
-        self.builder = Gtk.Builder()
-        self.builder.set_translation_domain("blivet-gui")
-        self.builder.add_from_file(locate_ui_file(glade_file))
-
-        self.widgets = self.builder.get_objects()
-
-        self.sensitive = True
-
-        self.blocked_signals = []
-
-    def destroy(self):
-        """ Destroy all size widgets """
-
-        for widget in self.widgets:
-            widget.hide()
-            widget.destroy()
-
-    def show(self):
-        """ Show all size widgets """
-
-        self.set_visible(True)
-
-    def hide(self):
-        """ Hide all size widgets """
-
-        self.set_visible(False)
-
-    def set_visible(self, visibility):
-        """ Hide/show all size widgets
-
-            :param visibility: visibility
-            :type visibility: bool
-
-        """
-
-        for widget in self.widgets:
-            if hasattr(widget, "set_visible"):  # for liststores
-                widget.set_visible(visibility)
-
-    def set_sensitive(self, sensitivity):
-        """ Set all widgets sensitivity
-
-            :param sensitivity: sensitivity
-            :type sensitivity: bool
-
-        """
-        for widget in self.widgets:
-            if hasattr(widget, "set_sensitive"):  # for liststores
-                widget.set_sensitive(sensitivity and self.sensitive)
-
-    def block_signal(self, signal, block):
-        if block:
-            self.blocked_signals.append(signal)
-        else:
-            if signal in self.blocked_signals:
-                self.blocked_signals.remove(signal)
-
-    def get_sensitive(self):
-        return all([widget.get_sensitive() for widget in self.widgets if hasattr(widget, "get_sensitive")])
-
-
-class RaidChooser(GUIWidget):
-
-    def __init__(self):
-
-        GUIWidget.__init__(self, "raid_chooser.ui")
-
-        self.supported_raids = supported_raids()
-
-        self.box = self.builder.get_object("box")
-        self.combobox_raid = self.builder.get_object("combobox_raid")
-        self.liststore_raid = self.builder.get_object("liststore_raid")
-
-        self._changed_signal = None
-
-        self.raid_change_handler = None
-
-    def update(self, device_type, parents):
-        if self._changed_signal:
-            self.combobox_raid.handler_block(self._changed_signal)
-
-        self.liststore_raid.clear()
-
-        for raid in self.supported_raids[device_type]:
-            if raid.name == "container":
-                continue
-            if len(parents) >= raid.min_members:
-                self.liststore_raid.append((raid.name, raid))
-
-        if self._changed_signal:
-            self.combobox_raid.handler_unblock(self._changed_signal)
-
-        self.combobox_raid.set_active(0)
-
-        # select linear raid type for lvs
-        try:
-            self.selected = "linear"
-        except ValueError:
-            pass
-
-        if len(self.liststore_raid) > 1:
-            self.set_sensitive(True)
-        else:
-            self.set_sensitive(False)
-
-    @property
-    def selected(self):
-        it = self.combobox_raid.get_active_iter()
-
-        if it is None:
-            return
-        else:
-            return self.liststore_raid[it][0]
-
-    @selected.setter
-    def selected(self, raid_type):
-
-        for idx, raid in enumerate(self.liststore_raid):
-            if raid[0] == raid_type:
-                self.combobox_raid.set_active(idx)
-                return
-
-        # selected raid type not found
-        raise ValueError("RAID type %s is not available for selection." % raid_type)
-
-    def connect(self, signal, method, *args):
-        """ Connect a signal hadler """
-
-        if signal == "changed":
-            self._changed_signal = self.combobox_raid.connect("changed", method, args)
-
-        else:
-            raise TypeError("Unknown signal type %s" % signal)
-
-
 class SizeArea(GUIWidget):
 
     def __init__(self, device_type, parents, min_size, raid_type):
@@ -223,8 +80,8 @@ class SizeArea(GUIWidget):
         self.parents = parents
         self.raid_type = raid_type
 
-        self.frame = self.builder.get_object("frame_size")
-        self.grid = self.builder.get_object("grid")
+        self.frame = self._builder.get_object("frame_size")
+        self.grid = self._builder.get_object("grid")
 
         self._min_size = min_size
         self._max_size = None
@@ -245,7 +102,7 @@ class SizeArea(GUIWidget):
 
     def _add_advanced_area(self):
 
-        checkbutton_manual = self.builder.get_object("checkbutton_manual")
+        checkbutton_manual = self._builder.get_object("checkbutton_manual")
         checkbutton_manual.connect("toggled", self._on_manual_toggled)
 
         # remove checkbutton_manual from widgets so it isn't affected when setting size area (in)sensitive
@@ -314,6 +171,11 @@ class SizeArea(GUIWidget):
         self._max_size = new_size
         self.main_chooser.max_size = new_size
 
+    def connect(self, signal, _method, *_args):
+        """ Connect a signal hadler """
+
+        raise ValueError("Unknown signal type %s" % signal)
+
     def _on_manual_toggled(self, checkbutton):
         """ Advanced selection toggled """
 
@@ -322,10 +184,6 @@ class SizeArea(GUIWidget):
             if self.device_type not in ("lvmlv", "lvmthinpool", "lvm snapshot"):
                 self.main_chooser.set_sensitive(False)
             self.advanced_selection = True
-
-            # for lvmlv show raid chooser inside parent area
-            if self.device_type == "lvmlv":
-                self.parent_area.raid_chooser.update(self.device_type, self.parents)
 
         else:
             self.parent_area.hide()
@@ -373,19 +231,11 @@ class ParentArea(GUIWidget):
 
         self.size_change_handler = None
 
-        self.frame = self.builder.get_object("frame")
-        self.grid = self.builder.get_object("grid")
-
-        self.raid_chooser = RaidChooser()
-        self.raid_chooser.connect("changed", self._on_raid_changed)
-        self.grid.attach(self.raid_chooser.box, 0, 0, 1, 1)
+        self.frame = self._builder.get_object("frame")
+        self.grid = self._builder.get_object("grid")
 
         self._add_parent_choosers()
         self.show()
-
-        # hide raid chooser for non-lvs
-        if self.device_type != "lvmlv":
-            self.raid_chooser.hide()
 
     def _add_parent_choosers(self):
         for idx, (parent, free) in enumerate(self.parents):
@@ -448,30 +298,11 @@ class ParentArea(GUIWidget):
         if not self.status:
             return
 
-        # update raid chooser but keep selection, if possible
-        selected_raid = self.raid_chooser.selected
-        parents = [chooser.parent for chooser in self.choosers if chooser.selected]
-        if parents:  # do not update if there are currently no parents selected
-            self.raid_chooser.update(self.device_type, parents)
-
-        try:
-            self.raid_chooser.selected = selected_raid
-        except ValueError:
-            pass
-
         max_size = self.total_max
         if max_size == size.Size(0):          # just to make Gtk.Scale happy and not set max size < min size
             self.main_chooser.max_size = self.main_chooser.min_size
         else:
             self.main_chooser.max_size = max_size
-
-    def _on_raid_changed(self, *_args):
-        """ Raid type selection changed """
-
-        self.raid_type = self.raid_chooser.selected
-
-        # update main chooser max size based on the raid type selected
-        self.main_chooser.max_size = self.total_max
 
     @property
     def total_max(self):
@@ -567,15 +398,15 @@ class ParentChooser(GUIWidget):
         self.parent_toggled_handler = None
         self.size_change_handler = None
 
-        self.grid = self.builder.get_object("grid")
+        self.grid = self._builder.get_object("grid")
 
-        self.checkbutton_use = self.builder.get_object("checkbutton_use")
+        self.checkbutton_use = self._builder.get_object("checkbutton_use")
         self.checkbutton_use.connect("toggled", self._on_parent_toggled)
 
-        label_device = self.builder.get_object("label_device")
+        label_device = self._builder.get_object("label_device")
         label_device.set_text(parent.name)
 
-        label_size = self.builder.get_object("label_size")
+        label_size = self._builder.get_object("label_size")
         label_size.set_text(str(max_size))
 
         if self.show_size:
@@ -692,7 +523,7 @@ class SizeChooser(GUIWidget):
         self._max_size = max_size
         self._min_size = min_size
 
-        self.grid = self.builder.get_object("grid")
+        self.grid = self._builder.get_object("grid")
 
         self.selected_unit = size.MiB
         self.size_change_handler = None
@@ -747,8 +578,8 @@ class SizeChooser(GUIWidget):
     def _set_size_widgets(self):
         """ Configure size widgets (Gtk.Scale, Gtk.SpinButton) """
 
-        scale = self.builder.get_object("scale_size")
-        spin = self.builder.get_object("spinbutton_size")
+        scale = self._builder.get_object("scale_size")
+        spin = self._builder.get_object("spinbutton_size")
 
         adjustment = Gtk.Adjustment(0, self.min_size.convert_to(size.MiB),
                                     self.max_size.convert_to(size.MiB), 1, 10, 0)
@@ -761,7 +592,7 @@ class SizeChooser(GUIWidget):
         scale.add_mark(self.max_size.convert_to(size.MiB),
                        Gtk.PositionType.BOTTOM, str(self.max_size))
 
-        combobox_size = self.builder.get_object("combobox_size")
+        combobox_size = self._builder.get_object("combobox_size")
         for unit in list(UNITS.keys()):
             combobox_size.append_text(unit)
 

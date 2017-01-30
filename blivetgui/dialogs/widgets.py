@@ -42,11 +42,11 @@ class GUIWidget(object):
     name = None
     glade_file = None
 
-    def __init__(self, glade_file):
+    def __init__(self):
 
         self._builder = Gtk.Builder()
         self._builder.set_translation_domain("blivet-gui")
-        self._builder.add_from_file(locate_ui_file(glade_file))
+        self._builder.add_from_file(locate_ui_file(self.glade_file))
 
         # the glade file has to have either box or grid as a top level widget
         self.box = self._builder.get_object("box") or self._builder.get_object("grid")
