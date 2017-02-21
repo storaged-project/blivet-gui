@@ -49,6 +49,7 @@ from ..i18n import _
 SUPPORTED_PESIZE = ["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"]
 SUPPORTED_CHUNK = ["32 KiB", "64 KiB", "128 KiB", "256 KiB", "512 KiB", "1 MiB",
                    "2 MiB", "4 MiB", "8 MiB"]
+POOL_RESERVED = 0.8
 
 # ---------------------------------------------------------------------------- #
 
@@ -607,7 +608,7 @@ class AddDialog(Gtk.Dialog):
                 # XXX: not so nice hack to ensure free space in the VG after
                 # adding a thinpool
                 if self.selected_type == "lvmthinpool":
-                    free = pv.format.free * 0.8
+                    free = pv.format.free * POOL_RESERVED
                 else:
                     free = pv.format.free
 
@@ -644,12 +645,22 @@ class AddDialog(Gtk.Dialog):
         return limit or size.Size("1 MiB")
 
     def _get_max_size_limit(self):
-        limit = size.Size(0)
+        limit = size.Size("16 EiB")
 
         if self.selected_fs:
-            limit = self.selected_fs._max_size
+            limit = min(self.selected_fs._max_size, limit)
 
-        return limit or size.Size("16 EiB")
+        # XXX: free space for LVs is calculated based on free space on the PVs
+        # but newly allocated LVs doesn't decrease this space, so we need some
+        # way how to limit maximum size of the new LV
+        if self.selected_type == "lvmlv":
+            limit = min(self.selected_parent.free_space, limit)
+        # same applies to thinpools, but we need to use another hack to limit
+        # it's max size and leave some free space in the VG
+        elif self.selected_type == "lvmthinpool":
+            limit = min(self.selected_parent.free_space * POOL_RESERVED, limit)
+
+        return limit
 
     def add_size_area(self):
         device_type = self.selected_type
