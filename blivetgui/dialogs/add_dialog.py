@@ -32,17 +32,17 @@ from gi.repository import Gtk
 
 from blivet import size
 from blivet.devicelibs import crypto, lvm
+from blivet.formats.fs import BTRFS
 
 from ..dialogs import message_dialogs
 
 from ..communication.proxy_utils import ProxyDataContainer
 
-from . size_chooser import SizeChooser, SizeArea
+from . size_chooser import SizeArea
 from .widgets import RaidChooser
 from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid, supported_raids, supported_filesystems, get_monitor_size
 
 from ..i18n import _
-from ..gui_utils import locate_ui_file
 
 # ---------------------------------------------------------------------------- #
 
@@ -334,9 +334,6 @@ class AdvancedOptions(object):
     def on_pesize_changed(self, combo):
         pesize = combo.get_active_id()
         min_size = size.Size(pesize) * 2
-
-        if self.add_dialog.encrypt_check.get_active():
-            min_size += crypto.LUKS_METADATA_SIZE
 
         self.add_dialog.update_size_area_limits(min_size=min_size)
 
@@ -724,35 +721,34 @@ class AddDialog(Gtk.Dialog):
 
             return (True, max_size)
 
-    def update_size_area_limits(self, min_size=None, max_size=None, min_plus=None, max_plus=None, min_multi=None, max_multi=None):
-        if min_plus and not min_size:
-            min_size = self.size_area.min_size + min_plus
-        if min_multi and not min_size:
-            min_size = self.size_area.min_size * min_multi
-
-        if max_plus and not max_size:
-            max_size = self.size_area.max_size + max_plus
-        if max_multi and not max_size:
-            max_size = self.size_area.max_size * max_multi
-
+    def update_size_area_limits(self, min_size=None, reserved_size=None):
         if min_size is not None:
-            self.size_area.min_size = min_size
-        if max_size is not None:
-            self.size_area.max_size = max_size
+            self.size_area.set_parents_min_size(min_size)
+        if reserved_size is not None:
+            self.size_area.set_parents_reserved_size(reserved_size)
 
-    def _get_min_size(self):
-        """ Get minimal size for newly created device """
+    def _get_parent_min_size(self):
+        """ Get minimal size for parent devices of newly created device.
+            This value depends on type of created device.
+
+            - partition: no limit
+            - lv, thinpool (including thin): one extent
+            - lvm: 2 * lvm.LVM_PE_SIZE
+            - btrfs volume: 256 MiB
+            - luks: crypto.LUKS_METADATA_SIZE
+
+        """
 
         device_type = self.selected_type
 
         if device_type in ("lvmlv", "lvmthinpool"):
-            min_size = max(self.selected_parent.pe_size, size.Size("1 MiB"))
+            min_size = self.selected_parent.pe_size
         elif device_type == "lvm":
             min_size = lvm.LVM_PE_SIZE * 2
         elif device_type in ("lvmthinlv", "lvm snapshot"):
-            min_size = max(self.selected_parent.vg.pe_size, size.Size("1 MiB"))
+            min_size = self.selected_parent.vg.pe_size
         elif device_type == "btrfs volume":
-            min_size = size.Size("256 MiB")
+            min_size = BTRFS._min_size
         else:
             min_size = size.Size("1 MiB")
 
@@ -761,20 +757,62 @@ class AddDialog(Gtk.Dialog):
     def _get_parents(self):
         """ Get selected parents for newly created device """
 
-        parent_devices = []
+        parents = []
+
+        # for encrypted parents add space for luks metada
+        if self.encrypt_check.get_active():
+            reserved_size = crypto.LUKS_METADATA_SIZE
+        else:
+            reserved_size = size.Size(0)
+
         if self.selected_parent.type == "lvmvg":
             for pv in self.selected_parent.pvs:
-                if pv.format.free >= self.selected_parent.pe_size:
-                    parent_devices.append((pv, pv.format.free))
+                # XXX: not so nice hack to ensure free space in the VG after
+                # adding a thinpool
+                if self.selected_type == "lvmthinpool":
+                    free = pv.format.free * 0.8
+                else:
+                    free = pv.format.free
+
+                if free >= self.selected_parent.pe_size:
+                    parent = ProxyDataContainer(device=pv,
+                                                min_size=self._get_parent_min_size(),
+                                                max_size=free,
+                                                reserved_size=reserved_size)
+                    parents.append(parent)
         else:
             for row in self.parents_store:
                 if row[3]:
-                    parent_devices.append((row[0], row[1]))
+                    parent = ProxyDataContainer(device=row[0],
+                                                min_size=self._get_parent_min_size(),
+                                                max_size=row[1],
+                                                reserved_size=reserved_size)
+                    parents.append(parent)
 
-        if not parent_devices:  # FIXME
-            parent_devices = [(self.selected_parent, self.selected_free.size)]
+        if not parents:  # FIXME
+            parent = ProxyDataContainer(device=self.selected_parent,
+                                        min_size=self._get_parent_min_size(),
+                                        max_size=self.selected_free.size,
+                                        reserved_size=reserved_size)
+            parents.append(parent)
 
-        return parent_devices
+        return parents
+
+    def _get_min_size_limit(self):
+        limit = size.Size(0)
+
+        if self.selected_fs:
+            limit = self.selected_fs._min_size
+
+        return limit or size.Size("1 MiB")
+
+    def _get_max_size_limit(self):
+        limit = size.Size(0)
+
+        if self.selected_fs:
+            limit = self.selected_fs._max_size
+
+        return limit or size.Size("16 EiB")
 
     def add_size_area(self):
         device_type = self.selected_type
@@ -783,13 +821,21 @@ class AddDialog(Gtk.Dialog):
         if self.size_area is not None:
             self.size_area.destroy()
 
-        # raid level -- FIXME
         if device_type in ("btrfs volume", "lvmlv", "mdraid"):
-            raid_level = self._raid_chooser.selected_level.name
+            raid_level = self._raid_chooser.selected_level
         else:
             raid_level = None
 
-        size_area = SizeArea(device_type=device_type, parents=self._get_parents(), min_size=self._get_min_size(), raid_type=raid_level)
+        min_size_limit = self._get_min_size_limit()
+        max_size_limit = self._get_max_size_limit()
+        parents = self._get_parents()
+
+        size_area = SizeArea(device_type=device_type,
+                             parents=parents,
+                             min_limit=min_size_limit,
+                             max_limit=max_size_limit,
+                             raid_type=raid_level)
+
         self.grid.attach(size_area.frame, 0, 6, 6, 1)
 
         self.widgets_dict["size"] = [size_area]
@@ -854,10 +900,12 @@ class AddDialog(Gtk.Dialog):
 
         supported_fs = supported_filesystems()
         for fs in supported_fs:
+            # FIXME: also check raid level -- resulting "free space" might be lower because of redundancy
             if self.selected_free.size > fs._min_size:
                 self.filesystems_store.append((fs, fs.type, fs.name))
         self.filesystems_store.append((None, "unformatted", _("unformatted")))
 
+        # XXX: what if there is no supported fs?
         if "ext4" in (fs.type for fs in supported_fs):
             self.filesystems_combo.set_active_id("ext4")
         else:
@@ -876,10 +924,9 @@ class AddDialog(Gtk.Dialog):
             else:
                 self.show_widgets(["mountpoint"])
 
-        if self.selected_fs:
-            self.update_size_area_limits(min_size=max(self._get_min_size(), self.selected_fs._min_size))
-        else:
-            self.update_size_area_limits(min_size=self._get_min_size())
+        # update size
+        self.size_area.min_size_limit = self._get_min_size_limit()
+        self.size_area.max_size_limit = self._get_max_size_limit()
 
     def add_name_chooser(self):
         label_label = Gtk.Label(label=_("Label:"), xalign=1)
@@ -1002,10 +1049,10 @@ class AddDialog(Gtk.Dialog):
     def on_encrypt_check(self, _toggle):
         if self.encrypt_check.get_active():
             self.show_widgets(["passphrase"])
-            self.update_size_area_limits(min_plus=crypto.LUKS_METADATA_SIZE)
+            self.update_size_area_limits(reserved_size=crypto.LUKS_METADATA_SIZE)
         else:
             self.hide_widgets(["passphrase"])
-            self.update_size_area_limits(min_plus=-crypto.LUKS_METADATA_SIZE)
+            self.update_size_area_limits(reserved_size=size.Size(0))
 
     def on_passphrase_changed(self, confirm_entry, passphrase_entry):
         if passphrase_entry.get_text() == confirm_entry.get_text():
@@ -1072,7 +1119,6 @@ class AddDialog(Gtk.Dialog):
         elif device_type == "lvmthinpool":
             self.show_widgets(["name", "size"])
             self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint"])
-            self.update_size_area_limits(max_multi=0.8)
 
     @property
     def selected_fs(self):
@@ -1124,7 +1170,7 @@ class AddDialog(Gtk.Dialog):
 
             return False
 
-        if user_input.device_type == "mdraid" and len(user_input.parents) == 1:
+        if user_input.device_type == "mdraid" and len(user_input.size_selection.parents) == 1:
             msg = _("Please select at least two parent devices.")
             message_dialogs.ErrorDialog(self, msg,
                                         not self.installer_mode)  # do not show decoration in installer mode
@@ -1172,14 +1218,6 @@ class AddDialog(Gtk.Dialog):
         device_type = self.selected_type
 
         size_selection = self.size_area.get_selection()
-        if device_type in ("lvmlv", "lvmthinpool"):
-            total_size = next(psize for _parent, psize in size_selection)  # just total size for every parent in size selection
-            parents = [(size_selection[0][0].children[0], size_selection[0][1])]  # parents in size_selection are PVs not the VG
-            pvs = [parent for parent, _psize in size_selection]
-        else:
-            total_size = sum([psize for _parent, psize in size_selection])
-            parents = size_selection
-            pvs = None
 
         if device_type in ("btrfs volume", "mdraid", "lvmlv"):
             raid_level = self._raid_chooser.selected_level.name
@@ -1205,14 +1243,12 @@ class AddDialog(Gtk.Dialog):
             filesystem = None
 
         return ProxyDataContainer(device_type=device_type,
-                                  size=total_size,
+                                  size_selection=size_selection,
                                   filesystem=filesystem,
                                   name=self.name_entry.get_text(),
                                   label=self.label_entry.get_text(),
                                   mountpoint=mountpoint,
                                   encrypt=self.encrypt_check.get_active(),
                                   passphrase=self.pass_entry.get_text(),
-                                  parents=parents,
-                                  pvs=pvs,
                                   raid_level=raid_level,
                                   advanced=advanced)

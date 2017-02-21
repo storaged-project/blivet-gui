@@ -784,8 +784,8 @@ class BlivetUtils(object):
 
         # create new partition
         new_part = PartitionDevice(name="req%d" % self.storage.next_id,
-                                   size=user_input.size,
-                                   parents=[i[0] for i in user_input.parents],
+                                   size=user_input.size_selection.total_size,
+                                   parents=[i.parent_device for i in user_input.size_selection.parents],
                                    part_type=PARTITION_TYPE[partition_type])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
@@ -813,12 +813,14 @@ class BlivetUtils(object):
     def _create_lvmthinlv(self, user_input):
         actions = []
 
-        device_name = self._pick_device_name(user_input.name, user_input.parents[0][0].vg)
+        # parent device is thinpool but name should be derived from the VG
+        device_name = self._pick_device_name(user_input.name,
+                                             user_input.size_selection.parents[0].parent_device.vg)
 
         new_part = self.storage.new_lv(thin_volume=True,
                                        name=device_name,
-                                       size=user_input.size,
-                                       parents=[i[0] for i in user_input.parents])
+                                       size=user_input.size_selection.total_size,
+                                       parents=[i.parent_device for i in user_input.size_selection.parents])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
         if user_input.filesystem:
@@ -829,7 +831,9 @@ class BlivetUtils(object):
     def _create_lvmlv(self, user_input):
         actions = []
 
-        device_name = self._pick_device_name(user_input.name, user_input.parents[0][0])
+        # 'parents' from user_input are PVs, we need the VG
+        vg_device = user_input.size_selection.parents[0].parent_device.children[0]
+        device_name = self._pick_device_name(user_input.name, vg_device)
 
         if user_input.advanced.cache:
             cache_request = LVMCacheRequest(size=user_input.advanced.size,
@@ -838,27 +842,22 @@ class BlivetUtils(object):
         else:
             cache_request = None
 
-        # XXX hack to make linear lvs work with pvs
+        # no LVPVSpec for linear LVs
         if user_input.raid_level in ("linear", None):
-            pvs = []
-            total_size = user_input.size
+            new_part = self.storage.new_lv(name=device_name,
+                                           size=user_input.size_selection.total_size,
+                                           parents=[vg_device],
+                                           seg_type=user_input.raid_level,
+                                           cache_request=cache_request)
 
-            for pv in user_input.pvs:
-                if pv.format.free < total_size:
-                    pvs.append(LVPVSpec(pv, pv.format.free))
-                    total_size -= pv.format.free
-                else:
-                    pvs.append(LVPVSpec(pv, total_size))
-                    total_size = blivet.size.Size(0)
         else:
-            pvs = [LVPVSpec(pv, None) for pv in user_input.pvs]
-
-        new_part = self.storage.new_lv(name=device_name,
-                                       size=user_input.size,
-                                       parents=[i[0] for i in user_input.parents],
-                                       pvs=pvs,
-                                       seg_type=user_input.raid_level,
-                                       cache_request=cache_request)
+            pvs = [LVPVSpec(parent.parent_device, None) for parent in user_input.size_selection.parents]
+            new_part = self.storage.new_lv(name=device_name,
+                                           size=user_input.size_selection.total_size,
+                                           parents=[vg_device],
+                                           pvs=pvs,
+                                           seg_type=user_input.raid_level,
+                                           cache_request=cache_request)
 
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
@@ -871,8 +870,8 @@ class BlivetUtils(object):
         actions = []
 
         new_part = PartitionDevice(name="req%d" % self.storage.next_id,
-                                   size=user_input.size,
-                                   parents=[i[0] for i in user_input.parents])
+                                   size=user_input.size_selection.total_size,
+                                   parents=[i.parent_device for i in user_input.size_selection.parents])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
         # encrypted lvmpv
@@ -889,7 +888,6 @@ class BlivetUtils(object):
             actions.append(blivet.deviceaction.ActionCreateFormat(luks_dev, luks_fmt))
 
         else:
-
             part_fmt = blivet.formats.get_format(fmt_type="lvmpv")
             actions.append(blivet.deviceaction.ActionCreateFormat(new_part, part_fmt))
 
@@ -901,7 +899,7 @@ class BlivetUtils(object):
         device_name = self._pick_device_name(user_input.name)
 
         new_vg = LVMVolumeGroupDevice(name=device_name,
-                                      parents=[i[0] for i in user_input.parents],
+                                      parents=[i.parent_device for i in user_input.size_selection.parents],
                                       pe_size=user_input.advanced["pesize"])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_vg))
 
@@ -910,12 +908,15 @@ class BlivetUtils(object):
     def _create_lvmthinpool(self, user_input):
         actions = []
 
-        device_name = self._pick_device_name(user_input.name, user_input.parents[0][0])
+        # 'parents' from user_input are PVs, we need the VG
+        vg_device = user_input.size_selection.parents[0].parent_device.children[0]
+
+        device_name = self._pick_device_name(user_input.name, vg_device)
 
         new_thin = self.storage.new_lv(thin_pool=True,
                                        name=device_name,
-                                       size=user_input.size,
-                                       parents=[i[0] for i in user_input.parents])
+                                       size=user_input.size_selection.total_size,
+                                       parents=[vg_device])
 
         actions.append(blivet.deviceaction.ActionCreateDevice(new_thin))
 
@@ -924,11 +925,11 @@ class BlivetUtils(object):
     def _create_lvm(self, user_input):
         actions = []
 
-        for parent, size in user_input.parents:
+        for parent in user_input.size_selection.parents:
             # _create_lvmpv needs user_input but we actually don't have it for individual
             # pvs so we need to 'create' it
-            pv_input = ProxyDataContainer(size=size,
-                                          parents=[(parent, size)],
+            size_selection = ProxyDataContainer(total_size=parent.selected_size, parents=[parent])
+            pv_input = ProxyDataContainer(size_selection=size_selection,
                                           encrypt=user_input.encrypt,
                                           passphrase=user_input.passphrase)
             pv_actions = self._create_lvmpv(pv_input)
@@ -939,9 +940,11 @@ class BlivetUtils(object):
             actions.extend(pv_actions)
 
         # we don't have a list of newly created pvs but we have the list of actions
-        vg_parents = [(ac.device, ac.device.size) for ac in actions if ac.is_format and ac._format.type == "lvmpv"]
+        vg_parents = [ProxyDataContainer(parent_device=ac.device, selected_size=ac.device.size)
+                      for ac in actions if ac.is_format and ac._format.type == "lvmpv"]
         vg_input = ProxyDataContainer(name=user_input.name,
-                                      parents=vg_parents,
+                                      size_selection=ProxyDataContainer(total_size=user_input.size_selection.total_size,
+                                                                        parents=vg_parents),
                                       advanced=user_input.advanced)
         vg_actions = self._create_lvmvg(vg_input)
         actions.extend(vg_actions)
@@ -951,11 +954,11 @@ class BlivetUtils(object):
     def _create_snapshot(self, user_input):
         actions = []
 
-        origin_lv = user_input.parents[0][0]
+        origin_lv = user_input.size_selection.parents[0].parent_device
         device_name = self._pick_device_name(user_input.name, origin_lv.vg)
 
         if user_input.device_type == "lvm snapshot":
-            snapshot_size = user_input.parents[0][1]
+            snapshot_size = user_input.size_selection.total_size
             new_snap = self.storage.new_lv(name=device_name,
                                            parents=[origin_lv.parents[0]],
                                            origin=origin_lv,
@@ -975,11 +978,11 @@ class BlivetUtils(object):
 
         device_name = self._pick_device_name(user_input.name)
 
-        for parent, size in user_input.parents:
+        for parent in user_input.size_selection.parents:
             # _create_partition needs user_input but we actually don't have it for individual
             # parent partitions so we need to 'create' it
-            part_input = ProxyDataContainer(size=size,
-                                            parents=[(parent, size)],
+            size_selection = ProxyDataContainer(total_size=parent.selected_size, parents=[parent])
+            part_input = ProxyDataContainer(size_selection=size_selection,
                                             filesystem="mdmember",
                                             encrypt=False,
                                             label=None, mountpoint=None)
@@ -1008,11 +1011,11 @@ class BlivetUtils(object):
         actions = []
         device_name = self._pick_device_name(user_input.name)
 
-        for parent, size in user_input.parents:
+        for parent in user_input.size_selection.parents:
             # _create_partition needs user_input but we actually don't have it for individual
             # parent partitions so we need to 'create' it
-            part_input = ProxyDataContainer(size=size,
-                                            parents=[(parent, size)],
+            size_selection = ProxyDataContainer(total_size=parent.selected_size, parents=[parent])
+            part_input = ProxyDataContainer(size_selection=size_selection,
                                             filesystem="btrfs",
                                             encrypt=False,
                                             label=None,
@@ -1035,9 +1038,9 @@ class BlivetUtils(object):
 
     def _create_btrfs_subvolume(self, user_input):
         actions = []
-        device_name = self._pick_device_name(user_input.name, user_input.parents[0][0])
+        device_name = self._pick_device_name(user_input.name, user_input.size_selection.parents[0].parent_device)
 
-        new_btrfs = BTRFSSubVolumeDevice(device_name, parents=[i[0] for i in user_input.parents])
+        new_btrfs = BTRFSSubVolumeDevice(device_name, parents=[i.parent_device for i in user_input.size_selection.parents])
         new_btrfs.format = blivet.formats.get_format("btrfs", mountpoint=user_input.mountpoint)
         actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
 

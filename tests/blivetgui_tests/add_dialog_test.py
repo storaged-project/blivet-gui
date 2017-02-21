@@ -3,7 +3,6 @@
 import unittest
 from unittest.mock import Mock, MagicMock, patch
 
-from blivetgui.dialogs.size_chooser import SizeChooser, UNITS
 from blivetgui.dialogs.add_dialog import AdvancedOptions, AddDialog
 from blivetgui.dialogs.helpers import supported_filesystems
 from blivetgui.i18n import _
@@ -15,65 +14,7 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
-from blivet.size import Size, unit_str
-
-
-@unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
-class SizeChooserAreaTest(unittest.TestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        cls.size_area = SizeChooser(max_size=Size("100 GiB"), min_size=Size("1 MiB"))
-
-    def test_unit_change(self):
-        original_size = self.size_area.selected_size
-
-        for idx, unit in enumerate(list(UNITS.keys())):
-            self.size_area._unit_chooser.set_active(idx)
-            self.assertEqual(unit.upper(), unit_str(self.size_area.selected_unit).upper())  # kB vs KB
-
-            new_size = Size(str(self.size_area._spin.get_value()) + " " + unit)
-            self.assertEqual(original_size, new_size)
-
-    def test_scale_spin(self):
-        old_value = self.size_area._scale.get_value()
-        new_value = old_value // 2
-
-        self.size_area._scale.set_value(new_value)
-        self.assertEqual(new_value, self.size_area._spin.get_value())
-
-        self.size_area._spin.set_value(old_value)
-        self.assertEqual(old_value, self.size_area._scale.get_value())
-
-    def test_get_size(self):
-        selected_size = Size(str(self.size_area._spin.get_value()) + " " + unit_str(self.size_area.selected_unit))
-        self.assertEqual(selected_size, self.size_area.selected_size)
-
-    def test_set_size(self):
-        selected_size = (self.size_area.max_size - self.size_area.min_size) // 2
-        self.size_area.selected_size = selected_size
-        self.assertEqual(selected_size, self.size_area.selected_size)
-
-    def test_widget_status(self):
-        self.size_area.hide()
-        for widget in self.size_area.widgets:
-            if hasattr(widget, "get_visible"):
-                self.assertFalse(widget.get_visible())
-
-        self.size_area.show()
-        for widget in self.size_area.widgets:
-            if hasattr(widget, "get_visible"):
-                self.assertTrue(widget.get_visible())
-
-        self.size_area.set_sensitive(False)
-        for widget in self.size_area.widgets:
-            if hasattr(widget, "get_sensitive"):
-                self.assertFalse(widget.get_sensitive())
-
-        self.size_area.set_sensitive(True)
-        for widget in self.size_area.widgets:
-            if hasattr(widget, "get_sensitive"):
-                self.assertTrue(widget.get_sensitive())
+from blivet.size import Size
 
 
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
@@ -751,14 +692,15 @@ class AddDialogTest(unittest.TestCase):
         selection = add_dialog.get_selection()
 
         self.assertEqual(selection.device_type, "partition")
-        self.assertEqual(selection.size, size)
+        self.assertEqual(selection.size_selection.total_size, size)
         self.assertEqual(selection.filesystem, fstype)
         self.assertTrue(selection.name in (None, ""))
         self.assertEqual(selection.label, label)
         self.assertEqual(selection.mountpoint, mountpoint)
         self.assertTrue(selection.encrypt)
         self.assertEqual(selection.passphrase, password)
-        self.assertEqual(selection.parents, [(parent_device, size)])
+        self.assertEqual(selection.size_selection.parents[0].parent_device, parent_device)
+        self.assertEqual(selection.size_selection.parents[0].selected_size, size)
         self.assertIsNone(selection.raid_level)
 
     def test_lvm_selection(self):
@@ -787,7 +729,7 @@ class AddDialogTest(unittest.TestCase):
         selection = add_dialog.get_selection()
 
         self.assertEqual(selection.device_type, "lvm")
-        self.assertEqual(selection.size, size1 + size2)
+        self.assertEqual(selection.size_selection.total_size, size1 + size2)
         self.assertEqual(selection.filesystem, None)
         self.assertEqual(selection.name, name)
         self.assertTrue(selection.label in (None, ""))
@@ -822,7 +764,7 @@ class AddDialogTest(unittest.TestCase):
         add_dialog._raid_chooser._combobox_raid.set_active_id(raidtype)
 
         # raid 0 --> second size area should be updated
-        add_dialog.size_area.parent_area.choosers[0].selected_size = size
+        add_dialog.size_area._parent_area.choosers[0].selected_size = size
 
         add_dialog.name_entry.set_text(name)
 
@@ -832,14 +774,17 @@ class AddDialogTest(unittest.TestCase):
         selection = add_dialog.get_selection()
 
         self.assertEqual(selection.device_type, "mdraid")
-        self.assertEqual(selection.size, 2 * size)
+        self.assertEqual(selection.size_selection.total_size, 2 * size)
         self.assertEqual(selection.filesystem, fstype)
         self.assertEqual(selection.name, name)
         self.assertTrue(selection.label in (None, ""))
         self.assertTrue(selection.mountpoint in (None, ""))
         self.assertFalse(selection.encrypt)
         self.assertTrue(selection.passphrase in (None, ""))
-        self.assertEqual(selection.parents, [(parent_device1, size), (parent_device2, size)])
+        self.assertEqual(selection.size_selection.parents[0].parent_device, parent_device1)
+        self.assertEqual(selection.size_selection.parents[0].selected_size, size)
+        self.assertEqual(selection.size_selection.parents[1].parent_device, parent_device2)
+        self.assertEqual(selection.size_selection.parents[1].selected_size, size)
         self.assertEqual(selection.raid_level, raidtype)
 
     def test_btrfs_selection(self):
@@ -859,14 +804,15 @@ class AddDialogTest(unittest.TestCase):
         selection = add_dialog.get_selection()
 
         self.assertEqual(selection.device_type, "btrfs volume")
-        self.assertEqual(selection.size, free_device.size)
+        self.assertEqual(selection.size_selection.total_size, free_device.size)
         self.assertTrue(selection.filesystem in (None, ""))
         self.assertEqual(selection.name, name)
         self.assertTrue(selection.label in (None, ""))
         self.assertTrue(selection.mountpoint in (None, ""))
         self.assertFalse(selection.encrypt)
         self.assertTrue(selection.passphrase in (None, ""))
-        self.assertEqual(selection.parents, [(parent_device, free_device.size)])
+        self.assertEqual(selection.size_selection.parents[0].parent_device, parent_device)
+        self.assertEqual(selection.size_selection.parents[0].selected_size, free_device.size)
         self.assertEqual(selection.raid_level, "single")
 
 if __name__ == "__main__":

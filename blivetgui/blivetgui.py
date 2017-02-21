@@ -428,7 +428,8 @@ class BlivetGUI(object):
 
             else:
                 if result.actions:
-                    action_str = _("add {size} {type} device").format(size=str(user_input.size), type=user_input.device_type)
+                    action_str = _("add {size} {type} device").format(size=str(user_input.size_selection.total_size),
+                                                                      type=user_input.device_type)
 
                     self.list_actions.append("add", action_str, result.actions)
 
