@@ -130,6 +130,9 @@ class RaidChooser(GUIWidget):
 
         self.supported_raids = supported_raids()
 
+        # temporarily disable LVM RAID
+        self.supported_raids["lvmlv"] = [Linear]
+
         self._combobox_raid = self._builder.get_object("combobox_raid")
         self._liststore_raid = self._builder.get_object("liststore_raid")
 
