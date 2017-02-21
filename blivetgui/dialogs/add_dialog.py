@@ -53,157 +53,6 @@ SUPPORTED_CHUNK = ["32 KiB", "64 KiB", "128 KiB", "256 KiB", "512 KiB", "1 MiB",
 # ---------------------------------------------------------------------------- #
 
 
-class CacheArea(object):
-
-    def __init__(self, add_dialog):
-
-        self.add_dialog = add_dialog
-
-        self.builder = Gtk.Builder()
-        self.builder.set_translation_domain("blivet-gui")
-        self.builder.add_from_file(locate_ui_file("cache_area.ui"))
-
-        self.grid = self.builder.get_object("grid_cache")
-
-        self.liststore_pvs = self.update_pvs_list()
-        self.checkbutton_cache = self.set_cache_button()
-        self.combobox_type = self.builder.get_object("combobox_type")
-
-        self.cache_widgets = [self.builder.get_object("treeview_pvs"),
-                              self.builder.get_object("label_pvs"),
-                              self.builder.get_object("label_type"),
-                              self.combobox_type]
-        self._all_widgets = self.builder.get_objects()
-
-        self.size_area = self.add_size_area()
-
-        for widget in self.cache_widgets:
-            widget.hide()
-
-    def set_cache_button(self):
-        checkbutton_cache = self.builder.get_object("checkbutton_cache")
-        checkbutton_cache.connect("toggled", self._on_cache_toggled)
-
-        return checkbutton_cache
-
-    def update_pvs_list(self):
-        liststore_pvs = self.builder.get_object("liststore_pvs")
-
-        renderer_toggle = self.builder.get_object("cellrenderertoggle1")
-        renderer_toggle.connect("toggled", self._on_pv_toggled, liststore_pvs)
-
-        for pv in self.add_dialog.selected_parent.pvs:
-            if pv.format.free < self._cache_min_size:
-                continue  # not enough free space to be usable
-            liststore_pvs.append([pv, False, pv.name, "lvmpv", str(pv.format.free), pv.parents[0].name])
-
-        if len(liststore_pvs) > 0:  # just in some crazy case when there are no pvs
-            liststore_pvs[0][1] = True  # pre-select first PV
-
-        return liststore_pvs
-
-    def add_size_area(self):
-        area = SizeChooser(max_size=self._cache_max_size, min_size=self._cache_min_size)
-        area.connect("size-changed", self._update_lv_max_size)
-        area.selected_size = self.add_dialog.selected_parent.pe_size  # set the minimal size for the cache
-
-        self.grid.attach(area.grid, left=0, top=3, width=6, height=1)
-        self.cache_widgets.append(area)
-
-        return area
-
-    def _update_lv_max_size(self, selected_size):
-        self.add_dialog.update_size_area_limits(max_size=self.add_dialog.selected_parent.free_space - selected_size)
-
-    @property
-    def _cache_max_size(self):
-        max_size = size.Size(0)
-        selected_pvs = 0
-        total_pvs = len(self.liststore_pvs)
-
-        for line in self.liststore_pvs:
-            if line[1]:
-                selected_pvs += 1
-                max_size += line[0].format.free
-
-        if selected_pvs == total_pvs:
-            # leave some space for the LV
-            max_size -= self.add_dialog.selected_parent.pe_size
-
-        # max size of cache is limited by total vg free space available (minus min size of cached LV)
-        return min(max_size, (self.add_dialog.selected_parent.free_space - self.add_dialog.selected_parent.pe_size))
-
-    @property
-    def _cache_min_size(self):
-        # metada size - 8 MiB or 1 PE (if pe_size > 8 MiB)
-        min_size = max(size.Size("8 MiB"), self.add_dialog.selected_parent.pe_size)
-
-        # at least 1 PE for the cache itself
-        min_size += self.add_dialog.selected_parent.pe_size
-
-        # at least 8 MiB for pmspare (if it doesn't exist)
-        if self.add_dialog.selected_parent.pmspare_size < min_size:
-            min_size += max(size.Size("8 MiB"), self.add_dialog.selected_parent.pe_size)
-
-        return min_size
-
-    def _on_cache_toggled(self, button):
-        if button.get_active():
-            for widget in self.cache_widgets:
-                widget.show()
-            self.add_dialog.update_size_area_limits(max_plus=-self._cache_min_size)
-        else:
-            for widget in self.cache_widgets:
-                widget.hide()
-            self.add_dialog.update_size_area_limits(max_size=self.add_dialog.selected_parent.free_space)
-
-    def _on_pv_toggled(self, _button, path, store):
-        store[path][1] = not store[path][1]
-
-        if self._cache_max_size <= size.Size(0):
-            # just to have same sane numbers when no PV is selected
-            self.size_area.update_size_limits(min_size=self.add_dialog.selected_parent.pe_size,
-                                              max_size=self.add_dialog.selected_parent.free_space)
-            # set the max size for LV
-            self.add_dialog.update_size_area_limits(max_size=self.add_dialog.selected_parent.free_space)
-            self.size_area.set_sensitive(False)
-        else:
-            self.size_area.update_size_limits(max_size=self._cache_max_size)
-            self.size_area.set_sensitive(True)
-
-    def hide(self):
-        for widget in self._all_widgets:
-            if hasattr(widget, "hide"):
-                widget.hide()
-
-    def show(self):
-        for widget in self._all_widgets:
-            if hasattr(widget, "show"):
-                widget.show()
-
-    def set_sensitive(self, sensitive):
-        for widget in self._all_widgets:
-            if hasattr(widget, "set_sensitive"):
-                widget.set_sensitive(sensitive)
-
-    def get_selection(self):
-        create_cache = self.checkbutton_cache.get_active()
-
-        if not create_cache:
-            return ProxyDataContainer(cache=False)
-
-        cache_type = self.combobox_type.get_active_id()
-
-        parents = []
-        for line in self.liststore_pvs:
-            if line[1]:
-                parents.append(line[0])
-
-        total_size = self.size_area.selected_size
-
-        return ProxyDataContainer(cache=create_cache, type=cache_type, parents=parents, size=total_size)
-
-
 class AdvancedOptions(object):
 
     def __init__(self, add_dialog, device_type, parent_device, free_device):
@@ -225,9 +74,6 @@ class AdvancedOptions(object):
 
         elif self.device_type == "partition":
             self.partition_combo = self.partition_options()
-
-        elif self.device_type == "lvmlv":
-            self.cache_area = self.lvmlv_options()
 
         elif self.device_type == "mdraid":
             self.chunk_combo = self.mdraid_options()
@@ -297,12 +143,6 @@ class AdvancedOptions(object):
         self.widgets.extend([label_pt_type, partition_combo])
 
         return partition_combo
-
-    def lvmlv_options(self):
-        cache_area = CacheArea(self.add_dialog)
-        self.grid.attach(cache_area.grid, 0, 0, 1, 1)
-
-        return cache_area
 
     def mdraid_options(self):
         label_chunk = Gtk.Label(label=_("Chunk Size:"), xalign=1)
@@ -388,9 +228,6 @@ class AdvancedOptions(object):
 
         elif self.device_type == "partition":
             return {"parttype": self.partition_combo.get_active_id()}
-
-        elif self.device_type == "lvmlv":
-            return self.cache_area.get_selection()
 
         elif self.device_type == "mdraid":
             return {"chunk_size": size.Size(self.chunk_combo.get_active_text())}
@@ -1088,9 +925,6 @@ class AddDialog(Gtk.Dialog):
         elif device_type in ("lvmlv",):
             self.show_widgets(["name", "fs", "mountpoint", "size", "advanced", "label"])
             self.hide_widgets(["encrypt", "passphrase", "mdraid"])
-
-            if self.selected_parent.free_space < self.advanced.cache_area._cache_min_size:
-                self.advanced.cache_area.set_sensitive(False)
 
         elif device_type in ("lvmthinlv",):
             self.show_widgets(["name", "fs", "mountpoint", "size", "label"])

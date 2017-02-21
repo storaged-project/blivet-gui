@@ -24,7 +24,7 @@
 import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice
-from blivet.devices.lvm import LVMCacheRequest, LVPVSpec
+from blivet.devices.lvm import LVPVSpec
 from blivet.formats import DeviceFormat
 
 from blivet.devicelibs.crypto import LUKS_METADATA_SIZE
@@ -835,20 +835,12 @@ class BlivetUtils(object):
         vg_device = user_input.size_selection.parents[0].parent_device.children[0]
         device_name = self._pick_device_name(user_input.name, vg_device)
 
-        if user_input.advanced.cache:
-            cache_request = LVMCacheRequest(size=user_input.advanced.size,
-                                            pvs=user_input.advanced.parents,
-                                            mode=user_input.advanced.type)
-        else:
-            cache_request = None
-
         # no LVPVSpec for linear LVs
         if user_input.raid_level in ("linear", None):
             new_part = self.storage.new_lv(name=device_name,
                                            size=user_input.size_selection.total_size,
                                            parents=[vg_device],
-                                           seg_type=user_input.raid_level,
-                                           cache_request=cache_request)
+                                           seg_type=user_input.raid_level)
 
         else:
             pvs = [LVPVSpec(parent.parent_device, None) for parent in user_input.size_selection.parents]
@@ -856,8 +848,7 @@ class BlivetUtils(object):
                                            size=user_input.size_selection.total_size,
                                            parents=[vg_device],
                                            pvs=pvs,
-                                           seg_type=user_input.raid_level,
-                                           cache_request=cache_request)
+                                           seg_type=user_input.raid_level)
 
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
