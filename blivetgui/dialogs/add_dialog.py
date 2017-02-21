@@ -499,7 +499,7 @@ class AddDialog(Gtk.Dialog):
         elif self.selected_type in ("btrfs volume", "lvm", "mdraid"):
             for ftype, fdevice in self.available_free:
                 if ftype == "free":
-                    if self.selected_type == "btrfs volume" and fdevice.size < size.Size("256 MiB"):
+                    if self.selected_type == "btrfs volume" and fdevice.size < BTRFS._min_size:
                         # too small for new btrfs
                         continue
 
