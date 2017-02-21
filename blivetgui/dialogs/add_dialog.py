@@ -358,10 +358,10 @@ class AddDialog(Gtk.Dialog):
         if self.selected_parent.type in ("disk", "mdarray"):
             types.append((_("Partition"), "partition"))
 
-            if self.selected_parent.size > lvm.LVM_PE_SIZE * 2:
+            if self.selected_free.size > lvm.LVM_PE_SIZE * 2:
                 types.extend([(_("LVM2 Volume Group"), "lvm")])
 
-            if self.selected_parent.size > size.Size("256 MiB"):
+            if self.selected_free.size > BTRFS._min_size:
                 types.append((_("Btrfs Volume"), "btrfs volume"))
 
             if len([f[0] for f in self.available_free if f[0] == "free"]) > 1:  # number of free disk regions
