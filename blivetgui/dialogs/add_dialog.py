@@ -32,175 +32,26 @@ from gi.repository import Gtk
 
 from blivet import size
 from blivet.devicelibs import crypto, lvm
+from blivet.formats.fs import BTRFS
 
 from ..dialogs import message_dialogs
 
 from ..communication.proxy_utils import ProxyDataContainer
 
-from . size_chooser import SizeChooser, SizeArea
+from . size_chooser import SizeArea
+from .widgets import RaidChooser
 from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid, supported_raids, supported_filesystems, get_monitor_size
 
 from ..i18n import _
-from ..gui_utils import locate_ui_file
 
 # ---------------------------------------------------------------------------- #
 
 SUPPORTED_PESIZE = ["2 MiB", "4 MiB", "8 MiB", "16 MiB", "32 MiB", "64 MiB"]
 SUPPORTED_CHUNK = ["32 KiB", "64 KiB", "128 KiB", "256 KiB", "512 KiB", "1 MiB",
                    "2 MiB", "4 MiB", "8 MiB"]
+POOL_RESERVED = 0.8
 
 # ---------------------------------------------------------------------------- #
-
-
-class CacheArea(object):
-
-    def __init__(self, add_dialog):
-
-        self.add_dialog = add_dialog
-
-        self.builder = Gtk.Builder()
-        self.builder.set_translation_domain("blivet-gui")
-        self.builder.add_from_file(locate_ui_file("cache_area.ui"))
-
-        self.grid = self.builder.get_object("grid_cache")
-
-        self.liststore_pvs = self.update_pvs_list()
-        self.checkbutton_cache = self.set_cache_button()
-        self.combobox_type = self.builder.get_object("combobox_type")
-
-        self.cache_widgets = [self.builder.get_object("treeview_pvs"),
-                              self.builder.get_object("label_pvs"),
-                              self.builder.get_object("label_type"),
-                              self.combobox_type]
-        self._all_widgets = self.builder.get_objects()
-
-        self.size_area = self.add_size_area()
-
-        for widget in self.cache_widgets:
-            widget.hide()
-
-    def set_cache_button(self):
-        checkbutton_cache = self.builder.get_object("checkbutton_cache")
-        checkbutton_cache.connect("toggled", self._on_cache_toggled)
-
-        return checkbutton_cache
-
-    def update_pvs_list(self):
-        liststore_pvs = self.builder.get_object("liststore_pvs")
-
-        renderer_toggle = self.builder.get_object("cellrenderertoggle1")
-        renderer_toggle.connect("toggled", self._on_pv_toggled, liststore_pvs)
-
-        for pv in self.add_dialog.selected_parent.pvs:
-            if pv.format.free < self._cache_min_size:
-                continue  # not enough free space to be usable
-            liststore_pvs.append([pv, False, pv.name, "lvmpv", str(pv.format.free), pv.parents[0].name])
-
-        if len(liststore_pvs) > 0:  # just in some crazy case when there are no pvs
-            liststore_pvs[0][1] = True  # pre-select first PV
-
-        return liststore_pvs
-
-    def add_size_area(self):
-        area = SizeChooser(max_size=self._cache_max_size, min_size=self._cache_min_size)
-        area.connect("size-changed", self._update_lv_max_size)
-        area.selected_size = self.add_dialog.selected_parent.pe_size  # set the minimal size for the cache
-
-        self.grid.attach(area.grid, left=0, top=3, width=6, height=1)
-        self.cache_widgets.append(area)
-
-        return area
-
-    def _update_lv_max_size(self, selected_size):
-        self.add_dialog.update_size_area_limits(max_size=self.add_dialog.selected_parent.free_space - selected_size)
-
-    @property
-    def _cache_max_size(self):
-        max_size = size.Size(0)
-        selected_pvs = 0
-        total_pvs = len(self.liststore_pvs)
-
-        for line in self.liststore_pvs:
-            if line[1]:
-                selected_pvs += 1
-                max_size += line[0].format.free
-
-        if selected_pvs == total_pvs:
-            # leave some space for the LV
-            max_size -= self.add_dialog.selected_parent.pe_size
-
-        # max size of cache is limited by total vg free space available (minus min size of cached LV)
-        return min(max_size, (self.add_dialog.selected_parent.free_space - self.add_dialog.selected_parent.pe_size))
-
-    @property
-    def _cache_min_size(self):
-        # metada size - 8 MiB or 1 PE (if pe_size > 8 MiB)
-        min_size = max(size.Size("8 MiB"), self.add_dialog.selected_parent.pe_size)
-
-        # at least 1 PE for the cache itself
-        min_size += self.add_dialog.selected_parent.pe_size
-
-        # at least 8 MiB for pmspare (if it doesn't exist)
-        if self.add_dialog.selected_parent.pmspare_size < min_size:
-            min_size += max(size.Size("8 MiB"), self.add_dialog.selected_parent.pe_size)
-
-        return min_size
-
-    def _on_cache_toggled(self, button):
-        if button.get_active():
-            for widget in self.cache_widgets:
-                widget.show()
-            self.add_dialog.update_size_area_limits(max_plus=-self._cache_min_size)
-        else:
-            for widget in self.cache_widgets:
-                widget.hide()
-            self.add_dialog.update_size_area_limits(max_size=self.add_dialog.selected_parent.free_space)
-
-    def _on_pv_toggled(self, _button, path, store):
-        store[path][1] = not store[path][1]
-
-        if self._cache_max_size <= size.Size(0):
-            # just to have same sane numbers when no PV is selected
-            self.size_area.update_size_limits(min_size=self.add_dialog.selected_parent.pe_size,
-                                              max_size=self.add_dialog.selected_parent.free_space)
-            # set the max size for LV
-            self.add_dialog.update_size_area_limits(max_size=self.add_dialog.selected_parent.free_space)
-            self.size_area.set_sensitive(False)
-        else:
-            self.size_area.update_size_limits(max_size=self._cache_max_size)
-            self.size_area.set_sensitive(True)
-
-    def hide(self):
-        for widget in self._all_widgets:
-            if hasattr(widget, "hide"):
-                widget.hide()
-
-    def show(self):
-        for widget in self._all_widgets:
-            if hasattr(widget, "show"):
-                widget.show()
-
-    def set_sensitive(self, sensitive):
-        for widget in self._all_widgets:
-            if hasattr(widget, "set_sensitive"):
-                widget.set_sensitive(sensitive)
-
-    def get_selection(self):
-        create_cache = self.checkbutton_cache.get_active()
-
-        if not create_cache:
-            return ProxyDataContainer(cache=False)
-
-        cache_type = self.combobox_type.get_active_id()
-
-        parents = []
-        for line in self.liststore_pvs:
-            if line[1]:
-                parents.append(line[0])
-
-        total_size = self.size_area.selected_size
-
-        return ProxyDataContainer(cache=create_cache, type=cache_type, parents=parents, size=total_size)
 
 
 class AdvancedOptions(object):
@@ -224,9 +75,6 @@ class AdvancedOptions(object):
 
         elif self.device_type == "partition":
             self.partition_combo = self.partition_options()
-
-        elif self.device_type == "lvmlv":
-            self.cache_area = self.lvmlv_options()
 
         elif self.device_type == "mdraid":
             self.chunk_combo = self.mdraid_options()
@@ -297,12 +145,6 @@ class AdvancedOptions(object):
 
         return partition_combo
 
-    def lvmlv_options(self):
-        cache_area = CacheArea(self.add_dialog)
-        self.grid.attach(cache_area.grid, 0, 0, 1, 1)
-
-        return cache_area
-
     def mdraid_options(self):
         label_chunk = Gtk.Label(label=_("Chunk Size:"), xalign=1)
         label_chunk.get_style_context().add_class("dim-label")
@@ -333,9 +175,6 @@ class AdvancedOptions(object):
     def on_pesize_changed(self, combo):
         pesize = combo.get_active_id()
         min_size = size.Size(pesize) * 2
-
-        if self.add_dialog.encrypt_check.get_active():
-            min_size += crypto.LUKS_METADATA_SIZE
 
         self.add_dialog.update_size_area_limits(min_size=min_size)
 
@@ -390,9 +229,6 @@ class AdvancedOptions(object):
 
         elif self.device_type == "partition":
             return {"parttype": self.partition_combo.get_active_id()}
-
-        elif self.device_type == "lvmlv":
-            return self.cache_area.get_selection()
 
         elif self.device_type == "mdraid":
             return {"chunk_size": size.Size(self.chunk_combo.get_active_text())}
@@ -464,7 +300,11 @@ class AddDialog(Gtk.Dialog):
         self.encrypt_check, self.pass_entry, self.pass2_entry = self.add_encrypt_chooser()
         self.parents_store = self.add_parent_list()
 
-        self.raid_combo, self.raid_changed_signal = self.add_raid_type_chooser()
+        # raid chooser
+        self._raid_chooser = RaidChooser()
+        self._raid_chooser.connect("changed", self.on_raid_type_changed)
+        self.grid.attach(self._raid_chooser.box, 0, 5, 3, 1)
+        self.widgets_dict["raid"] = [self._raid_chooser]
 
         if self.installer_mode:
             self.mountpoint_entry = self.add_mountpoint()
@@ -519,10 +359,10 @@ class AddDialog(Gtk.Dialog):
         if self.selected_parent.type in ("disk", "mdarray"):
             types.append((_("Partition"), "partition"))
 
-            if self.selected_parent.size > lvm.LVM_PE_SIZE * 2:
+            if self.selected_free.size > lvm.LVM_PE_SIZE * 2:
                 types.extend([(_("LVM2 Volume Group"), "lvm")])
 
-            if self.selected_parent.size > size.Size("256 MiB"):
+            if self.selected_free.size > BTRFS._min_size:
                 types.append((_("Btrfs Volume"), "btrfs volume"))
 
             if len([f[0] for f in self.available_free if f[0] == "free"]) > 1:  # number of free disk regions
@@ -606,67 +446,28 @@ class AddDialog(Gtk.Dialog):
 
         return parents_store
 
-    def update_raid_type_chooser(self):
-        device_type = self.selected_type
+    def update_raid_type_chooser(self, keep_selection=False):
+
+        # save previously selected raid type
+        selected = self._raid_chooser.selected_level
+
+        # update the chooser
         num_parents = self._get_number_selected_parents()
+        self._raid_chooser.update(self.selected_type, num_parents)
 
-        if device_type not in self.supported_raids.keys() or num_parents == 1:
-            for widget in self.widgets_dict["raid"]:
-                widget.hide()
-
-            return
-
-        else:
-            # save previously selected raid type
-            selected = self.raid_combo.get_active_text()
-
-            self.raid_combo.handler_block(self.raid_changed_signal)
-            self.raid_combo.remove_all()
-
-            for raid in self.supported_raids[device_type]:
-                if raid.name == "container":
-                    continue
-                if num_parents >= raid.min_members:
-                    self.raid_combo.append_text(raid.name)
-
-            self.raid_combo.handler_unblock(self.raid_changed_signal)
-
-            for widget in self.widgets_dict["raid"]:
-                widget.show()
-
-            if selected:
-                if self.raid_combo.set_active_id(selected):
-                    # set_active_id returns bool
-                    return
-
-            if device_type == "btrfs volume":
-                self.raid_combo.set_active_id("single")
-
+        if keep_selection and selected:
+            try:
+                self._raid_chooser = selected
+            except ValueError:
+                pass
             else:
-                self.raid_combo.set_active_id("linear")
+                return
 
-        return
+        # no previous selection -- just automatically select some 'sane' level
+        self._raid_chooser.autoselect(self.selected_type)
 
-    def on_raid_type_changed(self, _event):
+    def on_raid_type_changed(self, _widget):
         self.add_size_area()
-
-    def add_raid_type_chooser(self):
-
-        label_raid = Gtk.Label(label=_("RAID Level:"), xalign=1)
-        label_raid.get_style_context().add_class("dim-label")
-        self.grid.attach(label_raid, 0, 5, 1, 1)
-
-        raid_combo = Gtk.ComboBoxText()
-        raid_combo.set_entry_text_column(0)
-        raid_combo.set_id_column(0)
-
-        raid_changed_signal = raid_combo.connect("changed", self.on_raid_type_changed)
-
-        self.grid.attach(raid_combo, 1, 5, 1, 1)
-
-        self.widgets_dict["raid"] = [label_raid, raid_combo]
-
-        return raid_combo, raid_changed_signal
 
     def select_selected_free_region(self):
         """ In parent list select the free region user selected checkbox as checked
@@ -699,7 +500,7 @@ class AddDialog(Gtk.Dialog):
         elif self.selected_type in ("btrfs volume", "lvm", "mdraid"):
             for ftype, fdevice in self.available_free:
                 if ftype == "free":
-                    if self.selected_type == "btrfs volume" and fdevice.size < size.Size("256 MiB"):
+                    if self.selected_type == "btrfs volume" and fdevice.size < BTRFS._min_size:
                         # too small for new btrfs
                         continue
 
@@ -741,7 +542,7 @@ class AddDialog(Gtk.Dialog):
         if device_type not in self.supported_raids.keys() or num_parents == 1:
             return (False, None)
 
-        elif self.raid_combo.get_active_text() in ("linear", "single"):
+        elif self._raid_chooser.selected_level.name in ("linear", "single"):
             return (False, None)
 
         else:
@@ -758,35 +559,34 @@ class AddDialog(Gtk.Dialog):
 
             return (True, max_size)
 
-    def update_size_area_limits(self, min_size=None, max_size=None, min_plus=None, max_plus=None, min_multi=None, max_multi=None):
-        if min_plus and not min_size:
-            min_size = self.size_area.min_size + min_plus
-        if min_multi and not min_size:
-            min_size = self.size_area.min_size * min_multi
-
-        if max_plus and not max_size:
-            max_size = self.size_area.max_size + max_plus
-        if max_multi and not max_size:
-            max_size = self.size_area.max_size * max_multi
-
+    def update_size_area_limits(self, min_size=None, reserved_size=None):
         if min_size is not None:
-            self.size_area.min_size = min_size
-        if max_size is not None:
-            self.size_area.max_size = max_size
+            self.size_area.set_parents_min_size(min_size)
+        if reserved_size is not None:
+            self.size_area.set_parents_reserved_size(reserved_size)
 
-    def _get_min_size(self):
-        """ Get minimal size for newly created device """
+    def _get_parent_min_size(self):
+        """ Get minimal size for parent devices of newly created device.
+            This value depends on type of created device.
+
+            - partition: no limit
+            - lv, thinpool (including thin): one extent
+            - lvm: 2 * lvm.LVM_PE_SIZE
+            - btrfs volume: 256 MiB
+            - luks: crypto.LUKS_METADATA_SIZE
+
+        """
 
         device_type = self.selected_type
 
         if device_type in ("lvmlv", "lvmthinpool"):
-            min_size = max(self.selected_parent.pe_size, size.Size("1 MiB"))
+            min_size = self.selected_parent.pe_size
         elif device_type == "lvm":
             min_size = lvm.LVM_PE_SIZE * 2
         elif device_type in ("lvmthinlv", "lvm snapshot"):
-            min_size = max(self.selected_parent.vg.pe_size, size.Size("1 MiB"))
+            min_size = self.selected_parent.vg.pe_size
         elif device_type == "btrfs volume":
-            min_size = size.Size("256 MiB")
+            min_size = BTRFS._min_size
         else:
             min_size = size.Size("1 MiB")
 
@@ -795,20 +595,72 @@ class AddDialog(Gtk.Dialog):
     def _get_parents(self):
         """ Get selected parents for newly created device """
 
-        parent_devices = []
+        parents = []
+
+        # for encrypted parents add space for luks metada
+        if self.encrypt_check.get_active():
+            reserved_size = crypto.LUKS_METADATA_SIZE
+        else:
+            reserved_size = size.Size(0)
+
         if self.selected_parent.type == "lvmvg":
             for pv in self.selected_parent.pvs:
-                if pv.format.free >= self.selected_parent.pe_size:
-                    parent_devices.append((pv, pv.format.free))
+                # XXX: not so nice hack to ensure free space in the VG after
+                # adding a thinpool
+                if self.selected_type == "lvmthinpool":
+                    free = pv.format.free * POOL_RESERVED
+                else:
+                    free = pv.format.free
+
+                if free >= self.selected_parent.pe_size:
+                    parent = ProxyDataContainer(device=pv,
+                                                min_size=self._get_parent_min_size(),
+                                                max_size=free,
+                                                reserved_size=reserved_size)
+                    parents.append(parent)
         else:
             for row in self.parents_store:
                 if row[3]:
-                    parent_devices.append((row[0], row[1]))
+                    parent = ProxyDataContainer(device=row[0],
+                                                min_size=self._get_parent_min_size(),
+                                                max_size=row[1],
+                                                reserved_size=reserved_size)
+                    parents.append(parent)
 
-        if not parent_devices:  # FIXME
-            parent_devices = [(self.selected_parent, self.selected_free.size)]
+        if not parents:  # FIXME
+            parent = ProxyDataContainer(device=self.selected_parent,
+                                        min_size=self._get_parent_min_size(),
+                                        max_size=self.selected_free.size,
+                                        reserved_size=reserved_size)
+            parents.append(parent)
 
-        return parent_devices
+        return parents
+
+    def _get_min_size_limit(self):
+        limit = size.Size(0)
+
+        if self.selected_fs:
+            limit = self.selected_fs._min_size
+
+        return limit or size.Size("1 MiB")
+
+    def _get_max_size_limit(self):
+        limit = size.Size("16 EiB")
+
+        if self.selected_fs:
+            limit = min(self.selected_fs._max_size, limit)
+
+        # XXX: free space for LVs is calculated based on free space on the PVs
+        # but newly allocated LVs doesn't decrease this space, so we need some
+        # way how to limit maximum size of the new LV
+        if self.selected_type == "lvmlv":
+            limit = min(self.selected_parent.free_space, limit)
+        # same applies to thinpools, but we need to use another hack to limit
+        # it's max size and leave some free space in the VG
+        elif self.selected_type == "lvmthinpool":
+            limit = min(self.selected_parent.free_space * POOL_RESERVED, limit)
+
+        return limit
 
     def add_size_area(self):
         device_type = self.selected_type
@@ -817,13 +669,21 @@ class AddDialog(Gtk.Dialog):
         if self.size_area is not None:
             self.size_area.destroy()
 
-        # raid level -- FIXME
         if device_type in ("btrfs volume", "lvmlv", "mdraid"):
-            raid_level = self.raid_combo.get_active_text()
+            raid_level = self._raid_chooser.selected_level
         else:
             raid_level = None
 
-        size_area = SizeArea(device_type=device_type, parents=self._get_parents(), min_size=self._get_min_size(), raid_type=raid_level)
+        min_size_limit = self._get_min_size_limit()
+        max_size_limit = self._get_max_size_limit()
+        parents = self._get_parents()
+
+        size_area = SizeArea(device_type=device_type,
+                             parents=parents,
+                             min_limit=min_size_limit,
+                             max_limit=max_size_limit,
+                             raid_type=raid_level)
+
         self.grid.attach(size_area.frame, 0, 6, 6, 1)
 
         self.widgets_dict["size"] = [size_area]
@@ -888,10 +748,12 @@ class AddDialog(Gtk.Dialog):
 
         supported_fs = supported_filesystems()
         for fs in supported_fs:
+            # FIXME: also check raid level -- resulting "free space" might be lower because of redundancy
             if self.selected_free.size > fs._min_size:
                 self.filesystems_store.append((fs, fs.type, fs.name))
         self.filesystems_store.append((None, "unformatted", _("unformatted")))
 
+        # XXX: what if there is no supported fs?
         if "ext4" in (fs.type for fs in supported_fs):
             self.filesystems_combo.set_active_id("ext4")
         else:
@@ -910,10 +772,9 @@ class AddDialog(Gtk.Dialog):
             else:
                 self.show_widgets(["mountpoint"])
 
-        if self.selected_fs:
-            self.update_size_area_limits(min_size=max(self._get_min_size(), self.selected_fs._min_size))
-        else:
-            self.update_size_area_limits(min_size=self._get_min_size())
+        # update size
+        self.size_area.min_size_limit = self._get_min_size_limit()
+        self.size_area.max_size_limit = self._get_max_size_limit()
 
     def add_name_chooser(self):
         label_label = Gtk.Label(label=_("Label:"), xalign=1)
@@ -1036,10 +897,10 @@ class AddDialog(Gtk.Dialog):
     def on_encrypt_check(self, _toggle):
         if self.encrypt_check.get_active():
             self.show_widgets(["passphrase"])
-            self.update_size_area_limits(min_plus=crypto.LUKS_METADATA_SIZE)
+            self.update_size_area_limits(reserved_size=crypto.LUKS_METADATA_SIZE)
         else:
             self.hide_widgets(["passphrase"])
-            self.update_size_area_limits(min_plus=-crypto.LUKS_METADATA_SIZE)
+            self.update_size_area_limits(reserved_size=size.Size(0))
 
     def on_passphrase_changed(self, confirm_entry, passphrase_entry):
         if passphrase_entry.get_text() == confirm_entry.get_text():
@@ -1054,6 +915,7 @@ class AddDialog(Gtk.Dialog):
         device_type = self.selected_type
 
         self.update_parent_list()
+        self.update_raid_type_chooser()
         self.update_fs_chooser()
         self.add_advanced_options()
         self.encrypt_check.set_active(False)
@@ -1074,9 +936,6 @@ class AddDialog(Gtk.Dialog):
         elif device_type in ("lvmlv",):
             self.show_widgets(["name", "fs", "mountpoint", "size", "advanced", "label"])
             self.hide_widgets(["encrypt", "passphrase", "mdraid"])
-
-            if self.selected_parent.free_space < self.advanced.cache_area._cache_min_size:
-                self.advanced.cache_area.set_sensitive(False)
 
         elif device_type in ("lvmthinlv",):
             self.show_widgets(["name", "fs", "mountpoint", "size", "label"])
@@ -1105,9 +964,6 @@ class AddDialog(Gtk.Dialog):
         elif device_type == "lvmthinpool":
             self.show_widgets(["name", "size"])
             self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint"])
-            self.update_size_area_limits(max_multi=0.8)
-
-        self.update_raid_type_chooser()
 
     @property
     def selected_fs(self):
@@ -1159,7 +1015,7 @@ class AddDialog(Gtk.Dialog):
 
             return False
 
-        if user_input.device_type == "mdraid" and len(user_input.parents) == 1:
+        if user_input.device_type == "mdraid" and len(user_input.size_selection.parents) == 1:
             msg = _("Please select at least two parent devices.")
             message_dialogs.ErrorDialog(self, msg,
                                         not self.installer_mode)  # do not show decoration in installer mode
@@ -1207,19 +1063,9 @@ class AddDialog(Gtk.Dialog):
         device_type = self.selected_type
 
         size_selection = self.size_area.get_selection()
-        if device_type in ("lvmlv", "lvmthinpool"):
-            total_size = next(psize for _parent, psize in size_selection)  # just total size for every parent in size selection
-            parents = [(size_selection[0][0].children[0], size_selection[0][1])]  # parents in size_selection are PVs not the VG
-            pvs = [parent for parent, _psize in size_selection]
-        else:
-            total_size = sum([psize for _parent, psize in size_selection])
-            parents = size_selection
-            pvs = None
 
-        if device_type in ("btrfs volume", "mdraid"):
-            raid_level = self.raid_combo.get_active_text()
-        elif device_type == "lvmlv":
-            raid_level = self.size_area.parent_area.raid_chooser.selected
+        if device_type in ("btrfs volume", "mdraid", "lvmlv"):
+            raid_level = self._raid_chooser.selected_level.name
         else:
             raid_level = None
 
@@ -1242,14 +1088,12 @@ class AddDialog(Gtk.Dialog):
             filesystem = None
 
         return ProxyDataContainer(device_type=device_type,
-                                  size=total_size,
+                                  size_selection=size_selection,
                                   filesystem=filesystem,
                                   name=self.name_entry.get_text(),
                                   label=self.label_entry.get_text(),
                                   mountpoint=mountpoint,
                                   encrypt=self.encrypt_check.get_active(),
                                   passphrase=self.pass_entry.get_text(),
-                                  parents=parents,
-                                  pvs=pvs,
                                   raid_level=raid_level,
                                   advanced=advanced)
