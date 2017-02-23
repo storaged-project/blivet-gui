@@ -143,3 +143,9 @@ box#bg-visualization button#bg-child-valid-first:checked label {
 box#bg-visualization button#bg-child-valid-last:checked label {
   color: @theme_fg_color;
 }
+
+/* BlivetGUI Window -- actions button */
+button#bg-button-actions, button#bg-button-actions:hover {
+  background-image: none;
+  border: none;
+}

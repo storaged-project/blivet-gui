@@ -97,7 +97,7 @@ class ListActions(object):
         # activate 'actions-related' options
         self.blivet_gui.activate_action_buttons(True)
         actions_str = P_("%s pending action", "%s pending actions", self.actions) % self.actions
-        markup = "<a href=\"\">%s</a>" % actions_str
+        markup = "<span underline=\"single\" foreground=\"blue\">%s</span>" % actions_str
         self.blivet_gui.label_actions.set_markup(markup)
 
     def pop(self):

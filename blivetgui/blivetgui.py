@@ -120,7 +120,8 @@ class BlivetGUI(object):
 
         # ListActions
         self.label_actions = self.builder.get_object("label_actions")
-        self.label_actions.connect("activate-link", self.show_actions)
+        self.button_actions = self.builder.get_object("button_actions")
+        self.button_actions.connect("clicked", self.show_actions)
         self.list_actions = ListActions(self)
 
         # Vizualisation
