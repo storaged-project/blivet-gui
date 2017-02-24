@@ -538,18 +538,25 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="label_actions">
+          <object class="GtkButton" id="button_actions">
+            <property name="name">bg-button-actions</property>
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="ypad">3</property>
-            <property name="label" translatable="yes">No pending actions</property>
-            <property name="use_markup">True</property>
-            <property name="track_visited_links">False</property>
-            <property name="xalign">0.019999999552965164</property>
+            <property name="can_focus">True</property>
+            <property name="focus_on_click">False</property>
+            <property name="receives_default">True</property>
+            <property name="halign">start</property>
+            <property name="relief">none</property>
+            <child>
+              <object class="GtkLabel" id="label_actions">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">No pending actions</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="fill">True</property>
+            <property name="fill">False</property>
             <property name="position">1</property>
           </packing>
         </child>
