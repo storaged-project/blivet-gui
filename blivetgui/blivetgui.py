@@ -235,6 +235,11 @@ class BlivetGUI(object):
 
         self.list_devices.select_device_by_name(device.name)
 
+    def _handle_user_change(self):
+        # do this after user changed something -- curretnly only used
+        # in installer mode
+        pass
+
     def device_information(self, _widget=None):
         """ Display information about currently selected device
         """
@@ -264,6 +269,8 @@ class BlivetGUI(object):
                 if result.actions:
                     action_str = _("resize {name} {type}").format(name=device.name, type=device.type)
                     self.list_actions.append("edit", action_str, result.actions)
+
+                self._handle_user_change()
                 self.update_partitions_view()
 
     def format_device(self, _widget=None):
@@ -292,6 +299,8 @@ class BlivetGUI(object):
                 if result.actions:
                     action_str = _("format {name} {type}").format(name=device.name, type=device.type)
                     self.list_actions.append("edit", action_str, result.actions)
+
+                self._handle_user_change()
                 self.update_partitions_view()
 
     def edit_lvmvg(self, _widget=None):
@@ -318,6 +327,7 @@ class BlivetGUI(object):
                     action_str = _("edit {name} {type}").format(name=device.name, type=device.type)
                     self.list_actions.append("edit", action_str, result.actions)
 
+            self._handle_user_change()
             self.update_partitions_view()
 
         dialog.destroy()
@@ -369,6 +379,8 @@ class BlivetGUI(object):
                 if result.actions:
                     action_str = _("create new disklabel on {name}").format(name=disk.name)
                     self.list_actions.append("add", action_str, result.actions)
+
+            self._handle_user_change()
             self.update_partitions_view()
 
     def add_device(self, _widget=None):
@@ -434,6 +446,7 @@ class BlivetGUI(object):
 
                     self.list_actions.append("add", action_str, result.actions)
 
+            self._handle_user_change()
             self.list_devices.update_devices_view()
             self.update_partitions_view()
 
@@ -468,6 +481,7 @@ class BlivetGUI(object):
                 action_str = _("delete partition {name}").format(name=deleted_device.name)
                 self.list_actions.append("delete", action_str, result.actions)
 
+            self._handle_user_change()
             self.update_partitions_view()
             self.list_devices.update_devices_view()
 
@@ -492,6 +506,7 @@ class BlivetGUI(object):
 
         if user_input.do_set:
             device.format.mountpoint = user_input.mountpoint
+            self._handle_user_change()
             self.update_partitions_view()
 
     def perform_actions(self, dialog):
@@ -577,6 +592,7 @@ class BlivetGUI(object):
             msg = _("Unmount failed. Are you sure device is not in use?")
             self.show_error_dialog(msg)
         else:
+            self._handle_user_change()
             self.update_partitions_view()
 
     def decrypt_device(self, _widget=None):
@@ -598,6 +614,7 @@ class BlivetGUI(object):
                 self.show_error_dialog(msg)
                 return
 
+        self._handle_user_change()
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
@@ -612,6 +629,7 @@ class BlivetGUI(object):
         removed_actions = self.list_actions.pop()
         self.client.remote_call("blivet_cancel_actions", removed_actions)
 
+        self._handle_user_change()
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
@@ -627,6 +645,7 @@ class BlivetGUI(object):
 
         self.list_actions.clear()
 
+        self._handle_user_change()
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
@@ -727,6 +746,7 @@ class BlivetGUI(object):
 
         self.list_actions.clear()
 
+        self._handle_user_change()
         self.list_devices.update_devices_view()
         self.update_partitions_view()
 
