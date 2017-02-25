@@ -186,6 +186,11 @@ class BlivetGUIAnaconda(BlivetGUI):
         action_str = _("actions configured by installer")
         self.list_actions.append("misc", action_str, blivet_actions)
 
+    def _handle_user_change(self):
+        # user changed something blivet-gui -- blivet-gui spoke needs to clear
+        # existing errors and run checks again to see if this change fixed that
+        self.spoke._back_already_clicked = False
+
     def reload(self, _widget=None):
         """ Reload storage information
         """
