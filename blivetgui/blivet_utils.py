@@ -24,7 +24,6 @@
 import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice
-from blivet.devices.lvm import LVPVSpec
 from blivet.formats import DeviceFormat
 
 from blivet.devicelibs.crypto import LUKS_METADATA_SIZE
@@ -831,8 +830,7 @@ class BlivetUtils(object):
     def _create_lvmlv(self, user_input):
         actions = []
 
-        # 'parents' from user_input are PVs, we need the VG
-        vg_device = user_input.size_selection.parents[0].parent_device.children[0]
+        vg_device = user_input.size_selection.parents[0].parent_device
         device_name = self._pick_device_name(user_input.name, vg_device)
 
         # no LVPVSpec for linear LVs
@@ -843,12 +841,7 @@ class BlivetUtils(object):
                                            seg_type=user_input.raid_level)
 
         else:
-            pvs = [LVPVSpec(parent.parent_device, None) for parent in user_input.size_selection.parents]
-            new_part = self.storage.new_lv(name=device_name,
-                                           size=user_input.size_selection.total_size,
-                                           parents=[vg_device],
-                                           pvs=pvs,
-                                           seg_type=user_input.raid_level)
+            raise NotImplementedError("RAID LVs not supported.")
 
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
@@ -899,8 +892,7 @@ class BlivetUtils(object):
     def _create_lvmthinpool(self, user_input):
         actions = []
 
-        # 'parents' from user_input are PVs, we need the VG
-        vg_device = user_input.size_selection.parents[0].parent_device.children[0]
+        vg_device = user_input.size_selection.parents[0].parent_device
 
         device_name = self._pick_device_name(user_input.name, vg_device)
 

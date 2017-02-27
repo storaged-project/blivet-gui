@@ -604,20 +604,16 @@ class AddDialog(Gtk.Dialog):
             reserved_size = size.Size(0)
 
         if self.selected_parent.type == "lvmvg":
-            for pv in self.selected_parent.pvs:
-                # XXX: not so nice hack to ensure free space in the VG after
-                # adding a thinpool
-                if self.selected_type == "lvmthinpool":
-                    free = pv.format.free * POOL_RESERVED
-                else:
-                    free = pv.format.free
+            if self.selected_type == "lvmthinpool":
+                free = self.selected_free.size * POOL_RESERVED
+            else:
+                free = self.selected_free.size
 
-                if free >= self.selected_parent.pe_size:
-                    parent = ProxyDataContainer(device=pv,
-                                                min_size=self._get_parent_min_size(),
-                                                max_size=free,
-                                                reserved_size=reserved_size)
-                    parents.append(parent)
+            parent = ProxyDataContainer(device=self.selected_parent,
+                                        min_size=self._get_parent_min_size(),
+                                        max_size=free,
+                                        reserved_size=reserved_size)
+            parents.append(parent)
         else:
             for row in self.parents_store:
                 if row[3]:
