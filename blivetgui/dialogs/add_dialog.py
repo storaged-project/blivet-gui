@@ -853,7 +853,7 @@ class AddDialog(Gtk.Dialog):
         if self.advanced:
             self.advanced.destroy()
 
-        if device_type in ("lvm", "lvmvg", "partition", "lvmlv", "mdraid"):
+        if device_type in ("lvm", "lvmvg", "partition", "mdraid"):
             self.advanced = AdvancedOptions(self, device_type, self.selected_parent, self.selected_free)
             self.widgets_dict["advanced"] = [self.advanced]
 
