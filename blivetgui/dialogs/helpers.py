@@ -113,30 +113,35 @@ def is_label_valid(format_type, label):
         return True
 
 
-def is_mountpoint_valid(used_mountpoints, mountpoint):
+def is_mountpoint_valid(used_mountpoints, new_mountpoint, old_mountpoint=None):
     """ Kickstart mode; check for duplicate mountpoints
 
         :param used_mountpoints: list of mountpoints currently in use
         :type used_mountpoints: list of str
-        :param mountpoint: mountpoint selected by user
-        :type mountpoint: str
+        :param new_mountpoint: mountpoint selected by user
+        :type new_mountpoint: str
+        :param old_mountpoint: mountpoint previously set for this device (optional)
+        :type old_mountpoint: str
         :returns: mountpoint validity and error msg
         :rtype: (bool, str or None)
     """
 
-    if not mountpoint:
+    if not new_mountpoint:
         return (True, None)
 
-    if not os.path.isabs(mountpoint):
-        msg = _("\"{0}\" is not a valid mountpoint.").format(mountpoint)
+    if not os.path.isabs(new_mountpoint):
+        msg = _("\"{0}\" is not a valid mountpoint.").format(new_mountpoint)
         return (False, msg)
 
-    if mountpoint not in used_mountpoints:
-        return (True, None)
+    if new_mountpoint in used_mountpoints:
+        if new_mountpoint == old_mountpoint:
+            return (True, None)
+        else:
+            msg = _("Selected mountpoint \"{0}\" is already set for another device.").format(new_mountpoint)
+            return (False, msg)
 
     else:
-        msg = _("Selected mountpoint \"{0}\" is already set for another device.").format(mountpoint)
-        return (False, msg)
+        return (True, None)
 
 
 def supported_raids():

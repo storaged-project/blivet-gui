@@ -202,7 +202,7 @@ class FormatDialog(object):
                 return False
 
         if self.installer_mode and selected_mnt:
-            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt)
+            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt, self.edit_device.format.mountpoint)
             if not valid:
                 message_dialogs.ErrorDialog(self.dialog, msg,
                                             not self.installer_mode)  # do not show decoration in installer mode
@@ -287,7 +287,7 @@ class MountpointDialog(object):
         selected_mnt = self.mnt_entry.get_text()
 
         if self.installer_mode and selected_mnt:
-            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt)
+            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt, self.edit_device.format.mountpoint)
             if not valid:
                 message_dialogs.ErrorDialog(self.dialog, msg,
                                             not self.installer_mode)  # do not show decoration in installer mode
