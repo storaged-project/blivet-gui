@@ -509,8 +509,8 @@ class AddDialog(Gtk.Dialog):
 
         elif self.selected_type in ("lvm snapshot",):
             # parent for a LVM snaphost is actually the VG, not the selected LV
-            self.parents_store.append([self.selected_parent, self.selected_parent.vg.free, False, False,
-                                       self.selected_parent.vg.name, "lvmvg", str(self.selected_parent.vg.free)])
+            self.parents_store.append([self.selected_parent, self.selected_parent.vg.free_space, False, False,
+                                       self.selected_parent.vg.name, "lvmvg", str(self.selected_parent.vg.free_space)])
 
         elif self.selected_type in ("lvm thinsnapshot",):
             # parent for an LVM thinsnaphost is actually the pool, not the selected thinLV
