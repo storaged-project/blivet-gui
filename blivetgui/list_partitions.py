@@ -199,6 +199,9 @@ class ListPartitions(object):
         if not self.blivet_gui.installer_mode:
             return False
 
+        if device.type in ("lvmthinsnapshot", "lvmsnapshot") and not device.exists:
+            return False
+
         return device.format.mountable
 
     def _allow_add_device(self, device):
