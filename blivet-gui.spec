@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.0
+Version: 2.1.1
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -68,6 +68,10 @@ fi
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Tue Mar 14 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.1-1
+- Merge pull request #43 from vojtechtrefny/master_fix-lvmsnapshot-free (vtrefny)
+- AddDialog: Use 'free_space' instead of 'free' for VGs free space (vtrefny)
+
 * Mon Feb 27 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.0-1
 - Merge pull request #42 from vojtechtrefny/master_installer-mode4 (vtrefny)
 - Allow setting same mountpoint when editting a device (vtrefny)
