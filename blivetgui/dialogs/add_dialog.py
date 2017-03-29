@@ -644,7 +644,8 @@ class AddDialog(Gtk.Dialog):
         limit = size.Size("16 EiB")
 
         if self.selected_fs:
-            limit = min(self.selected_fs._max_size, limit)
+            # some filesystems have 0 max size, so use 'our' upper limit for them
+            limit = min(self.selected_fs._max_size, limit) or limit
 
         # XXX: free space for LVs is calculated based on free space on the PVs
         # but newly allocated LVs doesn't decrease this space, so we need some
