@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../blivetgui/processing_window.py:53
-msgid "Proccessing"
+msgid "Processing"
 msgstr ""
 
 #: ../blivetgui/processing_window.py:81
@@ -32,7 +32,7 @@ msgstr ""
 #: ../blivetgui/processing_window.py:155
 #, python-brace-format
 msgid ""
-"<b>Proccessing action {num} of {total}</b>:\n"
+"<b>Processing action {num} of {total}</b>:\n"
 "<i>{action}</i>"
 msgstr ""
 
