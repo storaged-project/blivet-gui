@@ -52,7 +52,7 @@ class ProcessingActions(Gtk.Dialog):
 
         self.finished_actions = 0
 
-        Gtk.Dialog.__init__(self, _("Proccessing"), None, 0, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
+        Gtk.Dialog.__init__(self, _("Processing"), None, 0, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
 
         self.set_transient_for(self.blivet_gui.main_window)
 
@@ -154,7 +154,7 @@ class ProcessingActions(Gtk.Dialog):
         self._set_applied_icon(self.finished_actions - 1)
 
     def progress_msg(self, message):
-        self.label.set_markup(_("<b>Proccessing action {num} of {total}</b>:"
+        self.label.set_markup(_("<b>Processing action {num} of {total}</b>:"
                                 "\n<i>{action}</i>").format(num=self.finished_actions,
                                                             total=len(self.actions),
                                                             action=message))
