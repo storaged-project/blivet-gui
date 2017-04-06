@@ -310,6 +310,7 @@
                                 <property name="receives_default">True</property>
                                 <property name="image">image_add</property>
                                 <property name="relief">none</property>
+                                <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Add">Add new device</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -324,6 +325,7 @@
                                 <property name="receives_default">True</property>
                                 <property name="image">image_delete</property>
                                 <property name="relief">none</property>
+                                <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Delete">Delete selected device</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -340,6 +342,7 @@
                                 <property name="valign">center</property>
                                 <property name="relief">none</property>
                                 <property name="popup">edit_button_menu</property>
+                                <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Edit">Edit selected device</property>
                                 <child>
                                   <object class="GtkImage" id="image_edit">
                                     <property name="visible">True</property>
@@ -363,6 +366,7 @@
                                 <property name="receives_default">True</property>
                                 <property name="image">image_unmount</property>
                                 <property name="relief">none</property>
+                                <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Unmount">Unmount selected device</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -377,6 +381,7 @@
                                 <property name="receives_default">True</property>
                                 <property name="image">image_decrypt</property>
                                 <property name="relief">none</property>
+                                <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Decrypt">Unlock/Open selected device</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -391,6 +396,7 @@
                                 <property name="receives_default">True</property>
                                 <property name="image">image_info</property>
                                 <property name="relief">none</property>
+                                <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Info">Display information about selected device</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
