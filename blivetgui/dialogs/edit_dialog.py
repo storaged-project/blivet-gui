@@ -33,6 +33,7 @@ from ..dialogs import message_dialogs
 from ..gui_utils import locate_ui_file
 from ..communication.proxy_utils import ProxyDataContainer
 from ..i18n import _
+from ..config import config
 
 # ---------------------------------------------------------------------------- #
 
@@ -146,8 +147,8 @@ class FormatDialog(object):
         # triggering it for every format
         self.fs_combo.connect("changed", self._on_fs_combo_changed)
 
-        if "ext4" in (fs.type for fs in supported_fs):
-            self.fs_combo.set_active_id("ext4")
+        if config.default_fstype in (fs.type for fs in supported_fs):
+            self.fs_combo.set_active_id(config.default_fstype)
         else:
             self.fs_combo.set_active(0)
 

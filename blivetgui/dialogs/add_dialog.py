@@ -43,6 +43,7 @@ from .widgets import RaidChooser
 from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid, supported_raids, supported_filesystems, get_monitor_size
 
 from ..i18n import _
+from ..config import config
 
 # ---------------------------------------------------------------------------- #
 
@@ -744,8 +745,8 @@ class AddDialog(Gtk.Dialog):
         self.filesystems_store.append((None, "unformatted", _("unformatted")))
 
         # XXX: what if there is no supported fs?
-        if "ext4" in (fs.type for fs in supported_fs):
-            self.filesystems_combo.set_active_id("ext4")
+        if config.default_fstype in (fs.type for fs in supported_fs):
+            self.filesystems_combo.set_active_id(config.default_fstype)
         else:
             self.filesystems_combo.set_active(0)
 
