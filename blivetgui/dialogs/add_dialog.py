@@ -82,7 +82,6 @@ class AdvancedOptions(object):
     def lvm_options(self):
 
         label_pesize = Gtk.Label(label=_("PE Size:"), xalign=1)
-        label_pesize.get_style_context().add_class("dim-label")
         self.grid.attach(label_pesize, 0, 0, 1, 1)
 
         pesize_combo = Gtk.ComboBoxText()
@@ -107,7 +106,6 @@ class AdvancedOptions(object):
     def partition_options(self):
 
         label_pt_type = Gtk.Label(label=_("Partition type:"), xalign=1)
-        label_pt_type.get_style_context().add_class("dim-label")
         self.grid.attach(label_pt_type, 0, 0, 1, 1)
 
         partition_store = Gtk.ListStore(str, str)
@@ -147,7 +145,6 @@ class AdvancedOptions(object):
 
     def mdraid_options(self):
         label_chunk = Gtk.Label(label=_("Chunk Size:"), xalign=1)
-        label_chunk.get_style_context().add_class("dim-label")
         self.grid.attach(label_chunk, 0, 0, 1, 1)
 
         chunk_combo = Gtk.ComboBoxText().new_with_entry()
@@ -392,7 +389,6 @@ class AddDialog(Gtk.Dialog):
     def add_device_chooser(self):
 
         label_devices = Gtk.Label(label=_("Device type:"), xalign=1)
-        label_devices.get_style_context().add_class("dim-label")
         self.grid.attach(label_devices, 0, 0, 1, 1)
 
         devices_store = Gtk.ListStore(str, str)
@@ -439,7 +435,6 @@ class AddDialog(Gtk.Dialog):
         parents_view.set_headers_visible(True)
 
         label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
-        label_list.get_style_context().add_class("dim-label")
 
         self.grid.attach(label_list, 0, 2, 1, 1)
         self.grid.attach(parents_view, 1, 2, 4, 3)
@@ -688,7 +683,6 @@ class AddDialog(Gtk.Dialog):
 
     def add_md_type_chooser(self):
         label_md_type = Gtk.Label(label=_("MDArray type:"), xalign=1)
-        label_md_type.get_style_context().add_class("dim-label")
         self.grid.attach(label_md_type, 0, 7, 1, 1)
 
         md_type_store = Gtk.ListStore(str, str)
@@ -721,7 +715,6 @@ class AddDialog(Gtk.Dialog):
 
     def add_fs_chooser(self):
         label_fs = Gtk.Label(label=_("Filesystem:"), xalign=1)
-        label_fs.get_style_context().add_class("dim-label")
         self.grid.attach(label_fs, 0, 8, 1, 1)
 
         filesystems_store = Gtk.ListStore(object, str, str)
@@ -775,7 +768,6 @@ class AddDialog(Gtk.Dialog):
 
     def add_name_chooser(self):
         label_label = Gtk.Label(label=_("Label:"), xalign=1)
-        label_label.get_style_context().add_class("dim-label")
         self.grid.attach(label_label, 0, 9, 1, 1)
 
         label_entry = Gtk.Entry()
@@ -784,7 +776,6 @@ class AddDialog(Gtk.Dialog):
         self.widgets_dict["label"] = [label_label, label_entry]
 
         name_label = Gtk.Label(label=_("Name:"), xalign=1)
-        name_label.get_style_context().add_class("dim-label")
         self.grid.attach(name_label, 0, 10, 1, 1)
 
         name_entry = Gtk.Entry()
@@ -796,7 +787,6 @@ class AddDialog(Gtk.Dialog):
 
     def add_mountpoint(self):
         mountpoint_label = Gtk.Label(label=_("Mountpoint:"), xalign=1)
-        mountpoint_label.get_style_context().add_class("dim-label")
         self.grid.attach(mountpoint_label, 0, 11, 1, 1)
 
         mountpoint_entry = Gtk.Entry()
@@ -808,7 +798,6 @@ class AddDialog(Gtk.Dialog):
 
     def add_encrypt_chooser(self):
         encrypt_label = Gtk.Label(label=_("Encrypt:"), xalign=1)
-        encrypt_label.get_style_context().add_class("dim-label")
         self.grid.attach(encrypt_label, 0, 12, 1, 1)
 
         encrypt_check = Gtk.CheckButton()
@@ -817,7 +806,6 @@ class AddDialog(Gtk.Dialog):
         self.widgets_dict["encrypt"] = [encrypt_label, encrypt_check]
 
         pass_label = Gtk.Label(label=_("Passphrase:"), xalign=1)
-        pass_label.get_style_context().add_class("dim-label")
         self.grid.attach(pass_label, 0, 13, 1, 1)
 
         pass_entry = Gtk.Entry()
@@ -826,7 +814,6 @@ class AddDialog(Gtk.Dialog):
         self.grid.attach(pass_entry, 1, 13, 2, 1)
 
         pass2_label = Gtk.Label(label=_("Repeat Passphrase:"), xalign=1)
-        pass2_label.get_style_context().add_class("dim-label")
         self.grid.attach(pass2_label, 0, 14, 1, 1)
 
         pass2_entry = Gtk.Entry()

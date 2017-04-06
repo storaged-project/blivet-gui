@@ -384,7 +384,6 @@ class LVMEditDialog(Gtk.Dialog):
         parents_view.set_headers_visible(True)
 
         label_list = Gtk.Label(label=_("Parent devices:"), xalign=1)
-        label_list.get_style_context().add_class("dim-label")
 
         self.grid.attach(label_list, 0, 1, 1, 1)
         self.grid.attach(parents_view, 1, 1, 3, 3)
@@ -435,7 +434,6 @@ class LVMEditDialog(Gtk.Dialog):
             parents_view.set_headers_visible(True)
 
             label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
-            label_list.get_style_context().add_class("dim-label")
 
             self.grid.attach(label_list, 0, 5, 1, 1)
             self.grid.attach(parents_view, 1, 5, 4, 3)
@@ -498,7 +496,6 @@ class LVMEditDialog(Gtk.Dialog):
             parents_view.set_headers_visible(True)
 
             label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
-            label_list.get_style_context().add_class("dim-label")
 
             self.grid.attach(label_list, 0, 5, 1, 1)
             self.grid.attach(parents_view, 1, 5, 4, 3)
