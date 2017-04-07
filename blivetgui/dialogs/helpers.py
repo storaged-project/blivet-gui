@@ -150,8 +150,12 @@ def supported_raids():
             "lvmlv": devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_LVM)}
 
 
-def supported_filesystems():
+def supported_filesystems(installer_mode=False):
     _fs_types = []
+
+    additional_fs = ["swap", "lvmpv"]
+    if installer_mode:
+        additional_fs.extend(["biosboot", "prepboot"])
 
     for cls in formats.device_formats.values():
         obj = cls()
@@ -159,7 +163,7 @@ def supported_filesystems():
         supported_fs = (obj.type not in ("tmpfs",) and
                         obj.supported and obj.formattable and
                         (isinstance(obj, formats.fs.FS) or
-                         obj.type in ("swap", "lvmpv")))
+                         obj.type in additional_fs))
         if supported_fs:
             _fs_types.append(obj)
 

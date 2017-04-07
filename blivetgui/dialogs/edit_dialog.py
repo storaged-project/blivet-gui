@@ -137,7 +137,7 @@ class FormatDialog(object):
         self.label_entry = self.builder.get_object("entry_label")
         self.mnt_entry = self.builder.get_object("entry_mountpoint")
 
-        supported_fs = supported_filesystems()
+        supported_fs = supported_filesystems(self.installer_mode)
         for fs in supported_fs:
             if self.edit_device.size > fs._min_size:
                 self.fs_store.append((fs, fs.type, fs.name))

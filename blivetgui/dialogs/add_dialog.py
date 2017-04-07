@@ -737,7 +737,7 @@ class AddDialog(Gtk.Dialog):
     def update_fs_chooser(self):
         self.filesystems_store.clear()
 
-        supported_fs = supported_filesystems()
+        supported_fs = supported_filesystems(self.installer_mode)
         for fs in supported_fs:
             # FIXME: also check raid level -- resulting "free space" might be lower because of redundancy
             if self.selected_free.size > fs._min_size:
