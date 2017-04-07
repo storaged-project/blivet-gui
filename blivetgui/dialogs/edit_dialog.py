@@ -152,11 +152,22 @@ class FormatDialog(object):
         else:
             self.fs_combo.set_active(0)
 
+        # select previously selected mountpoint
+        if self._current_mountpoint:
+            self.mnt_entry.set_text(self._current_mountpoint)
+
         self.dialog.show_all()
 
         if not self.installer_mode:
             self.mnt_box = self.builder.get_object("box_mountpoint")
             self.mnt_box.hide()
+
+    @property
+    def _current_mountpoint(self):
+        if self.edit_device.format.mountable:
+            return self.edit_device.format.mountpoint
+        else:
+            return None
 
     def set_decorated(self, decorated):
         self.dialog.set_decorated(decorated)
@@ -203,11 +214,7 @@ class FormatDialog(object):
                 return False
 
         if self.installer_mode and selected_mnt:
-            if self.edit_device.format.mountable:
-                current_mnt = self.edit_device.format.mountpoint
-            else:
-                current_mnt = None
-            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt, current_mnt)
+            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt, self._current_mountpoint)
             if not valid:
                 message_dialogs.ErrorDialog(self.dialog, msg,
                                             not self.installer_mode)  # do not show decoration in installer mode
@@ -277,7 +284,18 @@ class MountpointDialog(object):
 
         self.mnt_entry = self.builder.get_object("entry_mountpoint")
 
+        # select previously selected mountpoint
+        if self._current_mountpoint:
+            self.mnt_entry.set_text(self._current_mountpoint)
+
         self.dialog.show_all()
+
+    @property
+    def _current_mountpoint(self):
+        if self.edit_device.format.mountable:
+            return self.edit_device.format.mountpoint
+        else:
+            return None
 
     def set_decorated(self, decorated):
         self.dialog.set_decorated(decorated)
@@ -292,7 +310,7 @@ class MountpointDialog(object):
         selected_mnt = self.mnt_entry.get_text()
 
         if self.installer_mode and selected_mnt:
-            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt, self.edit_device.format.mountpoint)
+            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt, self._current_mountpoint)
             if not valid:
                 message_dialogs.ErrorDialog(self.dialog, msg,
                                             not self.installer_mode)  # do not show decoration in installer mode
