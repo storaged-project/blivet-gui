@@ -33,6 +33,7 @@ from ..dialogs import message_dialogs
 from ..gui_utils import locate_ui_file
 from ..communication.proxy_utils import ProxyDataContainer
 from ..i18n import _
+from ..config import config
 
 # ---------------------------------------------------------------------------- #
 
@@ -136,7 +137,7 @@ class FormatDialog(object):
         self.label_entry = self.builder.get_object("entry_label")
         self.mnt_entry = self.builder.get_object("entry_mountpoint")
 
-        supported_fs = supported_filesystems()
+        supported_fs = supported_filesystems(self.installer_mode)
         for fs in supported_fs:
             if self.edit_device.size > fs._min_size:
                 self.fs_store.append((fs, fs.type, fs.name))
@@ -146,16 +147,27 @@ class FormatDialog(object):
         # triggering it for every format
         self.fs_combo.connect("changed", self._on_fs_combo_changed)
 
-        if "ext4" in (fs.type for fs in supported_fs):
-            self.fs_combo.set_active_id("ext4")
+        if config.default_fstype in (fs.type for fs in supported_fs):
+            self.fs_combo.set_active_id(config.default_fstype)
         else:
             self.fs_combo.set_active(0)
+
+        # select previously selected mountpoint
+        if self._current_mountpoint:
+            self.mnt_entry.set_text(self._current_mountpoint)
 
         self.dialog.show_all()
 
         if not self.installer_mode:
             self.mnt_box = self.builder.get_object("box_mountpoint")
             self.mnt_box.hide()
+
+    @property
+    def _current_mountpoint(self):
+        if self.edit_device.format.mountable:
+            return self.edit_device.format.mountpoint
+        else:
+            return None
 
     def set_decorated(self, decorated):
         self.dialog.set_decorated(decorated)
@@ -202,11 +214,7 @@ class FormatDialog(object):
                 return False
 
         if self.installer_mode and selected_mnt:
-            if self.edit_device.format.mountable:
-                current_mnt = self.edit_device.format.mountpoint
-            else:
-                current_mnt = None
-            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt, current_mnt)
+            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt, self._current_mountpoint)
             if not valid:
                 message_dialogs.ErrorDialog(self.dialog, msg,
                                             not self.installer_mode)  # do not show decoration in installer mode
@@ -276,7 +284,18 @@ class MountpointDialog(object):
 
         self.mnt_entry = self.builder.get_object("entry_mountpoint")
 
+        # select previously selected mountpoint
+        if self._current_mountpoint:
+            self.mnt_entry.set_text(self._current_mountpoint)
+
         self.dialog.show_all()
+
+    @property
+    def _current_mountpoint(self):
+        if self.edit_device.format.mountable:
+            return self.edit_device.format.mountpoint
+        else:
+            return None
 
     def set_decorated(self, decorated):
         self.dialog.set_decorated(decorated)
@@ -291,7 +310,7 @@ class MountpointDialog(object):
         selected_mnt = self.mnt_entry.get_text()
 
         if self.installer_mode and selected_mnt:
-            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt, self.edit_device.format.mountpoint)
+            valid, msg = is_mountpoint_valid(self.mountpoints, selected_mnt, self._current_mountpoint)
             if not valid:
                 message_dialogs.ErrorDialog(self.dialog, msg,
                                             not self.installer_mode)  # do not show decoration in installer mode
@@ -384,7 +403,6 @@ class LVMEditDialog(Gtk.Dialog):
         parents_view.set_headers_visible(True)
 
         label_list = Gtk.Label(label=_("Parent devices:"), xalign=1)
-        label_list.get_style_context().add_class("dim-label")
 
         self.grid.attach(label_list, 0, 1, 1, 1)
         self.grid.attach(parents_view, 1, 1, 3, 3)
@@ -435,7 +453,6 @@ class LVMEditDialog(Gtk.Dialog):
             parents_view.set_headers_visible(True)
 
             label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
-            label_list.get_style_context().add_class("dim-label")
 
             self.grid.attach(label_list, 0, 5, 1, 1)
             self.grid.attach(parents_view, 1, 5, 4, 3)
@@ -498,7 +515,6 @@ class LVMEditDialog(Gtk.Dialog):
             parents_view.set_headers_visible(True)
 
             label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
-            label_list.get_style_context().add_class("dim-label")
 
             self.grid.attach(label_list, 0, 5, 1, 1)
             self.grid.attach(parents_view, 1, 5, 4, 3)

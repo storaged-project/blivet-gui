@@ -83,6 +83,9 @@ class AddLabelDialog(object):
 
         self.dialog.show_all()
 
+    def set_decorated(self, decorated):
+        self.dialog.set_decorated(decorated)
+
     def run(self):
         response = self.dialog.run()
         label = self.pttype_combo.get_active_text()
@@ -116,6 +119,9 @@ class LuksPassphraseDialog(object):
 
         self.entry_passphrase = builder.get_object("entry_passphrase")
         self.dialog.show_all()
+
+    def set_decorated(self, decorated):
+        self.dialog.set_decorated(decorated)
 
     def run(self):
 

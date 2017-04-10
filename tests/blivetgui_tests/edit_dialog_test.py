@@ -24,7 +24,7 @@ class FormatDialogTest(unittest.TestCase):
 
     def test_basic(self):
 
-        dev = MagicMock(size=Size("1 GiB"))
+        dev = MagicMock(size=Size("1 GiB"), format=MagicMock(mountpoint=None))
         dialog = FormatDialog(self.parent_window, dev, [], False)
 
         # not installer_mode, mountpoint widgets should be invisible
@@ -59,7 +59,7 @@ class FormatDialogTest(unittest.TestCase):
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_installer(self):
-        dev = MagicMock(size=Size("1 GiB"))
+        dev = MagicMock(size=Size("1 GiB"), format=MagicMock(mountpoint=None))
 
         dialog = FormatDialog(self.parent_window, dev, [], True)
 

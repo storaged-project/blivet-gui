@@ -19,9 +19,6 @@
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="label" translatable="yes">RAID level:</property>
-        <style>
-          <class name="dim-label"/>
-        </style>
       </object>
       <packing>
         <property name="expand">False</property>
