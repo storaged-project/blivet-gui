@@ -181,10 +181,10 @@ class AdvancedOptions(object):
         part_type = combo.get_active_id()
 
         if part_type == "extended":
-            self.add_dialog.hide_widgets(["fs", "encrypt", "label"])
+            self.add_dialog.hide_widgets(["fs", "encrypt", "label", "mountpoint"])
 
         else:
-            self.add_dialog.show_widgets(["fs", "encrypt", "label"])
+            self.add_dialog.show_widgets(["fs", "encrypt", "label", "mountpoint"])
 
     def destroy(self):
         for widget in self.widgets:
@@ -354,7 +354,8 @@ class AddDialog(Gtk.Dialog):
 
         types = []
 
-        if self.selected_parent.type in ("disk", "mdarray"):
+        if self.selected_parent.type == "disk" or (self.selected_parent.type == "mdarray" and
+                                                   self.selected_parent.format.type == "disklabel"):
             types.append((_("Partition"), "partition"))
 
             if self.selected_free.size > lvm.LVM_PE_SIZE * 2:
