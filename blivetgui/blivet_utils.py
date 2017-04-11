@@ -853,7 +853,6 @@ class BlivetUtils(object):
         else:
             raise NotImplementedError("RAID LVs not supported.")
 
-
         if user_input.filesystem:
             if user_input.encrypt:
                 # encrypted lv --> create format on the luks device

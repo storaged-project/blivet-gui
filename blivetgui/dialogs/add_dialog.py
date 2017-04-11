@@ -753,7 +753,7 @@ class AddDialog(Gtk.Dialog):
 
     def on_filesystems_combo_changed(self, _combo):
 
-        if self.selected_fs is None or self.selected_fs.type in ("swap", "lvmpv", "btrfs"):
+        if self.selected_fs is None or not self.selected_fs.mountable:
             self.hide_widgets(["label", "mountpoint"])
 
         else:
