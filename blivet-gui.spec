@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.1
+Version: 2.1.2
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -68,6 +68,27 @@ fi
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Tue Apr 11 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.2-1
+- Merge pull request #52 from vojtechtrefny/master_test-day-fixes-2 (vtrefny)
+- Fix devices allowed to add to a PV on an mdarray (#1440804) (vtrefny)
+- Do not allow setting mountpoint for extended partitions (vtrefny)
+- Merge pull request #48 from vojtechtrefny/master_test-day-fixes (vtrefny)
+- Show previously selected mountpoint when editting a device (#1439525) (vtrefny)
+- Fix decorations of some dialogs in installer mode (vtrefny)
+- Add 'prepboot' and 'biosboot' to supported filesystems (#1439538) (vtrefny)
+- Add a config class for blivet-gui (#1439581) (vtrefny)
+- Allow changing format for MD arrays (#1439592) (vtrefny)
+- Do not use 'dim-label' style for labels in dialogs (#1439529) (vtrefny)
+- Add tooltips for actions toolbar (#1439563) (vtrefny)
+- Merge pull request #47 from vojtechtrefny/master_fix-reuse-luks (vtrefny)
+- Do not try to check mountpoint for unmountable formats (#1439108) (vtrefny)
+- Merge pull request #46 from offthewoll/master (vtrefny)
+- Correct "proccessing" to "processing" (aviwoll)
+- Corrected "proccessing" to "processing" (aviwoll)
+- Merge pull request #44 from vojtechtrefny/master_installer-bugs (vtrefny)
+- Do not allow to set mountpoint for nonexisting LVM snapshots (vtrefny)
+- Fix error when creating LVM PV (vtrefny)
+
 * Tue Mar 14 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.1-1
 - Merge pull request #43 from vojtechtrefny/master_fix-lvmsnapshot-free (vtrefny)
 - AddDialog: Use 'free_space' instead of 'free' for VGs free space (vtrefny)
