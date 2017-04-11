@@ -920,8 +920,8 @@ class AddDialog(Gtk.Dialog):
             self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size", "passphrase", "mdraid"])
 
         elif device_type in ("lvmlv",):
-            self.show_widgets(["name", "fs", "mountpoint", "size", "advanced", "label"])
-            self.hide_widgets(["encrypt", "passphrase", "mdraid"])
+            self.show_widgets(["name", "fs", "mountpoint", "size", "advanced", "label", "encrypt"])
+            self.hide_widgets(["passphrase", "mdraid"])
 
         elif device_type in ("lvmthinlv",):
             self.show_widgets(["name", "fs", "mountpoint", "size", "label"])

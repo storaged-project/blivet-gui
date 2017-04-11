@@ -835,18 +835,32 @@ class BlivetUtils(object):
 
         # no LVPVSpec for linear LVs
         if user_input.raid_level in ("linear", None):
-            new_part = self.storage.new_lv(name=device_name,
-                                           size=user_input.size_selection.total_size,
-                                           parents=[vg_device],
-                                           seg_type=user_input.raid_level)
+            new_lv = self.storage.new_lv(name=device_name,
+                                         size=user_input.size_selection.total_size,
+                                         parents=[vg_device],
+                                         seg_type=user_input.raid_level)
+            actions.append(blivet.deviceaction.ActionCreateDevice(new_lv))
 
+            # encrypted lvmpv
+            if user_input.encrypt:
+                luks_fmt = blivet.formats.get_format(fmt_type="luks",
+                                                     passphrase=user_input.passphrase,
+                                                     device=new_lv.path)
+                actions.append(blivet.deviceaction.ActionCreateFormat(new_lv, luks_fmt))
+
+                luks_dev = LUKSDevice("luks-%s" % new_lv.name, size=new_lv.size, parents=[new_lv])
+                actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
         else:
             raise NotImplementedError("RAID LVs not supported.")
 
-        actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
         if user_input.filesystem:
-            actions.extend(self._create_format(user_input, new_part))
+            if user_input.encrypt:
+                # encrypted lv --> create format on the luks device
+                actions.extend(self._create_format(user_input, luks_dev))
+            else:
+                # 'normal' lv --> create format on the lv
+                actions.extend(self._create_format(user_input, new_lv))
 
         return actions
 
