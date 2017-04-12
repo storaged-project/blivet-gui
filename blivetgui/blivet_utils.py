@@ -998,8 +998,22 @@ class BlivetUtils(object):
                                    chunk_size=user_input.advanced["chunk_size"])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_md))
 
+        if user_input.encrypt:
+            luks_fmt = blivet.formats.get_format(fmt_type="luks",
+                                                 passphrase=user_input.passphrase,
+                                                 device=new_md.path)
+            actions.append(blivet.deviceaction.ActionCreateFormat(new_md, luks_fmt))
+
+            luks_dev = LUKSDevice("luks-%s" % new_md.name, size=new_md.size, parents=[new_md])
+            actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
+
         if user_input.filesystem:
-            actions.extend(self._create_format(user_input, new_md))
+            if user_input.encrypt:
+                # encrypted mdraid --> create format on the luks device
+                actions.extend(self._create_format(user_input, luks_dev))
+            else:
+                # 'normal' mdraid --> create format on the mdraid
+                actions.extend(self._create_format(user_input, new_md))
 
         return actions
 
