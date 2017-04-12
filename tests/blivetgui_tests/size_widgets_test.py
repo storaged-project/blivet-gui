@@ -3,10 +3,11 @@
 import unittest
 from unittest.mock import MagicMock
 
-from blivetgui.dialogs.size_chooser import SizeChooser, ParentChooser, ParentArea, SizeArea, UNITS
+from blivetgui.dialogs.size_chooser import SizeChooser, ParentChooser, ParentArea, SizeArea
 
 import os
 
+from blivet import size
 from blivet.size import Size, unit_str
 from blivet.devicelibs.raid import Single, Linear, RAID0, RAID1
 
@@ -670,7 +671,7 @@ class ParentAreaTest(unittest.TestCase):
         """ Test updating values of main chooser in SizeArea """
 
         # -- MDRAID
-        main_chooser = SizeChooser(max_size=Size(0), min_size=Size(0))
+        main_chooser = SizeChooser(max_size=Size("2 GiB"), min_size=Size("1 MiB"))
         parents = [MagicMock(device=self._mock_device(), min_size=Size("1 MiB"), max_size=Size("1 GiB"),
                              reserved_size=Size(0)),
                    MagicMock(device=self._mock_device(), min_size=Size("1 MiB"), max_size=Size("1 GiB"),
@@ -688,7 +689,7 @@ class ParentAreaTest(unittest.TestCase):
         self.assertEqual(parent_area.main_chooser.selected_size, Size("500 MiB"))
 
         # -- LVM RAID
-        main_chooser = SizeChooser(max_size=Size(0), min_size=Size(0))
+        main_chooser = SizeChooser(max_size=Size("3 GiB"), min_size=Size("1 MiB"))
         parents = [MagicMock(device=self._mock_device(), min_size=Size("1 MiB"), max_size=Size("1 GiB"), reserved_size=Size(0)),
                    MagicMock(device=self._mock_device(), min_size=Size("1 MiB"), max_size=Size("1 GiB"), reserved_size=Size(0)),
                    MagicMock(device=self._mock_device(), min_size=Size("1 MiB"), max_size=Size("1 GiB"), reserved_size=Size(0))]
@@ -908,11 +909,11 @@ class SizeChooserAreaTest(unittest.TestCase):
     def test_10_unit_change(self):
         original_size = self.size_chooser.selected_size
 
-        for idx, unit in enumerate(list(UNITS.keys())):
+        for idx, unit in enumerate(self.size_chooser.available_units):
             self.size_chooser._unit_chooser.set_active(idx)
-            self.assertEqual(unit.upper(), unit_str(self.size_chooser.selected_unit).upper())  # kB vs KB
+            self.assertEqual(unit_str(unit), unit_str(self.size_chooser.selected_unit))
 
-            new_size = Size(str(self.size_chooser._spin.get_value()) + " " + unit)
+            new_size = Size(str(self.size_chooser._spin.get_value()) + " " + unit_str(unit))
             self.assertEqual(original_size, new_size)
 
     def test_20_scale_spin(self):
@@ -993,8 +994,8 @@ class SizeChooserAreaTest(unittest.TestCase):
             self.size_chooser.connect("non-existing-signal", None)
 
         # parent selection
-        self.size_chooser._unit_chooser.set_active(list(UNITS.keys()).index("KiB"))
-        unit_handler.assert_called_with(UNITS["KiB"])
+        self.size_chooser._unit_chooser.set_active(self.size_chooser.available_units.index(size.KiB))
+        unit_handler.assert_called_with(size.KiB)
 
         # size selection
         old_value = self.size_chooser._scale.get_value()
@@ -1009,6 +1010,34 @@ class SizeChooserAreaTest(unittest.TestCase):
 
         selection = self.size_chooser.get_selection()
         self.assertEqual(selection, Size("125 MiB"))
+
+    def test_90_available_units(self):
+        # max device size is 100 GiB (100 GiB - 1 MiB), units up to GiB should
+        # be available and default should be GiB
+        chooser = SizeChooser(max_size=Size("100 GiB"), min_size=Size("1 MiB"))
+        self.assertCountEqual(chooser.available_units,
+                              [size.B, size.KB, size.KiB, size.MB, size.MiB, size.GB, size.GiB])
+        self.assertEqual(chooser.default_unit, size.GiB)
+
+        # max device size is 3 GiB, units up to GiB should
+        # be available and default should be MiB
+        chooser = SizeChooser(max_size=Size("3 GiB"), min_size=Size("1 MiB"))
+        self.assertCountEqual(chooser.available_units,
+                              [size.B, size.KB, size.KiB, size.MB, size.MiB, size.GB, size.GiB])
+        self.assertEqual(chooser.default_unit, size.MiB)
+
+        # max device size is 10 MiB, units up to MiB should
+        # be available and default should be MiB
+        chooser = SizeChooser(max_size=Size("11 MiB"), min_size=Size("1 MiB"))
+        self.assertCountEqual(chooser.available_units,
+                              [size.B, size.KB, size.KiB, size.MB, size.MiB])
+        self.assertEqual(chooser.default_unit, size.MiB)
+
+        # max device size is 10 KiB, units up to KiB should
+        # be available and default should be KiB
+        chooser = SizeChooser(max_size=Size("11 KiB"), min_size=Size("1 KiB"))
+        self.assertCountEqual(chooser.available_units, [size.B, size.KB, size.KiB])
+        self.assertEqual(chooser.default_unit, size.KiB)
 
 
 if __name__ == "__main__":

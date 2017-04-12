@@ -38,34 +38,9 @@ from collections import OrderedDict
 
 # ---------------------------------------------------------------------------- #
 
-UNITS = OrderedDict([("B", size.B), ("kB", size.KB), ("MB", size.MB),
+UNITS = OrderedDict([("B", size.B), ("KB", size.KB), ("MB", size.MB),
                      ("GB", size.GB), ("TB", size.TB), ("KiB", size.KiB),
                      ("MiB", size.MiB), ("GiB", size.GiB), ("TiB", size.TiB)])
-# ---------------------------------------------------------------------------- #
-
-
-def get_size_precision(down_limit, up_limit):
-    """ Get precision for scale
-    """
-
-    step = 1.0
-    digits = 0
-
-    while True:
-        if down_limit >= 1.0 or down_limit >= 0:
-            break
-
-        down_limit *= 10
-        step /= 10
-        digits += 1
-
-    # always offer at least 10 steps to adjust size
-    if up_limit - down_limit < 10 * step:
-        step /= 10
-        digits += 1
-
-    return step, digits
-
 # ---------------------------------------------------------------------------- #
 
 
@@ -708,7 +683,7 @@ class SizeChooser(GUIWidget):
 
         self.grid = self._builder.get_object("grid")
 
-        self.selected_unit = size.MiB
+        self.selected_unit = self.default_unit
         self._size_change_handlers = []
         self._unit_change_handlers = []
 
@@ -766,6 +741,34 @@ class SizeChooser(GUIWidget):
         self._min_size = min_size
         self._reset_size_widgets(self.selected_size)
 
+    @property
+    def available_units(self):
+        """ Units that should be available to select in this chooser --
+            depends on size of the device, e.g. TiB will be available only
+            for devices bigger than 2 TiB
+        """
+        units = []
+        dev_size = self.max_size - self.min_size
+
+        for unit in UNITS.keys():
+            if size.Size("2 " + unit) <= dev_size:
+                units.append(UNITS[unit])
+
+        return units
+
+    @property
+    def default_unit(self):
+        """ Default, preselected unit -- GiB for devices larger that 5 GiB,
+            otherwise the biggest available unit
+        """
+        dev_size = self.max_size - self.min_size
+        if dev_size >= size.Size("5 GiB"):
+            return size.GiB
+        elif dev_size >= size.Size("5 MiB"):
+            return size.MiB
+        else:
+            return self.available_units[-1]
+
     def connect(self, signal, method, *args):
         """ Connect a signal hadler """
 
@@ -778,30 +781,54 @@ class SizeChooser(GUIWidget):
         else:
             raise ValueError("Unknown signal type %s" % signal)
 
+    def _scale_precision(self, unit):
+        """ Get number of decimal places to be displayed for selected unit
+            and step for the scale.
+            We should allow one decimal place for GB and bigger (step 0.1)
+            and no decimal values for MiB and smaller (step 1).
+
+            :param unit: selected size unit
+            :type unit: size unit constant (e.g. blivet.size.KiB)
+        """
+
+        if size.Size("1 " + size.unit_str(unit)) >= size.Size("1 GB"):
+            return (1, 0.1)
+        else:
+            return (0, 1)
+
     def _set_size_widgets(self):
         """ Configure size widgets (Gtk.Scale, Gtk.SpinButton) """
 
         scale = self._builder.get_object("scale_size")
         spin = self._builder.get_object("spinbutton_size")
 
-        adjustment = Gtk.Adjustment(0, self.min_size.convert_to(size.MiB),
-                                    self.max_size.convert_to(size.MiB), 1, 10, 0)
+        default_unit = self.default_unit
+
+        adjustment = Gtk.Adjustment(0, self.min_size.convert_to(default_unit),
+                                    self.max_size.convert_to(default_unit), 1, 10, 0)
 
         scale.set_adjustment(adjustment)
         spin.set_adjustment(adjustment)
 
-        scale.add_mark(self.min_size.convert_to(size.MiB),
+        digits, increment = self._scale_precision(default_unit)
+        scale.set_increments(increment, increment * 10)
+        scale.set_digits(digits)
+
+        spin.set_increments(increment, increment * 10)
+        spin.set_digits(digits)
+
+        scale.add_mark(self.min_size.convert_to(default_unit),
                        Gtk.PositionType.BOTTOM, str(self.min_size))
-        scale.add_mark(self.max_size.convert_to(size.MiB),
+        scale.add_mark(self.max_size.convert_to(default_unit),
                        Gtk.PositionType.BOTTOM, str(self.max_size))
 
         combobox_size = self._builder.get_object("combobox_size")
-        for unit in list(UNITS.keys()):
-            combobox_size.append_text(unit)
+        for unit in self.available_units:
+            combobox_size.append_text(size.unit_str(unit))
 
-        # set MiB as default
-        self.selected_unit = size.MiB
-        combobox_size.set_active(list(UNITS.keys()).index("MiB"))
+        # set default unit
+        self.selected_unit = default_unit
+        combobox_size.set_active(self.available_units.index(default_unit))
 
         combobox_size.connect("changed", self._on_unit_changed)
         scale.connect("value-changed", self._on_scale_moved, spin)
@@ -818,17 +845,14 @@ class SizeChooser(GUIWidget):
                               self.max_size.convert_to(unit))
         self._scale.clear_marks()
 
-        increment, digits = get_size_precision(self.min_size.convert_to(unit),
-                                               self.max_size.convert_to(unit))
+        digits, increment = self._scale_precision(unit)
         self._scale.set_increments(increment, increment * 10)
         self._scale.set_digits(digits)
 
-        self._scale.add_mark(0, Gtk.PositionType.BOTTOM,
-                             format(self.min_size.convert_to(unit),
-                                    "." + str(digits) + "f") + " " + size.unit_str(unit))
-        self._scale.add_mark(float(self.max_size.convert_to(unit)), Gtk.PositionType.BOTTOM,
-                             format(self.max_size.convert_to(unit),
-                                    "." + str(digits) + "f") + " " + size.unit_str(unit))
+        self._scale.add_mark(self.min_size.convert_to(unit),
+                             Gtk.PositionType.BOTTOM, str(self.min_size))
+        self._scale.add_mark(self.max_size.convert_to(unit),
+                             Gtk.PositionType.BOTTOM, str(self.max_size))
 
         self._spin.set_range(self.min_size.convert_to(unit),
                              self.max_size.convert_to(unit))
