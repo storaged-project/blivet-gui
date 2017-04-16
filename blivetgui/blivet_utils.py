@@ -468,11 +468,13 @@ class BlivetUtils(object):
 
         return ProxyDataContainer(success=True, actions=[action], message=None, exception=None, traceback=None)
 
-    def delete_device(self, blivet_device):
+    def delete_device(self, blivet_device, delete_parents):
         """ Delete device
 
             :param blivet_device: blivet device
             :type blivet_device: blivet.Device
+            :param delete_parents: delete parent devices too?
+            :type delete_parents: bool
 
         """
 
@@ -517,19 +519,19 @@ class BlivetUtils(object):
                         return ProxyDataContainer(success=False, actions=None, message=msg, exception=None,
                                                   traceback=traceback.format_exc())
 
-                result = self.delete_device(parent)
+                result = self.delete_device(parent, False)
                 if not result.success:
                     return result
                 else:
                     actions.extend(result.actions)
 
         # for btrfs volumes delete parents partition after deleting volume
-        if blivet_device.type in ("btrfs volume", "mdarray"):
+        if blivet_device.type in ("btrfs volume", "mdarray", "lvmvg") and delete_parents:
             for parent in blivet_device.parents:
                 if parent.is_disk:
                     result = self._delete_disk_label(parent)
                 else:
-                    result = self.delete_device(parent)
+                    result = self.delete_device(parent, False)
 
                 if not result.success:
                     return result
