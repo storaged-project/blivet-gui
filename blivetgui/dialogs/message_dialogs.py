@@ -30,6 +30,7 @@ from gi.repository import Gtk
 from blivetgui.gui_utils import locate_ui_file
 from .helpers import adjust_scrolled_size
 from .constants import DialogResponseType
+from ..communication.proxy_utils import ProxyDataContainer
 
 from ..i18n import _
 
@@ -177,6 +178,62 @@ class ConfirmDialog(object):
         self.dialog.destroy()
 
         return response == Gtk.ResponseType.OK
+
+
+class ConfirmDeleteDialog(object):
+    """ General confirmation dialog
+    """
+
+    def __init__(self, parent_window, device, parents=None):
+
+        builder = Gtk.Builder()
+        builder.set_translation_domain("blivet-gui")
+        builder.add_from_file(locate_ui_file('confirm_delete_dialog.ui'))
+        self.dialog = builder.get_object("confirm_delete_dialog")
+
+        self.dialog.set_transient_for(parent_window)
+
+        title = _("Confirm delete operation")
+        msg = _("Are you sure you want delete device {name}?").format(name=device.name)
+
+        self.dialog.set_markup("<b>" + title + "</b>")
+        self.dialog.format_secondary_text(msg)
+
+        self.parent_check = builder.get_object("parent_check")
+        self.parent_label = builder.get_object("parent_label")
+
+        if parents:
+            check_text = _("Also delete following parent devices of {name}:").format(name=device.name)
+            self.parent_check.set_label(check_text)
+            self.parent_check.set_active(True)
+
+            parent_text = ""
+            for parent in parents:
+                parent_text += " • {size} {type} {path}\n".format(size=parent.size,
+                                                                  type=parent.type,
+                                                                  path=parent.path)
+            self.parent_label.set_label(parent_text)
+
+        self.dialog.show_all()
+
+        if parents is None:
+            self.parent_check.hide()
+            self.parent_label.hide()
+
+    def set_decorated(self, decorated):
+        self.dialog.set_decorated(decorated)
+
+    def run(self):
+        """ Run the dialog
+        """
+
+        response = self.dialog.run()
+        delete = response == Gtk.ResponseType.OK
+        delete_parents = self.parent_check.get_active()
+
+        self.dialog.destroy()
+        return ProxyDataContainer(delete=delete,
+                                  delete_parents=delete_parents)
 
 
 def show_actions_list(treestore_actions):

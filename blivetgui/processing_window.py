@@ -151,7 +151,15 @@ class ProcessingActions(Gtk.Dialog):
         self.progressbar.set_fraction(1)
         self.set_response_sensitive(Gtk.ResponseType.OK, True)
         self.label.set_markup("<b>%s</b>" % _("All queued actions have been processed."))
-        self._set_applied_icon(self.finished_actions - 1)
+
+        # it is possible that there are no finished actions -- e.g. when adding
+        # and removing the same partition -- blivet-gui scheduled 2 actions but
+        # blivet actually won't create and destroy the partition, it will just
+        # delete both actions
+        # TODO: actually update 'blivet-gui actions' before running do_it and
+        # update number of scheduled actions to match 'blivet actions'
+        if self.finished_actions:
+            self._set_applied_icon(self.finished_actions - 1)
 
     def progress_msg(self, message):
         self.label.set_markup(_("<b>Processing action {num} of {total}</b>:"

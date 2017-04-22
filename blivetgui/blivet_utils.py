@@ -468,11 +468,13 @@ class BlivetUtils(object):
 
         return ProxyDataContainer(success=True, actions=[action], message=None, exception=None, traceback=None)
 
-    def delete_device(self, blivet_device):
+    def delete_device(self, blivet_device, delete_parents):
         """ Delete device
 
             :param blivet_device: blivet device
             :type blivet_device: blivet.Device
+            :param delete_parents: delete parent devices too?
+            :type delete_parents: bool
 
         """
 
@@ -517,19 +519,19 @@ class BlivetUtils(object):
                         return ProxyDataContainer(success=False, actions=None, message=msg, exception=None,
                                                   traceback=traceback.format_exc())
 
-                result = self.delete_device(parent)
+                result = self.delete_device(parent, False)
                 if not result.success:
                     return result
                 else:
                     actions.extend(result.actions)
 
         # for btrfs volumes delete parents partition after deleting volume
-        if blivet_device.type in ("btrfs volume", "mdarray"):
+        if blivet_device.type in ("btrfs volume", "mdarray", "lvmvg") and delete_parents:
             for parent in blivet_device.parents:
                 if parent.is_disk:
                     result = self._delete_disk_label(parent)
                 else:
-                    result = self.delete_device(parent)
+                    result = self.delete_device(parent, False)
 
                 if not result.success:
                     return result
@@ -835,18 +837,31 @@ class BlivetUtils(object):
 
         # no LVPVSpec for linear LVs
         if user_input.raid_level in ("linear", None):
-            new_part = self.storage.new_lv(name=device_name,
-                                           size=user_input.size_selection.total_size,
-                                           parents=[vg_device],
-                                           seg_type=user_input.raid_level)
+            new_lv = self.storage.new_lv(name=device_name,
+                                         size=user_input.size_selection.total_size,
+                                         parents=[vg_device],
+                                         seg_type=user_input.raid_level)
+            actions.append(blivet.deviceaction.ActionCreateDevice(new_lv))
 
+            # encrypted lvmpv
+            if user_input.encrypt:
+                luks_fmt = blivet.formats.get_format(fmt_type="luks",
+                                                     passphrase=user_input.passphrase,
+                                                     device=new_lv.path)
+                actions.append(blivet.deviceaction.ActionCreateFormat(new_lv, luks_fmt))
+
+                luks_dev = LUKSDevice("luks-%s" % new_lv.name, size=new_lv.size, parents=[new_lv])
+                actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
         else:
             raise NotImplementedError("RAID LVs not supported.")
 
-        actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
-
         if user_input.filesystem:
-            actions.extend(self._create_format(user_input, new_part))
+            if user_input.encrypt:
+                # encrypted lv --> create format on the luks device
+                actions.extend(self._create_format(user_input, luks_dev))
+            else:
+                # 'normal' lv --> create format on the lv
+                actions.extend(self._create_format(user_input, new_lv))
 
         return actions
 
@@ -985,8 +1000,22 @@ class BlivetUtils(object):
                                    chunk_size=user_input.advanced["chunk_size"])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_md))
 
+        if user_input.encrypt:
+            luks_fmt = blivet.formats.get_format(fmt_type="luks",
+                                                 passphrase=user_input.passphrase,
+                                                 device=new_md.path)
+            actions.append(blivet.deviceaction.ActionCreateFormat(new_md, luks_fmt))
+
+            luks_dev = LUKSDevice("luks-%s" % new_md.name, size=new_md.size, parents=[new_md])
+            actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
+
         if user_input.filesystem:
-            actions.extend(self._create_format(user_input, new_md))
+            if user_input.encrypt:
+                # encrypted mdraid --> create format on the luks device
+                actions.extend(self._create_format(user_input, luks_dev))
+            else:
+                # 'normal' mdraid --> create format on the mdraid
+                actions.extend(self._create_format(user_input, new_md))
 
         return actions
 

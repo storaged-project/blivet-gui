@@ -753,7 +753,7 @@ class AddDialog(Gtk.Dialog):
 
     def on_filesystems_combo_changed(self, _combo):
 
-        if self.selected_fs is None or self.selected_fs.type in ("swap", "lvmpv", "btrfs"):
+        if self.selected_fs is None or not self.selected_fs.mountable:
             self.hide_widgets(["label", "mountpoint"])
 
         else:
@@ -920,8 +920,8 @@ class AddDialog(Gtk.Dialog):
             self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size", "passphrase", "mdraid"])
 
         elif device_type in ("lvmlv",):
-            self.show_widgets(["name", "fs", "mountpoint", "size", "advanced", "label"])
-            self.hide_widgets(["encrypt", "passphrase", "mdraid"])
+            self.show_widgets(["name", "fs", "mountpoint", "size", "advanced", "label", "encrypt"])
+            self.hide_widgets(["passphrase", "mdraid"])
 
         elif device_type in ("lvmthinlv",):
             self.show_widgets(["name", "fs", "mountpoint", "size", "label"])
@@ -936,8 +936,8 @@ class AddDialog(Gtk.Dialog):
             self.hide_widgets(["label", "fs", "encrypt", "size", "passphrase", "advanced", "mdraid"])
 
         elif device_type == "mdraid":
-            self.show_widgets(["name", "size", "mountpoint", "fs", "advanced", "label"])
-            self.hide_widgets(["encrypt", "passphrase", "mdraid"])
+            self.show_widgets(["name", "size", "mountpoint", "fs", "advanced", "label", "encrypt"])
+            self.hide_widgets(["passphrase", "mdraid"])
 
         elif device_type == "lvm snapshot":
             self.show_widgets(["name", "size"])

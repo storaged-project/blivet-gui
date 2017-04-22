@@ -452,6 +452,18 @@ class BlivetGUI(object):
 
         dialog.destroy()
 
+    def _deletable_parents(self, device):
+
+        if device.type not in ("btrfs volume", "mdarray", "lvmvg"):
+            return None
+
+        deletable_parents = []
+        for parent in device.parents:
+            if not parent.is_disk:
+                deletable_parents.append(parent)
+
+        return deletable_parents
+
     def delete_selected_partition(self, _widget=None):
         """ Delete selected partition
 
@@ -461,14 +473,13 @@ class BlivetGUI(object):
         """
 
         deleted_device = self.list_partitions.selected_partition[0]
+        dialog = message_dialogs.ConfirmDeleteDialog(parent_window=self.main_window,
+                                                     device=deleted_device,
+                                                     parents=self._deletable_parents(deleted_device))
+        response = self.run_dialog(dialog)
 
-        title = _("Confirm delete operation")
-        msg = _("Are you sure you want delete device {name}?").format(name=deleted_device.name)
-
-        response = self.show_confirmation_dialog(title, msg)
-
-        if response:
-            result = self.client.remote_call("delete_device", deleted_device)
+        if response.delete:
+            result = self.client.remote_call("delete_device", deleted_device, response.delete_parents)
 
             if not result.success:
                 if not result.exception:

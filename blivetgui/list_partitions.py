@@ -59,7 +59,7 @@ class ListPartitions(object):
                     new_child = self.blivet_gui.client.remote_call("get_group_device", child)
                     self._add_to_store(new_child, parent_iter)
 
-                elif child.format and child.format.type == "luks" and child.format.status:
+                elif child.format and child.format.type == "luks" and child.children:
                     new_child = self.blivet_gui.client.remote_call("get_luks_device", child)
                     self._add_to_store(new_child, None)
 
@@ -121,7 +121,7 @@ class ListPartitions(object):
             return (len(blivet_device.children) > 0)
 
         # encrypted group device
-        if blivet_device.format and blivet_device.format.type == "luks" and blivet_device.format.status:
+        if blivet_device.format and blivet_device.format.type == "luks" and blivet_device.children:
             luks_device = self.blivet_gui.client.remote_call("get_luks_device", blivet_device)
             if luks_device.format and luks_device.format.type in ("lvmpv", "btrfs", "mdmember"):
                 return (len(luks_device.children) > 0)
