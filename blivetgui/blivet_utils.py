@@ -448,6 +448,40 @@ class BlivetUtils(object):
         else:
             return blivet_device.disk
 
+    def get_free_device(self, blivet_device):
+        """ Get FreeSpaceDevice object for selected device (e.g. VG) """
+
+        # VG -- just get free space in it
+        if blivet_device.type == "lvmvg":
+            return FreeSpaceDevice(free_size=blivet_device.free_space,
+                                   dev_id=self.storage.next_id,
+                                   start=None, end=None,
+                                   parents=[blivet_device])
+        # LV -- we are adding a snapshot --> we need free space in the VG
+        elif blivet_device.type == "lvmlv":
+            return FreeSpaceDevice(free_size=blivet_device.vg.free_space,
+                                   dev_id=self.storage.next_id,
+                                   start=None, end=None,
+                                   parents=[blivet_device])
+        # Thin Pool -- size of the thin LVs/snapshots is limited by the size of the pool
+        elif blivet_device.type == "lvmthinpool":
+            return FreeSpaceDevice(free_size=blivet_device.size,
+                                   dev_id=self.storage.next_id,
+                                   start=None, end=None,
+                                   parents=[blivet_device])
+        # Btrfs Volume -- size of the subvolumes/snapshots is limited by the size of the volume
+        elif blivet_device.type == "btrfs volume":
+            return FreeSpaceDevice(free_size=blivet_device.size,
+                                   dev_id=self.storage.next_id,
+                                   start=None, end=None,
+                                   parents=[blivet_device])
+        # something else, just return size of the device and hope for the best
+        else:
+            return FreeSpaceDevice(free_size=blivet_device.size,
+                                   dev_id=self.storage.next_id,
+                                   start=None, end=None,
+                                   parents=[blivet_device])
+
     def _delete_disk_label(self, disk_device):
         """ Delete current disk label
 
@@ -783,9 +817,17 @@ class BlivetUtils(object):
         else:
             partition_type = "primary"
 
+        # set "weight" for the partition so we keep order visible in the gui
+        # (heavier partitions are first, so weight is set to minus start sector)
+        if user_input.size_selection.parents[0].free_space:
+            weight = -1 * user_input.size_selection.parents[0].free_space.start
+        else:
+            weight = 0
+
         # create new partition
         new_part = PartitionDevice(name="req%d" % self.storage.next_id,
                                    size=user_input.size_selection.total_size,
+                                   weight=weight,
                                    parents=[i.parent_device for i in user_input.size_selection.parents],
                                    part_type=PARTITION_TYPE[partition_type])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
@@ -868,8 +910,16 @@ class BlivetUtils(object):
     def _create_lvmpv(self, user_input):
         actions = []
 
+        # set "weight" for the partition so we keep order visible in the gui
+        # (heavier partitions are first, so weight is set to minus start sector)
+        if user_input.size_selection.parents[0].free_space:
+            weight = -1 * user_input.size_selection.parents[0].free_space.start
+        else:
+            weight = 0
+
         new_part = PartitionDevice(name="req%d" % self.storage.next_id,
                                    size=user_input.size_selection.total_size,
+                                   weight=weight,
                                    parents=[i.parent_device for i in user_input.size_selection.parents])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 

@@ -413,7 +413,7 @@ class BlivetGUI(object):
             selected_free = selected_device
         else:
             selected_parent = selected_device
-            selected_free = selected_device
+            selected_free = self.client.remote_call("get_free_device", selected_device)
 
         if self.installer_mode:
             mountpoints = self.client.remote_call("get_mountpoints")
