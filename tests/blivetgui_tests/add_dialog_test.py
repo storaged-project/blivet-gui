@@ -369,7 +369,7 @@ class AddDialogTest(unittest.TestCase):
         # partition allows only one parent -- make sure we have the right one and it is selected
         self.assertEqual(len(add_dialog.parents_store), 1)
         self.assertEqual(add_dialog.parents_store[0][0], parent_device)
-        self.assertEqual(add_dialog.parents_store[0][1], free_device.size)
+        self.assertEqual(add_dialog.parents_store[0][1], free_device)
         self.assertTrue(add_dialog.parents_store[0][2])
         self.assertTrue(add_dialog.parents_store[0][3])
         self.assertEqual(add_dialog.parents_store[0][5], "disk")
@@ -385,7 +385,7 @@ class AddDialogTest(unittest.TestCase):
         # lvm allows multiple parents -- make sure we have all available and the right one is selected
         self.assertEqual(len(add_dialog.parents_store), 3)
         self.assertEqual(add_dialog.parents_store[0][0], parent_device)
-        self.assertEqual(add_dialog.parents_store[0][1], free_device.size)
+        self.assertEqual(add_dialog.parents_store[0][1], free_device)
         self.assertTrue(add_dialog.parents_store[0][2])
         self.assertFalse(add_dialog.parents_store[1][2])  # other two free devices shouldn't be selected
         self.assertFalse(add_dialog.parents_store[2][2])
@@ -401,7 +401,7 @@ class AddDialogTest(unittest.TestCase):
         # lvmlv allows only one parent -- make sure we have the right one and it is selected
         self.assertEqual(len(add_dialog.parents_store), 1)
         self.assertEqual(add_dialog.parents_store[0][0], parent_device)
-        self.assertEqual(add_dialog.parents_store[0][1], free_device.size)
+        self.assertEqual(add_dialog.parents_store[0][1], free_device)
         self.assertTrue(add_dialog.parents_store[0][2])
         self.assertTrue(add_dialog.parents_store[0][3])
         self.assertEqual(add_dialog.parents_store[0][5], "lvmvg")
@@ -417,7 +417,7 @@ class AddDialogTest(unittest.TestCase):
         # lvm allows multiple parents -- make sure we have all available (= larger than 256 MiB) and the right one is selected
         self.assertEqual(len(add_dialog.parents_store), 2)  # third device is smaller than min size for btrfs
         self.assertEqual(add_dialog.parents_store[0][0], parent_device)
-        self.assertEqual(add_dialog.parents_store[0][1], free_device.size)
+        self.assertEqual(add_dialog.parents_store[0][1], free_device)
         self.assertTrue(add_dialog.parents_store[0][2])
         self.assertFalse(add_dialog.parents_store[1][2])  # other free device shouldn't be selected
 

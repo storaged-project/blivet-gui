@@ -63,8 +63,10 @@ class SizeSelection(ProxyDataContainer):
 
 class ParentSelection(ProxyDataContainer):
 
-    def __init__(self, parent_device, selected_size):
-        super().__init__(parent_device=parent_device, selected_size=selected_size)
+    def __init__(self, parent_device, free_space, selected_size):
+        super().__init__(parent_device=parent_device,
+                         free_space=free_space,
+                         selected_size=selected_size)
 
 # ---------------------------------------------------------------------------- #
 
@@ -299,12 +301,14 @@ class SizeArea(GUIWidget):
                 # just put remaining size / number of remaining parents to each parent
                 for parent in unallocated_parents:
                     res.append(ParentSelection(parent_device=parent.device,
+                                               free_space=parent.free_space,
                                                selected_size=(total_size - allocated_size) // len(unallocated_parents)))
                     allocated_size += ((total_size - allocated_size) // len(unallocated_parents))
                     unallocated_parents.remove(parent)
             else:
                 # use entire smallest remaining parent
                 res.append(ParentSelection(parent_device=smallest_parent.device,
+                                           free_space=smallest_parent.free_space,
                                            selected_size=smallest_parent.max_size))
                 allocated_size += smallest_parent.max_size
                 unallocated_parents.remove(smallest_parent)
@@ -413,6 +417,7 @@ class ParentArea(GUIWidget):
         for chooser in self.choosers:
             if chooser.selected:
                 parents.append(ParentSelection(parent_device=chooser.parent,
+                                               free_space=chooser.free_space,
                                                selected_size=chooser.selected_size))
 
         return SizeSelection(total_size=self.total_size, parents=parents)
@@ -468,7 +473,8 @@ class ParentArea(GUIWidget):
             # size is selectable for all parents except for PVs
             size_selectable = parent.device.format.type != "lvmpv"
 
-            chooser = ParentChooser(parent=parent.device, min_size=parent.min_size, max_size=max_size,
+            chooser = ParentChooser(parent=parent.device, free_space=parent.free_space,
+                                    min_size=parent.min_size, max_size=max_size,
                                     reserved_size=parent.reserved_size,
                                     selected=True, parent_selectable=parent_selectable,
                                     size_selectable=size_selectable)
@@ -533,11 +539,12 @@ class ParentChooser(GUIWidget):
     name = "parent chooser"
     glade_file = "parent_chooser.ui"
 
-    def __init__(self, parent, min_size, max_size, reserved_size, selected, parent_selectable, size_selectable):
+    def __init__(self, parent, free_space, min_size, max_size, reserved_size, selected, parent_selectable, size_selectable):
 
         super().__init__()
 
         self.parent = parent
+        self.free_space = free_space
         self._max_size = max_size
         self._min_size = min_size
         self._reserved_size = reserved_size

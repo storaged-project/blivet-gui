@@ -477,7 +477,7 @@ class AddDialog(Gtk.Dialog):
 
         for row in self.parents_store:
             dev = row[0]
-            free = row[1]
+            free = row[1].size
 
             if dev.name == self.selected_parent.name and free == self.selected_free.size:
                 row[2] = row[3] = True
@@ -491,7 +491,7 @@ class AddDialog(Gtk.Dialog):
         if self.selected_type == "lvmvg":
             for ftype, fdevice in self.available_free:
                 if ftype == "lvmpv" and fdevice.size >= lvm.LVM_PE_SIZE * 2:
-                    self.parents_store.append([fdevice.parents[0], fdevice.size, False, False,
+                    self.parents_store.append([fdevice.parents[0], fdevice, False, False,
                                                fdevice.parents[0].name, ftype, str(fdevice.size)])
 
         elif self.selected_type in ("btrfs volume", "lvm", "mdraid"):
@@ -501,21 +501,21 @@ class AddDialog(Gtk.Dialog):
                         # too small for new btrfs
                         continue
 
-                    self.parents_store.append([fdevice.disk, fdevice.size, False, False,
+                    self.parents_store.append([fdevice.disk, fdevice, False, False,
                                                fdevice.disk.name, "disk region", str(fdevice.size)])
 
         elif self.selected_type in ("lvm snapshot",):
             # parent for a LVM snaphost is actually the VG, not the selected LV
-            self.parents_store.append([self.selected_parent, self.selected_parent.vg.free_space, False, False,
-                                       self.selected_parent.vg.name, "lvmvg", str(self.selected_parent.vg.free_space)])
+            self.parents_store.append([self.selected_parent, self.selected_free, False, False,
+                                       self.selected_parent.vg.name, "lvmvg", str(self.selected_free.size)])
 
         elif self.selected_type in ("lvm thinsnapshot",):
             # parent for an LVM thinsnaphost is actually the pool, not the selected thinLV
-            self.parents_store.append([self.selected_parent, self.selected_parent.size, False, False,
-                                       self.selected_parent.pool.name, "lvmvg", str(self.selected_parent.size)])
+            self.parents_store.append([self.selected_parent, self.selected_free, False, False,
+                                       self.selected_parent.pool.name, "lvmvg", str(self.selected_free.size)])
 
         else:
-            self.parents_store.append([self.selected_parent, self.selected_free.size, False, False,
+            self.parents_store.append([self.selected_parent, self.selected_free, False, False,
                                        self.selected_parent.name, self.selected_parent.type, str(self.selected_free.size)])
 
         self.select_selected_free_region()
@@ -607,6 +607,7 @@ class AddDialog(Gtk.Dialog):
                 free = self.selected_free.size
 
             parent = ProxyDataContainer(device=self.selected_parent,
+                                        free_space=self.selected_free,
                                         min_size=self._get_parent_min_size(),
                                         max_size=free,
                                         reserved_size=reserved_size)
@@ -615,13 +616,15 @@ class AddDialog(Gtk.Dialog):
             for row in self.parents_store:
                 if row[3]:
                     parent = ProxyDataContainer(device=row[0],
+                                                free_space=row[1],
                                                 min_size=self._get_parent_min_size(),
-                                                max_size=row[1],
+                                                max_size=row[1].size,
                                                 reserved_size=reserved_size)
                     parents.append(parent)
 
         if not parents:  # FIXME
             parent = ProxyDataContainer(device=self.selected_parent,
+                                        free_space=self.selected_free,
                                         min_size=self._get_parent_min_size(),
                                         max_size=self.selected_free.size,
                                         reserved_size=reserved_size)

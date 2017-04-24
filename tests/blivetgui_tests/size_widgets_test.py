@@ -772,8 +772,10 @@ class ParentChooserTest(unittest.TestCase):
         """ Test basic ParentChooser functionality """
         parent = MagicMock()
         parent.configure_mock(name="vda")
+        free = MagicMock()
 
-        chooser = ParentChooser(parent=parent, min_size=Size("1 MiB"), max_size=Size("1 GiB"),
+        chooser = ParentChooser(parent=parent, free_space=free,
+                                min_size=Size("1 MiB"), max_size=Size("1 GiB"),
                                 reserved_size=Size(0), selected=True, parent_selectable=False,
                                 size_selectable=True)
         self.assertEqual(chooser.min_size, Size("1 MiB"))
@@ -790,8 +792,10 @@ class ParentChooserTest(unittest.TestCase):
         """ Test (de)selecting parent """
         parent = MagicMock()
         parent.configure_mock(name="vda")
+        free = MagicMock()
 
-        chooser = ParentChooser(parent=parent, min_size=Size("1 MiB"), max_size=Size("1 GiB"),
+        chooser = ParentChooser(parent=parent, free_space=free,
+                                min_size=Size("1 MiB"), max_size=Size("1 GiB"),
                                 reserved_size=Size(0), selected=True, parent_selectable=True,
                                 size_selectable=True)
 
@@ -826,8 +830,10 @@ class ParentChooserTest(unittest.TestCase):
         """ Test chaning size selection """
         parent = MagicMock()
         parent.configure_mock(name="vda")
+        free = MagicMock()
 
-        chooser = ParentChooser(parent=parent, min_size=Size("1 MiB"), max_size=Size("1 GiB"),
+        chooser = ParentChooser(parent=parent, free_space=free,
+                                min_size=Size("1 MiB"), max_size=Size("1 GiB"),
                                 reserved_size=Size(0), selected=True, parent_selectable=False,
                                 size_selectable=True)
 
@@ -842,8 +848,10 @@ class ParentChooserTest(unittest.TestCase):
         """ Test setting limits (min/max size) """
         parent = MagicMock()
         parent.configure_mock(name="vda")
+        free = MagicMock()
 
-        chooser = ParentChooser(parent=parent, min_size=Size("1 MiB"), max_size=Size("1 GiB"),
+        chooser = ParentChooser(parent=parent, free_space=free,
+                                min_size=Size("1 MiB"), max_size=Size("1 GiB"),
                                 reserved_size=Size(0), selected=True, parent_selectable=False,
                                 size_selectable=True)
 
@@ -877,8 +885,10 @@ class ParentChooserTest(unittest.TestCase):
         """ Test connecting signals and signal handling """
         parent = MagicMock()
         parent.configure_mock(name="vda")
+        free = MagicMock()
 
-        chooser = ParentChooser(parent=parent, min_size=Size("1 MiB"), max_size=Size("1 GiB"),
+        chooser = ParentChooser(parent=parent, free_space=free,
+                                min_size=Size("1 MiB"), max_size=Size("1 GiB"),
                                 reserved_size=Size(0), selected=True, parent_selectable=True,
                                 size_selectable=True)
 
