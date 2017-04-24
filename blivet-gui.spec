@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.2
+Version: 2.1.3
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -68,6 +68,18 @@ fi
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Mon Apr 24 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.3-1
+- Merge pull request #57 from vojtechtrefny/master_partition-ordering (vtrefny)
+- Preserve ordering when adding partitions (#1439591) (vtrefny)
+- Merge pull request #55 from vojtechtrefny/master_test-day-fixes-3 (vtrefny)
+- Fix crash when there are no "real" actions to perform (vtrefny)
+- Fix displaying of non-existing encrypted devices (#1439576) (vtrefny)
+- Allow deleting parents when deleting VG/RAID/Btrfs volume (#1439661) (vtrefny)
+- SizeChooser: Change default and available size units (#1440369) (vtrefny)
+- Allow creating encrypted MD arrays (#1440392) (vtrefny)
+- Allow setting mountpoint for all mountable filesystems (#1440372) (vtrefny)
+- Allow creating encrypted LVs (#1439651) (vtrefny)
+
 * Tue Apr 11 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.2-1
 - Merge pull request #52 from vojtechtrefny/master_test-day-fixes-2 (vtrefny)
 - Fix devices allowed to add to a PV on an mdarray (#1440804) (vtrefny)
