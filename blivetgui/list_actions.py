@@ -120,11 +120,9 @@ class ListActions(object):
             self.blivet_gui.activate_action_buttons(False)
             self.blivet_gui.label_actions.set_markup("No pending actions")
         else:
-            if self.blivet_gui.installer_mode:
-                # this label is actually a button in installer mode, so no link needed
-                self.blivet_gui.label_actions.set_markup("%s pending actions" % self.actions)
-            else:
-                self.blivet_gui.label_actions.set_markup("<a href=\"\"> %s pending actions</a>" % self.actions)
+            actions_str = P_("%s pending action", "%s pending actions", self.actions) % self.actions
+            markup = "<span underline=\"single\" foreground=\"blue\">%s</span>" % actions_str
+            self.blivet_gui.label_actions.set_markup(markup)
 
         return self.history.pop()
 
