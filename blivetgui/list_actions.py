@@ -27,7 +27,7 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
-from .i18n import P_
+from .i18n import _, P_
 
 # ---------------------------------------------------------------------------- #
 
@@ -118,7 +118,7 @@ class ListActions(object):
         # deactivate 'actions-related' options (if there are no actions)
         if not self.actions:
             self.blivet_gui.activate_action_buttons(False)
-            self.blivet_gui.label_actions.set_markup("No pending actions")
+            self.blivet_gui.label_actions.set_markup(_("No pending actions"))
         else:
             actions_str = P_("%s pending action", "%s pending actions", self.actions) % self.actions
             markup = "<span underline=\"single\" foreground=\"blue\">%s</span>" % actions_str
@@ -141,4 +141,4 @@ class ListActions(object):
         self.history = []
 
         self.blivet_gui.activate_action_buttons(False)
-        self.blivet_gui.label_actions.set_markup("No pending actions")
+        self.blivet_gui.label_actions.set_markup(_("No pending actions"))

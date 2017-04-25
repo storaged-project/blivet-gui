@@ -440,7 +440,7 @@ class LVMEditDialog(Gtk.Dialog):
 
             renderer_text = Gtk.CellRendererText()
 
-            column_toggle = Gtk.TreeViewColumn("Add?", renderer_toggle, active=2)
+            column_toggle = Gtk.TreeViewColumn(_("Add?"), renderer_toggle, active=2)
             column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=3)
             column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=4)
             column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=5)
@@ -502,7 +502,7 @@ class LVMEditDialog(Gtk.Dialog):
 
             renderer_text = Gtk.CellRendererText()
 
-            column_radio = Gtk.TreeViewColumn("Remove?", renderer_radio, active=2)
+            column_radio = Gtk.TreeViewColumn(_("Remove?"), renderer_radio, active=2)
             column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=3)
             column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=4)
             column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=5)

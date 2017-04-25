@@ -177,7 +177,7 @@ class DeviceInformationDialog(Gtk.Dialog):
         self.grid.attach(device_info_label, left=0, top=2, width=1, height=1)
 
         # 'basic' information about selected device
-        existing = "existing" if self.device.exists else "non-existing"
+        existing = _("existing") if self.device.exists else _("non-existing")
         info = _(" • <i>Status:</i> {exist}\n").format(exist=existing)
         info += _(" • <i>Name:</i> {name}\n").format(name=self.device.name)
         info += _(" • <i>Path:</i> {path}\n").format(path=self.device.path)
@@ -210,7 +210,7 @@ class DeviceInformationDialog(Gtk.Dialog):
         self.grid.attach(fmt_info_label, left=0, top=4, width=2, height=1)
 
         if self.device.format and self.device.format.type:
-            existing = "existing" if self.device.exists else "non-existing"
+            existing = _("existing") if self.device.exists else _("non-existing")
             info = _(" • <i>Status:</i> {exist}\n").format(exist=existing)
             info += _(" • <i>Type:</i> {type}\n").format(type=self.device.format.type)
             info += _(" • <i>UUID:</i> {uuid}\n").format(uuid=self.device.format.uuid)
