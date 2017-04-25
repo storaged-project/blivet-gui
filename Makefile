@@ -130,7 +130,7 @@ bumpver:
 	$(MAKE) po-push
 
 rpmlog:
-	@git log --pretty="format:- %s (%ae)" $(RELEASE_TAG).. |sed -e 's/@.*)/)/'
+	@git log --no-merges --pretty="format:- %s (%ae)" $(RELEASE_TAG).. |sed -e 's/@.*)/)/'
 	@echo
 
 ci: check test
