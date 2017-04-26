@@ -100,8 +100,10 @@ class BlivetGUIAnaconda(BlivetGUI):
         style_context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
 
         # get the main vbox from blivet-gui and add it into given Gtk.Container
+        win = self.builder.get_object("main_window")
         vbox = self.builder.get_object("vbox")
-        vbox.reparent(spoke_container)
+        win.remove(vbox)
+        spoke_container.add(vbox)
 
         # ActionsMenu
         self.popup_menu = ActionsMenu(self)
