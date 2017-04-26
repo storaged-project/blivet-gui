@@ -31,6 +31,7 @@ from gi.repository import Gtk, GLib, Gdk
 
 from blivet.size import Size
 from blivet.errors import FSError
+from blivet.formats import fs
 
 from .list_devices import ListDevices
 from .list_partitions import ListPartitions
@@ -72,6 +73,13 @@ class BlivetGUI(object):
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
         self.ignored_disks = []
+
+        # allow creating ntfs filesystem
+        # XXX: This shouldn't be necessary, NTFS is already "_formattable",
+        # I don't have idea what "_supported" is for, the "supported" property
+        # depends on this and "utils_available" so it is False when "ntfsprogs"
+        # are not installed and that should be enough.
+        fs.NTFS._supported = True
 
         # CSS styles
         css_provider = Gtk.CssProvider()
