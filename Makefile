@@ -127,9 +127,10 @@ bumpver:
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	sed -i "s/__version__\ =\ '$(VERSION)'/__version__\ =\ '$$NEWVERSION'/" blivetgui/__init__.py ; \
 	sed -i "s/version\ =\ '$(VERSION)'/version\ =\ '$$NEWVERSION'/" doc/conf.py ; \
+	$(MAKE) po-push
 
 rpmlog:
-	@git log --pretty="format:- %s (%ae)" $(RELEASE_TAG).. |sed -e 's/@.*)/)/'
+	@git log --no-merges --pretty="format:- %s (%ae)" $(RELEASE_TAG).. |sed -e 's/@.*)/)/'
 	@echo
 
 ci: check test
