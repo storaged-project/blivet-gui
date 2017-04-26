@@ -27,6 +27,8 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
+from ..i18n import _
+
 
 class Rectangle(Gtk.RadioButton):
     """ Rectangle object """
@@ -45,6 +47,15 @@ class Rectangle(Gtk.RadioButton):
         hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, homogeneous=False, spacing=6)
         self.add(hbox)
 
+        self.device_icons = {"group": ("drive-multidisk-symbolic", _("Group device")),
+                             "livecd": ("media-optical-symbolic", _("LiveUSB device")),
+                             "encrypted": ("changes-prevent-symbolic", _("Encrypted device (closed)")),
+                             "decrypted": ("changes-allow-symbolic", _("Encrypted device (open)")),
+                             "empty": ("radio-symbolic", _("Empty device")),
+                             "snapshot": ("camera-photo-symbolic", _("Snapshot")),
+                             "nodisklabel": ("drive-harddisk-symbolic", _("Missing partition table")),
+                             "protected": ("action-unavailable-symbolic", _("Device or format is write protected"))}
+
         if label:
             label_device = Gtk.Label(justify=Gtk.Justification.CENTER,
                                      label="<small>%s\n%s</small>" % (self.device.name, str(self.device.size)),
@@ -54,15 +65,6 @@ class Rectangle(Gtk.RadioButton):
 
             icons = self._add_device_icons()
             hbox.pack_start(child=icons, expand=False, fill=False, padding=0)
-
-    device_icons = {"group": ("drive-multidisk-symbolic", "Group device"),
-                    "livecd": ("media-optical-symbolic", "LiveUSB device"),
-                    "encrypted": ("changes-prevent-symbolic", "Encrypted device (closed)"),
-                    "decrypted": ("changes-allow-symbolic", "Encrypted device (open)"),
-                    "empty": ("radio-symbolic", "Empty device"),
-                    "snapshot": ("camera-photo-symbolic", "Snapshot"),
-                    "nodisklabel": ("drive-harddisk-symbolic", "Missing partition table"),
-                    "protected": ("action-unavailable-symbolic", "Device or format is write protected")}
 
     def _add_device_icons(self):
         device_properties = self._get_device_properties()

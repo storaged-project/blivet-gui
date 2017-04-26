@@ -94,17 +94,20 @@ class ListDevices(object):
         if gdevices["lvm"]:
             self.device_list.append([None, None, "<b>%s</b>" % _("LVM")])
             for device in gdevices["lvm"]:
-                self.device_list.append([device, icon_group, str(device.name + "\n<i><small>LVM2 VG</small></i>")])
+                self.device_list.append([device, icon_group,
+                                        str(device.name + "\n<i><small>%s</small></i>" % _("LVM2 VG"))])
 
         if gdevices["raid"]:
             self.device_list.append([None, None, "<b>%s</b>" % _("RAID")])
             for device in gdevices["raid"]:
-                self.device_list.append([device, icon_group, str(device.name + "\n<i><small>MDArray</small></i>")])
+                self.device_list.append([device, icon_group,
+                                        str(device.name + "\n<i><small>%s</small></i>" % _("MDArray"))])
 
         if gdevices["btrfs"]:
             self.device_list.append([None, None, "<b>%s</b>" % _("Btrfs Volumes")])
             for device in gdevices["btrfs"]:
-                self.device_list.append([device, icon_group, str(device.name + "\n<i><small>Btrfs Volume</small></i>")])
+                self.device_list.append([device, icon_group,
+                                        str(device.name + "\n<i><small>%s</small></i>" % _("Btrfs Volume"))])
 
     def update_devices_view(self):
         """ Update device view
