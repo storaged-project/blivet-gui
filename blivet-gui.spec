@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.1.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
 Group: Applications/System
@@ -12,7 +12,7 @@ BuildRequires: gettext >= 0.18.3
 BuildRequires: python-setuptools
 BuildRequires: libappstream-glib
 Requires: python3
-Requires: pygobject3
+Requires: python3-gobject
 Requires: gettext
 Requires: python3-blivet >= 1:2.1
 Requires: gtk3
@@ -68,6 +68,9 @@ fi
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Thu Apr 27 2017 Peter Robinson <pbrobinson@fedoraproject.org> 2.1.3-2
+- Use python3-gobject not pygobject3
+
 * Mon Apr 24 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.3-1
 - Merge pull request #57 from vojtechtrefny/master_partition-ordering (vtrefny)
 - Preserve ordering when adding partitions (#1439591) (vtrefny)
