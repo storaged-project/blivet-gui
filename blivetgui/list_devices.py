@@ -71,6 +71,13 @@ class ListDevices(object):
 
         disks = self.blivet_gui.client.remote_call("get_disks")
 
+        # hide protected and hidden disks in installer mode
+        # (this will hide USB drive with installation image, disks under FW RAID etc.)
+        if self.blivet_gui.installer_mode:
+            for disk in disks:
+                if disk.protected or disk.format.hidden:
+                    disks.remove(disk)
+
         if disks:
             self.device_list.append([None, None, "<b>%s</b>" % _("Disks")])
 
