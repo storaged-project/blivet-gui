@@ -295,4 +295,4 @@ class ListPartitions(object):
             selection = treeview.get_selection()
 
             if selection:
-                self.blivet_gui.popup_menu.menu.popup(None, None, None, None, event.button, event.time)
+                self.blivet_gui.popup_menu.menu.popup_at_pointer(None)
