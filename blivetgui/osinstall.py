@@ -147,6 +147,30 @@ class BlivetGUIAnaconda(BlivetGUI):
         # the first disk and re-draw visualization
         self.list_devices.disks_view.set_cursor(0)
 
+    def set_keyboard_shortcuts(self, _spoke):
+        """ Configure blivet-gui keyboard shortcuts and add our accel group
+            to the Anaconda main window. This configuration should be removed
+            using "unset_keyboard_shortcuts" when exitting blivet-gui spoke
+        """
+        accel = self.builder.get_object("accelgroup")
+        self.main_window.add_accel_group(accel)
+
+        add = self.builder.get_object("button_add")
+        add.add_accelerator("clicked", accel, Gdk.KEY_Insert, 0, Gtk.AccelFlags.VISIBLE)
+        delete = self.builder.get_object("button_delete")
+        delete.add_accelerator("clicked", accel, Gdk.KEY_Delete, 0, Gtk.AccelFlags.VISIBLE)
+
+    def unset_keyboard_shortcuts(self, _spoke):
+        """ Remove configuration added using "set_keyboard_shortcuts"
+        """
+        accel = self.builder.get_object("accelgroup")
+        self.main_window.remove_accel_group(accel)
+
+        add = self.builder.get_object("button_add")
+        add.remove_accelerator(accel, Gdk.KEY_Insert, 0)
+        delete = self.builder.get_object("button_delete")
+        delete.remove_accelerator(accel, Gdk.KEY_Delete, 0)
+
     @property
     def label_actions(self):
         # Gtk.Label with number of currently scheduled actions is placed
