@@ -259,7 +259,7 @@ class LogicalView(object):
     def _on_button_release(self, button, event):
         if event.button == 3:
             self._on_rectangle_toggle(button)  # select the button
-            self.blivet_gui.popup_menu.menu.popup(None, None, None, None, event.button, event.time)
+            self.blivet_gui.popup_menu.menu.popup_at_pointer(None)
 
     def _on_button_press(self, button, event):
         if event.type == Gdk.EventType._2BUTTON_PRESS:

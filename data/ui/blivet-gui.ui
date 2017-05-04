@@ -311,6 +311,7 @@
                                 <property name="image">image_add</property>
                                 <property name="relief">none</property>
                                 <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Add">Add new device</property>
+                                <accelerator key="Insert" signal="clicked"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -326,6 +327,7 @@
                                 <property name="image">image_delete</property>
                                 <property name="relief">none</property>
                                 <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Delete">Delete selected device</property>
+                                <accelerator key="Delete" signal="clicked"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>

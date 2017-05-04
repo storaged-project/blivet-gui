@@ -132,6 +132,45 @@ class BlivetGUIAnaconda(BlivetGUI):
         self.physical_view = PhysicalView(self)
         self.builder.get_object("scrolledwindow_physical").add(self.physical_view.vbox)
 
+    def ui_refresh(self, _spoke):
+        """ This should be called only from Anaconda using the spoke 'entered'
+            signal.
+
+            In Anaconda blivetgui.initialize runs during 'refresh' when Gtk
+            widgets are not visible ('realized') and this causes some UI
+            elements to look weird because of wrong size allocation
+            (unrealized widgets don't have size allocation so things like
+            size of devices in visualization fail).
+        """
+
+        # just set cursor to firts line in the device view -- this will select
+        # the first disk and re-draw visualization
+        self.list_devices.disks_view.set_cursor(0)
+
+    def set_keyboard_shortcuts(self, _spoke):
+        """ Configure blivet-gui keyboard shortcuts and add our accel group
+            to the Anaconda main window. This configuration should be removed
+            using "unset_keyboard_shortcuts" when exitting blivet-gui spoke
+        """
+        accel = self.builder.get_object("accelgroup")
+        self.main_window.add_accel_group(accel)
+
+        add = self.builder.get_object("button_add")
+        add.add_accelerator("clicked", accel, Gdk.KEY_Insert, 0, Gtk.AccelFlags.VISIBLE)
+        delete = self.builder.get_object("button_delete")
+        delete.add_accelerator("clicked", accel, Gdk.KEY_Delete, 0, Gtk.AccelFlags.VISIBLE)
+
+    def unset_keyboard_shortcuts(self, _spoke):
+        """ Remove configuration added using "set_keyboard_shortcuts"
+        """
+        accel = self.builder.get_object("accelgroup")
+        self.main_window.remove_accel_group(accel)
+
+        add = self.builder.get_object("button_add")
+        add.remove_accelerator(accel, Gdk.KEY_Insert, 0)
+        delete = self.builder.get_object("button_delete")
+        delete.remove_accelerator(accel, Gdk.KEY_Delete, 0)
+
     @property
     def label_actions(self):
         # Gtk.Label with number of currently scheduled actions is placed
