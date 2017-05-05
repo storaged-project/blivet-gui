@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.3
-Release: 2%{?dist}
+Version: 2.1.4
+Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
 Group: Applications/System
@@ -68,6 +68,14 @@ fi
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Fri May 05 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.4-1
+- Do not try to set both size request and auto-expand for Gtk.Scale (vtrefny)
+- Use Gtk.Menu.popup_at_pointer when showing context menu (vtrefny)
+- Allow keyboard shortcuts configuration from Anaconda (#1439608) (vtrefny)
+- Allow "refreshing" UI from Anaconda when spoke is visible (vtrefny)
+- Hide 'protected' devices in installer mode (vtrefny)
+- Update Zanata branch name (vtrefny)
+
 * Thu Apr 27 2017 Peter Robinson <pbrobinson@fedoraproject.org> 2.1.3-2
 - Use python3-gobject not pygobject3
 
