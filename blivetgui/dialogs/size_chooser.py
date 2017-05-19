@@ -195,10 +195,10 @@ class SizeArea(GUIWidget):
             self.main_chooser.max_size = self.max_size
 
     # PUBLIC METHODS
-    def connect(self, signal, _method, *_args):
+    def connect(self, signal_name, signal_handler, *args):  # pylint: disable=unused-argument
         """ Connect a signal hadler """
 
-        raise TypeError("Unknown signal type '%s' for widget %s" % (signal, self.name))
+        raise TypeError("Unknown signal type '%s' for widget %s" % (signal_name, self.name))
 
     def validate_user_input(self):
         selection = self.get_selection()
@@ -407,10 +407,10 @@ class ParentArea(GUIWidget):
         return total_size
 
     # PUBLIC METHODS
-    def connect(self, signal, _method, *_args):
+    def connect(self, signal_name, signal_handler, *args):  # pylint: disable=unused-argument
         """ Connect a signal hadler """
 
-        raise TypeError("Unknown signal type '%s' for widget %s" % (signal, self.name))
+        raise TypeError("Unknown signal type '%s' for widget %s" % (signal_name, self.name))
 
     def get_selection(self):
         parents = []
@@ -643,16 +643,16 @@ class ParentChooser(GUIWidget):
         self.size_chooser.min_size = self.min_size
 
     # PUBLIC METHODS
-    def connect(self, signal, method, *args):
+    def connect(self, signal_name, signal_handler, *args):
         """ Connect a signal hadler """
 
-        if signal == "parent-toggled":
-            self._parent_toggled_handlers.append(SignalHandler(method=method, args=args))
-        elif signal == "size-changed":
+        if signal_name == "parent-toggled":
+            self._parent_toggled_handlers.append(SignalHandler(method=signal_handler, args=args))
+        elif signal_name == "size-changed":
             # just connect this directly to the size_chooser
-            self.size_chooser.connect("size-changed", method, *args)
+            self.size_chooser.connect("size-changed", signal_handler, *args)
         else:
-            raise TypeError("Unknown signal type '%s' for widget %s" % (signal, self.name))
+            raise TypeError("Unknown signal type '%s' for widget %s" % (signal_name, self.name))
 
     # SIGNAL HANDLERS
     def _on_parent_toggled(self, checkbutton):
@@ -776,17 +776,17 @@ class SizeChooser(GUIWidget):
         else:
             return self.available_units[-1]
 
-    def connect(self, signal, method, *args):
+    def connect(self, signal_name, signal_handler, *args):
         """ Connect a signal hadler """
 
-        if signal == "size-changed":
-            self._size_change_handlers.append(SignalHandler(method=method, args=args))
+        if signal_name == "size-changed":
+            self._size_change_handlers.append(SignalHandler(method=signal_handler, args=args))
 
-        elif signal == "unit-changed":
-            self._unit_change_handlers.append(SignalHandler(method=method, args=args))
+        elif signal_name == "unit-changed":
+            self._unit_change_handlers.append(SignalHandler(method=signal_handler, args=args))
 
         else:
-            raise ValueError("Unknown signal type %s" % signal)
+            raise ValueError("Unknown signal type %s" % signal_name)
 
     def _scale_precision(self, unit):
         """ Get number of decimal places to be displayed for selected unit
