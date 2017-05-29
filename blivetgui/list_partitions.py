@@ -53,42 +53,37 @@ class ListPartitions(object):
 
         self.partitions_list.clear()
 
+        def _get_real_child(child):
+            """ When adding a child device, we actually might want to add one
+                of its children instead -- e.g. when adding a partition that
+                is a PV we want to add the VG ("group device") etc.
+            """
+            if self._is_group_device(child):
+                return self.blivet_gui.client.remote_call("get_group_device", child)
+            elif child.format and child.format.type == "luks" and child.children:
+                return self.blivet_gui.client.remote_call("get_luks_device", child)
+            else:
+                return child
+
         def _add_chilren(childs, parent_iter=None):
             for child in childs:
-                if self._is_group_device(child):
-                    new_child = self.blivet_gui.client.remote_call("get_group_device", child)
-                    self._add_to_store(new_child, parent_iter)
-
-                elif child.format and child.format.type == "luks" and child.children:
-                    new_child = self.blivet_gui.client.remote_call("get_luks_device", child)
-                    self._add_to_store(new_child, None)
-
-                elif child.children:
+                if child.children:
                     child_iter = self._add_to_store(child, parent_iter)
                     _add_chilren(self.blivet_gui.client.remote_call("get_children", child), child_iter)
 
                 else:
-                    self._add_to_store(child, parent_iter)
+                    new_child = _get_real_child(child)
+                    self._add_to_store(new_child, parent_iter)
 
         if selected_device.is_disk:
             childs = self.blivet_gui.client.remote_call("get_disk_children", selected_device)
-
             for child in childs.partitions:
-                if self._is_group_device(child):
-                    new_child = self.blivet_gui.client.remote_call("get_group_device", child)
-                    self._add_to_store(new_child, None)
-
-                elif child.format and child.format.type == "luks" and child.children:
-                    new_child = self.blivet_gui.client.remote_call("get_luks_device", child)
-                    self._add_to_store(new_child, None)
-
-                else:
-                    child_iter = self._add_to_store(child)
-                    if hasattr(child, "is_extended") and child.is_extended:
-                        for logical in childs.logicals:
-                            if self._is_group_device(logical):
-                                logical = self.blivet_gui.client.remote_call("get_group_device", logical)
-                            self._add_to_store(logical, child_iter)
+                child = _get_real_child(child)
+                child_iter = self._add_to_store(child)
+                if hasattr(child, "is_extended") and child.is_extended:
+                    for logical in childs.logicals:
+                        logical = _get_real_child(logical)
+                        self._add_to_store(logical, child_iter)
 
         # lvmvg always has some children, at least a free space
         elif selected_device.type == "lvmvg":
