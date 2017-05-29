@@ -587,8 +587,11 @@ class BlivetUtils(object):
         """
 
         for device in self.storage.devices:
-            if device.type in ("partition", "lvmlv", "lvmpv"):
-                if device.format.type and not device.format.status and hasattr(device.format, "update_size_info"):
+            if device.type in ("partition", "lvmlv", "lvmpv", "luks/dm-crypt"):
+                # skip mounted devices
+                if hasattr(device.format, "system_mountpoint") and device.format.system_mountpoint:
+                    continue
+                if device.format.type and hasattr(device.format, "update_size_info"):
                     try:
                         device.format.update_size_info()
                     except blivet.errors.FSError:
