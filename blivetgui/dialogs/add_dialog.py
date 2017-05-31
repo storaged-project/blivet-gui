@@ -354,8 +354,7 @@ class AddDialog(Gtk.Dialog):
 
         types = []
 
-        if self.selected_parent.type == "disk" or (self.selected_parent.type == "mdarray" and
-                                                   self.selected_parent.format.type == "disklabel"):
+        if self.selected_parent.is_disk and self.selected_parent.format.type == "disklabel":
             types.append((_("Partition"), "partition"))
 
             if self.selected_free.size > lvm.LVM_PE_SIZE * 2:
