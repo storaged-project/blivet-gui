@@ -149,3 +149,24 @@ button#bg-button-actions, button#bg-button-actions:hover {
   background-image: none;
   border: none;
 }
+
+/* BlivetGUI Window -- actions toolbar background */
+box#bg-toolbar {
+  background-color: @theme_bg_color;
+  padding: 4px;
+}
+
+/* BlivetGUI Window -- actions toolbar border */
+button#bg-toolbar-button-inner {
+  border-right: none;
+  border-radius: 0;
+}
+
+button#bg-toolbar-button-first {
+  border-radius: 4px 0 0 4px;
+  border-right: none;
+}
+
+button#bg-toolbar-button-last {
+  border-radius: 0 4px 4px 0;
+}
