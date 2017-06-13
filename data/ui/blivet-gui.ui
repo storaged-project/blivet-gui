@@ -300,16 +300,17 @@
                         </child>
                         <child>
                           <object class="GtkBox" id="box_toolbar">
-                            <property name="name">toolbar</property>
+                            <property name="name">bg-toolbar</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <child>
                               <object class="GtkButton" id="button_add">
+                                <property name="name">bg-toolbar-button-first</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="image">image_add</property>
-                                <property name="relief">none</property>
+                                <property name="relief">normal</property>
                                 <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Add">Add new device</property>
                                 <accelerator key="Insert" signal="clicked"/>
                               </object>
@@ -321,11 +322,12 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="button_delete">
+                                <property name="name">bg-toolbar-button-inner</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="image">image_delete</property>
-                                <property name="relief">none</property>
+                                <property name="relief">normal</property>
                                 <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Delete">Delete selected device</property>
                                 <accelerator key="Delete" signal="clicked"/>
                               </object>
@@ -337,12 +339,13 @@
                             </child>
                             <child>
                               <object class="GtkMenuButton" id="button_edit">
+                                <property name="name">bg-toolbar-button-inner</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
                                 <property name="halign">center</property>
                                 <property name="valign">center</property>
-                                <property name="relief">none</property>
+                                <property name="relief">normal</property>
                                 <property name="popup">edit_button_menu</property>
                                 <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Edit">Edit selected device</property>
                                 <child>
@@ -363,11 +366,12 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="button_unmount">
+                                <property name="name">bg-toolbar-button-inner</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="image">image_unmount</property>
-                                <property name="relief">none</property>
+                                <property name="relief">normal</property>
                                 <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Unmount">Unmount selected device</property>
                               </object>
                               <packing>
@@ -378,11 +382,12 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="button_decrypt">
+                                <property name="name">bg-toolbar-button-inner</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="image">image_decrypt</property>
-                                <property name="relief">none</property>
+                                <property name="relief">normal</property>
                                 <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Decrypt">Unlock/Open selected device</property>
                               </object>
                               <packing>
@@ -393,11 +398,12 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="button_info">
+                                <property name="name">bg-toolbar-button-last</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="image">image_info</property>
-                                <property name="relief">none</property>
+                                <property name="relief">normal</property>
                                 <property name="tooltip_text" translatable="yes" context="ActionsToolbar|Info">Display information about selected device</property>
                               </object>
                               <packing>
