@@ -1271,6 +1271,9 @@ class BlivetUtils(object):
             return False
 
         else:
+            # save passphrase for future use (in Anaconda only)
+            blivet_device.original_format.passphrase = passphrase
+            self.storage.save_passphrase(blivet_device)
             self.storage.devicetree.populate()
             return True
 
