@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.4
+Version: 2.1.5
 Release: 1%{?dist}
 Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -68,6 +68,15 @@ fi
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Tue Jun 20 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.5-1
+- Fix reusing LUKS devices in Anaconda (#1462071) (vtrefny)
+- Make the device toolbar look more "toolbarish" (#1456011) (vtrefny)
+- Use "is_disk" to check if device is disk (#1457163) (vtrefny)
+- Fix displaying encrypted logical partitions (vtrefny)
+- Run "update_size_info" for luks devices (vtrefny)
+- pylint: fix different keyword arguments for "connect" method (vtrefny)
+- Ignore pylint error "not-context-manager" for locks (vtrefny)
+
 * Fri May 05 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.4-1
 - Do not try to set both size request and auto-expand for Gtk.Scale (vtrefny)
 - Use Gtk.Menu.popup_at_pointer when showing context menu (vtrefny)
