@@ -16,7 +16,7 @@ Requires: python3-gobject
 Requires: gettext
 Requires: python3-blivet >= 1:2.1
 Requires: gtk3
-Requires: polkit-gnome
+Requires: PolicyKit-authentication-agent
 Requires: python3-pid
 Requires: libreport
 Requires: adwaita-icon-theme
