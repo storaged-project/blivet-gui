@@ -14,25 +14,22 @@
   <email>vtrefny@redhat.com</email>
   <years>2014-2017</years>
   </credit>
-
-<include href="legal.xml" xmlns="http://www.w3.org/2001/XInclude"/>
 </info>
 
-<title>blivet-gui</title>
+<title>Blivet-GUI Spoke</title>
 
-<p>blivet-gui is a graphical application for creating and managing storage
-including LVM, btrfs, software RAID etc. As backend it uses blivet, powerful
-python library for storage configuration.</p>
+<p>Blivet-GUI provides an alternative way of storage configuration in the
+Anaconda installer.</p>
 
 <links type="section"/>
 
 <section id="main-window">
-  <title>Main window of blivet-gui</title>
+  <title>Spoke window of Blivet-GUI</title>
 
-  <p>Main window of blivet-gui is divided into five important regions.</p>
+  <p>Main window of the spoke is divided into five important regions.</p>
 
   <figure>
-    <media type="image" src="images/blivet-gui-1.png" width="640" />
+    <media type="image" src="images/blivet-gui-installer-1.png" width="640" />
   </figure>
 
   <terms>
@@ -67,7 +64,7 @@ python library for storage configuration.</p>
           <item>
             <p><media type="image" src="icons/edit.png" width="24" /> Edit
             selected device. This button opens a submenu that allows you to
-            resize the device or change its format.</p>
+            resize the device or change its format or mountpoint.</p>
             <p>See <link xref="#edit-device"/></p>
           </item>
           <item>
@@ -91,29 +88,22 @@ python library for storage configuration.</p>
       <p>See <link xref="#actions"/></p>
     </item>
     <item>
-      <title>5. Main menu</title>
-      <p>Toolbar in the top right of the window allows you to:</p>
-        <list>
+      <title>5. Actions management</title>
+      <p>Two buttons in the right bottom corner allow you to:</p>
+        <terms>
           <item>
-            <p><media type="image" src="icons/apply.png" width="24" /> Apply all
-            currently scheduled actions -- in other words to write all the
-            changes to the disks. A confirmation dialog with a list of currently
-            scheduled actions will be displayed.</p>
+            <title>Undo last actions</title>
+            <p>Undo (remove) last action you scheduled.</p>
             <p>See <link xref="#actions"/></p>
           </item>
           <item>
-            <p><media type="image" src="icons/clear.png" width="24" /> Clear all
-            scheduled actions.</p>
+            <title>Reset all</title>
+            <p>Clear (remove) all actions you scheduled in this spoke. Note that
+            some actions are pre-scheduled by the installer and are not
+            affected by this.</p>
+            <p>See <link xref="#actions"/></p>
           </item>
-          <item>
-            <p><media type="image" src="icons/undo.png" width="24" /> Undo (remove)
-            last action you scheduled.</p>
-          </item>
-          <item>
-            <p><media type="image" src="icons/menu.png" width="24" /> Display
-            the main menu of blivet-gui.</p>
-          </item>
-        </list>
+        </terms>
     </item>
   </terms>
 
@@ -129,7 +119,7 @@ python library for storage configuration.</p>
   in the toolbar to show dialog for adding a new device.</p>
 
   <figure>
-    <media type="image" src="images/blivet-gui-2.png" width="480" />
+    <media type="image" src="images/blivet-gui-installer-2.png" width="480" />
   </figure>
 
   <terms>
@@ -153,7 +143,7 @@ python library for storage configuration.</p>
     <item>
       <title>4. New device properties</title>
       <p>Allows you to specify additional features for the new device. Based on the
-      device type you can set a format, name, label, encryption etc.</p>
+      device type you can set a mountpoint, format, name, label, encryption etc.</p>
     </item>
     <item>
       <title>5. Advanced options</title>
@@ -166,13 +156,13 @@ python library for storage configuration.</p>
 <section id="edit-device">
   <title>Modifying existing devices</title>
 
-  <p>blivet-gui currently offers only limited support for modification of existing
+  <p>Blivet-GUI currently offers only limited support for modification of existing
   devices. To modify an existing device, select it from the list of child
   devices in the right part of the window and then click on the
   <media type="image" src="icons/edit.png" width="24" /> <em>edit</em> button</p>
 
   <figure>
-    <media type="image" src="images/blivet-gui-3.png" width="200" />
+    <media type="image" src="images/blivet-gui-installer-3.png" width="200" />
   </figure>
 
   <p>You can:</p>
@@ -182,6 +172,8 @@ python library for storage configuration.</p>
     <item><p>Format the device. (Change its filesystem.)</p></item>
     <item><p>Modify parents of the device. (Add or remove PVs from an existing
     Volume Group.)</p></item>
+    <item><p>Set mountpoint for the device. (Set mountpoint used by the installer
+    e.g. "/" or "/boot".)</p></item>
   </list>
 
   <p>Note that availability of these options depends on type and properties of
@@ -192,16 +184,16 @@ python library for storage configuration.</p>
 <section id="actions">
   <title>Actions and applying changes</title>
 
-  <p>All changes made using blivet-gui are not written to the disks until you
-  <em>apply</em> them. Number of currently scheduled actions is written in the
+  <p>All changes made using Blivet-GUI are not written to the disks until you
+  start the installation. Number of currently scheduled actions is written in the
   bottom bar of the window. You can click it to see a list of them.</p>
 
   <figure>
-    <media type="image" src="images/blivet-gui-4.png" width="400" />
+    <media type="image" src="images/blivet-gui-installer-4.png" width="400" />
   </figure>
 
-  <p>It is possible to <em>apply</em> or <em>clear</em> all scheduled actions or
-  <em>undo</em> the last action from the toolbar in the top right part of the window.</p>
+  <p>It is possible to <em>clear</em> all scheduled actions or <em>undo</em>
+  the last action using the buttons in the bottom right corner.</p>
 </section>
 
 </page>
