@@ -133,6 +133,14 @@ rpmlog:
 	@git log --no-merges --pretty="format:- %s (%ae)" $(RELEASE_TAG).. |sed -e 's/@.*)/)/'
 	@echo
 
+srpm: local
+	rpmbuild -bs --nodeps $(APPNAME).spec --define "_sourcedir `pwd`"
+	rm -f $(APPNAME)-$(VERSION).tar.gz
+
+rpm: local
+	rpmbuild -bb --nodeps $(APPNAME).spec --define "_sourcedir `pwd`"
+	rm -f $(APPNAME)-$(VERSION).tar.gz
+
 ci: check test
 
 .PHONY: check pep8 pylint clean install tag archive local
