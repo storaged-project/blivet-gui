@@ -1,1 +1,0 @@
-GUI tool for storage configuration using blivet library
