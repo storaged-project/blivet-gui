@@ -6,11 +6,24 @@ Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%
 License: GPLv2+
 Group: Applications/System
 BuildArch: noarch
-BuildRequires: python3-devel
+URL: http://github.com/rhinstaller/blivet-gui
+
 BuildRequires: desktop-file-utils
+BuildRequires: libappstream-glib
+
+Requires: blivet-gui-runtime = %{version}-%{release}
+
+%description
+Graphical (GTK) tool for manipulation and configuration of data storage
+(disks, LVMs, RAIDs) based on blivet library.
+
+%package -n blivet-gui-runtime
+Summary: blivet-gui runtime
+
+BuildRequires: python3-devel
 BuildRequires: gettext >= 0.18.3
 BuildRequires: python-setuptools
-BuildRequires: libappstream-glib
+
 Requires: python3
 Requires: python3-gobject
 Requires: gettext
@@ -20,11 +33,10 @@ Requires: PolicyKit-authentication-agent
 Requires: python3-pid
 Requires: libreport
 Requires: adwaita-icon-theme
-URL: http://github.com/rhinstaller/blivet-gui
 
-%description
-Graphical (GTK) tool for manipulation and configuration of data storage
-(disks, LVMs, RAIDs) based on blivet library.
+%description -n blivet-gui-runtime
+This package provides a blivet-gui runtime for applications that want to use
+blivet-gui without actually installing the application itself.
 
 %prep
 %setup -q
@@ -54,13 +66,15 @@ fi
 %posttrans
 /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
-%files -f %{name}.lang
+%files -n blivet-gui
+%{_datadir}/applications/blivet-gui.desktop
+%{_datadir}/appdata/blivet-gui.appdata.xml
+
+%files -n blivet-gui-runtime -f %{name}.lang
 %{_mandir}/man1/blivet-gui.1*
 %{python3_sitelib}/*
-%{_datadir}/applications/blivet-gui.desktop
 %{_datadir}/polkit-1/actions/org.fedoraproject.pkexec.blivet-gui.policy
 %{_datadir}/icons/hicolor/*/apps/blivet-gui.png
-%{_datadir}/appdata/blivet-gui.appdata.xml
 %{_datadir}/blivet-gui
 %{_bindir}/blivet-gui
 %{_bindir}/blivet-gui-daemon
