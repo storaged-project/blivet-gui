@@ -158,9 +158,10 @@ class BlivetUtils(object):
     """ Class with utils directly working with blivet itselves
     """
 
-    def __init__(self, ignored_disks=None):
+    def __init__(self, ignored_disks=None, exclusive_disks=None):
 
         self.ignored_disks = ignored_disks
+        self.exclusive_disks = exclusive_disks
 
         self.storage = blivet.Blivet()
 
@@ -1291,6 +1292,8 @@ class BlivetUtils(object):
 
         if self.ignored_disks is not None:
             self.storage.config.ignored_disks = self.ignored_disks
+        if self.exclusive_disks is not None:
+            self.storage.config.exclusive_disks = self.exclusive_disks
 
         self.storage.reset()
 
