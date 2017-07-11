@@ -16,17 +16,17 @@
   <screenshots>
     <screenshot type="default" width="802" height="602">
       <image>
-     https://raw.github.com/rhinstaller/blivet-gui/f25-branch/appdata/blivet-gui-main-window.png
+     https://raw.github.com/storaged-project/blivet-gui/f25-branch/appdata/blivet-gui-main-window.png
    </image>
     </screenshot>
     <screenshot width="555" height="636">
       <image>
-     https://raw.github.com/rhinstaller/blivet-gui/f25-branch/appdata/blivet-gui-add-dialog.png
+     https://raw.github.com/storaged-project/blivet-gui/f25-branch/appdata/blivet-gui-add-dialog.png
    </image>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://github.com/rhinstaller/blivet-gui</url>
+  <url type="homepage">https://github.com/storaged-project/blivet-gui</url>
   <update_contact>vtrefny@redhat.com</update_contact>
-  <url type="bugtracker">https://github.com/rhinstaller/blivet-gui/issues</url>
+  <url type="bugtracker">https://github.com/storaged-project/blivet-gui/issues</url>
 
 </component>

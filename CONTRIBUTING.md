@@ -50,7 +50,7 @@ PYTHONPATH=. PATH=`pwd`:$PATH blivet-gui
 ### Building blocks of blivet-gui
 
 This is just a short summary of blivet-gui code structure/building blocks.
-See [rhinstaller.github.io/blivet-gui/doc](https://rhinstaller.github.io/blivet-gui/docs)
+See [storaged-project.github.io/blivet-gui/doc](https://storaged-project.github.io/blivet-gui/docs)
 for a complete API documentation.
 
 #### BlivetUtils
@@ -58,7 +58,7 @@ for a complete API documentation.
 `BlivetUtils` ([blivet_utils.py](blivetgui/blivet_utils.py)) class provides a higher level API for Blivet library.
 It creates the `blivet.Blivet` object and all blivet methods are called using this class.
 
-Check [Blivet API documentation](http://rhinstaller.github.io/blivet/docs/intro.html)
+Check [Blivet API documentation](http://storaged-project.github.io/blivet/docs/intro.html)
 for more information about blivet and its API.
 
 #### BlivetGUI
@@ -121,7 +121,7 @@ Both processes communicate using a socket file.
 > `BlivetGUIClient` (`BlivetGUI` class has and instance of it) `remote_call` method.
 > So for example to get list of disks you'll need to use
 > `self.client.remote_call("get_disks")`. It will return list of objects that
-> you can use in the same way as [DiskDevice](http://rhinstaller.github.io/blivet/docs/blivet/blivet.devices.html#blivet.devices.disk.DiskDevice)
+> you can use in the same way as [DiskDevice](http://storaged-project.github.io/blivet/docs/blivet/blivet.devices.html#blivet.devices.disk.DiskDevice)
 > objects from blivet.
 
 ##### Proxy

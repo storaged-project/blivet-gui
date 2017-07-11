@@ -8,7 +8,7 @@
     <property name="type_hint">dialog</property>
     <property name="program_name">blivet-gui</property>
     <property name="copyright" translatable="yes">Copyright © 2014 Red Hat Inc.</property>
-    <property name="website">https://github.com/rhinstaller/blivet-gui</property>
+    <property name="website">https://github.com/storaged-project/blivet-gui</property>
     <property name="authors">Vojtech Trefny &lt;vtrefny@redhat.com&gt;</property>
     <property name="logo_icon_name">blivet-gui</property>
     <property name="license_type">gpl-2-0</property>
