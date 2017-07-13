@@ -49,7 +49,7 @@ setup(
     description = 'Tool for data storages configuration',
     author='Vojtech Trefny',
     author_email='vtrefny@redhat.com',
-    url='http://github.com/rhinstaller/blivet-gui',
+    url='http://github.com/storaged-project/blivet-gui',
     package_dir={'blivetgui' : 'blivetgui'},
     package_data={'blivetgui' : ['visualization/*.py', 'communication/*.py',
                                  'dialogs/*.py', 'data/icons/hicolor/*/apps/blivet-gui.png']},

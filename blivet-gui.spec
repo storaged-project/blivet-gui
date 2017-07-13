@@ -2,11 +2,11 @@ Summary: Tool for data storage configuration
 Name: blivet-gui
 Version: 2.1.5
 Release: 1%{?dist}
-Source0: http://github.com/rhinstaller/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
 Group: Applications/System
 BuildArch: noarch
-URL: http://github.com/rhinstaller/blivet-gui
+URL: http://github.com/storaged-project/blivet-gui
 
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib

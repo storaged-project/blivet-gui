@@ -24,11 +24,11 @@ Daily builds of _blivet_, _libblockdev_ and _libbytesize_ are also in this repo.
 #### Manual
 
   * Check `blivet-gui.spec` for all dependencies (lines `Requires` and `BuildRequires`).
-Main dependencies include [blivet](https://github.com/rhinstaller/blivet),
+Main dependencies include [blivet](https://github.com/storaged-project/blivet),
 [libblockdev](https://github.com/storaged-project/libblockdev) and
 [libbytesize](https://github.com/storaged-project/libbytesize). Note that these
 are probably not packaged for other distributions than Fedora.
-  * Clone the repo or download a [release tarball](https://github.com/rhinstaller/blivet-gui/releases).
+  * Clone the repo or download a [release tarball](https://github.com/storaged-project/blivet-gui/releases).
   * Run `sudo make install`
 
 ### Development
@@ -46,7 +46,7 @@ Bugs should be reported to [bugzilla.redhat.com](https://bugzilla.redhat.com/ent
 If it is possible, report bugs using the [Automatic Bug Reporting Tool (ABRT)](http://abrt.readthedocs.io/en/latest/) --
 it automatically uploads logs and some other important information.
 
-You can also report bug using the [GitHub issues](https://github.com/rhinstaller/blivet-gui/issues).
+You can also report bug using the [GitHub issues](https://github.com/storaged-project/blivet-gui/issues).
 
 If you report a bug manually, attach blivet-gui logs to the report please.
 You can find the logs in `/var/log/blivet-gui`.
