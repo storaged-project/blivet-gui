@@ -60,6 +60,8 @@ class ResizeDialog(object):
         button_resize = self.builder.get_object("button_resize")
         button_resize.connect("clicked", self._on_resize_button)
 
+        self.size_chooser = None
+
         if self.resize_info.resizable:
             self.size_chooser = self._add_size_chooser()
         else:
@@ -91,6 +93,7 @@ class ResizeDialog(object):
             label_info.set_markup("<b>%s</b>" % _("This device cannot be resized."))
 
         self.box.pack_start(child=label_info, expand=True, fill=True, padding=0)
+        label_info.show()
 
     def run(self):
         response = self.dialog.run()
@@ -99,6 +102,11 @@ class ResizeDialog(object):
             self.dialog.destroy()
             return ProxyDataContainer(edit_device=self.resize_device, resize=False, size=None)
         else:
+            # size_chooser is None --> resizing is not allowed and error was displayed
+            if self.size_chooser is None:
+                self.dialog.destroy()
+                return ProxyDataContainer(edit_device=self.resize_device, resize=False, size=None)
+
             selected_size = self.size_chooser.get_selection()
             resize = selected_size != self.resize_device.size
             self.dialog.destroy()
