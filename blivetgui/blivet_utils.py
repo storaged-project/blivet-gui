@@ -445,6 +445,11 @@ class BlivetUtils(object):
         elif blivet_device.type in ("luks/dm-crypt",):
             return self._get_root_device(blivet_device.slave)
 
+        # loop devices don't have the "disk" property so just return its
+        # parent (FileDevice instance)
+        elif blivet_device.type == "loop":
+            return blivet_device.parents[0]
+
         else:
             return blivet_device.disk
 
