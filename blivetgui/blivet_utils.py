@@ -545,19 +545,6 @@ class BlivetUtils(object):
         # for encrypted partitions/lvms delete the luks-formatted partition too
         if blivet_device.type in ("luks/dm-crypt",):
             for parent in blivet_device.parents:
-
-                if parent.exists:  # teardown existing parent before
-                    try:
-                        parent.teardown()
-
-                    except blivet.errors.LUKSError:
-                        msg = _("Failed to remove device {name}. Are you sure it's not in use?").format(name=parent.name)
-
-                        # cancel destroy action for luks device
-                        self.blivet_cancel_actions(actions)
-                        return ProxyDataContainer(success=False, actions=None, message=msg, exception=None,
-                                                  traceback=traceback.format_exc())
-
                 result = self.delete_device(parent, False)
                 if not result.success:
                     return result
