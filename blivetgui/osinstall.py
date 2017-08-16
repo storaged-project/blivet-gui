@@ -41,6 +41,7 @@ from .blivet_utils import BlivetUtils
 from .dialogs import message_dialogs
 from .i18n import _
 from .gui_utils import locate_ui_file, locate_css_file
+from .logs import set_logging
 
 from contextlib import contextmanager
 
@@ -51,6 +52,7 @@ class BlivetUtilsAnaconda(BlivetUtils):
         # pylint: disable=super-init-not-called
 
         self._storage = None
+        _log_file, self.log = set_logging(component="blivet-gui-utils")
 
     @property
     def storage(self):

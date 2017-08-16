@@ -35,9 +35,11 @@ import platform
 import re
 import traceback
 import parted
+import subprocess
 
-from .logs import set_logging
+from .logs import set_logging, log_utils_call
 from .i18n import _
+from . import __version__
 
 # ---------------------------------------------------------------------------- #
 
@@ -46,6 +48,11 @@ PARTITION_TYPE = {"primary": parted.PARTITION_NORMAL,
                   "extended": parted.PARTITION_EXTENDED}
 
 # ---------------------------------------------------------------------------- #
+
+
+def lsblk():
+    p = subprocess.run(["lsblk", "-f", "-a"], stdout=subprocess.PIPE)
+    return p.stdout.decode()
 
 
 class RawFormatDevice(object):
@@ -161,6 +168,12 @@ class BlivetUtils(object):
     def __init__(self, ignored_disks=None):
 
         self.ignored_disks = ignored_disks
+
+        # create our log now, creating blivet.Blivet instance may fail
+        # and log some basic information -- version and lsblk output
+        _log_file, self.log = set_logging(component="blivet-gui-utils")
+        self.log.info("BlivetUtils, version: %s", __version__)
+        self.log.info("lsblk output:\n%s", lsblk())
 
         self.storage = blivet.Blivet()
 
@@ -517,6 +530,10 @@ class BlivetUtils(object):
 
         """
 
+        log_msg = "Deleting device '%s':\n" % blivet_device.name
+        log_utils_call(log=self.log, message=log_msg,
+                       user_input={"device": blivet_device, "delete_parents": delete_parents})
+
         actions = []
 
         if isinstance(blivet_device, RawFormatDevice):
@@ -656,6 +673,10 @@ class BlivetUtils(object):
                                       max_size=blivet_device.size)
 
     def format_device(self, user_input):
+        log_msg = "Formatting device '%s'\n" % user_input.edit_device.name
+        log_utils_call(log=self.log, message=log_msg,
+                       user_input=user_input)
+
         fmt_actions = []
 
         if user_input.edit_device.format.type is not None:
@@ -675,6 +696,10 @@ class BlivetUtils(object):
 
     def resize_device(self, user_input):
         device = user_input.edit_device
+
+        log_msg = "Resizing device '%s'\n" % device.name
+        log_utils_call(log=self.log, message=log_msg,
+                       user_input=user_input)
 
         if not user_input.resize or user_input.size == device.size:
             return ProxyDataContainer(success=True, actions=None, message=None, exception=None, traceback=None)
@@ -1139,6 +1164,10 @@ class BlivetUtils(object):
 
         """
 
+        log_msg = "Adding a new '%s' device:\n" % user_input.device_type
+        log_utils_call(log=self.log, message=log_msg,
+                       user_input=user_input)
+
         add_function = self.add_dict[user_input.device_type]
 
         try:
@@ -1243,6 +1272,10 @@ class BlivetUtils(object):
 
         """
 
+        log_msg = "Creating a new disklabel on '%s':\n" % blivet_device.name
+        log_utils_call(log=self.log, message=log_msg,
+                       user_input={"device": blivet_device, "label_type": label_type})
+
         actions = []
 
         if blivet_device.format.type:
@@ -1267,6 +1300,10 @@ class BlivetUtils(object):
 
         """
 
+        log_msg = "Opening LUKS device '%s':\n" % blivet_device
+        log_utils_call(log=self.log, message=log_msg,
+                       user_input={"device": blivet_device})
+
         blivet_device.format.passphrase = passphrase
 
         try:
@@ -1286,6 +1323,10 @@ class BlivetUtils(object):
         """ Cancel scheduled actions
         """
 
+        log_msg = "Cancelling scheduled actions:\n"
+        log_utils_call(log=self.log, message=log_msg,
+                       user_input={"actions": actions})
+
         actions.reverse()
         for action in actions:
             self.storage.devicetree.actions.remove(action)
@@ -1293,6 +1334,10 @@ class BlivetUtils(object):
     def blivet_reset(self):
         """ Blivet.reset()
         """
+
+        log_msg = "Running reset\n"
+        log_utils_call(log=self.log, message=log_msg,
+                       user_input=None)
 
         if self.ignored_disks is not None:
             self.storage.config.ignored_disks = self.ignored_disks
@@ -1302,6 +1347,10 @@ class BlivetUtils(object):
     def blivet_do_it(self, progress_report_hook):
         """ Blivet.do_it()
         """
+
+        log_msg = "Running do_it\n"
+        log_utils_call(log=self.log, message=log_msg,
+                       user_input=None)
 
         progress_clbk = lambda clbk_data: progress_report_hook(clbk_data.msg)
 

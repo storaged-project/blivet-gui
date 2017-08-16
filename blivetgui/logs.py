@@ -26,11 +26,12 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 
-from . import __app_name__
+from blivet.devices.storage import StorageDevice
+
+from .communication.proxy_utils import ProxyDataContainer
+from .config import config
 
 # ---------------------------------------------------------------------------- #
-
-LOG_DIR = "/var/log/%s" % __app_name__
 
 
 def set_logging(component, logging_level=logging.DEBUG):
@@ -43,11 +44,11 @@ def set_logging(component, logging_level=logging.DEBUG):
 
     """
 
-    if not os.path.isdir(LOG_DIR) or not os.access(LOG_DIR, os.W_OK):
+    if not os.path.isdir(config.log_dir) or not os.access(config.log_dir, os.W_OK):
         log_handler = logging.NullHandler()
         log_file = ""
     else:
-        log_file = "/var/log/blivet-gui/%s.log" % component
+        log_file = os.path.join(config.log_dir, "%s.log" % component)
 
         rotate = os.path.isfile(log_file)
 
@@ -64,3 +65,58 @@ def set_logging(component, logging_level=logging.DEBUG):
     logger.setLevel(logging_level)
 
     return log_file, logger
+
+
+def _unpack_input(user_input, level, devices, message):
+    # value is a list --> just unpack all its items
+    if isinstance(user_input, (list, tuple)):
+        for i in user_input:
+            message, devices = _unpack_input(i, level, devices, message)
+
+    # value is a dict or our "container" --> unpack to print key-value pairs
+    elif isinstance(user_input, (dict, ProxyDataContainer)):
+        message += "\n"
+        for item in user_input:
+            message += "\t" * level
+            message += "%s:" % item
+
+            # we don't want to save passphrase to the log
+            if item == "passphrase" and user_input[item]:
+                value = "*****"
+            else:
+                value = user_input[item]
+
+            message, devices = _unpack_input(value, level + 1, devices, message)
+
+    else:
+        # and finally append value to the message
+        message += " %s\n" % user_input
+
+        # if value is actually a blivet device, save it for future use
+        if isinstance(user_input, StorageDevice):
+            devices.append(user_input)
+
+    return (message, devices)
+
+
+def log_utils_call(log, message, user_input):
+    devices = []
+    message += "=" * 80
+    message += "\n"
+
+    try:
+        if user_input is not None:
+            message += "**User input:**\n"
+            message, devices = _unpack_input(user_input, 1, devices, message)
+            message += "\n"
+
+        if devices:
+            message += "**Involved devices:**\n\n"
+            for device in devices:
+                message += repr(device)
+                message += "\n"
+    except Exception as e:  # pylint: disable=broad-except
+        # really don't want to crash because of a logging issue
+        log.debug("Logging failed: %s", str(e))
+    else:
+        log.debug(message)

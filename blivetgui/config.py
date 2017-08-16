@@ -29,6 +29,7 @@ class BlivetGUIConfig(dict):
         super().__init__(self, *args, **kwargs)
 
         self["default_fstype"] = "ext4"
+        self["log_dir"] = "/var/log/blivet-gui"
 
     def __getattr__(self, name):
         if name not in self.keys() and not hasattr(self, name):
