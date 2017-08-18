@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-20 08:22+0200\n"
+"POT-Creation-Date: 2017-08-18 12:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
-#: ../blivetgui/osinstall.py:227
+#: ../blivetgui/osinstall.py:229
 msgid "actions configured by installer"
 msgstr ""
 
@@ -192,21 +192,16 @@ msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:75
+#: ../blivetgui/blivet_utils.py:82
 #, python-brace-format
 msgid "{0} disklabel"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:103
+#: ../blivetgui/blivet_utils.py:110
 msgid "free space"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:549
-#, python-brace-format
-msgid "Failed to remove device {name}. Are you sure it's not in use?"
-msgstr ""
-
-#: ../blivetgui/blivet_utils.py:625
+#: ../blivetgui/blivet_utils.py:634
 msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr ""
 
@@ -334,31 +329,31 @@ msgid "Device type:"
 msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:427
-#: ../blivetgui/dialogs/edit_dialog.py:395
-#: ../blivetgui/dialogs/edit_dialog.py:444
-#: ../blivetgui/dialogs/edit_dialog.py:506 ../data/ui/cache_area.ui:76
+#: ../blivetgui/dialogs/edit_dialog.py:403
+#: ../blivetgui/dialogs/edit_dialog.py:452
+#: ../blivetgui/dialogs/edit_dialog.py:514 ../data/ui/cache_area.ui:76
 #: ../data/ui/blivet-gui.ui:434
 msgid "Device"
 msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:428
-#: ../blivetgui/dialogs/edit_dialog.py:396
-#: ../blivetgui/dialogs/edit_dialog.py:445
-#: ../blivetgui/dialogs/edit_dialog.py:507 ../data/ui/cache_area.ui:87
+#: ../blivetgui/dialogs/edit_dialog.py:404
+#: ../blivetgui/dialogs/edit_dialog.py:453
+#: ../blivetgui/dialogs/edit_dialog.py:515 ../data/ui/cache_area.ui:87
 #: ../data/ui/blivet-gui.ui:445
 msgid "Type"
 msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:429
-#: ../blivetgui/dialogs/edit_dialog.py:397
-#: ../blivetgui/dialogs/edit_dialog.py:446
-#: ../blivetgui/dialogs/edit_dialog.py:508 ../data/ui/blivet-gui.ui:467
+#: ../blivetgui/dialogs/edit_dialog.py:405
+#: ../blivetgui/dialogs/edit_dialog.py:454
+#: ../blivetgui/dialogs/edit_dialog.py:516 ../data/ui/blivet-gui.ui:467
 msgid "Size"
 msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:438
-#: ../blivetgui/dialogs/edit_dialog.py:455
-#: ../blivetgui/dialogs/edit_dialog.py:517 ../data/ui/cache_area.ui:130
+#: ../blivetgui/dialogs/edit_dialog.py:463
+#: ../blivetgui/dialogs/edit_dialog.py:525 ../data/ui/cache_area.ui:130
 msgid "Available devices:"
 msgstr ""
 
@@ -371,7 +366,7 @@ msgid "Filesystem:"
 msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:748
-#: ../blivetgui/dialogs/edit_dialog.py:144
+#: ../blivetgui/dialogs/edit_dialog.py:152
 msgid "unformatted"
 msgstr ""
 
@@ -423,7 +418,7 @@ msgid "\"{0}\" is not a valid name."
 msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:1027
-#: ../blivetgui/dialogs/edit_dialog.py:211
+#: ../blivetgui/dialogs/edit_dialog.py:219
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
 msgstr ""
@@ -442,54 +437,54 @@ msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:89
+#: ../blivetgui/dialogs/edit_dialog.py:91
 #, python-brace-format
 msgid ""
 "<b>This device cannot be resized:</b>\n"
 "<i>{0}</i>"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:91
+#: ../blivetgui/dialogs/edit_dialog.py:93
 msgid "This device cannot be resized."
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:362
+#: ../blivetgui/dialogs/edit_dialog.py:370
 msgid "Edit device"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:405
+#: ../blivetgui/dialogs/edit_dialog.py:413
 msgid "Parent devices:"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:412
+#: ../blivetgui/dialogs/edit_dialog.py:420
 msgid "Add parent"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:415
+#: ../blivetgui/dialogs/edit_dialog.py:423
 msgid "Remove parent"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:426
+#: ../blivetgui/dialogs/edit_dialog.py:434
 msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:443
+#: ../blivetgui/dialogs/edit_dialog.py:451
 msgid "Add?"
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:485
+#: ../blivetgui/dialogs/edit_dialog.py:493
 msgid ""
 "There is no physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:497
+#: ../blivetgui/dialogs/edit_dialog.py:505
 msgid "Currently is possible to remove only one parent at time."
 msgstr ""
 
-#: ../blivetgui/dialogs/edit_dialog.py:505
+#: ../blivetgui/dialogs/edit_dialog.py:513
 msgid "Remove?"
 msgstr ""
 

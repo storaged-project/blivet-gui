@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.5
+Version: 2.1.6
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -82,6 +82,20 @@ fi
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Fri Aug 18 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.6-1
+- Add a basic "high level" log for BlivetUtils (vtrefny)
+- Redirect stdout to stderr for blivet-gui-daemon (vtrefny)
+- Do not try to teardown luks devices before removing (#1466940) (vtrefny)
+- Fix displaying resize dialog for non-resizable devices (#1473350) (vtrefny)
+- Fix getting parents for loop devices (#1474483) (vtrefny)
+- Fix ABRT/libreport config for blivet-gui (vtrefny)
+- Update the upstream git URL for blivet-gui and blivet (vtrefny)
+- Split blivet-gui package into "blivet-gui" and "blivet-gui-runtime" (vtrefny)
+- Require "PolicyKit-authentication-agent" instead of "polkit-gnome" (vtrefny)
+- New version of help for blivet-gui (vtrefny)
+- Add more information to the README and a new readme for contributors (vtrefny)
+- Add make targets for building SRPM and RPM packages (vtrefny)
+
 * Tue Jun 20 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.5-1
 - Fix reusing LUKS devices in Anaconda (#1462071) (vtrefny)
 - Make the device toolbar look more "toolbarish" (#1456011) (vtrefny)
