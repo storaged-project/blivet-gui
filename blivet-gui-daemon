@@ -106,6 +106,8 @@ def main(argv):
     print(sock_file)
     sys.stdout.flush()
 
+    sys.stdout = sys.stderr
+
     server.serve_forever()
 
 # ---------------------------------------------------------------------------- #
