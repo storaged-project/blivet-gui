@@ -96,6 +96,12 @@ fi
 - Add more information to the README and a new readme for contributors (vtrefny)
 - Add make targets for building SRPM and RPM packages (vtrefny)
 
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
+* Fri Jun 30 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.5-2
+- Split blivet-gui package into "blivet-gui" and "blivet-gui-runtime" (vtrefny)
+
 * Tue Jun 20 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.5-1
 - Fix reusing LUKS devices in Anaconda (#1462071) (vtrefny)
 - Make the device toolbar look more "toolbarish" (#1456011) (vtrefny)
@@ -104,6 +110,10 @@ fi
 - Run "update_size_info" for luks devices (vtrefny)
 - pylint: fix different keyword arguments for "connect" method (vtrefny)
 - Ignore pylint error "not-context-manager" for locks (vtrefny)
+
+* Tue May 30 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.4-2
+- Run "update_size_info" for luks devices (vtrefny)
+- Fix displaying encrypted logical partitions  (vtrefny)
 
 * Fri May 05 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.4-1
 - Do not try to set both size request and auto-expand for Gtk.Scale (vtrefny)
