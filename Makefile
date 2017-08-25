@@ -49,7 +49,18 @@ install-requires:
 
 test: check-requires
 	@echo "*** Running unittests ***"
-	PYTHONPATH=.:tests/ xvfb-run -s '-screen 0 640x480x8 -extension RANDR' python3 -m unittest discover -v -s tests/ -p '*_test.py'
+	@status=0;
+	$(MAKE) gui-test || status=1;
+	$(MAKE) utils-test || status=1;
+	exit $$status
+
+gui-test: check-requires
+	@echo "*** Running GUI tests ***"
+	PYTHONPATH=.:tests/ xvfb-run -s '-screen 0 640x480x8 -extension RANDR' $(PYTHON) -m unittest discover -v -s tests/blivetgui_tests -p '*_test.py'
+
+utils-test: check-requires
+	@echo "*** Running Utils tests ***"
+	PYTHONPATH=.:tests/ $(PYTHON) -m unittest discover -v -s tests/blivetutils_tests -p 'test_*.py'
 
 coverage: check-requires
 	@echo "*** Running unittests with $(COVERAGE) for $(PYTHON) ***"
@@ -69,10 +80,10 @@ canary: check-requires
 	PYTHONPATH=translation-canary:$(PYTHONPATH) python3 -m translation_canary.translatable po/blivet-gui.pot
 
 check:
-	@status=0; \
-	$(MAKE) pylint || status=1; \
-	$(MAKE) pep8 || status=1; \
-	$(MAKE) canary || status=1; \
+	@status=0;
+	$(MAKE) pylint || status=1;
+	$(MAKE) pep8 || status=1;
+	$(MAKE) canary || status=1;
 	exit $$status
 
 clean:
@@ -144,3 +155,4 @@ rpm: local
 ci: check test
 
 .PHONY: check pep8 pylint clean install tag archive local
+.ONESHELL: test check
