@@ -471,9 +471,15 @@ class AddDialogTest(unittest.TestCase):
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
                                [("free", free_device)], [], True)  # with installer_mode=True
 
-        # swap -- mountpoint and label entries shouldn't be visible
+        # swap -- mountpoint entry shouldn't be visible, label entry should be visible
         add_dialog.filesystems_combo.set_active_id("swap")
         self.assertEqual(add_dialog.filesystems_combo.get_active_id(), "swap")
+        self.assertFalse(add_dialog.mountpoint_entry.get_visible())
+        self.assertTrue(add_dialog.label_entry.get_visible())
+
+        # lvmpv -- both mountpoint and label entries shouldn't be visible
+        add_dialog.filesystems_combo.set_active_id("lvmpv")
+        self.assertEqual(add_dialog.filesystems_combo.get_active_id(), "lvmpv")
         self.assertFalse(add_dialog.mountpoint_entry.get_visible())
         self.assertFalse(add_dialog.label_entry.get_visible())
 

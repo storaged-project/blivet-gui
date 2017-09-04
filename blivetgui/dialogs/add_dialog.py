@@ -755,16 +755,18 @@ class AddDialog(Gtk.Dialog):
 
     def on_filesystems_combo_changed(self, _combo):
 
-        if self.selected_fs is None or not self.selected_fs.mountable:
+        if self.selected_fs is None:
             self.hide_widgets(["label", "mountpoint"])
-
         else:
-            device_type = self.selected_type
-
-            if device_type in ("partition", "mdraid", "lvmlv", "lvmthinlv"):
-                self.show_widgets(["label", "mountpoint"])
+            if not self.selected_fs.mountable:
+                self.hide_widgets(["mountpoint"])
             else:
                 self.show_widgets(["mountpoint"])
+
+            if not self.selected_fs.labeling():
+                self.hide_widgets(["label"])
+            else:
+                self.show_widgets(["label"])
 
         # update size
         self.size_area.min_size_limit = self._get_min_size_limit()
