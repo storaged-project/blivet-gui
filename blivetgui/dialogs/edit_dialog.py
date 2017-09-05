@@ -418,10 +418,10 @@ class LVMEditDialog(Gtk.Dialog):
 
     def add_toggle_buttons(self):
 
-        button_add = Gtk.ToggleButton(_("Add parent"))
+        button_add = Gtk.ToggleButton(label=_("Add parent"))
         self.grid.attach(button_add, 0, 4, 1, 1)
 
-        button_remove = Gtk.ToggleButton(_("Remove parent"))
+        button_remove = Gtk.ToggleButton(label=_("Remove parent"))
         self.grid.attach(button_remove, 1, 4, 1, 1)
 
         button_add.connect("toggled", self.on_button_toggled, "add", button_remove)

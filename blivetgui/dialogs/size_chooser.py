@@ -811,8 +811,12 @@ class SizeChooser(GUIWidget):
 
         default_unit = self.default_unit
 
-        adjustment = Gtk.Adjustment(0, self.min_size.convert_to(default_unit),
-                                    self.max_size.convert_to(default_unit), 1, 10, 0)
+        adjustment = Gtk.Adjustment(value=0,
+                                    lower=self.min_size.convert_to(default_unit),
+                                    upper=self.max_size.convert_to(default_unit),
+                                    step_increment=1,
+                                    page_increment=10,
+                                    page_size=0)
 
         scale.set_adjustment(adjustment)
         spin.set_adjustment(adjustment)
