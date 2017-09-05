@@ -367,12 +367,13 @@ class LVMEditDialog(Gtk.Dialog):
         self.parent_window = parent_window
         self.free_info = free_info
 
-        Gtk.Dialog.__init__(self, _("Edit device"), None, 0,
-                            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                             Gtk.STOCK_OK, Gtk.ResponseType.OK))
+        Gtk.Dialog.__init__(self)
 
         self.set_transient_for(self.parent_window)
         self.set_resizable(False)  # auto shrink after removing/hiding widgets
+        self.set_title(_("Edit device"))
+        self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                         Gtk.STOCK_OK, Gtk.ResponseType.OK)
 
         self.widgets_dict = {}
 

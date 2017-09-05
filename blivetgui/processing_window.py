@@ -52,9 +52,11 @@ class ProcessingActions(Gtk.Dialog):
 
         self.finished_actions = 0
 
-        Gtk.Dialog.__init__(self, _("Processing"), None, 0, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
+        Gtk.Dialog.__init__(self)
 
         self.set_transient_for(self.blivet_gui.main_window)
+        self.set_title(_("Processing"))
+        self.add_buttons(Gtk.STOCK_OK, Gtk.ResponseType.OK)
 
         self.set_border_width(8)
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)

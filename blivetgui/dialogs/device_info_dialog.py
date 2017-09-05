@@ -59,11 +59,12 @@ class DeviceInformationDialog(Gtk.Dialog):
         self.device = device
 
         # Gtk.Dialog
-        Gtk.Dialog.__init__(self, _("Information about {0}").format(self.device.name), None, 0,
-                            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL))
+        Gtk.Dialog.__init__(self)
 
         self.set_transient_for(self.parent_window)
         self.set_border_width(10)
+        self.set_title(_("Information about {0}").format(self.device.name))
+        self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
 
         # Gtk.Grid
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=20)

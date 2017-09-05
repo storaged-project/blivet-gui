@@ -42,9 +42,10 @@ class LoadingWindow(Gtk.Dialog):
         """ :param main_window: BlivetGUI main window
         """
 
-        Gtk.Dialog.__init__(self, _("Probing storage"), None, 0, ())
+        Gtk.Dialog.__init__(self)
 
         self.set_transient_for(parent_window)
+        self.set_title(_("Probing storage"))
 
         self.set_border_width(8)
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
