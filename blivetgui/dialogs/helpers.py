@@ -67,10 +67,24 @@ def adjust_scrolled_size(scrolledwindow, width_limit, height_limit):
 
     """
 
-    width = scrolledwindow.size_request().width
-    height = scrolledwindow.size_request().height
+    preferred_size = scrolledwindow.get_preferred_size()
+    if preferred_size.natural_size:
+        height = preferred_size.natural_size.height
+        width = preferred_size.natural_size.width
+    elif preferred_size.minimum_size:
+        height = preferred_size.minimum_size.height
+        width = preferred_size.minimum_size.width
+    else:
+        # this should never happend, but who knows what Gtk can really do
+        width = None
+        height = None
 
-    if width < width_limit and height < height_limit:
+    if width is None or height is None:
+        # something is really broken, just set everything to auto and
+        # hope it will somehow work
+        scrolledwindow.set_size_request(width_limit, height_limit)
+        scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+    elif width < width_limit and height < height_limit:
         scrolledwindow.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
     elif width < width_limit and height >= height_limit:
         scrolledwindow.set_size_request(width, height_limit)

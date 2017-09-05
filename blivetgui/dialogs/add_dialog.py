@@ -334,11 +334,25 @@ class AddDialog(Gtk.Dialog):
             than size limits
         """
 
-        height = self.scrolledwindow.size_request().height
-        width = self.scrolledwindow.size_request().width
+        preferred_size = self.scrolledwindow.get_preferred_size()
+        if preferred_size.natural_size:
+            height = preferred_size.natural_size.height
+            width = preferred_size.natural_size.width
+        elif preferred_size.minimum_size:
+            height = preferred_size.minimum_size.height
+            width = preferred_size.minimum_size.width
+        else:
+            # this should never happend, but who knows what Gtk can really do
+            width = None
+            height = None
 
         with self.handler_block(self._resize_handler):
-            if height >= self.max_height and width >= self.max_width:
+            if width is None or height is None:
+                # something is really broken, just set everything to auto and
+                # hope it will somehow work
+                self.scrolledwindow.set_size_request(self.max_width, self.max_height)
+                self.scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+            elif height >= self.max_height and width >= self.max_width:
                 self.scrolledwindow.set_size_request(self.max_width, self.max_height)
                 self.scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
             elif height >= self.max_height and width < self.max_width:
