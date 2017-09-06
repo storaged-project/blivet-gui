@@ -59,16 +59,17 @@ class DeviceInformationDialog(Gtk.Dialog):
         self.device = device
 
         # Gtk.Dialog
-        Gtk.Dialog.__init__(self, _("Information about {0}").format(self.device.name), None, 0,
-                            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL))
+        Gtk.Dialog.__init__(self)
 
         self.set_transient_for(self.parent_window)
         self.set_border_width(10)
+        self.set_title(_("Information about {0}").format(self.device.name))
+        self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL)
 
         # Gtk.Grid
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=20)
-        self.grid.set_margin_left(15)
-        self.grid.set_margin_right(15)
+        self.grid.set_margin_start(15)
+        self.grid.set_margin_end(15)
 
         box = self.get_content_area()
         box.add(self.grid)
@@ -170,7 +171,8 @@ class DeviceInformationDialog(Gtk.Dialog):
         # device info header
         info_type_label = Gtk.Label(label="<i>%s</i>" % _("Basic information"), use_markup=True)
         self.grid.attach(child=info_type_label, left=0, top=1, width=2, height=1)
-        info_type_label.set_alignment(xalign=0, yalign=0)
+        info_type_label.set_xalign(0)
+        info_type_label.set_yalign(0)
 
         device_info_label = Gtk.Label()
         device_info_label.set_ellipsize(Pango.EllipsizeMode.MIDDLE)
@@ -184,7 +186,8 @@ class DeviceInformationDialog(Gtk.Dialog):
         info += _(" • <i>Size:</i> {size}\n").format(size=str(self.device.size))
 
         device_info_label.set_markup(info)
-        device_info_label.set_alignment(xalign=0, yalign=0)
+        device_info_label.set_xalign(0)
+        device_info_label.set_yalign(0)
 
         # 'advanced' information about selected device (specific for each device type)
         if self.device.type in self.type_dict.keys() and self.type_dict[self.device.type][1]:
@@ -193,7 +196,8 @@ class DeviceInformationDialog(Gtk.Dialog):
 
             adv_info_fn = self.type_dict[self.device.type][1]
             adv_info_label.set_markup(adv_info_fn())
-            adv_info_label.set_alignment(xalign=0, yalign=0)
+            adv_info_label.set_xalign(0)
+            adv_info_label.set_yalign(0)
 
     def add_format_info(self):
         """ Display information about format of the device
@@ -202,7 +206,8 @@ class DeviceInformationDialog(Gtk.Dialog):
         # device format header
         info_type_label = Gtk.Label(label="<i>%s</i>" % _("Device format"), use_markup=True)
         self.grid.attach(child=info_type_label, left=0, top=3, width=2, height=1)
-        info_type_label.set_alignment(xalign=0, yalign=0)
+        info_type_label.set_xalign(0)
+        info_type_label.set_yalign(0)
 
         # information about device format
         fmt_info_label = Gtk.Label()
@@ -223,7 +228,8 @@ class DeviceInformationDialog(Gtk.Dialog):
             info = _(" • <i>Type:</i> None")
 
         fmt_info_label.set_markup(info)
-        fmt_info_label.set_alignment(xalign=0, yalign=0)
+        fmt_info_label.set_xalign(0)
+        fmt_info_label.set_yalign(0)
 
     def add_parents_info(self):
         """ Display information about parents of the device
@@ -234,7 +240,8 @@ class DeviceInformationDialog(Gtk.Dialog):
         # device parents header
         info_parents_label = Gtk.Label(label="<i>%s</i>" % _("Parents"), use_markup=True)
         self.grid.attach(child=info_parents_label, left=0, top=5, width=2, height=1)
-        info_parents_label.set_alignment(xalign=0, yalign=0)
+        info_parents_label.set_xalign(0)
+        info_parents_label.set_yalign(0)
 
         # information about device parents
         parent_info_label = Gtk.Label()
@@ -250,4 +257,5 @@ class DeviceInformationDialog(Gtk.Dialog):
                                                                    type=parent.type)
 
         parent_info_label.set_markup(info)
-        parent_info_label.set_alignment(xalign=0, yalign=0)
+        parent_info_label.set_xalign(0)
+        parent_info_label.set_yalign(0)

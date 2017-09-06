@@ -265,9 +265,11 @@ class AddDialog(Gtk.Dialog):
 
         self.supported_raids = supported_raids()
 
-        Gtk.Dialog.__init__(self, _("Create new device"), None, 0,
-                            (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL, Gtk.STOCK_OK, Gtk.ResponseType.OK))
+        Gtk.Dialog.__init__(self)
 
+        self.set_title(_("Create new device"))
+        self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                         Gtk.STOCK_OK, Gtk.ResponseType.OK)
         self.set_transient_for(self.parent_window)
 
         if self.installer_mode:
@@ -332,11 +334,25 @@ class AddDialog(Gtk.Dialog):
             than size limits
         """
 
-        height = self.scrolledwindow.size_request().height
-        width = self.scrolledwindow.size_request().width
+        preferred_size = self.scrolledwindow.get_preferred_size()
+        if preferred_size.natural_size:
+            height = preferred_size.natural_size.height
+            width = preferred_size.natural_size.width
+        elif preferred_size.minimum_size:
+            height = preferred_size.minimum_size.height
+            width = preferred_size.minimum_size.width
+        else:
+            # this should never happend, but who knows what Gtk can really do
+            width = None
+            height = None
 
         with self.handler_block(self._resize_handler):
-            if height >= self.max_height and width >= self.max_width:
+            if width is None or height is None:
+                # something is really broken, just set everything to auto and
+                # hope it will somehow work
+                self.scrolledwindow.set_size_request(self.max_width, self.max_height)
+                self.scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+            elif height >= self.max_height and width >= self.max_width:
                 self.scrolledwindow.set_size_request(self.max_width, self.max_height)
                 self.scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
             elif height >= self.max_height and width < self.max_width:

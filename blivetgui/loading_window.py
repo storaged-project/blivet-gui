@@ -42,9 +42,10 @@ class LoadingWindow(Gtk.Dialog):
         """ :param main_window: BlivetGUI main window
         """
 
-        Gtk.Dialog.__init__(self, _("Probing storage"), None, 0, ())
+        Gtk.Dialog.__init__(self)
 
         self.set_transient_for(parent_window)
+        self.set_title(_("Probing storage"))
 
         self.set_border_width(8)
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
@@ -63,9 +64,7 @@ class LoadingWindow(Gtk.Dialog):
         self.label.set_line_wrap(True)
         self.label.set_text(_("Scanning storage configuration..."))
 
-        table = Gtk.Table(1, 1, False)
-        table.attach(self.label, 0, 1, 0, 1, Gtk.AttachOptions.SHRINK | Gtk.AttachOptions.FILL)
-        self.grid.attach(table, 0, 0, 3, 1)
+        self.grid.attach(self.label, 0, 0, 3, 1)
 
         self.progressbar = Gtk.ProgressBar()
         self.grid.attach(self.progressbar, 0, 1, 3, 1)

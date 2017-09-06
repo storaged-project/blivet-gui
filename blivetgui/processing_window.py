@@ -52,9 +52,11 @@ class ProcessingActions(Gtk.Dialog):
 
         self.finished_actions = 0
 
-        Gtk.Dialog.__init__(self, _("Processing"), None, 0, (Gtk.STOCK_OK, Gtk.ResponseType.OK))
+        Gtk.Dialog.__init__(self)
 
         self.set_transient_for(self.blivet_gui.main_window)
+        self.set_title(_("Processing"))
+        self.add_buttons(Gtk.STOCK_OK, Gtk.ResponseType.OK)
 
         self.set_border_width(8)
         self.set_position(Gtk.WindowPosition.CENTER_ON_PARENT)
@@ -73,9 +75,7 @@ class ProcessingActions(Gtk.Dialog):
         self.label.set_line_wrap_mode(Pango.WrapMode.WORD_CHAR)
         self.label.set_line_wrap(True)
 
-        table = Gtk.Table(1, 1, False)
-        table.attach(self.label, 0, 1, 0, 1, Gtk.AttachOptions.SHRINK | Gtk.AttachOptions.FILL)
-        self.grid.attach(table, 0, 0, 3, 1)
+        self.grid.attach(self.label, 0, 0, 3, 1)
 
         self.progressbar = Gtk.ProgressBar()
         self.grid.attach(self.progressbar, 0, 1, 3, 1)
@@ -85,7 +85,7 @@ class ProcessingActions(Gtk.Dialog):
 
         self.actions_view, self.actions_list = self.add_action_view()
 
-        self.set_resizable(False)
+        self.set_resizable(True)
         self.show_all()
 
     def add_action_view(self):
@@ -160,6 +160,9 @@ class ProcessingActions(Gtk.Dialog):
         # update number of scheduled actions to match 'blivet actions'
         if self.finished_actions:
             self._set_applied_icon(self.finished_actions - 1)
+
+        # now set resizable to False, so the dialog's size automatically adjusts
+        self.set_resizable(False)
 
     def progress_msg(self, message):
         self.label.set_markup(_("<b>Processing action {num} of {total}</b>:"
