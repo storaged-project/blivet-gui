@@ -199,6 +199,22 @@ class ListPartitions(object):
 
         return device.format.mountable
 
+    def _allow_set_partition_table(self, device):
+        # there is no special "device" representing disks in the UI
+        # so we are "editting" a free space
+        if device.type != "free space":
+            return False
+
+        # empty disk without disklabel
+        if device.is_uninitialized_disk:
+            return True
+
+        # empty disk with disklabel
+        if device.is_empty_disk and device.disk.format.type == "disklabel":
+            return True
+
+        return False
+
     def _allow_add_device(self, device):
         if device.protected:
             return False
@@ -247,6 +263,9 @@ class ListPartitions(object):
 
         if self._allow_set_mountpoint(device):
             self.blivet_gui.activate_device_actions(["mountpoint"])
+
+        if self._allow_set_partition_table(device):
+            self.blivet_gui.activate_device_actions(["partitiontable"])
 
         if device.type == "lvmvg":
             self.blivet_gui.activate_device_actions(["parents"])

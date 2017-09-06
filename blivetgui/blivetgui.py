@@ -341,6 +341,13 @@ class BlivetGUI(object):
         dialog.destroy()
         return
 
+    def set_partition_table(self, _widget=None):
+        """ Create partition table on selected disk
+        """
+
+        device = self.list_partitions.selected_partition[0]
+        self._add_disklabel(device.disk)
+
     def _allow_add_device(self, selected_device):
         """ Allow add device?
         """
