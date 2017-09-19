@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.6
+Version: 2.1.7
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -82,6 +82,19 @@ fi
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Tue Sep 19 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.7-1
+- Allow changing partition table (disklabel) (vtrefny)
+- Do not use Gtk.Label.set_align it is deprecated (vtrefny)
+- Do not use Gtk.Widget.size_request() it is deprecated (vtrefny)
+- Do not use positional argument with Gtk initializers (vtrefny)
+- Do not use Gtk.Table it is deprecated (vtrefny)
+- Do not specify title and buttons in Gtk.Dialog initializer (vtrefny)
+- AddDialog: Fix displaying filesystem label entry (vtrefny)
+- Makefile: Add a separate targets for gui and utils tests (vtrefny)
+- Add a basic test suite for testing BlivetUtils class (vtrefny)
+- Sync spec with downstream (vtrefny)
+- Allow running BlivetUtils on only subset of disks (vtrefny)
+
 * Fri Aug 18 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.6-1
 - Add a basic "high level" log for BlivetUtils (vtrefny)
 - Redirect stdout to stderr for blivet-gui-daemon (vtrefny)
