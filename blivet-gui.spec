@@ -27,7 +27,7 @@ BuildRequires: python-setuptools
 Requires: python3
 Requires: python3-gobject
 Requires: gettext
-Requires: python3-blivet >= 1:2.1
+Requires: python3-blivet >= 1:3.0.0
 Requires: gtk3
 Requires: PolicyKit-authentication-agent
 Requires: python3-pid
