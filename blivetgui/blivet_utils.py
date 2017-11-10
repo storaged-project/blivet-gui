@@ -1328,9 +1328,9 @@ class BlivetUtils(object):
                        user_input=None)
 
         if self.ignored_disks is not None:
-            self.storage.config.ignored_disks = self.ignored_disks
+            self.storage.ignored_disks = self.ignored_disks
         if self.exclusive_disks is not None:
-            self.storage.config.exclusive_disks = self.exclusive_disks
+            self.storage.exclusive_disks = self.exclusive_disks
 
         self.storage.reset()
 
