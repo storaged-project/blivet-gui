@@ -16,6 +16,7 @@ TEST_DEPENDENCIES += python3-coverage
 TEST_DEPENDENCIES += python3-pocketlint python3-bugzilla
 TEST_DEPENDENCIES += python3-pep8
 TEST_DEPENDENCIES += xorg-x11-server-Xvfb
+TEST_DEPENDENCIES += targetcli
 TEST_DEPENDENCIES := $(shell echo $(sort $(TEST_DEPENDENCIES)) | uniq)
 
 all:
