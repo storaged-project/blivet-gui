@@ -17,9 +17,16 @@ PYTHONPATH=. PATH=`pwd`:$PATH blivet-gui
 
 #### Running the tests
 
-  * `make test`
-    * run blivet-gui tests
-    * this test suite needs a graphical session (or a "fake" one like _Xvfb_) to run
+  * `sudo make test`
+    * run both blivet-gui test suites -- "gui" tests and "utils" tests
+    * it is possible to run these separately
+      * `make gui-test`
+        * tests for the gui
+        * this test suite needs a graphical session (or a "fake" one like _Xvfb_) to run
+      * `sudo make utils-test`
+        * tests for the backend ("utils") part of blivet-gui
+        * these tests create virtual SCSI drives using the `targetcli` utility, it is neccessary
+          to run these with root privilegies
   * `make check`
     * run static code checks (_pylint_, _pep8_ and _translation canary_)
     * it is possible to run these separately -- `make pep8`, `make pylint` or
