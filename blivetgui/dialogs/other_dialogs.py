@@ -31,7 +31,7 @@ from blivetgui.gui_utils import locate_ui_file
 
 from ..i18n import _
 
-from blivet.platform import platform
+from blivet.formats.disklabel import DiskLabel
 
 # ---------------------------------------------------------------------------- #
 
@@ -76,7 +76,7 @@ class AddLabelDialog(object):
 
         self.dialog.set_transient_for(parent_window)
 
-        for disklabel in platform.disklabel_types:
+        for disklabel in DiskLabel.get_platform_label_types():
             self.pttype_combo.append_text(disklabel)
 
         self.pttype_combo.set_active(0)
