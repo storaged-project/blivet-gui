@@ -26,7 +26,7 @@ from __future__ import print_function
 
 import sys
 import os
-import optparse
+import argparse
 import signal
 
 import gettext
@@ -72,13 +72,11 @@ def parse_options():
     """ Parses command-line arguments passed to blivet_gui
     """
 
-    parser = optparse.OptionParser()
-    parser.add_option("-v", "--version", action="store_true", dest="version", default=False,
-                      help=_("show version information"))
+    parser = argparse.ArgumentParser(description="blivet-gui")
+    parser.add_argument("-v", "--version", action="store_true", dest="version", default=False,
+                        help=_("show version information"))
 
-    (options, _args) = parser.parse_args()
-
-    return options
+    return parser.parse_args()
 
 
 def main():
