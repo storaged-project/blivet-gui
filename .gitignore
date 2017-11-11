@@ -30,3 +30,6 @@ doc/tests
 .directory
 
 .coverage
+
+pylint-log
+tests/pylint
