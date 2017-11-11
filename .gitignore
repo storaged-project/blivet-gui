@@ -32,4 +32,4 @@ doc/tests
 .coverage
 
 pylint-log
-tests/pylint
+tests/pylint/.pylint.d
