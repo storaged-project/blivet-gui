@@ -1250,6 +1250,25 @@ class BlivetUtils(object):
 
         return list(self.storage.mountpoints.keys())
 
+    def get_supported_filesystems(self, installer_mode=False):
+        _fs_types = []
+
+        additional_fs = ["swap", "lvmpv"]
+        if installer_mode:
+            additional_fs.extend(["biosboot", "prepboot"])
+
+        for cls in blivet.formats.device_formats.values():
+            obj = cls()
+
+            supported_fs = (obj.type not in ("tmpfs",) and
+                            obj.supported and obj.formattable and
+                            (isinstance(obj, blivet.formats.fs.FS) or
+                             obj.type in additional_fs))
+            if supported_fs:
+                _fs_types.append(obj)
+
+        return sorted(_fs_types, key=lambda fs: fs.type)
+
     def create_disk_label(self, blivet_device, label_type):
         """ Create disklabel
 

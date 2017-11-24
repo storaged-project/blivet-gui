@@ -12,8 +12,9 @@ from gi.repository import Gtk
 from blivet.size import Size
 
 from blivetgui.dialogs.edit_dialog import FormatDialog
-from blivetgui.dialogs.helpers import supported_filesystems
 from blivetgui.i18n import _
+
+from add_dialog_test import supported_filesystems
 
 
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
@@ -22,10 +23,14 @@ class FormatDialogTest(unittest.TestCase):
     error_dialog = MagicMock()
     parent_window = Gtk.Window()
 
+    @classmethod
+    def setUpClass(cls):
+        cls.supported_filesystems = supported_filesystems()
+
     def test_basic(self):
 
         dev = MagicMock(size=Size("1 GiB"), format=MagicMock(mountpoint=None))
-        dialog = FormatDialog(self.parent_window, dev, [], False)
+        dialog = FormatDialog(self.parent_window, dev, self.supported_filesystems, [], False)
 
         # not installer_mode, mountpoint widgets should be invisible
         self.assertFalse(dialog.mnt_box.get_visible())
@@ -61,7 +66,7 @@ class FormatDialogTest(unittest.TestCase):
     def test_installer(self):
         dev = MagicMock(size=Size("1 GiB"), format=MagicMock(mountpoint=None))
 
-        dialog = FormatDialog(self.parent_window, dev, [], True)
+        dialog = FormatDialog(self.parent_window, dev, self.supported_filesystems, [], True)
 
         # ninstaller_mode, mountpoint widgets should be visible
         self.assertTrue(dialog.mnt_entry.get_visible())

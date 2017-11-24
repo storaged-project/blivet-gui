@@ -40,7 +40,7 @@ from ..communication.proxy_utils import ProxyDataContainer
 
 from . size_chooser import SizeArea
 from .widgets import RaidChooser
-from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid, supported_raids, supported_filesystems, get_monitor_size
+from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid, supported_raids, get_monitor_size
 
 from ..i18n import _
 from ..config import config
@@ -237,7 +237,8 @@ class AddDialog(Gtk.Dialog):
          size, fs, label etc.
     """
 
-    def __init__(self, parent_window, selected_parent, selected_free, available_free, mountpoints=None, installer_mode=False):
+    def __init__(self, parent_window, selected_parent, selected_free, available_free,
+                 supported_filesystems, mountpoints=None, installer_mode=False):
         """
 
             :param str parent_type: type of (future) parent device
@@ -263,6 +264,7 @@ class AddDialog(Gtk.Dialog):
         self.installer_mode = installer_mode
         self.mountpoints = mountpoints
 
+        self.supported_filesystems = supported_filesystems
         self.supported_raids = supported_raids()
 
         Gtk.Dialog.__init__(self)
@@ -756,15 +758,14 @@ class AddDialog(Gtk.Dialog):
     def update_fs_chooser(self):
         self.filesystems_store.clear()
 
-        supported_fs = supported_filesystems(self.installer_mode)
-        for fs in supported_fs:
+        for fs in self.supported_filesystems:
             # FIXME: also check raid level -- resulting "free space" might be lower because of redundancy
             if self.selected_free.size > fs._min_size:
                 self.filesystems_store.append((fs, fs.type, fs.name))
         self.filesystems_store.append((None, "unformatted", _("unformatted")))
 
         # XXX: what if there is no supported fs?
-        if config.default_fstype in (fs.type for fs in supported_fs):
+        if config.default_fstype in (fs.type for fs in self.supported_filesystems):
             self.filesystems_combo.set_active_id(config.default_fstype)
         else:
             self.filesystems_combo.set_active(0)

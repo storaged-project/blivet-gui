@@ -81,6 +81,9 @@ class BlivetGUI(object):
         # are not installed and that should be enough.
         fs.NTFS._supported = True
 
+        # supported filesystems
+        self._supported_filesystems = []
+
         # CSS styles
         css_provider = Gtk.CssProvider()
         css_provider.load_from_path(locate_css_file("rectangle.css"))
@@ -143,6 +146,15 @@ class BlivetGUI(object):
         self.exc.allow_ignore = True
 
         self.initialize()
+
+    @property
+    def supported_filesystems(self):
+        if self._supported_filesystems:
+            return self._supported_filesystems
+
+        self._supported_filesystems = self.client.remote_call("get_supported_filesystems",
+                                                              self.installer_mode)
+        return self._supported_filesystems
 
     def initialize(self):
         self.list_devices.load_devices()
@@ -291,6 +303,7 @@ class BlivetGUI(object):
 
         dialog = edit_dialog.FormatDialog(main_window=self.main_window,
                                           edit_device=device,
+                                          supported_filesystems=self.supported_filesystems,
                                           mountpoints=mountpoints,
                                           installer_mode=self.installer_mode)
 
@@ -439,6 +452,7 @@ class BlivetGUI(object):
                                       selected_parent=selected_parent,
                                       selected_free=selected_free,
                                       available_free=self.client.remote_call("get_free_info"),
+                                      supported_filesystems=self.supported_filesystems,
                                       mountpoints=mountpoints,
                                       installer_mode=self.installer_mode)
 
