@@ -4,7 +4,6 @@ import unittest
 from unittest.mock import Mock, MagicMock, patch
 
 from blivetgui.dialogs.add_dialog import AdvancedOptions, AddDialog
-from blivetgui.dialogs.helpers import supported_filesystems
 from blivetgui.i18n import _
 
 import os
@@ -15,6 +14,25 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from blivet.size import Size
+from blivet import formats
+
+
+def supported_filesystems():
+    _fs_types = []
+
+    additional_fs = ["swap", "lvmpv"]
+
+    for cls in formats.device_formats.values():
+        obj = cls()
+
+        supported_fs = (obj.type not in ("tmpfs",) and
+                        obj.supported and obj.formattable and
+                        (isinstance(obj, formats.fs.FS) or
+                         obj.type in additional_fs))
+        if supported_fs:
+            _fs_types.append(obj)
+
+    return sorted(_fs_types, key=lambda fs: fs.type)
 
 
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
@@ -218,6 +236,10 @@ class AddDialogTest(unittest.TestCase):
     error_dialog = MagicMock()
     parent_window = Gtk.Window()
 
+    @classmethod
+    def setUpClass(cls):
+        cls.supported_filesystems = supported_filesystems()
+
     def _get_free_device(self, size=Size("8 GiB"), logical=False, parent=None, **kwargs):
         if not parent:
             parent = MagicMock()
@@ -257,7 +279,8 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device), ("free", self._get_free_device())], [])
+                               [("free", free_device), ("free", self._get_free_device())],
+                               self.supported_filesystems, [])
 
         types = sorted([i[1] for i in add_dialog.devices_combo.get_model()])
 
@@ -269,7 +292,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(size=parent_device.size, parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [])
+                               [("free", free_device)], self.supported_filesystems, [])
 
         types = sorted([i[1] for i in add_dialog.devices_combo.get_model()])
 
@@ -281,7 +304,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = parent_device
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("lvmpv", free_device)], [])
+                               [("lvmpv", free_device)], self.supported_filesystems, [])
 
         types = sorted([i[1] for i in add_dialog.devices_combo.get_model()])
 
@@ -293,7 +316,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [])
+                               [("free", free_device)], self.supported_filesystems, [])
 
         add_dialog.devices_combo.set_active_id("partition")
         self.assertEqual(add_dialog.selected_type, "partition")
@@ -311,7 +334,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [])
+                               [("free", free_device)], self.supported_filesystems, [])
 
         add_dialog.devices_combo.set_active_id("lvm")
         self.assertEqual(add_dialog.selected_type, "lvm")
@@ -329,7 +352,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [])
+                               [("free", free_device)], self.supported_filesystems, [])
 
         add_dialog.devices_combo.set_active_id("btrfs volume")
         self.assertEqual(add_dialog.selected_type, "btrfs volume")
@@ -347,7 +370,8 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device), ("free", self._get_free_device())], [])
+                               [("free", free_device), ("free", self._get_free_device())],
+                               self.supported_filesystems, [])
 
         add_dialog.devices_combo.set_active_id("mdraid")
         self.assertEqual(add_dialog.selected_type, "mdraid")
@@ -363,7 +387,8 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device), ("free", self._get_free_device()), ("free", self._get_free_device())], [])
+                               [("free", free_device), ("free", self._get_free_device()), ("free", self._get_free_device())],
+                               self.supported_filesystems, [])
         add_dialog.devices_combo.set_active_id("partition")
 
         # partition allows only one parent -- make sure we have the right one and it is selected
@@ -379,7 +404,8 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device), ("free", self._get_free_device(size=Size("4 GiB"))), ("free", self._get_free_device(size=Size("4 GiB")))], [])
+                               [("free", free_device), ("free", self._get_free_device(size=Size("4 GiB"))), ("free", self._get_free_device(size=Size("4 GiB")))],
+                               self.supported_filesystems, [])
         add_dialog.devices_combo.set_active_id("lvm")
 
         # lvm allows multiple parents -- make sure we have all available and the right one is selected
@@ -395,7 +421,8 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device), ("free", self._get_free_device()), ("free", self._get_free_device())], [])
+                               [("free", free_device), ("free", self._get_free_device()), ("free", self._get_free_device())],
+                               self.supported_filesystems, [])
         add_dialog.devices_combo.set_active_id("lvmlv")
 
         # lvmlv allows only one parent -- make sure we have the right one and it is selected
@@ -411,7 +438,8 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device), ("free", self._get_free_device(size=Size("200 MiB"))), ("free", self._get_free_device(size=Size("4 GiB")))], [])
+                               [("free", free_device), ("free", self._get_free_device(size=Size("200 MiB"))), ("free", self._get_free_device(size=Size("4 GiB")))],
+                               self.supported_filesystems, [])
         add_dialog.devices_combo.set_active_id("btrfs volume")
 
         # lvm allows multiple parents -- make sure we have all available (= larger than 256 MiB) and the right one is selected
@@ -426,7 +454,8 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device), ("free", self._get_free_device()), ("free", self._get_free_device())], [])
+                               [("free", free_device), ("free", self._get_free_device()), ("free", self._get_free_device())],
+                               self.supported_filesystems, [])
 
         # partition -- only one parent
         add_dialog.devices_combo.set_active_id("partition")
@@ -441,7 +470,8 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device), ("free", self._get_free_device()), ("free", self._get_free_device())], [])
+                               [("free", free_device), ("free", self._get_free_device()), ("free", self._get_free_device())],
+                               self.supported_filesystems, [])
 
         # partition -- only one parent, shouldn't be allowed to deselect it
         add_dialog.devices_combo.set_active_id("partition")
@@ -469,7 +499,8 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [], True)  # with installer_mode=True
+                               [("free", free_device)], self.supported_filesystems,
+                               [], True)  # with installer_mode=True
 
         # swap -- mountpoint entry shouldn't be visible, label entry should be visible
         add_dialog.filesystems_combo.set_active_id("swap")
@@ -493,8 +524,8 @@ class AddDialogTest(unittest.TestCase):
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device)
 
-        add_dialog = AddDialog(self.parent_window, parent_device, free_device, [],
-                               [("free", free_device)], [])
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
+                               [("free", free_device)], self.supported_filesystems, [])
 
         min_size = add_dialog.size_area.min_size  # device minimal size before update
         # check the encrypt check, passphrase entries should be visible and 2 MiB should be added to device min size
@@ -513,8 +544,8 @@ class AddDialogTest(unittest.TestCase):
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device)
 
-        add_dialog = AddDialog(self.parent_window, parent_device, free_device, [],
-                               [("free", free_device)], [])
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
+                               [("free", free_device)], self.supported_filesystems, [])
 
         add_dialog.encrypt_check.set_active(True)
 
@@ -531,8 +562,9 @@ class AddDialogTest(unittest.TestCase):
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device)
 
-        add_dialog = AddDialog(self.parent_window, parent_device, free_device, [],
-                               [("free", free_device), ("free", self._get_free_device())], [])
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
+                               [("free", free_device), ("free", self._get_free_device())],
+                               self.supported_filesystems, [])
 
         add_dialog.devices_combo.set_active_id("mdraid")
 
@@ -545,7 +577,8 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"))
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device), ("free", self._get_free_device(size=Size("4 GiB")))], [])
+                               [("free", free_device), ("free", self._get_free_device(size=Size("4 GiB")))],
+                               self.supported_filesystems, [])
 
         add_dialog.devices_combo.set_active_id("mdraid")
 
@@ -565,7 +598,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [])
+                               [("free", free_device)], self.supported_filesystems, [])
 
         # passphrases specified and matches
         add_dialog.encrypt_check.set_active(True)
@@ -596,7 +629,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], ["/root"], True)
+                               [("free", free_device)], self.supported_filesystems, ["/root"], True)
 
         # reset mock
         self.error_dialog.reset_mock()
@@ -628,7 +661,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [])
+                               [("free", free_device)], self.supported_filesystems, [])
 
         add_dialog.devices_combo.set_active_id("lvm")  # select device type that has a name option
 
@@ -652,7 +685,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [])
+                               [("free", free_device)], self.supported_filesystems, [])
 
         add_dialog.devices_combo.set_active_id("partition")  # select device type that has a label option
         add_dialog.filesystems_combo.set_active_id("ext4")
@@ -676,7 +709,7 @@ class AddDialogTest(unittest.TestCase):
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [], True)
+                               [("free", free_device)], self.supported_filesystems, [], True)
 
         fstype = next((fs.type for fs in supported_filesystems()), None)
         if fstype is None:
@@ -716,7 +749,8 @@ class AddDialogTest(unittest.TestCase):
         free_device2 = self._get_free_device(parent=parent_device2)
 
         add_dialog = AddDialog(self.parent_window, parent_device1, free_device1,
-                               [("free", free_device1), ("free", free_device2)], [], True)
+                               [("free", free_device1), ("free", free_device2)],
+                               self.supported_filesystems, [], True)
 
         name = "name"
         size1 = Size("4 GiB")
@@ -751,7 +785,8 @@ class AddDialogTest(unittest.TestCase):
         free_device2 = self._get_free_device(parent=parent_device2)
 
         add_dialog = AddDialog(self.parent_window, parent_device1, free_device1,
-                               [("free", free_device1), ("free", free_device2)], [], True)
+                               [("free", free_device1), ("free", free_device2)],
+                               self.supported_filesystems, [], True)
 
         fstype = next((fs.type for fs in supported_filesystems()), None)
         if fstype is None:
@@ -799,7 +834,7 @@ class AddDialogTest(unittest.TestCase):
                                             is_empty_disk=True)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], [])
+                               [("free", free_device)], self.supported_filesystems, [])
 
         add_dialog.devices_combo.set_active_id("btrfs volume")
 

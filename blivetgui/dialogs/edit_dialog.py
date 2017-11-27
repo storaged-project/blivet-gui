@@ -28,7 +28,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from .size_chooser import SizeChooser
-from .helpers import supported_filesystems, is_mountpoint_valid, is_label_valid
+from .helpers import is_mountpoint_valid, is_label_valid
 from ..dialogs import message_dialogs
 from ..gui_utils import locate_ui_file
 from ..communication.proxy_utils import ProxyDataContainer
@@ -121,9 +121,11 @@ class ResizeDialog(object):
 
 class FormatDialog(object):
 
-    def __init__(self, main_window, edit_device, mountpoints=None, installer_mode=False):
+    def __init__(self, main_window, edit_device, supported_filesystems,
+                 mountpoints=None, installer_mode=False):
         self.main_window = main_window
         self.edit_device = edit_device
+        self.supported_filesystems = supported_filesystems
         self.mountpoints = mountpoints
         self.installer_mode = installer_mode
 
@@ -145,8 +147,7 @@ class FormatDialog(object):
         self.label_entry = self.builder.get_object("entry_label")
         self.mnt_entry = self.builder.get_object("entry_mountpoint")
 
-        supported_fs = supported_filesystems(self.installer_mode)
-        for fs in supported_fs:
+        for fs in self.supported_filesystems:
             if self.edit_device.size > fs._min_size:
                 self.fs_store.append((fs, fs.type, fs.name))
         self.fs_store.append((None, "unformatted", _("unformatted")))
@@ -155,7 +156,7 @@ class FormatDialog(object):
         # triggering it for every format
         self.fs_combo.connect("changed", self._on_fs_combo_changed)
 
-        if config.default_fstype in (fs.type for fs in supported_fs):
+        if config.default_fstype in (fs.type for fs in self.supported_filesystems):
             self.fs_combo.set_active_id(config.default_fstype)
         else:
             self.fs_combo.set_active(0)
