@@ -856,5 +856,6 @@ class AddDialogTest(unittest.TestCase):
         self.assertEqual(selection.size_selection.parents[0].selected_size, free_device.size)
         self.assertEqual(selection.raid_level, "single")
 
+
 if __name__ == "__main__":
     unittest.main()

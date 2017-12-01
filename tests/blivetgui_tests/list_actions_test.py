@@ -79,5 +79,6 @@ class ListActionsTest(unittest.TestCase):
         self.assertFalse(self.buttons_state)
         self.assertIn("No pending actions", self.actions_label)
 
+
 if __name__ == "__main__":
     unittest.main()

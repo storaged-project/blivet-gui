@@ -107,6 +107,7 @@ def main():
             client = BlivetGUIClient(server_socket=sockfile)
             BlivetGUI(client)
 
+
 if __name__ == '__main__':
 
     signal.signal(signal.SIGINT, signal.SIG_DFL)

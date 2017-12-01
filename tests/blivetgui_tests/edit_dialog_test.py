@@ -97,5 +97,6 @@ class FormatDialogTest(unittest.TestCase):
                                               _("\"{0}\" is not a valid mountpoint.").format("aaaaa"),
                                               False)
 
+
 if __name__ == "__main__":
     unittest.main()

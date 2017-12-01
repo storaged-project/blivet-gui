@@ -62,5 +62,6 @@ class BlivetGUIClientTest(unittest.TestCase):
         self.assertTrue(isinstance(converted_args[0].data3.dataB, ProxyID))
         self.assertEqual(converted_args[0].data3.dataB, args[0].data3.dataB.proxy_id)
 
+
 if __name__ == "__main__":
     unittest.main()

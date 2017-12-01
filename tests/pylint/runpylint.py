@@ -29,6 +29,7 @@ class BlivetGUILintConfig(PocketLintConfig):
     def ignoreNames(self):
         return {"translation-canary"}
 
+
 if __name__ == "__main__":
     conf = BlivetGUILintConfig()
     linter = PocketLinter(conf)
