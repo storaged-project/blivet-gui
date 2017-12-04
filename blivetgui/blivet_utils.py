@@ -59,9 +59,8 @@ class RawFormatDevice(object):
     """ Special class to represent formatted disk without a disklabel
     """
 
-    def __init__(self, disk, fmt, dev_id):
+    def __init__(self, disk, dev_id):
         self.disk = disk
-        self.format = fmt
         self.id = dev_id
 
         self.type = "raw format"
@@ -80,6 +79,14 @@ class RawFormatDevice(object):
 
         else:
             self.name = _("{0} disklabel").format(self.type)
+
+    @property
+    def format(self):
+        return self.disk.format
+
+    @property
+    def original_format(self):
+        return self.disk.original_format
 
     @property
     def protected(self):
@@ -304,7 +311,7 @@ class BlivetUtils(object):
 
         if blivet_device.format and blivet_device.format.type not in ("disklabel", "btrfs", "luks", None):
             # special occasion -- raw device format
-            partitions = [RawFormatDevice(disk=blivet_device, fmt=blivet_device.format, dev_id=self.storage.next_id)]
+            partitions = [RawFormatDevice(disk=blivet_device, dev_id=self.storage.next_id)]
             return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
 
         if blivet_device.format and blivet_device.format.type == "btrfs" and blivet_device.children:
@@ -316,7 +323,7 @@ class BlivetUtils(object):
             if blivet_device.children:
                 luks = blivet_device.children[0]
             else:
-                luks = RawFormatDevice(disk=blivet_device, fmt=blivet_device.format, dev_id=self.storage.next_id)
+                luks = RawFormatDevice(disk=blivet_device, dev_id=self.storage.next_id)
 
             return ProxyDataContainer(partitions=[luks], extended=None, logicals=None)
 
