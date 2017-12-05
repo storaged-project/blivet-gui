@@ -26,6 +26,8 @@ import pickle
 import socket
 import struct
 
+from threading import Lock
+
 from .proxy_utils import ProxyID, ProxyDataContainer
 from .errors import ServerConnectionError
 
@@ -86,10 +88,6 @@ class ClientProxyObject(object):
 
         else:
             return remote_attr
-
-# ---------------------------------------------------------------------------- #
-
-from threading import Lock
 
 
 class BlivetGUIClient(object):

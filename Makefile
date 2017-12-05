@@ -11,19 +11,11 @@ ZANATA_PUSH_ARGS = --srcdir ./ --push-type source --force
 PYTHON=python3
 COVERAGE=coverage3
 
-TEST_DEPENDENCIES += python3-mock
-TEST_DEPENDENCIES += python3-coverage
-TEST_DEPENDENCIES += python3-pocketlint python3-bugzilla
-TEST_DEPENDENCIES += python3-pep8
-TEST_DEPENDENCIES += xorg-x11-server-Xvfb
-TEST_DEPENDENCIES += targetcli
-TEST_DEPENDENCIES := $(shell echo $(sort $(TEST_DEPENDENCIES)) | uniq)
-
 all:
 	$(MAKE) -C po
 
 po-pull:
-	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: yum install zanata-python-client"; exit 1 )
+	@which zanata >/dev/null 2>&1 || ( echo "You need to install Zanata client to download translation files"; exit 1 )
 	zanata pull $(ZANATA_PULL_ARGS)
 
 po-push: potfile
@@ -32,59 +24,55 @@ po-push: potfile
 potfile:
 	$(MAKE) -C po potfile
 
-check-requires:
-	@echo "*** Checking if the dependencies required for testing and analysis are available ***"
-	@status=0 ; \
-	for pkg in $(TEST_DEPENDENCIES) ; do \
-		test_output="$$(rpm -q --whatprovides "$$pkg")" ; \
-		if [ $$? != 0 ]; then \
-			echo "$$test_output" ; \
-			status=1 ; \
-		fi ; \
-	done ; \
-	exit $$status
-
 install-requires:
 	@echo "*** Installing the dependencies required for testing and analysis ***"
-	dnf install -y $(TEST_DEPENDENCIES)
+	@which ansible-playbook >/dev/null 2>&1 || ( echo "Please install Ansible to install testing dependencies"; exit 1 )
+	@ansible-playbook -K -i "localhost," -c local install-test-dependencies.yml
 
-test: check-requires
+test:
 	@echo "*** Running unittests ***"
-	@status=0;
-	$(MAKE) gui-test || status=1;
-	$(MAKE) utils-test || status=1;
+	@status=0; \
+	$(MAKE) gui-test || status=1; \
+	$(MAKE) utils-test || status=1; \
 	exit $$status
 
-gui-test: check-requires
+gui-test:
 	@echo "*** Running GUI tests ***"
 	PYTHONPATH=.:tests/ xvfb-run -s '-screen 0 640x480x8 -extension RANDR' $(PYTHON) -m unittest discover -v -s tests/blivetgui_tests -p '*_test.py'
 
-utils-test: check-requires
+utils-test:
 	@echo "*** Running Utils tests ***"
 	PYTHONPATH=.:tests/ $(PYTHON) -m unittest discover -v -s tests/blivetutils_tests -p 'test_*.py'
 
-coverage: check-requires
+coverage:
 	@echo "*** Running unittests with $(COVERAGE) for $(PYTHON) ***"
 	PYTHONPATH=.:tests/ $(COVERAGE) run --branch -m unittest discover -v -s tests/ -p '*_test.py'
 	$(COVERAGE) report --include="blivetgui/*" --show-missing
 
-pylint: check-requires
+pylint:
 	@echo "*** Running pylint ***"
 	PYTHONPATH=. tests/pylint/runpylint.py
 
-pep8: check-requires
+pep8:
 	@echo "*** Running pep8 compliance check ***"
-	python3-pep8 --ignore=E501,E402,E731 blivetgui/ tests/ blivet-gui blivet-gui-daemon
+	@if test `which python3-pep8` ; then \
+		pep8='python3-pep8' ; \
+	elif test `which pep8` ; then \
+		pep8='pep8' ; \
+	else \
+		echo "You need to install pep8 to run this check."; exit 1; \
+	fi ; \
+	$$pep8 --ignore=E501,E402,E731 blivetgui/ tests/ blivet-gui blivet-gui-daemon
 
-canary: check-requires
+canary:
 	$(MAKE) -C po potfile
 	PYTHONPATH=translation-canary:$(PYTHONPATH) python3 -m translation_canary.translatable po/blivet-gui.pot
 
 check:
-	@status=0;
-	$(MAKE) pylint || status=1;
-	$(MAKE) pep8 || status=1;
-	$(MAKE) canary || status=1;
+	@status=0; \
+	$(MAKE) pylint || status=1; \
+	$(MAKE) pep8 || status=1; \
+	$(MAKE) canary || status=1; \
 	exit $$status
 
 clean:
@@ -156,4 +144,3 @@ rpm: local
 ci: check test
 
 .PHONY: check pep8 pylint clean install tag archive local
-.ONESHELL: test check

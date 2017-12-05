@@ -120,5 +120,6 @@ class BlivetProxyObjectTest(unittest.TestCase):
     def test_len(self):
         self.assertEqual(len(self.proxy_object), len(self.blivet_object))
 
+
 if __name__ == "__main__":
     unittest.main()
