@@ -1,4 +1,4 @@
-blivet-gui is a graphical tool for storage configuration using blivet library
+ blivet-gui is a graphical tool for storage configuration using blivet library
 
 ### Licence
 
