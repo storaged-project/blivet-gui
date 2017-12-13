@@ -699,6 +699,24 @@ class BlivetGUI(object):
 
         return True
 
+    def _blivet_init_already_running(self):
+        dialog = message_dialogs.CustomDialog(parent_window=self.main_window,
+                                              buttons=[_("Quit"),
+                                                       Gtk.ResponseType.ACCEPT])
+
+        dialog.dialog.set_title(_("blivet-gui is already running"))
+        dialog.dialog.set_markup(_("Another instance of blivet-gui is already running.\n"
+                                   "Only one instance of blivet-gui can run at the same time."))
+        msg = _("If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> "
+                "process was terminated too.\nIf it is still running you can use\n\n"
+                "<tt>$ sudo killall blivet-gui-daemon</tt>\n\n"
+                "command to force quit it.")
+        dialog.details.set_markup(msg)
+
+        dialog.run()
+        self.client.quit()
+        sys.exit(1)
+
     def blivet_init(self):
         loading_window = LoadingWindow(self.main_window)
         ret = self._run_thread(loading_window, self.client.remote_control, ("init", self.ignored_disks))
@@ -706,10 +724,7 @@ class BlivetGUI(object):
         if not ret.success:  # pylint: disable=maybe-no-member
             # blivet-gui is already running --> quit
             if ret.reason == ServerInitResponse.RUNNING:
-                msg = _("blivet-gui is already running.")
-                self.show_error_dialog(msg)
-                self.client.quit()
-                sys.exit(1)
+                self._blivet_init_already_running()
             # unusable configuration (corrupted/unknow) disklabel --> ask
             elif ret.reason == ServerInitResponse.UNUSABLE:
                 loading_window.destroy()
