@@ -49,6 +49,7 @@ from .dialogs import message_dialogs, other_dialogs, edit_dialog, add_dialog, de
 from .processing_window import ProcessingActions
 from .loading_window import LoadingWindow
 from .exception_handler import BlivetGUIExceptionHandler
+from .communication.constants import ServerInitResponse
 
 import threading
 import sys
@@ -704,13 +705,13 @@ class BlivetGUI(object):
 
         if not ret.success:  # pylint: disable=maybe-no-member
             # blivet-gui is already running --> quit
-            if ret.reason == "running":
+            if ret.reason == ServerInitResponse.RUNNING:
                 msg = _("blivet-gui is already running.")
                 self.show_error_dialog(msg)
                 self.client.quit()
                 sys.exit(1)
             # unusable configuration (corrupted/unknow) disklabel --> ask
-            elif ret.reason == "unusable":
+            elif ret.reason == ServerInitResponse.UNUSABLE:
                 loading_window.destroy()
 
                 cont = self._blivet_init_ignore(ret.exception, ret.disk)
