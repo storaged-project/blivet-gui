@@ -22,7 +22,7 @@ Summary: blivet-gui runtime
 
 BuildRequires: python3-devel
 BuildRequires: gettext >= 0.18.3
-BuildRequires: python-setuptools
+BuildRequires: python3-setuptools
 
 Requires: python3
 Requires: python3-gobject
@@ -82,6 +82,12 @@ fi
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Tue Dec 19 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.7-3
+- Fix python-setuptools dependency
+
+* Mon Nov 27 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.7-2
+- Allow running with new Blivet 3.0
+
 * Tue Sep 19 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.7-1
 - Allow changing partition table (disklabel) (vtrefny)
 - Do not use Gtk.Label.set_align it is deprecated (vtrefny)
