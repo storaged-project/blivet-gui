@@ -30,7 +30,6 @@ from blivet.devicelibs.crypto import LUKS_METADATA_SIZE
 
 from .communication.proxy_utils import ProxyDataContainer
 
-import socket
 import platform
 import re
 import traceback
