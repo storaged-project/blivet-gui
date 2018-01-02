@@ -785,7 +785,7 @@ class BlivetUtils(object):
                 else:
                     prefix = ""
 
-                name = self.storage.suggest_container_name(hostname=socket.gethostname(), prefix=prefix)
+                name = self.storage.suggest_container_name(prefix=prefix)
 
         else:
             name = self.storage.safe_device_name(name)
