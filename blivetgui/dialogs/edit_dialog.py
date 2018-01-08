@@ -148,7 +148,7 @@ class FormatDialog(object):
         self.mnt_entry = self.builder.get_object("entry_mountpoint")
 
         for fs in self.supported_filesystems:
-            if self.edit_device.size > fs._min_size:
+            if self._allow_format_size(fs):
                 self.fs_store.append((fs, fs.type, fs.name))
         self.fs_store.append((None, "unformatted", _("unformatted")))
 
@@ -247,6 +247,15 @@ class FormatDialog(object):
             return ProxyDataContainer(edit_device=self.edit_device, format=True,
                                       filesystem=selected_fs, label=selected_label,
                                       mountpoint=selected_mnt)
+
+    def _allow_format_size(self, fs):
+        if fs.max_size and self.edit_device.size > fs.max_size:
+            return False
+
+        if fs.min_size and self.edit_device.size < fs.min_size:
+            return False
+
+        return True
 
     def _on_fs_combo_changed(self, _widget):
         # mountpoint entry sensitivity
