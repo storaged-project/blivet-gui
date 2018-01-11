@@ -32,6 +32,7 @@ import struct
 import socketserver
 import pickle
 
+from .constants import ServerInitResponse
 from .proxy_utils import ProxyID, ProxyDataContainer
 
 from ..blivet_utils import BlivetUtils
@@ -252,7 +253,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
             raise RuntimeError("Server already received request for initialization.")
 
         if self.server.other_running:  # pylint: disable=no-member
-            answer = ProxyDataContainer(success=False, reason="running")
+            answer = ProxyDataContainer(success=False, reason=ServerInitResponse.RUNNING)
 
         else:
             args = self._args_convertTo_objects(data[1])
@@ -260,11 +261,12 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
             try:
                 self.blivet_utils = BlivetUtils(*args)
             except (DiskLabelScanError, CorruptGPTError) as e:
-                answer = ProxyDataContainer(success=False, reason="unusable", exception=e,
-                                            traceback=traceback.format_exc(), disk=e.dev_name)
+                answer = ProxyDataContainer(success=False, reason=ServerInitResponse.UNUSABLE,
+                                            exception=e, traceback=traceback.format_exc(),
+                                            disk=e.dev_name)
             except Exception as e:  # pylint: disable=broad-except
-                answer = ProxyDataContainer(success=False, reason="exception", exception=e,
-                                            traceback=traceback.format_exc())
+                answer = ProxyDataContainer(success=False, reason=ServerInitResponse.EXCEPTION,
+                                            exception=e, traceback=traceback.format_exc())
             else:
                 answer = ProxyDataContainer(success=True)
 
