@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.7
+Version: 2.1.8
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -82,6 +82,28 @@ fi
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Mon Jan 15 2018 Vojtech Trefny <vtrefny@redhat.com> - 2.1.8-1
+- Do not allow to format large devices to biosboot (#1532253) (vtrefny)
+- Remove unused 'socket' module import (vtrefny)
+- Don't pass 'hostname' kwarg to suggest_container_name (#1528103) (awilliam)
+- Sync spec file with downstream (vtrefny)
+- Use better message when blivet-gui is already running (vtrefny)
+- Use constants instead of strings for init errors communication (vtrefny)
+- Fix few pep8 violations found by pep8 on Debian (vtrefny)
+- Try to locate pep8 executable in pep8 target (vtrefny)
+- Do not use RPM to check if Zanata client is installed (vtrefny)
+- Use ansible for test dependencies installation (vtrefny)
+- Fix opening raw LUKS format (#1519049) (vtrefny)
+- Get supported filesystems in the 'backend' process (vtrefny)
+- Fix ignored pylint directory (vtrefny)
+- Add pylint log files to .gitignore (vtrefny)
+- Bump required version for blivet to 3.0 (vtrefny)
+- Use new method for getting supported disklabels (vtrefny)
+- Use new method to configure blivet (vtrefny)
+- Use argparse module instead of deprecated optparse (vtrefny)
+- Update information about running tests in CONTRIBUTING.md (vtrefny)
+- Add targetcli to test dependencies (vtrefny)
+
 * Tue Dec 19 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.7-3
 - Fix python-setuptools dependency
 
