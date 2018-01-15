@@ -54,18 +54,6 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 
 %find_lang %{name}
 
-%post
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-
-%posttrans
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-
 %files -n blivet-gui
 %{_datadir}/applications/blivet-gui.desktop
 %{_datadir}/appdata/blivet-gui.appdata.xml
@@ -103,6 +91,13 @@ fi
 - Use argparse module instead of deprecated optparse (vtrefny)
 - Update information about running tests in CONTRIBUTING.md (vtrefny)
 - Add targetcli to test dependencies (vtrefny)
+
+* Sun Jan 07 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.1.7-5
+- Remove obsolete scriptlets
+
+* Tue Jan 02 2018 Vojtech Trefny <vtrefny@redhat.com> - 2.1.7-4
+- Don't pass 'hostname' kwarg to suggest_container_name (#1528103)
+- Remove unused 'socket' module import
 
 * Tue Dec 19 2017 Vojtech Trefny <vtrefny@redhat.com> - 2.1.7-3
 - Fix python-setuptools dependency
