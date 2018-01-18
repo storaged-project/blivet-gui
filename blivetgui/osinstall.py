@@ -94,6 +94,9 @@ class BlivetGUIAnaconda(BlivetGUI):
         self.builder.set_translation_domain("blivet-gui")
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
+        # supported filesystems
+        self._supported_filesystems = []
+
         # CSS styles
         css_provider = Gtk.CssProvider()
         css_provider.load_from_path(locate_css_file("rectangle.css"))
