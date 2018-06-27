@@ -9,7 +9,10 @@ class BlivetGUILintConfig(PocketLintConfig):
     def __init__(self):
         PocketLintConfig.__init__(self)
 
-        self.falsePositives = [FalsePositive(r"Context manager 'lock' doesn't implement __enter__ and __exit__")]
+        self.falsePositives = [FalsePositive(r"Context manager 'lock' doesn't implement __enter__ and __exit__"),
+                               FalsePositive(r"Value '.*\.parents_store' is unsubscriptable"),
+                               FalsePositive(r"Non-iterable value .*\.parents_store is used in an iterating context"),
+                               FalsePositive(r"Bad option value 'subprocess-popen-preexec-fn'")]
 
     @property
     def pylintPlugins(self):
