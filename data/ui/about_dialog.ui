@@ -7,7 +7,7 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="program_name">blivet-gui</property>
-    <property name="copyright" translatable="yes">Copyright © 2014 Red Hat Inc.</property>
+    <property name="copyright" translatable="yes">Copyright © Red Hat Inc.</property>
     <property name="website">https://github.com/storaged-project/blivet-gui</property>
     <property name="authors">Vojtech Trefny &lt;vtrefny@redhat.com&gt;</property>
     <property name="logo_icon_name">blivet-gui</property>
