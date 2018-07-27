@@ -87,9 +87,9 @@ class DeviceInformationDialog(Gtk.Dialog):
                           "mdarray": (_("MD RAID Array"), self._get_mdarray_info)}
 
         # Fill dialog with information
-        self.device_info = self.add_device_info()
-        self.format_info = self.add_format_info()
-        self.parents_info = self.add_parents_info()
+        self.add_device_info()
+        self.add_format_info()
+        self.add_parents_info()
 
         # Show content
         self.show_all()
