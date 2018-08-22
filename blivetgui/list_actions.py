@@ -47,7 +47,7 @@ class ListActions(object):
 
         self.blivet_gui = blivet_gui
 
-        icon_theme = Gtk.IconTheme.get_default()
+        icon_theme = Gtk.IconTheme.get_default()  # pylint: disable=no-value-for-parameter
         icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
         icon_delete = Gtk.IconTheme.load_icon(icon_theme, "edit-delete", 16, 0)
         icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all", 16, 0)

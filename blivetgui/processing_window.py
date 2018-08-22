@@ -92,7 +92,7 @@ class ProcessingActions(Gtk.Dialog):
         """ Show list of actions
         """
 
-        icon_theme = Gtk.IconTheme.get_default()
+        icon_theme = Gtk.IconTheme.get_default()  # pylint: disable=no-value-for-parameter
         icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
         icon_delete = Gtk.IconTheme.load_icon(icon_theme, "edit-delete", 16, 0)
         icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all", 16, 0)
@@ -129,7 +129,7 @@ class ProcessingActions(Gtk.Dialog):
         return actions_view, actions_list
 
     def _set_applied_icon(self, position):
-        icon_theme = Gtk.IconTheme.get_default()
+        icon_theme = Gtk.IconTheme.get_default()  # pylint: disable=no-value-for-parameter
         icon_applied = Gtk.IconTheme.load_icon(icon_theme, "emblem-ok-symbolic.symbolic", 16, 0)
 
         path = Gtk.TreePath(position)
