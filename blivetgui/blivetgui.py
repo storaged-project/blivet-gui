@@ -88,7 +88,7 @@ class BlivetGUI(object):
         # CSS styles
         css_provider = Gtk.CssProvider()
         css_provider.load_from_path(locate_css_file("rectangle.css"))
-        screen = Gdk.Screen.get_default()
+        screen = Gdk.Screen.get_default()  # pylint: disable=no-value-for-parameter
         style_context = Gtk.StyleContext()
         style_context.add_provider_for_screen(screen, css_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
 

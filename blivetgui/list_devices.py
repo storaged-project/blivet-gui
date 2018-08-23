@@ -65,7 +65,7 @@ class ListDevices(object):
         """ Load disks
         """
 
-        icon_theme = Gtk.IconTheme.get_default()
+        icon_theme = Gtk.IconTheme.get_default()  # pylint: disable=no-value-for-parameter
         icon_disk = Gtk.IconTheme.load_icon(icon_theme, "drive-harddisk", 32, 0)
         icon_disk_usb = Gtk.IconTheme.load_icon(icon_theme, "drive-removable-media", 32, 0)
 
@@ -95,7 +95,7 @@ class ListDevices(object):
 
         gdevices = self.blivet_gui.client.remote_call("get_group_devices")
 
-        icon_theme = Gtk.IconTheme.get_default()
+        icon_theme = Gtk.IconTheme.get_default()  # pylint: disable=no-value-for-parameter
         icon_group = Gtk.IconTheme.load_icon(icon_theme, "drive-multidisk", 32, 0)
 
         if gdevices["lvm"]:
