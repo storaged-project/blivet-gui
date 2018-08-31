@@ -606,6 +606,23 @@ class AddDialog(Gtk.Dialog):
 
         return min_size
 
+    def _get_parent_max_size(self, parent_device, free_size):
+        """ Get maximal size for parent devices of newly created device.
+            This value depends on type of created device.
+        """
+
+        device_type = self.selected_type
+
+        if device_type in ("partition", "lvm", "btrfs volume", "mdraid"):
+            # partition or a device we are going to create partition as a parent
+            # --> we need to use disklabel limit
+            disklabel_limit = size.Size(parent_device.format.parted_disk.maxPartitionLength * parent_device.format.sector_size)
+            max_size = min(disklabel_limit, free_size)
+        else:
+            max_size = free_size
+
+        return max_size
+
     def _get_parents(self):
         """ Get selected parents for newly created device """
 
@@ -626,7 +643,7 @@ class AddDialog(Gtk.Dialog):
             parent = ProxyDataContainer(device=self.selected_parent,
                                         free_space=self.selected_free,
                                         min_size=self._get_parent_min_size(),
-                                        max_size=free,
+                                        max_size=self._get_parent_max_size(self.selected_parent, free),
                                         reserved_size=reserved_size)
             parents.append(parent)
         else:
@@ -635,7 +652,7 @@ class AddDialog(Gtk.Dialog):
                     parent = ProxyDataContainer(device=row[0],
                                                 free_space=row[1],
                                                 min_size=self._get_parent_min_size(),
-                                                max_size=row[1].size,
+                                                max_size=self._get_parent_max_size(row[0], row[1].size),
                                                 reserved_size=reserved_size)
                     parents.append(parent)
 
@@ -643,7 +660,7 @@ class AddDialog(Gtk.Dialog):
             parent = ProxyDataContainer(device=self.selected_parent,
                                         free_space=self.selected_free,
                                         min_size=self._get_parent_min_size(),
-                                        max_size=self.selected_free.size,
+                                        max_size=self._get_parent_max_size(self.selected_parent, self.selected_free.size),
                                         reserved_size=reserved_size)
             parents.append(parent)
 
@@ -673,6 +690,10 @@ class AddDialog(Gtk.Dialog):
         # it's max size and leave some free space in the VG
         elif self.selected_type == "lvmthinpool":
             limit = min(self.selected_parent.free_space * POOL_RESERVED, limit)
+
+        # limit from the parents maximum size
+        parents_limit = sum(p.max_size for p in self._get_parents())
+        limit = min(parents_limit, limit)
 
         return limit
 

@@ -242,8 +242,7 @@ class AddDialogTest(unittest.TestCase):
 
     def _get_free_device(self, size=Size("8 GiB"), logical=False, parent=None, **kwargs):
         if not parent:
-            parent = MagicMock()
-            parent.configure_mock(name="vda", size=size, type="disk")
+            parent = self._get_parent_device(name="vda", dtype="disk", size=size)
 
         free_region = kwargs.get("is_free_region", True)
         empty_disk = kwargs.get("is_empty_disk", False)
@@ -260,7 +259,10 @@ class AddDialogTest(unittest.TestCase):
                 name = "fedora"
 
         dev = MagicMock()
-        dev.configure_mock(name=name, type=dtype, size=size, format=MagicMock(type=ftype))
+        dev.configure_mock(name=name, type=dtype, size=size,
+                           format=MagicMock(type=ftype,
+                                            sector_size=512,
+                                            parted_disk=MagicMock(maxPartitionLength=4294967295)))
         if dtype != "disk":
             disk = self._get_parent_device()
             dev.configure_mock(disk=disk, parents=[disk])
@@ -855,6 +857,42 @@ class AddDialogTest(unittest.TestCase):
         self.assertEqual(selection.size_selection.parents[0].parent_device, parent_device)
         self.assertEqual(selection.size_selection.parents[0].selected_size, free_device.size)
         self.assertEqual(selection.raid_level, "single")
+
+    def test_parents_max_size_limit(self):
+        parent_device1 = self._get_parent_device(size=Size("8 TiB"))
+        free_device1 = self._get_free_device(parent=parent_device1, size=parent_device1.size)
+
+        # simple case -- partition
+        add_dialog = AddDialog(self.parent_window, parent_device1, free_device1,
+                               [("free", free_device1)], self.supported_filesystems, [], True)
+
+        add_dialog.devices_combo.set_active_id("partition")
+        # select "unformatted" just to be sure there is no filesystem size limit
+        add_dialog.filesystems_combo.set_active_id("unformatted")
+
+        # partition max size should me limited to disklabel max size limit
+        limit = parent_device1.format.parted_disk.maxPartitionLength * parent_device1.format.sector_size
+        self.assertEqual(add_dialog.size_area.main_chooser.max_size, limit)
+
+        # more complicated case -- LVM with two parents
+        parent_device2 = self._get_parent_device(size=Size("1 GiB"))
+        free_device2 = self._get_free_device(parent=parent_device2, size=parent_device2.size)
+
+        add_dialog = AddDialog(self.parent_window, parent_device1, free_device1,
+                               [("free", free_device1), ("free", free_device2)],
+                               self.supported_filesystems, [], True)
+
+        add_dialog.devices_combo.set_active_id("lvm")
+        # select "unformatted" just to be sure there is no filesystem size limit
+        add_dialog.filesystems_combo.set_active_id("unformatted")
+
+        # select second free space
+        add_dialog.on_cell_toggled(None, 1)
+        add_dialog.parents_store[1][2] = True
+
+        # LVM limit should be disklabel limit (from first parent) + 1 GiB (from second parent)
+        limit = free_device2.size + parent_device1.format.parted_disk.maxPartitionLength * parent_device1.format.sector_size
+        self.assertEqual(add_dialog.size_area.main_chooser.max_size, limit)
 
 
 if __name__ == "__main__":
