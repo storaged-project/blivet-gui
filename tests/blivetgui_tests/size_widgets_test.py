@@ -1049,6 +1049,21 @@ class SizeChooserAreaTest(unittest.TestCase):
         self.assertCountEqual(chooser.available_units, [size.B, size.KB, size.KiB])
         self.assertEqual(chooser.default_unit, size.KiB)
 
+        # min and max device size is same, units should depend on the max size
+        chooser = SizeChooser(max_size=Size("11 KiB"), min_size=Size("11 KiB"))
+        self.assertCountEqual(chooser.available_units, [size.B, size.KB, size.KiB])
+        self.assertEqual(chooser.default_unit, size.KiB)
+
+        # max size is just 1 B bigger than min size -> only B should be available
+        chooser = SizeChooser(max_size=Size("11 KiB") + Size("1 B"), min_size=Size("11 KiB"))
+        self.assertCountEqual(chooser.available_units, [size.B])
+        self.assertEqual(chooser.default_unit, size.B)
+
+        # max size is just 2 B bigger than min size -> only B should be available
+        chooser = SizeChooser(max_size=Size("11 KiB") + Size("2 B"), min_size=Size("11 KiB"))
+        self.assertCountEqual(chooser.available_units, [size.B])
+        self.assertEqual(chooser.default_unit, size.B)
+
 
 if __name__ == "__main__":
     unittest.main()

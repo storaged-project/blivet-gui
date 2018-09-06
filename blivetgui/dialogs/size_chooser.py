@@ -184,7 +184,7 @@ class SizeArea(GUIWidget):
         if new_size <= 0:
             raise ValueError("Size limit must be greater than zero.")
 
-        if new_size <= self.min_size:
+        if new_size < self.min_size:
             raise ValueError("Size limit for maximum size cannot be smaller than current minimum size.")
 
         self._max_size_limit = new_size
@@ -755,7 +755,10 @@ class SizeChooser(GUIWidget):
             for devices bigger than 2 TiB
         """
         units = []
-        dev_size = self.max_size - self.min_size
+        dev_size = (self.max_size - self.min_size) or self.max_size
+
+        if dev_size < size.Size("2 B"):
+            return [size.B]
 
         for unit in UNITS.keys():
             if size.Size("2 " + unit) <= dev_size:
