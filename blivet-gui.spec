@@ -82,6 +82,21 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 - Set _supported_filesystems in BlivetGUIAnaconda init (awilliam)
 - Sync spec with downstream (vtrefny)
 
+* Thu Jul 12 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
+* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 2.1.8-5
+- Rebuilt for Python 3.7
+
+* Fri Feb 09 2018 Igor Gnatenko <ignatenkobrain@fedoraproject.org> - 2.1.8-4
+- Escape macros in %%changelog
+
+* Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
+
+* Thu Jan 18 2018 Vojtech Trefny <vtrefny@redhat.com> - 2.1.8-2
+- Set _supported_filesystems in BlivetGUIAnaconda init (awilliam)
+
 * Mon Jan 15 2018 Vojtech Trefny <vtrefny@redhat.com> - 2.1.8-1
 - Do not allow to format large devices to biosboot (#1532253) (vtrefny)
 - Remove unused 'socket' module import (vtrefny)
@@ -476,7 +491,7 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 - Fix adding LVM Thin LVs (vtrefny)
 - Remove help from package (vtrefny)
 - ListParents: fix checking parents for logical partitions (vtrefny)
-- Add icons to %files in spec file (vtrefny)
+- Add icons to %%files in spec file (vtrefny)
 - DeviceInfoDialog: add special info for mdarrays (vtrefny)
 - Fix maximal size for thinpools (vtrefny)
 - Add desktop icon for blivet-gui (vtrefny)
