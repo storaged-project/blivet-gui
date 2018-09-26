@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.8
+Version: 2.1.9
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -70,6 +70,18 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Wed Sep 26 2018 Vojtech Trefny <vtrefny@redhat.com> - 2.1.9-1
+- Add some extra parameters to the lsblk in log (vtrefny)
+- Fix crash when adding device with same min and max size (#1623189) (vtrefny)
+- Limit partition max size based on disklabel limits (#1623659) (vtrefny)
+- Ignore pylint 'no-value-for-parameter' warning (vtrefny)
+- Fix 'assignment-from-no-return' error discovered by pylint (vtrefny)
+- Removed copyright year (code)
+- Ignore pylint error for "preexec_fn" (vtrefny)
+- Ignore pylint false positives for Gtk.ListStore (vtrefny)
+- Set _supported_filesystems in BlivetGUIAnaconda init (awilliam)
+- Sync spec with downstream (vtrefny)
+
 * Mon Jan 15 2018 Vojtech Trefny <vtrefny@redhat.com> - 2.1.8-1
 - Do not allow to format large devices to biosboot (#1532253) (vtrefny)
 - Remove unused 'socket' module import (vtrefny)

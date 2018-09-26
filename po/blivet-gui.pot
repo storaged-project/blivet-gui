@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-15 10:34+0100\n"
+"POT-Creation-Date: 2018-09-26 13:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-
-#. add a new 'placeholder' action for all currently registered blivet actions
-#: ../blivetgui/osinstall.py:229
-msgid "actions configured by installer"
-msgstr ""
 
 #: ../blivetgui/list_devices.py:82
 msgid "Disks"
@@ -69,6 +64,25 @@ msgstr ""
 msgid ""
 "<b>Processing action {num} of {total}</b>:\n"
 "<i>{action}</i>"
+msgstr ""
+
+#. add a new 'placeholder' action for all currently registered blivet actions
+#: ../blivetgui/osinstall.py:232
+msgid "actions configured by installer"
+msgstr ""
+
+#: ../blivetgui/exception_handler.py:75
+#, python-brace-format
+msgid ""
+"Unknown error occured.\n"
+"{error}"
+msgstr ""
+
+#: ../blivetgui/exception_handler.py:77
+#, python-brace-format
+msgid ""
+"Unknown error occured. Blivet-gui will be terminated.\n"
+"{error}"
 msgstr ""
 
 #: ../blivetgui/blivetgui.py:291
@@ -199,30 +213,16 @@ msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
 
-#: ../blivetgui/exception_handler.py:75
-#, python-brace-format
-msgid ""
-"Unknown error occured.\n"
-"{error}"
-msgstr ""
-
-#: ../blivetgui/exception_handler.py:77
-#, python-brace-format
-msgid ""
-"Unknown error occured. Blivet-gui will be terminated.\n"
-"{error}"
-msgstr ""
-
-#: ../blivetgui/blivet_utils.py:80
+#: ../blivetgui/blivet_utils.py:81
 #, python-brace-format
 msgid "{0} disklabel"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:116
+#: ../blivetgui/blivet_utils.py:117
 msgid "free space"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:641
+#: ../blivetgui/blivet_utils.py:642
 msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr ""
 
@@ -256,7 +256,7 @@ msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr ""
 
-#: ../blivetgui/dialogs/helpers.py:147 ../blivetgui/dialogs/add_dialog.py:1019
+#: ../blivetgui/dialogs/helpers.py:147 ../blivetgui/dialogs/add_dialog.py:1040
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr ""
@@ -278,12 +278,12 @@ msgid "This device cannot be resized."
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:153
-#: ../blivetgui/dialogs/add_dialog.py:765
+#: ../blivetgui/dialogs/add_dialog.py:786
 msgid "unformatted"
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:220
-#: ../blivetgui/dialogs/add_dialog.py:1046
+#: ../blivetgui/dialogs/add_dialog.py:1067
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
 msgstr ""
@@ -407,7 +407,7 @@ msgstr ""
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:376
-#: ../blivetgui/dialogs/add_dialog.py:712
+#: ../blivetgui/dialogs/add_dialog.py:733
 #: ../blivetgui/dialogs/device_info_dialog.py:78
 msgid "Partition"
 msgstr ""
@@ -455,62 +455,62 @@ msgstr ""
 msgid "Device type:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:707
+#: ../blivetgui/dialogs/add_dialog.py:728
 msgid "MDArray type:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:739
+#: ../blivetgui/dialogs/add_dialog.py:760
 msgid "Filesystem:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:793
+#: ../blivetgui/dialogs/add_dialog.py:814
 msgid "Label:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:801
+#: ../blivetgui/dialogs/add_dialog.py:822
 msgid "Name:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:812
+#: ../blivetgui/dialogs/add_dialog.py:833
 msgid "Mountpoint:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:823
+#: ../blivetgui/dialogs/add_dialog.py:844
 msgid "Encrypt:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:831
+#: ../blivetgui/dialogs/add_dialog.py:852
 #: ../data/ui/luks_passphrase_dialog.ui:48
 msgid "Passphrase:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:839
+#: ../blivetgui/dialogs/add_dialog.py:860
 msgid "Repeat Passphrase:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:846
-#: ../blivetgui/dialogs/add_dialog.py:918
+#: ../blivetgui/dialogs/add_dialog.py:867
+#: ../blivetgui/dialogs/add_dialog.py:939
 msgid "Passphrases don't match."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:915
+#: ../blivetgui/dialogs/add_dialog.py:936
 msgid "Passphrases match."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1013
+#: ../blivetgui/dialogs/add_dialog.py:1034
 msgid "Passphrase not specified."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1026
+#: ../blivetgui/dialogs/add_dialog.py:1047
 msgid "Please select at least two parent devices."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1040
+#: ../blivetgui/dialogs/add_dialog.py:1061
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1052
+#: ../blivetgui/dialogs/add_dialog.py:1073
 msgid "Provided passphrases do not match."
 msgstr ""
 
@@ -851,7 +851,7 @@ msgid "Please enter passphrase to decrypt selected device."
 msgstr ""
 
 #: ../data/ui/about_dialog.ui:10
-msgid "Copyright © 2014 Red Hat Inc."
+msgid "Copyright © Red Hat Inc."
 msgstr ""
 
 #: ../data/ui/root_check_window.ui:24
