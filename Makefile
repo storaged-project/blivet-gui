@@ -62,7 +62,7 @@ pep8:
 	else \
 		echo "You need to install pep8 to run this check."; exit 1; \
 	fi ; \
-	$$pep8 --ignore=E501,E402,E731 blivetgui/ tests/ blivet-gui blivet-gui-daemon
+	$$pep8 --ignore=E501,E402,E731,W504 blivetgui/ tests/ blivet-gui blivet-gui-daemon
 
 canary:
 	$(MAKE) -C po potfile
