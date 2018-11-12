@@ -776,7 +776,11 @@ class BlivetUtils(object):
 
         if not name:
             if parent_device:
-                name = self.storage.suggest_device_name(parent=parent_device, swap=False)
+                # parent name is part of the child name only on LVM
+                if parent_device.type == "lvmvg":
+                    name = self.storage.suggest_device_name(parent=parent_device, swap=False)
+                else:
+                    name = self.storage.suggest_device_name(swap=False)
             elif snapshot:
                 name = self.storage.suggest_device_name(parent=parent_device, swap=False, prefix="snapshot")
             else:
