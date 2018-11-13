@@ -657,7 +657,6 @@ class AddDialogTest(unittest.TestCase):
         self.error_dialog.reset_mock()
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
-    @unittest.skip("name validity check temporarily disabled")
     def test_name_validity_check(self):
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device)
