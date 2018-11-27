@@ -32,9 +32,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from blivet import devicefactory
-# from blivet.devices.btrfs import BTRFSDevice
-# from blivet.devices.lvm import LVMVolumeGroupDevice, LVMLogicalVolumeDevice
-
+from blivet.devicelibs import btrfs, lvm
 from blivet.tasks.fslabeling import Ext2FSLabeling, FATFSLabeling, JFSLabeling, ReiserFSLabeling, XFSLabeling, NTFSLabeling
 
 # ---------------------------------------------------------------------------- #
@@ -97,17 +95,13 @@ def adjust_scrolled_size(scrolledwindow, width_limit, height_limit):
         scrolledwindow.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 
 
-def is_name_valid(_device_type, _name):
-    # temporarily disabled because of changes in blivet
-    # if device_type in ("lvmvg", "lvm"):
-    #     return LVMVolumeGroupDevice.is_name_valid(name)
-    # elif device_type == "lvmlv":
-    #     return LVMLogicalVolumeDevice.is_name_valid(name)
-    # elif device_type in ("btrfs volume", "btrfs subvolume"):
-    #     return BTRFSDevice.is_name_valid(name)
-    # else:
-    #     return True
-    return True  # FIXME
+def is_name_valid(device_type, name):
+    if device_type in ("lvmvg", "lvm", "lvmlv"):
+        return lvm.is_lvm_name_valid(name)
+    elif device_type in ("btrfs volume", "btrfs subvolume"):
+        return btrfs.is_btrfs_name_valid(name)
+    else:
+        return True
 
 
 def is_label_valid(format_type, label):
