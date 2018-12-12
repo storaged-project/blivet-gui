@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.9
+Version: 2.1.10
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -70,6 +70,14 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Wed Dec 12 2018 Vojtech Trefny <vtrefny@redhat.com> - 2.1.10-1
+- Use 'pycodestyle' instead of 'pep8' (vtrefny)
+- Enable name validity checks in AddDialog (#1649364) (vtrefny)
+- Fix suggesting names for btrfs subvolumes (#1648631) (vtrefny)
+- Do not show MD arrays in disks section (vtrefny)
+- Ignore PEP8 W504 warning ("line break after binary operator") (vtrefny)
+- Sync spec with downstream (vtrefny)
+
 * Wed Sep 26 2018 Vojtech Trefny <vtrefny@redhat.com> - 2.1.9-1
 - Add some extra parameters to the lsblk in log (vtrefny)
 - Fix crash when adding device with same min and max size (#1623189) (vtrefny)

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-26 13:55+0200\n"
+"POT-Creation-Date: 2018-12-12 11:07+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#. add a new 'placeholder' action for all currently registered blivet actions
+#: ../blivetgui/osinstall.py:232
+msgid "actions configured by installer"
+msgstr ""
 
 #: ../blivetgui/list_devices.py:82
 msgid "Disks"
@@ -64,11 +69,6 @@ msgstr ""
 msgid ""
 "<b>Processing action {num} of {total}</b>:\n"
 "<i>{action}</i>"
-msgstr ""
-
-#. add a new 'placeholder' action for all currently registered blivet actions
-#: ../blivetgui/osinstall.py:232
-msgid "actions configured by installer"
 msgstr ""
 
 #: ../blivetgui/exception_handler.py:75
@@ -256,12 +256,12 @@ msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr ""
 
-#: ../blivetgui/dialogs/helpers.py:147 ../blivetgui/dialogs/add_dialog.py:1040
+#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1040
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr ""
 
-#: ../blivetgui/dialogs/helpers.py:154
+#: ../blivetgui/dialogs/helpers.py:148
 #, python-brace-format
 msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr ""
