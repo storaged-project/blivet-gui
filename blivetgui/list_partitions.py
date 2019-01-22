@@ -197,6 +197,13 @@ class ListPartitions(object):
         if device.type in ("lvmthinsnapshot", "lvmsnapshot") and not device.exists:
             return False
 
+        # do not allow to set mountpoints for devices with children
+        # (e.g. partition formatted to btrfs -- the mountpoint must be set for
+        # the btrfs volume on top of it; btrfs volume itself is an exception --
+        # it is possible to set mountpoint for both volume and its subvolumes)
+        if device.children and device.type != "btrfs volume":
+            return False
+
         return device.format.mountable
 
     def _allow_set_partition_table(self, device):
