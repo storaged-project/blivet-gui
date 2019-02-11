@@ -70,6 +70,7 @@ class RawFormatDevice(object):
         self.is_free_space = False
         self.is_disk = False
         self.isleaf = True
+        self.direct = True
 
         self.children = []
         self.parents = blivet.devices.lib.ParentList(items=[self.disk])
@@ -126,6 +127,7 @@ class FreeSpaceDevice(object):
         self.is_primary = not logical
         self.is_free_space = True
         self.is_disk = False
+        self.direct = False
 
         self.format = DeviceFormat(exists=True)
         self.type = "free space"
