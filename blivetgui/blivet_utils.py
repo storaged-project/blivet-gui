@@ -279,7 +279,11 @@ class BlivetUtils(object):
         if len(blivet_device.children) != 1:
             return None
 
-        luks_device = blivet_device.children[0]
+        if blivet_device.children[0].type == "integrity/dm-crypt":
+            luks_device = blivet_device.children[0].children[0]
+        else:
+            luks_device = blivet_device.children[0]
+
         return luks_device
 
     def get_children(self, blivet_device):
@@ -323,7 +327,7 @@ class BlivetUtils(object):
 
         if blivet_device.format and blivet_device.format.type == "luks":
             if blivet_device.children:
-                luks = blivet_device.children[0]
+                luks = self.get_luks_device(blivet_device)
             else:
                 luks = RawFormatDevice(disk=blivet_device, dev_id=self.storage.next_id)
 
@@ -447,7 +451,7 @@ class BlivetUtils(object):
         elif blivet_device.type in ("mdarray", "btrfs volume"):
             for member in blivet_device.members:
                 roots.add(self._get_root_device(member))
-        elif blivet_device.type in ("luks/dm-crypt",):
+        elif blivet_device.type in ("luks/dm-crypt", "integrity/dm-crypt"):
             roots.add(self._get_root_device(blivet_device.slave))
 
         return roots
@@ -465,7 +469,7 @@ class BlivetUtils(object):
         elif blivet_device.parents[0].type in ("mdarray", "mdmember"):
             return blivet_device.parents[0]
 
-        elif blivet_device.type in ("luks/dm-crypt",):
+        elif blivet_device.type in ("luks/dm-crypt", "integrity/dm-crypt"):
             return self._get_root_device(blivet_device.slave)
 
         # loop devices don't have the "disk" property so just return its
@@ -570,7 +574,7 @@ class BlivetUtils(object):
                                       traceback=traceback.format_exc())
 
         # for encrypted partitions/lvms delete the luks-formatted partition too
-        if blivet_device.type in ("luks/dm-crypt",):
+        if blivet_device.type in ("luks/dm-crypt", "integrity/dm-crypt"):
             for parent in blivet_device.parents:
                 result = self.delete_device(parent, False)
                 if not result.success:
