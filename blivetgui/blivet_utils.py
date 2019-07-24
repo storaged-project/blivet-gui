@@ -1353,7 +1353,10 @@ class BlivetUtils(object):
 
         actions.reverse()
         for action in actions:
-            self.storage.devicetree.actions.remove(action)
+            if action in self.storage.devicetree.actions:
+                # XXX: it's possible that something (like anaconda running
+                # actions.prune() without telling me) already removed this action
+                self.storage.devicetree.actions.remove(action)
 
     def blivet_reset(self):
         """ Blivet.reset()
