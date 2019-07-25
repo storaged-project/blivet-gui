@@ -1,5 +1,9 @@
 blivet-gui is a graphical tool for storage configuration using blivet library
 
+### CI status
+
+<img alt="CI status" src="https://fedorapeople.org/groups/storage_apis/statuses/blivet-gui-master.svg" width="100%" height="225ex" />
+
 ### Licence
 
 See [COPYING](COPYING)
@@ -26,10 +30,10 @@ Daily builds of _blivet_, _libblockdev_ and _libbytesize_ are also in this repo.
   * Check `blivet-gui.spec` for all dependencies (lines `Requires` and `BuildRequires`).
 Main dependencies include [blivet](https://github.com/storaged-project/blivet),
 [libblockdev](https://github.com/storaged-project/libblockdev) and
-[libbytesize](https://github.com/storaged-project/libbytesize). Note that these
-are probably not packaged for other distributions than Fedora.
+[libbytesize](https://github.com/storaged-project/libbytesize).
   * Clone the repo or download a [release tarball](https://github.com/storaged-project/blivet-gui/releases).
   * Run `sudo make install`
+  * Detailed instruction for manual installation for some distributions are available on the [Wiki](https://github.com/storaged-project/blivet-gui/wiki).
 
 ### Development
 
