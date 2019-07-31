@@ -4,7 +4,6 @@ SPECFILE=blivet-gui.spec
 VERSION=$(shell awk '/Version:/ { print $$2 }' $(SPECFILE))
 RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE) | sed -e 's|%.*$$||g')
 RELEASE_TAG=$(VERSION)-$(RELEASE)
-VERSION_TAG=$(VERSION)
 
 ZANATA_PULL_ARGS = --transdir ./
 ZANATA_PUSH_ARGS = --srcdir ./ --push-type source --force
@@ -90,21 +89,15 @@ ChangeLog:
 	(GIT_DIR=.git git log > .changelog.tmp && mv .changelog.tmp ChangeLog; rm -f .changelog.tmp) || (touch ChangeLog; echo 'git directory not found: installing possibly empty changelog.' >&2)
 
 tag:
-	@if test $(RELEASE) = "1" ; then \
-	  tags='$(VERSION_TAG) $(RELEASE_TAG)' ; \
-	else \
-	  tags='$(RELEASE_TAG)' ; \
-	fi ; \
-	for tag in $$tags ; do \
-	  git tag -a -m "Tag as $$tag" -f $$tag ; \
-	  echo "Tagged as $$tag" ; \
-	done
+	tag='$(RELEASE_TAG)' ; \
+	git tag -a -s -m "Tag as $$tag" -f $$tag && \
+	echo "Tagged as $$tag"
 
 release: tag archive
 
 archive: po-pull
 	$(MAKE) -B ChangeLog
-	git archive --format=tar --prefix=$(APPNAME)-$(VERSION)/ $(VERSION_TAG) | tar -xf -
+	git archive --format=tar --prefix=$(APPNAME)-$(VERSION)/ $(RELEASE_TAG) | tar -xf -
 	cp -r po $(APPNAME)-$(VERSION)
 	cp ChangeLog $(APPNAME)-$(VERSION)/
 	( cd $(APPNAME)-$(VERSION) && python3 setup.py -q sdist --dist-dir .. )
