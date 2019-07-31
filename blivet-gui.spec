@@ -4,7 +4,6 @@ Version: 2.1.11
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
-Group: Applications/System
 BuildArch: noarch
 URL: http://github.com/storaged-project/blivet-gui
 
@@ -70,13 +69,25 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
-* St čec 31 2019 Vojtech Trefny <vtrefny@redhat.com> - 2.1.11-1
+* Wed Jul 31 2019 Vojtech Trefny <vtrefny@redhat.com> - 2.1.11-1
 - Create only one tag per release (vtrefny)
 - Update README (vtrefny)
 - Check if action still exists before trying to remove it (#1706378) (vtrefny)
 - Correctly display LUKS with integrity (#1729888) (vtrefny)
 - Use 'direct' device property to (dis)allow mountpoint selection (vtrefny)
 - Do not allow to set mountpoints for devices with children (#1667644) (vtrefny)
+- Fix return type of BlivetUtils.get_disks (#1658893) (vtrefny)
+
+* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.10-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
+
+* Thu Jan 31 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
+
+* Wed Jan 23 2019 Vojtech Trefny <vtrefny@redhat.com> - 2.1.10-3
+- Do not allow to set mountpoints for devices with children (#1667644) (vtrefny)
+
+* Thu Dec 13 2018 Vojtech Trefny <vtrefny@redhat.com> - 2.1.10-2
 - Fix return type of BlivetUtils.get_disks (#1658893) (vtrefny)
 
 * Wed Dec 12 2018 Vojtech Trefny <vtrefny@redhat.com> - 2.1.10-1
