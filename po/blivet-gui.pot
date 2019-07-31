@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 11:07+0100\n"
+"POT-Creation-Date: 2019-07-31 11:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -213,16 +213,16 @@ msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:81
+#: ../blivetgui/blivet_utils.py:82
 #, python-brace-format
 msgid "{0} disklabel"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:117
+#: ../blivetgui/blivet_utils.py:118
 msgid "free space"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:642
+#: ../blivetgui/blivet_utils.py:648
 msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr ""
 
