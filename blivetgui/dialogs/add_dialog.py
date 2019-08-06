@@ -925,10 +925,12 @@ class AddDialog(Gtk.Dialog):
     def on_encrypt_check(self, _toggle):
         if self.encrypt_check.get_active():
             self.show_widgets(["passphrase"])
-            self.update_size_area_limits(reserved_size=crypto.LUKS_METADATA_SIZE)
+            self.update_size_area_limits(min_size=self._get_min_size_limit(),
+                                         reserved_size=crypto.LUKS_METADATA_SIZE)
         else:
             self.hide_widgets(["passphrase"])
-            self.update_size_area_limits(reserved_size=size.Size(0))
+            self.update_size_area_limits(min_size=self._get_min_size_limit(),
+                                         reserved_size=size.Size(0))
 
     def on_passphrase_changed(self, confirm_entry, passphrase_entry):
         if passphrase_entry.get_text() == confirm_entry.get_text():
