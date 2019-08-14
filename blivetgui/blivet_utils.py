@@ -259,7 +259,7 @@ class BlivetUtils(object):
             return blivet_device
 
         # encrypted group device -> get the luks device instead
-        if blivet_device.format.type == "luks":
+        if blivet_device.format.type in ("luks", "integrity"):
             blivet_device = self.get_luks_device(blivet_device)
 
         if not blivet_device.format or blivet_device.format.type not in ("lvmpv", "btrfs", "mdmember", "luks"):
@@ -271,17 +271,19 @@ class BlivetUtils(object):
         return group_device
 
     def get_luks_device(self, blivet_device):
-        """ Get luks device based on underlying partition
+        """ Get luks or integrity device based on underlying partition
         """
 
-        if not blivet_device.format or blivet_device.format.type != "luks":
+        if not blivet_device.format or blivet_device.format.type not in ("luks", "integrity"):
             return None
         if len(blivet_device.children) != 1:
             return None
 
-        if blivet_device.children[0].type == "integrity/dm-crypt":
+        if blivet_device.children[0].type == "integrity/dm-crypt" and blivet_device.children[0].children:
+            # LUKS + integrity
             luks_device = blivet_device.children[0].children[0]
         else:
+            # only integrity device
             luks_device = blivet_device.children[0]
 
         return luks_device
@@ -325,7 +327,7 @@ class BlivetUtils(object):
             btrfs_volume = blivet_device.children[0]
             return ProxyDataContainer(partitions=[btrfs_volume], extended=None, logicals=None)
 
-        if blivet_device.format and blivet_device.format.type == "luks":
+        if blivet_device.format and blivet_device.format.type in ("luks", "integrity"):
             if blivet_device.children:
                 luks = self.get_luks_device(blivet_device)
             else:

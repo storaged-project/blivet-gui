@@ -84,7 +84,8 @@ class DeviceInformationDialog(Gtk.Dialog):
                           "luks/dm-crypt": (_("LUKS/DM-Crypt Device"), None),
                           "btrfs volume": (_("Btrfs Volume"), self._get_btrfs_info),
                           "btrfs subvolume": (_("Btrfs Subvolume"), self._get_btrfs_info),
-                          "mdarray": (_("MD RAID Array"), self._get_mdarray_info)}
+                          "mdarray": (_("MD RAID Array"), self._get_mdarray_info),
+                          "integrity/dm-crypt": (_("DM Integrity Device"), None)}
 
         # Fill dialog with information
         self.add_device_info()
