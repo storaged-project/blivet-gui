@@ -30,8 +30,6 @@ from blivet.devicelibs.crypto import LUKS_METADATA_SIZE
 
 from .communication.proxy_utils import ProxyDataContainer
 
-import platform
-import re
 import traceback
 import parted
 import subprocess
@@ -792,12 +790,7 @@ class BlivetUtils(object):
             elif snapshot:
                 name = self.storage.suggest_device_name(parent=parent_device, swap=False, prefix="snapshot")
             else:
-                if hasattr(platform, "linux_distribution"):
-                    prefix = re.sub(r"\W+", "", platform.linux_distribution()[0].lower())  # pylint: disable=deprecated-method
-                else:
-                    prefix = ""
-
-                name = self.storage.suggest_container_name(prefix=prefix)
+                name = self.storage.suggest_container_name()
 
         else:
             name = self.storage.safe_device_name(name)
