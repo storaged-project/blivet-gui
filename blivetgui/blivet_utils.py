@@ -850,17 +850,10 @@ class BlivetUtils(object):
         else:
             partition_type = "primary"
 
-        # set "weight" for the partition so we keep order visible in the gui
-        # (heavier partitions are first, so weight is set to minus start sector)
-        if user_input.size_selection.parents[0].free_space:
-            weight = -1 * user_input.size_selection.parents[0].free_space.start
-        else:
-            weight = 0
 
         # create new partition
         new_part = PartitionDevice(name="req%d" % self.storage.next_id,
                                    size=user_input.size_selection.total_size,
-                                   weight=weight,
                                    parents=[i.parent_device for i in user_input.size_selection.parents],
                                    part_type=PARTITION_TYPE[partition_type])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
@@ -943,16 +936,9 @@ class BlivetUtils(object):
     def _create_lvmpv(self, user_input):
         actions = []
 
-        # set "weight" for the partition so we keep order visible in the gui
-        # (heavier partitions are first, so weight is set to minus start sector)
-        if user_input.size_selection.parents[0].free_space:
-            weight = -1 * user_input.size_selection.parents[0].free_space.start
-        else:
-            weight = 0
 
         new_part = PartitionDevice(name="req%d" % self.storage.next_id,
                                    size=user_input.size_selection.total_size,
-                                   weight=weight,
                                    parents=[i.parent_device for i in user_input.size_selection.parents])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
