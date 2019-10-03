@@ -49,7 +49,7 @@ PARTITION_TYPE = {"primary": parted.PARTITION_NORMAL,
 
 def lsblk():
     p = subprocess.run(["lsblk", "-a", "-o", "+FSTYPE,LABEL,UUID,MOUNTPOINT"],
-                       stdout=subprocess.PIPE)
+                       stdout=subprocess.PIPE, check=False)
     return p.stdout.decode()
 
 
