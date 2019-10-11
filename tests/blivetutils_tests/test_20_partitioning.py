@@ -1,6 +1,10 @@
+import os
 import unittest
+from collections import namedtuple
 
 import blivet
+
+from gi.repository import BlockDev
 
 from blivetgui.communication.proxy_utils import ProxyDataContainer
 
@@ -10,6 +14,9 @@ from test_10_disks import DisksTestToolkit
 
 
 SIZE_DELTA = blivet.size.Size("2 MiB")
+
+
+PartSpec = namedtuple("PartSpec", ["start", "size", "ptype"])
 
 
 class PartitioningTestToolkit(DisksTestToolkit):
@@ -24,6 +31,15 @@ class PartitioningTestToolkit(DisksTestToolkit):
                          p.size >= min_size), None)
         self.assertIsNotNone(free)
         return free
+
+    def get_free_spaces(self, disk, min_size=blivet.size.Size("10 MiB")):
+        children = self.blivet_utils.get_disk_children(disk)
+        return [p for p in children.partitions if p.type == "free space" and
+                p.size >= min_size]
+
+    def get_partitions(self, disk):
+        children = self.blivet_utils.get_disk_children(disk)
+        return [p for p in children.partitions if p.type == "partition"]
 
     def create_partition(self, free_space, size=None, fstype="ext4", label=None, ptype="primary"):
         if size is None:
@@ -55,8 +71,30 @@ class PartitioningTestToolkit(DisksTestToolkit):
 
         return ret.actions
 
+    def create_preexisting(self, disk, table_type, partitions):
+        table = BlockDev.PartTableType.MSDOS if table_type == "msdos" else BlockDev.PartTableType.GPT
+        BlockDev.part_create_table(disk, table)
+
+        for part in partitions:
+            BlockDev.part_create_part(disk, part.ptype, part.start, part.size, BlockDev.PartAlign.OPTIMAL)
+
+    def clean_up_preexisting(self, disk, partitions):
+        for i in range(len(partitions)):
+            BlockDev.part_delete_part(disk, "%s%d" % (disk, i + 1))
+        os.system("wipefs -a %s > /dev/null" % disk)
+
 
 class BlivetUtilsDisksTest(BlivetUtilsTestCase, PartitioningTestToolkit):
+
+    @classmethod
+    def setUpClass(cls):
+        plugins = BlockDev.plugin_specs_from_names(("part",))
+        if not BlockDev.is_initialized():
+            BlockDev.init(plugins, None)
+        else:
+            BlockDev.reinit(plugins, False, None)
+
+        super().setUpClass()
 
     def _check_part_actions(self, actions, blivet_part):
         # there should be two actions --> one for partition and another one for fs
@@ -175,6 +213,54 @@ class BlivetUtilsDisksTest(BlivetUtilsTestCase, PartitioningTestToolkit):
         self.assertAlmostEqual(blivet_part.size, free.size / 2, delta=SIZE_DELTA)
 
         self._check_part_actions(actions, blivet_part)
+
+    def test_35_msdos_preexisting_position(self):
+        """ Test that we can create partitions on disk with a preexisting partition in correct order """
+
+        blivet_disk = self.get_blivet_device(self.vdevs[1])
+
+        # create preexisting partition in the middle of the disk and keep some space after it
+        start1 = blivet_disk.size / 2
+        size1 = blivet_disk.size / 4
+        parts = [PartSpec(start=start1, size=size1, ptype=BlockDev.PartType.NORMAL)]
+        self.create_preexisting(blivet_disk.path, "msdos", parts)
+        self.addCleanup(self.clean_up_preexisting, blivet_disk.path, parts)
+
+        # reset blivet
+        self.reset()
+        blivet_disk = self.get_blivet_device(self.vdevs[1])
+
+        free = self.get_free_spaces(blivet_disk)
+        self.assertEqual(len(free), 2)
+
+        # add partition to the first free space
+        size2 = free[0].size / 4
+        actions1 = self.create_partition(free[0], size=size2, label="1")
+
+        blivet_part1 = self.get_blivet_device(self.vdevs[1] + "2")  # vda2
+        self.assertTrue(blivet_part1.is_primary)
+        self.assertAlmostEqual(blivet_part1.size, size2, delta=SIZE_DELTA)
+        self.assertAlmostEqual(blivet_part1.parted_partition.geometry.start,
+                               free[0].start, delta=SIZE_DELTA)
+        self._check_part_actions(actions1, blivet_part1)
+
+        # and now to the second one
+        size3 = free[1].size
+        actions2 = self.create_partition(free[1], size=size3, label="3")
+
+        blivet_part2 = self.get_blivet_device(self.vdevs[1] + "3")  # vda3
+        self.assertTrue(blivet_part2.is_primary)
+        self.assertAlmostEqual(blivet_part2.size, size3, delta=SIZE_DELTA)
+        self.assertAlmostEqual(blivet_part2.parted_partition.geometry.start,
+                               free[1].start, delta=SIZE_DELTA)
+        self._check_part_actions(actions2, blivet_part2)
+
+        blivet_parts = self.get_partitions(blivet_disk)
+        self.assertEqual(len(blivet_parts), 3)
+        sorted_parts = sorted(blivet_parts, key=lambda p: p.parted_partition.geometry.start)
+        self.assertEqual(sorted_parts[0].format.label, "1")
+        self.assertIsNone(sorted_parts[1].format.type)  # we created this one using libblockdev without FS
+        self.assertEqual(sorted_parts[2].format.label, "3")
 
     def test_40_gpt_basic(self):
         """ Test that we can create a single partition on GPT partition table """
