@@ -34,6 +34,9 @@ class BlivetUtilsTestToolkit(unittest.TestCase):
     def get_blivet_device(self, device_name):
         return self.blivet_utils.storage.devicetree.get_device_by_name(device_name)
 
+    def reset(self):
+        self.blivet_utils.blivet_reset()
+
 
 @unittest.skipUnless(os.geteuid() == 0, "requires root access")
 class BlivetUtilsTestCase(unittest.TestCase):

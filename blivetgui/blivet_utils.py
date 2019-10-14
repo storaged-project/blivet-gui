@@ -25,6 +25,7 @@ import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice
 from blivet.formats import DeviceFormat
+from blivet.size import Size
 
 from blivet.devicelibs.crypto import LUKS_METADATA_SIZE
 
@@ -842,6 +843,46 @@ class BlivetUtils(object):
 
         return actions
 
+    def _align_partition(self, user_input):
+        if hasattr(user_input, "advanced"):
+            partition_type = user_input.advanced["parttype"] or "primary"
+        else:
+            partition_type = "primary"
+
+        start = user_input.size_selection.parents[0].free_space.start
+        end = user_input.size_selection.parents[0].free_space.end
+        size = user_input.size_selection.total_size
+        disk = user_input.size_selection.parents[0].parent_device
+        size_sectors = size // disk.format.sector_size
+
+        if partition_type == "logical":
+            extended = disk.format.extended_partition
+            if not extended:
+                # this should never happen
+                raise ValueError("Trying to add a logical partition to a disk without extended partition.")
+
+            if disk.format.logical_partitions:
+                # start 1 MiB after last logical partition
+                last_logical = sorted(disk.format.logical_partitions, key=lambda x: x.geometry.start)[-1]
+                start = (last_logical.geometry.end) + (Size("1 MiB") / disk.format.sector_size)
+            else:
+                # first logical partition -- start 1 MiB after extended partition start
+                start = (extended.geometry.start) + (Size("1 MiB") / disk.format.sector_size)
+
+        # align the start sector up
+        constraint = disk.format.parted_device.optimalAlignedConstraint
+        start = constraint.startAlign.alignUp(constraint.startRange, start)
+
+        # we moved start of the partition, it's possible we don't have enough free space now
+        if start + size_sectors > end:
+            size_sectors -= ((start + size_sectors) - end)
+        size = size_sectors * disk.format.sector_size
+
+        # align total size for the disklabel
+        size = blivet.partitioning.align_size_for_disklabel(size, disk.format)
+
+        return (start, size)
+
     def _create_partition(self, user_input):
         actions = []
 
@@ -850,17 +891,13 @@ class BlivetUtils(object):
         else:
             partition_type = "primary"
 
-        # set "weight" for the partition so we keep order visible in the gui
-        # (heavier partitions are first, so weight is set to minus start sector)
-        if user_input.size_selection.parents[0].free_space:
-            weight = -1 * user_input.size_selection.parents[0].free_space.start
-        else:
-            weight = 0
+        # align selected free space start and partition size
+        start, size = self._align_partition(user_input)
 
         # create new partition
         new_part = PartitionDevice(name="req%d" % self.storage.next_id,
-                                   size=user_input.size_selection.total_size,
-                                   weight=weight,
+                                   size=size,
+                                   start=start,
                                    parents=[i.parent_device for i in user_input.size_selection.parents],
                                    part_type=PARTITION_TYPE[partition_type])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
@@ -943,16 +980,12 @@ class BlivetUtils(object):
     def _create_lvmpv(self, user_input):
         actions = []
 
-        # set "weight" for the partition so we keep order visible in the gui
-        # (heavier partitions are first, so weight is set to minus start sector)
-        if user_input.size_selection.parents[0].free_space:
-            weight = -1 * user_input.size_selection.parents[0].free_space.start
-        else:
-            weight = 0
+        # align selected free space start and partition size
+        start, size = self._align_partition(user_input)
 
         new_part = PartitionDevice(name="req%d" % self.storage.next_id,
-                                   size=user_input.size_selection.total_size,
-                                   weight=weight,
+                                   size=size,
+                                   start=start,
                                    parents=[i.parent_device for i in user_input.size_selection.parents])
         actions.append(blivet.deviceaction.ActionCreateDevice(new_part))
 
