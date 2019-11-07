@@ -38,11 +38,12 @@ from .actions_toolbar import DeviceToolbar
 from .visualization.logical_view import LogicalView
 from .visualization.physical_view import PhysicalView
 from .blivet_utils import BlivetUtils
-from .dialogs import message_dialogs
+from .dialogs import message_dialogs, constants
 from .i18n import _
 from .gui_utils import locate_ui_file, locate_css_file
 from .logs import set_logging
-
+from blivet.errors import StorageError
+import sys
 from contextlib import contextmanager
 
 
@@ -83,6 +84,7 @@ class BlivetGUIAnacondaClient(object):
 class BlivetGUIAnaconda(BlivetGUI):
 
     installer_mode = True
+    allow_ignore = True
 
     def __init__(self, client, spoke, spoke_container):
         # pylint: disable=super-init-not-called
@@ -197,6 +199,26 @@ class BlivetGUIAnaconda(BlivetGUI):
         yield
 
         self.main_window.lightbox_off()
+
+    def _reraise_exception(self, exception, traceback, message):
+        allow_report = True
+        allow_ignore = self.allow_ignore and issubclass(type(exception), StorageError)
+        if allow_ignore:
+            msg = _("{message}\n{error}\n Please click Report button to raise the error and let anaconda \n to handle the report process if you want to report this.").format(message=message, error=str(exception))
+        else:
+            msg = _("Unknown error occured. Anaconda will be terminated.\n{error}").format(error=str(exception))
+
+        dialog = message_dialogs.ExceptionDialog(self.main_window, allow_ignore,
+                                                 allow_report, msg, str(traceback))
+        response = dialog.run()
+
+        if response == constants.DialogResponseType.BACK:
+            return
+        else:
+            if response == constants.DialogResponseType.REPORT:
+                raise type(exception)(message + str(exception) + "\n" + traceback)
+            if response == constants.DialogResponseType.QUIT:
+                sys.exit(0)
 
     def show_error_dialog(self, error_message):
         with self.enlightbox():

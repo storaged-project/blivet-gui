@@ -228,8 +228,8 @@ class BlivetGUI(object):
         self.device_toolbar.deactivate_all()
         self.popup_menu.deactivate_all()
 
-    def _reraise_exception(self, exception, traceback):
-        raise type(exception)(str(exception) + "\n" + traceback)
+    def _reraise_exception(self, exception, traceback, message):
+        raise type(exception)(message + "\n" + str(exception) + "\n" + traceback)
 
     def show_error_dialog(self, error_message):
         message_dialogs.ErrorDialog(self.main_window, error_message)
@@ -276,16 +276,15 @@ class BlivetGUI(object):
 
         dialog = edit_dialog.ResizeDialog(self.main_window, device,
                                           self.client.remote_call("device_resizable", device))
-
+        message = _("Failed to resize the device:")
         user_input = self.run_dialog(dialog)
         if user_input.resize:
             result = self.client.remote_call("resize_device", user_input)
-
             if not result.success:
                 if not result.exception:
                     self.show_error_dialog(result.message)
                 else:
-                    self._reraise_exception(result.exception, result.traceback)
+                    self._reraise_exception(result.exception, result.traceback, message)
             else:
                 if result.actions:
                     action_str = _("resize {name} {type}").format(name=device.name, type=device.type)
@@ -307,8 +306,9 @@ class BlivetGUI(object):
                                           supported_filesystems=self.supported_filesystems,
                                           mountpoints=mountpoints,
                                           installer_mode=self.installer_mode)
-
+        message = _("Failed to format the device:")
         user_input = self.run_dialog(dialog)
+
         if user_input.format:
             result = self.client.remote_call("format_device", user_input)
 
@@ -316,7 +316,7 @@ class BlivetGUI(object):
                 if not result.exception:
                     self.show_error_dialog(result.message)
                 else:
-                    self._reraise_exception(result.exception, result.traceback)
+                    self._reraise_exception(result.exception, result.traceback, message)
             else:
                 if result.actions:
                     action_str = _("format {name} {type}").format(name=device.name, type=device.type)
@@ -332,7 +332,7 @@ class BlivetGUI(object):
         device = self.list_partitions.selected_partition[0]
         dialog = edit_dialog.LVMEditDialog(self.main_window, device,
                                            self.client.remote_call("get_free_info"))
-
+        message = _("Failed to edit the LVM2 Volume Group:")
         response = self.run_dialog(dialog)
 
         if response == Gtk.ResponseType.OK:
@@ -343,7 +343,7 @@ class BlivetGUI(object):
                 if not result.exception:
                     self.show_error_dialog(result.message)
                 else:
-                    self._reraise_exception(result.exception, result.traceback)
+                    self._reraise_exception(result.exception, result.traceback, message)
             else:
                 if result.actions:
                     action_str = _("edit {name} {type}").format(name=device.name, type=device.type)
@@ -395,6 +395,7 @@ class BlivetGUI(object):
 
         dialog = other_dialogs.AddLabelDialog(self.main_window)
         selection = self.run_dialog(dialog)
+        message = _("Failed to add disklabel:")
 
         if selection:
             result = self.client.remote_call("create_disk_label", disk, selection)
@@ -402,7 +403,7 @@ class BlivetGUI(object):
                 if not result.exception:
                     self.show_error_dialog(result.message)
                 else:
-                    self._reraise_exception(result.exception, result.traceback)
+                    self._reraise_exception(result.exception, result.traceback, message)
 
             else:
                 if result.actions:
@@ -458,6 +459,7 @@ class BlivetGUI(object):
                                       installer_mode=self.installer_mode)
 
         response = self.run_dialog(dialog)
+        message = _("Failed to add the device:")
 
         if response == Gtk.ResponseType.OK:
             user_input = dialog.get_selection()
@@ -467,7 +469,7 @@ class BlivetGUI(object):
                 if not result.exception:
                     self.show_error_dialog(result.message)
                 else:
-                    self._reraise_exception(result.exception, result.traceback)
+                    self._reraise_exception(result.exception, result.traceback, message)
 
             else:
                 if result.actions:
@@ -506,6 +508,7 @@ class BlivetGUI(object):
         dialog = message_dialogs.ConfirmDeleteDialog(parent_window=self.main_window,
                                                      device=deleted_device,
                                                      parents=self._deletable_parents(deleted_device))
+        message = _("Failed to delete the device:")
         response = self.run_dialog(dialog)
 
         if response.delete:
@@ -516,7 +519,7 @@ class BlivetGUI(object):
                     self.show_error_dialog(result.message)
 
                 else:
-                    self._reraise_exception(result.exception, result.traceback)
+                    self._reraise_exception(result.exception, result.traceback, message)
 
             else:
                 action_str = _("delete partition {name}").format(name=deleted_device.name)
@@ -557,11 +560,11 @@ class BlivetGUI(object):
         def end(success, error, traceback):
             if success:
                 dialog.stop()
-
             else:
+                message = _("Failed to perform the actions:")
                 dialog.destroy()
                 self.main_window.set_sensitive(False)
-                self._reraise_exception(error, traceback)  # pylint: disable=raising-bad-type
+                self._reraise_exception(error, traceback, message)  # pylint: disable=raising-bad-type
 
         def show_progress(message):
             dialog.progress_msg(message)
@@ -739,7 +742,8 @@ class BlivetGUI(object):
                     sys.exit(1)
             # unknow problem --> re-raise exception
             else:
-                self._reraise_exception(ret.exception, ret.traceback)
+                message = _("Failed to init blivet:")
+                self._reraise_exception(ret.exception, ret.traceback, message)
 
     def _blivet_init_ignore(self, exception, device_name):
 
