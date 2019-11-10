@@ -32,7 +32,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from blivet import devicefactory
-from blivet.devicelibs import btrfs, lvm
+from blivet.devicelibs import btrfs, lvm, crypto
 from blivet.tasks.fslabeling import Ext2FSLabeling, FATFSLabeling, JFSLabeling, ReiserFSLabeling, XFSLabeling, NTFSLabeling
 
 # ---------------------------------------------------------------------------- #
@@ -156,3 +156,11 @@ def supported_raids():
     return {"btrfs volume": devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_BTRFS),
             "mdraid": devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_MD),
             "lvmlv": devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_LVM)}
+
+
+def supported_encryption_types():
+    return crypto.LUKS_VERSIONS
+
+
+def default_encryption_type():
+    return crypto.DEFAULT_LUKS_VERSION

@@ -39,7 +39,7 @@ from ..dialogs import message_dialogs
 from ..communication.proxy_utils import ProxyDataContainer
 
 from . size_chooser import SizeArea
-from .widgets import RaidChooser
+from .widgets import RaidChooser, EncryptionChooser
 from .helpers import is_name_valid, is_label_valid, is_mountpoint_valid, supported_raids, get_monitor_size
 
 from ..i18n import _
@@ -299,8 +299,13 @@ class AddDialog(Gtk.Dialog):
 
         self.filesystems_store, self.filesystems_combo = self.add_fs_chooser()
         self.label_entry, self.name_entry = self.add_name_chooser()
-        self.encrypt_check, self.pass_entry, self.pass2_entry = self.add_encrypt_chooser()
         self.parents_store = self.add_parent_list()
+
+        # encryption chooser
+        self._encryption_chooser = EncryptionChooser()
+        self._encryption_chooser.connect("encrypt-toggled", self.on_encrypt_check)
+        self.grid.attach(self._encryption_chooser.grid, 0, 12, 3, 1)
+        self.widgets_dict["encrypt"] = [self._encryption_chooser]
 
         # raid chooser
         self._raid_chooser = RaidChooser()
@@ -629,7 +634,7 @@ class AddDialog(Gtk.Dialog):
         parents = []
 
         # for encrypted parents add space for luks metada
-        if self.encrypt_check.get_active():
+        if self._encryption_chooser.encrypt:
             reserved_size = crypto.LUKS_METADATA_SIZE
         else:
             reserved_size = size.Size(0)
@@ -840,40 +845,6 @@ class AddDialog(Gtk.Dialog):
 
         return mountpoint_entry
 
-    def add_encrypt_chooser(self):
-        encrypt_label = Gtk.Label(label=_("Encrypt:"), xalign=1)
-        self.grid.attach(encrypt_label, 0, 12, 1, 1)
-
-        encrypt_check = Gtk.CheckButton()
-        self.grid.attach(encrypt_check, 1, 12, 1, 1)
-
-        self.widgets_dict["encrypt"] = [encrypt_label, encrypt_check]
-
-        pass_label = Gtk.Label(label=_("Passphrase:"), xalign=1)
-        self.grid.attach(pass_label, 0, 13, 1, 1)
-
-        pass_entry = Gtk.Entry()
-        pass_entry.set_visibility(False)
-        pass_entry.set_property("caps-lock-warning", True)
-        self.grid.attach(pass_entry, 1, 13, 2, 1)
-
-        pass2_label = Gtk.Label(label=_("Repeat Passphrase:"), xalign=1)
-        self.grid.attach(pass2_label, 0, 14, 1, 1)
-
-        pass2_entry = Gtk.Entry()
-        pass2_entry.set_visibility(False)
-        pass2_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "dialog-error-symbolic.symbolic")
-        pass2_entry.set_icon_activatable(Gtk.EntryIconPosition.SECONDARY, False)
-        pass2_entry.set_icon_tooltip_markup(Gtk.EntryIconPosition.SECONDARY, _("Passphrases don't match."))
-        pass2_entry.connect("changed", self.on_passphrase_changed, pass_entry)
-        self.grid.attach(pass2_entry, 1, 14, 2, 1)
-
-        self.widgets_dict["passphrase"] = [pass_label, pass_entry, pass2_label, pass2_entry]
-
-        encrypt_check.connect("toggled", self.on_encrypt_check)
-
-        return encrypt_check, pass_entry, pass2_entry
-
     def add_advanced_options(self):
 
         device_type = self.selected_type
@@ -923,22 +894,12 @@ class AddDialog(Gtk.Dialog):
                         widget.set_text("")
 
     def on_encrypt_check(self, _toggle):
-        if self.encrypt_check.get_active():
-            self.show_widgets(["passphrase"])
+        if self._encryption_chooser.encrypt:
             self.update_size_area_limits(min_size=self._get_min_size_limit(),
                                          reserved_size=crypto.LUKS_METADATA_SIZE)
         else:
-            self.hide_widgets(["passphrase"])
             self.update_size_area_limits(min_size=self._get_min_size_limit(),
                                          reserved_size=size.Size(0))
-
-    def on_passphrase_changed(self, confirm_entry, passphrase_entry):
-        if passphrase_entry.get_text() == confirm_entry.get_text():
-            confirm_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "emblem-ok-symbolic.symbolic")
-            confirm_entry.set_icon_tooltip_markup(Gtk.EntryIconPosition.SECONDARY, _("Passphrases match."))
-        else:
-            confirm_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "dialog-error-symbolic.symbolic")
-            confirm_entry.set_icon_tooltip_markup(Gtk.EntryIconPosition.SECONDARY, _("Passphrases don't match."))
 
     def on_devices_combo_changed(self, _event):
 
@@ -948,52 +909,54 @@ class AddDialog(Gtk.Dialog):
         self.update_raid_type_chooser()
         self.update_fs_chooser()
         self.add_advanced_options()
-        self.encrypt_check.set_active(False)
         self.add_size_area()
 
         if device_type == "partition":
             self.show_widgets(["label", "fs", "encrypt", "mountpoint", "size", "advanced"])
-            self.hide_widgets(["name", "passphrase", "mdraid"])
+            self.hide_widgets(["name", "mdraid"])
 
         elif device_type == "lvm":
             self.show_widgets(["encrypt", "name", "size", "advanced"])
-            self.hide_widgets(["label", "fs", "mountpoint", "passphrase", "mdraid"])
+            self.hide_widgets(["label", "fs", "mountpoint", "mdraid"])
 
         elif device_type == "lvmvg":
             self.show_widgets(["name", "advanced"])
-            self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size", "passphrase", "mdraid"])
+            self.hide_widgets(["label", "fs", "mountpoint", "encrypt", "size", "mdraid"])
 
         elif device_type in ("lvmlv",):
             self.show_widgets(["name", "fs", "mountpoint", "size", "advanced", "label", "encrypt"])
-            self.hide_widgets(["passphrase", "mdraid"])
+            self.hide_widgets(["mdraid"])
 
         elif device_type in ("lvmthinlv",):
             self.show_widgets(["name", "fs", "mountpoint", "size", "label"])
-            self.hide_widgets(["encrypt", "passphrase", "advanced", "mdraid"])
+            self.hide_widgets(["encrypt", "advanced", "mdraid"])
 
         elif device_type == "btrfs volume":
             self.show_widgets(["name", "size", "mountpoint"])
-            self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid"])
+            self.hide_widgets(["label", "fs", "encrypt", "advanced", "mdraid"])
 
         elif device_type == "btrfs subvolume":
             self.show_widgets(["name", "mountpoint"])
-            self.hide_widgets(["label", "fs", "encrypt", "size", "passphrase", "advanced", "mdraid"])
+            self.hide_widgets(["label", "fs", "encrypt", "size", "advanced", "mdraid"])
 
         elif device_type == "mdraid":
             self.show_widgets(["name", "size", "mountpoint", "fs", "advanced", "label", "encrypt"])
-            self.hide_widgets(["passphrase", "mdraid"])
+            self.hide_widgets(["mdraid"])
 
         elif device_type == "lvm snapshot":
             self.show_widgets(["name", "size"])
-            self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint"])
+            self.hide_widgets(["label", "fs", "encrypt", "advanced", "mdraid", "mountpoint"])
 
         elif device_type == "lvm thinsnapshot":
             self.show_widgets(["name"])
-            self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint", "size"])
+            self.hide_widgets(["label", "fs", "encrypt", "advanced", "mdraid", "mountpoint", "size"])
 
         elif device_type == "lvmthinpool":
             self.show_widgets(["name", "size"])
-            self.hide_widgets(["label", "fs", "encrypt", "passphrase", "advanced", "mdraid", "mountpoint"])
+            self.hide_widgets(["label", "fs", "encrypt", "advanced", "mdraid", "mountpoint"])
+
+        # hide "advanced" encryption widgets if encrypt not checked
+        self._encryption_chooser.set_advanced_visible(self._encryption_chooser.encrypt)
 
     @property
     def selected_fs(self):
@@ -1032,12 +995,6 @@ class AddDialog(Gtk.Dialog):
 
         user_input = self.get_selection()
 
-        if user_input.encrypt and not user_input.passphrase:
-            msg = _("Passphrase not specified.")
-            message_dialogs.ErrorDialog(self, msg,
-                                        not self.installer_mode)  # do not show decoration in installer mode
-            return False
-
         if user_input.mountpoint and not os.path.isabs(user_input.mountpoint):
             msg = _("\"{0}\" is not a valid mountpoint.").format(user_input.mountpoint)
             message_dialogs.ErrorDialog(self, msg,
@@ -1071,8 +1028,8 @@ class AddDialog(Gtk.Dialog):
                                         not self.installer_mode)  # do not show decoration in installer mode
             return False
 
-        if self.pass_entry.get_text() != self.pass2_entry.get_text():
-            msg = _("Provided passphrases do not match.")
+        valid, msg = self._encryption_chooser.validate_user_input()
+        if not valid:
             message_dialogs.ErrorDialog(self, msg,
                                         not self.installer_mode)  # do not show decoration in installer mode
             return False
@@ -1093,6 +1050,7 @@ class AddDialog(Gtk.Dialog):
         device_type = self.selected_type
 
         size_selection = self.size_area.get_selection()
+        encryption_selection = self._encryption_chooser.get_selection()
 
         if device_type in ("btrfs volume", "mdraid", "lvmlv"):
             raid_level = self._raid_chooser.selected_level.name
@@ -1123,7 +1081,8 @@ class AddDialog(Gtk.Dialog):
                                   name=self.name_entry.get_text(),
                                   label=self.label_entry.get_text(),
                                   mountpoint=mountpoint,
-                                  encrypt=self.encrypt_check.get_active(),
-                                  passphrase=self.pass_entry.get_text(),
+                                  encrypt=encryption_selection.encrypt,
+                                  passphrase=encryption_selection.passphrase,
+                                  encryption_type=encryption_selection.encryption_type,
                                   raid_level=raid_level,
                                   advanced=advanced)

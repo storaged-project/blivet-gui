@@ -30,7 +30,7 @@ from gi.repository import Gtk
 from blivet import size
 from blivet.devicelibs.raid import Single, Linear
 
-from .widgets import GUIWidget
+from .widgets import GUIWidget, SignalHandler
 from ..i18n import _
 from ..communication.proxy_utils import ProxyDataContainer
 
@@ -42,17 +42,6 @@ UNITS = OrderedDict([("B", size.B), ("KB", size.KB), ("MB", size.MB),
                      ("GB", size.GB), ("TB", size.TB), ("KiB", size.KiB),
                      ("MiB", size.MiB), ("GiB", size.GiB), ("TiB", size.TiB)])
 # ---------------------------------------------------------------------------- #
-
-
-class SignalHandler(ProxyDataContainer):
-
-    def __init__(self, method, args):
-        """
-            :param method: method/function that should be called
-            :param args: additional arguments for calling @method
-        """
-
-        super().__init__(method=method, args=args)
 
 
 class SizeSelection(ProxyDataContainer):

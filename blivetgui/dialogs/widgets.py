@@ -30,8 +30,21 @@ from contextlib import contextmanager
 
 from blivet.devicelibs.raid import RAID0, Single, Linear
 
-from .helpers import supported_raids
+from .helpers import supported_raids, supported_encryption_types, default_encryption_type
 from ..gui_utils import locate_ui_file
+from ..i18n import _
+from ..communication.proxy_utils import ProxyDataContainer
+
+
+class SignalHandler(ProxyDataContainer):
+
+    def __init__(self, method, args):
+        """
+            :param method: method/function that should be called
+            :param args: additional arguments for calling @method
+        """
+
+        super().__init__(method=method, args=args)
 
 
 class GUIWidget(object):
@@ -211,3 +224,127 @@ class RaidChooser(GUIWidget):
 
             if treeiter:
                 self._combobox_raid.set_active_iter(treeiter)
+
+
+class EncryptionSelection(ProxyDataContainer):
+
+    def __init__(self, encrypt, encryption_type, passphrase, rpassphrase):
+        super().__init__(encrypt=encrypt, encryption_type=encryption_type,
+                         passphrase=passphrase, rpassphrase=rpassphrase)
+
+
+class EncryptionChooser(GUIWidget):
+
+    glade_file = "encryption_chooser.ui"
+    name = "encryption chooser"
+
+    def __init__(self):
+        super().__init__()
+
+        self._type_changed_handlers = []
+        self._encrypt_toggled_handlers = []
+
+        self.grid = self._builder.get_object("grid")
+
+        self._combobox_type = self._builder.get_object("combobox_type")
+        self._encrypt_check = self._builder.get_object("check_encrypt")
+        self._passphrase_entry = self._builder.get_object("entry_passphrase")
+        self._repeat_entry = self._builder.get_object("entry_repeat")
+
+        # always visible widgets -- encrypt checkbox and its label
+        self._visible_widgets = [self._builder.get_object("label_encrypt"),
+                                 self._encrypt_check]
+
+        # "advanced" widgets -- visible only when encrypt is checked
+        self._advanced_widgests = [self._builder.get_object("label_type"),
+                                   self._combobox_type,
+                                   self._builder.get_object("label_passphrase"),
+                                   self._passphrase_entry,
+                                   self._builder.get_object("label_repeat"),
+                                   self._repeat_entry]
+
+        # fill combobox with supported options and select the default one
+        etypes = list(supported_encryption_types().keys())
+        default = default_encryption_type()
+        for etype in etypes:
+            self._combobox_type.append_text(etype)
+        self._combobox_type.set_active(etypes.index(default))
+        if len(etypes) == 1:
+            self._combobox_type.set_sensitive(False)
+
+        # signals
+        self._encrypt_check.connect("toggled", self._on_encrypt_toggled)
+        self._passphrase_entry.connect("changed", self._on_passphrase_changed)
+        self._repeat_entry.connect("changed", self._on_passphrase_changed)
+        self._combobox_type.connect("changed", self._on_type_changed)
+
+    @property
+    def selected_type(self):
+        """ Currently selected encryption type """
+        return self._combobox_type.get_active_text()
+
+    @property
+    def encrypt(self):
+        """ Whether encryption is toggled on or off """
+        return self._encrypt_check.get_active()
+
+    @encrypt.setter
+    def encrypt(self, state):
+        self._encrypt_check.set_active(state)
+
+    def set_advanced_visible(self, visible):
+        for widget in self._advanced_widgests:
+            widget.set_visible(visible)
+
+    def connect(self, signal_name, signal_handler, *args):
+        if signal_name == "type-changed":
+            self._type_changed_handlers.append(SignalHandler(method=signal_handler, args=args))
+        elif signal_name == "encrypt-toggled":
+            self._encrypt_toggled_handlers.append(SignalHandler(method=signal_handler, args=args))
+        else:
+            raise ValueError("Widget %s doesn't support signal %s" % (self.name, signal_name))
+
+    def get_selection(self):
+        encrypt = self._encrypt_check.get_active()
+        etype = self.selected_type
+        passphrase = self._passphrase_entry.get_text()
+        rpassphrase = self._repeat_entry.get_text()
+
+        return EncryptionSelection(encrypt, etype, passphrase, rpassphrase)
+
+    def validate_user_input(self):
+        selection = self.get_selection()
+
+        if not selection.encrypt:
+            return (True, None)
+
+        if not selection.passphrase:
+            msg = _("Passphrase not specified.")
+            return (False, msg)
+        elif selection.passphrase != selection.rpassphrase:
+            msg = _("Provided passphrases do not match.")
+            return (False, msg)
+
+        return (True, None)
+
+    def _on_encrypt_toggled(self, _widget):
+        # show/hide "advanced" widgets
+        self.set_advanced_visible(self.encrypt)
+
+        # call the signal handler for the encrypt-toggled event
+        for handler in self._encrypt_toggled_handlers:
+            handler.method(self.encrypt, *handler.args)
+
+    def _on_type_changed(self, _widget):
+        # nothing for us, just call registered handlers
+        for handler in self._type_changed_handlers:
+            handler.method(self.selected_type, *handler.args)
+
+    def _on_passphrase_changed(self, _widget):
+        # check if passphrases match
+        if self._passphrase_entry.get_text() == self._repeat_entry.get_text():
+            self._repeat_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "emblem-ok-symbolic.symbolic")
+            self._repeat_entry.set_icon_tooltip_markup(Gtk.EntryIconPosition.SECONDARY, _("Passphrases match."))
+        else:
+            self._repeat_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "dialog-error-symbolic.symbolic")
+            self._repeat_entry.set_icon_tooltip_markup(Gtk.EntryIconPosition.SECONDARY, _("Passphrases don't match."))
