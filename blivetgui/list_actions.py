@@ -67,7 +67,7 @@ class ListActions(object):
         self.actions_view = self.blivet_gui.builder.get_object("treeview_actions")
 
         self.blivet_gui.activate_action_buttons(False)
-        self.blivet_gui.label_actions.set_markup("No pending actions")
+        self.blivet_gui.label_actions.set_markup(_("No pending actions"))
 
     def append(self, action_type, action_desc, blivet_actions):
         """ Append newly scheduled actions to the list of actions
