@@ -1,6 +1,7 @@
 import glob
 import os
 import re
+import shutil
 import subprocess
 import unittest
 
@@ -39,6 +40,7 @@ class BlivetUtilsTestToolkit(unittest.TestCase):
 
 
 @unittest.skipUnless(os.geteuid() == 0, "requires root access")
+@unittest.skipUnless(shutil.which("targetcli"), "targetcli not found in $PATH")
 class BlivetUtilsTestCase(unittest.TestCase):
 
     @classmethod
