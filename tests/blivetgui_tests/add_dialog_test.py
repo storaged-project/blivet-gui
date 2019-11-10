@@ -177,7 +177,7 @@ class AdvancedOptionsTest(unittest.TestCase):
         # invalid size specification
         entry.set_text("aaaaaaa")
         advanced_options.validate_user_input()
-        self.error_dialog.assert_any_call(self.add_dialog, _("'aaaaaaa' is not a valid chunk size specification."),
+        self.error_dialog.assert_any_call(self.add_dialog, _("'{0}' is not a valid chunk size specification.").format("aaaaaaa"),
                                           not self.add_dialog.installer_mode)
         self.error_dialog.reset_mock()
 
