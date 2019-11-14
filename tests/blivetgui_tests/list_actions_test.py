@@ -5,6 +5,7 @@ from unittest.mock import MagicMock
 
 import os
 
+from blivetgui.i18n import _, P_
 from blivetgui.list_actions import ListActions
 
 
@@ -30,7 +31,7 @@ class ListActionsTest(unittest.TestCase):
 
     def test_initial_state(self):
         self.assertFalse(self.buttons_state)
-        self.assertIn("No pending actions", self.actions_label)
+        self.assertIn(_("No pending actions"), self.actions_label)
         self.assertEqual(self.actions_list.actions, 0)
         self.assertEqual(len(self.actions_list.history), 0)
 
@@ -43,7 +44,7 @@ class ListActionsTest(unittest.TestCase):
         self.assertEqual(len(self.actions_list.history), 1)
         self.assertTrue([action1, action2] in self.actions_list.history)
         self.assertTrue(self.buttons_state)
-        self.assertIn("1 pending action", self.actions_label)
+        self.assertIn(P_("%s pending action", "%s pending actions", 1) % 1, self.actions_label)
 
     def test_pop(self):
         action1 = MagicMock()
@@ -59,7 +60,7 @@ class ListActionsTest(unittest.TestCase):
         self.assertTrue([action1] in self.actions_list.history)  # action1 should stay there
         self.assertFalse([action2] in self.actions_list.history)  # action2 shouldn't
         self.assertTrue(self.buttons_state)
-        self.assertIn("1 pending action", self.actions_label)
+        self.assertIn(P_("%s pending action", "%s pending actions", 1) % 1, self.actions_label)
 
         # pop action1 from the list
         pop = self.actions_list.pop()
@@ -67,7 +68,7 @@ class ListActionsTest(unittest.TestCase):
         self.assertEqual(self.actions_list.actions, 0)
         self.assertEqual(len(self.actions_list.history), 0)
         self.assertFalse(self.buttons_state)
-        self.assertIn("No pending actions", self.actions_label)
+        self.assertIn(_("No pending actions"), self.actions_label)
 
     def test_clear(self):
         action1 = MagicMock()
@@ -77,7 +78,7 @@ class ListActionsTest(unittest.TestCase):
         self.assertEqual(self.actions_list.actions, 0)
         self.assertEqual(len(self.actions_list.history), 0)
         self.assertFalse(self.buttons_state)
-        self.assertIn("No pending actions", self.actions_label)
+        self.assertIn(_("No pending actions"), self.actions_label)
 
 
 if __name__ == "__main__":
