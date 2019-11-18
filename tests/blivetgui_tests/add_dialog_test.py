@@ -325,7 +325,7 @@ class AddDialogTest(unittest.TestCase):
 
         self.assertTrue(add_dialog.filesystems_combo.get_visible())
         self.assertFalse(add_dialog.name_entry.get_visible())
-        self.assertTrue(add_dialog.encrypt_check.get_visible())
+        self.assertTrue(add_dialog._encryption_chooser._encrypt_check.get_visible())
         self.assertFalse(add_dialog._raid_chooser.get_visible())
         self.assertIsNotNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
@@ -343,7 +343,7 @@ class AddDialogTest(unittest.TestCase):
 
         self.assertFalse(add_dialog.filesystems_combo.get_visible())
         self.assertTrue(add_dialog.name_entry.get_visible())
-        self.assertTrue(add_dialog.encrypt_check.get_visible())
+        self.assertTrue(add_dialog._encryption_chooser._encrypt_check.get_visible())
         self.assertFalse(add_dialog._raid_chooser.get_visible())
         self.assertIsNotNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
@@ -361,7 +361,7 @@ class AddDialogTest(unittest.TestCase):
 
         self.assertFalse(add_dialog.filesystems_combo.get_visible())
         self.assertTrue(add_dialog.name_entry.get_visible())
-        self.assertFalse(add_dialog.encrypt_check.get_visible())
+        self.assertFalse(add_dialog._encryption_chooser._encrypt_check.get_visible())
         self.assertTrue(add_dialog._raid_chooser.get_visible())
         self.assertIsNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
@@ -380,7 +380,7 @@ class AddDialogTest(unittest.TestCase):
 
         self.assertTrue(add_dialog.filesystems_combo.get_visible())
         self.assertTrue(add_dialog.name_entry.get_visible())
-        self.assertTrue(add_dialog.encrypt_check.get_visible())
+        self.assertTrue(add_dialog._encryption_chooser._encrypt_check.get_visible())
         self.assertIsNotNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
 
@@ -522,44 +522,6 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog.mountpoint_entry.get_visible())
         self.assertTrue(add_dialog.label_entry.get_visible())
 
-    def test_encrypt_check(self):
-        parent_device = self._get_parent_device()
-        free_device = self._get_free_device(parent=parent_device)
-
-        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], self.supported_filesystems, [])
-
-        min_size = add_dialog.size_area.min_size  # device minimal size before update
-        # check the encrypt check, passphrase entries should be visible and 2 MiB should be added to device min size
-        add_dialog.encrypt_check.set_active(True)
-        self.assertTrue(add_dialog.pass_entry.get_visible())
-        self.assertTrue(add_dialog.pass2_entry.get_visible())
-        self.assertEqual(add_dialog.size_area.min_size, min_size + Size("2 MiB"))
-
-        # check the encrypt check, passphrase entries should be hidden and min size should be back to original min size
-        add_dialog.encrypt_check.set_active(False)
-        self.assertFalse(add_dialog.pass_entry.get_visible())
-        self.assertFalse(add_dialog.pass2_entry.get_visible())
-        self.assertEqual(add_dialog.size_area.min_size, min_size)
-
-    def test_passphrase_entry(self):
-        parent_device = self._get_parent_device()
-        free_device = self._get_free_device(parent=parent_device)
-
-        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], self.supported_filesystems, [])
-
-        add_dialog.encrypt_check.set_active(True)
-
-        # passphrases don't match -> error icon
-        add_dialog.pass_entry.set_text("aa")
-        add_dialog.pass2_entry.set_text("bb")
-        self.assertEqual(add_dialog.pass2_entry.get_icon_name(Gtk.EntryIconPosition.SECONDARY), "dialog-error-symbolic.symbolic")
-
-        # passphrases match -> ok icon
-        add_dialog.pass2_entry.set_text("aa")
-        self.assertEqual(add_dialog.pass2_entry.get_icon_name(Gtk.EntryIconPosition.SECONDARY), "emblem-ok-symbolic.symbolic")
-
     def test_md_type(self):
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device)
@@ -593,37 +555,6 @@ class AddDialogTest(unittest.TestCase):
 
         # raid0 type is selected --> we should have 2 size areas, both with max size 4 GiB (smaller free space size)
         self.assertEqual(add_dialog.size_area.max_size, Size("8 GiB"))
-
-    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
-    def test_encrypt_validity_check(self):
-        parent_device = self._get_parent_device()
-        free_device = self._get_free_device(parent=parent_device)
-
-        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
-                               [("free", free_device)], self.supported_filesystems, [])
-
-        # passphrases specified and matches
-        add_dialog.encrypt_check.set_active(True)
-        add_dialog.pass_entry.set_text("aaaaa")
-        add_dialog.pass2_entry.set_text("aaaaa")
-        add_dialog.validate_user_input()
-        self.assertFalse(self.error_dialog.called)  # passphrases specified and matches --> no error
-        self.error_dialog.reset_mock()
-
-        # passphrases specified but don't matche
-        add_dialog.encrypt_check.set_active(True)
-        add_dialog.pass_entry.set_text("aaaaa")
-        add_dialog.pass2_entry.set_text("bbbb")
-        add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, _("Provided passphrases do not match."), True)
-        self.error_dialog.reset_mock()
-
-        # no passphrase specified
-        add_dialog.encrypt_check.set_active(True)
-        add_dialog.pass_entry.set_text("")
-        add_dialog.validate_user_input()
-        self.error_dialog.assert_any_call(add_dialog, _("Passphrase not specified."), True)
-        self.error_dialog.reset_mock()
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_mountpoint_validity_check(self):
@@ -726,8 +657,8 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.size_area.main_chooser.selected_size = size
         add_dialog.label_entry.set_text(label)
         add_dialog.mountpoint_entry.set_text(mountpoint)
-        add_dialog.encrypt_check.set_active(True)
-        add_dialog.pass_entry.set_text(password)
+        add_dialog._encryption_chooser.encrypt = True
+        add_dialog._encryption_chooser._passphrase_entry.set_text(password)
 
         selection = add_dialog.get_selection()
 

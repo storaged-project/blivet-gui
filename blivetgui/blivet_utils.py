@@ -906,6 +906,7 @@ class BlivetUtils(object):
         if user_input.encrypt:
             part_fmt = blivet.formats.get_format(fmt_type="luks",
                                                  passphrase=user_input.passphrase,
+                                                 luks_version=user_input.encryption_type,
                                                  device=new_part.path)
             actions.append(blivet.deviceaction.ActionCreateFormat(new_part, part_fmt))
 
@@ -959,6 +960,7 @@ class BlivetUtils(object):
             if user_input.encrypt:
                 luks_fmt = blivet.formats.get_format(fmt_type="luks",
                                                      passphrase=user_input.passphrase,
+                                                     luks_version=user_input.encryption_type,
                                                      device=new_lv.path)
                 actions.append(blivet.deviceaction.ActionCreateFormat(new_lv, luks_fmt))
 
@@ -993,6 +995,7 @@ class BlivetUtils(object):
         if user_input.encrypt:
             part_fmt = blivet.formats.get_format(fmt_type="luks",
                                                  passphrase=user_input.passphrase,
+                                                 luks_version=user_input.encryption_type,
                                                  device=new_part.path)
             actions.append(blivet.deviceaction.ActionCreateFormat(new_part, part_fmt))
 
@@ -1045,7 +1048,8 @@ class BlivetUtils(object):
             size_selection = ProxyDataContainer(total_size=parent.selected_size, parents=[parent])
             pv_input = ProxyDataContainer(size_selection=size_selection,
                                           encrypt=user_input.encrypt,
-                                          passphrase=user_input.passphrase)
+                                          passphrase=user_input.passphrase,
+                                          luks_version=user_input.encryption_type)
             pv_actions = self._create_lvmpv(pv_input)
 
             # we need to try to register create actions immediately, if something fails, fail now
@@ -1119,6 +1123,7 @@ class BlivetUtils(object):
         if user_input.encrypt:
             luks_fmt = blivet.formats.get_format(fmt_type="luks",
                                                  passphrase=user_input.passphrase,
+                                                 luks_version=user_input.encryption_type,
                                                  device=new_md.path)
             actions.append(blivet.deviceaction.ActionCreateFormat(new_md, luks_fmt))
 
