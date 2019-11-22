@@ -1319,6 +1319,9 @@ class BlivetUtils(object):
 
         return sorted(_fs_types, key=lambda fs: fs.type)
 
+    def get_default_filesystem(self):
+        return self.storage.default_fstype
+
     def create_disk_label(self, blivet_device, label_type):
         """ Create disklabel
 
