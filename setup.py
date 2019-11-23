@@ -28,8 +28,6 @@ for size in ("16x16", "22x22", "24x24", "32x32", "48x48", "64x64", "256x256"):
     icons = glob.glob('data/icons/hicolor/' + size + '/blivet-gui.png')
     data_files.append(('/usr/share/icons/hicolor/' + size + '/apps', icons))
 
-print(data_files)
-
 # Extend the sdist command
 class blivet_gui_sdist(sdist):
     def make_release_tree(self, base_dir, files):
