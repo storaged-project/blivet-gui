@@ -50,6 +50,7 @@ from .processing_window import ProcessingActions
 from .loading_window import LoadingWindow
 from .exception_handler import BlivetGUIExceptionHandler
 from .communication.constants import ServerInitResponse
+from .config import config
 
 import threading
 import sys
@@ -145,6 +146,9 @@ class BlivetGUI(object):
 
         # allow ignoring exceptions
         self.exc.allow_ignore = True
+
+        # set some defaults from blivet now
+        config.default_fstype = self.client.remote_call("get_default_filesystem")
 
         self.initialize()
 

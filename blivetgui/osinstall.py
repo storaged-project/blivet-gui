@@ -42,6 +42,8 @@ from .dialogs import message_dialogs, constants
 from .i18n import _
 from .gui_utils import locate_ui_file, locate_css_file
 from .logs import set_logging
+from .config import config
+
 from blivet.errors import StorageError
 import sys
 from contextlib import contextmanager
@@ -138,6 +140,12 @@ class BlivetGUIAnaconda(BlivetGUI):
 
         self.physical_view = PhysicalView(self)
         self.builder.get_object("scrolledwindow_physical").add(self.physical_view.vbox)
+
+    def initialize(self):
+        super().initialize()
+
+        # set some defaults from blivet now
+        config.default_fstype = self.client.remote_call("get_default_filesystem")
 
     def ui_refresh(self, _spoke):
         """ This should be called only from Anaconda using the spoke 'entered'
