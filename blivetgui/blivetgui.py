@@ -232,7 +232,7 @@ class BlivetGUI(object):
         self.device_toolbar.deactivate_all()
         self.popup_menu.deactivate_all()
 
-    def _reraise_exception(self, exception, traceback, message):
+    def _reraise_exception(self, exception, traceback, message, dialog_window=None):
         raise type(exception)(message + "\n" + str(exception) + "\n" + traceback)
 
     def show_error_dialog(self, error_message):
@@ -288,7 +288,8 @@ class BlivetGUI(object):
                 if not result.exception:
                     self.show_error_dialog(result.message)
                 else:
-                    self._reraise_exception(result.exception, result.traceback, message)
+                    self._reraise_exception(result.exception, result.traceback, message,
+                                            dialog_window=dialog.dialog)
             else:
                 if result.actions:
                     action_str = _("resize {name} {type}").format(name=device.name, type=device.type)
@@ -320,7 +321,8 @@ class BlivetGUI(object):
                 if not result.exception:
                     self.show_error_dialog(result.message)
                 else:
-                    self._reraise_exception(result.exception, result.traceback, message)
+                    self._reraise_exception(result.exception, result.traceback, message,
+                                            dialog_window=dialog.dialog)
             else:
                 if result.actions:
                     action_str = _("format {name} {type}").format(name=device.name, type=device.type)
@@ -347,7 +349,8 @@ class BlivetGUI(object):
                 if not result.exception:
                     self.show_error_dialog(result.message)
                 else:
-                    self._reraise_exception(result.exception, result.traceback, message)
+                    self._reraise_exception(result.exception, result.traceback, message,
+                                            dialog_window=dialog)
             else:
                 if result.actions:
                     action_str = _("edit {name} {type}").format(name=device.name, type=device.type)
@@ -407,7 +410,8 @@ class BlivetGUI(object):
                 if not result.exception:
                     self.show_error_dialog(result.message)
                 else:
-                    self._reraise_exception(result.exception, result.traceback, message)
+                    self._reraise_exception(result.exception, result.traceback, message,
+                                            dialog_window=dialog.dialog)
 
             else:
                 if result.actions:
@@ -473,7 +477,8 @@ class BlivetGUI(object):
                 if not result.exception:
                     self.show_error_dialog(result.message)
                 else:
-                    self._reraise_exception(result.exception, result.traceback, message)
+                    self._reraise_exception(result.exception, result.traceback, message,
+                                            dialog_window=dialog)
 
             else:
                 if result.actions:
@@ -523,7 +528,8 @@ class BlivetGUI(object):
                     self.show_error_dialog(result.message)
 
                 else:
-                    self._reraise_exception(result.exception, result.traceback, message)
+                    self._reraise_exception(result.exception, result.traceback, message,
+                                            dialog_window=dialog.dialog)
 
             else:
                 action_str = _("delete partition {name}").format(name=deleted_device.name)
@@ -568,7 +574,7 @@ class BlivetGUI(object):
                 message = _("Failed to perform the actions:")
                 dialog.destroy()
                 self.main_window.set_sensitive(False)
-                self._reraise_exception(error, traceback, message)  # pylint: disable=raising-bad-type
+                self._reraise_exception(error, traceback, message, dialog_window=dialog)  # pylint: disable=raising-bad-type
 
         def show_progress(message):
             dialog.progress_msg(message)
@@ -747,7 +753,8 @@ class BlivetGUI(object):
             # unknow problem --> re-raise exception
             else:
                 message = _("Failed to init blivet:")
-                self._reraise_exception(ret.exception, ret.traceback, message)
+                self._reraise_exception(ret.exception, ret.traceback, message,
+                                        dialog_window=loading_window)
 
     def _blivet_init_ignore(self, exception, device_name):
 
