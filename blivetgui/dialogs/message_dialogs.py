@@ -101,7 +101,7 @@ class ExceptionDialog(object):
     """ Error dialog with traceback
     """
 
-    def __init__(self, parent_window, allow_ignore, allow_report, msg, traceback):
+    def __init__(self, parent_window, allow_ignore, allow_report, msg, traceback, decorated=True):
 
         self.allow_ignore = allow_ignore
         self.allow_report = allow_report
@@ -111,6 +111,7 @@ class ExceptionDialog(object):
         builder.add_from_file(locate_ui_file('exception_dialog.ui'))
         self.dialog = builder.get_object("exception_dialog")
 
+        self.dialog.set_decorated(decorated)
         self.dialog.set_transient_for(parent_window)
         self.dialog.format_secondary_text(msg)
 

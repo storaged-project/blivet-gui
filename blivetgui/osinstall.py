@@ -208,7 +208,7 @@ class BlivetGUIAnaconda(BlivetGUI):
 
         self.main_window.lightbox_off()
 
-    def _reraise_exception(self, exception, traceback, message):
+    def _reraise_exception(self, exception, traceback, message, dialog_window=None):
         allow_report = True
         allow_ignore = self.allow_ignore and issubclass(type(exception), StorageError)
         if allow_ignore:
@@ -216,9 +216,12 @@ class BlivetGUIAnaconda(BlivetGUI):
         else:
             msg = _("Unknown error occured. Anaconda will be terminated.\n{error}").format(error=str(exception))
 
-        dialog = message_dialogs.ExceptionDialog(self.main_window, allow_ignore,
-                                                 allow_report, msg, str(traceback))
-        response = dialog.run()
+        with self.enlightbox():
+            dialog = message_dialogs.ExceptionDialog(dialog_window if dialog_window else self.main_window,
+                                                     allow_ignore, allow_report,
+                                                     msg, str(traceback),
+                                                     decorated=False)
+            response = dialog.run()
 
         if response == constants.DialogResponseType.BACK:
             return
