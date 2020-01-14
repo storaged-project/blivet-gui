@@ -70,6 +70,7 @@ class DeviceToolbar(BlivetGUIToolbar):
                  ("info", "clicked", self.blivet_gui.device_information),
                  ("parents", "activate", self.blivet_gui.edit_lvmvg),
                  ("mountpoint", "activate", self.blivet_gui.set_mountpoint),
+                 ("label", "activate", self.blivet_gui.edit_label),
                  ("partitiontable", "activate", self.blivet_gui.set_partition_table)]
 
         for item in items:
