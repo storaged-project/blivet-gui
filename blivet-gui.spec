@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.11
+Version: 2.1.12
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -69,6 +69,28 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Wed Jan 29 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.12-1
+- Add menu item and dialog for changing fslabel of selected device (vtrefny)
+- Add 'relabel_format' method for fslabel configuration (vtrefny)
+- Fix displaying the exception dialog in Anaconda (vtrefny)
+- Get default filesystem type from blivet (vtrefny)
+- Allow selection of encryption type (LUKS version) (vtrefny)
+- Translate expected error strings in tests (vtrefny)
+- Fix untranslated actions label (vtrefny)
+- Skip tests if targetcli is not available (vtrefny)
+- Add tests to the source archive (vtrefny)
+- Don't crash the installer when known StorageError happens(#1756288) (skycastlelily)
+- Enable copr builds and add packit config (dhodovsk)
+- Add test case for creating partitions on disk with preexisting one (vtrefny)
+- Specify starting sector when creating partitions (#1755813) (vtrefny)
+- Explicitly disable return code check in subprocess.run (vtrefny)
+- Mark E1121 pylint error as false positive in tests (vtrefny)
+- README: Add information about Debian and Ubuntu repository. (vtrefny)
+- Remove platform.linux_distribution (vtrefny)
+- Propertly display standalone dm-integrity devices (vtrefny)
+- Count format minimal size when checking encrypted device min size (vtrefny)
+- Sync spec with downstream (vtrefny)
+
 * Wed Jul 31 2019 Vojtech Trefny <vtrefny@redhat.com> - 2.1.11-1
 - Create only one tag per release (vtrefny)
 - Update README (vtrefny)
