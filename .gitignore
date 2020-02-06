@@ -1,7 +1,6 @@
 *.py[cod]
 *.sw[po]
 
-po/*.po
 po/*.mo
 
 MANIFEST
