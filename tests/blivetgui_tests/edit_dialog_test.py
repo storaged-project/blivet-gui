@@ -14,7 +14,7 @@ from blivet.size import Size
 from blivetgui.dialogs.edit_dialog import FormatDialog
 from blivetgui.i18n import _
 
-from add_dialog_test import supported_filesystems
+from .add_dialog_test import supported_filesystems
 
 
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")

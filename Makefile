@@ -8,7 +8,6 @@ RELEASE_TAG=$(VERSION)-$(RELEASE)
 ZANATA_PULL_ARGS = --transdir ./
 ZANATA_PUSH_ARGS = --srcdir ./ --push-type source --force
 PYTHON=python3
-COVERAGE=coverage3
 
 all:
 	$(MAKE) -C po
@@ -37,16 +36,11 @@ test:
 
 gui-test:
 	@echo "*** Running GUI tests ***"
-	PYTHONPATH=.:tests/ xvfb-run -s '-screen 0 640x480x8 -extension RANDR' $(PYTHON) -m unittest discover -v -s tests/blivetgui_tests -p '*_test.py'
+	PYTHONPATH=.:tests/ xvfb-run -s '-screen 0 640x480x8 -extension RANDR' $(PYTHON) tests/run_tests.py blivetgui_tests
 
 utils-test:
 	@echo "*** Running Utils tests ***"
-	PYTHONPATH=.:tests/ $(PYTHON) -m unittest discover -v -s tests/blivetutils_tests -p 'test_*.py'
-
-coverage:
-	@echo "*** Running unittests with $(COVERAGE) for $(PYTHON) ***"
-	PYTHONPATH=.:tests/ $(COVERAGE) run --branch -m unittest discover -v -s tests/ -p '*_test.py'
-	$(COVERAGE) report --include="blivetgui/*" --show-missing
+	PYTHONPATH=.:tests/ $(PYTHON) tests/run_tests.py blivetutils_tests
 
 pylint:
 	@echo "*** Running pylint ***"

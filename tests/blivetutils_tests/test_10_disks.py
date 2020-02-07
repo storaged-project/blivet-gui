@@ -4,7 +4,7 @@ import blivet
 
 from blivetgui.communication.proxy_utils import ProxyDataContainer
 
-from blivetutilstestcase import BlivetUtilsTestCase, BlivetUtilsTestToolkit
+from .blivetutilstestcase import BlivetUtilsTestCase, BlivetUtilsTestToolkit
 
 
 class DisksTestToolkit(BlivetUtilsTestToolkit):

@@ -8,9 +8,8 @@ from gi.repository import BlockDev
 
 from blivetgui.communication.proxy_utils import ProxyDataContainer
 
-from blivetutilstestcase import BlivetUtilsTestCase
-
-from test_10_disks import DisksTestToolkit
+from .blivetutilstestcase import BlivetUtilsTestCase
+from .test_10_disks import DisksTestToolkit
 
 
 SIZE_DELTA = blivet.size.Size("2 MiB")
