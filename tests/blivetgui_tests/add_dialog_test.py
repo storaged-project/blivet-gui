@@ -8,11 +8,6 @@ from blivetgui.i18n import _
 
 import os
 
-import gi
-gi.require_version("Gtk", "3.0")
-
-from gi.repository import Gtk
-
 from blivet.size import Size
 from blivet import formats
 
@@ -234,10 +229,14 @@ class AdvancedOptionsTest(unittest.TestCase):
 class AddDialogTest(unittest.TestCase):
 
     error_dialog = MagicMock()
-    parent_window = Gtk.Window()
 
     @classmethod
     def setUpClass(cls):
+        import gi
+        gi.require_version("Gtk", "3.0")
+        from gi.repository import Gtk
+
+        cls.parent_window = Gtk.Window()
         cls.supported_filesystems = supported_filesystems()
 
     def _get_free_device(self, size=Size("8 GiB"), logical=False, parent=None, **kwargs):
