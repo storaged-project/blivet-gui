@@ -4,11 +4,6 @@ import os
 import unittest
 from unittest.mock import MagicMock, patch
 
-import gi
-gi.require_version("Gtk", "3.0")
-
-from gi.repository import Gtk
-
 from blivet.size import Size
 
 from blivetgui.dialogs.edit_dialog import FormatDialog
@@ -21,10 +16,14 @@ from .add_dialog_test import supported_filesystems
 class FormatDialogTest(unittest.TestCase):
 
     error_dialog = MagicMock()
-    parent_window = Gtk.Window()
 
     @classmethod
     def setUpClass(cls):
+        import gi
+        gi.require_version("Gtk", "3.0")
+        from gi.repository import Gtk
+
+        cls.parent_window = Gtk.Window()
         cls.supported_filesystems = supported_filesystems()
 
     def test_basic(self):
