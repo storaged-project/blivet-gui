@@ -13,13 +13,6 @@ COVERAGE=coverage3
 all:
 	$(MAKE) -C po
 
-po-pull:
-	@which zanata >/dev/null 2>&1 || ( echo "You need to install Zanata client to download translation files"; exit 1 )
-	zanata pull $(ZANATA_PULL_ARGS)
-
-po-push: potfile
-	zanata push
-
 potfile:
 	$(MAKE) -C po potfile
 
@@ -95,7 +88,7 @@ tag:
 
 release: tag archive
 
-archive: po-pull
+archive:
 	$(MAKE) -B ChangeLog
 	git archive --format=tar --prefix=$(APPNAME)-$(VERSION)/ $(RELEASE_TAG) | tar -xf -
 	cp -r po $(APPNAME)-$(VERSION)
@@ -105,7 +98,7 @@ archive: po-pull
 	git checkout -- po/$(APPNAME).pot
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
 
-local: po-pull
+local:
 	@make -B ChangeLog
 	@python3 setup.py -q sdist --dist-dir .
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
@@ -122,7 +115,7 @@ bumpver:
 	sed -i "s/version='$(VERSION)'/version='$$NEWVERSION'/" setup.py ; \
 	sed -i "s/__version__\ =\ '$(VERSION)'/__version__\ =\ '$$NEWVERSION'/" blivetgui/__init__.py ; \
 	sed -i "s/version\ =\ '$(VERSION)'/version\ =\ '$$NEWVERSION'/" doc/conf.py ; \
-	$(MAKE) po-push
+	$(MAKE) potfile
 
 rpmlog:
 	@git log --no-merges --pretty="format:- %s (%ae)" $(RELEASE_TAG).. |sed -e 's/@.*)/)/'

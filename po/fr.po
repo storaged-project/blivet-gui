@@ -1,0 +1,1195 @@
+# Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
+# José Fournier <jaaf64@zoraldia.com>, 2018. #zanata
+# Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>, 2019. #zanata
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-03 15:43+0100\n"
+"PO-Revision-Date: 2019-01-21 08:04+0000\n"
+"Last-Translator: Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>\n"
+"Language-Team: French\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"X-Generator: Zanata 4.6.2\n"
+
+#: ../blivetgui/list_devices.py:82
+msgid "Disks"
+msgstr "Disques"
+
+#: ../blivetgui/list_devices.py:102
+msgid "LVM"
+msgstr "LVM"
+
+#: ../blivetgui/list_devices.py:105
+msgid "LVM2 VG"
+msgstr "LVM2 VG"
+
+#: ../blivetgui/list_devices.py:108
+msgid "RAID"
+msgstr "RAID"
+
+#: ../blivetgui/list_devices.py:111
+msgid "MDArray"
+msgstr "MDArray"
+
+#: ../blivetgui/list_devices.py:114
+msgid "Btrfs Volumes"
+msgstr "Volumes Btrfs"
+
+#: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:387
+#: ../blivetgui/dialogs/device_info_dialog.py:85
+msgid "Btrfs Volume"
+msgstr "Volume Btrfs"
+
+#: ../blivetgui/processing_window.py:58
+msgid "Processing"
+msgstr "En cours de traitement"
+
+#: ../blivetgui/processing_window.py:83
+msgid "Show actions"
+msgstr "Montrer les actions"
+
+#: ../blivetgui/processing_window.py:153
+msgid "All queued actions have been processed."
+msgstr "Toutes les actions en attente ont été faites"
+
+#: ../blivetgui/processing_window.py:168
+#, python-brace-format
+msgid ""
+"<b>Processing action {num} of {total}</b>:\n"
+"<i>{action}</i>"
+msgstr ""
+"<b>Traitement de l’action  {num} sur {total}</b>:\n"
+"<i>{action}</i>"
+
+#: ../blivetgui/osinstall.py:215
+#, python-brace-format
+msgid ""
+"{message}\n"
+"{error}\n"
+" Please click Report button to raise the error and let anaconda \n"
+" to handle the report process if you want to report this."
+msgstr ""
+
+#: ../blivetgui/osinstall.py:217
+#, python-brace-format
+msgid ""
+"Unknown error occured. Anaconda will be terminated.\n"
+"{error}"
+msgstr ""
+
+#. add a new 'placeholder' action for all currently registered blivet actions
+#: ../blivetgui/osinstall.py:265
+msgid "actions configured by installer"
+msgstr "actions configurées par l’installateur"
+
+#: ../blivetgui/exception_handler.py:75
+#, python-brace-format
+msgid ""
+"Unknown error occured.\n"
+"{error}"
+msgstr ""
+"Une erreur inconnue s’est produite\n"
+"{error}"
+
+#: ../blivetgui/exception_handler.py:77
+#, python-brace-format
+msgid ""
+"Unknown error occured. Blivet-gui will be terminated.\n"
+"{error}"
+msgstr ""
+"Une erreur inconnue s’est produite. L’interface blivet va se terminer.\n"
+"{error}"
+
+#: ../blivetgui/blivetgui.py:283
+msgid "Failed to resize the device:"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:295
+#, python-brace-format
+msgid "resize {name} {type}"
+msgstr "redimensionnement {name} {type}"
+
+#: ../blivetgui/blivetgui.py:314
+msgid "Failed to format the device:"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:328
+#, python-brace-format
+msgid "format {name} {type}"
+msgstr "formatage {name} {type}"
+
+#: ../blivetgui/blivetgui.py:341
+msgid "Failed to edit the LVM2 Volume Group:"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:356
+#, python-brace-format
+msgid "edit {name} {type}"
+msgstr "modifier {name} {type}"
+
+#: ../blivetgui/blivetgui.py:385
+msgid "Failed to change filesystem label on the device:"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:390
+#, python-brace-format
+msgid "change filesystem label of {name} {type}"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:406
+#, python-brace-format
+msgid ""
+"{name} is not complete. It is not possible to add new LVs to VG with missing"
+" PVs."
+msgstr ""
+"{name} est incomplet. Il est impossible d''ajouter de nouveaux volumes "
+"logiques à groupe de volumes auquel il manque des volumes physiques."
+
+#: ../blivetgui/blivetgui.py:411
+msgid "Not enough free space for a new LVM Volume Group."
+msgstr "Pas assez d'espace disponible pour un nouveau groupe de volumes LVM."
+
+#: ../blivetgui/blivetgui.py:417
+#, python-brace-format
+msgid ""
+"Disk {name} already reached maximum allowed number of primary partitions for"
+" {label} disklabel."
+msgstr ""
+"Le disque {name} a déjà atteint le nombre maximal de partitions primaires "
+"pour un partitionnement de type {label}."
+
+#: ../blivetgui/blivetgui.py:427
+msgid "Failed to add disklabel:"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:440
+#, python-brace-format
+msgid "create new disklabel on {name}"
+msgstr "créer un nouveau partitionnement sur {name}"
+
+#: ../blivetgui/blivetgui.py:492
+msgid "Failed to add the device:"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:507
+#, python-brace-format
+msgid "add {size} {type} device"
+msgstr "ajouter un périphérique {type} de {size}"
+
+#: ../blivetgui/blivetgui.py:542
+msgid "Failed to delete the device:"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:557
+#, python-brace-format
+msgid "delete partition {name}"
+msgstr "supprimer la partition {name}"
+
+#: ../blivetgui/blivetgui.py:596
+msgid "Failed to perform the actions:"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:640
+msgid "Confirm scheduled actions"
+msgstr "Confirmer les actions programmées"
+
+#: ../blivetgui/blivetgui.py:641
+msgid "Are you sure you want to perform scheduled actions?"
+msgstr "Voulez-vous vraiment lancer l’exécution des actions programmées ?"
+
+#: ../blivetgui/blivetgui.py:668
+msgid "Unmount failed. Are you sure device is not in use?"
+msgstr ""
+"Échec du démontage. Avez-vous vérifié que le périphérique n’est pas "
+"utilisé ?"
+
+#: ../blivetgui/blivetgui.py:689
+msgid "Device decryption failed. Are you sure provided password is correct?"
+msgstr ""
+"Échec du déchiffrement du périphérique. Avez-vous vraiment indiqué le bon "
+"mot de passe ?"
+
+#: ../blivetgui/blivetgui.py:739 ../data/ui/blivet-gui.ui:644
+msgid "Quit"
+msgstr "Quitter"
+
+#: ../blivetgui/blivetgui.py:742
+msgid "blivet-gui is already running"
+msgstr "L’interface graphique  blivet est déjà en fonctionnement"
+
+#: ../blivetgui/blivetgui.py:743
+msgid ""
+"Another instance of blivet-gui is already running.\n"
+"Only one instance of blivet-gui can run at the same time."
+msgstr ""
+"Une autre instance de l’interface blivet est déjà en fonctionnement.\n"
+"Une seule instance de l'interface blivet  peut être en fonctionnement."
+
+#: ../blivetgui/blivetgui.py:745
+msgid ""
+"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If it is still running you can use\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"command to force quit it."
+msgstr ""
+"Si votre instance précédente de l’interface blivet s’est plantée, assurez-vous que le processus  <i>blivet-gui-daemon</i> est terminé.\n"
+"S'il est encore en exécution, vous pouvez utiliser la commande \n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"pour l’arrêter."
+
+#: ../blivetgui/blivetgui.py:777
+msgid "Failed to init blivet:"
+msgstr ""
+
+#: ../blivetgui/blivetgui.py:784
+msgid "Quit blivet-gui"
+msgstr "Quitter l’interface graphique blivet"
+
+#: ../blivetgui/blivetgui.py:786
+msgid "Ignore disk and continue"
+msgstr "Ignorer le disque et continuer"
+
+#: ../blivetgui/blivetgui.py:789
+#, python-brace-format
+msgid "Error: {error}"
+msgstr "Erreur: {error}"
+
+#: ../blivetgui/blivetgui.py:790
+#, python-brace-format
+msgid ""
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use this disk."
+msgstr ""
+"L’interface blivet ne peut pas utiliser le disque <b>{name}</b> à cause d’une étiquette de disque corrompue ou inconnue.\n"
+"Vous pouvez soit quitter l’interface, soit continuer sans possibilité d’utiliser ce disque."
+
+#: ../blivetgui/blivetgui.py:826
+msgid "Confirm reload storage"
+msgstr "Confirmer le rechargement du stockage"
+
+#: ../blivetgui/blivetgui.py:827
+msgid "There are pending operations. Are you sure you want to continue?"
+msgstr "Il y a des opérations en attente. Voulez-vous vraiment continuer ?"
+
+#: ../blivetgui/blivetgui.py:858
+msgid "Are you sure you want to quit?"
+msgstr "Voulez-vous vraiment quitter ?"
+
+#: ../blivetgui/blivetgui.py:859
+msgid ""
+"There are pending operations. Are you sure you want to quit blivet-gui now?"
+msgstr ""
+"Il y a des opérations en attente. Voulez-vous vraiment quitter l’interface "
+"blivet maintenant ?"
+
+#: ../blivetgui/blivet_utils.py:81
+#, python-brace-format
+msgid "{0} disklabel"
+msgstr "Étiquette disque {0}"
+
+#: ../blivetgui/blivet_utils.py:117
+msgid "free space"
+msgstr "espace disponible"
+
+#: ../blivetgui/blivet_utils.py:649
+msgid "Logical Volumes with snapshots couldn't be resized."
+msgstr ""
+"Les volumes logiques possédants des instantanés ne peuvent être "
+"redimensionnés."
+
+#: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
+#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:599
+msgid "No pending actions"
+msgstr "Pas d’action en attente"
+
+#: ../blivetgui/list_actions.py:99 ../blivetgui/list_actions.py:123
+#, python-format
+msgid "%s pending action"
+msgid_plural "%s pending actions"
+msgstr[0] " action en attente %s"
+msgstr[1] "actions en attente %s "
+
+#: ../blivetgui/loading_window.py:48
+msgid "Probing storage"
+msgstr "Sondage du stockage"
+
+#: ../blivetgui/loading_window.py:65
+msgid "Scanning storage configuration..."
+msgstr "Analyze de la configuration du stockage"
+
+#: ../blivetgui/dialogs/size_chooser.py:196
+msgid ""
+"Currently selected size is greater than maximum limit for this selection."
+msgstr ""
+"La taille sélectionnée est plus grande que la limite maximum pour cette "
+"sélection."
+
+#: ../blivetgui/dialogs/size_chooser.py:199
+msgid ""
+"Currently selected size is smaller than minimum limit for this selection."
+msgstr ""
+"La taille sélectionnée est plus petite que la limite minimum pour cette "
+"sélection."
+
+#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:999
+#, python-brace-format
+msgid "\"{0}\" is not a valid mountpoint."
+msgstr "« {0} » n''est pas un point de montage valide."
+
+#: ../blivetgui/dialogs/helpers.py:148
+#, python-brace-format
+msgid "Selected mountpoint \"{0}\" is already set for another device."
+msgstr ""
+"Le point de montage « {0} » est déjà utilisé pour un autre périphérique."
+
+#: ../blivetgui/dialogs/edit_dialog.py:91
+#, python-brace-format
+msgid ""
+"<b>This device cannot be resized:</b>\n"
+"<i>{0}</i>"
+msgstr ""
+"<b>Ce périphérique ne peut être redimensionné :</b>\n"
+"<i>{0}</i>"
+
+#: ../blivetgui/dialogs/edit_dialog.py:93
+msgid "This device cannot be resized."
+msgstr "Ce périphérique ne peut être redimensionné."
+
+#: ../blivetgui/dialogs/edit_dialog.py:153
+#: ../blivetgui/dialogs/add_dialog.py:791
+msgid "unformatted"
+msgstr "non formaté"
+
+#: ../blivetgui/dialogs/edit_dialog.py:220
+#: ../blivetgui/dialogs/add_dialog.py:1026
+#, python-brace-format
+msgid "\"{0}\" is not a valid label."
+msgstr "« {0} » n'est pas une étiquette valide"
+
+#: ../blivetgui/dialogs/edit_dialog.py:395
+#, python-brace-format
+msgid "'{label}' is not a valid label for this filesystem"
+msgstr ""
+
+#. auto shrink after removing/hiding widgets
+#: ../blivetgui/dialogs/edit_dialog.py:445
+msgid "Edit device"
+msgstr "Modifier le périphérique"
+
+#: ../blivetgui/dialogs/edit_dialog.py:475
+#: ../blivetgui/dialogs/edit_dialog.py:524
+#: ../blivetgui/dialogs/edit_dialog.py:586
+#: ../blivetgui/dialogs/add_dialog.py:450 ../data/ui/blivet-gui.ui:466
+#: ../data/ui/cache_area.ui:76
+msgid "Device"
+msgstr "Périphérique"
+
+#: ../blivetgui/dialogs/edit_dialog.py:476
+#: ../blivetgui/dialogs/edit_dialog.py:525
+#: ../blivetgui/dialogs/edit_dialog.py:587
+#: ../blivetgui/dialogs/add_dialog.py:451 ../data/ui/blivet-gui.ui:477
+#: ../data/ui/cache_area.ui:87
+msgid "Type"
+msgstr "Type"
+
+#: ../blivetgui/dialogs/edit_dialog.py:477
+#: ../blivetgui/dialogs/edit_dialog.py:526
+#: ../blivetgui/dialogs/edit_dialog.py:588
+#: ../blivetgui/dialogs/add_dialog.py:452 ../data/ui/blivet-gui.ui:499
+msgid "Size"
+msgstr "Taille"
+
+#: ../blivetgui/dialogs/edit_dialog.py:485
+msgid "Parent devices:"
+msgstr "Périphériques parents"
+
+#: ../blivetgui/dialogs/edit_dialog.py:492
+msgid "Add parent"
+msgstr "Ajouter un parent"
+
+#: ../blivetgui/dialogs/edit_dialog.py:495
+msgid "Remove parent"
+msgstr "Supprimer un parent"
+
+#: ../blivetgui/dialogs/edit_dialog.py:506
+msgid ""
+"There are currently no empty physical volumes or\n"
+"disks with enough free space to create one."
+msgstr ""
+"Il n’existe ni volume physique vide, ni disque avec suffisamment \n"
+"d’espace pour en créer un."
+
+#: ../blivetgui/dialogs/edit_dialog.py:523
+msgid "Add?"
+msgstr "Ajouter ?"
+
+#: ../blivetgui/dialogs/edit_dialog.py:535
+#: ../blivetgui/dialogs/edit_dialog.py:597
+#: ../blivetgui/dialogs/add_dialog.py:461 ../data/ui/cache_area.ui:130
+msgid "Available devices:"
+msgstr "Périphériques disponibles :"
+
+#: ../blivetgui/dialogs/edit_dialog.py:565
+msgid ""
+"There is no physical volume that could be\n"
+"removed from this volume group."
+msgstr ""
+"Il n’existe aucun volume physique qui pourrait\n"
+"être retiré de ce groupe de volumes."
+
+#: ../blivetgui/dialogs/edit_dialog.py:577
+msgid "Currently is possible to remove only one parent at time."
+msgstr "On ne peut actuellement retirer qu'un parent à la fois."
+
+#: ../blivetgui/dialogs/edit_dialog.py:585
+msgid "Remove?"
+msgstr "Retirer ?"
+
+#: ../blivetgui/dialogs/other_dialogs.py:51
+msgid "translator-credits"
+msgstr "Jérôme Fenal &lt;jfenal@redhat.com&gt;"
+
+#: ../blivetgui/dialogs/add_dialog.py:67
+msgid "Show advanced options"
+msgstr "Afficher les options avancées"
+
+#: ../blivetgui/dialogs/add_dialog.py:85
+msgid "PE Size:"
+msgstr "Taille de PE :"
+
+#: ../blivetgui/dialogs/add_dialog.py:109
+msgid "Partition type:"
+msgstr "Type de partition :"
+
+#: ../blivetgui/dialogs/add_dialog.py:117
+msgid "Logical"
+msgstr "Logique"
+
+#: ../blivetgui/dialogs/add_dialog.py:120
+#: ../blivetgui/dialogs/add_dialog.py:123
+#: ../blivetgui/dialogs/add_dialog.py:126
+msgid "Primary"
+msgstr "Primaire"
+
+#: ../blivetgui/dialogs/add_dialog.py:126
+msgid "Extended"
+msgstr "Étendue"
+
+#: ../blivetgui/dialogs/add_dialog.py:148
+msgid "Chunk Size:"
+msgstr "Taille des extensions :"
+
+#: ../blivetgui/dialogs/add_dialog.py:211
+#, python-brace-format
+msgid "'{0}' is not a valid chunk size specification."
+msgstr "'{0}' n’est pas une spécification de taille d’extension valide"
+
+#: ../blivetgui/dialogs/add_dialog.py:216
+msgid "Chunk size must be multiple of 4 KiB."
+msgstr "La taille d’une extension doit être un multiple de 4 kio."
+
+#: ../blivetgui/dialogs/add_dialog.py:272
+msgid "Create new device"
+msgstr "Créer un nouveau périphérique"
+
+#. dictionary with 'human-readable' device names and methods providing
+#. detailed information
+#: ../blivetgui/dialogs/add_dialog.py:381
+#: ../blivetgui/dialogs/add_dialog.py:738
+#: ../blivetgui/dialogs/device_info_dialog.py:78
+msgid "Partition"
+msgstr "Partition"
+
+#: ../blivetgui/dialogs/add_dialog.py:384
+#: ../blivetgui/dialogs/add_dialog.py:397
+#: ../blivetgui/dialogs/device_info_dialog.py:79
+msgid "LVM2 Volume Group"
+msgstr "Groupe de volumes LVM2"
+
+#. number of free disk regions
+#: ../blivetgui/dialogs/add_dialog.py:390
+msgid "Software RAID"
+msgstr "RAID logiciel"
+
+#: ../blivetgui/dialogs/add_dialog.py:393
+#: ../blivetgui/dialogs/device_info_dialog.py:80
+msgid "LVM2 Logical Volume"
+msgstr "Volume logique LVM2"
+
+#: ../blivetgui/dialogs/add_dialog.py:393
+#: ../blivetgui/dialogs/device_info_dialog.py:82
+msgid "LVM2 ThinPool"
+msgstr "Pool d’allocation fine LVM2"
+
+#: ../blivetgui/dialogs/add_dialog.py:400
+msgid "LVM2 Snaphost"
+msgstr "Instantané LVM2"
+
+#: ../blivetgui/dialogs/add_dialog.py:403
+msgid "LVM2 Thin Snaphost"
+msgstr "Instantané d’allocation fine"
+
+#: ../blivetgui/dialogs/add_dialog.py:406
+#: ../blivetgui/dialogs/device_info_dialog.py:83
+msgid "LVM2 Thin Logical Volume"
+msgstr "Volume logique d’allocation fine LVM2"
+
+#: ../blivetgui/dialogs/add_dialog.py:409
+#: ../blivetgui/dialogs/device_info_dialog.py:86
+msgid "Btrfs Subvolume"
+msgstr "Sous-volume Btrfs"
+
+#: ../blivetgui/dialogs/add_dialog.py:415
+msgid "Device type:"
+msgstr "Type de périphérique :"
+
+#: ../blivetgui/dialogs/add_dialog.py:733
+msgid "MDArray type:"
+msgstr "Type de MDArray :"
+
+#: ../blivetgui/dialogs/add_dialog.py:765
+msgid "Filesystem:"
+msgstr "Système de fichiers :"
+
+#: ../blivetgui/dialogs/add_dialog.py:819
+msgid "Label:"
+msgstr "Étiquette :"
+
+#: ../blivetgui/dialogs/add_dialog.py:827
+msgid "Name:"
+msgstr "Nom :"
+
+#: ../blivetgui/dialogs/add_dialog.py:838
+msgid "Mountpoint:"
+msgstr "Point de montage :"
+
+#: ../blivetgui/dialogs/add_dialog.py:1006
+msgid "Please select at least two parent devices."
+msgstr "Merci de sélectionner au moins deux périphériques parents :"
+
+#: ../blivetgui/dialogs/add_dialog.py:1020
+#, python-brace-format
+msgid "\"{0}\" is not a valid name."
+msgstr "\"{0}\" n''est pas un nom valide."
+
+#: ../blivetgui/dialogs/message_dialogs.py:197
+msgid "Confirm delete operation"
+msgstr "Confirmer l'opération de suppression"
+
+#: ../blivetgui/dialogs/message_dialogs.py:198
+#, python-brace-format
+msgid "Are you sure you want delete device {name}?"
+msgstr "Voulez-vous vraiment supprimer {name} ?"
+
+#: ../blivetgui/dialogs/message_dialogs.py:207
+#, python-brace-format
+msgid "Also delete following parent devices of {name}:"
+msgstr "Supprimer également les périphériques parents suivants de  {name}:"
+
+#: ../blivetgui/dialogs/message_dialogs.py:304
+msgid "There are no pending actions."
+msgstr "Aucune action en attente."
+
+#: ../blivetgui/dialogs/widgets.py:322
+msgid "Passphrase not specified."
+msgstr "Phrase de passe non indiquée."
+
+#: ../blivetgui/dialogs/widgets.py:325
+msgid "Provided passphrases do not match."
+msgstr "Les phrases de passe fournies ne correspondent pas."
+
+#: ../blivetgui/dialogs/widgets.py:347
+msgid "Passphrases match."
+msgstr "Les phrases de passe correspondent."
+
+#: ../blivetgui/dialogs/widgets.py:350
+msgid "Passphrases don't match."
+msgstr "Les phrases de passe ne correspondent pas."
+
+#. ----------------------------------------------------------------------------
+#. #
+#: ../blivetgui/dialogs/device_info_dialog.py:37
+msgid "primary"
+msgstr "primaire"
+
+#. pylint: disable=found-_-in-module-class
+#: ../blivetgui/dialogs/device_info_dialog.py:38
+msgid "logical"
+msgstr "logique"
+
+#. pylint: disable=found-_-in-module-class
+#: ../blivetgui/dialogs/device_info_dialog.py:39
+msgid "extended"
+msgstr "étendue"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:66
+#, python-brace-format
+msgid "Information about {0}"
+msgstr "Informations à propos de {0}"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:81
+msgid "LVM2 Snapshot"
+msgstr "Instantané LVM2"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:84
+msgid "LUKS/DM-Crypt Device"
+msgstr "Périphérique LUKS/DM-Crypt"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:87
+msgid "MD RAID Array"
+msgstr "Matrice RAID MD"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:88
+msgid "DM Integrity Device"
+msgstr ""
+
+#: ../blivetgui/dialogs/device_info_dialog.py:99
+#: ../blivetgui/dialogs/device_info_dialog.py:221
+#, python-brace-format
+msgid " • <i>Type:</i> {type}\n"
+msgstr " • <i>Type :</i> {type}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:102
+#, python-brace-format
+msgid " • <i>Length:</i> {length}\n"
+msgstr " • <i>Longueur :</i> {length}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:103
+#, python-brace-format
+msgid " • <i>Start:</i> {start}\n"
+msgstr " • <i>Début :</i> {start}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:104
+#, python-brace-format
+msgid " • <i>End:</i> {end}\n"
+msgstr " • <i>Fin :</i> {end}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:111
+#, python-brace-format
+msgid " • <i>Origin:</i> {origin}\n"
+msgstr " • <i>Origine :</i> {origin}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:112
+#: ../blivetgui/dialogs/device_info_dialog.py:114
+#: ../blivetgui/dialogs/device_info_dialog.py:118
+#, python-brace-format
+msgid " • <i>Segment type:</i> {segtype}\n"
+msgstr " • <i>Type de segment :</i> {segtype}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:115
+#, python-brace-format
+msgid " • <i>Free space:</i> {free}\n"
+msgstr " • <i>Espace disponible :</i> {free}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:116
+#, python-brace-format
+msgid " • <i>Space used:</i> {used}\n"
+msgstr " • <i>Espace utilisé :</i> {used}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:120
+#, python-brace-format
+msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
+msgstr " • <i>Mis en cache :</i> Oui (taille de cache : {cache_size})\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:122
+msgid " • <i>Cached:</i> No\n"
+msgstr " • <i>Mis en cache :</i> No\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:127
+#, python-brace-format
+msgid " • <i>PE Size:</i> {pesize}\n"
+msgstr " • <i>Taille de PE :</i> {pesize}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:128
+#, python-brace-format
+msgid " • <i>PE Count:</i> {pecount}\n"
+msgstr " • <i>Nombre de PE :</i> {pecount}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:129
+#, python-brace-format
+msgid " • <i>Free Space:</i> {free}\n"
+msgstr " • <i>Espace disponible :</i> {free}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:130
+#, python-brace-format
+msgid " • <i>PE Free:</i> {pefree}\n"
+msgstr " • <i>PE disponibles :</i> {pefree}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:131
+#, python-brace-format
+msgid " • <i>Reserved Space:</i> {res}\n"
+msgstr " • <i>Place réservée :</i> {res}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:132
+#: ../blivetgui/dialogs/device_info_dialog.py:151
+#, python-brace-format
+msgid " • <i>Complete:</i> {complete}\n"
+msgstr " • <i>Avancement :</i> {complete}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:137
+#, python-brace-format
+msgid " • <i>Subvol ID:</i> {id}\n"
+msgstr " • <i>Identifiant de sous-volume :</i> {id}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:140
+#, python-brace-format
+msgid " • <i>Data Level:</i> {level}\n"
+msgstr " • <i>Niveau des données :</i> {level}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:141
+#, python-brace-format
+msgid " • <i>Metadata Level:</i> {level}\n"
+msgstr " • <i>Niveau des metadonnées :</i> {level}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:146
+#, python-brace-format
+msgid " • <i>Level:</i> {level}\n"
+msgstr " • <i>Niveau :</i> {level}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:147
+#, python-brace-format
+msgid " • <i>Devices:</i> {dcount}\n"
+msgstr " • <i>Périphériques :</i> {dcount}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:148
+#, python-brace-format
+msgid " • <i>Spares:</i> {spares}\n"
+msgstr " • <i>Disques de secours :</i> {spares}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:149
+#, python-brace-format
+msgid " • <i>Degraded:</i> {degraded}\n"
+msgstr " • <i>Dégradé :</i> {degraded}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:150
+#, python-brace-format
+msgid " • <i>Metadata Version:</i> {metadata}\n"
+msgstr " • <i>Version de metadonnées :</i> {metadata}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:165
+#, python-brace-format
+msgid "Unknown device {name}"
+msgstr "Non de périphérique inconnu {name}"
+
+#. device info header
+#: ../blivetgui/dialogs/device_info_dialog.py:173
+msgid "Basic information"
+msgstr "Informations de base"
+
+#. 'basic' information about selected device
+#: ../blivetgui/dialogs/device_info_dialog.py:183
+#: ../blivetgui/dialogs/device_info_dialog.py:219
+#: ../blivetgui/dialogs/device_info_dialog.py:254
+msgid "existing"
+msgstr "existant"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:183
+#: ../blivetgui/dialogs/device_info_dialog.py:219
+#: ../blivetgui/dialogs/device_info_dialog.py:254
+msgid "non-existing"
+msgstr "non-existant"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:184
+#: ../blivetgui/dialogs/device_info_dialog.py:220
+#, python-brace-format
+msgid " • <i>Status:</i> {exist}\n"
+msgstr " • <i>État :</i> {exist}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:185
+#, python-brace-format
+msgid " • <i>Name:</i> {name}\n"
+msgstr " • <i>Nom :</i> {name}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:186
+#, python-brace-format
+msgid " • <i>Path:</i> {path}\n"
+msgstr " • <i>Chemin :</i> {path}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:187
+#, python-brace-format
+msgid " • <i>Size:</i> {size}\n"
+msgstr " • <i>Taille :</i> {size}\n"
+
+#. device format header
+#: ../blivetgui/dialogs/device_info_dialog.py:208
+msgid "Device format"
+msgstr "Format de périphérique"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:222
+#, python-brace-format
+msgid " • <i>UUID:</i> {uuid}\n"
+msgstr " • <i>UUID :</i> {uuid}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:224
+#, python-brace-format
+msgid " • <i>Label:</i> {label}\n"
+msgstr " • <i>Étiquette :</i> {label}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:226
+#, python-brace-format
+msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+msgstr " • <i>Point de montage :</i> {mountpoint}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:229
+msgid " • <i>Type:</i> None"
+msgstr " • <i>Type :</i> None"
+
+#. device parents header
+#: ../blivetgui/dialogs/device_info_dialog.py:242
+msgid "Parents"
+msgstr "Parents"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:255
+#, python-brace-format
+msgid " • {exists} {size} {type} {name}\n"
+msgstr " • {exists} {size} {type} {name}\n"
+
+#: ../blivetgui/communication/client.py:289
+#: ../blivetgui/communication/client.py:306
+msgid "Failed to connect to blivet-gui-daemon"
+msgstr "La connexion au démon de l’interface blivet a échoué"
+
+#: ../blivetgui/visualization/rectangle.py:50
+msgid "Group device"
+msgstr "Périphérique de groupe"
+
+#: ../blivetgui/visualization/rectangle.py:51
+msgid "LiveUSB device"
+msgstr "Périphérique USB live"
+
+#: ../blivetgui/visualization/rectangle.py:52
+msgid "Encrypted device (closed)"
+msgstr "Périphérique chiffré (fermé)"
+
+#: ../blivetgui/visualization/rectangle.py:53
+msgid "Encrypted device (open)"
+msgstr "Périphérique chiffré (ouvert)"
+
+#: ../blivetgui/visualization/rectangle.py:54
+msgid "Empty device"
+msgstr "Périphérique vide"
+
+#: ../blivetgui/visualization/rectangle.py:55
+msgid "Snapshot"
+msgstr "Instantané"
+
+#: ../blivetgui/visualization/rectangle.py:56
+msgid "Missing partition table"
+msgstr "Table des partitions absente"
+
+#: ../blivetgui/visualization/rectangle.py:57
+msgid "Device or format is write protected"
+msgstr "Le périphérique ou le formate est protégé en écriture"
+
+#: ../data/ui/root_check_window.ui:24
+msgid "Root privileges are required for running blivet-gui."
+msgstr ""
+"Les privilèges administrateur sont nécessaires pour l’exécution de "
+"l’interface blivet."
+
+#: ../data/ui/luks_passphrase_dialog.ui:10
+msgid "Decrypt device"
+msgstr "Déchiffrer le périphérique"
+
+#: ../data/ui/luks_passphrase_dialog.ui:11
+msgid "Please enter passphrase to decrypt selected device."
+msgstr ""
+"Merci de saisir la phrase de passe permettant de déchiffrer le périphérique "
+"sélectionné."
+
+#: ../data/ui/luks_passphrase_dialog.ui:48 ../data/ui/encryption_chooser.ui:44
+msgid "Passphrase:"
+msgstr "Phrase de passe :"
+
+#: ../data/ui/blivet-gui.ui:14
+msgid "New"
+msgstr "Nouveau"
+
+#: ../data/ui/blivet-gui.ui:23
+msgid "Delete"
+msgstr "Supprimer"
+
+#: ../data/ui/blivet-gui.ui:32
+msgid "Edit"
+msgstr "Modifier"
+
+#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
+msgid "Resize"
+msgstr "Redimensionner"
+
+#. Edit format (e.g. delete existing and create a new one) on selected device.
+#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
+msgctxt "Menu|Edit"
+msgid "Format"
+msgstr "Formater"
+
+#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:154
+msgid "Set label"
+msgstr ""
+
+#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:138
+msgid "Modify parents"
+msgstr "Modifier les parents"
+
+#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:146
+#: ../data/ui/mountpoint_dialog.ui:7
+msgid "Set mountpoint"
+msgstr "Définir le point de montage"
+
+#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
+msgid "Set partition table"
+msgstr "Créer une table des partitions"
+
+#: ../data/ui/blivet-gui.ui:94
+msgid "Unmount"
+msgstr "Démonter"
+
+#: ../data/ui/blivet-gui.ui:102
+msgid "Decrypt"
+msgstr "Déchiffrer"
+
+#: ../data/ui/blivet-gui.ui:110
+msgid "Information"
+msgstr "Informations"
+
+#: ../data/ui/blivet-gui.ui:237
+msgid "blivet-gui"
+msgstr "interface graphique blivet"
+
+#: ../data/ui/blivet-gui.ui:270 ../data/ui/blivet-gui.ui:282
+#: ../data/ui/blivet-gui.ui:806 ../data/ui/blivet-gui.ui:817
+#: ../data/ui/blivet-gui.ui:828
+msgid "column"
+msgstr "colonne"
+
+#: ../data/ui/blivet-gui.ui:346
+msgctxt "ActionsToolbar|Add"
+msgid "Add new device"
+msgstr "Ajouter un nouveau périphérique"
+
+#: ../data/ui/blivet-gui.ui:363
+msgctxt "ActionsToolbar|Delete"
+msgid "Delete selected device"
+msgstr "Supprimer le périphérique sélectionné"
+
+#: ../data/ui/blivet-gui.ui:382
+msgctxt "ActionsToolbar|Edit"
+msgid "Edit selected device"
+msgstr "Modifier le périphérique sélectionné"
+
+#: ../data/ui/blivet-gui.ui:407
+msgctxt "ActionsToolbar|Unmount"
+msgid "Unmount selected device"
+msgstr "Démonter le périphérique sélectionné"
+
+#: ../data/ui/blivet-gui.ui:423
+msgctxt "ActionsToolbar|Decrypt"
+msgid "Unlock/Open selected device"
+msgstr "Déverrouiller/Ouvrir le périphérique sélectionné"
+
+#: ../data/ui/blivet-gui.ui:439
+msgctxt "ActionsToolbar|Info"
+msgid "Display information about selected device"
+msgstr "Afficher les informations sur le périphérique sélectionné"
+
+#. Format (filesystem) type of selected device.
+#: ../data/ui/blivet-gui.ui:488
+msgctxt "LogicalView|Column"
+msgid "Format"
+msgstr "Formater"
+
+#: ../data/ui/blivet-gui.ui:510
+msgid "Mountpoint"
+msgstr "Point de montage"
+
+#: ../data/ui/blivet-gui.ui:532
+msgid "Logical View"
+msgstr "Vue logique"
+
+#: ../data/ui/blivet-gui.ui:555
+msgid "Physical View"
+msgstr "Vue physique"
+
+#: ../data/ui/blivet-gui.ui:628
+msgid "Reload Storage"
+msgstr "Recharger le stockage"
+
+#: ../data/ui/blivet-gui.ui:636
+msgid "Queued Actions"
+msgstr "Actions en attente"
+
+#: ../data/ui/blivet-gui.ui:658
+msgid "About blivet-gui"
+msgstr "À propos de l’interface graphique blivet"
+
+#: ../data/ui/raid_chooser.ui:21
+msgid "RAID level:"
+msgstr "Niveau de RAID :"
+
+#: ../data/ui/exception_dialog.ui:11 ../data/ui/error_dialog.ui:12
+msgid "Error"
+msgstr "Erreur"
+
+#: ../data/ui/exception_dialog.ui:23
+msgid "_Back"
+msgstr "_Marche arrière"
+
+#: ../data/ui/exception_dialog.ui:37
+msgid "_Report a bug"
+msgstr "_Faire un rapport d’anomalie"
+
+#: ../data/ui/exception_dialog.ui:51
+msgid "_Quit"
+msgstr "_Quitter"
+
+#: ../data/ui/exception_dialog.ui:103
+msgid "Show traceback"
+msgstr "Montrer la trace"
+
+#: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
+msgid "Format device"
+msgstr "Formater le périphérique"
+
+#: ../data/ui/format_dialog.ui:36 ../data/ui/resize_dialog.ui:27
+#: ../data/ui/mountpoint_dialog.ui:26
+msgid "_Cancel"
+msgstr "_Annuler"
+
+#. Perform selected format change on this device.
+#: ../data/ui/format_dialog.ui:51
+msgctxt "Dialog|Format"
+msgid "_Format"
+msgstr "_Formater"
+
+#: ../data/ui/format_dialog.ui:98
+msgid "Select new format:"
+msgstr "Choisir le nouveau format :"
+
+#: ../data/ui/format_dialog.ui:145
+msgid "Enter new label:"
+msgstr "Saisir une nouvelle étiquette :"
+
+#: ../data/ui/format_dialog.ui:183 ../data/ui/mountpoint_dialog.ui:85
+msgid "Enter new mountpoint:"
+msgstr "Saisir un nouveau point de montage :"
+
+#: ../data/ui/size_chooser.ui:14
+msgid "Size:"
+msgstr "Taille :"
+
+#: ../data/ui/size_area.ui:23
+msgid "Manually specify layout"
+msgstr "Spécifier un arrangement à la main"
+
+#: ../data/ui/add_disklabel_dialog.ui:10
+msgid "No partition table found on disk"
+msgstr "Aucune table de partition trouvée sur le disque"
+
+#: ../data/ui/add_disklabel_dialog.ui:11
+msgid "A partition table is required before partitions can be added."
+msgstr ""
+"Une table de partition est nécessaire avant de pouvoir ajouter des "
+"partitions."
+
+#: ../data/ui/add_disklabel_dialog.ui:48
+msgid "Select new partition table type:"
+msgstr "Sélectionner le type de la nouvelle table de partition :"
+
+#: ../data/ui/show_actions_dialog.ui:13
+msgid "Pending actions"
+msgstr "Actions en attente"
+
+#: ../data/ui/encryption_chooser.ui:20
+msgid "Encrypt:"
+msgstr "Chiffrer :"
+
+#: ../data/ui/encryption_chooser.ui:32
+msgid "Encryption type:"
+msgstr ""
+
+#: ../data/ui/encryption_chooser.ui:56
+msgid "Repeat Passphrase:"
+msgstr "Répétez la phrase de passe :"
+
+#: ../data/ui/info_dialog.ui:11
+msgid "Information:"
+msgstr "Informations :"
+
+#: ../data/ui/custom_dialog.ui:51
+msgid "label"
+msgstr "étiquette"
+
+#: ../data/ui/custom_dialog.ui:58
+msgid "Details"
+msgstr "Détails"
+
+#: ../data/ui/cache_area.ui:31
+msgid "Cache this LV:"
+msgstr "Mettre ce volume logique en cache"
+
+#: ../data/ui/cache_area.ui:98
+msgid "Free space"
+msgstr "Espace libre"
+
+#: ../data/ui/cache_area.ui:109
+msgid "On disk"
+msgstr "Sur disque"
+
+#: ../data/ui/cache_area.ui:142
+msgid "Cache type:"
+msgstr "Type de cache"
+
+#: ../data/ui/cache_area.ui:156
+msgid "Writethrough"
+msgstr "Writethrough"
+
+#: ../data/ui/cache_area.ui:157
+msgid "Writeback"
+msgstr "Writeback"
+
+#: ../data/ui/about_dialog.ui:10
+msgid "Copyright © Red Hat Inc."
+msgstr "Copyright © Red Hat Inc."
+
+#: ../data/ui/resize_dialog.ui:7
+msgid "Resize device"
+msgstr "Redimensionner le périphérique"
+
+#: ../data/ui/resize_dialog.ui:42
+msgid "_Resize"
+msgstr "_Redimensionner"
+
+#: ../data/ui/parent_chooser.ui:37
+msgid "Parent name:"
+msgstr "Nom du parent :"
+
+#: ../data/ui/parent_chooser.ui:80
+msgid "Available space:"
+msgstr "Espace disponible :"
+
+#: ../data/ui/label_dialog.ui:22
+msgid "Cancel"
+msgstr ""
+
+#. Perform selected format change on this device.
+#: ../data/ui/label_dialog.ui:36
+msgctxt "Dialog|Format"
+msgid "Relabel"
+msgstr ""
+
+#: ../data/ui/label_dialog.ui:68
+msgid "Enter new label for this filesystem:"
+msgstr ""
+
+#: ../data/ui/mountpoint_dialog.ui:41
+msgid "_Set mountpoint"
+msgstr "_Définir le point de montage"
