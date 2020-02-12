@@ -93,14 +93,14 @@ archive:
 	git archive --format=tar --prefix=$(APPNAME)-$(VERSION)/ $(RELEASE_TAG) | tar -xf -
 	cp -r po $(APPNAME)-$(VERSION)
 	cp ChangeLog $(APPNAME)-$(VERSION)/
-	( cd $(APPNAME)-$(VERSION) && python3 setup.py -q sdist --dist-dir .. )
+	( cd $(APPNAME)-$(VERSION) && python3 setup.py -q sdist --dist-dir .. --mode release )
 	rm -rf $(APPNAME)-$(VERSION)
 	git checkout -- po/$(APPNAME).pot
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
 
 local:
 	@make -B ChangeLog
-	@python3 setup.py -q sdist --dist-dir .
+	@python3 setup.py -q sdist --dist-dir . --mode normal
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
 
 bumpver:
