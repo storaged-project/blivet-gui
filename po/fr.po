@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 15:43+0100\n"
+"POT-Creation-Date: 2020-01-29 12:40+0100\n"
 "PO-Revision-Date: 2019-01-21 08:04+0000\n"
 "Last-Translator: Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>\n"
 "Language-Team: French\n"
@@ -144,8 +144,8 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing"
-" PVs."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr ""
 "{name} est incomplet. Il est impossible d''ajouter de nouveaux volumes "
 "logiques à groupe de volumes auquel il manque des volumes physiques."
@@ -157,8 +157,8 @@ msgstr "Pas assez d'espace disponible pour un nouveau groupe de volumes LVM."
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for"
-" {label} disklabel."
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
 msgstr ""
 "Le disque {name} a déjà atteint le nombre maximal de partitions primaires "
 "pour un partitionnement de type {label}."
@@ -205,8 +205,7 @@ msgstr "Voulez-vous vraiment lancer l’exécution des actions programmées ?"
 #: ../blivetgui/blivetgui.py:668
 msgid "Unmount failed. Are you sure device is not in use?"
 msgstr ""
-"Échec du démontage. Avez-vous vérifié que le périphérique n’est pas "
-"utilisé ?"
+"Échec du démontage. Avez-vous vérifié que le périphérique n’est pas utilisé ?"
 
 #: ../blivetgui/blivetgui.py:689
 msgid "Device decryption failed. Are you sure provided password is correct?"
@@ -232,14 +231,16 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:745
 msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
 "If it is still running you can use\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
 "\n"
 "command to force quit it."
 msgstr ""
-"Si votre instance précédente de l’interface blivet s’est plantée, assurez-vous que le processus  <i>blivet-gui-daemon</i> est terminé.\n"
+"Si votre instance précédente de l’interface blivet s’est plantée, assurez-"
+"vous que le processus  <i>blivet-gui-daemon</i> est terminé.\n"
 "S'il est encore en exécution, vous pouvez utiliser la commande \n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
@@ -266,11 +267,15 @@ msgstr "Erreur: {error}"
 #: ../blivetgui/blivetgui.py:790
 #, python-brace-format
 msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use this disk."
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
 msgstr ""
-"L’interface blivet ne peut pas utiliser le disque <b>{name}</b> à cause d’une étiquette de disque corrompue ou inconnue.\n"
-"Vous pouvez soit quitter l’interface, soit continuer sans possibilité d’utiliser ce disque."
+"L’interface blivet ne peut pas utiliser le disque <b>{name}</b> à cause "
+"d’une étiquette de disque corrompue ou inconnue.\n"
+"Vous pouvez soit quitter l’interface, soit continuer sans possibilité "
+"d’utiliser ce disque."
 
 #: ../blivetgui/blivetgui.py:826
 msgid "Confirm reload storage"
@@ -501,8 +506,7 @@ msgstr "La taille d’une extension doit être un multiple de 4 kio."
 msgid "Create new device"
 msgstr "Créer un nouveau périphérique"
 
-#. dictionary with 'human-readable' device names and methods providing
-#. detailed information
+#. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:381
 #: ../blivetgui/dialogs/add_dialog.py:738
 #: ../blivetgui/dialogs/device_info_dialog.py:78
@@ -615,8 +619,7 @@ msgstr "Les phrases de passe correspondent."
 msgid "Passphrases don't match."
 msgstr "Les phrases de passe ne correspondent pas."
 
-#. ----------------------------------------------------------------------------
-#. #
+#. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
 msgstr "primaire"

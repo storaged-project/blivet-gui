@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 15:43+0100\n"
+"POT-Creation-Date: 2020-01-29 12:40+0100\n"
 "PO-Revision-Date: 2017-07-23 02:34+0000\n"
 "Last-Translator: cheng ye <18969068329@163.com>\n"
 "Language-Team: Chinese (China)\n"
@@ -149,8 +149,8 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing"
-" PVs."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr "{name} 不完整。无法将新逻辑卷添加到缺少物理卷的卷组中。"
 
 #: ../blivetgui/blivetgui.py:411
@@ -160,8 +160,8 @@ msgstr "没有足够空闲空间用于新 LVM 卷组。"
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for"
-" {label} disklabel."
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
 msgstr "磁盘 {name} 已达到 {label} 磁盘标签所允许的最大主分区数量。"
 
 #: ../blivetgui/blivetgui.py:427
@@ -227,7 +227,8 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:745
 msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
 "If it is still running you can use\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
@@ -255,8 +256,10 @@ msgstr "错误：{error}"
 #: ../blivetgui/blivetgui.py:790
 #, python-brace-format
 msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use this disk."
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
 msgstr ""
 "由于损坏或未知的磁盘标签，Blivet-gui 无法使用磁盘<b>{name}</b>。\n"
 "您可以退出或者在无法使用该磁盘的情况下继续。"
@@ -476,8 +479,7 @@ msgstr "区块大小必须是 4KiB的倍数"
 msgid "Create new device"
 msgstr "创建新设备"
 
-#. dictionary with 'human-readable' device names and methods providing
-#. detailed information
+#. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:381
 #: ../blivetgui/dialogs/add_dialog.py:738
 #: ../blivetgui/dialogs/device_info_dialog.py:78
@@ -590,8 +592,7 @@ msgstr "口令匹配。"
 msgid "Passphrases don't match."
 msgstr "口令不匹配。"
 
-#. ----------------------------------------------------------------------------
-#. #
+#. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
 msgstr "主分区"

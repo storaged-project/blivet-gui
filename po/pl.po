@@ -28,15 +28,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 15:43+0100\n"
+"POT-Creation-Date: 2020-01-29 12:40+0100\n"
 "PO-Revision-Date: 2020-01-31 04:48+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish (http://www.transifex.com/projects/p/blivet/language/pl/)\n"
+"Language-Team: Polish (http://www.transifex.com/projects/p/blivet/language/"
+"pl/)\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2);\n"
 "X-Generator: Zanata 4.6.2\n"
 
 #: ../blivetgui/list_devices.py:82
@@ -99,7 +101,8 @@ msgid ""
 msgstr ""
 "{message}\n"
 "{error}\n"
-" Proszę kliknąć przycisk Zgłoś, aby zgłosić błąd i umożliwić programowi Anaconda \n"
+" Proszę kliknąć przycisk Zgłoś, aby zgłosić błąd i umożliwić programowi "
+"Anaconda \n"
 " obsłużenie procesu zgłaszania."
 
 #: ../blivetgui/osinstall.py:217
@@ -175,8 +178,8 @@ msgstr "zmień etykietę systemu plików {name} {type}"
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing"
-" PVs."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr ""
 "{name} jest niepełne. Dodawanie nowych woluminów logicznych do grup "
 "woluminów z brakującymi woluminami fizycznymi jest niemożliwe."
@@ -188,8 +191,8 @@ msgstr "Za mało wolnego miejsca na nową grupę woluminów LVM."
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for"
-" {label} disklabel."
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
 msgstr ""
 "Dysk {name} już osiągnął maksymalną dozwoloną liczbę głównych partycji "
 "etykiety dysków {label}."
@@ -259,18 +262,21 @@ msgid ""
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
 "Inne wystąpienie programu blivet-gui jest już uruchomione.\n"
-"Tylko jedno wystąpienie programu blivet-gui może być uruchomione w tym samym czasie."
+"Tylko jedno wystąpienie programu blivet-gui może być uruchomione w tym samym "
+"czasie."
 
 #: ../blivetgui/blivetgui.py:745
 msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
 "If it is still running you can use\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
 "\n"
 "command to force quit it."
 msgstr ""
-"Jeśli poprzednie wystąpienie programu blivet-gui uległo awarii, to proszę się upewnić, że proces <i>blivet-gui-daemon</i> także został zakończony.\n"
+"Jeśli poprzednie wystąpienie programu blivet-gui uległo awarii, to proszę "
+"się upewnić, że proces <i>blivet-gui-daemon</i> także został zakończony.\n"
 "Jeśli nadal jest uruchomiony, to można użyć polecenia\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
@@ -297,11 +303,15 @@ msgstr "Błąd: {error}"
 #: ../blivetgui/blivetgui.py:790
 #, python-brace-format
 msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use this disk."
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
 msgstr ""
-"Program blivet-gui nie może użyć dysku <b>{name}</b> z powodu uszkodzonej/nieznanej etykiety dysku.\n"
-"Można zakończyć program blivet-gui lub kontynuować bez możliwości użycia tego dysku."
+"Program blivet-gui nie może użyć dysku <b>{name}</b> z powodu uszkodzonej/"
+"nieznanej etykiety dysku.\n"
+"Można zakończyć program blivet-gui lub kontynuować bez możliwości użycia "
+"tego dysku."
 
 #: ../blivetgui/blivetgui.py:826
 msgid "Confirm reload storage"
@@ -534,8 +544,7 @@ msgstr "Rozmiar fragmentu musi być wielokrotnością 4 KiB."
 msgid "Create new device"
 msgstr "Tworzy nowe urządzenie"
 
-#. dictionary with 'human-readable' device names and methods providing
-#. detailed information
+#. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:381
 #: ../blivetgui/dialogs/add_dialog.py:738
 #: ../blivetgui/dialogs/device_info_dialog.py:78
@@ -648,8 +657,7 @@ msgstr "Hasła się zgadzają."
 msgid "Passphrases don't match."
 msgstr "Hasła się nie zgadzają."
 
-#. ----------------------------------------------------------------------------
-#. #
+#. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
 msgstr "główna"

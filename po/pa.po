@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 15:43+0100\n"
+"POT-Creation-Date: 2020-01-29 12:40+0100\n"
 "PO-Revision-Date: 2019-05-23 02:37+0000\n"
 "Last-Translator: A S Alam <aalam@fedoraproject.org>\n"
 "Language-Team: Punjabi\n"
@@ -143,8 +143,8 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing"
-" PVs."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr ""
 
 #: ../blivetgui/blivetgui.py:411
@@ -154,8 +154,8 @@ msgstr "ਨਵਾਂ LVM ਵਾਲੀਅਮ ਗਰੁੱਪ ਲਈ ਲੁੜੀ�
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for"
-" {label} disklabel."
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
 msgstr ""
 
 #: ../blivetgui/blivetgui.py:427
@@ -221,7 +221,8 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:745
 msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
 "If it is still running you can use\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
@@ -249,8 +250,10 @@ msgstr "ਗਲਤੀ: {error}"
 #: ../blivetgui/blivetgui.py:790
 #, python-brace-format
 msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use this disk."
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
 msgstr ""
 
 #: ../blivetgui/blivetgui.py:826
@@ -467,8 +470,7 @@ msgstr ""
 msgid "Create new device"
 msgstr "ਨਵਾਂ ਡਿਵਾਈਸ ਬਣਾਓ"
 
-#. dictionary with 'human-readable' device names and methods providing
-#. detailed information
+#. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:381
 #: ../blivetgui/dialogs/add_dialog.py:738
 #: ../blivetgui/dialogs/device_info_dialog.py:78
@@ -581,8 +583,7 @@ msgstr "ਵਾਕ ਮਿਲਦੇ ਹਨ।"
 msgid "Passphrases don't match."
 msgstr "ਵਾਕ ਮਿਲਦੇ ਨਹੀਂ ਹਨ।"
 
-#. ----------------------------------------------------------------------------
-#. #
+#. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
 msgstr "ਪ੍ਰਾਇਮਰੀ"

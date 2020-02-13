@@ -143,8 +143,8 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing"
-" PVs."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr ""
 "{name} nol è complet. Nol è pussibil zontâ gnûfs volums logjics LVs al grup "
 "di volums VG cence i volums fisics PVs."
@@ -156,8 +156,8 @@ msgstr "No vonde spazi libar par un gnûf grup di volums LVM."
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for"
-" {label} disklabel."
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
 msgstr ""
 "Il disc {name} al è za rivât al massim numar di partizions primariis "
 "permetudis pe etichete disc {label}."
@@ -227,7 +227,8 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:745
 msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
 "If it is still running you can use\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
@@ -255,10 +256,13 @@ msgstr "Erôr: {error}"
 #: ../blivetgui/blivetgui.py:790
 #, python-brace-format
 msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use this disk."
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
 msgstr ""
-"Blivet-gui nol pues doprâ il disc <b>{name}</b> par vie di une etichete disc ruvinade/no cognossude.\n"
+"Blivet-gui nol pues doprâ il disc <b>{name}</b> par vie di une etichete disc "
+"ruvinade/no cognossude.\n"
 "Si pues jessî di blivet-gui cumò o continuâ cence podê doprâ chest disc."
 
 #: ../blivetgui/blivetgui.py:826
@@ -487,8 +491,7 @@ msgstr "La dimension dal bloc di memorie e scugne jessi multiple di 4 KiB."
 msgid "Create new device"
 msgstr "Cree un gnûf dispositîf"
 
-#. dictionary with 'human-readable' device names and methods providing
-#. detailed information
+#. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:381
 #: ../blivetgui/dialogs/add_dialog.py:738
 #: ../blivetgui/dialogs/device_info_dialog.py:78
@@ -601,8 +604,7 @@ msgstr "Lis passphrase a corispuindin."
 msgid "Passphrases don't match."
 msgstr "Lis passphrase no corispuindin."
 
-#. ----------------------------------------------------------------------------
-#. #
+#. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
 msgstr "primarie"

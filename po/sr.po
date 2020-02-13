@@ -11,7 +11,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 "X-Generator: Zanata 4.6.2\n"
 
 #: ../blivetgui/list_devices.py:82
@@ -142,8 +143,8 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing"
-" PVs."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr ""
 "{name} није довршен. Неће бити могуће додавати нове LV-ове у VG којем "
 "недостају PV-ови."
@@ -155,8 +156,8 @@ msgstr "Нема довољно слободног простора за нов�
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for"
-" {label} disklabel."
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
 msgstr ""
 "Диск {name} је досегао највећи број дозвољених примарних партиција за "
 "{label} етикету диска."
@@ -226,7 +227,8 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:745
 msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
 "If it is still running you can use\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
@@ -254,11 +256,15 @@ msgstr "Грешка: {error}"
 #: ../blivetgui/blivetgui.py:790
 #, python-brace-format
 msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use this disk."
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
 msgstr ""
-"Blivet-gui не може користити <b>{name}</b> диск због покварене или непознате етикете диска.\n"
-"Можете било изаћи из програма blivet-gui сада или наставити без могућности коришћења тог диска."
+"Blivet-gui не може користити <b>{name}</b> диск због покварене или непознате "
+"етикете диска.\n"
+"Можете било изаћи из програма blivet-gui сада или наставити без могућности "
+"коришћења тог диска."
 
 #: ../blivetgui/blivetgui.py:826
 msgid "Confirm reload storage"
@@ -485,8 +491,7 @@ msgstr "Величина комада мора бити садржатељ од 
 msgid "Create new device"
 msgstr "Направни нови уређај"
 
-#. dictionary with 'human-readable' device names and methods providing
-#. detailed information
+#. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:381
 #: ../blivetgui/dialogs/add_dialog.py:738
 #: ../blivetgui/dialogs/device_info_dialog.py:78
@@ -599,8 +604,7 @@ msgstr "Лозинке се подударају."
 msgid "Passphrases don't match."
 msgstr "Лозинке се не подударају."
 
-#. ----------------------------------------------------------------------------
-#. #
+#. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
 msgstr "примарна"

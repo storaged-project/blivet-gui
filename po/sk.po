@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 15:43+0100\n"
+"POT-Creation-Date: 2020-01-29 12:40+0100\n"
 "PO-Revision-Date: 2018-10-02 07:30+0000\n"
 "Last-Translator: feonsu <feonsu@gmail.com>\n"
 "Language-Team: Slovak\n"
@@ -147,22 +147,21 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing"
-" PVs."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr ""
 "{name} nie je kompletný. Nie je možné pridať nové logické zväzky (LV) do "
 "skupiny zväzkov (VG) s chýbajúcimi fyzickými zväzkami (PV)."
 
 #: ../blivetgui/blivetgui.py:411
 msgid "Not enough free space for a new LVM Volume Group."
-msgstr ""
-"Na vytvorenie skupiny zväzkov (VG) LVM nie je dostatok volného miesta."
+msgstr "Na vytvorenie skupiny zväzkov (VG) LVM nie je dostatok volného miesta."
 
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for"
-" {label} disklabel."
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
 msgstr ""
 "Disk {name} už dosiahol maximálny počet primárnych oddielov pre tabuľku "
 "oddielov {label}."
@@ -233,14 +232,16 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:745
 msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
 "If it is still running you can use\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
 "\n"
 "command to force quit it."
 msgstr ""
-"Ak spadla predchádzajúca inštancia blivet-gui, uistite sa, že bol tiež ukončený proces <i>blivet-gui-daemon</i>.\n"
+"Ak spadla predchádzajúca inštancia blivet-gui, uistite sa, že bol tiež "
+"ukončený proces <i>blivet-gui-daemon</i>.\n"
 "Ak stále beží, môžete použiť príkaz\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
@@ -267,10 +268,13 @@ msgstr "Chyba: {error}"
 #: ../blivetgui/blivetgui.py:790
 #, python-brace-format
 msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use this disk."
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
 msgstr ""
-"Blivet-gui nemôže použiť disk <b>{name}</b> kvôli poškodenej tabuľke oddielov.\n"
+"Blivet-gui nemôže použiť disk <b>{name}</b> kvôli poškodenej tabuľke "
+"oddielov.\n"
 "Môžete teraz ukončiť blivet-gui, alebo pokračovať bez použitia tohto disku."
 
 #: ../blivetgui/blivetgui.py:826
@@ -496,8 +500,7 @@ msgstr "Veľkosť bloku musí byť násobkom 4 KiB."
 msgid "Create new device"
 msgstr "Vytvoriť nové zariadenie"
 
-#. dictionary with 'human-readable' device names and methods providing
-#. detailed information
+#. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:381
 #: ../blivetgui/dialogs/add_dialog.py:738
 #: ../blivetgui/dialogs/device_info_dialog.py:78
@@ -610,8 +613,7 @@ msgstr "Heslá sa zhodujú."
 msgid "Passphrases don't match."
 msgstr "Heslá sa nezhodujú."
 
-#. ----------------------------------------------------------------------------
-#. #
+#. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
 msgstr "primárny"

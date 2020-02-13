@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 15:43+0100\n"
+"POT-Creation-Date: 2020-01-29 12:40+0100\n"
 "PO-Revision-Date: 2018-12-06 07:46+0000\n"
 "Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian\n"
@@ -146,8 +146,8 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing"
-" PVs."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr ""
 "A(z) {name} nincs kész. Nem adható új logikai kötet a kötetcsoporthoz, amíg "
 "nincs fizikai kötet."
@@ -159,8 +159,8 @@ msgstr "Nincs elég hely egy új LVM kötetcsoporthoz."
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for"
-" {label} disklabel."
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
 msgstr ""
 "A(z) {name} lemez elérte a maximálisan megengedett elsődleges partíciók "
 "számát a {label} lemezcímkén."
@@ -206,8 +206,7 @@ msgstr "Biztos, hogy végrehajtja az ütemezett műveleteket?"
 
 #: ../blivetgui/blivetgui.py:668
 msgid "Unmount failed. Are you sure device is not in use?"
-msgstr ""
-"A leválasztás nem sikerült. Biztos, hogy az eszköz nincs használatban?"
+msgstr "A leválasztás nem sikerült. Biztos, hogy az eszköz nincs használatban?"
 
 #: ../blivetgui/blivetgui.py:689
 msgid "Device decryption failed. Are you sure provided password is correct?"
@@ -233,14 +232,16 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:745
 msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
 "If it is still running you can use\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
 "\n"
 "command to force quit it."
 msgstr ""
-"Ha a blivet-gui előző példánya összeomlott, akkor győződjön meg róla, hogy a <i>blivet-gui-daemon</i> folyamat is véget ért.\n"
+"Ha a blivet-gui előző példánya összeomlott, akkor győződjön meg róla, hogy a "
+"<i>blivet-gui-daemon</i> folyamat is véget ért.\n"
 "Ha még mindig fut, akkor a megszakításához a\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
@@ -267,11 +268,15 @@ msgstr "Hiba: {error}"
 #: ../blivetgui/blivetgui.py:790
 #, python-brace-format
 msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use this disk."
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
 msgstr ""
-"A blivet-gui nem használhatja a(z) <b>{name}</b>  lemezt, mert a lemezcímke sérült vagy ismeretlen.\n"
-"Kiléphet a blivet-guiból most, vagy folytathatja anélkül, hogy használhatná a lemezt."
+"A blivet-gui nem használhatja a(z) <b>{name}</b>  lemezt, mert a lemezcímke "
+"sérült vagy ismeretlen.\n"
+"Kiléphet a blivet-guiból most, vagy folytathatja anélkül, hogy használhatná "
+"a lemezt."
 
 #: ../blivetgui/blivetgui.py:826
 msgid "Confirm reload storage"
@@ -327,8 +332,7 @@ msgstr "Tároló-összeállítás pásztázása…"
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
 msgstr ""
-"A jelenleg kiválasztott méret nagyobb, mint a kiválasztás maximális "
-"korlátja."
+"A jelenleg kiválasztott méret nagyobb, mint a kiválasztás maximális korlátja."
 
 #: ../blivetgui/dialogs/size_chooser.py:199
 msgid ""
@@ -497,8 +501,7 @@ msgstr "A darabméret 4 KiB többszöröse kell legyen."
 msgid "Create new device"
 msgstr "Új eszköz készítése"
 
-#. dictionary with 'human-readable' device names and methods providing
-#. detailed information
+#. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:381
 #: ../blivetgui/dialogs/add_dialog.py:738
 #: ../blivetgui/dialogs/device_info_dialog.py:78
@@ -611,8 +614,7 @@ msgstr "A jelszavak megegyeznek."
 msgid "Passphrases don't match."
 msgstr "A jelszavak nem egyeznek."
 
-#. ----------------------------------------------------------------------------
-#. #
+#. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
 msgstr "elsődleges"
