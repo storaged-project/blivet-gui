@@ -46,8 +46,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ### Localization
 
-blivet-gui localization is done in the Zanata translation platform.
-blivet-gui project is located [here](https://fedora.zanata.org/project/view/blivet-gui).
+[![Translation](https://translate.fedoraproject.org/widgets/blivet/-/blivet-gui/287x66-grey.png)](https://translate.fedoraproject.org/engage/blivet/?utm_source=widget)
 
 ### Bug reporting
 
