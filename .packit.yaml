@@ -13,3 +13,5 @@ synced_files:
 - blivet-gui.spec
 - .packit.yaml
 upstream_package_name: blivet-gui
+current_version_command: ["python3", "setup.py", "--version"]
+create_tarball_command: ["make", "local"]
