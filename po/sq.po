@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 15:43+0100\n"
+"POT-Creation-Date: 2020-01-29 12:40+0100\n"
 "PO-Revision-Date: 2016-04-30 11:40+0000\n"
 "Last-Translator: ajkuna <ajkuna.mujo2@hotmail.com>\n"
 "Language-Team: Albanian\n"
@@ -140,11 +140,11 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing"
-" PVs."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr ""
-"{name} nuk ka përfunduar . Nuk është e mundur  të shtoni  një LVs në VG duke"
-" humbur PVs  ."
+"{name} nuk ka përfunduar . Nuk është e mundur  të shtoni  një LVs në VG duke "
+"humbur PVs  ."
 
 #: ../blivetgui/blivetgui.py:411
 msgid "Not enough free space for a new LVM Volume Group."
@@ -153,11 +153,11 @@ msgstr "Nuk ka hapësirë të lirë  për një grup vëllimi LVM"
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for"
-" {label} disklabel."
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
 msgstr ""
-"Disku  {name}  ka arritur maksimumine lejuar  të  ndarjeve për numrat primar"
-"   {label} emërtimi i diskut ."
+"Disku  {name}  ka arritur maksimumine lejuar  të  ndarjeve për numrat "
+"primar   {label} emërtimi i diskut ."
 
 #: ../blivetgui/blivetgui.py:427
 msgid "Failed to add disklabel:"
@@ -205,8 +205,8 @@ msgstr "Çmontimi dështoi.Jeni të sigurt që pajisja nuk është në përdorim
 #: ../blivetgui/blivetgui.py:689
 msgid "Device decryption failed. Are you sure provided password is correct?"
 msgstr ""
-"Dekriptimi i pajisjes dështoi .Jeni të sigurt  që fjalëkalimi i dhënë  është"
-" i saktë "
+"Dekriptimi i pajisjes dështoi .Jeni të sigurt  që fjalëkalimi i dhënë  është "
+"i saktë "
 
 #: ../blivetgui/blivetgui.py:739 ../data/ui/blivet-gui.ui:644
 msgid "Quit"
@@ -224,7 +224,8 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:745
 msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
 "If it is still running you can use\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
@@ -252,8 +253,10 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:790
 #, python-brace-format
 msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use this disk."
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
 msgstr ""
 
 #: ../blivetgui/blivetgui.py:826
@@ -481,8 +484,7 @@ msgstr ""
 msgid "Create new device"
 msgstr "Krijoni një pajisje të re "
 
-#. dictionary with 'human-readable' device names and methods providing
-#. detailed information
+#. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:381
 #: ../blivetgui/dialogs/add_dialog.py:738
 #: ../blivetgui/dialogs/device_info_dialog.py:78
@@ -597,8 +599,7 @@ msgstr "Frazat e kalimit përputhen."
 msgid "Passphrases don't match."
 msgstr "Frazat e kalimit nuk përputhen."
 
-#. ----------------------------------------------------------------------------
-#. #
+#. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
 msgstr "Parësore"
@@ -874,8 +875,7 @@ msgstr ""
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
-msgstr ""
-"Privilegjet e administratorit janë kërkur për të ekzekutuar blivet-gui"
+msgstr "Privilegjet e administratorit janë kërkur për të ekzekutuar blivet-gui"
 
 #: ../data/ui/luks_passphrase_dialog.ui:10
 msgid "Decrypt device"
@@ -884,8 +884,7 @@ msgstr "Dekriptoni pajisjen "
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Please enter passphrase to decrypt selected device."
 msgstr ""
-"Ju lutem vendosni frazën e kalimit për të dekriptuar pajisjen e përzgjedhur "
-"."
+"Ju lutem vendosni frazën e kalimit për të dekriptuar pajisjen e përzgjedhur ."
 
 #: ../data/ui/luks_passphrase_dialog.ui:48 ../data/ui/encryption_chooser.ui:44
 msgid "Passphrase:"

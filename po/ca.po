@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 15:43+0100\n"
+"POT-Creation-Date: 2020-01-29 12:40+0100\n"
 "PO-Revision-Date: 2018-10-24 11:38+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan\n"
@@ -145,8 +145,8 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing"
-" PVs."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr ""
 "{name} no està complet. No és possible afegir els volums lògics al grup de "
 "volums quan falten volums físics."
@@ -158,8 +158,8 @@ msgstr "No hi ha prou espai lliure per a un nou grup de volums LVM."
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for"
-" {label} disklabel."
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
 msgstr ""
 "El disc {name} ja ha assolit el nombre màxim permès de particions primàries "
 "per a l'etiqueta de disc {label}."
@@ -232,7 +232,8 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:745
 msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
 "If it is still running you can use\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
@@ -260,10 +261,13 @@ msgstr "Error: {error}"
 #: ../blivetgui/blivetgui.py:790
 #, python-brace-format
 msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use this disk."
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
 msgstr ""
-"Blivet-gui ni pot utilitzar el disc <b>{name}</b> a causa d'una etiqueta de disc malmesa o desconeguda.\n"
+"Blivet-gui ni pot utilitzar el disc <b>{name}</b> a causa d'una etiqueta de "
+"disc malmesa o desconeguda.\n"
 "Podeu sortir ara de blivet-gui o continuar sense poder utilitzar aquest disc."
 
 #: ../blivetgui/blivetgui.py:826
@@ -321,8 +325,8 @@ msgstr "S'està explorant la configuració de l'emmagatzematge..."
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
 msgstr ""
-"La mida seleccionada actualment és més gran que el límit màxim per a aquesta"
-" selecció."
+"La mida seleccionada actualment és més gran que el límit màxim per a aquesta "
+"selecció."
 
 #: ../blivetgui/dialogs/size_chooser.py:199
 msgid ""
@@ -493,8 +497,7 @@ msgstr "La mida del tros ha de ser múltiple de 4 KiB."
 msgid "Create new device"
 msgstr "Crea un nou dispositiu"
 
-#. dictionary with 'human-readable' device names and methods providing
-#. detailed information
+#. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:381
 #: ../blivetgui/dialogs/add_dialog.py:738
 #: ../blivetgui/dialogs/device_info_dialog.py:78
@@ -607,8 +610,7 @@ msgstr "Les contrasenyes coincideixen."
 msgid "Passphrases don't match."
 msgstr "Les contrasenyes no coincideixen."
 
-#. ----------------------------------------------------------------------------
-#. #
+#. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
 msgstr "primària"

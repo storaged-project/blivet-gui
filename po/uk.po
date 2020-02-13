@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 15:43+0100\n"
+"POT-Creation-Date: 2020-01-29 12:40+0100\n"
 "PO-Revision-Date: 2020-01-31 07:29+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <kde-i18n-uk@kde.org>\n"
@@ -16,7 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 "X-Generator: Zanata 4.6.2\n"
 
 #: ../blivetgui/list_devices.py:82
@@ -79,7 +80,8 @@ msgid ""
 msgstr ""
 "{message}\n"
 "{error}\n"
-" Будь ласка, натисніть кнопку «Звітувати», щоб відкрити відповідне вікно і дозволити anaconda \n"
+" Будь ласка, натисніть кнопку «Звітувати», щоб відкрити відповідне вікно і "
+"дозволити anaconda \n"
 "обробити і надіслати звіт, якщо ви цього хочете."
 
 #: ../blivetgui/osinstall.py:217
@@ -153,8 +155,8 @@ msgstr "змінити мітку файлової системи {type} {name}"
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing"
-" PVs."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr ""
 "{name} не завершено. Не можна додавати нові логічні томи до групи томів із "
 "пропущеними фізичними томами."
@@ -166,11 +168,11 @@ msgstr "Недостатньо вільного місця для нової г�
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for"
-" {label} disklabel."
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
 msgstr ""
-"На диску {name} вже створено максимальну можливу кількість основних розділів"
-" для мітки диска {label}."
+"На диску {name} вже створено максимальну можливу кількість основних розділів "
+"для мітки диска {label}."
 
 #: ../blivetgui/blivetgui.py:427
 msgid "Failed to add disklabel:"
@@ -239,14 +241,17 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:745
 msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
 "If it is still running you can use\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
 "\n"
 "command to force quit it."
 msgstr ""
-"Якщо попередній запущений екземпляр blivet-gui завершив роботу у аварійному режимі, будь ласка, переконайтеся, що завершив роботу і процес <i>blivet-gui-daemon</i>.\n"
+"Якщо попередній запущений екземпляр blivet-gui завершив роботу у аварійному "
+"режимі, будь ласка, переконайтеся, що завершив роботу і процес <i>blivet-gui-"
+"daemon</i>.\n"
 "Якщо цей процес продовжує працювати, ви можете скористатися такою командою:\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
@@ -273,11 +278,15 @@ msgstr "Помилка: {error}"
 #: ../blivetgui/blivetgui.py:790
 #, python-brace-format
 msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use this disk."
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
 msgstr ""
-"Blivet-gui не зможе використати диск <b>{name}</b>, оскільки він має пошкоджену або невідому мітку.\n"
-"Ви можете або завершити роботу blivet-gui, або продовжити обробку, не маючи при цьому змоги скористатися цим диском."
+"Blivet-gui не зможе використати диск <b>{name}</b>, оскільки він має "
+"пошкоджену або невідому мітку.\n"
+"Ви можете або завершити роботу blivet-gui, або продовжити обробку, не маючи "
+"при цьому змоги скористатися цим диском."
 
 #: ../blivetgui/blivetgui.py:826
 msgid "Confirm reload storage"
@@ -286,8 +295,8 @@ msgstr "Підтвердження перезавантаження сховищ
 #: ../blivetgui/blivetgui.py:827
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr ""
-"Виконано не усі дії з черги дій. Ви справді хочете продовжити виконання цієї"
-" дії?"
+"Виконано не усі дії з черги дій. Ви справді хочете продовжити виконання цієї "
+"дії?"
 
 #: ../blivetgui/blivetgui.py:858
 msgid "Are you sure you want to quit?"
@@ -506,8 +515,7 @@ msgstr "Розмір фрагмента має бути кратним до 4 К
 msgid "Create new device"
 msgstr "Створити запис пристрою"
 
-#. dictionary with 'human-readable' device names and methods providing
-#. detailed information
+#. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:381
 #: ../blivetgui/dialogs/add_dialog.py:738
 #: ../blivetgui/dialogs/device_info_dialog.py:78
@@ -620,8 +628,7 @@ msgstr "Вказані паролі збігаються."
 msgid "Passphrases don't match."
 msgstr "Вказані паролі не збігаються"
 
-#. ----------------------------------------------------------------------------
-#. #
+#. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
 msgstr "основний"

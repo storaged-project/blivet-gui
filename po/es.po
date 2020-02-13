@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-03 15:43+0100\n"
+"POT-Creation-Date: 2020-01-29 12:40+0100\n"
 "PO-Revision-Date: 2018-03-16 11:11+0000\n"
 "Last-Translator: Máximo Castañeda Riloba <mcrcctm@gmail.com>\n"
 "Language-Team: Spanish\n"
@@ -150,8 +150,8 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing"
-" PVs."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr ""
 "{name} no está completo. No se pueden añadir volúmenes lógicos a grupos a "
 "los que les faltan volúmenes físicos."
@@ -163,8 +163,8 @@ msgstr "No hay suficiente espacio libre para un grupo LVM."
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for"
-" {label} disklabel."
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
 msgstr ""
 "El disco {name} ya ha alcanzado el máximo número de particiones primarias "
 "para la etiqueta {label}."
@@ -211,8 +211,8 @@ msgstr "¿Seguro que quiere ejecutar las acciones planificadas?"
 #: ../blivetgui/blivetgui.py:668
 msgid "Unmount failed. Are you sure device is not in use?"
 msgstr ""
-"Falló la operación de desmontaje. Asegúrese de que el dispositivo no esté en"
-" uso."
+"Falló la operación de desmontaje. Asegúrese de que el dispositivo no esté en "
+"uso."
 
 #: ../blivetgui/blivetgui.py:689
 msgid "Device decryption failed. Are you sure provided password is correct?"
@@ -237,15 +237,18 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:745
 msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the <i>blivet-gui-daemon</i> process was terminated too.\n"
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
 "If it is still running you can use\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
 "\n"
 "command to force quit it."
 msgstr ""
-"Si falló una ejecución anterior, compruebe que <i>blivet-gui-daemon</i> también haya finalizado.\n"
-"Si aún está en ejecución, puede usar la siguiente orden para forzar su salida:\n"
+"Si falló una ejecución anterior, compruebe que <i>blivet-gui-daemon</i> "
+"también haya finalizado.\n"
+"Si aún está en ejecución, puede usar la siguiente orden para forzar su "
+"salida:\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>"
 
@@ -269,10 +272,13 @@ msgstr "Error: {error}"
 #: ../blivetgui/blivetgui.py:790
 #, python-brace-format
 msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use this disk."
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
 msgstr ""
-"Blivet-gui no puede utilizar el disco <b>{name}</b> debido a una etiqueta de disco dañada / desconocida.\n"
+"Blivet-gui no puede utilizar el disco <b>{name}</b> debido a una etiqueta de "
+"disco dañada / desconocida.\n"
 "Puede salir de blivet-gui ahora o continuar sin poder utilizar este disco."
 
 #: ../blivetgui/blivetgui.py:826
@@ -502,8 +508,7 @@ msgstr "El tamaño de la porción debe ser múltiplo de 4 KiB."
 msgid "Create new device"
 msgstr "Crear un nuevo dispositivo"
 
-#. dictionary with 'human-readable' device names and methods providing
-#. detailed information
+#. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:381
 #: ../blivetgui/dialogs/add_dialog.py:738
 #: ../blivetgui/dialogs/device_info_dialog.py:78
@@ -616,8 +621,7 @@ msgstr "Las frases de acceso coinciden."
 msgid "Passphrases don't match."
 msgstr "Las frases de acceso no coinciden."
 
-#. ----------------------------------------------------------------------------
-#. #
+#. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
 msgstr "primaria"
