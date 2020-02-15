@@ -77,9 +77,20 @@ class ResizeDialog(object):
             label.set_text(title)
 
     def _add_size_chooser(self):
+        # blivet is very conservative with min size calculations for some devices
+        # (especially partitions) so it is possible to have a device that is
+        # bigger or smaller than blivet thinks is possible so we need to "adjust"
+        # the current size to display it in the dialog
+        if self.resize_device.size < self.resize_info.min_size:
+            current_size = self.resize_info.min_size
+        elif self.resize_device.size > self.resize_info.max_size:
+            current_size = self.resize_info.max_size
+        else:
+            current_size = self.resize_device.size
+
         size_chooser = SizeChooser(max_size=self.resize_info.max_size,
                                    min_size=self.resize_info.min_size,
-                                   current_size=self.resize_device.size)
+                                   current_size=current_size)
         self.box.pack_start(child=size_chooser.grid, expand=True, fill=True, padding=0)
 
         return size_chooser
