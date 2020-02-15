@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.22.1 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkMessageDialog" id="dialog">
     <property name="can_focus">False</property>
+    <property name="window_position">center-on-parent</property>
     <property name="type_hint">dialog</property>
     <property name="message_type">other</property>
     <property name="buttons">ok-cancel</property>
     <property name="text" translatable="yes">Decrypt device</property>
     <property name="secondary_text" translatable="yes">Please enter passphrase to decrypt selected device.</property>
+    <child>
+      <placeholder/>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="messagedialog-vbox">
         <property name="can_focus">False</property>
