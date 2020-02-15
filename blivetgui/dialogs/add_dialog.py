@@ -140,6 +140,9 @@ class AdvancedOptions(object):
         partition_combo.set_active(0)
         partition_combo.connect("changed", self.on_partition_type_changed)
 
+        if len(types) == 1:
+            partition_combo.set_sensitive(False)
+
         self.widgets.extend([label_pt_type, partition_combo])
 
         return partition_combo
