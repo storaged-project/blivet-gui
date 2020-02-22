@@ -662,14 +662,29 @@ class BlivetGUI(object):
         if not device.format.mountable or not device.format.system_mountpoint:
             return ValueError("Selected device is not mounted")
 
-        try:
-            device.format.unmount()
-        except FSError:
-            msg = _("Unmount failed. Are you sure device is not in use?")
-            self.show_error_dialog(msg)
+        all_mountpoints = self.client.remote_call("get_system_mountpoints", device)
+        if len(all_mountpoints) > 1:
+            dialog = edit_dialog.UnmountDialog(self.main_window, device, mountpoints=all_mountpoints,
+                                               installer_mode=self.installer_mode)
+            user_input = dialog.run()
+
+            if user_input.unmount:
+                mountpoints = user_input.mountpoints
+            else:
+                return
         else:
-            self._handle_user_change()
-            self.update_partitions_view()
+            mountpoints = (device.format.system_mountpoint,)
+
+        for mountpoint in mountpoints:
+            try:
+                device.format.unmount(mountpoint=mountpoint)
+            except FSError:
+                msg = _("Unmount of '{mountpoint}' failed. Are you sure the device is "
+                        "not in use?".format(mountpoint=mountpoint))
+                self.show_error_dialog(msg)
+
+        self._handle_user_change()
+        self.update_partitions_view()
 
     def decrypt_device(self, _widget=None):
         """ Decrypt selected device

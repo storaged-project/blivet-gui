@@ -170,3 +170,11 @@ button#bg-toolbar-button-first {
 button#bg-toolbar-button-last {
   border-radius: 0 4px 4px 0;
 }
+
+/* unmount dialog -- background color */
+treeview#bg-treeview-unmount, treeview#bg-treeview-unmount:selected {
+  background-image: none;
+  background-color: transparent;
+  color: @theme_text_color;
+  text-shadow: none;
+}

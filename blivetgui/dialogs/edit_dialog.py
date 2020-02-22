@@ -431,6 +431,67 @@ class LabelDialog(object):
         self.dialog.response(Gtk.ResponseType.ACCEPT)
 
 
+class UnmountDialog(object):
+
+    def __init__(self, main_window, edit_device, mountpoints, installer_mode=False):
+        self.main_window = main_window
+        self.edit_device = edit_device
+        self.installer_mode = installer_mode
+
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("blivet-gui")
+        self.builder.add_from_file(locate_ui_file("unmount_dialog.ui"))
+
+        self.dialog = self.builder.get_object("unmount_dialog")
+        self.dialog.set_transient_for(self.main_window)
+
+        button_cancel = self.builder.get_object("button_cancel")
+        button_cancel.connect("clicked", self._on_cancel_button)
+
+        button_unmount = self.builder.get_object("button_unmount")
+        button_unmount.connect("clicked", self._on_format_button)
+
+        self.mountpoints_store = self.builder.get_object("mountpoints_store")
+        for mountpoint in mountpoints:
+            self.mountpoints_store.append([True, mountpoint])
+
+        unmount_toggle = self.builder.get_object("unmount_toggle")
+        unmount_toggle.connect("toggled", self._on_unmount_toggled)
+
+    def set_decorated(self, decorated):
+        self.dialog.set_decorated(decorated)
+
+        # no decoration --> display dialog title in the dialog
+        if not decorated:
+            label = self.builder.get_object("label_title")
+            title = self.dialog.get_title()
+            label.set_text(title)
+
+    def run(self):
+        response = self.dialog.run()
+
+        if response == Gtk.ResponseType.REJECT:
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, unmount=False, mountpoints=[])
+        else:
+            mountpoints = []
+            for row in self.mountpoints_store:
+                if row[0]:
+                    mountpoints.append(row[1])
+
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, unmount=True, mountpoints=mountpoints)
+
+    def _on_unmount_toggled(self, _toggle, path):
+        self.mountpoints_store[path][0] = not self.mountpoints_store[path][0]
+
+    def _on_cancel_button(self, _button):
+        self.dialog.response(Gtk.ResponseType.REJECT)
+
+    def _on_format_button(self, _button):
+        self.dialog.response(Gtk.ResponseType.ACCEPT)
+
+
 class LVMEditDialog(Gtk.Dialog):
     """ Dialog window allowing user to edit lvmvg
     """
