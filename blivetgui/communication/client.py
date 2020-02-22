@@ -43,15 +43,15 @@ class ClientProxyObject(object):
         self.proxy_id = proxy_id
 
     def __len__(self):
-        remote_ret = self.client.remote_method(self.proxy_id, "__len__", ())
+        remote_ret = self.client.remote_method(self.proxy_id, "__len__", (), {})
         return remote_ret
 
     def __iter__(self):
-        remote_iter = self.client.remote_method(self.proxy_id, "__iter__", ())
+        remote_iter = self.client.remote_method(self.proxy_id, "__iter__", (), {})
         return remote_iter
 
-    def __call__(self, *args):
-        remote_res = self.client.remote_method(self.proxy_id, "__call__", (args))
+    def __call__(self, *args, **kwargs):
+        remote_res = self.client.remote_method(self.proxy_id, "__call__", args, kwargs)
 
         if isinstance(remote_res, BaseException):
             raise remote_res
@@ -77,7 +77,7 @@ class ClientProxyObject(object):
             return remote_key
 
     def __str__(self):
-        remote_str = self.client.remote_method(self.proxy_id, "__str__", ())
+        remote_str = self.client.remote_method(self.proxy_id, "__str__", (), {})
         return remote_str
 
     def __getattr__(self, attr_name):
@@ -177,11 +177,11 @@ class BlivetGUIClient(object):
 
         return self._answer_convertTo_object(answer)
 
-    def remote_method(self, proxy_id, method_name, args):
+    def remote_method(self, proxy_id, method_name, args, kwargs):
         """ Call remotely a method on proxy_id object
         """
 
-        pickled_data = pickle.dumps(("method", proxy_id, method_name, args))
+        pickled_data = pickle.dumps(("method", proxy_id, method_name, args, kwargs))
 
         with self.mutex:
             self._send(pickled_data)

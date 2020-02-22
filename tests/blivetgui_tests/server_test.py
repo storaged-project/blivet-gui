@@ -96,6 +96,22 @@ class BlivetUtilsServerTest(unittest.TestCase):
         self.assertEqual(converted_args[0]["data2"], 1)
         self.assertEqual(converted_args[0]["data3"], arg3_obj.blivet_object)
 
+    def test_convert_kwargs(self):
+        test_dict = {}
+
+        arg1 = ProxyID()
+        arg1_obj = MagicMock(blivet_object=MagicMock())
+        test_dict[arg1.id] = arg1_obj
+        arg2 = ProxyID()
+        arg2_obj = MagicMock(blivet_object=MagicMock())
+        test_dict[arg2.id] = arg2_obj
+
+        kwargs = {"a": 1, "b": arg1, "c": arg2}
+        server_mock = MagicMock(object_dict=test_dict,
+                                _args_convertTo_objects=lambda args: BlivetUtilsServer._args_convertTo_objects(MagicMock(object_dict=test_dict), args))
+        converted_kwargs = BlivetUtilsServer._kwargs_convertTo_objects(server_mock, kwargs)
+        self.assertEqual(converted_kwargs, {"a": 1, "b": arg1_obj.blivet_object, "c": arg2_obj.blivet_object})
+
 
 class BlivetProxyObjectTest(unittest.TestCase):
 
