@@ -138,7 +138,12 @@ class ListPartitions(object):
         if self.installer_mode:
             mnt = device.format.mountpoint if (device.format and device.format.mountable) else None
         else:
-            mnt = device.format.system_mountpoint if (device.format and device.format.mountable) else None
+            is_mounted = bool(device.format.system_mountpoint) if (device.format and device.format.mountable) else False
+            if is_mounted:
+                mnts = self.blivet_gui.client.remote_call("get_system_mountpoints", device)
+                mnt = ", ".join(mnts)
+            else:
+                mnt = None
 
         device_iter = self.partitions_list.append(parent_iter, [device, name, devtype, fmt, str(device.size), mnt])
 
