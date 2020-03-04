@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from blivet.size import Size
 
@@ -81,16 +81,26 @@ class ListPartitionsTest(unittest.TestCase):
     def test_add_to_store(self):
 
         # simple partition -- test if added to store correctly
-        device = MagicMock(type="partition", size=Size("1 GiB"),
-                           format=MagicMock(type="ext4", mountable=True, mountpoint=None, system_mountpoint="/"))
+        device = MagicMock(type="partition", size=Size("1 GiB"), path="/dev/vda1",
+                           format=MagicMock(type="ext4", mountable=True, mountpoint=None))
         device.configure_mock(name="vda1")
 
-        it = self.list_partitions._add_to_store(device)
+        mountpoints = {device.path: "/"}
+
+        with patch("blivetgui.list_partitions.ListPartitions.blivetgui.client.remote_call", lambda _, _: mountpoints):
+            it = self.list_partitions._add_to_store(device)
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 1), device.name)
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 2), device.type)
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 3), device.format.type)
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 4), str(device.size))
-        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 5), device.format.system_mountpoint)
+        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 5), ", ".join(mountpoints))
+
+        # simple partition with multiple mountpoints
+        mountpoints = {device.path: ["/", "/mnt"]}
+        with patch("blivetgui.list_partitions.ListPartitions.blivetgui.client.remote_call", lambda _, _: mountpoints):
+            it = self.list_partitions._add_to_store(device)
+        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 1), device.name)
+        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 5), ", ".join(mountpoints))
 
         # lvmvg with long name -- name should be elipsized and type should be 'lvm'
         device = MagicMock(type="lvmvg", size=Size("1 GiB"),

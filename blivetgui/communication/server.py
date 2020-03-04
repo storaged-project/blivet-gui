@@ -281,11 +281,12 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
         proxy_object = self.object_dict[data[1].id]
         param_name = data[2]
         args = self._args_convertTo_objects(data[3])
+        kwargs = self._kwargs_convertTo_objects(data[4])
 
         method = getattr(proxy_object, param_name)
 
         try:
-            answer = method(*args)
+            answer = method(*args, **kwargs)
         except Exception as e:  # pylint: disable=broad-except
             answer = e
 
@@ -345,6 +346,14 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
                 args_obj.append(arg)
 
         return args_obj
+
+    def _kwargs_convertTo_objects(self, kwargs):
+        kwargs_obj = {}
+
+        for key in kwargs.keys():
+            kwargs_obj[key] = self._args_convertTo_objects((kwargs[key],))[0]
+
+        return kwargs_obj
 
     def _send(self, data):
         data = struct.pack(">I", len(data)) + data
