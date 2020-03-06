@@ -117,7 +117,7 @@ class BlivetProxyObjectTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.blivet_object = MagicMock()
+        cls.blivet_object = MagicMock(set_test=None)
         del cls.blivet_object.non_existing  # mock non-existing attribude
         cls.obj_id = ProxyID()
         cls.proxy_object = BlivetProxyObject(cls.blivet_object, cls.obj_id)
@@ -126,6 +126,10 @@ class BlivetProxyObjectTest(unittest.TestCase):
         self.assertEqual(self.proxy_object.existing, self.blivet_object.existing)
         with self.assertRaises(AttributeError):
             self.proxy_object.non_existing  # pylint: disable=W0104
+
+    def test_setattr(self):
+        self.proxy_object.set_test = "test"
+        self.assertEqual(self.blivet_object.set_test, "test")
 
     def test_getitem(self):
         self.assertEqual(self.proxy_object["key"], self.blivet_object["key"])  # pylint: disable=unsubscriptable-object

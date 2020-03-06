@@ -38,6 +38,8 @@ from ..i18n import _
 
 class ClientProxyObject(object):
 
+    attrs = ("client", "proxy_id")
+
     def __init__(self, client, proxy_id):
         self.client = client
         self.proxy_id = proxy_id
@@ -88,6 +90,17 @@ class ClientProxyObject(object):
 
         else:
             return remote_attr
+
+    def __setattr__(self, attr_name, value):
+        if attr_name in self.attrs + tuple(object.__dict__.keys()):
+            super().__setattr__(attr_name, value)
+        else:
+            remote_res = self.client.remote_method(self.proxy_id, "__setattr__", (attr_name, value), {})
+
+            if isinstance(remote_res, BaseException):
+                raise remote_res
+            else:
+                return remote_res
 
 
 class BlivetGUIClient(object):

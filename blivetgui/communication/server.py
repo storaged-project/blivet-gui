@@ -48,6 +48,8 @@ class BlivetProxyObject(object):
     """ Class representing unpicklable objects
     """
 
+    attrs = ("blivet_object", "id")
+
     def __init__(self, blivet_object, obj_id):
         self.blivet_object = blivet_object
         self.id = obj_id
@@ -59,6 +61,12 @@ class BlivetProxyObject(object):
         subobject = getattr(self.blivet_object, name)
 
         return subobject
+
+    def __setattr__(self, name, value):
+        if name in self.attrs + tuple(object.__dict__.keys()):
+            super().__setattr__(name, value)
+        else:
+            return setattr(self.blivet_object, name, value)
 
     def is_method(self, param_name):
         subobject = getattr(self.blivet_object, param_name)
