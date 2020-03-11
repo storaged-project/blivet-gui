@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-29 12:40+0100\n"
+"POT-Creation-Date: 2020-02-22 21:48+0100\n"
 "PO-Revision-Date: 2018-10-02 07:30+0000\n"
 "Last-Translator: feonsu <feonsu@gmail.com>\n"
 "Language-Team: Slovak\n"
@@ -18,35 +18,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2\n"
 "X-Generator: Zanata 4.6.2\n"
-
-#: ../blivetgui/list_devices.py:82
-msgid "Disks"
-msgstr "Disky"
-
-#: ../blivetgui/list_devices.py:102
-msgid "LVM"
-msgstr "LVM"
-
-#: ../blivetgui/list_devices.py:105
-msgid "LVM2 VG"
-msgstr "LVM2 VG"
-
-#: ../blivetgui/list_devices.py:108
-msgid "RAID"
-msgstr "RAID"
-
-#: ../blivetgui/list_devices.py:111
-msgid "MDArray"
-msgstr "MDArray"
-
-#: ../blivetgui/list_devices.py:114
-msgid "Btrfs Volumes"
-msgstr "Btrfs zväzky"
-
-#: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:387
-#: ../blivetgui/dialogs/device_info_dialog.py:85
-msgid "Btrfs Volume"
-msgstr "Btrfs zväzok"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
@@ -89,6 +60,35 @@ msgstr ""
 #: ../blivetgui/osinstall.py:265
 msgid "actions configured by installer"
 msgstr "akcie nastavené inštalátorom"
+
+#: ../blivetgui/list_devices.py:82
+msgid "Disks"
+msgstr "Disky"
+
+#: ../blivetgui/list_devices.py:102
+msgid "LVM"
+msgstr "LVM"
+
+#: ../blivetgui/list_devices.py:105
+msgid "LVM2 VG"
+msgstr "LVM2 VG"
+
+#: ../blivetgui/list_devices.py:108
+msgid "RAID"
+msgstr "RAID"
+
+#: ../blivetgui/list_devices.py:111
+msgid "MDArray"
+msgstr "MDArray"
+
+#: ../blivetgui/list_devices.py:114
+msgid "Btrfs Volumes"
+msgstr "Btrfs zväzky"
+
+#: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:390
+#: ../blivetgui/dialogs/device_info_dialog.py:85
+msgid "Btrfs Volume"
+msgstr "Btrfs zväzok"
 
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
@@ -205,24 +205,27 @@ msgstr "Potvrdenie naplánovaných akcií"
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Naozaj chcete vykonať naplánované akcie?"
 
-#: ../blivetgui/blivetgui.py:668
-msgid "Unmount failed. Are you sure device is not in use?"
+#: ../blivetgui/blivetgui.py:682
+#, fuzzy, python-brace-format
+#| msgid "Unmount failed. Are you sure device is not in use?"
+msgid ""
+"Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr "Odpojenie zlyhalo. Ste si istý, že sa zariadenie nepoužíva?"
 
-#: ../blivetgui/blivetgui.py:689
+#: ../blivetgui/blivetgui.py:704
 msgid "Device decryption failed. Are you sure provided password is correct?"
 msgstr ""
 "Rozšifrovanie zariadenia zlyhalo. Ste si istý, že ste zadali správne heslo?"
 
-#: ../blivetgui/blivetgui.py:739 ../data/ui/blivet-gui.ui:644
+#: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:642
 msgid "Quit"
 msgstr "Ukončiť"
 
-#: ../blivetgui/blivetgui.py:742
+#: ../blivetgui/blivetgui.py:757
 msgid "blivet-gui is already running"
 msgstr "blivet-gui je už spustený"
 
-#: ../blivetgui/blivetgui.py:743
+#: ../blivetgui/blivetgui.py:758
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -230,7 +233,7 @@ msgstr ""
 "Iná inštancia blivet-gui je už spustená.\n"
 "Súčasne môže bežať iba jedna inštancia blivet-gui."
 
-#: ../blivetgui/blivetgui.py:745
+#: ../blivetgui/blivetgui.py:760
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -248,24 +251,24 @@ msgstr ""
 "\n"
 "na jeho vynútené ukončenie."
 
-#: ../blivetgui/blivetgui.py:777
+#: ../blivetgui/blivetgui.py:792
 msgid "Failed to init blivet:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:784
+#: ../blivetgui/blivetgui.py:799
 msgid "Quit blivet-gui"
 msgstr "Ukončiť blivet-gui"
 
-#: ../blivetgui/blivetgui.py:786
+#: ../blivetgui/blivetgui.py:801
 msgid "Ignore disk and continue"
 msgstr "Ignorovať disk a pokračovať"
 
-#: ../blivetgui/blivetgui.py:789
+#: ../blivetgui/blivetgui.py:804
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "Chyba: {error}"
 
-#: ../blivetgui/blivetgui.py:790
+#: ../blivetgui/blivetgui.py:805
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -277,19 +280,19 @@ msgstr ""
 "oddielov.\n"
 "Môžete teraz ukončiť blivet-gui, alebo pokračovať bez použitia tohto disku."
 
-#: ../blivetgui/blivetgui.py:826
+#: ../blivetgui/blivetgui.py:841
 msgid "Confirm reload storage"
 msgstr "Potvrdenie znovu načítania úložiska"
 
-#: ../blivetgui/blivetgui.py:827
+#: ../blivetgui/blivetgui.py:842
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "Sú dostupné čakajúce operácie. Naozaj chcete pokračovať?"
 
-#: ../blivetgui/blivetgui.py:858
+#: ../blivetgui/blivetgui.py:873
 msgid "Are you sure you want to quit?"
 msgstr "Naozaj chcete ukončiť aplikáciu?"
 
-#: ../blivetgui/blivetgui.py:859
+#: ../blivetgui/blivetgui.py:874
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr "Sú dostupné čakajúce operácie. Naozaj chcete ukončiť blivet-gui?"
@@ -308,7 +311,7 @@ msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr "Logickým zväzkom (LV) so snapshotmi nejde zmeniť veľkosť."
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
-#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:599
+#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:597
 msgid "No pending actions"
 msgstr "Žiadne čakajúce akcie"
 
@@ -340,17 +343,7 @@ msgid ""
 msgstr ""
 "Aktuálne vybratá veľkosť je menšia ako minimálny limit pre tento výber."
 
-#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:999
-#, python-brace-format
-msgid "\"{0}\" is not a valid mountpoint."
-msgstr "\"{0}\" nie je platný bod pripojenia."
-
-#: ../blivetgui/dialogs/helpers.py:148
-#, python-brace-format
-msgid "Selected mountpoint \"{0}\" is already set for another device."
-msgstr "Vybratý bod pripojenia \"{0}\" je už použitý pre iné zariadenie."
-
-#: ../blivetgui/dialogs/edit_dialog.py:91
+#: ../blivetgui/dialogs/edit_dialog.py:102
 #, python-brace-format
 msgid ""
 "<b>This device cannot be resized:</b>\n"
@@ -359,67 +352,67 @@ msgstr ""
 "<b>Tomuto zariadeniu sa nedá zmeniť veľkosť:</b>\n"
 "<i>{0}</i>"
 
-#: ../blivetgui/dialogs/edit_dialog.py:93
+#: ../blivetgui/dialogs/edit_dialog.py:104
 msgid "This device cannot be resized."
 msgstr "Tomuto zariadeniu sa nedá zmeniť veľkosť."
 
-#: ../blivetgui/dialogs/edit_dialog.py:153
-#: ../blivetgui/dialogs/add_dialog.py:791
+#: ../blivetgui/dialogs/edit_dialog.py:164
+#: ../blivetgui/dialogs/add_dialog.py:794
 msgid "unformatted"
 msgstr "neformátované"
 
-#: ../blivetgui/dialogs/edit_dialog.py:220
-#: ../blivetgui/dialogs/add_dialog.py:1026
+#: ../blivetgui/dialogs/edit_dialog.py:231
+#: ../blivetgui/dialogs/add_dialog.py:1029
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
 msgstr "\"{0}\" nie je platná menovka."
 
-#: ../blivetgui/dialogs/edit_dialog.py:395
+#: ../blivetgui/dialogs/edit_dialog.py:406
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
 msgstr ""
 
 #. auto shrink after removing/hiding widgets
-#: ../blivetgui/dialogs/edit_dialog.py:445
+#: ../blivetgui/dialogs/edit_dialog.py:517
 msgid "Edit device"
 msgstr "Upraviť zariadenie"
 
-#: ../blivetgui/dialogs/edit_dialog.py:475
-#: ../blivetgui/dialogs/edit_dialog.py:524
-#: ../blivetgui/dialogs/edit_dialog.py:586
-#: ../blivetgui/dialogs/add_dialog.py:450 ../data/ui/blivet-gui.ui:466
+#: ../blivetgui/dialogs/edit_dialog.py:547
+#: ../blivetgui/dialogs/edit_dialog.py:596
+#: ../blivetgui/dialogs/edit_dialog.py:658
+#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/blivet-gui.ui:464
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
 msgstr "Zariadenie"
 
-#: ../blivetgui/dialogs/edit_dialog.py:476
-#: ../blivetgui/dialogs/edit_dialog.py:525
-#: ../blivetgui/dialogs/edit_dialog.py:587
-#: ../blivetgui/dialogs/add_dialog.py:451 ../data/ui/blivet-gui.ui:477
+#: ../blivetgui/dialogs/edit_dialog.py:548
+#: ../blivetgui/dialogs/edit_dialog.py:597
+#: ../blivetgui/dialogs/edit_dialog.py:659
+#: ../blivetgui/dialogs/add_dialog.py:454 ../data/ui/blivet-gui.ui:475
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
 msgstr "Typ"
 
-#: ../blivetgui/dialogs/edit_dialog.py:477
-#: ../blivetgui/dialogs/edit_dialog.py:526
-#: ../blivetgui/dialogs/edit_dialog.py:588
-#: ../blivetgui/dialogs/add_dialog.py:452 ../data/ui/blivet-gui.ui:499
+#: ../blivetgui/dialogs/edit_dialog.py:549
+#: ../blivetgui/dialogs/edit_dialog.py:598
+#: ../blivetgui/dialogs/edit_dialog.py:660
+#: ../blivetgui/dialogs/add_dialog.py:455 ../data/ui/blivet-gui.ui:497
 msgid "Size"
 msgstr "Veľkosť"
 
-#: ../blivetgui/dialogs/edit_dialog.py:485
+#: ../blivetgui/dialogs/edit_dialog.py:557
 msgid "Parent devices:"
 msgstr "Rodičovské zariadenia:"
 
-#: ../blivetgui/dialogs/edit_dialog.py:492
+#: ../blivetgui/dialogs/edit_dialog.py:564
 msgid "Add parent"
 msgstr "Pridať rodiča"
 
-#: ../blivetgui/dialogs/edit_dialog.py:495
+#: ../blivetgui/dialogs/edit_dialog.py:567
 msgid "Remove parent"
 msgstr "Odstrániť rodiča"
 
-#: ../blivetgui/dialogs/edit_dialog.py:506
+#: ../blivetgui/dialogs/edit_dialog.py:578
 msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
@@ -427,17 +420,17 @@ msgstr ""
 "Momentálne nie sú dostupné žiadne prázdne fyzické zväzky (PV) \n"
 "alebo disky s dostatočným voľným miestom pre jeho vytvorenie."
 
-#: ../blivetgui/dialogs/edit_dialog.py:523
+#: ../blivetgui/dialogs/edit_dialog.py:595
 msgid "Add?"
 msgstr "Pridať?"
 
-#: ../blivetgui/dialogs/edit_dialog.py:535
-#: ../blivetgui/dialogs/edit_dialog.py:597
-#: ../blivetgui/dialogs/add_dialog.py:461 ../data/ui/cache_area.ui:130
+#: ../blivetgui/dialogs/edit_dialog.py:607
+#: ../blivetgui/dialogs/edit_dialog.py:669
+#: ../blivetgui/dialogs/add_dialog.py:464 ../data/ui/cache_area.ui:130
 msgid "Available devices:"
 msgstr "Dostupné zariadenia:"
 
-#: ../blivetgui/dialogs/edit_dialog.py:565
+#: ../blivetgui/dialogs/edit_dialog.py:637
 msgid ""
 "There is no physical volume that could be\n"
 "removed from this volume group."
@@ -445,11 +438,11 @@ msgstr ""
 "Neexistuje žiadny fyzický zväzok (PV), ktorý je  \n"
 "možné odstrániť z tejto skupiny zväzkov (VG)."
 
-#: ../blivetgui/dialogs/edit_dialog.py:577
+#: ../blivetgui/dialogs/edit_dialog.py:649
 msgid "Currently is possible to remove only one parent at time."
 msgstr "Momentálne je možné odstrániť iba jedného rodiča."
 
-#: ../blivetgui/dialogs/edit_dialog.py:585
+#: ../blivetgui/dialogs/edit_dialog.py:657
 msgid "Remove?"
 msgstr "Odstrániť?"
 
@@ -483,101 +476,111 @@ msgstr "Primárny"
 msgid "Extended"
 msgstr "Rozšírený"
 
-#: ../blivetgui/dialogs/add_dialog.py:148
+#: ../blivetgui/dialogs/add_dialog.py:151
 msgid "Chunk Size:"
 msgstr "Veľkosť bloku"
 
-#: ../blivetgui/dialogs/add_dialog.py:211
+#: ../blivetgui/dialogs/add_dialog.py:214
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
 msgstr "'{0}' nie je platná špecifikácia veľkosti bloku."
 
-#: ../blivetgui/dialogs/add_dialog.py:216
+#: ../blivetgui/dialogs/add_dialog.py:219
 msgid "Chunk size must be multiple of 4 KiB."
 msgstr "Veľkosť bloku musí byť násobkom 4 KiB."
 
-#: ../blivetgui/dialogs/add_dialog.py:272
+#: ../blivetgui/dialogs/add_dialog.py:275
 msgid "Create new device"
 msgstr "Vytvoriť nové zariadenie"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
-#: ../blivetgui/dialogs/add_dialog.py:381
-#: ../blivetgui/dialogs/add_dialog.py:738
+#: ../blivetgui/dialogs/add_dialog.py:384
+#: ../blivetgui/dialogs/add_dialog.py:741
 #: ../blivetgui/dialogs/device_info_dialog.py:78
 msgid "Partition"
 msgstr "Oddiel"
 
-#: ../blivetgui/dialogs/add_dialog.py:384
-#: ../blivetgui/dialogs/add_dialog.py:397
+#: ../blivetgui/dialogs/add_dialog.py:387
+#: ../blivetgui/dialogs/add_dialog.py:400
 #: ../blivetgui/dialogs/device_info_dialog.py:79
 msgid "LVM2 Volume Group"
 msgstr "LVM2 skupina zväzkov"
 
 #. number of free disk regions
-#: ../blivetgui/dialogs/add_dialog.py:390
+#: ../blivetgui/dialogs/add_dialog.py:393
 msgid "Software RAID"
 msgstr "Softvérový RAID"
 
-#: ../blivetgui/dialogs/add_dialog.py:393
+#: ../blivetgui/dialogs/add_dialog.py:396
 #: ../blivetgui/dialogs/device_info_dialog.py:80
 msgid "LVM2 Logical Volume"
 msgstr "LVM2 logický zväzok"
 
-#: ../blivetgui/dialogs/add_dialog.py:393
+#: ../blivetgui/dialogs/add_dialog.py:396
 #: ../blivetgui/dialogs/device_info_dialog.py:82
 msgid "LVM2 ThinPool"
 msgstr "LVM2 ThinPool"
 
-#: ../blivetgui/dialogs/add_dialog.py:400
+#: ../blivetgui/dialogs/add_dialog.py:403
 msgid "LVM2 Snaphost"
 msgstr "LVM2 snaphost"
 
-#: ../blivetgui/dialogs/add_dialog.py:403
+#: ../blivetgui/dialogs/add_dialog.py:406
 msgid "LVM2 Thin Snaphost"
 msgstr "LVM2 Thin snaphost"
 
-#: ../blivetgui/dialogs/add_dialog.py:406
+#: ../blivetgui/dialogs/add_dialog.py:409
 #: ../blivetgui/dialogs/device_info_dialog.py:83
 msgid "LVM2 Thin Logical Volume"
 msgstr "LVM2 Thin logický zväzok"
 
-#: ../blivetgui/dialogs/add_dialog.py:409
+#: ../blivetgui/dialogs/add_dialog.py:412
 #: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "Btrfs Subvolume"
 msgstr "Btrfs pod-zväzok"
 
-#: ../blivetgui/dialogs/add_dialog.py:415
+#: ../blivetgui/dialogs/add_dialog.py:418
 msgid "Device type:"
 msgstr "Typ zariadenia:"
 
-#: ../blivetgui/dialogs/add_dialog.py:733
+#: ../blivetgui/dialogs/add_dialog.py:736
 msgid "MDArray type:"
 msgstr "MDArray typ:"
 
-#: ../blivetgui/dialogs/add_dialog.py:765
+#: ../blivetgui/dialogs/add_dialog.py:768
 msgid "Filesystem:"
 msgstr "Súborový systém:"
 
-#: ../blivetgui/dialogs/add_dialog.py:819
+#: ../blivetgui/dialogs/add_dialog.py:822
 msgid "Label:"
 msgstr "Menovka:"
 
-#: ../blivetgui/dialogs/add_dialog.py:827
+#: ../blivetgui/dialogs/add_dialog.py:830
 msgid "Name:"
 msgstr "Názov:"
 
-#: ../blivetgui/dialogs/add_dialog.py:838
+#: ../blivetgui/dialogs/add_dialog.py:841
 msgid "Mountpoint:"
 msgstr "Bod pripojenia:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1006
+#: ../blivetgui/dialogs/add_dialog.py:1002 ../blivetgui/dialogs/helpers.py:141
+#, python-brace-format
+msgid "\"{0}\" is not a valid mountpoint."
+msgstr "\"{0}\" nie je platný bod pripojenia."
+
+#: ../blivetgui/dialogs/add_dialog.py:1009
 msgid "Please select at least two parent devices."
 msgstr "Vyberte aspoň dve rodičovské zariadenia."
 
-#: ../blivetgui/dialogs/add_dialog.py:1020
+#: ../blivetgui/dialogs/add_dialog.py:1023
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" nie je platný názov."
+
+#: ../blivetgui/dialogs/helpers.py:148
+#, python-brace-format
+msgid "Selected mountpoint \"{0}\" is already set for another device."
+msgstr "Vybratý bod pripojenia \"{0}\" je už použitý pre iné zariadenie."
 
 #: ../blivetgui/dialogs/message_dialogs.py:197
 msgid "Confirm delete operation"
@@ -887,19 +890,19 @@ msgstr "Chýbajúca tabuľka oddielov"
 msgid "Device or format is write protected"
 msgstr "Zariadenie alebo formát je chránený proti zápisu"
 
-#: ../data/ui/root_check_window.ui:24
-msgid "Root privileges are required for running blivet-gui."
-msgstr "Pre spustenie blibet-gui sú vyžadované rootovské práva."
+#: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
+msgid "Error"
+msgstr "Chyba"
 
-#: ../data/ui/luks_passphrase_dialog.ui:10
+#: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Decrypt device"
 msgstr "Rozšifrovať zariadenie"
 
-#: ../data/ui/luks_passphrase_dialog.ui:11
+#: ../data/ui/luks_passphrase_dialog.ui:12
 msgid "Please enter passphrase to decrypt selected device."
 msgstr "Zadajte heslo pre rozšifrovanie vybratého zariadenia."
 
-#: ../data/ui/luks_passphrase_dialog.ui:48 ../data/ui/encryption_chooser.ui:44
+#: ../data/ui/luks_passphrase_dialog.ui:52 ../data/ui/encryption_chooser.ui:44
 msgid "Passphrase:"
 msgstr "Heslo:"
 
@@ -942,7 +945,7 @@ msgstr "Nastaviť bod pripojenia"
 msgid "Set partition table"
 msgstr "Nastaviť tabuľku oddielov"
 
-#: ../data/ui/blivet-gui.ui:94
+#: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
 msgstr "Odpojiť"
 
@@ -958,122 +961,138 @@ msgstr "Informácie"
 msgid "blivet-gui"
 msgstr "blivet-gui"
 
-#: ../data/ui/blivet-gui.ui:270 ../data/ui/blivet-gui.ui:282
-#: ../data/ui/blivet-gui.ui:806 ../data/ui/blivet-gui.ui:817
-#: ../data/ui/blivet-gui.ui:828
+#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
+#: ../data/ui/blivet-gui.ui:804 ../data/ui/blivet-gui.ui:815
+#: ../data/ui/blivet-gui.ui:826
 msgid "column"
 msgstr "stĺpec"
 
-#: ../data/ui/blivet-gui.ui:346
+#: ../data/ui/blivet-gui.ui:348
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
 msgstr "Pridať nové zariadenie"
 
-#: ../data/ui/blivet-gui.ui:363
+#: ../data/ui/blivet-gui.ui:364
 msgctxt "ActionsToolbar|Delete"
 msgid "Delete selected device"
 msgstr "Odstrániť vybraté zariadenie"
 
-#: ../data/ui/blivet-gui.ui:382
+#: ../data/ui/blivet-gui.ui:380
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
 msgstr "Upraviť vybraté zariadenie"
 
-#: ../data/ui/blivet-gui.ui:407
+#: ../data/ui/blivet-gui.ui:406
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
 msgstr "Odpojiť vybraté zariadenie"
 
-#: ../data/ui/blivet-gui.ui:423
+#: ../data/ui/blivet-gui.ui:421
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
 msgstr "Odomknúť vybraté zariadenie"
 
-#: ../data/ui/blivet-gui.ui:439
+#: ../data/ui/blivet-gui.ui:436
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
 msgstr "Zobraziť informácie o vybratom zariadení"
 
 #. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:488
+#: ../data/ui/blivet-gui.ui:486
 msgctxt "LogicalView|Column"
 msgid "Format"
 msgstr "Formát"
 
-#: ../data/ui/blivet-gui.ui:510
+#: ../data/ui/blivet-gui.ui:508
 msgid "Mountpoint"
 msgstr "Bod pripojenia"
 
-#: ../data/ui/blivet-gui.ui:532
+#: ../data/ui/blivet-gui.ui:530
 msgid "Logical View"
 msgstr "Logické zobrazenie"
 
-#: ../data/ui/blivet-gui.ui:555
+#: ../data/ui/blivet-gui.ui:553
 msgid "Physical View"
 msgstr "Fyzické zobrazenie"
 
-#: ../data/ui/blivet-gui.ui:628
+#: ../data/ui/blivet-gui.ui:626
 msgid "Reload Storage"
 msgstr "Znovu načítať úložisko"
 
-#: ../data/ui/blivet-gui.ui:636
+#: ../data/ui/blivet-gui.ui:634
 msgid "Queued Actions"
 msgstr "Čakajúce akcie"
 
-#: ../data/ui/blivet-gui.ui:658
+#: ../data/ui/blivet-gui.ui:656
 msgid "About blivet-gui"
 msgstr "O blivet-gui"
 
-#: ../data/ui/raid_chooser.ui:21
-msgid "RAID level:"
-msgstr "Úroveň RAID:"
+#: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
+msgid "Cancel"
+msgstr ""
 
-#: ../data/ui/exception_dialog.ui:11 ../data/ui/error_dialog.ui:12
-msgid "Error"
-msgstr "Chyba"
+#. Confirmation dialog button for unmounting selected mountpoints.
+#: ../data/ui/unmount_dialog.ui:50
+#, fuzzy
+#| msgid "Unmount"
+msgctxt "Dialog|Unmount"
+msgid "Unmount"
+msgstr "Odpojiť"
 
-#: ../data/ui/exception_dialog.ui:23
-msgid "_Back"
-msgstr "_Späť"
-
-#: ../data/ui/exception_dialog.ui:37
-msgid "_Report a bug"
-msgstr "_Nahlásiť chybu"
-
-#: ../data/ui/exception_dialog.ui:51
-msgid "_Quit"
-msgstr "_Ukončiť"
-
-#: ../data/ui/exception_dialog.ui:103
-msgid "Show traceback"
-msgstr "Zobraziť chybu"
+#: ../data/ui/unmount_dialog.ui:87
+msgid ""
+"<b>Selected device is currently mounted\n"
+"at multiple mountpoints.</b>\n"
+"\n"
+"Please select mountpoint(s) to unmount:"
+msgstr ""
 
 #: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
 msgid "Format device"
 msgstr "Formátovať zariadenie"
 
-#: ../data/ui/format_dialog.ui:36 ../data/ui/resize_dialog.ui:27
-#: ../data/ui/mountpoint_dialog.ui:26
+#: ../data/ui/format_dialog.ui:39 ../data/ui/resize_dialog.ui:30
+#: ../data/ui/mountpoint_dialog.ui:29
 msgid "_Cancel"
 msgstr "_Zrušiť"
 
 #. Perform selected format change on this device.
-#: ../data/ui/format_dialog.ui:51
+#: ../data/ui/format_dialog.ui:54
 msgctxt "Dialog|Format"
 msgid "_Format"
 msgstr "_Formátovať"
 
-#: ../data/ui/format_dialog.ui:98
+#: ../data/ui/format_dialog.ui:101
 msgid "Select new format:"
 msgstr "Vyberte nový formát:"
 
-#: ../data/ui/format_dialog.ui:145
+#: ../data/ui/format_dialog.ui:148
 msgid "Enter new label:"
 msgstr "Zadajte novú menovku:"
 
-#: ../data/ui/format_dialog.ui:183 ../data/ui/mountpoint_dialog.ui:85
+#: ../data/ui/format_dialog.ui:186 ../data/ui/mountpoint_dialog.ui:88
 msgid "Enter new mountpoint:"
 msgstr "Zadajte nový bod pripojenia:"
+
+#: ../data/ui/raid_chooser.ui:21
+msgid "RAID level:"
+msgstr "Úroveň RAID:"
+
+#: ../data/ui/exception_dialog.ui:27
+msgid "_Back"
+msgstr "_Späť"
+
+#: ../data/ui/exception_dialog.ui:41
+msgid "_Report a bug"
+msgstr "_Nahlásiť chybu"
+
+#: ../data/ui/exception_dialog.ui:55
+msgid "_Quit"
+msgstr "_Ukončiť"
+
+#: ../data/ui/exception_dialog.ui:107
+msgid "Show traceback"
+msgstr "Zobraziť chybu"
 
 #: ../data/ui/size_chooser.ui:14
 msgid "Size:"
@@ -1082,18 +1101,6 @@ msgstr "Veľkosť:"
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
 msgstr "Definovať rozloženie ručne"
-
-#: ../data/ui/add_disklabel_dialog.ui:10
-msgid "No partition table found on disk"
-msgstr "Na disku nebola nájdená žiadna tabuľka oddielov"
-
-#: ../data/ui/add_disklabel_dialog.ui:11
-msgid "A partition table is required before partitions can be added."
-msgstr "Pred pridaním oddielov je potrebné vytvoriť tabuľku oddielov."
-
-#: ../data/ui/add_disklabel_dialog.ui:48
-msgid "Select new partition table type:"
-msgstr "Vyberte typ novej tabuľky oddielov:"
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
@@ -1111,15 +1118,15 @@ msgstr ""
 msgid "Repeat Passphrase:"
 msgstr "Zopakujte heslo:"
 
-#: ../data/ui/info_dialog.ui:11
+#: ../data/ui/info_dialog.ui:12
 msgid "Information:"
 msgstr "Informácie:"
 
-#: ../data/ui/custom_dialog.ui:51
+#: ../data/ui/custom_dialog.ui:55
 msgid "label"
 msgstr "menovka"
 
-#: ../data/ui/custom_dialog.ui:58
+#: ../data/ui/custom_dialog.ui:62
 msgid "Details"
 msgstr "Podrobnosti"
 
@@ -1147,15 +1154,19 @@ msgstr "Writethrough"
 msgid "Writeback"
 msgstr "Writeback"
 
-#: ../data/ui/about_dialog.ui:10
+#: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
 msgstr "Copyright © Red Hat Inc."
+
+#: ../data/ui/root_check_window.ui:24
+msgid "Root privileges are required for running blivet-gui."
+msgstr "Pre spustenie blibet-gui sú vyžadované rootovské práva."
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
 msgstr "Zmeniť veľkosť zariadenia"
 
-#: ../data/ui/resize_dialog.ui:42
+#: ../data/ui/resize_dialog.ui:45
 msgid "_Resize"
 msgstr "Z_meniť veľkosť"
 
@@ -1167,20 +1178,28 @@ msgstr "Názov rodiča:"
 msgid "Available space:"
 msgstr "Dostupné miesto:"
 
-#: ../data/ui/label_dialog.ui:22
-msgid "Cancel"
-msgstr ""
-
 #. Perform selected format change on this device.
-#: ../data/ui/label_dialog.ui:36
+#: ../data/ui/label_dialog.ui:39
 msgctxt "Dialog|Format"
 msgid "Relabel"
 msgstr ""
 
-#: ../data/ui/label_dialog.ui:68
+#: ../data/ui/label_dialog.ui:71
 msgid "Enter new label for this filesystem:"
 msgstr ""
 
-#: ../data/ui/mountpoint_dialog.ui:41
+#: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
 msgstr "_Nastaviť bod pripojenia"
+
+#: ../data/ui/add_disklabel_dialog.ui:11
+msgid "No partition table found on disk"
+msgstr "Na disku nebola nájdená žiadna tabuľka oddielov"
+
+#: ../data/ui/add_disklabel_dialog.ui:12
+msgid "A partition table is required before partitions can be added."
+msgstr "Pred pridaním oddielov je potrebné vytvoriť tabuľku oddielov."
+
+#: ../data/ui/add_disklabel_dialog.ui:52
+msgid "Select new partition table type:"
+msgstr "Vyberte typ novej tabuľky oddielov:"
