@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-22 21:48+0100\n"
-"PO-Revision-Date: 2020-02-16 08:39+0000\n"
+"PO-Revision-Date: 2020-03-14 20:38+0000\n"
 "Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fr/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.10.3\n"
+"X-Generator: Weblate 3.11.3\n"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
@@ -214,12 +214,12 @@ msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Voulez-vous vraiment lancer l’exécution des actions programmées ?"
 
 #: ../blivetgui/blivetgui.py:682
-#, fuzzy, python-brace-format
-#| msgid "Unmount failed. Are you sure device is not in use?"
+#, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
-"Échec du démontage. Avez-vous vérifié que le périphérique n’est pas utilisé ?"
+"Échec du démontage « {mountpoint} ». Êtes-vous sûr que le périphérique n’est "
+"pas en cours d’utilisation ?"
 
 #: ../blivetgui/blivetgui.py:704
 msgid "Device decryption failed. Are you sure provided password is correct?"
@@ -1054,8 +1054,6 @@ msgstr "Annuler"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
-#, fuzzy
-#| msgid "Unmount"
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
 msgstr "Démonter"
@@ -1067,6 +1065,10 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>Le périphérique sélectionné est actuellement monté\n"
+"en de multiples points de montage.</b>\n"
+"\n"
+"Veuillez démonter les points de montage pour démonter :"
 
 #: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
 msgid "Format device"

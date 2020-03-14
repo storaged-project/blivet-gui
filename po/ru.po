@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-22 21:48+0100\n"
-"PO-Revision-Date: 2020-03-10 20:38+0000\n"
+"PO-Revision-Date: 2020-03-14 20:38+0000\n"
 "Last-Translator: Igor Gorbounov <igor.gorbounov@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ru/>\n"
@@ -14,9 +14,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.11.2\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.11.3\n"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
@@ -116,25 +116,25 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:283
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "Не удалось изменить размер устройства:"
 
 #: ../blivetgui/blivetgui.py:295
 #, python-brace-format
 msgid "resize {name} {type}"
-msgstr ""
+msgstr "изменить размер {name} {type}"
 
 #: ../blivetgui/blivetgui.py:314
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "Не удалось форматировать устройство:"
 
 #: ../blivetgui/blivetgui.py:328
 #, python-brace-format
 msgid "format {name} {type}"
-msgstr ""
+msgstr "форматировать {name} {type}"
 
 #: ../blivetgui/blivetgui.py:341
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "Не удалось изменить группу томов LVM2:"
 
 #: ../blivetgui/blivetgui.py:356
 #, python-brace-format
@@ -143,12 +143,12 @@ msgstr "изменить {name} {type}"
 
 #: ../blivetgui/blivetgui.py:385
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "Не удалось изменить метку файловой системы на устройстве:"
 
 #: ../blivetgui/blivetgui.py:390
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "изменить метку файловой системы для {name} {type}"
 
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
@@ -174,7 +174,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:427
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "Не удалось добавить метку диска:"
 
 #: ../blivetgui/blivetgui.py:440
 #, python-brace-format
@@ -183,7 +183,7 @@ msgstr "создать новую метку диска на {name}"
 
 #: ../blivetgui/blivetgui.py:492
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "Не удалось добавить устройство:"
 
 #: ../blivetgui/blivetgui.py:507
 #, python-brace-format
@@ -192,7 +192,7 @@ msgstr "добавить устройство {size} {type}"
 
 #: ../blivetgui/blivetgui.py:542
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "Не удалось удалить устройство:"
 
 #: ../blivetgui/blivetgui.py:557
 #, python-brace-format
@@ -201,7 +201,7 @@ msgstr "удалить раздел {name}"
 
 #: ../blivetgui/blivetgui.py:596
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "Не удалось выполнить действия:"
 
 #: ../blivetgui/blivetgui.py:640
 msgid "Confirm scheduled actions"
@@ -212,12 +212,12 @@ msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Вы действительно хотите выполнить запланированные действия?"
 
 #: ../blivetgui/blivetgui.py:682
-#, fuzzy, python-brace-format
-#| msgid "Unmount failed. Are you sure device is not in use?"
+#, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
-"Размонтирование не удалось. Вы уверены, что устройство не используется?"
+"Размонтирование «{mountpoint}» не удалось. Вы уверены, что устройство не "
+"используется?"
 
 #: ../blivetgui/blivetgui.py:704
 msgid "Device decryption failed. Are you sure provided password is correct?"
@@ -230,13 +230,15 @@ msgstr "Выйти"
 
 #: ../blivetgui/blivetgui.py:757
 msgid "blivet-gui is already running"
-msgstr ""
+msgstr "blivet-gui уже запущен"
 
 #: ../blivetgui/blivetgui.py:758
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
+"Уже запущен другой экземпляр blivet-gui.\n"
+"Одновременно может работать только один экземпляр blivet-gui."
 
 #: ../blivetgui/blivetgui.py:760
 msgid ""
@@ -248,23 +250,30 @@ msgid ""
 "\n"
 "command to force quit it."
 msgstr ""
+"Если предыдущий экземпляр blivet-gui аварийно завершился, убедитесь, что "
+"процесс <i>blivet-gui-daemon</i> тоже остановлен.\n"
+"Если он все еще работает, можно использовать команду\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"для принудительного завершения."
 
 #: ../blivetgui/blivetgui.py:792
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "Не удалось инициализировать blivet:"
 
 #: ../blivetgui/blivetgui.py:799
 msgid "Quit blivet-gui"
-msgstr ""
+msgstr "Выйти из blivet-gui"
 
 #: ../blivetgui/blivetgui.py:801
 msgid "Ignore disk and continue"
-msgstr ""
+msgstr "Игнорировать диск и продолжить"
 
 #: ../blivetgui/blivetgui.py:804
 #, python-brace-format
 msgid "Error: {error}"
-msgstr ""
+msgstr "Ошибка: {error}"
 
 #: ../blivetgui/blivetgui.py:805
 #, python-brace-format
@@ -274,6 +283,10 @@ msgid ""
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
+"Blivet-gui не может использовать диск <b>{name}</b> из-за поврежденной или "
+"неизвестной метки диска.\n"
+"Вы можете либо выйти сейчас из blivet-gui, либо продолжить, не имея "
+"возможности использовать этот диск."
 
 #: ../blivetgui/blivetgui.py:841
 msgid "Confirm reload storage"
@@ -314,7 +327,9 @@ msgstr "Нет ожидающих действий"
 #, python-format
 msgid "%s pending action"
 msgid_plural "%s pending actions"
-msgstr[0] ""
+msgstr[0] "%s ожидающее действие"
+msgstr[1] "%s ожидающих действия"
+msgstr[2] "%s ожидающих действий"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -328,11 +343,12 @@ msgstr "Выполняется проверка конфигурации уст�
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
 msgstr ""
+"Выбранный сейчас размер больше, чем максимальный предел для этого выбора."
 
 #: ../blivetgui/dialogs/size_chooser.py:199
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
-msgstr ""
+msgstr "Выбранный сейчас размер меньше минимального предела для этого выбора."
 
 #: ../blivetgui/dialogs/edit_dialog.py:102
 #, python-brace-format
@@ -350,7 +366,7 @@ msgstr "Размер этого устройства не может быть и
 #: ../blivetgui/dialogs/edit_dialog.py:164
 #: ../blivetgui/dialogs/add_dialog.py:794
 msgid "unformatted"
-msgstr ""
+msgstr "не форматировано"
 
 #: ../blivetgui/dialogs/edit_dialog.py:231
 #: ../blivetgui/dialogs/add_dialog.py:1029
@@ -361,7 +377,7 @@ msgstr "Недопустимая метка: «{0}»."
 #: ../blivetgui/dialogs/edit_dialog.py:406
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "«{label}» - неправильная метка для этой файловой системы"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:517
@@ -413,7 +429,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:595
 msgid "Add?"
-msgstr ""
+msgstr "Добавить?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:607
 #: ../blivetgui/dialogs/edit_dialog.py:669
@@ -432,11 +448,11 @@ msgstr ""
 #: ../blivetgui/dialogs/edit_dialog.py:649
 msgid "Currently is possible to remove only one parent at time."
 msgstr ""
-"В настоящее время удалить можно только однородительское устройство за раз."
+"В настоящее время удалить можно только одно родительское устройство за раз."
 
 #: ../blivetgui/dialogs/edit_dialog.py:657
 msgid "Remove?"
-msgstr ""
+msgstr "Удалить?"
 
 #: ../blivetgui/dialogs/other_dialogs.py:51
 msgid "translator-credits"
@@ -470,16 +486,16 @@ msgstr "Расширенный"
 
 #: ../blivetgui/dialogs/add_dialog.py:151
 msgid "Chunk Size:"
-msgstr ""
+msgstr "Размер сегмента:"
 
 #: ../blivetgui/dialogs/add_dialog.py:214
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
-msgstr ""
+msgstr "«{0}» - неправильная спецификация размера сегмента."
 
 #: ../blivetgui/dialogs/add_dialog.py:219
 msgid "Chunk size must be multiple of 4 KiB."
-msgstr ""
+msgstr "Размер сегмента должен быть кратным 4 Киб."
 
 #: ../blivetgui/dialogs/add_dialog.py:275
 msgid "Create new device"
@@ -519,7 +535,7 @@ msgstr "Снимок LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:406
 msgid "LVM2 Thin Snaphost"
-msgstr ""
+msgstr "Тонкий снимок LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:409
 #: ../blivetgui/dialogs/device_info_dialog.py:83
@@ -586,7 +602,7 @@ msgstr "Вы действительно хотите удалить устрой
 #: ../blivetgui/dialogs/message_dialogs.py:207
 #, python-brace-format
 msgid "Also delete following parent devices of {name}:"
-msgstr ""
+msgstr "Удалить также следующие родительские устройства {name}:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:304
 msgid "There are no pending actions."
@@ -642,7 +658,7 @@ msgstr "Многомерный RAID"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "DM Integrity Device"
-msgstr ""
+msgstr "Устройство DM Integrity"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:99
 #: ../blivetgui/dialogs/device_info_dialog.py:221
@@ -690,11 +706,11 @@ msgstr " • <i>Использовано:</i> {used}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:120
 #, python-brace-format
 msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
-msgstr ""
+msgstr " • <i>Кэшировано:</i> Да (размер кэша: {cache_size})\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:122
 msgid " • <i>Cached:</i> No\n"
-msgstr ""
+msgstr " • <i>Кэшировано:</i> Нет\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:127
 #, python-brace-format
@@ -719,7 +735,7 @@ msgstr " • <i>Свободно физ. экстентов:</i> {pefree}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:131
 #, python-brace-format
 msgid " • <i>Reserved Space:</i> {res}\n"
-msgstr ""
+msgstr " • <i>Зарезервированное место:</i> {res}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:132
 #: ../blivetgui/dialogs/device_info_dialog.py:151
@@ -770,12 +786,12 @@ msgstr " • <i>Версия метаданных:</i> {metadata}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:165
 #, python-brace-format
 msgid "Unknown device {name}"
-msgstr ""
+msgstr "Неизвестное устройство {name}"
 
 #. device info header
 #: ../blivetgui/dialogs/device_info_dialog.py:173
 msgid "Basic information"
-msgstr ""
+msgstr "Основная информация"
 
 #. 'basic' information about selected device
 #: ../blivetgui/dialogs/device_info_dialog.py:183
@@ -814,7 +830,7 @@ msgstr " • <i>Размер:</i> {size}\n"
 #. device format header
 #: ../blivetgui/dialogs/device_info_dialog.py:208
 msgid "Device format"
-msgstr ""
+msgstr "Формат устройства"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:222
 #, python-brace-format
@@ -838,7 +854,7 @@ msgstr " • <i>Тип:</i> нет"
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:242
 msgid "Parents"
-msgstr ""
+msgstr "Родители"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:255
 #, python-brace-format
@@ -848,39 +864,39 @@ msgstr " • {exists} {size} {type} {name}\n"
 #: ../blivetgui/communication/client.py:289
 #: ../blivetgui/communication/client.py:306
 msgid "Failed to connect to blivet-gui-daemon"
-msgstr ""
+msgstr "Не удалось подключиться к blivet-gui-daemon"
 
 #: ../blivetgui/visualization/rectangle.py:50
 msgid "Group device"
-msgstr ""
+msgstr "Групповое устройство"
 
 #: ../blivetgui/visualization/rectangle.py:51
 msgid "LiveUSB device"
-msgstr ""
+msgstr "Устройство LiveUSB"
 
 #: ../blivetgui/visualization/rectangle.py:52
 msgid "Encrypted device (closed)"
-msgstr ""
+msgstr "Зашифрованное устройство (закрыто)"
 
 #: ../blivetgui/visualization/rectangle.py:53
 msgid "Encrypted device (open)"
-msgstr ""
+msgstr "Зашифрованное устройство (открыто)"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Empty device"
-msgstr ""
+msgstr "Пустое устройство"
 
 #: ../blivetgui/visualization/rectangle.py:55
 msgid "Snapshot"
-msgstr ""
+msgstr "Снимок"
 
 #: ../blivetgui/visualization/rectangle.py:56
 msgid "Missing partition table"
-msgstr ""
+msgstr "Отсутствует таблица разделов"
 
 #: ../blivetgui/visualization/rectangle.py:57
 msgid "Device or format is write protected"
-msgstr ""
+msgstr "Устройство или формат защищены от записи"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
@@ -912,30 +928,30 @@ msgstr "Изменить"
 
 #: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
 msgid "Resize"
-msgstr ""
+msgstr "Изменить размер"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
 msgctxt "Menu|Edit"
 msgid "Format"
-msgstr ""
+msgstr "Форматировать"
 
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:154
 msgid "Set label"
-msgstr ""
+msgstr "Установить метку"
 
 #: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:138
 msgid "Modify parents"
-msgstr ""
+msgstr "Изменить родителей"
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:146
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
-msgstr ""
+msgstr "Установить точку монтирования"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
 msgid "Set partition table"
-msgstr ""
+msgstr "Установить таблицу разделов"
 
 #: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
@@ -962,38 +978,38 @@ msgstr "столбец"
 #: ../data/ui/blivet-gui.ui:348
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
-msgstr ""
+msgstr "Добавить новое устройство"
 
 #: ../data/ui/blivet-gui.ui:364
 msgctxt "ActionsToolbar|Delete"
 msgid "Delete selected device"
-msgstr ""
+msgstr "Удалить выбранное устройство"
 
 #: ../data/ui/blivet-gui.ui:380
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
-msgstr ""
+msgstr "Изменить выбранное устройство"
 
 #: ../data/ui/blivet-gui.ui:406
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
-msgstr ""
+msgstr "Размонтировать выбранное устройство"
 
 #: ../data/ui/blivet-gui.ui:421
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
-msgstr ""
+msgstr "Разблокировать или открыть выбранное устройство"
 
 #: ../data/ui/blivet-gui.ui:436
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
-msgstr ""
+msgstr "Показать информацию о выбранном устройстве"
 
 #. Format (filesystem) type of selected device.
 #: ../data/ui/blivet-gui.ui:486
 msgctxt "LogicalView|Column"
 msgid "Format"
-msgstr ""
+msgstr "Форматировать"
 
 #: ../data/ui/blivet-gui.ui:508
 msgid "Mountpoint"
@@ -1021,7 +1037,7 @@ msgstr "О программе blivet-gui"
 
 #: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
 msgid "Cancel"
-msgstr ""
+msgstr "Отменить"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
@@ -1038,65 +1054,69 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>Выбранное устройство сейчас смонтировано\n"
+"в нескольких точках монтирования.</b>\n"
+"\n"
+"Выберите точки для размонтирования:"
 
 #: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
 msgid "Format device"
-msgstr ""
+msgstr "Форматировать устройство"
 
 #: ../data/ui/format_dialog.ui:39 ../data/ui/resize_dialog.ui:30
 #: ../data/ui/mountpoint_dialog.ui:29
 msgid "_Cancel"
-msgstr ""
+msgstr "От_менить"
 
 #. Perform selected format change on this device.
 #: ../data/ui/format_dialog.ui:54
 msgctxt "Dialog|Format"
 msgid "_Format"
-msgstr ""
+msgstr "_Форматировать"
 
 #: ../data/ui/format_dialog.ui:101
 msgid "Select new format:"
-msgstr ""
+msgstr "Выберите новый формат:"
 
 #: ../data/ui/format_dialog.ui:148
 msgid "Enter new label:"
-msgstr ""
+msgstr "Введите новую метку:"
 
 #: ../data/ui/format_dialog.ui:186 ../data/ui/mountpoint_dialog.ui:88
 msgid "Enter new mountpoint:"
-msgstr ""
+msgstr "Введите новую точку монтирования:"
 
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
-msgstr ""
+msgstr "Уровень RAID:"
 
 #: ../data/ui/exception_dialog.ui:27
 msgid "_Back"
-msgstr ""
+msgstr "_Назад"
 
 #: ../data/ui/exception_dialog.ui:41
 msgid "_Report a bug"
-msgstr ""
+msgstr "_Сообщить об ошибке"
 
 #: ../data/ui/exception_dialog.ui:55
 msgid "_Quit"
-msgstr ""
+msgstr "Вы_йти"
 
 #: ../data/ui/exception_dialog.ui:107
 msgid "Show traceback"
-msgstr ""
+msgstr "Показать трассировку"
 
 #: ../data/ui/size_chooser.ui:14
 msgid "Size:"
-msgstr ""
+msgstr "Размер:"
 
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
-msgstr ""
+msgstr "Вручную укажите раскладку"
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
-msgstr ""
+msgstr "Ожидающие действия"
 
 #: ../data/ui/encryption_chooser.ui:20
 msgid "Encrypt:"
@@ -1104,7 +1124,7 @@ msgstr "Зашифровать:"
 
 #: ../data/ui/encryption_chooser.ui:32
 msgid "Encryption type:"
-msgstr ""
+msgstr "Тип шифрования:"
 
 #: ../data/ui/encryption_chooser.ui:56
 msgid "Repeat Passphrase:"
@@ -1112,31 +1132,31 @@ msgstr "Повторите пароль:"
 
 #: ../data/ui/info_dialog.ui:12
 msgid "Information:"
-msgstr ""
+msgstr "Сведения:"
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
-msgstr ""
+msgstr "метка"
 
 #: ../data/ui/custom_dialog.ui:62
 msgid "Details"
-msgstr ""
+msgstr "Подробности"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
-msgstr ""
+msgstr "Кэшировать этот LV:"
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
-msgstr ""
+msgstr "Свободное место"
 
 #: ../data/ui/cache_area.ui:109
 msgid "On disk"
-msgstr ""
+msgstr "На диске"
 
 #: ../data/ui/cache_area.ui:142
 msgid "Cache type:"
-msgstr ""
+msgstr "Тип кэша:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
