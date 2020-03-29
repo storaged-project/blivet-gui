@@ -1,25 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Daniel Lara <danniel@fedoraproject.org>, 2016. #zanata
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # Rodrigo de Araujo Sousa Fonseca <rodrigodearaujo@fedoraproject.org>, 2017. #zanata
 # Ruhan Macedo <ruhanmachado@gmail.com>, 2017. #zanata
+# Lucas Fernandes <lucas.af88@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-22 21:48+0100\n"
-"PO-Revision-Date: 2017-12-11 06:19+0000\n"
-"Last-Translator: Ruhan Macedo <ruhanmachado@gmail.com>\n"
-"Language-Team: Portuguese (Brazil)\n"
+"PO-Revision-Date: 2020-03-29 12:11+0000\n"
+"Last-Translator: Lucas Fernandes <lucas.af88@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
+"projects/blivet/blivet-gui/pt_BR/>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 3.11.3\n"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
@@ -57,6 +58,8 @@ msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
+"Um erro desconhecido ocorreu. Anaconda será terminado.\n"
+"{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
 #: ../blivetgui/osinstall.py:265
@@ -73,7 +76,7 @@ msgstr ""
 
 #: ../blivetgui/list_devices.py:105
 msgid "LVM2 VG"
-msgstr ""
+msgstr "LVM2 VG"
 
 #: ../blivetgui/list_devices.py:108
 msgid "RAID"
@@ -85,12 +88,12 @@ msgstr ""
 
 #: ../blivetgui/list_devices.py:114
 msgid "Btrfs Volumes"
-msgstr ""
+msgstr "Volumes Btrfs"
 
 #: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:390
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "Btrfs Volume"
-msgstr ""
+msgstr "Volume Btrfs"
 
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
@@ -112,7 +115,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:283
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "Falha ao redimensionar o dispositivo:"
 
 #: ../blivetgui/blivetgui.py:295
 #, python-brace-format
@@ -121,7 +124,7 @@ msgstr "Redimensionar {name} {type}"
 
 #: ../blivetgui/blivetgui.py:314
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "Falha ao formatar o dispositivo:"
 
 #: ../blivetgui/blivetgui.py:328
 #, python-brace-format
@@ -130,7 +133,7 @@ msgstr "formatar{name} {type}"
 
 #: ../blivetgui/blivetgui.py:341
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "Falha ao editar o Grupo de Volumes LVM2:"
 
 #: ../blivetgui/blivetgui.py:356
 #, python-brace-format
@@ -139,12 +142,12 @@ msgstr "editar{name}{type}"
 
 #: ../blivetgui/blivetgui.py:385
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "Falha ao alterar o rótulo do sistema de arquivos no dispositivo:"
 
 #: ../blivetgui/blivetgui.py:390
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "alterar rótulo do sistema de arquivos de {name} {type}"
 
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
@@ -152,6 +155,8 @@ msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
 "PVs."
 msgstr ""
+"{name} não está completo. Não é possível adicionar novos LVs ao VG com PVs "
+"ausentes."
 
 #: ../blivetgui/blivetgui.py:411
 msgid "Not enough free space for a new LVM Volume Group."
@@ -163,28 +168,30 @@ msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
 "{label} disklabel."
 msgstr ""
+"O disco {name} já atingiu o número máximo permitido de partições primárias "
+"para o {label} disklabel."
 
 #: ../blivetgui/blivetgui.py:427
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "Falha ao adicionar o disklabel:"
 
 #: ../blivetgui/blivetgui.py:440
 #, python-brace-format
 msgid "create new disklabel on {name}"
-msgstr ""
+msgstr "criar um novo disklabel em {name}"
 
 #: ../blivetgui/blivetgui.py:492
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "Falha ao adicionar o dispositivo:"
 
 #: ../blivetgui/blivetgui.py:507
 #, python-brace-format
 msgid "add {size} {type} device"
-msgstr ""
+msgstr "adicionar dispositivo {type} de {size}"
 
 #: ../blivetgui/blivetgui.py:542
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "Falha ao excluir o dispositivo:"
 
 #: ../blivetgui/blivetgui.py:557
 #, python-brace-format
@@ -193,23 +200,23 @@ msgstr "deletar partição{name}"
 
 #: ../blivetgui/blivetgui.py:596
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "Falha ao executar as ações:"
 
 #: ../blivetgui/blivetgui.py:640
 msgid "Confirm scheduled actions"
-msgstr ""
+msgstr "Confirmar ações agendadas"
 
 #: ../blivetgui/blivetgui.py:641
 msgid "Are you sure you want to perform scheduled actions?"
-msgstr ""
+msgstr "Tem certeza de que deseja executar as ações agendadas?"
 
 #: ../blivetgui/blivetgui.py:682
-#, fuzzy, python-brace-format
-#| msgid "Unmount failed. Are you sure device is not in use?"
+#, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
-"A desmontagem falhou. Você está certo que o dispositivo não está em uso?"
+"A desmontagem do '{mountpoint}' falhou. Você tem certeza que o dispositivo "
+"não está em uso?"
 
 #: ../blivetgui/blivetgui.py:704
 msgid "Device decryption failed. Are you sure provided password is correct?"
@@ -223,13 +230,15 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:757
 msgid "blivet-gui is already running"
-msgstr ""
+msgstr "blivet-gui já está em execução"
 
 #: ../blivetgui/blivetgui.py:758
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
+"Outra instância do blivet-gui já está em execução.\n"
+"Apenas uma instância do blivet-gui pode ser executada ao mesmo tempo."
 
 #: ../blivetgui/blivetgui.py:760
 msgid ""
@@ -241,14 +250,21 @@ msgid ""
 "\n"
 "command to force quit it."
 msgstr ""
+"Se sua instância anterior do blivet-gui falhou, certifique-se que o processo "
+"do <i>blivet-gui-daemon</i> também foi encerrado.\n"
+"Se ainda estiver em execução você pode usar\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"comando para forçá-lo a sair."
 
 #: ../blivetgui/blivetgui.py:792
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "Falha ao iniciar o blivet:"
 
 #: ../blivetgui/blivetgui.py:799
 msgid "Quit blivet-gui"
-msgstr "Sair  blivet-gui"
+msgstr "Sair blivet-gui"
 
 #: ../blivetgui/blivetgui.py:801
 msgid "Ignore disk and continue"
@@ -257,7 +273,7 @@ msgstr "Ignorar o disco e continuar"
 #: ../blivetgui/blivetgui.py:804
 #, python-brace-format
 msgid "Error: {error}"
-msgstr ""
+msgstr "Erro: {error}"
 
 #: ../blivetgui/blivetgui.py:805
 #, python-brace-format
@@ -267,6 +283,9 @@ msgid ""
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
+"Blivet-gui não pode usar o disco <b>{name}</b> devido a um disklabel "
+"corrompido/desconhecido.\n"
+"Você pode sair do blivet-gui agora ou continuar sem poder usar este disco."
 
 #: ../blivetgui/blivetgui.py:841
 msgid "Confirm reload storage"
@@ -274,7 +293,7 @@ msgstr "Confirmar o recarregamento do armazenamento"
 
 #: ../blivetgui/blivetgui.py:842
 msgid "There are pending operations. Are you sure you want to continue?"
-msgstr "Existem operação pendentes. Você está certo que deseja continuar? "
+msgstr "Existem operações pendentes. Você tem certeza que quer continuar?"
 
 #: ../blivetgui/blivetgui.py:873
 msgid "Are you sure you want to quit?"
@@ -309,7 +328,8 @@ msgstr "Sem ações pendentes"
 #, python-format
 msgid "%s pending action"
 msgid_plural "%s pending actions"
-msgstr[0] ""
+msgstr[0] "%s ação pendente"
+msgstr[1] "%s ações pendentes"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -317,17 +337,21 @@ msgstr ""
 
 #: ../blivetgui/loading_window.py:65
 msgid "Scanning storage configuration..."
-msgstr ""
+msgstr "Verificando a configuração de armazenamento..."
 
 #: ../blivetgui/dialogs/size_chooser.py:196
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
 msgstr ""
+"O tamanho atualmente selecionado é maior que o limite máximo para esta "
+"seleção."
 
 #: ../blivetgui/dialogs/size_chooser.py:199
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr ""
+"O tamanho atualmente selecionado é menor que o limite mínimo para esta "
+"seleção."
 
 #: ../blivetgui/dialogs/edit_dialog.py:102
 #, python-brace-format
@@ -335,10 +359,12 @@ msgid ""
 "<b>This device cannot be resized:</b>\n"
 "<i>{0}</i>"
 msgstr ""
+"<b>Este dispositivo não pode ser redimensionado:</b>\n"
+"<i>{0}</i>"
 
 #: ../blivetgui/dialogs/edit_dialog.py:104
 msgid "This device cannot be resized."
-msgstr ""
+msgstr "Este dispositivo não pode ser redimensionado."
 
 #: ../blivetgui/dialogs/edit_dialog.py:164
 #: ../blivetgui/dialogs/add_dialog.py:794
@@ -349,17 +375,17 @@ msgstr "Não formatado"
 #: ../blivetgui/dialogs/add_dialog.py:1029
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
-msgstr ""
+msgstr "\"{0}\" não é um rótulo válido."
 
 #: ../blivetgui/dialogs/edit_dialog.py:406
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "'{label}' não é um rótulo válido para este sistema de arquivos"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:517
 msgid "Edit device"
-msgstr ""
+msgstr "Editar dispositivo"
 
 #: ../blivetgui/dialogs/edit_dialog.py:547
 #: ../blivetgui/dialogs/edit_dialog.py:596
@@ -401,10 +427,12 @@ msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
 msgstr ""
+"Atualmente não há volumes físicos vazios ou\n"
+"discos com espaço livre suficiente para criar um."
 
 #: ../blivetgui/dialogs/edit_dialog.py:595
 msgid "Add?"
-msgstr ""
+msgstr "Adicionar?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:607
 #: ../blivetgui/dialogs/edit_dialog.py:669
@@ -417,6 +445,8 @@ msgid ""
 "There is no physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
+"Não há volume físico que possa ser\n"
+"removido desse grupo de volumes."
 
 #: ../blivetgui/dialogs/edit_dialog.py:649
 msgid "Currently is possible to remove only one parent at time."
@@ -424,11 +454,11 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:657
 msgid "Remove?"
-msgstr ""
+msgstr "Remover?"
 
 #: ../blivetgui/dialogs/other_dialogs.py:51
 msgid "translator-credits"
-msgstr ""
+msgstr "tradutor-créditos"
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
@@ -436,7 +466,7 @@ msgstr "Mostrar opções avançadas"
 
 #: ../blivetgui/dialogs/add_dialog.py:85
 msgid "PE Size:"
-msgstr ""
+msgstr "Tamanho PE:"
 
 #: ../blivetgui/dialogs/add_dialog.py:109
 msgid "Partition type:"
@@ -454,7 +484,7 @@ msgstr "Primário"
 
 #: ../blivetgui/dialogs/add_dialog.py:126
 msgid "Extended"
-msgstr "Estendido "
+msgstr "Estendido"
 
 #: ../blivetgui/dialogs/add_dialog.py:151
 msgid "Chunk Size:"
@@ -521,7 +551,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:418
 msgid "Device type:"
-msgstr "Tipo de dispositivo: "
+msgstr "Tipo de dispositivo:"
 
 #: ../blivetgui/dialogs/add_dialog.py:736
 msgid "MDArray type:"
@@ -541,7 +571,7 @@ msgstr "Nome:"
 
 #: ../blivetgui/dialogs/add_dialog.py:841
 msgid "Mountpoint:"
-msgstr "Ponto de montagem: "
+msgstr "Ponto de montagem:"
 
 #: ../blivetgui/dialogs/add_dialog.py:1002 ../blivetgui/dialogs/helpers.py:141
 #, python-brace-format
@@ -564,7 +594,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/message_dialogs.py:197
 msgid "Confirm delete operation"
-msgstr "Confirmar remoção "
+msgstr "Confirmar remoção"
 
 #: ../blivetgui/dialogs/message_dialogs.py:198
 #, python-brace-format
