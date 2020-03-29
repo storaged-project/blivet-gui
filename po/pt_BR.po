@@ -6,13 +6,14 @@
 # Rodrigo de Araujo Sousa Fonseca <rodrigodearaujo@fedoraproject.org>, 2017. #zanata
 # Ruhan Macedo <ruhanmachado@gmail.com>, 2017. #zanata
 # Lucas Fernandes <lucas.af88@gmail.com>, 2020.
+# Anonymous <noreply@weblate.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-22 21:48+0100\n"
 "PO-Revision-Date: 2020-03-29 12:11+0000\n"
-"Last-Translator: Lucas Fernandes <lucas.af88@gmail.com>\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -72,7 +73,7 @@ msgstr "Discos"
 
 #: ../blivetgui/list_devices.py:102
 msgid "LVM"
-msgstr ""
+msgstr "LVM"
 
 #: ../blivetgui/list_devices.py:105
 msgid "LVM2 VG"
@@ -80,7 +81,7 @@ msgstr "LVM2 VG"
 
 #: ../blivetgui/list_devices.py:108
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../blivetgui/list_devices.py:111
 msgid "MDArray"
@@ -226,7 +227,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:642
 msgid "Quit"
-msgstr ""
+msgstr "Sair"
 
 #: ../blivetgui/blivetgui.py:757
 msgid "blivet-gui is already running"
@@ -333,7 +334,7 @@ msgstr[1] "%s ações pendentes"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
-msgstr ""
+msgstr "Examinando armazenamento"
 
 #: ../blivetgui/loading_window.py:65
 msgid "Scanning storage configuration..."
@@ -488,7 +489,7 @@ msgstr "Estendido"
 
 #: ../blivetgui/dialogs/add_dialog.py:151
 msgid "Chunk Size:"
-msgstr ""
+msgstr "Tamanho do Bloco"
 
 #: ../blivetgui/dialogs/add_dialog.py:214
 #, python-brace-format
