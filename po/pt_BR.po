@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-22 21:48+0100\n"
 "PO-Revision-Date: 2020-03-29 12:31+0000\n"
-"Last-Translator: Lucas Fernandes <lucas.af88@gmail.com>\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -1016,7 +1016,7 @@ msgstr "Formato"
 
 #: ../data/ui/blivet-gui.ui:508
 msgid "Mountpoint"
-msgstr ""
+msgstr "Ponto de montagem: "
 
 #: ../data/ui/blivet-gui.ui:530
 msgid "Logical View"
