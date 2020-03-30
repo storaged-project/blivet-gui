@@ -51,6 +51,8 @@ from contextlib import contextmanager
 
 class BlivetUtilsAnaconda(BlivetUtils):
 
+    installer_mode = True
+
     def __init__(self):
         # pylint: disable=super-init-not-called
 

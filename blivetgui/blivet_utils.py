@@ -173,6 +173,8 @@ class BlivetUtils(object):
     """ Class with utils directly working with blivet itselves
     """
 
+    installer_mode = False
+
     def __init__(self, ignored_disks=None, exclusive_disks=None):
 
         self.ignored_disks = ignored_disks
@@ -1385,6 +1387,8 @@ class BlivetUtils(object):
         blivet_device.format.passphrase = passphrase
 
         try:
+            if self.installer_mode:
+                blivet_device.setup()
             blivet_device.format.setup()
 
         except blivet.errors.LUKSError:
