@@ -1063,7 +1063,7 @@ class BlivetUtils(object):
             pv_input = ProxyDataContainer(size_selection=size_selection,
                                           encrypt=user_input.encrypt,
                                           passphrase=user_input.passphrase,
-                                          luks_version=user_input.encryption_type)
+                                          encryption_type=user_input.encryption_type)
             pv_actions = self._create_lvmpv(pv_input)
 
             # we need to try to register create actions immediately, if something fails, fail now
