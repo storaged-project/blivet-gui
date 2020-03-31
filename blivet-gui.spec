@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.12
+Version: 2.1.13
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -69,6 +69,43 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Tue Mar 31 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.13-1
+- Translations update from Weblate (#166) (noreply)
+- Translated using Weblate (German) (jensmaucher)
+- Fix unlocking LUKS on RAID in the installer mode (#1787508) (vtrefny)
+- Fix creating encrypted LVM VG (#1816098) (vtrefny)
+- Translated using Weblate (Turkish) (oguzersen)
+- Translated using Weblate (Finnish) (jiri.gronroos)
+- Translated using Weblate (Ukrainian) (yurchor)
+- Translated using Weblate (Slovak) (feonsu)
+- Translated using Weblate (Russian) (igor.gorbounov)
+- Translated using Weblate (French) (julroy67)
+- Translated using Weblate (Polish) (piotrdrag)
+- Update translation files (noreply)
+- Translated using Weblate (Russian) (igor.gorbounov)
+- Fix setting attributes for proxy objects (#1810855) (vtrefny)
+- Allow selecting mountpoints to unmount for devices with multiple mountpoints (vtrefny)
+- Allow calling "remote" functions with kwargs (vtrefny)
+- Display all mountpoints for devices (vtrefny)
+- packit: Use 'fedora-all' as Copr build targets (vtrefny)
+- Translated using Weblate (Spanish) (fitoschido)
+- Update packit Copr targets (vtrefny)
+- Translated using Weblate (Ukrainian) (yurchor)
+- Translated using Weblate (Spanish) (fitoschido)
+- Translated using Weblate (French) (julroy67)
+- Set partition type combo insensitive if there is only one option (vtrefny)
+- Fix displaying current size of devices in the resize dialog (vtrefny)
+- Always open new dialogs in the center of the blivet-gui window (vtrefny)
+- add link to translation platform (jean-baptiste)
+- Update translation files (noreply)
+- Allow specifying 'mode' for the sdist command (vtrefny)
+- Do not print list of data files in setup.py (vtrefny)
+- Specify custom commands for version and source archive in packit (vtrefny)
+- tests: Import Gtk directly before we need it (vtrefny)
+- Add a simple script to run tests (vtrefny)
+- Remove Zanata from our build and release processes (vtrefny)
+- Add PO files to git (vtrefny)
+
 * Wed Jan 29 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.12-1
 - Add menu item and dialog for changing fslabel of selected device (vtrefny)
 - Add 'relabel_format' method for fslabel configuration (vtrefny)
