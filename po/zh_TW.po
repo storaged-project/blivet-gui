@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-22 21:48+0100\n"
+"POT-Creation-Date: 2020-03-31 12:52+0200\n"
 "PO-Revision-Date: 2017-09-11 06:49+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Chinese (Taiwan)\n"
@@ -18,28 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: Zanata 4.6.2\n"
 
-#: ../blivetgui/processing_window.py:58
-msgid "Processing"
-msgstr "處理中"
-
-#: ../blivetgui/processing_window.py:83
-msgid "Show actions"
-msgstr "顯示動作"
-
-#: ../blivetgui/processing_window.py:153
-msgid "All queued actions have been processed."
-msgstr "所有佇列動作皆已處理。"
-
-#: ../blivetgui/processing_window.py:168
-#, python-brace-format
-msgid ""
-"<b>Processing action {num} of {total}</b>:\n"
-"<i>{action}</i>"
-msgstr ""
-"<b>正再處理動作 {num} / {total}</b>：\n"
-"<i>{action}</i>"
-
-#: ../blivetgui/osinstall.py:215
+#: ../blivetgui/osinstall.py:217
 #, python-brace-format
 msgid ""
 "{message}\n"
@@ -48,7 +27,7 @@ msgid ""
 " to handle the report process if you want to report this."
 msgstr ""
 
-#: ../blivetgui/osinstall.py:217
+#: ../blivetgui/osinstall.py:219
 #, python-brace-format
 msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
@@ -56,7 +35,7 @@ msgid ""
 msgstr ""
 
 #. add a new 'placeholder' action for all currently registered blivet actions
-#: ../blivetgui/osinstall.py:265
+#: ../blivetgui/osinstall.py:267
 msgid "actions configured by installer"
 msgstr "安裝程式設定的動作"
 
@@ -88,6 +67,27 @@ msgstr "Btrfs 儲區"
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "Btrfs Volume"
 msgstr "Btrfs 儲區"
+
+#: ../blivetgui/processing_window.py:58
+msgid "Processing"
+msgstr "處理中"
+
+#: ../blivetgui/processing_window.py:83
+msgid "Show actions"
+msgstr "顯示動作"
+
+#: ../blivetgui/processing_window.py:153
+msgid "All queued actions have been processed."
+msgstr "所有佇列動作皆已處理。"
+
+#: ../blivetgui/processing_window.py:168
+#, python-brace-format
+msgid ""
+"<b>Processing action {num} of {total}</b>:\n"
+"<i>{action}</i>"
+msgstr ""
+"<b>正再處理動作 {num} / {total}</b>：\n"
+"<i>{action}</i>"
 
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
@@ -290,7 +290,7 @@ msgstr "{0} 磁碟標籤"
 msgid "free space"
 msgstr "可用空間"
 
-#: ../blivetgui/blivet_utils.py:649
+#: ../blivetgui/blivet_utils.py:651
 msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr "含有快照的邏輯儲區不能調整大小。"
 
@@ -322,6 +322,16 @@ msgstr "目前選擇的大小大於選取目標的最大限制。"
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr "目前選擇的大小小於選取目標的最小限制。"
+
+#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1002
+#, python-brace-format
+msgid "\"{0}\" is not a valid mountpoint."
+msgstr "「{0}」不是有效的掛載點。"
+
+#: ../blivetgui/dialogs/helpers.py:148
+#, python-brace-format
+msgid "Selected mountpoint \"{0}\" is already set for another device."
+msgstr "選取的「{0}」掛載點已經設定給另一個裝置。"
 
 #: ../blivetgui/dialogs/edit_dialog.py:102
 #, python-brace-format
@@ -360,16 +370,16 @@ msgstr "編輯裝置"
 #: ../blivetgui/dialogs/edit_dialog.py:547
 #: ../blivetgui/dialogs/edit_dialog.py:596
 #: ../blivetgui/dialogs/edit_dialog.py:658
-#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/blivet-gui.ui:464
-#: ../data/ui/cache_area.ui:76
+#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/cache_area.ui:76
+#: ../data/ui/blivet-gui.ui:464
 msgid "Device"
 msgstr "裝置"
 
 #: ../blivetgui/dialogs/edit_dialog.py:548
 #: ../blivetgui/dialogs/edit_dialog.py:597
 #: ../blivetgui/dialogs/edit_dialog.py:659
-#: ../blivetgui/dialogs/add_dialog.py:454 ../data/ui/blivet-gui.ui:475
-#: ../data/ui/cache_area.ui:87
+#: ../blivetgui/dialogs/add_dialog.py:454 ../data/ui/cache_area.ui:87
+#: ../data/ui/blivet-gui.ui:475
 msgid "Type"
 msgstr "類型"
 
@@ -543,11 +553,6 @@ msgstr "名稱："
 msgid "Mountpoint:"
 msgstr "掛載點："
 
-#: ../blivetgui/dialogs/add_dialog.py:1002 ../blivetgui/dialogs/helpers.py:141
-#, python-brace-format
-msgid "\"{0}\" is not a valid mountpoint."
-msgstr "「{0}」不是有效的掛載點。"
-
 #: ../blivetgui/dialogs/add_dialog.py:1009
 msgid "Please select at least two parent devices."
 msgstr "請選取至少兩個上層裝置。"
@@ -556,11 +561,6 @@ msgstr "請選取至少兩個上層裝置。"
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "「{0}」不是有效名稱。"
-
-#: ../blivetgui/dialogs/helpers.py:148
-#, python-brace-format
-msgid "Selected mountpoint \"{0}\" is already set for another device."
-msgstr "選取的「{0}」掛載點已經設定給另一個裝置。"
 
 #: ../blivetgui/dialogs/message_dialogs.py:197
 msgid "Confirm delete operation"
@@ -833,8 +833,8 @@ msgstr "上層"
 msgid " • {exists} {size} {type} {name}\n"
 msgstr " • {exists} {size} {type} {name}\n"
 
-#: ../blivetgui/communication/client.py:289
-#: ../blivetgui/communication/client.py:306
+#: ../blivetgui/communication/client.py:302
+#: ../blivetgui/communication/client.py:319
 msgid "Failed to connect to blivet-gui-daemon"
 msgstr "無法連接 blivet-gui-daemon"
 
@@ -870,10 +870,6 @@ msgstr "遺失分割表"
 msgid "Device or format is write protected"
 msgstr "裝置或格式受到防寫保護"
 
-#: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
-msgid "Error"
-msgstr "錯誤"
-
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Decrypt device"
 msgstr "解密裝置"
@@ -886,126 +882,9 @@ msgstr "請輸入密語以解密選取的裝置。"
 msgid "Passphrase:"
 msgstr "密語："
 
-#: ../data/ui/blivet-gui.ui:14
-msgid "New"
-msgstr "新增"
-
-#: ../data/ui/blivet-gui.ui:23
-msgid "Delete"
-msgstr "刪除"
-
-#: ../data/ui/blivet-gui.ui:32
-msgid "Edit"
-msgstr "編輯"
-
-#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
-msgid "Resize"
-msgstr "調整大小"
-
-#. Edit format (e.g. delete existing and create a new one) on selected device.
-#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
-msgctxt "Menu|Edit"
-msgid "Format"
-msgstr "格式化"
-
-#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:154
-msgid "Set label"
-msgstr ""
-
-#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:138
-msgid "Modify parents"
-msgstr "修改上層"
-
-#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:146
-#: ../data/ui/mountpoint_dialog.ui:7
-msgid "Set mountpoint"
-msgstr "設定掛載點"
-
-#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
-msgid "Set partition table"
-msgstr ""
-
-#: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
+#: ../data/ui/unmount_dialog.ui:15 ../data/ui/blivet-gui.ui:94
 msgid "Unmount"
 msgstr "卸載"
-
-#: ../data/ui/blivet-gui.ui:102
-msgid "Decrypt"
-msgstr "解密"
-
-#: ../data/ui/blivet-gui.ui:110
-msgid "Information"
-msgstr "資訊"
-
-#: ../data/ui/blivet-gui.ui:237
-msgid "blivet-gui"
-msgstr "blivet-gui"
-
-#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
-#: ../data/ui/blivet-gui.ui:804 ../data/ui/blivet-gui.ui:815
-#: ../data/ui/blivet-gui.ui:826
-msgid "column"
-msgstr "欄"
-
-#: ../data/ui/blivet-gui.ui:348
-msgctxt "ActionsToolbar|Add"
-msgid "Add new device"
-msgstr "加入新裝置"
-
-#: ../data/ui/blivet-gui.ui:364
-msgctxt "ActionsToolbar|Delete"
-msgid "Delete selected device"
-msgstr "刪除所選的裝置"
-
-#: ../data/ui/blivet-gui.ui:380
-msgctxt "ActionsToolbar|Edit"
-msgid "Edit selected device"
-msgstr "編輯所選裝置"
-
-#: ../data/ui/blivet-gui.ui:406
-msgctxt "ActionsToolbar|Unmount"
-msgid "Unmount selected device"
-msgstr "卸載所選裝置"
-
-#: ../data/ui/blivet-gui.ui:421
-msgctxt "ActionsToolbar|Decrypt"
-msgid "Unlock/Open selected device"
-msgstr "解除鎖定/開啟所選裝置"
-
-#: ../data/ui/blivet-gui.ui:436
-msgctxt "ActionsToolbar|Info"
-msgid "Display information about selected device"
-msgstr "顯示選取裝置的資訊"
-
-#. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:486
-msgctxt "LogicalView|Column"
-msgid "Format"
-msgstr "格式"
-
-#: ../data/ui/blivet-gui.ui:508
-msgid "Mountpoint"
-msgstr "掛載點"
-
-#: ../data/ui/blivet-gui.ui:530
-msgid "Logical View"
-msgstr "邏輯檢視"
-
-#: ../data/ui/blivet-gui.ui:553
-msgid "Physical View"
-msgstr "實體檢視"
-
-#: ../data/ui/blivet-gui.ui:626
-msgid "Reload Storage"
-msgstr "重載儲存裝置"
-
-#: ../data/ui/blivet-gui.ui:634
-msgid "Queued Actions"
-msgstr "佇列的動作"
-
-#: ../data/ui/blivet-gui.ui:656
-msgid "About blivet-gui"
-msgstr "關於 blivet-gui"
 
 #: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
 msgid "Cancel"
@@ -1026,6 +905,34 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+
+#: ../data/ui/raid_chooser.ui:21
+msgid "RAID level:"
+msgstr "RAID 等級："
+
+#: ../data/ui/exception_dialog.ui:12 ../data/ui/error_dialog.ui:13
+msgid "Error"
+msgstr "錯誤"
+
+#: ../data/ui/exception_dialog.ui:27
+msgid "_Back"
+msgstr "返回(_B)"
+
+#: ../data/ui/exception_dialog.ui:41
+msgid "_Report a bug"
+msgstr "回報臭蟲(_R)"
+
+#: ../data/ui/exception_dialog.ui:55
+msgid "_Quit"
+msgstr "退出(_Q)"
+
+#: ../data/ui/exception_dialog.ui:107
+msgid "Show traceback"
+msgstr "顯示追溯資訊"
+
+#: ../data/ui/size_chooser.ui:14
+msgid "Size:"
+msgstr "大小："
 
 #: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
 msgid "Format device"
@@ -1054,33 +961,21 @@ msgstr "輸入新標籤："
 msgid "Enter new mountpoint:"
 msgstr "輸入新掛載點："
 
-#: ../data/ui/raid_chooser.ui:21
-msgid "RAID level:"
-msgstr "RAID 等級："
-
-#: ../data/ui/exception_dialog.ui:27
-msgid "_Back"
-msgstr "返回(_B)"
-
-#: ../data/ui/exception_dialog.ui:41
-msgid "_Report a bug"
-msgstr "回報臭蟲(_R)"
-
-#: ../data/ui/exception_dialog.ui:55
-msgid "_Quit"
-msgstr "退出(_Q)"
-
-#: ../data/ui/exception_dialog.ui:107
-msgid "Show traceback"
-msgstr "顯示追溯資訊"
-
-#: ../data/ui/size_chooser.ui:14
-msgid "Size:"
-msgstr "大小："
-
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
 msgstr "手動指定分割配置"
+
+#: ../data/ui/add_disklabel_dialog.ui:11
+msgid "No partition table found on disk"
+msgstr "磁碟上找不到分割表"
+
+#: ../data/ui/add_disklabel_dialog.ui:12
+msgid "A partition table is required before partitions can be added."
+msgstr "加入分割區之前必先要有分割表。"
+
+#: ../data/ui/add_disklabel_dialog.ui:52
+msgid "Select new partition table type:"
+msgstr "選取新分割表類型："
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
@@ -1168,18 +1063,123 @@ msgstr ""
 msgid "Enter new label for this filesystem:"
 msgstr ""
 
+#: ../data/ui/blivet-gui.ui:14
+msgid "New"
+msgstr "新增"
+
+#: ../data/ui/blivet-gui.ui:23
+msgid "Delete"
+msgstr "刪除"
+
+#: ../data/ui/blivet-gui.ui:32
+msgid "Edit"
+msgstr "編輯"
+
+#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
+msgid "Resize"
+msgstr "調整大小"
+
+#. Edit format (e.g. delete existing and create a new one) on selected device.
+#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
+msgctxt "Menu|Edit"
+msgid "Format"
+msgstr "格式化"
+
+#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:154
+msgid "Set label"
+msgstr ""
+
+#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:138
+msgid "Modify parents"
+msgstr "修改上層"
+
+#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:146
+#: ../data/ui/mountpoint_dialog.ui:7
+msgid "Set mountpoint"
+msgstr "設定掛載點"
+
+#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
+msgid "Set partition table"
+msgstr ""
+
+#: ../data/ui/blivet-gui.ui:102
+msgid "Decrypt"
+msgstr "解密"
+
+#: ../data/ui/blivet-gui.ui:110
+msgid "Information"
+msgstr "資訊"
+
+#: ../data/ui/blivet-gui.ui:237
+msgid "blivet-gui"
+msgstr "blivet-gui"
+
+#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
+#: ../data/ui/blivet-gui.ui:804 ../data/ui/blivet-gui.ui:815
+#: ../data/ui/blivet-gui.ui:826
+msgid "column"
+msgstr "欄"
+
+#: ../data/ui/blivet-gui.ui:348
+msgctxt "ActionsToolbar|Add"
+msgid "Add new device"
+msgstr "加入新裝置"
+
+#: ../data/ui/blivet-gui.ui:364
+msgctxt "ActionsToolbar|Delete"
+msgid "Delete selected device"
+msgstr "刪除所選的裝置"
+
+#: ../data/ui/blivet-gui.ui:380
+msgctxt "ActionsToolbar|Edit"
+msgid "Edit selected device"
+msgstr "編輯所選裝置"
+
+#: ../data/ui/blivet-gui.ui:406
+msgctxt "ActionsToolbar|Unmount"
+msgid "Unmount selected device"
+msgstr "卸載所選裝置"
+
+#: ../data/ui/blivet-gui.ui:421
+msgctxt "ActionsToolbar|Decrypt"
+msgid "Unlock/Open selected device"
+msgstr "解除鎖定/開啟所選裝置"
+
+#: ../data/ui/blivet-gui.ui:436
+msgctxt "ActionsToolbar|Info"
+msgid "Display information about selected device"
+msgstr "顯示選取裝置的資訊"
+
+#. Format (filesystem) type of selected device.
+#: ../data/ui/blivet-gui.ui:486
+msgctxt "LogicalView|Column"
+msgid "Format"
+msgstr "格式"
+
+#: ../data/ui/blivet-gui.ui:508
+msgid "Mountpoint"
+msgstr "掛載點"
+
+#: ../data/ui/blivet-gui.ui:530
+msgid "Logical View"
+msgstr "邏輯檢視"
+
+#: ../data/ui/blivet-gui.ui:553
+msgid "Physical View"
+msgstr "實體檢視"
+
+#: ../data/ui/blivet-gui.ui:626
+msgid "Reload Storage"
+msgstr "重載儲存裝置"
+
+#: ../data/ui/blivet-gui.ui:634
+msgid "Queued Actions"
+msgstr "佇列的動作"
+
+#: ../data/ui/blivet-gui.ui:656
+msgid "About blivet-gui"
+msgstr "關於 blivet-gui"
+
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
 msgstr "設定掛載點(_S)"
-
-#: ../data/ui/add_disklabel_dialog.ui:11
-msgid "No partition table found on disk"
-msgstr "磁碟上找不到分割表"
-
-#: ../data/ui/add_disklabel_dialog.ui:12
-msgid "A partition table is required before partitions can be added."
-msgstr "加入分割區之前必先要有分割表。"
-
-#: ../data/ui/add_disklabel_dialog.ui:52
-msgid "Select new partition table type:"
-msgstr "選取新分割表類型："

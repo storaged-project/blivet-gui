@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-22 21:48+0100\n"
+"POT-Creation-Date: 2020-03-31 12:52+0200\n"
 "PO-Revision-Date: 2020-03-24 18:38+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://translate.fedoraproject.org/projects/blivet/"
@@ -18,28 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.11.3\n"
 
-#: ../blivetgui/processing_window.py:58
-msgid "Processing"
-msgstr "İşleniyor"
-
-#: ../blivetgui/processing_window.py:83
-msgid "Show actions"
-msgstr "İşlemleri göster"
-
-#: ../blivetgui/processing_window.py:153
-msgid "All queued actions have been processed."
-msgstr "Sıraya alınan tüm işlemler gerçekleştirildi."
-
-#: ../blivetgui/processing_window.py:168
-#, python-brace-format
-msgid ""
-"<b>Processing action {num} of {total}</b>:\n"
-"<i>{action}</i>"
-msgstr ""
-"<b>İşlem {num}/{total} gerçekleştiriliyor</b>:\n"
-"<i>{action}</i>"
-
-#: ../blivetgui/osinstall.py:215
+#: ../blivetgui/osinstall.py:217
 #, python-brace-format
 msgid ""
 "{message}\n"
@@ -52,7 +31,7 @@ msgstr ""
 " Hatayı bildirmek ve anaconda'nın raporlama işlemini gerçekleştirmesine\n"
 " izin vermek istiyorsanız lütfen Raporla düğmesine tıklayın."
 
-#: ../blivetgui/osinstall.py:217
+#: ../blivetgui/osinstall.py:219
 #, python-brace-format
 msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
@@ -62,7 +41,7 @@ msgstr ""
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
-#: ../blivetgui/osinstall.py:265
+#: ../blivetgui/osinstall.py:267
 msgid "actions configured by installer"
 msgstr "yükleyici tarafından yapılandırılan eylemler"
 
@@ -94,6 +73,27 @@ msgstr "Btrfs Birimleri"
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "Btrfs Volume"
 msgstr "Btrfs Birimi"
+
+#: ../blivetgui/processing_window.py:58
+msgid "Processing"
+msgstr "İşleniyor"
+
+#: ../blivetgui/processing_window.py:83
+msgid "Show actions"
+msgstr "İşlemleri göster"
+
+#: ../blivetgui/processing_window.py:153
+msgid "All queued actions have been processed."
+msgstr "Sıraya alınan tüm işlemler gerçekleştirildi."
+
+#: ../blivetgui/processing_window.py:168
+#, python-brace-format
+msgid ""
+"<b>Processing action {num} of {total}</b>:\n"
+"<i>{action}</i>"
+msgstr ""
+"<b>İşlem {num}/{total} gerçekleştiriliyor</b>:\n"
+"<i>{action}</i>"
 
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
@@ -313,7 +313,7 @@ msgstr "{0} disk etiketi"
 msgid "free space"
 msgstr "boş alan"
 
-#: ../blivetgui/blivet_utils.py:649
+#: ../blivetgui/blivet_utils.py:651
 msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr "Anlık görüntülere sahip Mantıksal Birimler yeniden boyutlandırılamadı."
 
@@ -346,6 +346,16 @@ msgstr "Seçili olan boyut, bu seçim için izin verilen maksimum sınırdan bü
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr "Seçili olan boyut, bu seçim için izin verilen minimum sınırdan küçük."
+
+#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1002
+#, python-brace-format
+msgid "\"{0}\" is not a valid mountpoint."
+msgstr "\"{0}\" geçerli bir bağlama noktası değil."
+
+#: ../blivetgui/dialogs/helpers.py:148
+#, python-brace-format
+msgid "Selected mountpoint \"{0}\" is already set for another device."
+msgstr "Seçilen \"{0}\" bağlama noktası başka bir aygıt için zaten ayarlanmış."
 
 #: ../blivetgui/dialogs/edit_dialog.py:102
 #, python-brace-format
@@ -384,16 +394,16 @@ msgstr "Aygıtı düzenle"
 #: ../blivetgui/dialogs/edit_dialog.py:547
 #: ../blivetgui/dialogs/edit_dialog.py:596
 #: ../blivetgui/dialogs/edit_dialog.py:658
-#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/blivet-gui.ui:464
-#: ../data/ui/cache_area.ui:76
+#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/cache_area.ui:76
+#: ../data/ui/blivet-gui.ui:464
 msgid "Device"
 msgstr "Aygıt"
 
 #: ../blivetgui/dialogs/edit_dialog.py:548
 #: ../blivetgui/dialogs/edit_dialog.py:597
 #: ../blivetgui/dialogs/edit_dialog.py:659
-#: ../blivetgui/dialogs/add_dialog.py:454 ../data/ui/blivet-gui.ui:475
-#: ../data/ui/cache_area.ui:87
+#: ../blivetgui/dialogs/add_dialog.py:454 ../data/ui/cache_area.ui:87
+#: ../data/ui/blivet-gui.ui:475
 msgid "Type"
 msgstr "Tür"
 
@@ -567,11 +577,6 @@ msgstr "İsim:"
 msgid "Mountpoint:"
 msgstr "Bağlama noktası:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1002 ../blivetgui/dialogs/helpers.py:141
-#, python-brace-format
-msgid "\"{0}\" is not a valid mountpoint."
-msgstr "\"{0}\" geçerli bir bağlama noktası değil."
-
 #: ../blivetgui/dialogs/add_dialog.py:1009
 msgid "Please select at least two parent devices."
 msgstr "Lütfen en az iki ana (parent) aygıt seçin."
@@ -580,11 +585,6 @@ msgstr "Lütfen en az iki ana (parent) aygıt seçin."
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" geçerli bir isim değil."
-
-#: ../blivetgui/dialogs/helpers.py:148
-#, python-brace-format
-msgid "Selected mountpoint \"{0}\" is already set for another device."
-msgstr "Seçilen \"{0}\" bağlama noktası başka bir aygıt için zaten ayarlanmış."
 
 #: ../blivetgui/dialogs/message_dialogs.py:197
 msgid "Confirm delete operation"
@@ -857,8 +857,8 @@ msgstr "Ana (parent) aygıtlar"
 msgid " • {exists} {size} {type} {name}\n"
 msgstr " • {exists} {size} {type} {name}\n"
 
-#: ../blivetgui/communication/client.py:289
-#: ../blivetgui/communication/client.py:306
+#: ../blivetgui/communication/client.py:302
+#: ../blivetgui/communication/client.py:319
 msgid "Failed to connect to blivet-gui-daemon"
 msgstr "Blivet-gui-daemon ile bağlantı kurulamadı"
 
@@ -894,10 +894,6 @@ msgstr "Bölümleme tablosu yok"
 msgid "Device or format is write protected"
 msgstr "Aygıt veya biçim yazmaya karşı korumalı"
 
-#: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
-msgid "Error"
-msgstr "Hata"
-
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Decrypt device"
 msgstr "Aygıtın şifresini çöz"
@@ -910,126 +906,9 @@ msgstr "Seçilen aygıtın şifresini çözmek için lütfen parolayı girin."
 msgid "Passphrase:"
 msgstr "Parola:"
 
-#: ../data/ui/blivet-gui.ui:14
-msgid "New"
-msgstr "Yeni"
-
-#: ../data/ui/blivet-gui.ui:23
-msgid "Delete"
-msgstr "Sil"
-
-#: ../data/ui/blivet-gui.ui:32
-msgid "Edit"
-msgstr "Düzenle"
-
-#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
-msgid "Resize"
-msgstr "Yeniden boyutlandır"
-
-#. Edit format (e.g. delete existing and create a new one) on selected device.
-#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
-msgctxt "Menu|Edit"
-msgid "Format"
-msgstr "Biçimlendir"
-
-#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:154
-msgid "Set label"
-msgstr "Etiketi ayarla"
-
-#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:138
-msgid "Modify parents"
-msgstr "Ana (parent) aygıtları değiştir"
-
-#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:146
-#: ../data/ui/mountpoint_dialog.ui:7
-msgid "Set mountpoint"
-msgstr "Bağlama noktasını ayarla"
-
-#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
-msgid "Set partition table"
-msgstr "Bölümleme tablosunu ayarla"
-
-#: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
+#: ../data/ui/unmount_dialog.ui:15 ../data/ui/blivet-gui.ui:94
 msgid "Unmount"
 msgstr "Bağlantıyı kaldır"
-
-#: ../data/ui/blivet-gui.ui:102
-msgid "Decrypt"
-msgstr "Şifresini çöz"
-
-#: ../data/ui/blivet-gui.ui:110
-msgid "Information"
-msgstr "Bilgi"
-
-#: ../data/ui/blivet-gui.ui:237
-msgid "blivet-gui"
-msgstr "blivet-gui"
-
-#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
-#: ../data/ui/blivet-gui.ui:804 ../data/ui/blivet-gui.ui:815
-#: ../data/ui/blivet-gui.ui:826
-msgid "column"
-msgstr "sütun"
-
-#: ../data/ui/blivet-gui.ui:348
-msgctxt "ActionsToolbar|Add"
-msgid "Add new device"
-msgstr "Yeni aygıt ekle"
-
-#: ../data/ui/blivet-gui.ui:364
-msgctxt "ActionsToolbar|Delete"
-msgid "Delete selected device"
-msgstr "Seçilen aygıtı sil"
-
-#: ../data/ui/blivet-gui.ui:380
-msgctxt "ActionsToolbar|Edit"
-msgid "Edit selected device"
-msgstr "Seçilen aygıtı düzenle"
-
-#: ../data/ui/blivet-gui.ui:406
-msgctxt "ActionsToolbar|Unmount"
-msgid "Unmount selected device"
-msgstr "Seçilen aygıtın bağlantısını kaldır"
-
-#: ../data/ui/blivet-gui.ui:421
-msgctxt "ActionsToolbar|Decrypt"
-msgid "Unlock/Open selected device"
-msgstr "Seçilen aygıtın kilidini çöz/aç"
-
-#: ../data/ui/blivet-gui.ui:436
-msgctxt "ActionsToolbar|Info"
-msgid "Display information about selected device"
-msgstr "Seçilen aygıt hakkındaki bilgileri görüntüle"
-
-#. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:486
-msgctxt "LogicalView|Column"
-msgid "Format"
-msgstr "Biçim"
-
-#: ../data/ui/blivet-gui.ui:508
-msgid "Mountpoint"
-msgstr "Bağlama noktası"
-
-#: ../data/ui/blivet-gui.ui:530
-msgid "Logical View"
-msgstr "Mantıksal Görünüm"
-
-#: ../data/ui/blivet-gui.ui:553
-msgid "Physical View"
-msgstr "Fiziksel Görünüm"
-
-#: ../data/ui/blivet-gui.ui:626
-msgid "Reload Storage"
-msgstr "Depolama Bilgilerini Yeniden Yükle"
-
-#: ../data/ui/blivet-gui.ui:634
-msgid "Queued Actions"
-msgstr "Sıraya Alınan İşlemler"
-
-#: ../data/ui/blivet-gui.ui:656
-msgid "About blivet-gui"
-msgstr "Blivet-gui hakkında"
 
 #: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
 msgid "Cancel"
@@ -1052,6 +931,34 @@ msgstr ""
 "noktasında bağlıdır</b>\n"
 "\n"
 "Kaldırmak için lütfen bağlama nokta(lar)ı seçin:"
+
+#: ../data/ui/raid_chooser.ui:21
+msgid "RAID level:"
+msgstr "RAID seviyesi:"
+
+#: ../data/ui/exception_dialog.ui:12 ../data/ui/error_dialog.ui:13
+msgid "Error"
+msgstr "Hata"
+
+#: ../data/ui/exception_dialog.ui:27
+msgid "_Back"
+msgstr "_Geri"
+
+#: ../data/ui/exception_dialog.ui:41
+msgid "_Report a bug"
+msgstr "_Hata bildir"
+
+#: ../data/ui/exception_dialog.ui:55
+msgid "_Quit"
+msgstr "_Çık"
+
+#: ../data/ui/exception_dialog.ui:107
+msgid "Show traceback"
+msgstr "Geri izlemeyi göster"
+
+#: ../data/ui/size_chooser.ui:14
+msgid "Size:"
+msgstr "Boyut:"
 
 #: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
 msgid "Format device"
@@ -1080,33 +987,21 @@ msgstr "Yeni bir etiket girin:"
 msgid "Enter new mountpoint:"
 msgstr "Yeni bir bağlama noktası girin:"
 
-#: ../data/ui/raid_chooser.ui:21
-msgid "RAID level:"
-msgstr "RAID seviyesi:"
-
-#: ../data/ui/exception_dialog.ui:27
-msgid "_Back"
-msgstr "_Geri"
-
-#: ../data/ui/exception_dialog.ui:41
-msgid "_Report a bug"
-msgstr "_Hata bildir"
-
-#: ../data/ui/exception_dialog.ui:55
-msgid "_Quit"
-msgstr "_Çık"
-
-#: ../data/ui/exception_dialog.ui:107
-msgid "Show traceback"
-msgstr "Geri izlemeyi göster"
-
-#: ../data/ui/size_chooser.ui:14
-msgid "Size:"
-msgstr "Boyut:"
-
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
 msgstr "Yerleşimi manuel olarak belirtin"
+
+#: ../data/ui/add_disklabel_dialog.ui:11
+msgid "No partition table found on disk"
+msgstr "Disk üzerinde bölümleme tablosu bulunamadı"
+
+#: ../data/ui/add_disklabel_dialog.ui:12
+msgid "A partition table is required before partitions can be added."
+msgstr "Bölüm eklemeden önce bir bölümleme tablosu oluşturmanız gerekmektedir."
+
+#: ../data/ui/add_disklabel_dialog.ui:52
+msgid "Select new partition table type:"
+msgstr "Yeni bölümleme tablosu türünü seçin:"
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
@@ -1194,18 +1089,123 @@ msgstr "Yeniden etiketle"
 msgid "Enter new label for this filesystem:"
 msgstr "Bu dosya sistemi için yeni bir etiket girin:"
 
+#: ../data/ui/blivet-gui.ui:14
+msgid "New"
+msgstr "Yeni"
+
+#: ../data/ui/blivet-gui.ui:23
+msgid "Delete"
+msgstr "Sil"
+
+#: ../data/ui/blivet-gui.ui:32
+msgid "Edit"
+msgstr "Düzenle"
+
+#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
+msgid "Resize"
+msgstr "Yeniden boyutlandır"
+
+#. Edit format (e.g. delete existing and create a new one) on selected device.
+#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
+msgctxt "Menu|Edit"
+msgid "Format"
+msgstr "Biçimlendir"
+
+#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:154
+msgid "Set label"
+msgstr "Etiketi ayarla"
+
+#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:138
+msgid "Modify parents"
+msgstr "Ana (parent) aygıtları değiştir"
+
+#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:146
+#: ../data/ui/mountpoint_dialog.ui:7
+msgid "Set mountpoint"
+msgstr "Bağlama noktasını ayarla"
+
+#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
+msgid "Set partition table"
+msgstr "Bölümleme tablosunu ayarla"
+
+#: ../data/ui/blivet-gui.ui:102
+msgid "Decrypt"
+msgstr "Şifresini çöz"
+
+#: ../data/ui/blivet-gui.ui:110
+msgid "Information"
+msgstr "Bilgi"
+
+#: ../data/ui/blivet-gui.ui:237
+msgid "blivet-gui"
+msgstr "blivet-gui"
+
+#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
+#: ../data/ui/blivet-gui.ui:804 ../data/ui/blivet-gui.ui:815
+#: ../data/ui/blivet-gui.ui:826
+msgid "column"
+msgstr "sütun"
+
+#: ../data/ui/blivet-gui.ui:348
+msgctxt "ActionsToolbar|Add"
+msgid "Add new device"
+msgstr "Yeni aygıt ekle"
+
+#: ../data/ui/blivet-gui.ui:364
+msgctxt "ActionsToolbar|Delete"
+msgid "Delete selected device"
+msgstr "Seçilen aygıtı sil"
+
+#: ../data/ui/blivet-gui.ui:380
+msgctxt "ActionsToolbar|Edit"
+msgid "Edit selected device"
+msgstr "Seçilen aygıtı düzenle"
+
+#: ../data/ui/blivet-gui.ui:406
+msgctxt "ActionsToolbar|Unmount"
+msgid "Unmount selected device"
+msgstr "Seçilen aygıtın bağlantısını kaldır"
+
+#: ../data/ui/blivet-gui.ui:421
+msgctxt "ActionsToolbar|Decrypt"
+msgid "Unlock/Open selected device"
+msgstr "Seçilen aygıtın kilidini çöz/aç"
+
+#: ../data/ui/blivet-gui.ui:436
+msgctxt "ActionsToolbar|Info"
+msgid "Display information about selected device"
+msgstr "Seçilen aygıt hakkındaki bilgileri görüntüle"
+
+#. Format (filesystem) type of selected device.
+#: ../data/ui/blivet-gui.ui:486
+msgctxt "LogicalView|Column"
+msgid "Format"
+msgstr "Biçim"
+
+#: ../data/ui/blivet-gui.ui:508
+msgid "Mountpoint"
+msgstr "Bağlama noktası"
+
+#: ../data/ui/blivet-gui.ui:530
+msgid "Logical View"
+msgstr "Mantıksal Görünüm"
+
+#: ../data/ui/blivet-gui.ui:553
+msgid "Physical View"
+msgstr "Fiziksel Görünüm"
+
+#: ../data/ui/blivet-gui.ui:626
+msgid "Reload Storage"
+msgstr "Depolama Bilgilerini Yeniden Yükle"
+
+#: ../data/ui/blivet-gui.ui:634
+msgid "Queued Actions"
+msgstr "Sıraya Alınan İşlemler"
+
+#: ../data/ui/blivet-gui.ui:656
+msgid "About blivet-gui"
+msgstr "Blivet-gui hakkında"
+
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
 msgstr "Bağlama noktasını _ayarla"
-
-#: ../data/ui/add_disklabel_dialog.ui:11
-msgid "No partition table found on disk"
-msgstr "Disk üzerinde bölümleme tablosu bulunamadı"
-
-#: ../data/ui/add_disklabel_dialog.ui:12
-msgid "A partition table is required before partitions can be added."
-msgstr "Bölüm eklemeden önce bir bölümleme tablosu oluşturmanız gerekmektedir."
-
-#: ../data/ui/add_disklabel_dialog.ui:52
-msgid "Select new partition table type:"
-msgstr "Yeni bölümleme tablosu türünü seçin:"
