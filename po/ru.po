@@ -1,13 +1,14 @@
 # Misha Shnurapet <misha@gnome.org>, 2016. #zanata
 # yuliya <ypoyarko@redhat.com>, 2016. #zanata
 # Igor Gorbounov <igor.gorbounov@gmail.com>, 2020.
+# Petr Molodyk <pamolodyk@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-02-22 21:48+0100\n"
-"PO-Revision-Date: 2020-03-14 20:38+0000\n"
-"Last-Translator: Igor Gorbounov <igor.gorbounov@gmail.com>\n"
+"PO-Revision-Date: 2020-03-31 11:13+0000\n"
+"Last-Translator: Petr Molodyk <pamolodyk@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ru/>\n"
 "Language: ru\n"
@@ -1041,8 +1042,6 @@ msgstr "Отменить"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
-#, fuzzy
-#| msgid "Unmount"
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
 msgstr "Размонтировать"
@@ -1160,15 +1159,15 @@ msgstr "Тип кэша:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
-msgstr ""
+msgstr "Сквозная запись"
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
-msgstr ""
+msgstr "Перезапись"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
-msgstr ""
+msgstr "© Red Hat Inc."
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
