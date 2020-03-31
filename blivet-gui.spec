@@ -38,7 +38,7 @@ This package provides a blivet-gui runtime for applications that want to use
 blivet-gui without actually installing the application itself.
 
 %prep
-%setup -q
+%autosetup -n %{name}-%{version} -p1
 
 %build
 make %{?_smp_mflags}
@@ -106,6 +106,15 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 - Remove Zanata from our build and release processes (vtrefny)
 - Add PO files to git (vtrefny)
 
+* Thu Mar 12 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.12-4
+- Fix TypeError in remote_method (#1812734)
+
+* Wed Mar 11 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.12-3
+- Fix setting attributes for proxy objects (#1810855)
+
+* Thu Feb 13 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.12-2
+- Add a simple script to run tests
+
 * Wed Jan 29 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.12-1
 - Add menu item and dialog for changing fslabel of selected device (vtrefny)
 - Add 'relabel_format' method for fslabel configuration (vtrefny)
@@ -127,6 +136,18 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 - Propertly display standalone dm-integrity devices (vtrefny)
 - Count format minimal size when checking encrypted device min size (vtrefny)
 - Sync spec with downstream (vtrefny)
+
+* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.11-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
+
+* Mon Oct 14 2019 Vojtech Trefny <vtrefny@redhat.com> - 2.1.11-4
+- Specify starting sector when creating partitions (#1755813) (vtrefny)
+
+* Thu Oct 03 2019 Miro Hrončok <mhroncok@redhat.com> - 2.1.11-3
+- Rebuilt for Python 3.8.0rc1 (#1748018)
+
+* Mon Aug 19 2019 Miro Hrončok <mhroncok@redhat.com> - 2.1.11-2
+- Rebuilt for Python 3.8
 
 * Wed Jul 31 2019 Vojtech Trefny <vtrefny@redhat.com> - 2.1.11-1
 - Create only one tag per release (vtrefny)
