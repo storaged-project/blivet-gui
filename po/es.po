@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-22 21:48+0100\n"
+"POT-Creation-Date: 2020-03-31 12:52+0200\n"
 "PO-Revision-Date: 2020-02-25 02:38+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/blivet/"
@@ -23,28 +23,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.11.2\n"
 
-#: ../blivetgui/processing_window.py:58
-msgid "Processing"
-msgstr "Procesamiento"
-
-#: ../blivetgui/processing_window.py:83
-msgid "Show actions"
-msgstr "Ver acciones"
-
-#: ../blivetgui/processing_window.py:153
-msgid "All queued actions have been processed."
-msgstr "Se han procesado todas las acciones en cola."
-
-#: ../blivetgui/processing_window.py:168
-#, python-brace-format
-msgid ""
-"<b>Processing action {num} of {total}</b>:\n"
-"<i>{action}</i>"
-msgstr ""
-"<b>Procesando acción {num} de {total}</b>:\n"
-"<i>{action}</i>"
-
-#: ../blivetgui/osinstall.py:215
+#: ../blivetgui/osinstall.py:217
 #, python-brace-format
 msgid ""
 "{message}\n"
@@ -57,7 +36,7 @@ msgstr ""
 " Pulse el botón «Informar» para emitir un informe de error; si quiere\n"
 " enviarlo, permita que anaconda gestione el proceso."
 
-#: ../blivetgui/osinstall.py:217
+#: ../blivetgui/osinstall.py:219
 #, python-brace-format
 msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
@@ -67,7 +46,7 @@ msgstr ""
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
-#: ../blivetgui/osinstall.py:265
+#: ../blivetgui/osinstall.py:267
 msgid "actions configured by installer"
 msgstr "acciones configuradas por el instalador"
 
@@ -99,6 +78,27 @@ msgstr "Volúmenes Btrfs"
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "Btrfs Volume"
 msgstr "Volumen Btrfs"
+
+#: ../blivetgui/processing_window.py:58
+msgid "Processing"
+msgstr "Procesamiento"
+
+#: ../blivetgui/processing_window.py:83
+msgid "Show actions"
+msgstr "Ver acciones"
+
+#: ../blivetgui/processing_window.py:153
+msgid "All queued actions have been processed."
+msgstr "Se han procesado todas las acciones en cola."
+
+#: ../blivetgui/processing_window.py:168
+#, python-brace-format
+msgid ""
+"<b>Processing action {num} of {total}</b>:\n"
+"<i>{action}</i>"
+msgstr ""
+"<b>Procesando acción {num} de {total}</b>:\n"
+"<i>{action}</i>"
 
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
@@ -319,7 +319,7 @@ msgstr "etiqueta de disco {0}"
 msgid "free space"
 msgstr "espacio libre"
 
-#: ../blivetgui/blivet_utils.py:649
+#: ../blivetgui/blivet_utils.py:651
 msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr "No se pueden redimensionar los volúmenes lógicos con instantáneas."
 
@@ -356,6 +356,16 @@ msgid ""
 msgstr ""
 "El tamaño seleccionado actualmente es menor que el límite mínimo para esta "
 "selección."
+
+#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1002
+#, python-brace-format
+msgid "\"{0}\" is not a valid mountpoint."
+msgstr "\"{0}\" no es un punto de montaje válido."
+
+#: ../blivetgui/dialogs/helpers.py:148
+#, python-brace-format
+msgid "Selected mountpoint \"{0}\" is already set for another device."
+msgstr "El punto de montaje \"{0}\" ya se está usando para otro dispositivo."
 
 #: ../blivetgui/dialogs/edit_dialog.py:102
 #, python-brace-format
@@ -394,16 +404,16 @@ msgstr "Editar dispositivo"
 #: ../blivetgui/dialogs/edit_dialog.py:547
 #: ../blivetgui/dialogs/edit_dialog.py:596
 #: ../blivetgui/dialogs/edit_dialog.py:658
-#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/blivet-gui.ui:464
-#: ../data/ui/cache_area.ui:76
+#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/cache_area.ui:76
+#: ../data/ui/blivet-gui.ui:464
 msgid "Device"
 msgstr "Dispositivo"
 
 #: ../blivetgui/dialogs/edit_dialog.py:548
 #: ../blivetgui/dialogs/edit_dialog.py:597
 #: ../blivetgui/dialogs/edit_dialog.py:659
-#: ../blivetgui/dialogs/add_dialog.py:454 ../data/ui/blivet-gui.ui:475
-#: ../data/ui/cache_area.ui:87
+#: ../blivetgui/dialogs/add_dialog.py:454 ../data/ui/cache_area.ui:87
+#: ../data/ui/blivet-gui.ui:475
 msgid "Type"
 msgstr "Tipo"
 
@@ -577,11 +587,6 @@ msgstr "Nombre:"
 msgid "Mountpoint:"
 msgstr "Punto de montaje:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1002 ../blivetgui/dialogs/helpers.py:141
-#, python-brace-format
-msgid "\"{0}\" is not a valid mountpoint."
-msgstr "\"{0}\" no es un punto de montaje válido."
-
 #: ../blivetgui/dialogs/add_dialog.py:1009
 msgid "Please select at least two parent devices."
 msgstr "Elija al menos dos dispositivos primarios."
@@ -590,11 +595,6 @@ msgstr "Elija al menos dos dispositivos primarios."
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" no es un nombre válido."
-
-#: ../blivetgui/dialogs/helpers.py:148
-#, python-brace-format
-msgid "Selected mountpoint \"{0}\" is already set for another device."
-msgstr "El punto de montaje \"{0}\" ya se está usando para otro dispositivo."
 
 #: ../blivetgui/dialogs/message_dialogs.py:197
 msgid "Confirm delete operation"
@@ -867,8 +867,8 @@ msgstr "Padres"
 msgid " • {exists} {size} {type} {name}\n"
 msgstr " • {exists} {size} {type} {name}\n"
 
-#: ../blivetgui/communication/client.py:289
-#: ../blivetgui/communication/client.py:306
+#: ../blivetgui/communication/client.py:302
+#: ../blivetgui/communication/client.py:319
 msgid "Failed to connect to blivet-gui-daemon"
 msgstr "No se pudo conectar con blivet-gui-daemon"
 
@@ -904,10 +904,6 @@ msgstr "Falta la tabla de particiones"
 msgid "Device or format is write protected"
 msgstr "El dispositivo o el formato están protegidos contra escritura"
 
-#: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
-msgid "Error"
-msgstr "Error"
-
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Decrypt device"
 msgstr "Descifrar dispositivo"
@@ -921,126 +917,9 @@ msgstr ""
 msgid "Passphrase:"
 msgstr "Frase de acceso:"
 
-#: ../data/ui/blivet-gui.ui:14
-msgid "New"
-msgstr "Nuevo"
-
-#: ../data/ui/blivet-gui.ui:23
-msgid "Delete"
-msgstr "Borrar"
-
-#: ../data/ui/blivet-gui.ui:32
-msgid "Edit"
-msgstr "Eliminar"
-
-#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
-msgid "Resize"
-msgstr "Redimensionar"
-
-#. Edit format (e.g. delete existing and create a new one) on selected device.
-#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
-msgctxt "Menu|Edit"
-msgid "Format"
-msgstr "Formato"
-
-#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:154
-msgid "Set label"
-msgstr "Establecer etiqueta"
-
-#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:138
-msgid "Modify parents"
-msgstr "Modificar a los padres"
-
-#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:146
-#: ../data/ui/mountpoint_dialog.ui:7
-msgid "Set mountpoint"
-msgstr "Establecer punto de montaje"
-
-#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
-msgid "Set partition table"
-msgstr "Establecer la tabla de particiones"
-
-#: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
+#: ../data/ui/unmount_dialog.ui:15 ../data/ui/blivet-gui.ui:94
 msgid "Unmount"
 msgstr "Desmontar"
-
-#: ../data/ui/blivet-gui.ui:102
-msgid "Decrypt"
-msgstr "Descifrar"
-
-#: ../data/ui/blivet-gui.ui:110
-msgid "Information"
-msgstr "Información"
-
-#: ../data/ui/blivet-gui.ui:237
-msgid "blivet-gui"
-msgstr "blivet-gui"
-
-#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
-#: ../data/ui/blivet-gui.ui:804 ../data/ui/blivet-gui.ui:815
-#: ../data/ui/blivet-gui.ui:826
-msgid "column"
-msgstr "columna"
-
-#: ../data/ui/blivet-gui.ui:348
-msgctxt "ActionsToolbar|Add"
-msgid "Add new device"
-msgstr "Agregar nuevo dispositivo"
-
-#: ../data/ui/blivet-gui.ui:364
-msgctxt "ActionsToolbar|Delete"
-msgid "Delete selected device"
-msgstr "Eliminar dispositivo seleccionado"
-
-#: ../data/ui/blivet-gui.ui:380
-msgctxt "ActionsToolbar|Edit"
-msgid "Edit selected device"
-msgstr "Editar dispositivo seleccionado"
-
-#: ../data/ui/blivet-gui.ui:406
-msgctxt "ActionsToolbar|Unmount"
-msgid "Unmount selected device"
-msgstr "Desmontar el dispositivo seleccionado"
-
-#: ../data/ui/blivet-gui.ui:421
-msgctxt "ActionsToolbar|Decrypt"
-msgid "Unlock/Open selected device"
-msgstr "Desbloquear / Abrir el dispositivo seleccionado"
-
-#: ../data/ui/blivet-gui.ui:436
-msgctxt "ActionsToolbar|Info"
-msgid "Display information about selected device"
-msgstr "Mostrar información sobre el dispositivo seleccionado"
-
-#. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:486
-msgctxt "LogicalView|Column"
-msgid "Format"
-msgstr "Formato"
-
-#: ../data/ui/blivet-gui.ui:508
-msgid "Mountpoint"
-msgstr "Punto de montaje"
-
-#: ../data/ui/blivet-gui.ui:530
-msgid "Logical View"
-msgstr "Vista lógica"
-
-#: ../data/ui/blivet-gui.ui:553
-msgid "Physical View"
-msgstr "Vista física"
-
-#: ../data/ui/blivet-gui.ui:626
-msgid "Reload Storage"
-msgstr "Recargar la información de almacenamiento"
-
-#: ../data/ui/blivet-gui.ui:634
-msgid "Queued Actions"
-msgstr "Acciones pendientes"
-
-#: ../data/ui/blivet-gui.ui:656
-msgid "About blivet-gui"
-msgstr "Sobre blivet-gui"
 
 #: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
 msgid "Cancel"
@@ -1061,6 +940,34 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+
+#: ../data/ui/raid_chooser.ui:21
+msgid "RAID level:"
+msgstr "Nivel RAID:"
+
+#: ../data/ui/exception_dialog.ui:12 ../data/ui/error_dialog.ui:13
+msgid "Error"
+msgstr "Error"
+
+#: ../data/ui/exception_dialog.ui:27
+msgid "_Back"
+msgstr "_Atrás"
+
+#: ../data/ui/exception_dialog.ui:41
+msgid "_Report a bug"
+msgstr "_Reportar un error"
+
+#: ../data/ui/exception_dialog.ui:55
+msgid "_Quit"
+msgstr "_Quitar"
+
+#: ../data/ui/exception_dialog.ui:107
+msgid "Show traceback"
+msgstr "Mostrar rastreo"
+
+#: ../data/ui/size_chooser.ui:14
+msgid "Size:"
+msgstr "Tamaño:"
 
 #: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
 msgid "Format device"
@@ -1089,33 +996,21 @@ msgstr "Introduzca una nueva etiqueta:"
 msgid "Enter new mountpoint:"
 msgstr "Introduzca el nuevo punto de montaje:"
 
-#: ../data/ui/raid_chooser.ui:21
-msgid "RAID level:"
-msgstr "Nivel RAID:"
-
-#: ../data/ui/exception_dialog.ui:27
-msgid "_Back"
-msgstr "_Atrás"
-
-#: ../data/ui/exception_dialog.ui:41
-msgid "_Report a bug"
-msgstr "_Reportar un error"
-
-#: ../data/ui/exception_dialog.ui:55
-msgid "_Quit"
-msgstr "_Quitar"
-
-#: ../data/ui/exception_dialog.ui:107
-msgid "Show traceback"
-msgstr "Mostrar rastreo"
-
-#: ../data/ui/size_chooser.ui:14
-msgid "Size:"
-msgstr "Tamaño:"
-
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
 msgstr "Especificar manualmente el diseño"
+
+#: ../data/ui/add_disklabel_dialog.ui:11
+msgid "No partition table found on disk"
+msgstr "No se ha encontrado ninguna tabla de particiones en el disco"
+
+#: ../data/ui/add_disklabel_dialog.ui:12
+msgid "A partition table is required before partitions can be added."
+msgstr "Se necesita una tabla de particiones para poder añadir particiones."
+
+#: ../data/ui/add_disklabel_dialog.ui:52
+msgid "Select new partition table type:"
+msgstr "Elija el tipo de la nueva tabla de particiones:"
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
@@ -1205,18 +1100,123 @@ msgstr "Reetiquetar"
 msgid "Enter new label for this filesystem:"
 msgstr "Proporcione la etiqueta nueva de este sistema de archivos:"
 
+#: ../data/ui/blivet-gui.ui:14
+msgid "New"
+msgstr "Nuevo"
+
+#: ../data/ui/blivet-gui.ui:23
+msgid "Delete"
+msgstr "Borrar"
+
+#: ../data/ui/blivet-gui.ui:32
+msgid "Edit"
+msgstr "Eliminar"
+
+#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
+msgid "Resize"
+msgstr "Redimensionar"
+
+#. Edit format (e.g. delete existing and create a new one) on selected device.
+#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
+msgctxt "Menu|Edit"
+msgid "Format"
+msgstr "Formato"
+
+#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:154
+msgid "Set label"
+msgstr "Establecer etiqueta"
+
+#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:138
+msgid "Modify parents"
+msgstr "Modificar a los padres"
+
+#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:146
+#: ../data/ui/mountpoint_dialog.ui:7
+msgid "Set mountpoint"
+msgstr "Establecer punto de montaje"
+
+#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
+msgid "Set partition table"
+msgstr "Establecer la tabla de particiones"
+
+#: ../data/ui/blivet-gui.ui:102
+msgid "Decrypt"
+msgstr "Descifrar"
+
+#: ../data/ui/blivet-gui.ui:110
+msgid "Information"
+msgstr "Información"
+
+#: ../data/ui/blivet-gui.ui:237
+msgid "blivet-gui"
+msgstr "blivet-gui"
+
+#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
+#: ../data/ui/blivet-gui.ui:804 ../data/ui/blivet-gui.ui:815
+#: ../data/ui/blivet-gui.ui:826
+msgid "column"
+msgstr "columna"
+
+#: ../data/ui/blivet-gui.ui:348
+msgctxt "ActionsToolbar|Add"
+msgid "Add new device"
+msgstr "Agregar nuevo dispositivo"
+
+#: ../data/ui/blivet-gui.ui:364
+msgctxt "ActionsToolbar|Delete"
+msgid "Delete selected device"
+msgstr "Eliminar dispositivo seleccionado"
+
+#: ../data/ui/blivet-gui.ui:380
+msgctxt "ActionsToolbar|Edit"
+msgid "Edit selected device"
+msgstr "Editar dispositivo seleccionado"
+
+#: ../data/ui/blivet-gui.ui:406
+msgctxt "ActionsToolbar|Unmount"
+msgid "Unmount selected device"
+msgstr "Desmontar el dispositivo seleccionado"
+
+#: ../data/ui/blivet-gui.ui:421
+msgctxt "ActionsToolbar|Decrypt"
+msgid "Unlock/Open selected device"
+msgstr "Desbloquear / Abrir el dispositivo seleccionado"
+
+#: ../data/ui/blivet-gui.ui:436
+msgctxt "ActionsToolbar|Info"
+msgid "Display information about selected device"
+msgstr "Mostrar información sobre el dispositivo seleccionado"
+
+#. Format (filesystem) type of selected device.
+#: ../data/ui/blivet-gui.ui:486
+msgctxt "LogicalView|Column"
+msgid "Format"
+msgstr "Formato"
+
+#: ../data/ui/blivet-gui.ui:508
+msgid "Mountpoint"
+msgstr "Punto de montaje"
+
+#: ../data/ui/blivet-gui.ui:530
+msgid "Logical View"
+msgstr "Vista lógica"
+
+#: ../data/ui/blivet-gui.ui:553
+msgid "Physical View"
+msgstr "Vista física"
+
+#: ../data/ui/blivet-gui.ui:626
+msgid "Reload Storage"
+msgstr "Recargar la información de almacenamiento"
+
+#: ../data/ui/blivet-gui.ui:634
+msgid "Queued Actions"
+msgstr "Acciones pendientes"
+
+#: ../data/ui/blivet-gui.ui:656
+msgid "About blivet-gui"
+msgstr "Sobre blivet-gui"
+
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
 msgstr "_Establecer punto de montaje"
-
-#: ../data/ui/add_disklabel_dialog.ui:11
-msgid "No partition table found on disk"
-msgstr "No se ha encontrado ninguna tabla de particiones en el disco"
-
-#: ../data/ui/add_disklabel_dialog.ui:12
-msgid "A partition table is required before partitions can be added."
-msgstr "Se necesita una tabla de particiones para poder añadir particiones."
-
-#: ../data/ui/add_disklabel_dialog.ui:52
-msgid "Select new partition table type:"
-msgstr "Elija el tipo de la nueva tabla de particiones:"

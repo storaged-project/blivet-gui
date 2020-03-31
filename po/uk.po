@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-22 21:48+0100\n"
+"POT-Creation-Date: 2020-03-31 12:52+0200\n"
 "PO-Revision-Date: 2020-03-14 20:38+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
@@ -17,32 +17,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.11.3\n"
 
-#: ../blivetgui/processing_window.py:58
-msgid "Processing"
-msgstr "Обробка"
-
-#: ../blivetgui/processing_window.py:83
-msgid "Show actions"
-msgstr "Показ дій"
-
-#: ../blivetgui/processing_window.py:153
-msgid "All queued actions have been processed."
-msgstr "Усі дії з черги виконано."
-
-#: ../blivetgui/processing_window.py:168
-#, python-brace-format
-msgid ""
-"<b>Processing action {num} of {total}</b>:\n"
-"<i>{action}</i>"
-msgstr ""
-"<b>Виконуємо дію {num} з {total}</b>:\n"
-"<i>{action}</i>"
-
-#: ../blivetgui/osinstall.py:215
+#: ../blivetgui/osinstall.py:217
 #, python-brace-format
 msgid ""
 "{message}\n"
@@ -56,7 +35,7 @@ msgstr ""
 "дозволити anaconda \n"
 "обробити і надіслати звіт, якщо ви цього хочете."
 
-#: ../blivetgui/osinstall.py:217
+#: ../blivetgui/osinstall.py:219
 #, python-brace-format
 msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
@@ -66,7 +45,7 @@ msgstr ""
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
-#: ../blivetgui/osinstall.py:265
+#: ../blivetgui/osinstall.py:267
 msgid "actions configured by installer"
 msgstr "дії, налаштовані засобом для встановлення"
 
@@ -98,6 +77,27 @@ msgstr "Томи Btrfs"
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "Btrfs Volume"
 msgstr "Том Btrfs"
+
+#: ../blivetgui/processing_window.py:58
+msgid "Processing"
+msgstr "Обробка"
+
+#: ../blivetgui/processing_window.py:83
+msgid "Show actions"
+msgstr "Показ дій"
+
+#: ../blivetgui/processing_window.py:153
+msgid "All queued actions have been processed."
+msgstr "Усі дії з черги виконано."
+
+#: ../blivetgui/processing_window.py:168
+#, python-brace-format
+msgid ""
+"<b>Processing action {num} of {total}</b>:\n"
+"<i>{action}</i>"
+msgstr ""
+"<b>Виконуємо дію {num} з {total}</b>:\n"
+"<i>{action}</i>"
 
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
@@ -321,7 +321,7 @@ msgstr "Мітка диска {0}"
 msgid "free space"
 msgstr "вільне місце"
 
-#: ../blivetgui/blivet_utils.py:649
+#: ../blivetgui/blivet_utils.py:651
 msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr "Не можна змінювати розмір логічних томів із знімками."
 
@@ -355,6 +355,16 @@ msgstr "Поточний вибраний розмір перевищує мак
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr "Поточний вибраний розмір є меншим за мінімальний для позначеного."
+
+#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1002
+#, python-brace-format
+msgid "\"{0}\" is not a valid mountpoint."
+msgstr "«{0}» не є коректною точкою монтування."
+
+#: ../blivetgui/dialogs/helpers.py:148
+#, python-brace-format
+msgid "Selected mountpoint \"{0}\" is already set for another device."
+msgstr "Вибрану точку монтування «{0}» вже встановлено для іншого пристрою."
 
 #: ../blivetgui/dialogs/edit_dialog.py:102
 #, python-brace-format
@@ -393,16 +403,16 @@ msgstr "Змінити запис пристрою"
 #: ../blivetgui/dialogs/edit_dialog.py:547
 #: ../blivetgui/dialogs/edit_dialog.py:596
 #: ../blivetgui/dialogs/edit_dialog.py:658
-#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/blivet-gui.ui:464
-#: ../data/ui/cache_area.ui:76
+#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/cache_area.ui:76
+#: ../data/ui/blivet-gui.ui:464
 msgid "Device"
 msgstr "Пристрій"
 
 #: ../blivetgui/dialogs/edit_dialog.py:548
 #: ../blivetgui/dialogs/edit_dialog.py:597
 #: ../blivetgui/dialogs/edit_dialog.py:659
-#: ../blivetgui/dialogs/add_dialog.py:454 ../data/ui/blivet-gui.ui:475
-#: ../data/ui/cache_area.ui:87
+#: ../blivetgui/dialogs/add_dialog.py:454 ../data/ui/cache_area.ui:87
+#: ../data/ui/blivet-gui.ui:475
 msgid "Type"
 msgstr "Тип"
 
@@ -578,11 +588,6 @@ msgstr "Назва:"
 msgid "Mountpoint:"
 msgstr "Точка монтування:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1002 ../blivetgui/dialogs/helpers.py:141
-#, python-brace-format
-msgid "\"{0}\" is not a valid mountpoint."
-msgstr "«{0}» не є коректною точкою монтування."
-
 #: ../blivetgui/dialogs/add_dialog.py:1009
 msgid "Please select at least two parent devices."
 msgstr "Будь ласка, виберіть принаймні два батьківських розділи."
@@ -591,11 +596,6 @@ msgstr "Будь ласка, виберіть принаймні два бать
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "«{0}» не є коректною назвою."
-
-#: ../blivetgui/dialogs/helpers.py:148
-#, python-brace-format
-msgid "Selected mountpoint \"{0}\" is already set for another device."
-msgstr "Вибрану точку монтування «{0}» вже встановлено для іншого пристрою."
 
 #: ../blivetgui/dialogs/message_dialogs.py:197
 msgid "Confirm delete operation"
@@ -868,8 +868,8 @@ msgstr "Батьківські"
 msgid " • {exists} {size} {type} {name}\n"
 msgstr " • {exists} {size} {type} {name}\n"
 
-#: ../blivetgui/communication/client.py:289
-#: ../blivetgui/communication/client.py:306
+#: ../blivetgui/communication/client.py:302
+#: ../blivetgui/communication/client.py:319
 msgid "Failed to connect to blivet-gui-daemon"
 msgstr "Не вдалося з’єднатися з blivet-gui-daemon"
 
@@ -905,10 +905,6 @@ msgstr "Немає таблиці розділів"
 msgid "Device or format is write protected"
 msgstr "Пристрій або формат захищено від запису"
 
-#: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
-msgid "Error"
-msgstr "Помилка"
-
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Decrypt device"
 msgstr "Розшифрування пристрою"
@@ -921,126 +917,9 @@ msgstr "Будь ласка, вкажіть пароль для розшифро
 msgid "Passphrase:"
 msgstr "Пароль:"
 
-#: ../data/ui/blivet-gui.ui:14
-msgid "New"
-msgstr "Створити"
-
-#: ../data/ui/blivet-gui.ui:23
-msgid "Delete"
-msgstr "Вилучити"
-
-#: ../data/ui/blivet-gui.ui:32
-msgid "Edit"
-msgstr "Змінити"
-
-#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
-msgid "Resize"
-msgstr "Змінити розмір"
-
-#. Edit format (e.g. delete existing and create a new one) on selected device.
-#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
-msgctxt "Menu|Edit"
-msgid "Format"
-msgstr "Форматувати"
-
-#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:154
-msgid "Set label"
-msgstr "Встановити мітку"
-
-#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:138
-msgid "Modify parents"
-msgstr "Змінити батьківські"
-
-#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:146
-#: ../data/ui/mountpoint_dialog.ui:7
-msgid "Set mountpoint"
-msgstr "Встановити точку монтування"
-
-#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
-msgid "Set partition table"
-msgstr "Встановити таблицю розділів"
-
-#: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
+#: ../data/ui/unmount_dialog.ui:15 ../data/ui/blivet-gui.ui:94
 msgid "Unmount"
 msgstr "Демонтувати"
-
-#: ../data/ui/blivet-gui.ui:102
-msgid "Decrypt"
-msgstr "Розшифрувати"
-
-#: ../data/ui/blivet-gui.ui:110
-msgid "Information"
-msgstr "Інформація"
-
-#: ../data/ui/blivet-gui.ui:237
-msgid "blivet-gui"
-msgstr "blivet-gui"
-
-#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
-#: ../data/ui/blivet-gui.ui:804 ../data/ui/blivet-gui.ui:815
-#: ../data/ui/blivet-gui.ui:826
-msgid "column"
-msgstr "стовпчик"
-
-#: ../data/ui/blivet-gui.ui:348
-msgctxt "ActionsToolbar|Add"
-msgid "Add new device"
-msgstr "Додати новий пристрій"
-
-#: ../data/ui/blivet-gui.ui:364
-msgctxt "ActionsToolbar|Delete"
-msgid "Delete selected device"
-msgstr "Вилучити позначений пристрій"
-
-#: ../data/ui/blivet-gui.ui:380
-msgctxt "ActionsToolbar|Edit"
-msgid "Edit selected device"
-msgstr "Змінити позначений пристрій"
-
-#: ../data/ui/blivet-gui.ui:406
-msgctxt "ActionsToolbar|Unmount"
-msgid "Unmount selected device"
-msgstr "Демонтувати позначений пристрій"
-
-#: ../data/ui/blivet-gui.ui:421
-msgctxt "ActionsToolbar|Decrypt"
-msgid "Unlock/Open selected device"
-msgstr "Розблокувати або відкрити позначений пристрій"
-
-#: ../data/ui/blivet-gui.ui:436
-msgctxt "ActionsToolbar|Info"
-msgid "Display information about selected device"
-msgstr "Показати дані щодо позначеного пристрою"
-
-#. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:486
-msgctxt "LogicalView|Column"
-msgid "Format"
-msgstr "Форматувати"
-
-#: ../data/ui/blivet-gui.ui:508
-msgid "Mountpoint"
-msgstr "Точка монтування"
-
-#: ../data/ui/blivet-gui.ui:530
-msgid "Logical View"
-msgstr "Логічний перегляд"
-
-#: ../data/ui/blivet-gui.ui:553
-msgid "Physical View"
-msgstr "Фізичний перегляд"
-
-#: ../data/ui/blivet-gui.ui:626
-msgid "Reload Storage"
-msgstr "Перезавантажити сховище"
-
-#: ../data/ui/blivet-gui.ui:634
-msgid "Queued Actions"
-msgstr "Дії у черзі"
-
-#: ../data/ui/blivet-gui.ui:656
-msgid "About blivet-gui"
-msgstr "Про blivet-gui"
 
 #: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
 msgid "Cancel"
@@ -1063,6 +942,34 @@ msgstr ""
 "до декількох точок монтування.</b>\n"
 "\n"
 "Будь ласка, виберіть точки монтування, які слід демонтувати:"
+
+#: ../data/ui/raid_chooser.ui:21
+msgid "RAID level:"
+msgstr "Рівень RAID:"
+
+#: ../data/ui/exception_dialog.ui:12 ../data/ui/error_dialog.ui:13
+msgid "Error"
+msgstr "Помилка"
+
+#: ../data/ui/exception_dialog.ui:27
+msgid "_Back"
+msgstr "_Назад"
+
+#: ../data/ui/exception_dialog.ui:41
+msgid "_Report a bug"
+msgstr "_Повідомити про ваду"
+
+#: ../data/ui/exception_dialog.ui:55
+msgid "_Quit"
+msgstr "Ви_йти"
+
+#: ../data/ui/exception_dialog.ui:107
+msgid "Show traceback"
+msgstr "Показати трасування"
+
+#: ../data/ui/size_chooser.ui:14
+msgid "Size:"
+msgstr "Розмір:"
 
 #: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
 msgid "Format device"
@@ -1091,33 +998,21 @@ msgstr "Вкажіть нову мітку:"
 msgid "Enter new mountpoint:"
 msgstr "Вкажіть нову точку монтування:"
 
-#: ../data/ui/raid_chooser.ui:21
-msgid "RAID level:"
-msgstr "Рівень RAID:"
-
-#: ../data/ui/exception_dialog.ui:27
-msgid "_Back"
-msgstr "_Назад"
-
-#: ../data/ui/exception_dialog.ui:41
-msgid "_Report a bug"
-msgstr "_Повідомити про ваду"
-
-#: ../data/ui/exception_dialog.ui:55
-msgid "_Quit"
-msgstr "Ви_йти"
-
-#: ../data/ui/exception_dialog.ui:107
-msgid "Show traceback"
-msgstr "Показати трасування"
-
-#: ../data/ui/size_chooser.ui:14
-msgid "Size:"
-msgstr "Розмір:"
-
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
 msgstr "Вказати компонування вручну"
+
+#: ../data/ui/add_disklabel_dialog.ui:11
+msgid "No partition table found on disk"
+msgstr "На диску не знайдено таблиці розділів"
+
+#: ../data/ui/add_disklabel_dialog.ui:12
+msgid "A partition table is required before partitions can be added."
+msgstr "Перш ніж додавати розділи, слід створити таблицю розділів."
+
+#: ../data/ui/add_disklabel_dialog.ui:52
+msgid "Select new partition table type:"
+msgstr "Виберіть тип нової таблиці розділів:"
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
@@ -1205,18 +1100,123 @@ msgstr "Змінити мітку"
 msgid "Enter new label for this filesystem:"
 msgstr "Введіть нову мітку для цієї файлової системи:"
 
+#: ../data/ui/blivet-gui.ui:14
+msgid "New"
+msgstr "Створити"
+
+#: ../data/ui/blivet-gui.ui:23
+msgid "Delete"
+msgstr "Вилучити"
+
+#: ../data/ui/blivet-gui.ui:32
+msgid "Edit"
+msgstr "Змінити"
+
+#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
+msgid "Resize"
+msgstr "Змінити розмір"
+
+#. Edit format (e.g. delete existing and create a new one) on selected device.
+#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
+msgctxt "Menu|Edit"
+msgid "Format"
+msgstr "Форматувати"
+
+#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:154
+msgid "Set label"
+msgstr "Встановити мітку"
+
+#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:138
+msgid "Modify parents"
+msgstr "Змінити батьківські"
+
+#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:146
+#: ../data/ui/mountpoint_dialog.ui:7
+msgid "Set mountpoint"
+msgstr "Встановити точку монтування"
+
+#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
+msgid "Set partition table"
+msgstr "Встановити таблицю розділів"
+
+#: ../data/ui/blivet-gui.ui:102
+msgid "Decrypt"
+msgstr "Розшифрувати"
+
+#: ../data/ui/blivet-gui.ui:110
+msgid "Information"
+msgstr "Інформація"
+
+#: ../data/ui/blivet-gui.ui:237
+msgid "blivet-gui"
+msgstr "blivet-gui"
+
+#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
+#: ../data/ui/blivet-gui.ui:804 ../data/ui/blivet-gui.ui:815
+#: ../data/ui/blivet-gui.ui:826
+msgid "column"
+msgstr "стовпчик"
+
+#: ../data/ui/blivet-gui.ui:348
+msgctxt "ActionsToolbar|Add"
+msgid "Add new device"
+msgstr "Додати новий пристрій"
+
+#: ../data/ui/blivet-gui.ui:364
+msgctxt "ActionsToolbar|Delete"
+msgid "Delete selected device"
+msgstr "Вилучити позначений пристрій"
+
+#: ../data/ui/blivet-gui.ui:380
+msgctxt "ActionsToolbar|Edit"
+msgid "Edit selected device"
+msgstr "Змінити позначений пристрій"
+
+#: ../data/ui/blivet-gui.ui:406
+msgctxt "ActionsToolbar|Unmount"
+msgid "Unmount selected device"
+msgstr "Демонтувати позначений пристрій"
+
+#: ../data/ui/blivet-gui.ui:421
+msgctxt "ActionsToolbar|Decrypt"
+msgid "Unlock/Open selected device"
+msgstr "Розблокувати або відкрити позначений пристрій"
+
+#: ../data/ui/blivet-gui.ui:436
+msgctxt "ActionsToolbar|Info"
+msgid "Display information about selected device"
+msgstr "Показати дані щодо позначеного пристрою"
+
+#. Format (filesystem) type of selected device.
+#: ../data/ui/blivet-gui.ui:486
+msgctxt "LogicalView|Column"
+msgid "Format"
+msgstr "Форматувати"
+
+#: ../data/ui/blivet-gui.ui:508
+msgid "Mountpoint"
+msgstr "Точка монтування"
+
+#: ../data/ui/blivet-gui.ui:530
+msgid "Logical View"
+msgstr "Логічний перегляд"
+
+#: ../data/ui/blivet-gui.ui:553
+msgid "Physical View"
+msgstr "Фізичний перегляд"
+
+#: ../data/ui/blivet-gui.ui:626
+msgid "Reload Storage"
+msgstr "Перезавантажити сховище"
+
+#: ../data/ui/blivet-gui.ui:634
+msgid "Queued Actions"
+msgstr "Дії у черзі"
+
+#: ../data/ui/blivet-gui.ui:656
+msgid "About blivet-gui"
+msgstr "Про blivet-gui"
+
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
 msgstr "Вс_тановити точку монтування"
-
-#: ../data/ui/add_disklabel_dialog.ui:11
-msgid "No partition table found on disk"
-msgstr "На диску не знайдено таблиці розділів"
-
-#: ../data/ui/add_disklabel_dialog.ui:12
-msgid "A partition table is required before partitions can be added."
-msgstr "Перш ніж додавати розділи, слід створити таблицю розділів."
-
-#: ../data/ui/add_disklabel_dialog.ui:52
-msgid "Select new partition table type:"
-msgstr "Виберіть тип нової таблиці розділів:"
