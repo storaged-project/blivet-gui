@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock
 
 from blivet.size import Size
 
@@ -82,13 +82,12 @@ class ListPartitionsTest(unittest.TestCase):
 
         # simple partition -- test if added to store correctly
         device = MagicMock(type="partition", size=Size("1 GiB"), path="/dev/vda1",
-                           format=MagicMock(type="ext4", mountable=True, mountpoint=None))
+                           format=MagicMock(type="ext4", mountable=True))
         device.configure_mock(name="vda1")
 
         mountpoints = {device.path: "/"}
-
-        with patch("blivetgui.list_partitions.ListPartitions.blivetgui.client.remote_call", lambda _, _: mountpoints):
-            it = self.list_partitions._add_to_store(device)
+        self.blivet_gui.client.remote_call.return_value = mountpoints
+        it = self.list_partitions._add_to_store(device)
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 1), device.name)
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 2), device.type)
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 3), device.format.type)
@@ -97,14 +96,13 @@ class ListPartitionsTest(unittest.TestCase):
 
         # simple partition with multiple mountpoints
         mountpoints = {device.path: ["/", "/mnt"]}
-        with patch("blivetgui.list_partitions.ListPartitions.blivetgui.client.remote_call", lambda _, _: mountpoints):
-            it = self.list_partitions._add_to_store(device)
+        self.blivet_gui.client.remote_call.return_value = mountpoints
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 1), device.name)
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 5), ", ".join(mountpoints))
 
         # lvmvg with long name -- name should be elipsized and type should be 'lvm'
         device = MagicMock(type="lvmvg", size=Size("1 GiB"),
-                           format=MagicMock(type=None, mountable=False, mountpoint=None, system_mountpoint=None))
+                           format=MagicMock(type=None, mountable=False))
         device.configure_mock(name="".join(["a" for i in range(20)]))
 
         it = self.list_partitions._add_to_store(device)
@@ -116,9 +114,10 @@ class ListPartitionsTest(unittest.TestCase):
 
         # child device of previously added device
         device = MagicMock(type="lvmlv", size=Size("1 GiB"),
-                           format=MagicMock(type="ext4", mountable=True, mountpoint=None, system_mountpoint="/home"))
+                           format=MagicMock(type="ext4", mountable=True))
         device.configure_mock(name="aaa")
 
+        self.blivet_gui.client.remote_call.return_value = {}
         child_it = self.list_partitions._add_to_store(device, it)
         # check that 'child_it' is actually child of 'it'
         self.assertEqual(self.list_partitions.partitions_list[self.list_partitions.partitions_list.iter_children(it)][0],
@@ -127,7 +126,7 @@ class ListPartitionsTest(unittest.TestCase):
         self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 2), "lvmlv")
         self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 3), device.format.type)
         self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 4), str(device.size))
-        self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 5), device.format.system_mountpoint)
+        self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 5), "")
 
 
 if __name__ == "__main__":
