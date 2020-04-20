@@ -145,7 +145,12 @@ class ListPartitions(object):
             else:
                 mnt = None
 
-        device_iter = self.partitions_list.append(parent_iter, [device, name, devtype, fmt, str(device.size), mnt])
+        if device.format.type and hasattr(device.format, "label") and device.format.label:
+            label = device.format.label if len(device.format.label) < 18 else device.format.label[:15] + "..."
+        else:
+            label = ""
+
+        device_iter = self.partitions_list.append(parent_iter, [device, name, devtype, fmt, str(device.size), label, mnt])
 
         return device_iter
 
