@@ -113,17 +113,15 @@ class AdvancedOptions(object):
 
         types = []
 
-        if self.free_device.is_logical:
-            types = [(_("Logical"), "logical")]
-
-        elif self._has_extended:
-            types = [(_("Primary"), "primary")]
-
-        elif self.parent_device.format.label_type in ("gpt",):
-            types = [(_("Primary"), "primary")]
-
+        if self.parent_device.format.label_type == "msdos":
+            if self.free_device.is_logical:
+                types = [(_("Logical"), "logical")]
+            elif self._has_extended:
+                types = [(_("Primary"), "primary")]
+            else:
+                types = [(_("Primary"), "primary"), (_("Extended"), "extended")]
         else:
-            types = [(_("Primary"), "primary"), (_("Extended"), "extended")]
+            types = [(_("Primary"), "primary")]
 
         for part_type in types:
             partition_store.append(part_type)
