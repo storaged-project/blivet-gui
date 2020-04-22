@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.13
+Version: 2.1.14
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -69,6 +69,20 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Wed Apr 22 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.14-1
+- Do not update filesystem info for resize in the installer mode (vtrefny)
+- Do not allow creating extedned partitions on DASD (#1825357) (vtrefny)
+- Translated using Weblate (Turkish) (oguzersen)
+- Translated using Weblate (Russian) (igor.gorbounov)
+- Translated using Weblate (German) (christian.wehrli)
+- Show filesystem label in the GUI (#1811383) (vtrefny)
+- Make sure broken tests are not silently ignored (vtrefny)
+- tests: Fix mocking/patching mountpoints in ListPartitionsTest (vtrefny)
+- Translated using Weblate (Russian) (pamolodyk)
+- Update translation files (noreply)
+- Translated using Weblate (Russian) (pamolodyk)
+- Sync spec with downstream (vtrefny)
+
 * Tue Mar 31 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.13-1
 - Translations update from Weblate (#166) (noreply)
 - Translated using Weblate (German) (jensmaucher)
