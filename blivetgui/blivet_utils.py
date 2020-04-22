@@ -652,16 +652,17 @@ class BlivetUtils(object):
             return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
-        try:
-            blivet_device.format.update_size_info()
+        if not self.installer_mode:
+            try:
+                blivet_device.format.update_size_info()
 
-            if blivet_device.type == "luks/dm-crypt":
-                blivet_device.slave.format.update_size_info()
+                if blivet_device.type == "luks/dm-crypt":
+                    blivet_device.slave.format.update_size_info()
 
-        except blivet.errors.FSError as e:
-            return ProxyDataContainer(resizable=False, error=str(e),
-                                      min_size=blivet.size.Size("1 MiB"),
-                                      max_size=blivet_device.size)
+            except blivet.errors.FSError as e:
+                return ProxyDataContainer(resizable=False, error=str(e),
+                                          min_size=blivet.size.Size("1 MiB"),
+                                          max_size=blivet_device.size)
 
         if blivet_device.resizable and blivet_device.format.resizable:
 
