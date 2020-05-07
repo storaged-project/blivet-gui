@@ -34,9 +34,9 @@ from ..i18n import _
 
 # ---------------------------------------------------------------------------- #
 
-PARTITION_TYPE = {parted.PARTITION_NORMAL: _("primary"),  # pylint: disable=found-_-in-module-class
-                  parted.PARTITION_LOGICAL: _("logical"),  # pylint: disable=found-_-in-module-class
-                  parted.PARTITION_EXTENDED: _("extended")}  # pylint: disable=found-_-in-module-class
+PARTITION_TYPE = {parted.PARTITION_NORMAL: _("primary"),  # pylint: disable=W9902
+                  parted.PARTITION_LOGICAL: _("logical"),  # pylint: disable=W9902
+                  parted.PARTITION_EXTENDED: _("extended")}  # pylint: disable=W9902
 
 # ---------------------------------------------------------------------------- #
 
