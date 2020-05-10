@@ -130,11 +130,16 @@ class ProcessingActions(Gtk.Dialog):
 
     def _set_applied_icon(self, position):
         icon_theme = Gtk.IconTheme.get_default()  # pylint: disable=no-value-for-parameter
-        icon_applied = Gtk.IconTheme.load_icon(icon_theme, "emblem-ok-symbolic.symbolic", 16, 0)
+        icon_applied = Gtk.IconTheme.lookup_icon(icon_theme, "emblem-ok-symbolic", 16,
+                                                 Gtk.IconLookupFlags.GENERIC_FALLBACK)
+        if not icon_applied:
+            # we did our best getting the icon, better no icon than a crash
+            return
 
+        icon_pixbuf = Gtk.IconInfo.load_icon(icon_applied)
         path = Gtk.TreePath(position)
         treeiter = self.actions_list.get_iter(path)
-        self.actions_list.set_value(treeiter, 2, icon_applied)
+        self.actions_list.set_value(treeiter, 2, icon_pixbuf)
 
     def start(self):
         """ Start the dialog
