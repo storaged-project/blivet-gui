@@ -143,11 +143,11 @@ class EncryptionChooserTest(unittest.TestCase):
         # passphrases don't match -> error icon
         encrypt_chooser._passphrase_entry.set_text("aa")
         encrypt_chooser._repeat_entry.set_text("bb")
-        self.assertEqual(encrypt_chooser._repeat_entry.get_icon_name(Gtk.EntryIconPosition.SECONDARY), "dialog-error-symbolic.symbolic")
+        self.assertEqual(encrypt_chooser._repeat_entry.get_icon_name(Gtk.EntryIconPosition.SECONDARY), "dialog-error-symbolic")
 
         # passphrases match -> ok icon
         encrypt_chooser._repeat_entry.set_text("aa")
-        self.assertEqual(encrypt_chooser._repeat_entry.get_icon_name(Gtk.EntryIconPosition.SECONDARY), "emblem-ok-symbolic.symbolic")
+        self.assertEqual(encrypt_chooser._repeat_entry.get_icon_name(Gtk.EntryIconPosition.SECONDARY), "emblem-ok-symbolic")
 
 
 if __name__ == "__main__":

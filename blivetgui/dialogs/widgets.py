@@ -343,8 +343,8 @@ class EncryptionChooser(GUIWidget):
     def _on_passphrase_changed(self, _widget):
         # check if passphrases match
         if self._passphrase_entry.get_text() == self._repeat_entry.get_text():
-            self._repeat_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "emblem-ok-symbolic.symbolic")
+            self._repeat_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "emblem-ok-symbolic")
             self._repeat_entry.set_icon_tooltip_markup(Gtk.EntryIconPosition.SECONDARY, _("Passphrases match."))
         else:
-            self._repeat_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "dialog-error-symbolic.symbolic")
+            self._repeat_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, "dialog-error-symbolic")
             self._repeat_entry.set_icon_tooltip_markup(Gtk.EntryIconPosition.SECONDARY, _("Passphrases don't match."))
