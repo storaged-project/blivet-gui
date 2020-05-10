@@ -52,14 +52,6 @@
               </object>
             </child>
             <child>
-              <object class="GtkMenuItem" id="menuitem_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Set label</property>
-                <property name="use_underline">True</property>
-              </object>
-            </child>
-            <child>
               <object class="GtkMenuItem" id="menuitem_parents">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -72,6 +64,14 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Set mountpoint</property>
+                <property name="use_underline">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="menuitem_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Set label</property>
                 <property name="use_underline">True</property>
               </object>
             </child>
