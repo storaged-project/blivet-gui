@@ -107,7 +107,7 @@ class ListPartitionsTest(unittest.TestCase):
         device.configure_mock(name="".join(["a" for i in range(20)]))
 
         it = self.list_partitions._add_to_store(device)
-        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 1), device.name[:15] + "...")
+        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 1), device.name)
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 2), "lvm")
         self.assertIsNone(self.list_partitions.partitions_list.get_value(it, 3))
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 4), str(device.size))

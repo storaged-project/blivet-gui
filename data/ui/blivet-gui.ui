@@ -463,9 +463,12 @@
                             <child>
                               <object class="GtkTreeViewColumn" id="column_device">
                                 <property name="resizable">True</property>
+                                <property name="fixed_width">110</property>
                                 <property name="title" translatable="yes">Device</property>
                                 <child>
-                                  <object class="GtkCellRendererText" id="cellrenderertext_device"/>
+                                  <object class="GtkCellRendererText" id="cellrenderertext_device">
+                                    <property name="ellipsize">end</property>
+                                  </object>
                                   <attributes>
                                     <attribute name="text">1</attribute>
                                   </attributes>
