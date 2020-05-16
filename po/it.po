@@ -1,43 +1,51 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Luca Ciavatta <luca.ciavatta@gmail.com>, 2016. #zanata
+# Alessio <alciregi@posteo.net>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-03-31 12:52+0200\n"
-"PO-Revision-Date: 2016-04-15 12:29+0000\n"
-"Last-Translator: Luca Ciavatta <luca.ciavatta@gmail.com>\n"
-"Language-Team: Italian\n"
+"PO-Revision-Date: 2020-05-16 06:40+0000\n"
+"Last-Translator: Alessio <alciregi@posteo.net>\n"
+"Language-Team: Italian <https://translate.fedoraproject.org/projects/blivet/"
+"blivet-gui/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.0.4\n"
 
 #: ../blivetgui/osinstall.py:217
-#, python-brace-format
+#, fuzzy, python-brace-format
 msgid ""
 "{message}\n"
 "{error}\n"
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+" Premi il pulsante Segnala per segnalare l'errore e permettere ad anaconda\n"
+" di gestire la cosa nel caso tu volessi segnalarla."
 
 #: ../blivetgui/osinstall.py:219
-#, python-brace-format
+#, fuzzy, python-brace-format
 msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
+"Si è verificato un errore sconosciuto. Anaconda verrà terminato.\n"
+"{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
 #: ../blivetgui/osinstall.py:267
+#, fuzzy
 msgid "actions configured by installer"
-msgstr ""
+msgstr "azioni configurate dall'installatore"
 
 #: ../blivetgui/list_devices.py:82
 msgid "Disks"
@@ -45,23 +53,24 @@ msgstr "Dischi"
 
 #: ../blivetgui/list_devices.py:102
 msgid "LVM"
-msgstr ""
+msgstr "LVM"
 
 #: ../blivetgui/list_devices.py:105
+#, fuzzy
 msgid "LVM2 VG"
-msgstr ""
+msgstr "LVM2 VG"
 
 #: ../blivetgui/list_devices.py:108
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../blivetgui/list_devices.py:111
 msgid "MDArray"
-msgstr ""
+msgstr "MDArray"
 
 #: ../blivetgui/list_devices.py:114
 msgid "Btrfs Volumes"
-msgstr ""
+msgstr "Volumi Btrfs"
 
 #: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:390
 #: ../blivetgui/dialogs/device_info_dialog.py:85
@@ -70,7 +79,7 @@ msgstr "Volume Btrfs"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
-msgstr ""
+msgstr "Elaborazione"
 
 #: ../blivetgui/processing_window.py:83
 msgid "Show actions"
@@ -78,7 +87,7 @@ msgstr "Mostra azioni"
 
 #: ../blivetgui/processing_window.py:153
 msgid "All queued actions have been processed."
-msgstr ""
+msgstr "Tutte le azioni in coda sono state processate."
 
 #: ../blivetgui/processing_window.py:168
 #, python-brace-format
@@ -86,6 +95,8 @@ msgid ""
 "<b>Processing action {num} of {total}</b>:\n"
 "<i>{action}</i>"
 msgstr ""
+"<b>Elaborazione dell'azione {num} di {total}</b>:\n"
+"<i>{action}</i>"
 
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
@@ -93,6 +104,8 @@ msgid ""
 "Unknown error occured.\n"
 "{error}"
 msgstr ""
+"Si è verificato un errore sconosciuto.\n"
+"{error}"
 
 #: ../blivetgui/exception_handler.py:77
 #, python-brace-format
