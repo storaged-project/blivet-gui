@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-03-31 12:52+0200\n"
+"POT-Creation-Date: 2020-04-22 14:23+0200\n"
 "PO-Revision-Date: 2019-05-23 02:37+0000\n"
 "Last-Translator: A S Alam <aalam@fedoraproject.org>\n"
 "Language-Team: Punjabi\n"
@@ -64,7 +64,7 @@ msgstr ""
 msgid "Btrfs Volumes"
 msgstr "Btrfs ਵਾਲੀਅਮ"
 
-#: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:390
+#: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:388
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "Btrfs Volume"
 msgstr "Btrfs ਵਾਲੀਅਮ"
@@ -208,7 +208,7 @@ msgstr "ਅਣ-ਮਾਊਂਟ ਕਰਨਾ ਅਸਫ਼ਲ ਹੈ। ਪੱਕ�
 msgid "Device decryption failed. Are you sure provided password is correct?"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:642
+#: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:655
 msgid "Quit"
 msgstr "ਬਾਹਰ"
 
@@ -290,7 +290,7 @@ msgid "Logical Volumes with snapshots couldn't be resized."
 msgstr ""
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
-#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:597
+#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:610
 msgid "No pending actions"
 msgstr "ਕੋਈ ਬਕਾਇਆ ਕਾਰਵਾਈ ਨਹੀਂ ਹੈ"
 
@@ -319,7 +319,7 @@ msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr ""
 
-#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1002
+#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1000
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr ""
@@ -341,12 +341,12 @@ msgid "This device cannot be resized."
 msgstr "ਇਹ ਡਿਵਾਈਸ ਦਾ ਆਕਾਰ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ।"
 
 #: ../blivetgui/dialogs/edit_dialog.py:164
-#: ../blivetgui/dialogs/add_dialog.py:794
+#: ../blivetgui/dialogs/add_dialog.py:792
 msgid "unformatted"
 msgstr "ਬਿਨ-ਫਾਰਮੈਟ ਕੀਤਾ"
 
 #: ../blivetgui/dialogs/edit_dialog.py:231
-#: ../blivetgui/dialogs/add_dialog.py:1029
+#: ../blivetgui/dialogs/add_dialog.py:1027
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
 msgstr ""
@@ -364,23 +364,23 @@ msgstr "ਡਿਵਾਈਸ ਸੋਧੋ"
 #: ../blivetgui/dialogs/edit_dialog.py:547
 #: ../blivetgui/dialogs/edit_dialog.py:596
 #: ../blivetgui/dialogs/edit_dialog.py:658
-#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/cache_area.ui:76
-#: ../data/ui/blivet-gui.ui:464
+#: ../blivetgui/dialogs/add_dialog.py:451 ../data/ui/cache_area.ui:76
+#: ../data/ui/blivet-gui.ui:466
 msgid "Device"
 msgstr "ਡਿਵਾਈਸ"
 
 #: ../blivetgui/dialogs/edit_dialog.py:548
 #: ../blivetgui/dialogs/edit_dialog.py:597
 #: ../blivetgui/dialogs/edit_dialog.py:659
-#: ../blivetgui/dialogs/add_dialog.py:454 ../data/ui/cache_area.ui:87
-#: ../data/ui/blivet-gui.ui:475
+#: ../blivetgui/dialogs/add_dialog.py:452 ../data/ui/cache_area.ui:87
+#: ../data/ui/blivet-gui.ui:477
 msgid "Type"
 msgstr "ਕਿਸਮ"
 
 #: ../blivetgui/dialogs/edit_dialog.py:549
 #: ../blivetgui/dialogs/edit_dialog.py:598
 #: ../blivetgui/dialogs/edit_dialog.py:660
-#: ../blivetgui/dialogs/add_dialog.py:455 ../data/ui/blivet-gui.ui:497
+#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/blivet-gui.ui:499
 msgid "Size"
 msgstr "ਆਕਾਰ"
 
@@ -408,7 +408,7 @@ msgstr "ਜੋੜਨਾ ਹੈ?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:607
 #: ../blivetgui/dialogs/edit_dialog.py:669
-#: ../blivetgui/dialogs/add_dialog.py:464 ../data/ui/cache_area.ui:130
+#: ../blivetgui/dialogs/add_dialog.py:462 ../data/ui/cache_area.ui:130
 msgid "Available devices:"
 msgstr "ਮੌਜੂਦ ਡਿਵਾਈਸ:"
 
@@ -442,112 +442,112 @@ msgstr "PE ਆਕਾਰ:"
 msgid "Partition type:"
 msgstr "ਪਾਰਟੀਸ਼ਨ ਕਿਸਮ:"
 
-#: ../blivetgui/dialogs/add_dialog.py:117
+#: ../blivetgui/dialogs/add_dialog.py:118
 msgid "Logical"
 msgstr "ਲਾਜ਼ੀਕਲ"
 
 #: ../blivetgui/dialogs/add_dialog.py:120
-#: ../blivetgui/dialogs/add_dialog.py:123
-#: ../blivetgui/dialogs/add_dialog.py:126
+#: ../blivetgui/dialogs/add_dialog.py:122
+#: ../blivetgui/dialogs/add_dialog.py:124
 msgid "Primary"
 msgstr "ਪ੍ਰਾਇਮਰੀ"
 
-#: ../blivetgui/dialogs/add_dialog.py:126
+#: ../blivetgui/dialogs/add_dialog.py:122
 msgid "Extended"
 msgstr "ਐਕਸਟੈਂਡਡ"
 
-#: ../blivetgui/dialogs/add_dialog.py:151
+#: ../blivetgui/dialogs/add_dialog.py:149
 msgid "Chunk Size:"
 msgstr "ਚੱਕ ਆਕਾਰ:"
 
-#: ../blivetgui/dialogs/add_dialog.py:214
+#: ../blivetgui/dialogs/add_dialog.py:212
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:219
+#: ../blivetgui/dialogs/add_dialog.py:217
 msgid "Chunk size must be multiple of 4 KiB."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:275
+#: ../blivetgui/dialogs/add_dialog.py:273
 msgid "Create new device"
 msgstr "ਨਵਾਂ ਡਿਵਾਈਸ ਬਣਾਓ"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
-#: ../blivetgui/dialogs/add_dialog.py:384
-#: ../blivetgui/dialogs/add_dialog.py:741
+#: ../blivetgui/dialogs/add_dialog.py:382
+#: ../blivetgui/dialogs/add_dialog.py:739
 #: ../blivetgui/dialogs/device_info_dialog.py:78
 msgid "Partition"
 msgstr "ਪਾਰਟੀਸ਼ਨ"
 
-#: ../blivetgui/dialogs/add_dialog.py:387
-#: ../blivetgui/dialogs/add_dialog.py:400
+#: ../blivetgui/dialogs/add_dialog.py:385
+#: ../blivetgui/dialogs/add_dialog.py:398
 #: ../blivetgui/dialogs/device_info_dialog.py:79
 msgid "LVM2 Volume Group"
 msgstr "LVM2 ਵਾਲੀਅਮ ਗਰੁੱਪ"
 
 #. number of free disk regions
-#: ../blivetgui/dialogs/add_dialog.py:393
+#: ../blivetgui/dialogs/add_dialog.py:391
 msgid "Software RAID"
 msgstr "ਸਾਫਟਵੇਅਰ ਰੇਡ"
 
-#: ../blivetgui/dialogs/add_dialog.py:396
+#: ../blivetgui/dialogs/add_dialog.py:394
 #: ../blivetgui/dialogs/device_info_dialog.py:80
 msgid "LVM2 Logical Volume"
 msgstr "LVM2 ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ"
 
-#: ../blivetgui/dialogs/add_dialog.py:396
+#: ../blivetgui/dialogs/add_dialog.py:394
 #: ../blivetgui/dialogs/device_info_dialog.py:82
 msgid "LVM2 ThinPool"
 msgstr "LVM2 ਥਿਨਪੂਲ"
 
-#: ../blivetgui/dialogs/add_dialog.py:403
+#: ../blivetgui/dialogs/add_dialog.py:401
 msgid "LVM2 Snaphost"
 msgstr "LVM2 ਸਨੈਪਸ਼ਾਟ"
 
-#: ../blivetgui/dialogs/add_dialog.py:406
+#: ../blivetgui/dialogs/add_dialog.py:404
 msgid "LVM2 Thin Snaphost"
 msgstr "LVM2 ਥਿਨ ਸਲੈਪਸ਼ਾਟ"
 
-#: ../blivetgui/dialogs/add_dialog.py:409
+#: ../blivetgui/dialogs/add_dialog.py:407
 #: ../blivetgui/dialogs/device_info_dialog.py:83
 msgid "LVM2 Thin Logical Volume"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:412
+#: ../blivetgui/dialogs/add_dialog.py:410
 #: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "Btrfs Subvolume"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:418
+#: ../blivetgui/dialogs/add_dialog.py:416
 msgid "Device type:"
 msgstr "ਡਿਵਾਈਸ ਕਿਸਮ:"
 
-#: ../blivetgui/dialogs/add_dialog.py:736
+#: ../blivetgui/dialogs/add_dialog.py:734
 msgid "MDArray type:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:768
+#: ../blivetgui/dialogs/add_dialog.py:766
 msgid "Filesystem:"
 msgstr "ਫਾਇਲ-ਸਿਸਟਮ:"
 
-#: ../blivetgui/dialogs/add_dialog.py:822
+#: ../blivetgui/dialogs/add_dialog.py:820
 msgid "Label:"
 msgstr "ਲੇਬਲ:"
 
-#: ../blivetgui/dialogs/add_dialog.py:830
+#: ../blivetgui/dialogs/add_dialog.py:828
 msgid "Name:"
 msgstr "ਨਾਂ:"
 
-#: ../blivetgui/dialogs/add_dialog.py:841
+#: ../blivetgui/dialogs/add_dialog.py:839
 msgid "Mountpoint:"
 msgstr "ਮਾਊਂਟ-ਥਾਂ:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1009
+#: ../blivetgui/dialogs/add_dialog.py:1007
 msgid "Please select at least two parent devices."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1023
+#: ../blivetgui/dialogs/add_dialog.py:1021
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr ""
@@ -1100,73 +1100,79 @@ msgstr "ਡਿਕ੍ਰਿਪਟ ਕਰੋ"
 msgid "Information"
 msgstr "ਜਾਣਕਾਰੀ"
 
-#: ../data/ui/blivet-gui.ui:237
+#: ../data/ui/blivet-gui.ui:239
 msgid "blivet-gui"
 msgstr "blivet-gui"
 
-#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
-#: ../data/ui/blivet-gui.ui:804 ../data/ui/blivet-gui.ui:815
-#: ../data/ui/blivet-gui.ui:826
+#: ../data/ui/blivet-gui.ui:276 ../data/ui/blivet-gui.ui:288
+#: ../data/ui/blivet-gui.ui:817 ../data/ui/blivet-gui.ui:828
+#: ../data/ui/blivet-gui.ui:839
 msgid "column"
 msgstr "ਕਾਲਮ"
 
-#: ../data/ui/blivet-gui.ui:348
+#: ../data/ui/blivet-gui.ui:350
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
 msgstr "ਨਵਾਂ ਡਿਵਾਈਸ ਜੋੜੋ"
 
-#: ../data/ui/blivet-gui.ui:364
+#: ../data/ui/blivet-gui.ui:366
 msgctxt "ActionsToolbar|Delete"
 msgid "Delete selected device"
 msgstr "ਚੁਣੇ ਡਿਵਾਈਸ ਨੂੰ ਹਟਾਓ"
 
-#: ../data/ui/blivet-gui.ui:380
+#: ../data/ui/blivet-gui.ui:382
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
 msgstr "ਚੁਣੇ ਡਿਵਾਈਸ ਨੂੰ ਸੋਧੋ"
 
-#: ../data/ui/blivet-gui.ui:406
+#: ../data/ui/blivet-gui.ui:408
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
 msgstr "ਚੁਣੇ ਡਿਵਾਈਸ ਨੂੰ ਅਣ-ਮਾਊਂਟ ਕਰੋ"
 
-#: ../data/ui/blivet-gui.ui:421
+#: ../data/ui/blivet-gui.ui:423
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
 msgstr "ਚੁਣੇ ਡਿਵਾਈਸ ਨੂੰ ਅਣ-ਲਾਕ ਕਰੋ/ਖੋਲ੍ਹੋ"
 
-#: ../data/ui/blivet-gui.ui:436
+#: ../data/ui/blivet-gui.ui:438
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
 msgstr "ਚੁਣੇ ਡਿਵਾਈਸ ਬਾਰੇ ਜਾਣਕਾਰੀ ਵੇਖਾਓ"
 
 #. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:486
+#: ../data/ui/blivet-gui.ui:488
 msgctxt "LogicalView|Column"
 msgid "Format"
 msgstr "ਫਾਰਮੈਟ"
 
-#: ../data/ui/blivet-gui.ui:508
+#: ../data/ui/blivet-gui.ui:510
+#, fuzzy
+#| msgid "Label:"
+msgid "Label"
+msgstr "ਲੇਬਲ:"
+
+#: ../data/ui/blivet-gui.ui:521
 msgid "Mountpoint"
 msgstr "ਮਾਊਂਟ ਕਰ ਦੀ ਥਾਂ"
 
-#: ../data/ui/blivet-gui.ui:530
+#: ../data/ui/blivet-gui.ui:543
 msgid "Logical View"
 msgstr "ਲਾਜ਼ੀਕਲ ਝਲਕ"
 
-#: ../data/ui/blivet-gui.ui:553
+#: ../data/ui/blivet-gui.ui:566
 msgid "Physical View"
 msgstr "ਫਿਜ਼ੀਕਲ ਝਲਕ"
 
-#: ../data/ui/blivet-gui.ui:626
+#: ../data/ui/blivet-gui.ui:639
 msgid "Reload Storage"
 msgstr "ਸਟੋਰੇਜ਼ ਮੁੜ-ਲੋਡ ਕਰੋ"
 
-#: ../data/ui/blivet-gui.ui:634
+#: ../data/ui/blivet-gui.ui:647
 msgid "Queued Actions"
 msgstr "ਕਤਾਰਬੱਧ ਕਾਰਵਾਈਆਂ"
 
-#: ../data/ui/blivet-gui.ui:656
+#: ../data/ui/blivet-gui.ui:669
 msgid "About blivet-gui"
 msgstr "blivet-gui ਬਾਰੇ"
 
