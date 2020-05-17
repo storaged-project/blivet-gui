@@ -70,6 +70,8 @@ class RawFormatDevice(object):
         self.is_disk = False
         self.isleaf = True
         self.direct = True
+        self._resizable = False
+        self.format_immutable = False
 
         self.children = []
         self.parents = blivet.devices.lib.ParentList(items=[self.disk])
@@ -127,6 +129,8 @@ class FreeSpaceDevice(object):
         self.is_free_space = True
         self.is_disk = False
         self.direct = False
+        self._resizable = False
+        self.format_immutable = False
 
         self.format = DeviceFormat(exists=True)
         self.type = "free space"
@@ -633,22 +637,68 @@ class BlivetUtils(object):
 
         """
 
-        if (blivet_device.format.type in ("swap",) or not blivet_device.format.exists or
-           not hasattr(blivet_device.format, "update_size_info")):
-            return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
+        if not blivet_device._resizable:
+            msg = _("Resizing of {type} devices is currently not supported").format(type=blivet_device.type)
+            return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
+                                      max_size=blivet_device.size)
+
+        elif blivet_device.protected:
+            msg = _("Protected devices cannot be resized")
+            return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
+                                      max_size=blivet_device.size)
+
+        elif blivet_device.format_immutable:
+            msg = _("Immutable formats cannot be resized")
+            return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
+                                      max_size=blivet_device.size)
+
+        elif blivet_device.children:
+            msg = _("Devices with children cannot be resized")
+            return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
         elif not blivet_device.format.type:
+            # unformatted devices are not resizable (except extended partitions)
             if (blivet_device.type == "partition" and blivet_device.is_extended and (blivet_device.max_size > blivet_device.size or
                blivet_device.min_size < blivet_device.size)):
                 return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.min_size,
                                           max_size=blivet_device.max_size)
             else:
-                return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
+                msg = _("Unformatted devices are not resizable")
+                return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                           max_size=blivet_device.size)
 
-        if blivet_device.type in ("lvmlv",) and self._has_snapshots(blivet_device):
-            msg = _("Logical Volumes with snapshots couldn't be resized.")
+        elif blivet_device.format.type not in ("ext2", "ext3", "ext4", "ntfs"):
+            # unfortunately we can't use format._resizable here because blivet uses it to both mark
+            # formats as not resizable and force users to call update_size_info on resizable formats
+            msg = _("Resizing of {type} format is currently not supported").format(type=blivet_device.format.type)
+            return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
+                                      max_size=blivet_device.size)
+
+        elif not blivet_device.format._resize.available:
+            msg = _("Tools for resizing format {type} are not available.").format(type=blivet_device.format.type)
+            return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
+                                      max_size=blivet_device.size)
+
+        elif not blivet_device.format.exists:
+            # TODO: we could support this by simply changing formats target size but we'd need
+            #       a workaround for the missing action
+            msg = _("Formats scheduled to be created cannot be resized")
+            return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
+                                      max_size=blivet_device.size)
+
+        elif blivet_device.format.type and not hasattr(blivet_device.format, "update_size_info"):
+            msg = _("Format {type} doesn't support updating its size limit information").format(format_type=blivet_device.format.type)
+            return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
+                                      max_size=blivet_device.size)
+
+        elif hasattr(blivet_device.format, "system_mountpoint") and blivet_device.format.system_mountpoint:
+            msg = _("Mounted devices cannot be resized")
+            return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
+                                      max_size=blivet_device.size)
+
+        elif blivet_device.type in ("lvmlv",) and self._has_snapshots(blivet_device):
+            msg = _("Logical Volumes with snapshots cannot be resized.")
             return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
@@ -660,20 +710,28 @@ class BlivetUtils(object):
                     blivet_device.slave.format.update_size_info()
 
             except blivet.errors.FSError as e:
-                return ProxyDataContainer(resizable=False, error=str(e),
+                msg = _("Failed to update filesystem size info: {error}").format(error=str(e))
+                return ProxyDataContainer(resizable=False, error=msg,
                                           min_size=blivet.size.Size("1 MiB"),
                                           max_size=blivet_device.size)
 
         if blivet_device.resizable and blivet_device.format.resizable:
 
             if blivet_device.type == "luks/dm-crypt":
-                return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.min_size,
-                                          max_size=blivet_device.slave.max_size - LUKS_METADATA_SIZE)
+                min_size = blivet_device.min_size
+                max_size = blivet_device.slave.max_size - LUKS_METADATA_SIZE
             else:
-                return ProxyDataContainer(resizable=True, error=None, min_size=blivet_device.min_size,
-                                          max_size=blivet_device.max_size)
+                min_size = blivet_device.min_size
+                max_size = blivet_device.max_size
+
+            return ProxyDataContainer(resizable=True, error=None, min_size=min_size,
+                                      max_size=max_size)
 
         else:
+            if not blivet_device.resizable:
+                msg = _("Device is not resizable.")
+            if not blivet_device.format.resizable:
+                msg = _("Format is not resizable after updating its size limit information.")
             return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 

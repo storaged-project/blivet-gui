@@ -66,6 +66,7 @@ class ResizeDialog(object):
             self.size_chooser = self._add_size_chooser()
         else:
             self._add_resize_info()
+            button_resize.hide()
 
     def set_decorated(self, decorated):
         self.dialog.set_decorated(decorated)

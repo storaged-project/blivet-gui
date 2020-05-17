@@ -4,6 +4,7 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from blivetgui.blivet_utils import BlivetUtils, FreeSpaceDevice
+from blivetgui.i18n import _
 
 from blivet.size import Size
 
@@ -66,23 +67,30 @@ class FreeSpaceDeviceTest(unittest.TestCase):
 
 class BlivetUtilsTest(unittest.TestCase):
 
-    @patch("blivetgui.blivet_utils.BlivetUtils._has_snapshots", lambda device: True)
     def test_resizable(self):
-        device = MagicMock(type="", size=Size("1 GiB"))
-        device.format = MagicMock(exists=True)
+        device = MagicMock(type="", size=Size("1 GiB"), protected=False, format_immutable=False, children=[])
+        device.format = MagicMock(exists=True, system_mountpoint=None)
         device.format.return_value = None
 
         # swap is not resizable
         device.format.configure_mock(type="swap")
         res = BlivetUtils.device_resizable(MagicMock(), device)
         self.assertFalse(res.resizable)
-        self.assertIsNone(res.error)
+        self.assertEqual(res.error, _("Resizing of swap format is currently not supported"))
+        self.assertEqual(res.min_size, Size("1 MiB"))
+        self.assertEqual(res.max_size, Size("1 GiB"))
+
+        # mounted devices are not resizable
+        device.format.configure_mock(type="ext4", system_mountpoint="/")
+        res = BlivetUtils.device_resizable(MagicMock(), device)
+        self.assertFalse(res.resizable)
+        self.assertEqual(res.error, _("Mounted devices cannot be resized"))
         self.assertEqual(res.min_size, Size("1 MiB"))
         self.assertEqual(res.max_size, Size("1 GiB"))
 
         # resizable device
         device.configure_mock(resizable=True, max_size=Size("2 GiB"), min_size=Size("500 MiB"))
-        device.format.configure_mock(resizable=True, type="ext4")
+        device.format.configure_mock(resizable=True, type="ext4", system_mountpoint=None)
         res = BlivetUtils.device_resizable(MagicMock(), device)
         self.assertTrue(res.resizable)
         self.assertIsNone(res.error)
@@ -99,13 +107,14 @@ class BlivetUtilsTest(unittest.TestCase):
         self.assertEqual(res.max_size, Size("1 GiB"))
 
         # LV with snapshot -> not resizable
-        device.configure_mock(type="lvmlv", resizable=True, max_size=Size("2 GiB"), min_size=Size("500 MiB"))
-        device.format.configure_mock(resizable=True, type="ext4")
-        res = BlivetUtils.device_resizable(MagicMock(), device)
-        self.assertFalse(res.resizable)
-        self.assertIsNotNone(res.error)
-        self.assertEqual(res.min_size, Size("1 MiB"))
-        self.assertEqual(res.max_size, Size("1 GiB"))
+        with patch("blivetgui.blivet_utils.BlivetUtils._has_snapshots", lambda device: True):
+            device.configure_mock(type="lvmlv", resizable=True, max_size=Size("2 GiB"), min_size=Size("500 MiB"))
+            device.format.configure_mock(resizable=True, type="ext4")
+            res = BlivetUtils.device_resizable(MagicMock(), device)
+            self.assertFalse(res.resizable)
+            self.assertIsNotNone(res.error)
+            self.assertEqual(res.min_size, Size("1 MiB"))
+            self.assertEqual(res.max_size, Size("1 GiB"))
 
 
 if __name__ == "__main__":
