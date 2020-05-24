@@ -175,14 +175,13 @@ class ListPartitions(object):
                     return not device.format.status
 
     def _allow_resize_device(self, device):
-        if device.protected or device.children:
+        if device.protected or device.children or device.format_immutable:
             return False
 
-        if device.type not in ("partition", "lvmlv", "luks/dm-crypt"):
+        if not device._resizable:
             return False
 
-        return device.resizable and device.format.resizable \
-            and (device.max_size > device.size or device.min_size < device.size)
+        return True
 
     def _allow_format_device(self, device):
         if device.protected or device.children:
