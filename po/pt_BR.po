@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-22 14:23+0200\n"
-"PO-Revision-Date: 2020-05-28 02:40+0000\n"
+"PO-Revision-Date: 2020-06-04 02:46+0000\n"
 "Last-Translator: Lucas Fernandes <lucas.af88@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/pt_BR/>\n"
@@ -31,6 +31,10 @@ msgid ""
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+"Clique no botão Relatório para gerar o erro e deixe o anaconda\n"
+"lidar com o processo de relatório, se você quiser reportar isso."
 
 #: ../blivetgui/osinstall.py:219
 #, python-brace-format
@@ -425,15 +429,15 @@ msgstr "Tamanho"
 
 #: ../blivetgui/dialogs/edit_dialog.py:557
 msgid "Parent devices:"
-msgstr ""
+msgstr "Dispositivos primários:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:564
 msgid "Add parent"
-msgstr ""
+msgstr "Adicionar primário"
 
 #: ../blivetgui/dialogs/edit_dialog.py:567
 msgid "Remove parent"
-msgstr ""
+msgstr "Remover primário"
 
 #: ../blivetgui/dialogs/edit_dialog.py:578
 msgid ""
@@ -463,7 +467,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:649
 msgid "Currently is possible to remove only one parent at time."
-msgstr ""
+msgstr "Atualmente é possível remover apenas um primário por vez."
 
 #: ../blivetgui/dialogs/edit_dialog.py:657
 msgid "Remove?"
