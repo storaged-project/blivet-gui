@@ -3,13 +3,14 @@
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # Jens Maucher <jensmaucher@gmail.com>, 2020.
 # Chris Wehrli <christian.wehrli@gmx.ch>, 2020.
+# Fabian Affolter <mail@fabian-affolter.ch>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-22 14:23+0200\n"
-"PO-Revision-Date: 2020-04-17 06:40+0000\n"
-"Last-Translator: Chris Wehrli <christian.wehrli@gmx.ch>\n"
+"PO-Revision-Date: 2020-06-18 13:40+0000\n"
+"Last-Translator: Fabian Affolter <mail@fabian-affolter.ch>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/de/>\n"
 "Language: de\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0.1\n"
+"X-Generator: Weblate 4.0.4\n"
 
 #: ../blivetgui/osinstall.py:217
 #, python-brace-format
@@ -73,7 +74,7 @@ msgstr "Btrfs Volume"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
-msgstr ""
+msgstr "Verarbeiten"
 
 #: ../blivetgui/processing_window.py:83
 msgid "Show actions"
@@ -115,16 +116,16 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:295
 #, python-brace-format
 msgid "resize {name} {type}"
-msgstr ""
+msgstr "Grösse anpassen {name} {type}"
 
 #: ../blivetgui/blivetgui.py:314
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "Formatieren des Geräts fehlgeschlagen:"
 
 #: ../blivetgui/blivetgui.py:328
 #, python-brace-format
 msgid "format {name} {type}"
-msgstr ""
+msgstr "formatieren {name} {type}"
 
 #: ../blivetgui/blivetgui.py:341
 msgid "Failed to edit the LVM2 Volume Group:"
@@ -177,7 +178,7 @@ msgstr "Neue Datenträgerbezeichnung von {name} erstellen"
 
 #: ../blivetgui/blivetgui.py:492
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "HInfügen des Geräts fehlgeschlagen:"
 
 #: ../blivetgui/blivetgui.py:507
 #, python-brace-format
@@ -186,7 +187,7 @@ msgstr "{size} {type}-Laufwerk hinzufügen"
 
 #: ../blivetgui/blivetgui.py:542
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "Löschen des Geräts fehlgeschlagen:"
 
 #: ../blivetgui/blivetgui.py:557
 #, python-brace-format
@@ -1005,23 +1006,25 @@ msgstr "Verschlüsseln:"
 
 #: ../data/ui/encryption_chooser.ui:32
 msgid "Encryption type:"
-msgstr ""
+msgstr "Verschlüsselungstyp:"
 
 #: ../data/ui/encryption_chooser.ui:56
 msgid "Repeat Passphrase:"
 msgstr "Passwort wiederholen"
 
 #: ../data/ui/info_dialog.ui:12
+#, fuzzy
 msgid "Information:"
-msgstr ""
+msgstr "Information:"
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
 msgstr ""
 
 #: ../data/ui/custom_dialog.ui:62
+#, fuzzy
 msgid "Details"
-msgstr ""
+msgstr "Details"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1029,7 +1032,7 @@ msgstr ""
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
-msgstr ""
+msgstr "Freier Platz"
 
 #: ../data/ui/cache_area.ui:109
 msgid "On disk"
@@ -1037,7 +1040,7 @@ msgstr ""
 
 #: ../data/ui/cache_area.ui:142
 msgid "Cache type:"
-msgstr ""
+msgstr "Cache-Typ:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
@@ -1048,8 +1051,9 @@ msgid "Writeback"
 msgstr ""
 
 #: ../data/ui/about_dialog.ui:11
+#, fuzzy
 msgid "Copyright © Red Hat Inc."
-msgstr ""
+msgstr "Copyright © Red Hat Inc."
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
@@ -1069,7 +1073,7 @@ msgstr ""
 
 #: ../data/ui/parent_chooser.ui:80
 msgid "Available space:"
-msgstr ""
+msgstr "Verfügbarer Platz:"
 
 #. Perform selected format change on this device.
 #: ../data/ui/label_dialog.ui:39
@@ -1095,13 +1099,13 @@ msgstr "Bearbeiten"
 
 #: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
 msgid "Resize"
-msgstr ""
+msgstr "Grösse anpassen"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
 msgctxt "Menu|Edit"
 msgid "Format"
-msgstr ""
+msgstr "Formatieren"
 
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:154
 msgid "Set label"
@@ -1141,7 +1145,7 @@ msgstr "Spalte"
 #: ../data/ui/blivet-gui.ui:350
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
-msgstr ""
+msgstr "Neues Gerät hinzufügen"
 
 #: ../data/ui/blivet-gui.ui:366
 msgctxt "ActionsToolbar|Delete"
@@ -1151,7 +1155,7 @@ msgstr ""
 #: ../data/ui/blivet-gui.ui:382
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
-msgstr ""
+msgstr "Ausgewähltes Gerät bearbeiten"
 
 #: ../data/ui/blivet-gui.ui:408
 msgctxt "ActionsToolbar|Unmount"
@@ -1172,7 +1176,7 @@ msgstr ""
 #: ../data/ui/blivet-gui.ui:488
 msgctxt "LogicalView|Column"
 msgid "Format"
-msgstr ""
+msgstr "Formatieren"
 
 #: ../data/ui/blivet-gui.ui:510
 #, fuzzy
