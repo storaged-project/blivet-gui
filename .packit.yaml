@@ -5,7 +5,7 @@ actions:
     - "make local"
     - 'bash -c "ls *.tar*"'
 jobs:
-- job: copr_build
+- job: tests
   metadata:
     targets:
     - fedora-all
