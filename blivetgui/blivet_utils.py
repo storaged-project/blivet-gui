@@ -94,6 +94,9 @@ class RawFormatDevice(object):
     def protected(self):
         return self.disk.protected
 
+    def setup(self):
+        return self.disk.setup()
+
 
 class FreeSpaceDevice(object):
     """ Special class to represent free space on disk (device)
