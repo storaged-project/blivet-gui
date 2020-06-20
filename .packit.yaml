@@ -1,14 +1,12 @@
-downstream_package_name: blivet-gui
+actions:
+  get-current-version:
+    - "python3 ./setup.py --version"
+  create-archive:
+    - "make local"
+    - 'bash -c "ls *.tar*"'
 jobs:
-- job: copr_build
+- job: tests
   metadata:
     targets:
     - fedora-all
   trigger: pull_request
-specfile_path: blivet-gui.spec
-synced_files:
-- blivet-gui.spec
-- .packit.yaml
-upstream_package_name: blivet-gui
-current_version_command: ["python3", "setup.py", "--version"]
-create_tarball_command: ["make", "local"]
