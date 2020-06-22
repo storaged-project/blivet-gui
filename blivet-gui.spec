@@ -31,7 +31,6 @@ Requires: gtk3
 Requires: PolicyKit-authentication-agent
 Requires: python3-pid
 Requires: libreport
-Requires: adwaita-icon-theme
 
 %description -n blivet-gui-runtime
 This package provides a blivet-gui runtime for applications that want to use
