@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-22 14:23+0200\n"
+"POT-Creation-Date: 2020-06-25 12:16+0200\n"
 "PO-Revision-Date: 2020-05-28 15:17+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/blivet/"
@@ -40,6 +40,27 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.0.4\n"
+
+#: ../blivetgui/processing_window.py:58
+msgid "Processing"
+msgstr "Przetwarzanie"
+
+#: ../blivetgui/processing_window.py:83
+msgid "Show actions"
+msgstr "Wyświetl działania"
+
+#: ../blivetgui/processing_window.py:158
+msgid "All queued actions have been processed."
+msgstr "Wszystkie działania w kolejce zostały przetworzone."
+
+#: ../blivetgui/processing_window.py:173
+#, python-brace-format
+msgid ""
+"<b>Processing action {num} of {total}</b>:\n"
+"<i>{action}</i>"
+msgstr ""
+"<b>Przetwarzanie {num}. działania z {total}</b>:\n"
+"<i>{action}</i>"
 
 #: ../blivetgui/osinstall.py:217
 #, python-brace-format
@@ -97,27 +118,6 @@ msgstr "Woluminy Btrfs"
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "Btrfs Volume"
 msgstr "Wolumin Btrfs"
-
-#: ../blivetgui/processing_window.py:58
-msgid "Processing"
-msgstr "Przetwarzanie"
-
-#: ../blivetgui/processing_window.py:83
-msgid "Show actions"
-msgstr "Wyświetl działania"
-
-#: ../blivetgui/processing_window.py:153
-msgid "All queued actions have been processed."
-msgstr "Wszystkie działania w kolejce zostały przetworzone."
-
-#: ../blivetgui/processing_window.py:168
-#, python-brace-format
-msgid ""
-"<b>Processing action {num} of {total}</b>:\n"
-"<i>{action}</i>"
-msgstr ""
-"<b>Przetwarzanie {num}. działania z {total}</b>:\n"
-"<i>{action}</i>"
 
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
@@ -252,7 +252,7 @@ msgstr ""
 "Odszyfrowanie urządzenia się nie powiodło. Na pewno podane hasło jest "
 "poprawne?"
 
-#: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:655
+#: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:658
 msgid "Quit"
 msgstr "Zakończ"
 
@@ -336,21 +336,95 @@ msgstr ""
 "Istnieją oczekujące działania. Na pewno zakończyć działanie programu blivet-"
 "gui?"
 
-#: ../blivetgui/blivet_utils.py:81
+#: ../blivetgui/blivet_utils.py:83
 #, python-brace-format
 msgid "{0} disklabel"
 msgstr "etykieta dysku {0}"
 
-#: ../blivetgui/blivet_utils.py:117
+#: ../blivetgui/blivet_utils.py:122
 msgid "free space"
 msgstr "wolne miejsce"
 
-#: ../blivetgui/blivet_utils.py:651
-msgid "Logical Volumes with snapshots couldn't be resized."
+#: ../blivetgui/blivet_utils.py:644
+#, python-brace-format
+msgid "Resizing of {type} devices is currently not supported"
+msgstr ""
+
+#: ../blivetgui/blivet_utils.py:649
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "Protected devices cannot be resized"
+msgstr "Nie można zmienić rozmiaru tego urządzenia."
+
+#: ../blivetgui/blivet_utils.py:654
+msgid "Immutable formats cannot be resized"
+msgstr ""
+
+#: ../blivetgui/blivet_utils.py:659
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "Devices with children cannot be resized"
+msgstr "Nie można zmienić rozmiaru tego urządzenia."
+
+#: ../blivetgui/blivet_utils.py:670
+msgid "Unformatted devices are not resizable"
+msgstr ""
+
+#. unfortunately we can't use format._resizable here because blivet uses it to both mark
+#. formats as not resizable and force users to call update_size_info on resizable formats
+#: ../blivetgui/blivet_utils.py:677
+#, python-brace-format
+msgid "Resizing of {type} format is currently not supported"
+msgstr ""
+
+#: ../blivetgui/blivet_utils.py:682
+#, python-brace-format
+msgid "Tools for resizing format {type} are not available."
+msgstr ""
+
+#. TODO: we could support this by simply changing formats target size but we'd need
+#. a workaround for the missing action
+#: ../blivetgui/blivet_utils.py:689
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "Formats scheduled to be created cannot be resized"
+msgstr "Nie można zmienić rozmiaru tego urządzenia."
+
+#: ../blivetgui/blivet_utils.py:694
+#, python-brace-format
+msgid "Format {type} doesn't support updating its size limit information"
+msgstr ""
+
+#: ../blivetgui/blivet_utils.py:699
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "Mounted devices cannot be resized"
+msgstr "Nie można zmienić rozmiaru tego urządzenia."
+
+#: ../blivetgui/blivet_utils.py:704
+#, fuzzy
+#| msgid "Logical Volumes with snapshots couldn't be resized."
+msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "Nie można zmieniać rozmiaru woluminów logicznych z migawkami."
 
+#: ../blivetgui/blivet_utils.py:716
+#, fuzzy, python-brace-format
+#| msgid "Failed to change filesystem label on the device:"
+msgid "Failed to update filesystem size info: {error}"
+msgstr "Zmiana etykiety systemu plików na urządzeniu się nie powiodła:"
+
+#: ../blivetgui/blivet_utils.py:735
+#, fuzzy
+#| msgid "This device cannot be resized."
+msgid "Device is not resizable."
+msgstr "Nie można zmienić rozmiaru tego urządzenia."
+
+#: ../blivetgui/blivet_utils.py:737
+msgid "Format is not resizable after updating its size limit information."
+msgstr ""
+
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
-#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:610
+#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:613
 msgid "No pending actions"
 msgstr "Brak oczekujących działań"
 
@@ -395,7 +469,7 @@ msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr ""
 "Wybrany punkt montowania „{0}” jest już ustawiony dla innego urządzenia."
 
-#: ../blivetgui/dialogs/edit_dialog.py:102
+#: ../blivetgui/dialogs/edit_dialog.py:103
 #, python-brace-format
 msgid ""
 "<b>This device cannot be resized:</b>\n"
@@ -404,67 +478,67 @@ msgstr ""
 "<b>Nie można zmienić rozmiaru tego urządzenia:</b>\n"
 "<i>{0}</i>"
 
-#: ../blivetgui/dialogs/edit_dialog.py:104
+#: ../blivetgui/dialogs/edit_dialog.py:105
 msgid "This device cannot be resized."
 msgstr "Nie można zmienić rozmiaru tego urządzenia."
 
-#: ../blivetgui/dialogs/edit_dialog.py:164
+#: ../blivetgui/dialogs/edit_dialog.py:165
 #: ../blivetgui/dialogs/add_dialog.py:792
 msgid "unformatted"
 msgstr "niesformatowane"
 
-#: ../blivetgui/dialogs/edit_dialog.py:231
+#: ../blivetgui/dialogs/edit_dialog.py:232
 #: ../blivetgui/dialogs/add_dialog.py:1027
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
 msgstr "„{0}” nie jest prawidłową etykietą."
 
-#: ../blivetgui/dialogs/edit_dialog.py:406
+#: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
 msgstr "„{label}” nie jest prawidłową etykietą dla tego systemu plików"
 
 #. auto shrink after removing/hiding widgets
-#: ../blivetgui/dialogs/edit_dialog.py:517
+#: ../blivetgui/dialogs/edit_dialog.py:518
 msgid "Edit device"
 msgstr "Modyfikuj urządzenie"
-
-#: ../blivetgui/dialogs/edit_dialog.py:547
-#: ../blivetgui/dialogs/edit_dialog.py:596
-#: ../blivetgui/dialogs/edit_dialog.py:658
-#: ../blivetgui/dialogs/add_dialog.py:451 ../data/ui/cache_area.ui:76
-#: ../data/ui/blivet-gui.ui:466
-msgid "Device"
-msgstr "Urządzenie"
 
 #: ../blivetgui/dialogs/edit_dialog.py:548
 #: ../blivetgui/dialogs/edit_dialog.py:597
 #: ../blivetgui/dialogs/edit_dialog.py:659
-#: ../blivetgui/dialogs/add_dialog.py:452 ../data/ui/cache_area.ui:87
-#: ../data/ui/blivet-gui.ui:477
-msgid "Type"
-msgstr "Typ"
+#: ../blivetgui/dialogs/add_dialog.py:451 ../data/ui/cache_area.ui:76
+#: ../data/ui/blivet-gui.ui:467
+msgid "Device"
+msgstr "Urządzenie"
 
 #: ../blivetgui/dialogs/edit_dialog.py:549
 #: ../blivetgui/dialogs/edit_dialog.py:598
 #: ../blivetgui/dialogs/edit_dialog.py:660
-#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/blivet-gui.ui:499
+#: ../blivetgui/dialogs/add_dialog.py:452 ../data/ui/cache_area.ui:87
+#: ../data/ui/blivet-gui.ui:480
+msgid "Type"
+msgstr "Typ"
+
+#: ../blivetgui/dialogs/edit_dialog.py:550
+#: ../blivetgui/dialogs/edit_dialog.py:599
+#: ../blivetgui/dialogs/edit_dialog.py:661
+#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/blivet-gui.ui:502
 msgid "Size"
 msgstr "Rozmiar"
 
-#: ../blivetgui/dialogs/edit_dialog.py:557
+#: ../blivetgui/dialogs/edit_dialog.py:558
 msgid "Parent devices:"
 msgstr "Urządzenia nadrzędne:"
 
-#: ../blivetgui/dialogs/edit_dialog.py:564
+#: ../blivetgui/dialogs/edit_dialog.py:565
 msgid "Add parent"
 msgstr "Dodaj urządzenie nadrzędne"
 
-#: ../blivetgui/dialogs/edit_dialog.py:567
+#: ../blivetgui/dialogs/edit_dialog.py:568
 msgid "Remove parent"
 msgstr "Usuń urządzenie nadrzędne"
 
-#: ../blivetgui/dialogs/edit_dialog.py:578
+#: ../blivetgui/dialogs/edit_dialog.py:579
 msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
@@ -472,17 +546,17 @@ msgstr ""
 "Obecnie nie ma żadnych pustych woluminów fizycznych lub\n"
 "dysków z wystarczającą ilością wolnego miejsca, aby taki wolumin utworzyć."
 
-#: ../blivetgui/dialogs/edit_dialog.py:595
+#: ../blivetgui/dialogs/edit_dialog.py:596
 msgid "Add?"
 msgstr "Dodać?"
 
-#: ../blivetgui/dialogs/edit_dialog.py:607
-#: ../blivetgui/dialogs/edit_dialog.py:669
+#: ../blivetgui/dialogs/edit_dialog.py:608
+#: ../blivetgui/dialogs/edit_dialog.py:670
 #: ../blivetgui/dialogs/add_dialog.py:462 ../data/ui/cache_area.ui:130
 msgid "Available devices:"
 msgstr "Dostępne urządzenia:"
 
-#: ../blivetgui/dialogs/edit_dialog.py:637
+#: ../blivetgui/dialogs/edit_dialog.py:638
 msgid ""
 "There is no physical volume that could be\n"
 "removed from this volume group."
@@ -490,12 +564,12 @@ msgstr ""
 "Nie ma woluminu fizycznego, którego\n"
 "można usunąć z tej grupy woluminów."
 
-#: ../blivetgui/dialogs/edit_dialog.py:649
+#: ../blivetgui/dialogs/edit_dialog.py:650
 msgid "Currently is possible to remove only one parent at time."
 msgstr ""
 "Obecnie możliwe jest usuwanie tylko jednego urządzenia nadrzędnego na raz."
 
-#: ../blivetgui/dialogs/edit_dialog.py:657
+#: ../blivetgui/dialogs/edit_dialog.py:658
 msgid "Remove?"
 msgstr "Usunąć?"
 
@@ -666,12 +740,12 @@ msgstr "Hasła się nie zgadzają."
 msgid "primary"
 msgstr "główna"
 
-#. pylint: disable=found-_-in-module-class
+#. pylint: disable=W9902
 #: ../blivetgui/dialogs/device_info_dialog.py:38
 msgid "logical"
 msgstr "logiczna"
 
-#. pylint: disable=found-_-in-module-class
+#. pylint: disable=W9902
 #: ../blivetgui/dialogs/device_info_dialog.py:39
 msgid "extended"
 msgstr "rozszerzona"
@@ -1154,18 +1228,18 @@ msgctxt "Menu|Edit"
 msgid "Format"
 msgstr "Format"
 
-#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:154
-msgid "Set label"
-msgstr "Ustaw etykietę"
-
-#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:138
+#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:138
 msgid "Modify parents"
 msgstr "Modyfikuj nadrzędne"
 
-#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:146
+#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:146
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
 msgstr "Ustaw punkt montowania"
+
+#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
+msgid "Set label"
+msgstr "Ustaw etykietę"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
 msgid "Set partition table"
@@ -1184,8 +1258,8 @@ msgid "blivet-gui"
 msgstr "blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:276 ../data/ui/blivet-gui.ui:288
-#: ../data/ui/blivet-gui.ui:817 ../data/ui/blivet-gui.ui:828
-#: ../data/ui/blivet-gui.ui:839
+#: ../data/ui/blivet-gui.ui:820 ../data/ui/blivet-gui.ui:831
+#: ../data/ui/blivet-gui.ui:842
 msgid "column"
 msgstr "kolumna"
 
@@ -1220,36 +1294,36 @@ msgid "Display information about selected device"
 msgstr "Wyświetl informacje o zaznaczonym urządzeniu"
 
 #. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:488
+#: ../data/ui/blivet-gui.ui:491
 msgctxt "LogicalView|Column"
 msgid "Format"
 msgstr "Format"
 
-#: ../data/ui/blivet-gui.ui:510
+#: ../data/ui/blivet-gui.ui:513
 msgid "Label"
 msgstr "Etykieta"
 
-#: ../data/ui/blivet-gui.ui:521
+#: ../data/ui/blivet-gui.ui:524
 msgid "Mountpoint"
 msgstr "Punkt montowania"
 
-#: ../data/ui/blivet-gui.ui:543
+#: ../data/ui/blivet-gui.ui:546
 msgid "Logical View"
 msgstr "Widok logiczny"
 
-#: ../data/ui/blivet-gui.ui:566
+#: ../data/ui/blivet-gui.ui:569
 msgid "Physical View"
 msgstr "Widok fizyczny"
 
-#: ../data/ui/blivet-gui.ui:639
+#: ../data/ui/blivet-gui.ui:642
 msgid "Reload Storage"
 msgstr "Ponownie wczytaj urządzenia do przechowywania danych"
 
-#: ../data/ui/blivet-gui.ui:647
+#: ../data/ui/blivet-gui.ui:650
 msgid "Queued Actions"
 msgstr "Działania w kolejce"
 
-#: ../data/ui/blivet-gui.ui:669
+#: ../data/ui/blivet-gui.ui:672
 msgid "About blivet-gui"
 msgstr "O programie blivet-gui"
 
