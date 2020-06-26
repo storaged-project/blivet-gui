@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-04-22 14:23+0200\n"
-"PO-Revision-Date: 2020-06-24 08:40+0000\n"
+"PO-Revision-Date: 2020-06-26 09:40+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/he/>\n"
@@ -28,6 +28,10 @@ msgid ""
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+" נא ללחוץ על כפתור הדיווח כדי להעלות את השגיאה ולאפשר ל־anaconda \n"
+" לטפל בתהליך הדיווח אם ברצונך לדווח."
 
 #: ../blivetgui/osinstall.py:219
 #, python-brace-format
@@ -35,6 +39,8 @@ msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
+"אירעה שגיאה בלתי ידועה. Anaconda תיעצר.\n"
+"{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
 #: ../blivetgui/osinstall.py:267
@@ -111,7 +117,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:283
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "שינוי גודל ההתקן נכשל:"
 
 #: ../blivetgui/blivetgui.py:295
 #, python-brace-format
@@ -120,7 +126,7 @@ msgstr "שינוי גודל {name} {type}"
 
 #: ../blivetgui/blivetgui.py:314
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "פרמוט ההתקן נכשל:"
 
 #: ../blivetgui/blivetgui.py:328
 #, python-brace-format
@@ -129,7 +135,7 @@ msgstr "אתחול {name} {type}"
 
 #: ../blivetgui/blivetgui.py:341
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "עריכת קבוצת הכרכים מסוג LVM2 נכשלה:"
 
 #: ../blivetgui/blivetgui.py:356
 #, python-brace-format
@@ -138,12 +144,12 @@ msgstr "עריכת {name} {type}"
 
 #: ../blivetgui/blivetgui.py:385
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "החלפת תווית מערכת הקבצים של ההתקן נכשלה:"
 
 #: ../blivetgui/blivetgui.py:390
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "החלפת תווית מערכת קבצים של {name} {type}"
 
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
@@ -151,10 +157,12 @@ msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
 "PVs."
 msgstr ""
+"{name} אינו שלם. אי אפשר להוסיף כרכים לוגיים חדשים לקבוצת הכרכים כשחסרים "
+"כרכים פיזיים."
 
 #: ../blivetgui/blivetgui.py:411
 msgid "Not enough free space for a new LVM Volume Group."
-msgstr ""
+msgstr "אין די מקום פנוי לקבוצת כרכים של מנהל הכרכים הלוגיים."
 
 #: ../blivetgui/blivetgui.py:417
 #, python-brace-format
