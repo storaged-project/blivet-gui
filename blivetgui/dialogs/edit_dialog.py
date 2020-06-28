@@ -647,7 +647,7 @@ class LVMEditDialog(Gtk.Dialog):
             parents_store = Gtk.ListStore(object, object, bool, str, str, str)
             parents_view = Gtk.TreeView(model=parents_store)
 
-            parents_view.set_tooltip_text(_("Currently is possible to remove only one parent at time."))
+            parents_view.set_tooltip_text(_("Currently it is possible to remove only one parent at time."))
 
             renderer_radio = Gtk.CellRendererToggle()
             renderer_radio.connect("toggled", self.on_cell_radio_toggled, parents_store)
