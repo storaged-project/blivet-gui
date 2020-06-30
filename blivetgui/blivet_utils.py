@@ -1241,7 +1241,10 @@ class BlivetUtils(object):
             actions.extend(part_actions)
 
         btrfs_parents = [ac.device for ac in actions if (ac.is_format and ac.is_create) and ac._format.type == "btrfs"]
-        new_btrfs = BTRFSVolumeDevice(device_name, parents=btrfs_parents)
+        new_btrfs = BTRFSVolumeDevice(device_name,
+                                      parents=btrfs_parents,
+                                      data_level=user_input.raid_level,
+                                      metadata_level=user_input.raid_level)
         new_btrfs.format = blivet.formats.get_format("btrfs", label=device_name, mountpoint=user_input.mountpoint)
         actions.append(blivet.deviceaction.ActionCreateDevice(new_btrfs))
 
