@@ -67,7 +67,7 @@ class ListParents(object):
         if device.type == "lvmvg":
             for pv in device.pvs:
                 if pv.type == "luks/dm-crypt":
-                    parents.append(pv.slave)
+                    parents.append(pv.raw_device)
                 else:
                     parents.append(pv)
         elif device.type in ("btrfs volume", "mdarray"):
