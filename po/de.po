@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-25 12:16+0200\n"
+"POT-Creation-Date: 2020-06-30 08:58+0200\n"
 "PO-Revision-Date: 2020-06-18 13:40+0000\n"
 "Last-Translator: Fabian Affolter <mail@fabian-affolter.ch>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/blivet/"
@@ -516,7 +516,9 @@ msgstr ""
 "Datenträgergruppe (VG) entfernt werden könnte."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
-msgid "Currently is possible to remove only one parent at time."
+#, fuzzy
+#| msgid "Currently is possible to remove only one parent at time."
+msgid "Currently it is possible to remove only one parent at time."
 msgstr "Derzeit kann lediglich eine übergeordnete Ressource entfernt werden."
 
 #: ../blivetgui/dialogs/edit_dialog.py:658

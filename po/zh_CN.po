@@ -1,25 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Tian Shixiong <tiansworld@fedoraproject.org>, 2016. #zanata
 # Tommy He <lovenemesis@fedoraproject.org>, 2016. #zanata
 # mosquito <sensor.wen@gmail.com>, 2016. #zanata
 # cheng ye <18969068329@163.com>, 2017. #zanata
+# Tian Shixiong <tiansworld@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-25 12:16+0200\n"
-"PO-Revision-Date: 2017-07-23 02:34+0000\n"
-"Last-Translator: cheng ye <18969068329@163.com>\n"
-"Language-Team: Chinese (China)\n"
+"POT-Creation-Date: 2020-06-30 08:58+0200\n"
+"PO-Revision-Date: 2020-07-01 06:40+0000\n"
+"Last-Translator: Tian Shixiong <tiansworld@gmail.com>\n"
+"Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
+"projects/blivet/blivet-gui/zh_CN/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.1.1\n"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
@@ -50,6 +51,10 @@ msgid ""
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+" 如果您想上报该错误，请点击报告按钮\n"
+" 来收集错误并让 anaconda 处理报告过程。"
 
 #: ../blivetgui/osinstall.py:219
 #, python-brace-format
@@ -57,6 +62,8 @@ msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
+"发生未知错误。Anaconda 将停止。\n"
+"{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
 #: ../blivetgui/osinstall.py:267
@@ -112,7 +119,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:283
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "调整设备大小失败："
 
 #: ../blivetgui/blivetgui.py:295
 #, python-brace-format
@@ -121,7 +128,7 @@ msgstr "调整{type} 卷{name} 大小"
 
 #: ../blivetgui/blivetgui.py:314
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "格式化设备失败："
 
 #: ../blivetgui/blivetgui.py:328
 #, python-brace-format
@@ -130,7 +137,7 @@ msgstr "格式化{type} 卷{name}"
 
 #: ../blivetgui/blivetgui.py:341
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "编辑 LVM2 卷组失败："
 
 #: ../blivetgui/blivetgui.py:356
 #, python-brace-format
@@ -139,12 +146,12 @@ msgstr "编辑 {name} {type}"
 
 #: ../blivetgui/blivetgui.py:385
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "修改设备文件系统标签失败："
 
 #: ../blivetgui/blivetgui.py:390
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "修改 {name} {type} 的文件系统标签"
 
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
@@ -166,7 +173,7 @@ msgstr "磁盘 {name} 已达到 {label} 磁盘标签所允许的最大主分区�
 
 #: ../blivetgui/blivetgui.py:427
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "添加磁盘标签失败："
 
 #: ../blivetgui/blivetgui.py:440
 #, python-brace-format
@@ -175,7 +182,7 @@ msgstr "在 {name} 上创建新磁盘标签"
 
 #: ../blivetgui/blivetgui.py:492
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "添加设备失败："
 
 #: ../blivetgui/blivetgui.py:507
 #, python-brace-format
@@ -184,7 +191,7 @@ msgstr "添加 {size} {type} 设备"
 
 #: ../blivetgui/blivetgui.py:542
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "删除设备失败："
 
 #: ../blivetgui/blivetgui.py:557
 #, python-brace-format
@@ -193,7 +200,7 @@ msgstr "删除分区 {name}"
 
 #: ../blivetgui/blivetgui.py:596
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "执行操作时失败："
 
 #: ../blivetgui/blivetgui.py:640
 msgid "Confirm scheduled actions"
@@ -204,11 +211,10 @@ msgid "Are you sure you want to perform scheduled actions?"
 msgstr "您确定要执行预定的操作？"
 
 #: ../blivetgui/blivetgui.py:682
-#, fuzzy, python-brace-format
-#| msgid "Unmount failed. Are you sure device is not in use?"
+#, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
-msgstr "卸载失败。您确定设备没有在使用吗？"
+msgstr "卸载 {mountpoint} 时失败。您确定设备没有在使用吗？"
 
 #: ../blivetgui/blivetgui.py:704
 msgid "Device decryption failed. Are you sure provided password is correct?"
@@ -220,13 +226,15 @@ msgstr "退出"
 
 #: ../blivetgui/blivetgui.py:757
 msgid "blivet-gui is already running"
-msgstr ""
+msgstr "blivet-gui 已在运行"
 
 #: ../blivetgui/blivetgui.py:758
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
+"已有另一个 blivet-gui 实例正在运行中。\n"
+"只可以同时运行一个 blivet-gui 实例。"
 
 #: ../blivetgui/blivetgui.py:760
 msgid ""
@@ -238,10 +246,17 @@ msgid ""
 "\n"
 "command to force quit it."
 msgstr ""
+"当先前的 blivet-gui 实例崩溃后，请一定要结束 <i>blivet-gui-daemon</i> 进"
+"程。\n"
+"如果它仍在运行，您可以运行命令\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"来强行终止该进程。"
 
 #: ../blivetgui/blivetgui.py:792
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "无法启动 blivet："
 
 #: ../blivetgui/blivetgui.py:799
 msgid "Quit blivet-gui"
@@ -436,7 +451,7 @@ msgstr "\"{0}\" 不是有效的标签。"
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "'{label}' 对此文件系统来说不是有效的标签。"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:518
@@ -501,7 +516,9 @@ msgid ""
 msgstr "没有可以从该卷组中移除的物理卷。"
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
-msgid "Currently is possible to remove only one parent at time."
+#, fuzzy
+#| msgid "Currently is possible to remove only one parent at time."
+msgid "Currently it is possible to remove only one parent at time."
 msgstr "当前只能一次移除一个父设备。"
 
 #: ../blivetgui/dialogs/edit_dialog.py:658
@@ -912,7 +929,7 @@ msgstr "连接 blivet-gui-daemon 失败。"
 
 #: ../blivetgui/visualization/rectangle.py:50
 msgid "Group device"
-msgstr ""
+msgstr "组设备"
 
 #: ../blivetgui/visualization/rectangle.py:51
 msgid "LiveUSB device"
@@ -960,12 +977,10 @@ msgstr "卸载"
 
 #: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
-#, fuzzy
-#| msgid "Unmount"
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
 msgstr "卸载"
@@ -977,6 +992,10 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>所选设备当前被挂载到\n"
+"多个挂载点。</b>\n"
+"\n"
+"请选择挂载点进行卸载："
 
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
@@ -988,7 +1007,7 @@ msgstr "错误"
 
 #: ../data/ui/exception_dialog.ui:27
 msgid "_Back"
-msgstr ""
+msgstr "后退(_B)"
 
 #: ../data/ui/exception_dialog.ui:41
 msgid "_Report a bug"
@@ -1000,42 +1019,42 @@ msgstr "_退出"
 
 #: ../data/ui/exception_dialog.ui:107
 msgid "Show traceback"
-msgstr ""
+msgstr "显示回溯"
 
 #: ../data/ui/size_chooser.ui:14
 msgid "Size:"
-msgstr ""
+msgstr "大小："
 
 #: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
 msgid "Format device"
-msgstr ""
+msgstr "格式化设备"
 
 #: ../data/ui/format_dialog.ui:39 ../data/ui/resize_dialog.ui:30
 #: ../data/ui/mountpoint_dialog.ui:29
 msgid "_Cancel"
-msgstr ""
+msgstr "取消(_C)"
 
 #. Perform selected format change on this device.
 #: ../data/ui/format_dialog.ui:54
 msgctxt "Dialog|Format"
 msgid "_Format"
-msgstr ""
+msgstr "格式化(_F)"
 
 #: ../data/ui/format_dialog.ui:101
 msgid "Select new format:"
-msgstr ""
+msgstr "选择新格式："
 
 #: ../data/ui/format_dialog.ui:148
 msgid "Enter new label:"
-msgstr ""
+msgstr "输入新标签："
 
 #: ../data/ui/format_dialog.ui:186 ../data/ui/mountpoint_dialog.ui:88
 msgid "Enter new mountpoint:"
-msgstr ""
+msgstr "输入新挂载点："
 
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
-msgstr ""
+msgstr "手动指定布局"
 
 #: ../data/ui/add_disklabel_dialog.ui:11
 msgid "No partition table found on disk"
@@ -1050,8 +1069,9 @@ msgid "Select new partition table type:"
 msgstr "选择新分区表类型："
 
 #: ../data/ui/show_actions_dialog.ui:13
+#, fuzzy
 msgid "Pending actions"
-msgstr ""
+msgstr "待做操作"
 
 #: ../data/ui/encryption_chooser.ui:20
 msgid "Encrypt:"
@@ -1059,7 +1079,7 @@ msgstr "加密："
 
 #: ../data/ui/encryption_chooser.ui:32
 msgid "Encryption type:"
-msgstr ""
+msgstr "加密类型："
 
 #: ../data/ui/encryption_chooser.ui:56
 msgid "Repeat Passphrase:"
@@ -1067,15 +1087,15 @@ msgstr "重复口令："
 
 #: ../data/ui/info_dialog.ui:12
 msgid "Information:"
-msgstr ""
+msgstr "信息："
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
-msgstr ""
+msgstr "标签"
 
 #: ../data/ui/custom_dialog.ui:62
 msgid "Details"
-msgstr ""
+msgstr "详情"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1083,7 +1103,7 @@ msgstr ""
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
-msgstr ""
+msgstr "可用空间"
 
 #: ../data/ui/cache_area.ui:109
 msgid "On disk"
@@ -1103,7 +1123,7 @@ msgstr ""
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
-msgstr ""
+msgstr "版权所有 © Red Hat Inc."
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
@@ -1111,11 +1131,11 @@ msgstr "运行 blivet-gui 需要 root 权限。"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
-msgstr ""
+msgstr "调整设备大小"
 
 #: ../data/ui/resize_dialog.ui:45
 msgid "_Resize"
-msgstr ""
+msgstr "调整大小(_R)"
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
@@ -1123,7 +1143,7 @@ msgstr ""
 
 #: ../data/ui/parent_chooser.ui:80
 msgid "Available space:"
-msgstr ""
+msgstr "可用空间："
 
 #. Perform selected format change on this device.
 #: ../data/ui/label_dialog.ui:39
@@ -1133,7 +1153,7 @@ msgstr ""
 
 #: ../data/ui/label_dialog.ui:71
 msgid "Enter new label for this filesystem:"
-msgstr ""
+msgstr "为此文件系统输入新标签："
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "New"
@@ -1149,13 +1169,14 @@ msgstr "编辑"
 
 #: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
 msgid "Resize"
-msgstr ""
+msgstr "调整大小"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
+#, fuzzy
 msgctxt "Menu|Edit"
 msgid "Format"
-msgstr ""
+msgstr "格式化"
 
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:138
 msgid "Modify parents"
@@ -1168,11 +1189,11 @@ msgstr "设置挂载点"
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
 msgid "Set label"
-msgstr ""
+msgstr "设置标签"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
 msgid "Set partition table"
-msgstr ""
+msgstr "设置分区表"
 
 #: ../data/ui/blivet-gui.ui:102
 msgid "Decrypt"
@@ -1210,17 +1231,17 @@ msgstr "修改所选设备"
 #: ../data/ui/blivet-gui.ui:408
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
-msgstr ""
+msgstr "卸载所选设备"
 
 #: ../data/ui/blivet-gui.ui:423
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
-msgstr ""
+msgstr "解锁/打开所选设备"
 
 #: ../data/ui/blivet-gui.ui:438
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
-msgstr ""
+msgstr "显示所选设备的相关信息"
 
 #. Format (filesystem) type of selected device.
 #: ../data/ui/blivet-gui.ui:491
@@ -1229,10 +1250,8 @@ msgid "Format"
 msgstr ""
 
 #: ../data/ui/blivet-gui.ui:513
-#, fuzzy
-#| msgid "Label:"
 msgid "Label"
-msgstr "标签："
+msgstr "标签"
 
 #: ../data/ui/blivet-gui.ui:524
 msgid "Mountpoint"
@@ -1260,4 +1279,4 @@ msgstr "关于 blivet-gui"
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
-msgstr ""
+msgstr "设置挂载点(_S)"

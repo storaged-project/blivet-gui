@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-25 12:16+0200\n"
+"POT-Creation-Date: 2020-06-30 08:58+0200\n"
 "PO-Revision-Date: 2016-04-30 11:40+0000\n"
 "Last-Translator: ajkuna <ajkuna.mujo2@hotmail.com>\n"
 "Language-Team: Albanian\n"
@@ -504,7 +504,9 @@ msgstr ""
 "hiqet nga ky grup vëllimi"
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
-msgid "Currently is possible to remove only one parent at time."
+#, fuzzy
+#| msgid "Currently is possible to remove only one parent at time."
+msgid "Currently it is possible to remove only one parent at time."
 msgstr "Aktualisht është e mundur për të hequr vetëm një administrator "
 
 #: ../blivetgui/dialogs/edit_dialog.py:658

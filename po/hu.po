@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-25 12:16+0200\n"
+"POT-Creation-Date: 2020-06-30 08:58+0200\n"
 "PO-Revision-Date: 2018-12-06 07:46+0000\n"
 "Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
 "Language-Team: Hungarian\n"
@@ -523,7 +523,9 @@ msgstr ""
 "törölni lehetne ebből a kötetcsoportból."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
-msgid "Currently is possible to remove only one parent at time."
+#, fuzzy
+#| msgid "Currently is possible to remove only one parent at time."
+msgid "Currently it is possible to remove only one parent at time."
 msgstr "Jelenleg egyszerre csak egy szülő eltávolítása lehetséges."
 
 #: ../blivetgui/dialogs/edit_dialog.py:658

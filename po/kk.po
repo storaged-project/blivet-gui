@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-25 12:16+0200\n"
+"POT-Creation-Date: 2020-06-30 08:58+0200\n"
 "PO-Revision-Date: 2017-03-24 11:56+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Kazakh\n"
@@ -500,7 +500,9 @@ msgstr ""
 "физикалық томдар жоқ."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
-msgid "Currently is possible to remove only one parent at time."
+#, fuzzy
+#| msgid "Currently is possible to remove only one parent at time."
+msgid "Currently it is possible to remove only one parent at time."
 msgstr "Ағымдағы уақытта аталық құрылғыларды тек бір-бірден өшіруге болады."
 
 #: ../blivetgui/dialogs/edit_dialog.py:658
