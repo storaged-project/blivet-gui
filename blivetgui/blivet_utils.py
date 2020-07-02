@@ -462,7 +462,7 @@ class BlivetUtils(object):
             for member in blivet_device.members:
                 roots.add(self._get_root_device(member))
         elif blivet_device.type in ("luks/dm-crypt", "integrity/dm-crypt"):
-            roots.add(self._get_root_device(blivet_device.slave))
+            roots.add(self._get_root_device(blivet_device.raw_device))
 
         return roots
 
@@ -480,7 +480,7 @@ class BlivetUtils(object):
             return blivet_device.parents[0]
 
         elif blivet_device.type in ("luks/dm-crypt", "integrity/dm-crypt"):
-            return self._get_root_device(blivet_device.slave)
+            return self._get_root_device(blivet_device.raw_device)
 
         # loop devices don't have the "disk" property so just return its
         # parent (FileDevice instance)
@@ -710,7 +710,7 @@ class BlivetUtils(object):
                 blivet_device.format.update_size_info()
 
                 if blivet_device.type == "luks/dm-crypt":
-                    blivet_device.slave.format.update_size_info()
+                    blivet_device.raw_device.format.update_size_info()
 
             except blivet.errors.FSError as e:
                 msg = _("Failed to update filesystem size info: {error}").format(error=str(e))
@@ -722,7 +722,7 @@ class BlivetUtils(object):
 
             if blivet_device.type == "luks/dm-crypt":
                 min_size = blivet_device.min_size
-                max_size = blivet_device.slave.max_size - LUKS_METADATA_SIZE
+                max_size = blivet_device.raw_device.max_size - LUKS_METADATA_SIZE
             else:
                 min_size = blivet_device.min_size
                 max_size = blivet_device.max_size
@@ -776,7 +776,7 @@ class BlivetUtils(object):
         if device.type == "partition":
             aligned_size = device.align_target_size(user_input.size)
         elif device.type == "luks/dm-crypt":
-            aligned_size = device.slave.align_target_size(user_input.size)
+            aligned_size = device.raw_device.align_target_size(user_input.size)
         else:
             aligned_size = user_input.size
 
@@ -787,8 +787,8 @@ class BlivetUtils(object):
         # resize device
         if device.type == "luks/dm-crypt":
             resize_actions.append(blivet.deviceaction.ActionResizeDevice(device, aligned_size))
-            resize_actions.append(blivet.deviceaction.ActionResizeFormat(device.slave, aligned_size))
-            resize_actions.append(blivet.deviceaction.ActionResizeDevice(device.slave, aligned_size + LUKS_METADATA_SIZE))
+            resize_actions.append(blivet.deviceaction.ActionResizeFormat(device.raw_device, aligned_size))
+            resize_actions.append(blivet.deviceaction.ActionResizeDevice(device.raw_device, aligned_size + LUKS_METADATA_SIZE))
         else:
             resize_actions.append(blivet.deviceaction.ActionResizeDevice(device, aligned_size))
 
