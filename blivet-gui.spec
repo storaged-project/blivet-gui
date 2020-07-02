@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.14
+Version: 2.1.15
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -68,6 +68,52 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Thu Jul 02 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.15-1
+- Use "raw_device" instead of "slave" for getting LUKS backing device (vtrefny)
+- Update translation files (noreply)
+- Translated using Weblate (Chinese (Simplified)) (tiansworld)
+- POT file update (vtrefny)
+- Translated using Weblate (Hebrew) (sh.yaron)
+- Fix setting visibility for EncryptionChooser (vtrefny)
+- Make data paths in setup.py relative (vtrefny)
+- Add alternative paths to look for UI and CSS files (vtrefny)
+- Set default position of the main window to the center of the screen (vtrefny)
+- Correctly set data and metadata level when creating Btrfs volumes (vtrefny)
+- Grammar fix (sh.yaron)
+- Update translation files (noreply)
+- Translated using Weblate (Bengali (India)) (akarshan.biswas)
+- Translated using Weblate (Hebrew) (sh.yaron)
+- Update POT file before doing a release (vtrefny)
+- Added translation using Weblate (Bengali (India)) (akarshan.biswas)
+- Translated using Weblate (Hebrew) (sh.yaron)
+- Remove dependency on adwaita-icon-theme (vtrefny)
+- Add daily builds badge (jkonecny)
+- Use tests instead of COPR build in packit for PRs (jkonecny)
+- Use packit actions instead of commands (jkonecny)
+- Remove not needed packit configuration values (jkonecny)
+- Move packit general configuration to the top of .packit file (jkonecny)
+- Translated using Weblate (German) (mail)
+- Fix unlocking raw format LUKS devices in Anaconda (#1846517) (vtrefny)
+- Translated using Weblate (Portuguese (Brazil)) (lucas.af88)
+- Translated using Weblate (French) (julroy67)
+- Translated using Weblate (Portuguese (Brazil)) (noreply)
+- Translated using Weblate (Portuguese (Brazil)) (lucas.af88)
+- Update translation files (noreply)
+- Translated using Weblate (Turkish) (oguzersen)
+- Translated using Weblate (Ukrainian) (yurchor)
+- Translated using Weblate (Polish) (piotrdrag)
+- Translated using Weblate (Portuguese (Brazil)) (lucas.af88)
+- Translated using Weblate (Portuguese (Brazil)) (noreply)
+- Translated using Weblate (Portuguese (Brazil)) (lucas.af88)
+- Refactor checking for device resizability (vtrefny)
+- Update translation files (noreply)
+- Translated using Weblate (Italian) (alciregi)
+- Ellipse the device name using the GTK cell render (15699466+TownCube)
+- Fix names for icons in the password entry (vtrefny)
+- Try harder to load correct icon when applying actions (vtrefny)
+- Fix pylint failure when disabling found-_-in-module-class warning (vtrefny)
+- Fix ordering of the edit submenu in the context menu for devices (vtrefny)
+
 * Wed Apr 22 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.14-1
 - Do not update filesystem info for resize in the installer mode (vtrefny)
 - Do not allow creating extedned partitions on DASD (#1825357) (vtrefny)
