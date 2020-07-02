@@ -296,6 +296,12 @@ class EncryptionChooser(GUIWidget):
         for widget in self._advanced_widgests:
             widget.set_visible(visible)
 
+    def set_visible(self, visibility):
+        super().set_visible(visibility)
+
+        # show/hide "advanced" widgets
+        self.set_advanced_visible(self.encrypt)
+
     def connect(self, signal_name, signal_handler, *args):
         if signal_name == "type-changed":
             self._type_changed_handlers.append(SignalHandler(method=signal_handler, args=args))
