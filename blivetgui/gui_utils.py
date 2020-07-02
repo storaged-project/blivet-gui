@@ -41,7 +41,9 @@ def locate_ui_file(filename):
     """
 
     path = [os.path.split(os.path.abspath(__file__))[0] + '/../data/ui/',
-            '/usr/share/blivet-gui/ui/']
+            '/usr/share/blivet-gui/ui/',
+            '/usr/local/share/blivet-gui/ui/',
+            os.path.expanduser('~/.local/share/blivet-gui/ui/')]
 
     for folder in path:
         filepath = folder + filename
@@ -56,7 +58,9 @@ def locate_css_file(filename):
     """
 
     path = [os.path.split(os.path.abspath(__file__))[0] + '/../data/css/',
-            '/usr/share/blivet-gui/css/']
+            '/usr/share/blivet-gui/css/',
+            '/usr/local/share/blivet-gui/css/',
+            os.path.expanduser('~/.local/share/blivet-gui/css/')]
 
     for folder in path:
         filepath = folder + filename
