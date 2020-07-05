@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-02 13:37+0200\n"
-"PO-Revision-Date: 2020-05-28 15:17+0000\n"
+"PO-Revision-Date: 2020-07-05 12:01+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/uk/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.0.4\n"
+"X-Generator: Weblate 4.1.1\n"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
@@ -325,26 +325,23 @@ msgstr "вільне місце"
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr ""
+"У поточній версії можливості зміни розмірів пристроїв {type} не передбачено"
 
 #: ../blivetgui/blivet_utils.py:649
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Protected devices cannot be resized"
-msgstr "Розмір цього пристрою не можна змінити."
+msgstr "Розмір захищених пристроїв змінювати не можна"
 
 #: ../blivetgui/blivet_utils.py:654
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "Змінювати розміри для незмінних форматів не можна"
 
 #: ../blivetgui/blivet_utils.py:659
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Devices with children cannot be resized"
-msgstr "Розмір цього пристрою не можна змінити."
+msgstr "Змінювати розмір пристроїв із дочірніми пристроями не можна"
 
 #: ../blivetgui/blivet_utils.py:670
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "Змінювати розмір неформатованих пристроїв не можна"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
@@ -352,52 +349,47 @@ msgstr ""
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr ""
+"Підтримки зміни розмірів формату {type} у поточній версії не передбачено"
 
 #: ../blivetgui/blivet_utils.py:682
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
-msgstr ""
+msgstr "Інструменти для зміни розмірів формату {type} є недоступними."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:689
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "Розмір цього пристрою не можна змінити."
+msgstr "Розміри форматувань, які заплановано до створення, змінювати не можна"
 
 #: ../blivetgui/blivet_utils.py:694
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
+"У форматі {type} не передбачено підтримки оновлення даних щодо обмеження "
+"його розмірів"
 
 #: ../blivetgui/blivet_utils.py:699
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Mounted devices cannot be resized"
-msgstr "Розмір цього пристрою не можна змінити."
+msgstr "Не можна змінювати розміри змонтованих пристроїв"
 
 #: ../blivetgui/blivet_utils.py:704
-#, fuzzy
-#| msgid "Logical Volumes with snapshots couldn't be resized."
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "Не можна змінювати розмір логічних томів із знімками."
 
 #: ../blivetgui/blivet_utils.py:716
-#, fuzzy, python-brace-format
-#| msgid "Failed to change filesystem label on the device:"
+#, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
-msgstr "Не вдалося змінити мітку файлової системи на пристрої:"
+msgstr "Не вдалося оновити дані щодо розміру файлової системи: {error}"
 
 #: ../blivetgui/blivet_utils.py:735
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Device is not resizable."
-msgstr "Розмір цього пристрою не можна змінити."
+msgstr "Розміри пристрою змінювати не можна."
 
 #: ../blivetgui/blivet_utils.py:737
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
+"Розміри форматування після оновлення даних щодо обмеження розмірів не можна."
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
 #: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
@@ -536,8 +528,6 @@ msgstr ""
 "з цієї групи томів."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
-#, fuzzy
-#| msgid "Currently is possible to remove only one parent at time."
 msgid "Currently it is possible to remove only one parent at time."
 msgstr ""
 "У поточній версії передбачено одночасне вилучення лише одного батьківського "
