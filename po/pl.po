@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-30 08:58+0200\n"
+"POT-Creation-Date: 2020-07-02 13:37+0200\n"
 "PO-Revision-Date: 2020-05-28 15:17+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/blivet/"
@@ -252,7 +252,7 @@ msgstr ""
 "Odszyfrowanie urządzenia się nie powiodło. Na pewno podane hasło jest "
 "poprawne?"
 
-#: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:658
+#: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:659
 msgid "Quit"
 msgstr "Zakończ"
 
@@ -424,7 +424,7 @@ msgid "Format is not resizable after updating its size limit information."
 msgstr ""
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
-#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:613
+#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
 msgid "No pending actions"
 msgstr "Brak oczekujących działań"
 
@@ -507,7 +507,7 @@ msgstr "Modyfikuj urządzenie"
 #: ../blivetgui/dialogs/edit_dialog.py:597
 #: ../blivetgui/dialogs/edit_dialog.py:659
 #: ../blivetgui/dialogs/add_dialog.py:451 ../data/ui/cache_area.ui:76
-#: ../data/ui/blivet-gui.ui:467
+#: ../data/ui/blivet-gui.ui:465
 msgid "Device"
 msgstr "Urządzenie"
 
@@ -515,14 +515,14 @@ msgstr "Urządzenie"
 #: ../blivetgui/dialogs/edit_dialog.py:598
 #: ../blivetgui/dialogs/edit_dialog.py:660
 #: ../blivetgui/dialogs/add_dialog.py:452 ../data/ui/cache_area.ui:87
-#: ../data/ui/blivet-gui.ui:480
+#: ../data/ui/blivet-gui.ui:478
 msgid "Type"
 msgstr "Typ"
 
 #: ../blivetgui/dialogs/edit_dialog.py:550
 #: ../blivetgui/dialogs/edit_dialog.py:599
 #: ../blivetgui/dialogs/edit_dialog.py:661
-#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/blivet-gui.ui:502
+#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/blivet-gui.ui:500
 msgid "Size"
 msgstr "Rozmiar"
 
@@ -721,19 +721,19 @@ msgstr "Usunięcie także następujących urządzeń nadrzędnych {name}:"
 msgid "There are no pending actions."
 msgstr "Brak oczekujących działań."
 
-#: ../blivetgui/dialogs/widgets.py:322
+#: ../blivetgui/dialogs/widgets.py:328
 msgid "Passphrase not specified."
 msgstr "Nie podano hasła."
 
-#: ../blivetgui/dialogs/widgets.py:325
+#: ../blivetgui/dialogs/widgets.py:331
 msgid "Provided passphrases do not match."
 msgstr "Podane hasła się nie zgadzają."
 
-#: ../blivetgui/dialogs/widgets.py:347
+#: ../blivetgui/dialogs/widgets.py:353
 msgid "Passphrases match."
 msgstr "Hasła się zgadzają."
 
-#: ../blivetgui/dialogs/widgets.py:350
+#: ../blivetgui/dialogs/widgets.py:356
 msgid "Passphrases don't match."
 msgstr "Hasła się nie zgadzają."
 
@@ -1259,73 +1259,73 @@ msgstr "Informacje"
 msgid "blivet-gui"
 msgstr "blivet-gui"
 
-#: ../data/ui/blivet-gui.ui:276 ../data/ui/blivet-gui.ui:288
-#: ../data/ui/blivet-gui.ui:820 ../data/ui/blivet-gui.ui:831
-#: ../data/ui/blivet-gui.ui:842
+#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
+#: ../data/ui/blivet-gui.ui:821 ../data/ui/blivet-gui.ui:832
+#: ../data/ui/blivet-gui.ui:843
 msgid "column"
 msgstr "kolumna"
 
-#: ../data/ui/blivet-gui.ui:350
+#: ../data/ui/blivet-gui.ui:348
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
 msgstr "Dodaj nowe urządzenie"
 
-#: ../data/ui/blivet-gui.ui:366
+#: ../data/ui/blivet-gui.ui:364
 msgctxt "ActionsToolbar|Delete"
 msgid "Delete selected device"
 msgstr "Usuń zaznaczone urządzenie"
 
-#: ../data/ui/blivet-gui.ui:382
+#: ../data/ui/blivet-gui.ui:380
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
 msgstr "Modyfikuj zaznaczone urządzenie"
 
-#: ../data/ui/blivet-gui.ui:408
+#: ../data/ui/blivet-gui.ui:406
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
 msgstr "Odmontuj zaznaczone urządzenie"
 
-#: ../data/ui/blivet-gui.ui:423
+#: ../data/ui/blivet-gui.ui:421
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
 msgstr "Odblokuj/otwórz zaznaczone urządzenie"
 
-#: ../data/ui/blivet-gui.ui:438
+#: ../data/ui/blivet-gui.ui:436
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
 msgstr "Wyświetl informacje o zaznaczonym urządzeniu"
 
 #. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:491
+#: ../data/ui/blivet-gui.ui:489
 msgctxt "LogicalView|Column"
 msgid "Format"
 msgstr "Format"
 
-#: ../data/ui/blivet-gui.ui:513
+#: ../data/ui/blivet-gui.ui:511
 msgid "Label"
 msgstr "Etykieta"
 
-#: ../data/ui/blivet-gui.ui:524
+#: ../data/ui/blivet-gui.ui:522
 msgid "Mountpoint"
 msgstr "Punkt montowania"
 
-#: ../data/ui/blivet-gui.ui:546
+#: ../data/ui/blivet-gui.ui:544
 msgid "Logical View"
 msgstr "Widok logiczny"
 
-#: ../data/ui/blivet-gui.ui:569
+#: ../data/ui/blivet-gui.ui:567
 msgid "Physical View"
 msgstr "Widok fizyczny"
 
-#: ../data/ui/blivet-gui.ui:642
+#: ../data/ui/blivet-gui.ui:643
 msgid "Reload Storage"
 msgstr "Ponownie wczytaj urządzenia do przechowywania danych"
 
-#: ../data/ui/blivet-gui.ui:650
+#: ../data/ui/blivet-gui.ui:651
 msgid "Queued Actions"
 msgstr "Działania w kolejce"
 
-#: ../data/ui/blivet-gui.ui:672
+#: ../data/ui/blivet-gui.ui:673
 msgid "About blivet-gui"
 msgstr "O programie blivet-gui"
 
