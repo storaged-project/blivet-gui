@@ -848,7 +848,7 @@ class BlivetUtils(object):
 
     def _pick_device_name(self, name, parent_device=None, snapshot=False):
         """ Pick name for device.
-            If user choosed a name, check it and (if necessary) change it
+            If user chose a name, check it and (if necessary) change it
 
             :param name: name selected by user
             :type name: str
