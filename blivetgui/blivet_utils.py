@@ -187,6 +187,8 @@ class BlivetUtils(object):
         self.ignored_disks = ignored_disks
         self.exclusive_disks = exclusive_disks
 
+        self._resizable_filesystems = None
+
         # create our log now, creating blivet.Blivet instance may fail
         # and log some basic information -- version and lsblk output
         _log_file, self.log = set_logging(component="blivet-gui-utils")
@@ -205,6 +207,16 @@ class BlivetUtils(object):
 
         self.blivet_reset()
         self._update_min_sizes_info()
+
+    @property
+    def resizable_filesystems(self):
+        if self._resizable_filesystems is None:
+            self._resizable_filesystems = []
+            for cls in blivet.formats.device_formats.values():
+                if cls._resizable:
+                    self._resizable_filesystems.append(cls._type)
+
+        return self._resizable_filesystems
 
     def get_disks(self):
         """ Return list of all disk devices on current system
@@ -671,7 +683,7 @@ class BlivetUtils(object):
                 return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                           max_size=blivet_device.size)
 
-        elif blivet_device.format.type not in ("ext2", "ext3", "ext4", "ntfs"):
+        elif blivet_device.format.type not in self.resizable_filesystems:
             # unfortunately we can't use format._resizable here because blivet uses it to both mark
             # formats as not resizable and force users to call update_size_info on resizable formats
             msg = _("Resizing of {type} format is currently not supported").format(type=blivet_device.format.type)
