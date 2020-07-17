@@ -112,13 +112,12 @@ class BlivetUtilsDisksTest(BlivetUtilsTestCase, DisksTestToolkit):
         blivet_disk = self.get_blivet_device(self.vdevs[0])
         self.assertEqual(blivet_disk.format.type, fs)
 
-        # get "children" of the disk, the only "partition" should be a special
-        # device representing the "raw format"
+        # get "children" of the disk, the only "partition" should be the disk itself
         children = self.blivet_utils.get_disk_children(blivet_disk)
-        self.assertEqual(children.partitions[0].type, "raw format")
+        self.assertEqual(children.partitions[0].type, "disk")
         self.assertEqual(children.partitions[0].size, blivet_disk.size)
-        self.assertEqual(len(children.partitions[0].parents), 1)
-        self.assertEqual(children.partitions[0].parents[0], blivet_disk)
+        self.assertEqual(len(children.partitions[0].parents), 0)
+        self.assertEqual(children.partitions[0], blivet_disk)
 
 
 if __name__ == "__main__":
