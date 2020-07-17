@@ -90,7 +90,9 @@ class DeviceInformationDialog(Gtk.Dialog):
         # Fill dialog with information
         self.add_device_info()
         self.add_format_info()
-        self.add_parents_info()
+
+        if self.device.parents:
+            self.add_parents_info()
 
         # Show content
         self.show_all()
