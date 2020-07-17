@@ -1,0 +1,11 @@
+scanner:
+    diff_only: True
+    linter: pycodestyle
+pycodestyle:
+    ignore:
+        - E501  # line too long
+        - W504  # line break after binary operator
+        - E402  # module level import not at top of file
+        - E731  # do not assign a lambda expression, use a def
+
+no_blank_comment: True
