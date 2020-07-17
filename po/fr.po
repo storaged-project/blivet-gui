@@ -1,14 +1,14 @@
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # José Fournier <jaaf64@zoraldia.com>, 2018. #zanata
-# Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>, 2019. #zanata
+# Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>, 2019. #zanata, 2020.
 # Julien Humbert <julroy67@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-02 13:37+0200\n"
-"PO-Revision-Date: 2020-06-06 01:40+0000\n"
-"Last-Translator: Julien Humbert <julroy67@gmail.com>\n"
+"PO-Revision-Date: 2020-07-17 11:28+0000\n"
+"Last-Translator: Jean-Baptiste Holcroft <jean-baptiste@holcroft.fr>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fr/>\n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.0.4\n"
+"X-Generator: Weblate 4.1.1\n"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
@@ -323,26 +323,24 @@ msgstr "espace disponible"
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr ""
+"Le redimensionnement des périphériques {type} n’est pas pour l’instant pas "
+"pris en charge"
 
 #: ../blivetgui/blivet_utils.py:649
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Protected devices cannot be resized"
-msgstr "Ce périphérique ne peut être redimensionné."
+msgstr "Les périphériques protégés ne peuvent pas être redimensionnés"
 
 #: ../blivetgui/blivet_utils.py:654
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "Les formats immuables ne peuvent pas être redimensionnés"
 
 #: ../blivetgui/blivet_utils.py:659
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Devices with children cannot be resized"
-msgstr "Ce périphérique ne peut être redimensionné."
+msgstr "Les périphériques avec enfants ne peuvent pas être redimensionnés"
 
 #: ../blivetgui/blivet_utils.py:670
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "Les périphériques non formatés ne peuvent pas être redimensionnés"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
@@ -350,56 +348,55 @@ msgstr ""
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr ""
+"Le redimensionnement des périphériques du format {type} n’est pas pour "
+"l’instant pas pris en charge"
 
 #: ../blivetgui/blivet_utils.py:682
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr ""
+"Les outils de redimensionnement du format {type} ne sont pas disponibles."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:689
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "Ce périphérique ne peut être redimensionné."
+msgstr ""
+"Les formats qu’il est prévu de créer ne peuvent pas être redimensionnés"
 
 #: ../blivetgui/blivet_utils.py:694
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
+"Le format {type} ne prend pas en charge la mise à jour de son information de "
+"limites de taille"
 
 #: ../blivetgui/blivet_utils.py:699
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Mounted devices cannot be resized"
-msgstr "Ce périphérique ne peut être redimensionné."
+msgstr "Les périphériques montés ne peuvent pas être redimensionnés"
 
 #: ../blivetgui/blivet_utils.py:704
-#, fuzzy
-#| msgid "Logical Volumes with snapshots couldn't be resized."
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr ""
 "Les volumes logiques possédants des instantanés ne peuvent être "
 "redimensionnés."
 
 #: ../blivetgui/blivet_utils.py:716
-#, fuzzy, python-brace-format
-#| msgid "Failed to change filesystem label on the device:"
+#, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr ""
-"Échec de la modification de l’étiquette du système de fichier sur le "
-"périphérique :"
+"Échec de mise à jour de l’information de taille du système de fichier : "
+"{error}"
 
 #: ../blivetgui/blivet_utils.py:735
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Device is not resizable."
-msgstr "Ce périphérique ne peut être redimensionné."
+msgstr "Ce périphérique n’est pas redimensionnable."
 
 #: ../blivetgui/blivet_utils.py:737
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
+"Ce format n’est pas redimensionnable après avoir mis à jour son information "
+"de taille limite."
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
 #: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
@@ -542,8 +539,6 @@ msgstr ""
 "être retiré de ce groupe de volumes."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
-#, fuzzy
-#| msgid "Currently is possible to remove only one parent at time."
 msgid "Currently it is possible to remove only one parent at time."
 msgstr "On ne peut actuellement retirer qu’un parent à la fois."
 
