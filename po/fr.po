@@ -348,8 +348,8 @@ msgstr "Les périphériques non formatés ne peuvent pas être redimensionnés"
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr ""
-"Le redimensionnement des périphériques du format {type} n’est pas pour l’"
-"instant pas pris en charge"
+"Le redimensionnement des périphériques du format {type} n’est pas pour "
+"l’instant pas pris en charge"
 
 #: ../blivetgui/blivet_utils.py:682
 #, python-brace-format
@@ -361,7 +361,8 @@ msgstr ""
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:689
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "Les formats qu’il est prévu de créer ne peuvent pas être redimensionnés"
+msgstr ""
+"Les formats qu’il est prévu de créer ne peuvent pas être redimensionnés"
 
 #: ../blivetgui/blivet_utils.py:694
 #, python-brace-format
