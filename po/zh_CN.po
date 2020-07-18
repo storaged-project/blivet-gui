@@ -6,13 +6,14 @@
 # mosquito <sensor.wen@gmail.com>, 2016. #zanata
 # cheng ye <18969068329@163.com>, 2017. #zanata
 # Tian Shixiong <tiansworld@gmail.com>, 2020.
+# Charles Lee <lchopn@gmail.com>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-02 13:37+0200\n"
-"PO-Revision-Date: 2020-07-01 06:40+0000\n"
-"Last-Translator: Tian Shixiong <tiansworld@gmail.com>\n"
+"PO-Revision-Date: 2020-07-18 17:28+0000\n"
+"Last-Translator: Charles Lee <lchopn@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/zh_CN/>\n"
 "Language: zh_CN\n"
@@ -62,7 +63,7 @@ msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
-"发生未知错误。Anaconda 将停止。\n"
+"发生未知错误。Anaconda 将被终止。\n"
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
@@ -133,7 +134,7 @@ msgstr "格式化设备失败："
 #: ../blivetgui/blivetgui.py:328
 #, python-brace-format
 msgid "format {name} {type}"
-msgstr "格式化{type} 卷{name}"
+msgstr "格式化 {name} {type}"
 
 #: ../blivetgui/blivetgui.py:341
 msgid "Failed to edit the LVM2 Volume Group:"
@@ -311,79 +312,67 @@ msgstr "空闲空间"
 #: ../blivetgui/blivet_utils.py:644
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
-msgstr ""
+msgstr "目前不支持调整 {type} 设备的大小"
 
 #: ../blivetgui/blivet_utils.py:649
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Protected devices cannot be resized"
-msgstr "此设备不能重新调整大小。"
+msgstr "被保护的设备不能重新调整大小"
 
 #: ../blivetgui/blivet_utils.py:654
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "不可变格式不能调整大小"
 
 #: ../blivetgui/blivet_utils.py:659
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Devices with children cannot be resized"
-msgstr "此设备不能重新调整大小。"
+msgstr "具有子设备的设备不能重新调整大小"
 
 #: ../blivetgui/blivet_utils.py:670
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "未被格式化的设备不能调整大小"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
 #: ../blivetgui/blivet_utils.py:677
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
-msgstr ""
+msgstr "不支持调整 {type} 格式的大小"
 
 #: ../blivetgui/blivet_utils.py:682
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
-msgstr ""
+msgstr "调整 {type} 格式的工具当前不可用。"
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:689
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "此设备不能重新调整大小。"
+msgstr "已计划将被创建的格式不能调整大小"
 
 #: ../blivetgui/blivet_utils.py:694
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
-msgstr ""
+msgstr "格式 {type} 不支持更新其大小限制信息"
 
 #: ../blivetgui/blivet_utils.py:699
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Mounted devices cannot be resized"
-msgstr "此设备不能重新调整大小。"
+msgstr "已被挂载的设备不支持调整大小"
 
 #: ../blivetgui/blivet_utils.py:704
-#, fuzzy
-#| msgid "Logical Volumes with snapshots couldn't be resized."
 msgid "Logical Volumes with snapshots cannot be resized."
-msgstr "带有快照的逻辑卷不能重新调整大小。"
+msgstr "带有快照的逻辑卷不能调整大小。"
 
 #: ../blivetgui/blivet_utils.py:716
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
-msgstr ""
+msgstr "更新文件系统大小信息时失败：{error}"
 
 #: ../blivetgui/blivet_utils.py:735
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Device is not resizable."
-msgstr "此设备不能重新调整大小。"
+msgstr "设备不能调整大小。"
 
 #: ../blivetgui/blivet_utils.py:737
 msgid "Format is not resizable after updating its size limit information."
-msgstr ""
+msgstr "格式（Format）在更新其大小限制之后不再能调整大小。"
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
 #: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
@@ -451,7 +440,7 @@ msgstr "\"{0}\" 不是有效的标签。"
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr "'{label}' 对此文件系统来说不是有效的标签。"
+msgstr "'{label}' 对此文件系统来说不是有效的标签"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:518
@@ -487,17 +476,19 @@ msgstr "父设备："
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
 msgid "Add parent"
-msgstr "添加父设备"
+msgstr "添加上层设备"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
 msgid "Remove parent"
-msgstr "移除父设备"
+msgstr "移除上层设备"
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
 msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
-msgstr "目前没有足够的空物理卷或没有足够空闲空间的磁盘来创建它。"
+msgstr ""
+"当前没有空物理卷或具有足够空闲空间的\n"
+"磁盘来创建它。"
 
 #: ../blivetgui/dialogs/edit_dialog.py:596
 msgid "Add?"
@@ -513,13 +504,13 @@ msgstr "可用设备："
 msgid ""
 "There is no physical volume that could be\n"
 "removed from this volume group."
-msgstr "没有可以从该卷组中移除的物理卷。"
+msgstr ""
+"没有可以从该卷组中移除的\n"
+"物理卷。"
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
-#, fuzzy
-#| msgid "Currently is possible to remove only one parent at time."
 msgid "Currently it is possible to remove only one parent at time."
-msgstr "当前只能一次移除一个父设备。"
+msgstr "当前只能一次移除一个上层设备。"
 
 #: ../blivetgui/dialogs/edit_dialog.py:658
 msgid "Remove?"
@@ -562,11 +553,11 @@ msgstr "区块大小："
 #: ../blivetgui/dialogs/add_dialog.py:212
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
-msgstr "'{0}' 不是有效的区块大小"
+msgstr "'{0}' 不是有效的区块（Chunk）大小规格。"
 
 #: ../blivetgui/dialogs/add_dialog.py:217
 msgid "Chunk size must be multiple of 4 KiB."
-msgstr "区块大小必须是 4KiB的倍数"
+msgstr "区块（Chunk）大小必须是 4KiB的倍数。"
 
 #: ../blivetgui/dialogs/add_dialog.py:273
 msgid "Create new device"
@@ -606,7 +597,7 @@ msgstr "LVM2 快照"
 
 #: ../blivetgui/dialogs/add_dialog.py:404
 msgid "LVM2 Thin Snaphost"
-msgstr ""
+msgstr "LVM2 瘦快照"
 
 #: ../blivetgui/dialogs/add_dialog.py:407
 #: ../blivetgui/dialogs/device_info_dialog.py:83
@@ -644,7 +635,7 @@ msgstr "挂载点："
 
 #: ../blivetgui/dialogs/add_dialog.py:1007
 msgid "Please select at least two parent devices."
-msgstr "请至少选择两个父设备。"
+msgstr "请至少选择两个上层设备。"
 
 #: ../blivetgui/dialogs/add_dialog.py:1021
 #, python-brace-format
@@ -719,7 +710,7 @@ msgstr "MD RAID 阵列"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "DM Integrity Device"
-msgstr ""
+msgstr "DM 完整性（Integrity）设备"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:99
 #: ../blivetgui/dialogs/device_info_dialog.py:221
@@ -925,7 +916,7 @@ msgstr " • {exists} {size} {type} {name}\n"
 #: ../blivetgui/communication/client.py:302
 #: ../blivetgui/communication/client.py:319
 msgid "Failed to connect to blivet-gui-daemon"
-msgstr "连接 blivet-gui-daemon 失败。"
+msgstr "连接 blivet-gui-daemon 失败"
 
 #: ../blivetgui/visualization/rectangle.py:50
 msgid "Group device"
@@ -1007,7 +998,7 @@ msgstr "错误"
 
 #: ../data/ui/exception_dialog.ui:27
 msgid "_Back"
-msgstr "后退(_B)"
+msgstr "返回 (_B)"
 
 #: ../data/ui/exception_dialog.ui:41
 msgid "_Report a bug"
@@ -1069,9 +1060,8 @@ msgid "Select new partition table type:"
 msgstr "选择新分区表类型："
 
 #: ../data/ui/show_actions_dialog.ui:13
-#, fuzzy
 msgid "Pending actions"
-msgstr "待做操作"
+msgstr "等待中的操作"
 
 #: ../data/ui/encryption_chooser.ui:20
 msgid "Encrypt:"
@@ -1099,27 +1089,27 @@ msgstr "详情"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
-msgstr ""
+msgstr "缓存此逻辑卷（LV）："
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
-msgstr "可用空间"
+msgstr "空闲空间"
 
 #: ../data/ui/cache_area.ui:109
 msgid "On disk"
-msgstr ""
+msgstr "在磁盘上"
 
 #: ../data/ui/cache_area.ui:142
 msgid "Cache type:"
-msgstr ""
+msgstr "缓存类型："
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
-msgstr ""
+msgstr "透写（Writethrough）"
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
-msgstr ""
+msgstr "回写（Writeback）"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1139,7 +1129,7 @@ msgstr "调整大小(_R)"
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
-msgstr ""
+msgstr "上层名称："
 
 #: ../data/ui/parent_chooser.ui:80
 msgid "Available space:"
@@ -1149,7 +1139,7 @@ msgstr "可用空间："
 #: ../data/ui/label_dialog.ui:39
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "改标（Relabel）"
 
 #: ../data/ui/label_dialog.ui:71
 msgid "Enter new label for this filesystem:"
@@ -1173,14 +1163,13 @@ msgstr "调整大小"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
-#, fuzzy
 msgctxt "Menu|Edit"
 msgid "Format"
-msgstr "格式化"
+msgstr "格式"
 
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:138
 msgid "Modify parents"
-msgstr ""
+msgstr "修改上层"
 
 #: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:146
 #: ../data/ui/mountpoint_dialog.ui:7
@@ -1247,7 +1236,7 @@ msgstr "显示所选设备的相关信息"
 #: ../data/ui/blivet-gui.ui:489
 msgctxt "LogicalView|Column"
 msgid "Format"
-msgstr ""
+msgstr "格式（文件系统）"
 
 #: ../data/ui/blivet-gui.ui:511
 msgid "Label"
