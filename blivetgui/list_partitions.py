@@ -266,7 +266,7 @@ class ListPartitions(object):
 
         self.blivet_gui.deactivate_all_actions()
 
-        if device.type not in ("free space", "raw format"):
+        if device.type != "free space":
             self.blivet_gui.activate_device_actions(["info"])
 
         if self._allow_delete_device(device):

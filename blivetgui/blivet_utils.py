@@ -54,50 +54,6 @@ def lsblk():
     return p.stdout.decode()
 
 
-class RawFormatDevice(object):
-    """ Special class to represent formatted disk without a disklabel
-    """
-
-    def __init__(self, disk, dev_id):
-        self.disk = disk
-        self.id = dev_id
-
-        self.type = "raw format"
-        self.size = self.disk.size
-
-        self.is_logical = False
-        self.is_free_space = False
-        self.is_disk = False
-        self.isleaf = True
-        self.direct = True
-        self._resizable = False
-        self.format_immutable = False
-
-        self.children = []
-        self.parents = blivet.devices.lib.ParentList(items=[self.disk])
-
-        if hasattr(self.format, "label") and self.format.label:
-            self.name = self.format.label
-
-        else:
-            self.name = _("{0} disklabel").format(self.type)
-
-    @property
-    def format(self):
-        return self.disk.format
-
-    @property
-    def original_format(self):
-        return self.disk.original_format
-
-    @property
-    def protected(self):
-        return self.disk.protected
-
-    def setup(self):
-        return self.disk.setup()
-
-
 class FreeSpaceDevice(object):
     """ Special class to represent free space on disk (device)
         (blivet doesn't have class/device to represent free space)
@@ -339,8 +295,7 @@ class BlivetUtils(object):
 
         if blivet_device.format and blivet_device.format.type not in ("disklabel", "btrfs", "luks", None):
             # special occasion -- raw device format
-            partitions = [RawFormatDevice(disk=blivet_device, dev_id=self.storage.next_id)]
-            return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
+            return ProxyDataContainer(partitions=[blivet_device], extended=None, logicals=None)
 
         if blivet_device.format and blivet_device.format.type == "btrfs" and blivet_device.children:
             # btrfs volume on raw device
@@ -351,7 +306,7 @@ class BlivetUtils(object):
             if blivet_device.children:
                 luks = self.get_luks_device(blivet_device)
             else:
-                luks = RawFormatDevice(disk=blivet_device, dev_id=self.storage.next_id)
+                luks = blivet_device
 
             return ProxyDataContainer(partitions=[luks], extended=None, logicals=None)
 
@@ -571,11 +526,6 @@ class BlivetUtils(object):
                        user_input={"device": blivet_device, "delete_parents": delete_parents})
 
         actions = []
-
-        if isinstance(blivet_device, RawFormatDevice):
-            # raw device, not going to delete device but destroy disk format instead
-            result = self._delete_disk_label(blivet_device.parents[0])
-            return result
 
         if blivet_device.is_disk:
             result = self._delete_disk_label(blivet_device)
