@@ -347,7 +347,8 @@ msgstr "A(z) {type} formázás átméretezése jelenleg nem támogatott"
 #: ../blivetgui/blivet_utils.py:682
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
-msgstr "A(z) {type} formázás átméretezéséhez szükséges eszközök nem érhetők el."
+msgstr ""
+"A(z) {type} formázás átméretezéséhez szükséges eszközök nem érhetők el."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
