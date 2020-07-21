@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Meskó Balázs <meskobalazs@gmail.com>, 2018. #zanata
 # Bendegúz Gyönki <gyonkibendeguz@gmail.com>, 2020.
+# Balázs Meskó <meskobalazs@mailbox.org>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-02 13:37+0200\n"
-"PO-Revision-Date: 2020-07-08 15:27+0000\n"
-"Last-Translator: Bendegúz Gyönki <gyonkibendeguz@gmail.com>\n"
+"PO-Revision-Date: 2020-07-21 13:28+0000\n"
+"Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
 "Language-Team: Hungarian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/hu/>\n"
 "Language: hu\n"
@@ -48,9 +49,13 @@ msgid ""
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+" Kattintson a Jelentés gombra a hiba elküldéséhez, és az\n"
+" anaconda kezelni fogja a jelentési folyamatot."
 
 #: ../blivetgui/osinstall.py:219
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
 "{error}"
@@ -138,14 +143,13 @@ msgid "edit {name} {type}"
 msgstr "{name} {type} szerkesztése"
 
 #: ../blivetgui/blivetgui.py:385
-#, fuzzy
 msgid "Failed to change filesystem label on the device:"
 msgstr "Nem sikerült megváltoztatni a fájlrendszer címkéjét az eszközön:"
 
 #: ../blivetgui/blivetgui.py:390
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "a(z) {name} {type} fájlrendszer címkéjének módosítása"
 
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
@@ -170,9 +174,8 @@ msgstr ""
 "számát a {label} lemezcímkén."
 
 #: ../blivetgui/blivetgui.py:427
-#, fuzzy
 msgid "Failed to add disklabel:"
-msgstr "A lemezcímke hozzáadása nem sikerült:"
+msgstr "A lemezcímke hozzáadása sikertelen:"
 
 #: ../blivetgui/blivetgui.py:440
 #, python-brace-format
@@ -181,7 +184,7 @@ msgstr "új lemezcímke létrehozása ezen: {name}"
 
 #: ../blivetgui/blivetgui.py:492
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "Az eszköz hozzáadása sikertelen:"
 
 #: ../blivetgui/blivetgui.py:507
 #, python-brace-format
@@ -190,7 +193,7 @@ msgstr "{size} {type} eszköz hozzáadása"
 
 #: ../blivetgui/blivetgui.py:542
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "Az eszköz törlése sikertelen:"
 
 #: ../blivetgui/blivetgui.py:557
 #, python-brace-format
@@ -199,7 +202,7 @@ msgstr "{name} partíció törlése"
 
 #: ../blivetgui/blivetgui.py:596
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "A műveletek végrehajtása sikertelen:"
 
 #: ../blivetgui/blivetgui.py:640
 msgid "Confirm scheduled actions"
@@ -214,7 +217,7 @@ msgstr "Biztos, hogy végrehajtja az ütemezett műveleteket?"
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
-"'{mountpoint}' leválasztása nem sikerült. Biztos, hogy az eszköz nincs "
+"A(z) „{mountpoint}” leválasztása sikertelen. Biztos, hogy az eszköz nincs "
 "használatban?"
 
 #: ../blivetgui/blivetgui.py:704
@@ -259,7 +262,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:792
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "A blivet előkészítése sikertelen:"
 
 #: ../blivetgui/blivetgui.py:799
 msgid "Quit blivet-gui"
@@ -282,7 +285,7 @@ msgid ""
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
-"A blivet-gui nem használhatja a(z) <b>{name}</b>  lemezt, mert a lemezcímke "
+"A blivet-gui nem használhatja a(z) <b>{name}</b> lemezt, mert a lemezcímke "
 "sérült vagy ismeretlen.\n"
 "Kiléphet a blivet-guiból most, vagy folytathatja anélkül, hogy használhatná "
 "a lemezt."
@@ -316,79 +319,70 @@ msgstr "szabad hely"
 #: ../blivetgui/blivet_utils.py:644
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
-msgstr ""
+msgstr "A(z) {type} típusú eszközök átméretezése jelenleg nem támogatott"
 
 #: ../blivetgui/blivet_utils.py:649
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Protected devices cannot be resized"
-msgstr "Ezt az eszközt nem lehet átméretezni."
+msgstr "A védett eszközök nem méretezhetők át"
 
 #: ../blivetgui/blivet_utils.py:654
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "A nem módosítható formázások nem méretezhetők át"
 
 #: ../blivetgui/blivet_utils.py:659
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Devices with children cannot be resized"
-msgstr "Ezt az eszközt nem lehet átméretezni."
+msgstr "A gyermekkel rendelkező eszközök nem méretezhetők át"
 
 #: ../blivetgui/blivet_utils.py:670
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "A nem formázott eszközök nem méretezhetők át"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
 #: ../blivetgui/blivet_utils.py:677
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
-msgstr ""
+msgstr "A(z) {type} formázás átméretezése jelenleg nem támogatott"
 
 #: ../blivetgui/blivet_utils.py:682
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr ""
+"A(z) {type} formázás átméretezéséhez szükséges eszközök nem érhetők el."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:689
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "Ezt az eszközt nem lehet átméretezni."
+msgstr "A létrehozandó formázások nem méretezhetők át"
 
 #: ../blivetgui/blivet_utils.py:694
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
+"A(z) {type} formázás nem támogatja a méretkorlát-információk frissítését"
 
 #: ../blivetgui/blivet_utils.py:699
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Mounted devices cannot be resized"
-msgstr "Ezt az eszközt nem lehet átméretezni."
+msgstr "A csatolt eszközök nem méretezhetők át"
 
 #: ../blivetgui/blivet_utils.py:704
-#, fuzzy
-#| msgid "Logical Volumes with snapshots couldn't be resized."
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "A pillanatképekkel rendelkező logikai kötetek nem méretezhetők át."
 
 #: ../blivetgui/blivet_utils.py:716
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
-msgstr ""
+msgstr "A fájlrendszerméret-információk frissítése sikertelen: {error}"
 
 #: ../blivetgui/blivet_utils.py:735
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Device is not resizable."
-msgstr "Ezt az eszközt nem lehet átméretezni."
+msgstr "Az eszközt nem lehet átméretezni."
 
 #: ../blivetgui/blivet_utils.py:737
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
+"A formázás a méretkorlát-információk frissítése után nem méretezhető át."
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
 #: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
@@ -460,7 +454,7 @@ msgstr "A „{0}” érvénytelen címke."
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "A(z) „{label}” címke érvénytelen ennél a fájlrendszernél"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:518
@@ -529,8 +523,6 @@ msgstr ""
 "törölni lehetne ebből a kötetcsoportból."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
-#, fuzzy
-#| msgid "Currently is possible to remove only one parent at time."
 msgid "Currently it is possible to remove only one parent at time."
 msgstr "Jelenleg egyszerre csak egy szülő eltávolítása lehetséges."
 
@@ -540,7 +532,7 @@ msgstr "Eltávolítja?"
 
 #: ../blivetgui/dialogs/other_dialogs.py:51
 msgid "translator-credits"
-msgstr "Meskó Balázs <mesko.balazs@fsf.hu>, 2018."
+msgstr "Meskó Balázs <mesko.balazs@fsf.hu>, 2018,2020."
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
@@ -732,7 +724,7 @@ msgstr "MD RAID-tömb"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "DM Integrity Device"
-msgstr ""
+msgstr "DM integritási eszköz"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:99
 #: ../blivetgui/dialogs/device_info_dialog.py:221
@@ -990,12 +982,10 @@ msgstr "Leválasztás"
 
 #: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
 msgid "Cancel"
-msgstr ""
+msgstr "Mégse"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
-#, fuzzy
-#| msgid "Unmount"
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
 msgstr "Leválasztás"
@@ -1007,6 +997,10 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>A kiválasztott eszköz jelenleg több\n"
+"csatolási ponthoz is rendelt.</b>\n"
+"\n"
+"Válassza ki a leválasztandó csatolási pontokat:"
 
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
@@ -1089,7 +1083,7 @@ msgstr "Titkosítás:"
 
 #: ../data/ui/encryption_chooser.ui:32
 msgid "Encryption type:"
-msgstr ""
+msgstr "Titkosítás típusa:"
 
 #: ../data/ui/encryption_chooser.ui:56
 msgid "Repeat Passphrase:"
@@ -1159,11 +1153,11 @@ msgstr "Elérhető hely:"
 #: ../data/ui/label_dialog.ui:39
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "Újracímkézés"
 
 #: ../data/ui/label_dialog.ui:71
 msgid "Enter new label for this filesystem:"
-msgstr ""
+msgstr "Adja meg a fájlrendszer új címkéjét:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "New"
@@ -1198,7 +1192,7 @@ msgstr "Csatolási pont megadása"
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
 msgid "Set label"
-msgstr ""
+msgstr "Címke beállítása"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
 msgid "Set partition table"
@@ -1259,10 +1253,8 @@ msgid "Format"
 msgstr "Formátum"
 
 #: ../data/ui/blivet-gui.ui:511
-#, fuzzy
-#| msgid "Label:"
 msgid "Label"
-msgstr "Címke:"
+msgstr "Címke"
 
 #: ../data/ui/blivet-gui.ui:522
 msgid "Mountpoint"
