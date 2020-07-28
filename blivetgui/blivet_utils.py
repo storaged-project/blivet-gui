@@ -834,8 +834,6 @@ class BlivetUtils(object):
                 name = self.storage.suggest_container_name()
 
         else:
-            name = self.storage.safe_device_name(name)
-
             # if name exists add -XX suffix
             if name in self.storage.names or (parent_device and parent_device.name + "-" + name in self.storage.names):
                 for i in range(100):
