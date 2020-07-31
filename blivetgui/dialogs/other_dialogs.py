@@ -48,6 +48,8 @@ class AboutDialog(object):
         dialog = builder.get_object("about_dialog")
 
         dialog.set_transient_for(parent_window)
+        # TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
+        # your name and email address (optional) here. Separate translator names with newlines.
         dialog.set_translator_credits(_("translator-credits"))
         dialog.set_version(version)
 
