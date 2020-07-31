@@ -133,7 +133,16 @@ class ListPartitions(object):
         """
 
         devtype = "lvm" if device.type == "lvmvg" else "raid" if device.type == "mdarray" else device.type
-        fmt = device.format.type if device.format else None
+
+        if device.format.type:
+            fmt = device.format.type
+        else:
+            if device.format.name != "Unknown":
+                # format recognized by blkid but not supported by blivet
+                fmt = device.format.name
+            else:
+                fmt = None
+
         if self.installer_mode:
             mnt = device.format.mountpoint if (device.format and device.format.mountable) else None
         else:
