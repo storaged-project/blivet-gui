@@ -686,7 +686,7 @@ class BlivetGUI(object):
         self.update_partitions_view()
 
     def decrypt_device(self, _widget=None):
-        """ Decrypt selected device
+        """ Unlock selected device
 
             :param widget: widget calling this function (only for calls via signal.connect)
             :type widget: Gtk.Widget()
@@ -700,7 +700,7 @@ class BlivetGUI(object):
             ret = self.client.remote_call("luks_decrypt", self.list_partitions.selected_partition[0], response)
 
             if not ret:
-                msg = _("Device decryption failed. Are you sure provided password is correct?")
+                msg = _("Unlocking failed. Are you sure provided password is correct?")
                 self.show_error_dialog(msg)
                 return
 

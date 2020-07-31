@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.12"/>
   <object class="GtkMessageDialog" id="dialog">
@@ -8,9 +8,9 @@
     <property name="type_hint">dialog</property>
     <property name="message_type">other</property>
     <property name="buttons">ok-cancel</property>
-    <property name="text" translatable="yes">Decrypt device</property>
-    <property name="secondary_text" translatable="yes">Please enter passphrase to decrypt selected device.</property>
-    <child>
+    <property name="text" translatable="yes">Unlock device</property>
+    <property name="secondary_text" translatable="yes">Please enter passphrase to unlock selected device.</property>
+    <child type="titlebar">
       <placeholder/>
     </child>
     <child internal-child="vbox">
