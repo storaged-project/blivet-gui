@@ -15,16 +15,11 @@ from blivet import formats
 def supported_filesystems():
     _fs_types = []
 
-    additional_fs = ["swap", "lvmpv"]
+    _supported_fs = ["ext2", "ext3", "ext4", "xfs", "swap", "lvmpv"]
 
     for cls in formats.device_formats.values():
         obj = cls()
-
-        supported_fs = (obj.type not in ("tmpfs",) and
-                        obj.supported and obj.formattable and
-                        (isinstance(obj, formats.fs.FS) or
-                         obj.type in additional_fs))
-        if supported_fs:
+        if obj.type in _supported_fs:
             _fs_types.append(obj)
 
     return sorted(_fs_types, key=lambda fs: fs.type)
