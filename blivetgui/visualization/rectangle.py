@@ -49,8 +49,8 @@ class Rectangle(Gtk.RadioButton):
 
         self.device_icons = {"group": ("drive-multidisk-symbolic", _("Group device")),
                              "livecd": ("media-optical-symbolic", _("LiveUSB device")),
-                             "encrypted": ("changes-prevent-symbolic", _("Encrypted device (closed)")),
-                             "decrypted": ("changes-allow-symbolic", _("Encrypted device (open)")),
+                             "encrypted": ("changes-prevent-symbolic", _("Encrypted device (locked)")),
+                             "decrypted": ("changes-allow-symbolic", _("Encrypted device (unlocked)")),
                              "empty": ("radio-symbolic", _("Empty device")),
                              "snapshot": ("camera-photo-symbolic", _("Snapshot")),
                              "nodisklabel": ("drive-harddisk-symbolic", _("Missing partition table")),
