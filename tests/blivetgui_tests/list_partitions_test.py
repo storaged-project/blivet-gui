@@ -101,9 +101,20 @@ class ListPartitionsTest(unittest.TestCase):
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 1), device.name)
         self.assertEqual(self.list_partitions.partitions_list.get_value(it, 6), ", ".join(mountpoints))
 
+        # partition with unknown/unsupported filesystem
+        fmt = MagicMock(type=None, mountable=False, label=None)
+        fmt.configure_mock(name="exfat")
+        device = MagicMock(type="partition", size=Size("1 GiB"), path="/dev/vda1",
+                           format=fmt)
+        device.configure_mock(name="vda1")
+        it = self.list_partitions._add_to_store(device)
+        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 3), device.format.name)
+
         # lvmvg with long name -- name should be elipsized and type should be 'lvm'
+        fmt = MagicMock(type=None, mountable=False, label=None)
+        fmt.configure_mock(name="Unknown")
         device = MagicMock(type="lvmvg", size=Size("1 GiB"),
-                           format=MagicMock(type=None, mountable=False, label=None))
+                           format=fmt)
         device.configure_mock(name="".join(["a" for i in range(20)]))
 
         it = self.list_partitions._add_to_store(device)

@@ -101,12 +101,17 @@ class BlivetUtilsDisksTest(BlivetUtilsTestCase, DisksTestToolkit):
         actions = self.format_device(device=blivet_disk, fstype=fs)
 
         # check scheduled actions
-        self.assertEqual(len(actions), 1)
-        self.assertIsInstance(actions[0], blivet.deviceaction.ActionCreateFormat)
+        self.assertEqual(len(actions), 2)
+        self.assertIsInstance(actions[0], blivet.deviceaction.ActionDestroyFormat)
+        self.assertIsInstance(actions[1], blivet.deviceaction.ActionCreateFormat)
 
         self.assertEqual(actions[0].device, blivet_disk)
-        self.assertTrue(actions[0].is_create)
+        self.assertTrue(actions[0].is_destroy)
         self.assertTrue(actions[0].is_format)
+
+        self.assertEqual(actions[1].device, blivet_disk)
+        self.assertTrue(actions[1].is_create)
+        self.assertTrue(actions[1].is_format)
 
         # check that the device has been changed
         blivet_disk = self.get_blivet_device(self.vdevs[0])

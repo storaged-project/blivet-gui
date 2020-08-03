@@ -532,7 +532,7 @@ class BlivetUtils(object):
             return result
 
         try:
-            if blivet_device.format.type and not blivet_device.format_immutable:
+            if not blivet_device.format_immutable:
                 ac_fmt = blivet.deviceaction.ActionDestroyFormat(blivet_device)
                 self.storage.devicetree.actions.add(ac_fmt)
                 actions.append(ac_fmt)
@@ -707,8 +707,7 @@ class BlivetUtils(object):
 
         fmt_actions = []
 
-        if user_input.edit_device.format.type is not None:
-            fmt_actions.append(blivet.deviceaction.ActionDestroyFormat(user_input.edit_device))
+        fmt_actions.append(blivet.deviceaction.ActionDestroyFormat(user_input.edit_device))
 
         if user_input.filesystem:
             fmt_actions.extend(self._create_format(user_input, user_input.edit_device))
