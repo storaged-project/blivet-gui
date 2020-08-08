@@ -54,7 +54,8 @@ class Rectangle(Gtk.RadioButton):
                              "empty": ("radio-symbolic", _("Empty device")),
                              "snapshot": ("camera-photo-symbolic", _("Snapshot")),
                              "nodisklabel": ("drive-harddisk-symbolic", _("Missing partition table")),
-                             "protected": ("action-unavailable-symbolic", _("Device or format is write protected"))}
+                             "protected": ("action-unavailable-symbolic", _("Device or format is write protected")),
+                             "cached": ("drive-harddisk-solidstate-symbolic", _("Cached device"))}
 
         if label:
             label_device = Gtk.Label(justify=Gtk.Justification.CENTER,
@@ -101,5 +102,8 @@ class Rectangle(Gtk.RadioButton):
 
         if self.device.format.exists and self.device.protected:
             properties.append("protected")
+
+        if self.device.type in ("lvmlv", "lvmthinpool") and self.device.cached:
+            properties.append("cached")
 
         return properties
