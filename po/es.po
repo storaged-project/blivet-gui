@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-02 13:37+0200\n"
-"PO-Revision-Date: 2020-02-25 02:38+0000\n"
+"PO-Revision-Date: 2020-08-15 12:16+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/es/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.11.2\n"
+"X-Generator: Weblate 4.1.1\n"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
@@ -217,11 +217,12 @@ msgid "Are you sure you want to perform scheduled actions?"
 msgstr "¿Confirma que quiere ejecutar las acciones planificadas?"
 
 #: ../blivetgui/blivetgui.py:682
-#, fuzzy, python-brace-format
-#| msgid "Unmount failed. Are you sure device is not in use?"
+#, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
-msgstr "No se pudo desmontar. Cerciórese de que el dispositivo no esté en uso."
+msgstr ""
+"No se pudo desmontar «{mountpoint}». Cerciórese de que el dispositivo no "
+"esté en uso."
 
 #: ../blivetgui/blivetgui.py:704
 msgid "Device decryption failed. Are you sure provided password is correct?"
@@ -322,81 +323,74 @@ msgstr "espacio libre"
 #: ../blivetgui/blivet_utils.py:644
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
-msgstr ""
+msgstr "Por ahora no se admite redimensionar dispositivos {type}"
 
 #: ../blivetgui/blivet_utils.py:649
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Protected devices cannot be resized"
-msgstr "No se puede redimensionar este dispositivo."
+msgstr "No se pueden redimensionar los dispositivos protegidos"
 
 #: ../blivetgui/blivet_utils.py:654
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "No se pueden redimensionar los formatos inmutables"
 
 #: ../blivetgui/blivet_utils.py:659
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Devices with children cannot be resized"
-msgstr "No se puede redimensionar este dispositivo."
+msgstr "No se pueden redimensionar los dispositivos con elementos secundarios"
 
 #: ../blivetgui/blivet_utils.py:670
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "No se pueden redimensionar los dispositivos no formateados"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
 #: ../blivetgui/blivet_utils.py:677
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
-msgstr ""
+msgstr "Por ahora no se admite redimensionar el formato {type}"
 
 #: ../blivetgui/blivet_utils.py:682
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr ""
+"No están disponibles las herramientas de redimensionamiento del formato "
+"{type}."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:689
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "No se puede redimensionar este dispositivo."
+msgstr "No se pueden redimensionar los formatos con creación programada"
 
 #: ../blivetgui/blivet_utils.py:694
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
+"El formato {type} no permite actualizar su información de límites de tamaño"
 
 #: ../blivetgui/blivet_utils.py:699
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Mounted devices cannot be resized"
-msgstr "No se puede redimensionar este dispositivo."
+msgstr "No se pueden redimensionar los dispositivos montados"
 
 #: ../blivetgui/blivet_utils.py:704
-#, fuzzy
-#| msgid "Logical Volumes with snapshots couldn't be resized."
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "No se pueden redimensionar los volúmenes lógicos con instantáneas."
 
 #: ../blivetgui/blivet_utils.py:716
-#, fuzzy, python-brace-format
-#| msgid "Failed to change filesystem label on the device:"
+#, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr ""
-"No se pudo cambiar la etiqueta del sistema de archivos en el dispositivo:"
+"No se pudo actualizar la información de tamaño del sistema de archivos: "
+"{error}"
 
 #: ../blivetgui/blivet_utils.py:735
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Device is not resizable."
-msgstr "No se puede redimensionar este dispositivo."
+msgstr "El dispositivo no es redimensionable."
 
 #: ../blivetgui/blivet_utils.py:737
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
+"El formato no es redimensionable luego de haber actualizado su información "
+"de límite de tamaño."
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
 #: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
@@ -538,10 +532,8 @@ msgstr ""
 "volumen físico de este grupo."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
-#, fuzzy
-#| msgid "Currently is possible to remove only one parent at time."
 msgid "Currently it is possible to remove only one parent at time."
-msgstr "Por ahora sólo se puede eliminar un primario cada vez."
+msgstr "Por ahora solo se puede eliminar un primario cada vez."
 
 #: ../blivetgui/dialogs/edit_dialog.py:658
 msgid "Remove?"
@@ -793,7 +785,7 @@ msgstr " • <i>En Cache:</i> si (cache tamaño: {cache_size})\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:122
 msgid " • <i>Cached:</i> No\n"
-msgstr " • <i>Cached:</i> No\n"
+msgstr " • <i>Prealmacenado:</i> no\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:127
 #, python-brace-format
@@ -1004,8 +996,6 @@ msgstr "Cancelar"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
-#, fuzzy
-#| msgid "Unmount"
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
 msgstr "Desmontar"
@@ -1017,10 +1007,14 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>El dispositivo seleccionado actualmente\n"
+"está montado en varios puntos.</b>\n"
+"\n"
+"Seleccione el o los puntos que desmontar:"
 
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
-msgstr "Nivel RAID:"
+msgstr "Nivel de RAID:"
 
 #: ../data/ui/exception_dialog.ui:12 ../data/ui/error_dialog.ui:13
 msgid "Error"
@@ -1032,11 +1026,11 @@ msgstr "_Atrás"
 
 #: ../data/ui/exception_dialog.ui:41
 msgid "_Report a bug"
-msgstr "_Reportar un error"
+msgstr "_Informar de un defecto"
 
 #: ../data/ui/exception_dialog.ui:55
 msgid "_Quit"
-msgstr "_Quitar"
+msgstr "_Salir"
 
 #: ../data/ui/exception_dialog.ui:107
 msgid "Show traceback"
@@ -1119,7 +1113,7 @@ msgstr "Detalles"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
-msgstr "Generar caché para este VL:"
+msgstr "Prealmacenar este VL:"
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
@@ -1131,17 +1125,15 @@ msgstr "En disco"
 
 #: ../data/ui/cache_area.ui:142
 msgid "Cache type:"
-msgstr "Tipo de caché:"
+msgstr "Tipo de antememoria:"
 
 #: ../data/ui/cache_area.ui:156
-#, fuzzy
 msgid "Writethrough"
-msgstr "Escriba por medio de"
+msgstr "Escritura directa"
 
 #: ../data/ui/cache_area.ui:157
-#, fuzzy
 msgid "Writeback"
-msgstr "Respóndeme"
+msgstr "Contraescritura"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1237,7 +1229,7 @@ msgstr "columna"
 #: ../data/ui/blivet-gui.ui:348
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
-msgstr "Agregar nuevo dispositivo"
+msgstr "Añadir dispositivo nuevo"
 
 #: ../data/ui/blivet-gui.ui:364
 msgctxt "ActionsToolbar|Delete"
@@ -1252,12 +1244,12 @@ msgstr "Editar dispositivo seleccionado"
 #: ../data/ui/blivet-gui.ui:406
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
-msgstr "Desmontar el dispositivo seleccionado"
+msgstr "Desmontar dispositivo seleccionado"
 
 #: ../data/ui/blivet-gui.ui:421
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
-msgstr "Desbloquear / Abrir el dispositivo seleccionado"
+msgstr "Desbloquear/abrir dispositivo seleccionado"
 
 #: ../data/ui/blivet-gui.ui:436
 msgctxt "ActionsToolbar|Info"
@@ -1271,10 +1263,8 @@ msgid "Format"
 msgstr "Formato"
 
 #: ../data/ui/blivet-gui.ui:511
-#, fuzzy
-#| msgid "Label:"
 msgid "Label"
-msgstr "Etiqueta:"
+msgstr "Etiqueta"
 
 #: ../data/ui/blivet-gui.ui:522
 msgid "Mountpoint"
@@ -1290,7 +1280,7 @@ msgstr "Vista física"
 
 #: ../data/ui/blivet-gui.ui:643
 msgid "Reload Storage"
-msgstr "Recargar la información de almacenamiento"
+msgstr "Recargar inf. de almacenamiento"
 
 #: ../data/ui/blivet-gui.ui:651
 msgid "Queued Actions"
@@ -1298,7 +1288,7 @@ msgstr "Acciones pendientes"
 
 #: ../data/ui/blivet-gui.ui:673
 msgid "About blivet-gui"
-msgstr "Sobre blivet-gui"
+msgstr "Acerca de blivet-gui"
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
