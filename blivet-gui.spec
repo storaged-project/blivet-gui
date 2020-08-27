@@ -11,6 +11,7 @@ BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
 
 Requires: blivet-gui-runtime = %{version}-%{release}
+Requires: PolicyKit-authentication-agent
 
 %description
 Graphical (GTK) tool for manipulation and configuration of data storage
@@ -28,7 +29,6 @@ Requires: python3-gobject
 Requires: gettext
 Requires: python3-blivet >= 1:3.1.2
 Requires: gtk3
-Requires: PolicyKit-authentication-agent
 Requires: python3-pid
 Requires: libreport
 
