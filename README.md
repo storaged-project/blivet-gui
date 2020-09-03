@@ -1,4 +1,4 @@
-[![Copr build status](https://copr.fedorainfracloud.org/coprs/g/storage/blivet-daily/package/blivet-gui/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/g/storage/blivet-daily/package/blivet-gui/)
+ [![Copr build status](https://copr.fedorainfracloud.org/coprs/g/storage/blivet-daily/package/blivet-gui/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/g/storage/blivet-daily/package/blivet-gui/)
 
 blivet-gui is a graphical tool for storage configuration using blivet library
 
