@@ -393,8 +393,8 @@ class AddDialog(Gtk.Dialog):
         elif self.selected_parent.type == "lvmvg":
             types.extend([(_("LVM2 Logical Volume"), "lvmlv"), (_("LVM2 ThinPool"), "lvmthinpool")])
 
-        elif (self.selected_parent.type in ("partition", "luks/dm-crypt", "mdarray") and
-              self.selected_parent.format.type == "lvmpv" and self.selected_parent.size >= lvm.LVM_PE_SIZE * 2):
+        elif (self.selected_parent.format.type == "lvmpv" and not self.selected_parent.format.vg_name and
+              self.selected_parent.size >= lvm.LVM_PE_SIZE * 2):
             types.append((_("LVM2 Volume Group"), "lvmvg"))
 
         elif self.selected_parent.type == "lvmlv":
