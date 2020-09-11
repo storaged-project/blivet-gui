@@ -297,13 +297,24 @@ class AddDialogTest(unittest.TestCase):
 
         # lvmpv
         parent_device = self._get_parent_device(dtype="partition", ftype="lvmpv")
+        parent_device.format.configure_mock(vg_name=None)
         free_device = parent_device
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
                                [("lvmpv", free_device)], self.supported_filesystems, [])
 
         types = sorted([i[1] for i in add_dialog.devices_combo.get_model()])
+        self.assertTrue(sorted(["lvmvg"]) == types)
+        self.assertFalse(add_dialog.devices_combo.get_sensitive())
 
+        # lvmpv on disk
+        parent_device = self._get_parent_device(dtype="disk", ftype="lvmpv")
+        free_device = self._get_free_device(size=parent_device.size, parent=parent_device)
+        parent_device.format.configure_mock(vg_name=None)
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
+                               [("lvmpv", free_device)], self.supported_filesystems, [])
+
+        types = sorted([i[1] for i in add_dialog.devices_combo.get_model()])
         self.assertTrue(sorted(["lvmvg"]) == types)
         self.assertFalse(add_dialog.devices_combo.get_sensitive())
 
