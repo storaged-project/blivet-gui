@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.1.15
+Version: 2.2.0
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -68,6 +68,42 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Fri Sep 11 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.2.0-1
+- Handle sector mode NVDIMMs as disks (vtrefny)
+- Allow adding VG to all devices with LVMPV format (vtrefny)
+- Do not try to check parent device type for devices without parents (vtrefny)
+- Translated using Weblate (Slovak) (feonsu)
+- Translated using Weblate (Russian) (igor.gorbounov)
+- Move the PolicyKit agent dependency from runtime to blivet-gui (vtrefny)
+- Translated using Weblate (Spanish) (fitoschido)
+- Ignore fallback ITS rule warning from gettext (vtrefny)
+- Add a special icon for cached LVs (vtrefny)
+- Translated using Weblate (Hebrew) (sh.yaron)
+- Hardcode list of supported filesystems for AddDialog tests (vtrefny)
+- Always remove format when removing or formatting a device (#1796710) (vtrefny)
+- Show filesystem not supported by Blivet in the UI (vtrefny)
+- Unify/fix terminology for (un)locking encrypted devices (vtrefny)
+- Add comment explaining the "translator-credits" string (vtrefny)
+- Translated using Weblate (Hebrew) (sh.yaron)
+- Do not force "safe" names for devices (#1859963) (vtrefny)
+- Update translation files (noreply)
+- Translated using Weblate (Hungarian) (meskobalazs)
+- Translated using Weblate (Chinese (Simplified)) (lchopn)
+- Add PEP 8 Speaks config file (vtrefny)
+- Gather resizable filesystems from blivet instead of hardcoding (vtrefny)
+- Do not show parents section for disks in the info dialog (vtrefny)
+- Remove the special RawFormatDevice device (vtrefny)
+- Update translation files (noreply)
+- Translated using Weblate (French) (jean-baptiste)
+- The past tense of "choose" is "chose" (metta.crawler)
+- Translated using Weblate (Kazakh) (baurthefirst)
+- Translated using Weblate (Hungarian) (gyonkibendeguz)
+- Translated using Weblate (Turkish) (oguzersen)
+- Translated using Weblate (Ukrainian) (yurchor)
+- Translated using Weblate (Polish) (piotrdrag)
+- Update translation files (noreply)
+- Translated using Weblate (Hebrew) (sh.yaron)
+
 * Thu Jul 02 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.15-1
 - Use "raw_device" instead of "slave" for getting LUKS backing device (vtrefny)
 - Update translation files (noreply)
