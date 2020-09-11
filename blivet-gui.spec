@@ -104,6 +104,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 - Update translation files (noreply)
 - Translated using Weblate (Hebrew) (sh.yaron)
 
+* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
+
 * Thu Jul 02 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.15-1
 - Use "raw_device" instead of "slave" for getting LUKS backing device (vtrefny)
 - Update translation files (noreply)
@@ -150,6 +153,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 - Fix pylint failure when disabling found-_-in-module-class warning (vtrefny)
 - Fix ordering of the edit submenu in the context menu for devices (vtrefny)
 
+* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.1.14-2
+- Rebuilt for Python 3.9
+
 * Wed Apr 22 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.14-1
 - Do not update filesystem info for resize in the installer mode (vtrefny)
 - Do not allow creating extedned partitions on DASD (#1825357) (vtrefny)
@@ -163,6 +169,9 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 - Update translation files (noreply)
 - Translated using Weblate (Russian) (pamolodyk)
 - Sync spec with downstream (vtrefny)
+
+* Tue Apr 21 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.13-2
+- Do not update filesystem info for resize in the installer mode (#1826370)
 
 * Tue Mar 31 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.1.13-1
 - Translations update from Weblate (#166) (noreply)
