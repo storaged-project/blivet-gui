@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-02 13:37+0200\n"
+"POT-Creation-Date: 2020-09-11 17:13+0200\n"
 "PO-Revision-Date: 2020-08-04 15:29+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://translate.fedoraproject.org/projects/blivet/"
@@ -19,27 +19,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 4.1.1\n"
-
-#: ../blivetgui/processing_window.py:58
-msgid "Processing"
-msgstr "עיבוד"
-
-#: ../blivetgui/processing_window.py:83
-msgid "Show actions"
-msgstr "הצגת פעולות"
-
-#: ../blivetgui/processing_window.py:158
-msgid "All queued actions have been processed."
-msgstr "כל הפעולות בתור עובדו."
-
-#: ../blivetgui/processing_window.py:173
-#, python-brace-format
-msgid ""
-"<b>Processing action {num} of {total}</b>:\n"
-"<i>{action}</i>"
-msgstr ""
-"<b>מעבד פעולה {num} מתוך {total}</b>:\n"
-"<i>{action}</i>"
 
 #: ../blivetgui/osinstall.py:217
 #, python-brace-format
@@ -97,6 +76,27 @@ msgstr "כרכי Btrfs"
 msgid "Btrfs Volume"
 msgstr "כרך Btrfs"
 
+#: ../blivetgui/processing_window.py:58
+msgid "Processing"
+msgstr "עיבוד"
+
+#: ../blivetgui/processing_window.py:83
+msgid "Show actions"
+msgstr "הצגת פעולות"
+
+#: ../blivetgui/processing_window.py:158
+msgid "All queued actions have been processed."
+msgstr "כל הפעולות בתור עובדו."
+
+#: ../blivetgui/processing_window.py:173
+#, python-brace-format
+msgid ""
+"<b>Processing action {num} of {total}</b>:\n"
+"<i>{action}</i>"
+msgstr ""
+"<b>מעבד פעולה {num} מתוך {total}</b>:\n"
+"<i>{action}</i>"
+
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
 msgid ""
@@ -115,43 +115,43 @@ msgstr ""
 "אירעה שגיאה בלתי מוכרת. Blivet-gui יסתיים.\n"
 "{error}"
 
-#: ../blivetgui/blivetgui.py:283
+#: ../blivetgui/blivetgui.py:282
 msgid "Failed to resize the device:"
 msgstr "שינוי גודל ההתקן נכשל:"
 
-#: ../blivetgui/blivetgui.py:295
+#: ../blivetgui/blivetgui.py:294
 #, python-brace-format
 msgid "resize {name} {type}"
 msgstr "שינוי גודל {name} {type}"
 
-#: ../blivetgui/blivetgui.py:314
+#: ../blivetgui/blivetgui.py:313
 msgid "Failed to format the device:"
 msgstr "פרמוט ההתקן נכשל:"
 
-#: ../blivetgui/blivetgui.py:328
+#: ../blivetgui/blivetgui.py:327
 #, python-brace-format
 msgid "format {name} {type}"
 msgstr "אתחול {name} {type}"
 
-#: ../blivetgui/blivetgui.py:341
+#: ../blivetgui/blivetgui.py:340
 msgid "Failed to edit the LVM2 Volume Group:"
 msgstr "עריכת קבוצת הכרכים מסוג LVM2 נכשלה:"
 
-#: ../blivetgui/blivetgui.py:356
+#: ../blivetgui/blivetgui.py:355
 #, python-brace-format
 msgid "edit {name} {type}"
 msgstr "עריכת {name} {type}"
 
-#: ../blivetgui/blivetgui.py:385
+#: ../blivetgui/blivetgui.py:384
 msgid "Failed to change filesystem label on the device:"
 msgstr "החלפת תווית מערכת הקבצים של ההתקן נכשלה:"
 
-#: ../blivetgui/blivetgui.py:390
+#: ../blivetgui/blivetgui.py:389
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
 msgstr "החלפת תווית מערכת קבצים של {name} {type}"
 
-#: ../blivetgui/blivetgui.py:406
+#: ../blivetgui/blivetgui.py:405
 #, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
@@ -160,11 +160,11 @@ msgstr ""
 "{name} אינו שלם. אי אפשר להוסיף כרכים לוגיים חדשים לקבוצת הכרכים כשחסרים "
 "כרכים פיזיים."
 
-#: ../blivetgui/blivetgui.py:411
+#: ../blivetgui/blivetgui.py:410
 msgid "Not enough free space for a new LVM Volume Group."
 msgstr "אין די מקום פנוי לקבוצת כרכים של מנהל הכרכים הלוגיים."
 
-#: ../blivetgui/blivetgui.py:417
+#: ../blivetgui/blivetgui.py:416
 #, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
@@ -172,64 +172,66 @@ msgid ""
 msgstr ""
 "הכונן {name} כבר הגיע למספר המרבי של מחיצות עיקריות עבור תווית הכונן {label}."
 
-#: ../blivetgui/blivetgui.py:427
+#: ../blivetgui/blivetgui.py:426
 msgid "Failed to add disklabel:"
 msgstr "הוספת תווית הכונן נכשלה:"
 
-#: ../blivetgui/blivetgui.py:440
+#: ../blivetgui/blivetgui.py:439
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "יצירת תווית כונן חדשה על {name}"
 
-#: ../blivetgui/blivetgui.py:492
+#: ../blivetgui/blivetgui.py:491
 msgid "Failed to add the device:"
 msgstr "הוספת ההתקן נכשלה:"
 
-#: ../blivetgui/blivetgui.py:507
+#: ../blivetgui/blivetgui.py:506
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr "הוספת התקן {type} בגודל {size}"
 
-#: ../blivetgui/blivetgui.py:542
+#: ../blivetgui/blivetgui.py:541
 msgid "Failed to delete the device:"
 msgstr "מחיקת ההתקן נכשלה:"
 
-#: ../blivetgui/blivetgui.py:557
+#: ../blivetgui/blivetgui.py:556
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr "מחיקת המחיצה {name}"
 
-#: ../blivetgui/blivetgui.py:596
+#: ../blivetgui/blivetgui.py:595
 msgid "Failed to perform the actions:"
 msgstr "ביצוע הפעולות נכשל:"
 
-#: ../blivetgui/blivetgui.py:640
+#: ../blivetgui/blivetgui.py:639
 msgid "Confirm scheduled actions"
 msgstr "אישור פעולות מתוזמנות"
 
-#: ../blivetgui/blivetgui.py:641
+#: ../blivetgui/blivetgui.py:640
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "האם לבצע את הפעולות שתוזמנו?"
 
-#: ../blivetgui/blivetgui.py:682
+#: ../blivetgui/blivetgui.py:681
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr "הניתוק של ‚{mountpoint}’ נכשל. ההתקן אכן לא בשימוש?"
 
-#: ../blivetgui/blivetgui.py:704
-msgid "Device decryption failed. Are you sure provided password is correct?"
+#: ../blivetgui/blivetgui.py:703
+#, fuzzy
+#| msgid "Device decryption failed. Are you sure provided password is correct?"
+msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "פענוח הכונן נכשל. הססמה הזאת בוודאות נכונה?"
 
-#: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:659
+#: ../blivetgui/blivetgui.py:753 ../data/ui/blivet-gui.ui:659
 msgid "Quit"
 msgstr "יציאה"
 
-#: ../blivetgui/blivetgui.py:757
+#: ../blivetgui/blivetgui.py:756
 msgid "blivet-gui is already running"
 msgstr "blivet-gui כבר פעיל"
 
-#: ../blivetgui/blivetgui.py:758
+#: ../blivetgui/blivetgui.py:757
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -237,7 +239,7 @@ msgstr ""
 "עותק נוסף של blivet-gui כבר פעיל.\n"
 "מותר להפעיל רק עותק אחד של blivet-gui בו זמנית."
 
-#: ../blivetgui/blivetgui.py:760
+#: ../blivetgui/blivetgui.py:759
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -255,24 +257,24 @@ msgstr ""
 "\n"
 "כדי לאלץ אותו לסיים את פעילותו."
 
-#: ../blivetgui/blivetgui.py:792
+#: ../blivetgui/blivetgui.py:791
 msgid "Failed to init blivet:"
 msgstr "הפעלת blivet נכשלה:"
 
-#: ../blivetgui/blivetgui.py:799
+#: ../blivetgui/blivetgui.py:798
 msgid "Quit blivet-gui"
 msgstr "יציאה מ־blivet-gui"
 
-#: ../blivetgui/blivetgui.py:801
+#: ../blivetgui/blivetgui.py:800
 msgid "Ignore disk and continue"
 msgstr "להתעלם מהכונן ולהמשיך"
 
-#: ../blivetgui/blivetgui.py:804
+#: ../blivetgui/blivetgui.py:803
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "שגיאה: {error}"
 
-#: ../blivetgui/blivetgui.py:805
+#: ../blivetgui/blivetgui.py:804
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -285,94 +287,89 @@ msgstr ""
 "עומדת בפניך האפשרות לצאת מ־blivet-gui כעת או להמשיך מבלי שתהיה לך האפשרות "
 "להשתמש בכונן הזה."
 
-#: ../blivetgui/blivetgui.py:841
+#: ../blivetgui/blivetgui.py:840
 msgid "Confirm reload storage"
 msgstr "אישור רענון אחסון"
 
-#: ../blivetgui/blivetgui.py:842
+#: ../blivetgui/blivetgui.py:841
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "יש פעולות ממתינות. להמשיך?"
 
-#: ../blivetgui/blivetgui.py:873
+#: ../blivetgui/blivetgui.py:872
 msgid "Are you sure you want to quit?"
 msgstr "לצאת?"
 
-#: ../blivetgui/blivetgui.py:874
+#: ../blivetgui/blivetgui.py:873
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr "יש פעולות ממתינות. לצאת מ־blivet-gui כעת?"
 
-#: ../blivetgui/blivet_utils.py:83
-#, python-brace-format
-msgid "{0} disklabel"
-msgstr "תווית כונן {0}"
-
-#: ../blivetgui/blivet_utils.py:122
+#: ../blivetgui/blivet_utils.py:78
 msgid "free space"
 msgstr "מקום פנוי"
 
-#: ../blivetgui/blivet_utils.py:644
+#: ../blivetgui/blivet_utils.py:606
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr "אין תמיכה בשינוי גודל של התקנים מסוג {type}"
 
-#: ../blivetgui/blivet_utils.py:649
+#: ../blivetgui/blivet_utils.py:611
 msgid "Protected devices cannot be resized"
 msgstr "אי אפשר לשנות גודל של התקנים מוגנים"
 
-#: ../blivetgui/blivet_utils.py:654
+#: ../blivetgui/blivet_utils.py:616
 msgid "Immutable formats cannot be resized"
 msgstr "לא ניתן לשנות גודל של תצורות מקובעות"
 
-#: ../blivetgui/blivet_utils.py:659
+#: ../blivetgui/blivet_utils.py:621
 msgid "Devices with children cannot be resized"
 msgstr "אי אפשר לשנות גודל של התקנים עם צאצאים"
 
-#: ../blivetgui/blivet_utils.py:670
+#: ../blivetgui/blivet_utils.py:632
 msgid "Unformatted devices are not resizable"
 msgstr "לא ניתן לשנות גודל של התקנים שלא פורמטו"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
-#: ../blivetgui/blivet_utils.py:677
+#: ../blivetgui/blivet_utils.py:639
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr "אין תמיכה כרגע בשינוי גודל בתצורת {type}"
 
-#: ../blivetgui/blivet_utils.py:682
+#: ../blivetgui/blivet_utils.py:644
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr "אין כלים זמינים לשינוי גודל בתצורת {type}."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
-#: ../blivetgui/blivet_utils.py:689
+#: ../blivetgui/blivet_utils.py:651
 msgid "Formats scheduled to be created cannot be resized"
 msgstr "לא ניתן לשנות גודל של תצורות שיצירתן מתוזמנת"
 
-#: ../blivetgui/blivet_utils.py:694
+#: ../blivetgui/blivet_utils.py:656
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr "בתצורה {type} אין תמיכה בעדכון פרטי מגבלת הגודל"
 
-#: ../blivetgui/blivet_utils.py:699
+#: ../blivetgui/blivet_utils.py:661
 msgid "Mounted devices cannot be resized"
 msgstr "לא ניתן לשנות גודל של התקנים מעוגנים"
 
-#: ../blivetgui/blivet_utils.py:704
+#: ../blivetgui/blivet_utils.py:666
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "לא ניתן לשנות גודל של התקנים לוגיים עם תמונות מצב."
 
-#: ../blivetgui/blivet_utils.py:716
+#: ../blivetgui/blivet_utils.py:678
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr "עדכון פרטי גודל מערכת הקבצים נכשל: {error}"
 
-#: ../blivetgui/blivet_utils.py:735
+#: ../blivetgui/blivet_utils.py:697
 msgid "Device is not resizable."
 msgstr "גודל ההתקן אינו בר שינוי."
 
-#: ../blivetgui/blivet_utils.py:737
+#: ../blivetgui/blivet_utils.py:699
 msgid "Format is not resizable after updating its size limit information."
 msgstr "לאחר עדכון פרטי הגבלת הגודל אפשרות שינוי הגודל של ההתקן תינעל."
 
@@ -453,16 +450,16 @@ msgstr "עריכת התקן"
 #: ../blivetgui/dialogs/edit_dialog.py:548
 #: ../blivetgui/dialogs/edit_dialog.py:597
 #: ../blivetgui/dialogs/edit_dialog.py:659
-#: ../blivetgui/dialogs/add_dialog.py:451 ../data/ui/cache_area.ui:76
-#: ../data/ui/blivet-gui.ui:465
+#: ../blivetgui/dialogs/add_dialog.py:451 ../data/ui/blivet-gui.ui:465
+#: ../data/ui/cache_area.ui:76
 msgid "Device"
 msgstr "התקן"
 
 #: ../blivetgui/dialogs/edit_dialog.py:549
 #: ../blivetgui/dialogs/edit_dialog.py:598
 #: ../blivetgui/dialogs/edit_dialog.py:660
-#: ../blivetgui/dialogs/add_dialog.py:452 ../data/ui/cache_area.ui:87
-#: ../data/ui/blivet-gui.ui:478
+#: ../blivetgui/dialogs/add_dialog.py:452 ../data/ui/blivet-gui.ui:478
+#: ../data/ui/cache_area.ui:87
 msgid "Type"
 msgstr "סוג"
 
@@ -519,7 +516,9 @@ msgstr "כרגע ניתן להסיר הורה אחד בכל פעם."
 msgid "Remove?"
 msgstr "להסיר?"
 
-#: ../blivetgui/dialogs/other_dialogs.py:51
+#. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
+#. your name and email address (optional) here. Separate translator names with newlines.
+#: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
 msgstr "Yaron Shahrabani <sh.yaron@gmail.com>"
 
@@ -715,203 +714,203 @@ msgstr "מערך MD RAID"
 msgid "DM Integrity Device"
 msgstr "התקן יושר של DM"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:99
-#: ../blivetgui/dialogs/device_info_dialog.py:221
+#: ../blivetgui/dialogs/device_info_dialog.py:101
+#: ../blivetgui/dialogs/device_info_dialog.py:223
 #, python-brace-format
 msgid " • <i>Type:</i> {type}\n"
 msgstr " • סוג: {type}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:102
+#: ../blivetgui/dialogs/device_info_dialog.py:104
 #, python-brace-format
 msgid " • <i>Length:</i> {length}\n"
 msgstr " • אורך: {length}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:103
+#: ../blivetgui/dialogs/device_info_dialog.py:105
 #, python-brace-format
 msgid " • <i>Start:</i> {start}\n"
 msgstr " • התחלה: {start}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:104
+#: ../blivetgui/dialogs/device_info_dialog.py:106
 #, python-brace-format
 msgid " • <i>End:</i> {end}\n"
 msgstr " • סוף: {end}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:111
+#: ../blivetgui/dialogs/device_info_dialog.py:113
 #, python-brace-format
 msgid " • <i>Origin:</i> {origin}\n"
 msgstr " • מקור: {origin}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:112
 #: ../blivetgui/dialogs/device_info_dialog.py:114
-#: ../blivetgui/dialogs/device_info_dialog.py:118
+#: ../blivetgui/dialogs/device_info_dialog.py:116
+#: ../blivetgui/dialogs/device_info_dialog.py:120
 #, python-brace-format
 msgid " • <i>Segment type:</i> {segtype}\n"
 msgstr " • סוג מקטע: {segtype}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:115
+#: ../blivetgui/dialogs/device_info_dialog.py:117
 #, python-brace-format
 msgid " • <i>Free space:</i> {free}\n"
 msgstr " • מקום פנוי: {free}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:116
+#: ../blivetgui/dialogs/device_info_dialog.py:118
 #, python-brace-format
 msgid " • <i>Space used:</i> {used}\n"
 msgstr " • נפח מנוצל: {used}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:120
+#: ../blivetgui/dialogs/device_info_dialog.py:122
 #, python-brace-format
 msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
 msgstr " • עם מטמון: כן (גודל מטמון: {cache_size})\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:122
+#: ../blivetgui/dialogs/device_info_dialog.py:124
 msgid " • <i>Cached:</i> No\n"
 msgstr " • עם מטמון: לא\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:127
+#: ../blivetgui/dialogs/device_info_dialog.py:129
 #, python-brace-format
 msgid " • <i>PE Size:</i> {pesize}\n"
 msgstr " • גודל מקטע פיזי: {pesize}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:128
+#: ../blivetgui/dialogs/device_info_dialog.py:130
 #, python-brace-format
 msgid " • <i>PE Count:</i> {pecount}\n"
 msgstr " • מספר מקטעים פיזיים: {pecount}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:129
+#: ../blivetgui/dialogs/device_info_dialog.py:131
 #, python-brace-format
 msgid " • <i>Free Space:</i> {free}\n"
 msgstr " • מקום פנוי: {free}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:130
+#: ../blivetgui/dialogs/device_info_dialog.py:132
 #, python-brace-format
 msgid " • <i>PE Free:</i> {pefree}\n"
 msgstr " • פנוי במקטע הפיזי: {pefree}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:131
+#: ../blivetgui/dialogs/device_info_dialog.py:133
 #, python-brace-format
 msgid " • <i>Reserved Space:</i> {res}\n"
 msgstr " • מקום שמור: {res}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:132
-#: ../blivetgui/dialogs/device_info_dialog.py:151
+#: ../blivetgui/dialogs/device_info_dialog.py:134
+#: ../blivetgui/dialogs/device_info_dialog.py:153
 #, python-brace-format
 msgid " • <i>Complete:</i> {complete}\n"
 msgstr " • שלם: {complete}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:137
+#: ../blivetgui/dialogs/device_info_dialog.py:139
 #, python-brace-format
 msgid " • <i>Subvol ID:</i> {id}\n"
 msgstr " • מזהה תת־כרך: {id}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:140
+#: ../blivetgui/dialogs/device_info_dialog.py:142
 #, python-brace-format
 msgid " • <i>Data Level:</i> {level}\n"
 msgstr " • רמת נתונים: {level}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:141
+#: ../blivetgui/dialogs/device_info_dialog.py:143
 #, python-brace-format
 msgid " • <i>Metadata Level:</i> {level}\n"
 msgstr " • רמת נתוני על: {level}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:146
+#: ../blivetgui/dialogs/device_info_dialog.py:148
 #, python-brace-format
 msgid " • <i>Level:</i> {level}\n"
 msgstr " • רמה: {level}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:147
+#: ../blivetgui/dialogs/device_info_dialog.py:149
 #, python-brace-format
 msgid " • <i>Devices:</i> {dcount}\n"
 msgstr " • התקנים: {dcount}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:148
+#: ../blivetgui/dialogs/device_info_dialog.py:150
 #, python-brace-format
 msgid " • <i>Spares:</i> {spares}\n"
 msgstr " • חלופיים: {spares}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:149
+#: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
 msgid " • <i>Degraded:</i> {degraded}\n"
 msgstr " • ביצועים נחותים: {degraded}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:150
+#: ../blivetgui/dialogs/device_info_dialog.py:152
 #, python-brace-format
 msgid " • <i>Metadata Version:</i> {metadata}\n"
 msgstr " • גרסת נתוני על: {metadata}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:165
+#: ../blivetgui/dialogs/device_info_dialog.py:167
 #, python-brace-format
 msgid "Unknown device {name}"
 msgstr "התקן לא ידוע {name}"
 
 #. device info header
-#: ../blivetgui/dialogs/device_info_dialog.py:173
+#: ../blivetgui/dialogs/device_info_dialog.py:175
 msgid "Basic information"
 msgstr "פרטים בסיסיים"
 
 #. 'basic' information about selected device
-#: ../blivetgui/dialogs/device_info_dialog.py:183
-#: ../blivetgui/dialogs/device_info_dialog.py:219
-#: ../blivetgui/dialogs/device_info_dialog.py:254
+#: ../blivetgui/dialogs/device_info_dialog.py:185
+#: ../blivetgui/dialogs/device_info_dialog.py:221
+#: ../blivetgui/dialogs/device_info_dialog.py:256
 msgid "existing"
 msgstr "קיים"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:183
-#: ../blivetgui/dialogs/device_info_dialog.py:219
-#: ../blivetgui/dialogs/device_info_dialog.py:254
+#: ../blivetgui/dialogs/device_info_dialog.py:185
+#: ../blivetgui/dialogs/device_info_dialog.py:221
+#: ../blivetgui/dialogs/device_info_dialog.py:256
 msgid "non-existing"
 msgstr "לא קיים"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:184
-#: ../blivetgui/dialogs/device_info_dialog.py:220
+#: ../blivetgui/dialogs/device_info_dialog.py:186
+#: ../blivetgui/dialogs/device_info_dialog.py:222
 #, python-brace-format
 msgid " • <i>Status:</i> {exist}\n"
 msgstr " • מצב: {exist}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:185
+#: ../blivetgui/dialogs/device_info_dialog.py:187
 #, python-brace-format
 msgid " • <i>Name:</i> {name}\n"
 msgstr " • שם: {name}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:186
+#: ../blivetgui/dialogs/device_info_dialog.py:188
 #, python-brace-format
 msgid " • <i>Path:</i> {path}\n"
 msgstr " • נתיב: {path}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:187
+#: ../blivetgui/dialogs/device_info_dialog.py:189
 #, python-brace-format
 msgid " • <i>Size:</i> {size}\n"
 msgstr " • גודל: {size}\n"
 
 #. device format header
-#: ../blivetgui/dialogs/device_info_dialog.py:208
+#: ../blivetgui/dialogs/device_info_dialog.py:210
 msgid "Device format"
 msgstr "פורמט ההתקן"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:222
+#: ../blivetgui/dialogs/device_info_dialog.py:224
 #, python-brace-format
 msgid " • <i>UUID:</i> {uuid}\n"
 msgstr " • <i>UUID:</i> {uuid}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:224
+#: ../blivetgui/dialogs/device_info_dialog.py:226
 #, python-brace-format
 msgid " • <i>Label:</i> {label}\n"
 msgstr " • תווית: {label}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:226
+#: ../blivetgui/dialogs/device_info_dialog.py:228
 #, python-brace-format
 msgid " • <i>Mountpoint:</i> {mountpoint}\n"
 msgstr " • נקודת עיגון: {mountpoint}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:229
+#: ../blivetgui/dialogs/device_info_dialog.py:231
 msgid " • <i>Type:</i> None"
 msgstr " • סוג: אין"
 
 #. device parents header
-#: ../blivetgui/dialogs/device_info_dialog.py:242
+#: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid "Parents"
 msgstr "הורים"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:255
+#: ../blivetgui/dialogs/device_info_dialog.py:257
 #, python-brace-format
 msgid " • {exists} {size} {type} {name}\n"
 msgstr " • {exists} {size} {type} {name}\n"
@@ -930,12 +929,16 @@ msgid "LiveUSB device"
 msgstr "התקן LiveUSB"
 
 #: ../blivetgui/visualization/rectangle.py:52
-msgid "Encrypted device (closed)"
+#, fuzzy
+#| msgid "Encrypted device (closed)"
+msgid "Encrypted device (locked)"
 msgstr "התקן מוצפן (סגור)"
 
 #: ../blivetgui/visualization/rectangle.py:53
-msgid "Encrypted device (open)"
-msgstr "התקן מוצפן (פתוח)"
+#, fuzzy
+#| msgid "Encrypted device (closed)"
+msgid "Encrypted device (unlocked)"
+msgstr "התקן מוצפן (סגור)"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Empty device"
@@ -953,200 +956,36 @@ msgstr "חסרה טבלת מחיצות"
 msgid "Device or format is write protected"
 msgstr "ההתקן או הפרמוט מוגנים מפני כתיבה"
 
-#: ../data/ui/luks_passphrase_dialog.ui:11
-msgid "Decrypt device"
-msgstr "פענוח התקן"
-
-#: ../data/ui/luks_passphrase_dialog.ui:12
-msgid "Please enter passphrase to decrypt selected device."
-msgstr "נא להקליד את מילת הצופן כדי לפענח את ההתקן הנבחר."
-
-#: ../data/ui/luks_passphrase_dialog.ui:52 ../data/ui/encryption_chooser.ui:44
-msgid "Passphrase:"
-msgstr "מילת צופן:"
-
-#: ../data/ui/unmount_dialog.ui:15 ../data/ui/blivet-gui.ui:94
-msgid "Unmount"
-msgstr "התרה"
-
-#: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
-msgid "Cancel"
-msgstr "ביטול"
-
-#. Confirmation dialog button for unmounting selected mountpoints.
-#: ../data/ui/unmount_dialog.ui:50
-msgctxt "Dialog|Unmount"
-msgid "Unmount"
-msgstr "ניתוק"
-
-#: ../data/ui/unmount_dialog.ui:87
-msgid ""
-"<b>Selected device is currently mounted\n"
-"at multiple mountpoints.</b>\n"
-"\n"
-"Please select mountpoint(s) to unmount:"
-msgstr ""
-"<b>הכונן הנבחר מעוגן במספר\n"
-"נקודות עגינה.</b>\n"
-"\n"
-"נא לבחור נקודות עגינה לניתוק:"
-
-#: ../data/ui/raid_chooser.ui:21
-msgid "RAID level:"
-msgstr "רמת RAID:"
-
-#: ../data/ui/exception_dialog.ui:12 ../data/ui/error_dialog.ui:13
-msgid "Error"
-msgstr "שגיאה"
-
-#: ../data/ui/exception_dialog.ui:27
-msgid "_Back"
-msgstr "ה_קודם"
-
-#: ../data/ui/exception_dialog.ui:41
-msgid "_Report a bug"
-msgstr "_דיווח על תקלה"
-
-#: ../data/ui/exception_dialog.ui:55
-msgid "_Quit"
-msgstr "י_ציאה"
-
-#: ../data/ui/exception_dialog.ui:107
-msgid "Show traceback"
-msgstr "הצגת פירוט תקלה"
-
-#: ../data/ui/size_chooser.ui:14
-msgid "Size:"
-msgstr "גודל:"
-
-#: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
-msgid "Format device"
-msgstr "אתחול התקן"
-
-#: ../data/ui/format_dialog.ui:39 ../data/ui/resize_dialog.ui:30
-#: ../data/ui/mountpoint_dialog.ui:29
-msgid "_Cancel"
-msgstr "_ביטול"
-
-#. Perform selected format change on this device.
-#: ../data/ui/format_dialog.ui:54
-msgctxt "Dialog|Format"
-msgid "_Format"
-msgstr "_אתחול"
-
-#: ../data/ui/format_dialog.ui:101
-msgid "Select new format:"
-msgstr "בחירת תצורה חדשה:"
-
-#: ../data/ui/format_dialog.ui:148
-msgid "Enter new label:"
-msgstr "נא למלא תווית חדשה:"
-
-#: ../data/ui/format_dialog.ui:186 ../data/ui/mountpoint_dialog.ui:88
-msgid "Enter new mountpoint:"
-msgstr "נא למלא נקודת עיגון חדשה:"
-
-#: ../data/ui/size_area.ui:23
-msgid "Manually specify layout"
-msgstr "ציון פריסה ידנית"
-
-#: ../data/ui/add_disklabel_dialog.ui:11
-msgid "No partition table found on disk"
-msgstr "לא נמצאה טבלת מחיצות בכונן"
-
-#: ../data/ui/add_disklabel_dialog.ui:12
-msgid "A partition table is required before partitions can be added."
-msgstr "בטרם הוספת מחיצות יש להקים טבלת מחיצות."
-
-#: ../data/ui/add_disklabel_dialog.ui:52
-msgid "Select new partition table type:"
-msgstr "נא לבחור את סוג טבלת המחיצות החדשה:"
-
-#: ../data/ui/show_actions_dialog.ui:13
-msgid "Pending actions"
-msgstr "פעולות ממתינות"
-
-#: ../data/ui/encryption_chooser.ui:20
-msgid "Encrypt:"
-msgstr "הצפנה:"
-
-#: ../data/ui/encryption_chooser.ui:32
-msgid "Encryption type:"
-msgstr "סוג הצפנה:"
-
-#: ../data/ui/encryption_chooser.ui:56
-msgid "Repeat Passphrase:"
-msgstr "חזרה על מילת הצופן:"
-
-#: ../data/ui/info_dialog.ui:12
-msgid "Information:"
-msgstr "פרטים:"
-
-#: ../data/ui/custom_dialog.ui:55
-msgid "label"
-msgstr "תווית"
-
-#: ../data/ui/custom_dialog.ui:62
-msgid "Details"
-msgstr "פרטים"
-
-#: ../data/ui/cache_area.ui:31
-msgid "Cache this LV:"
-msgstr "שמירת כרך לוגי זה במטמון:"
-
-#: ../data/ui/cache_area.ui:98
-msgid "Free space"
-msgstr "מקום פנוי"
-
-#: ../data/ui/cache_area.ui:109
-msgid "On disk"
-msgstr "בכונן"
-
-#: ../data/ui/cache_area.ui:142
-msgid "Cache type:"
-msgstr "סוג המטמון:"
-
-#: ../data/ui/cache_area.ui:156
-msgid "Writethrough"
-msgstr "כתיבה מבעד"
-
-#: ../data/ui/cache_area.ui:157
-msgid "Writeback"
-msgstr "כתיבה חוזרת"
-
-#: ../data/ui/about_dialog.ui:11
-msgid "Copyright © Red Hat Inc."
-msgstr "כל הזכויות שמורות © Red Hat בע״מ"
+#: ../blivetgui/visualization/rectangle.py:58
+#, fuzzy
+#| msgid "Edit device"
+msgid "Cached device"
+msgstr "עריכת התקן"
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
 msgstr "נדרשות הרשאות על (root) כדי להריץ את blivet-gui."
 
-#: ../data/ui/resize_dialog.ui:7
-msgid "Resize device"
-msgstr "שינוי גודל התקן"
+#: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
+msgid "Error"
+msgstr "שגיאה"
 
-#: ../data/ui/resize_dialog.ui:45
-msgid "_Resize"
-msgstr "_שינוי גודל"
+#: ../data/ui/luks_passphrase_dialog.ui:11
+#, fuzzy
+#| msgctxt "ActionsToolbar|Decrypt"
+#| msgid "Unlock/Open selected device"
+msgid "Unlock device"
+msgstr "שחרור/פתיחת ההתקן שנבחר"
 
-#: ../data/ui/parent_chooser.ui:37
-msgid "Parent name:"
-msgstr "שם אב:"
+#: ../data/ui/luks_passphrase_dialog.ui:12
+#, fuzzy
+#| msgid "Please enter passphrase to decrypt selected device."
+msgid "Please enter passphrase to unlock selected device."
+msgstr "נא להקליד את מילת הצופן כדי לפענח את ההתקן הנבחר."
 
-#: ../data/ui/parent_chooser.ui:80
-msgid "Available space:"
-msgstr "מקום זמין:"
-
-#. Perform selected format change on this device.
-#: ../data/ui/label_dialog.ui:39
-msgctxt "Dialog|Format"
-msgid "Relabel"
-msgstr "להחליף תווית"
-
-#: ../data/ui/label_dialog.ui:71
-msgid "Enter new label for this filesystem:"
-msgstr "נא למלא תווית חדשה למערכת הקבצים הזו:"
+#: ../data/ui/luks_passphrase_dialog.ui:52 ../data/ui/encryption_chooser.ui:44
+msgid "Passphrase:"
+msgstr "מילת צופן:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "New"
@@ -1186,6 +1025,10 @@ msgstr "הגדרת תווית"
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
 msgid "Set partition table"
 msgstr "הגדרת טבלת מחיצות"
+
+#: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
+msgid "Unmount"
+msgstr "התרה"
 
 #: ../data/ui/blivet-gui.ui:102
 msgid "Decrypt"
@@ -1269,6 +1112,186 @@ msgstr "פעולות בתור"
 msgid "About blivet-gui"
 msgstr "על אודות blivet-gui"
 
+#: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
+msgid "Cancel"
+msgstr "ביטול"
+
+#. Confirmation dialog button for unmounting selected mountpoints.
+#: ../data/ui/unmount_dialog.ui:50
+msgctxt "Dialog|Unmount"
+msgid "Unmount"
+msgstr "ניתוק"
+
+#: ../data/ui/unmount_dialog.ui:87
+msgid ""
+"<b>Selected device is currently mounted\n"
+"at multiple mountpoints.</b>\n"
+"\n"
+"Please select mountpoint(s) to unmount:"
+msgstr ""
+"<b>הכונן הנבחר מעוגן במספר\n"
+"נקודות עגינה.</b>\n"
+"\n"
+"נא לבחור נקודות עגינה לניתוק:"
+
+#: ../data/ui/raid_chooser.ui:21
+msgid "RAID level:"
+msgstr "רמת RAID:"
+
+#: ../data/ui/exception_dialog.ui:27
+msgid "_Back"
+msgstr "ה_קודם"
+
+#: ../data/ui/exception_dialog.ui:41
+msgid "_Report a bug"
+msgstr "_דיווח על תקלה"
+
+#: ../data/ui/exception_dialog.ui:55
+msgid "_Quit"
+msgstr "י_ציאה"
+
+#: ../data/ui/exception_dialog.ui:107
+msgid "Show traceback"
+msgstr "הצגת פירוט תקלה"
+
+#: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
+msgid "Format device"
+msgstr "אתחול התקן"
+
+#: ../data/ui/format_dialog.ui:39 ../data/ui/resize_dialog.ui:30
+#: ../data/ui/mountpoint_dialog.ui:29
+msgid "_Cancel"
+msgstr "_ביטול"
+
+#. Perform selected format change on this device.
+#: ../data/ui/format_dialog.ui:54
+msgctxt "Dialog|Format"
+msgid "_Format"
+msgstr "_אתחול"
+
+#: ../data/ui/format_dialog.ui:101
+msgid "Select new format:"
+msgstr "בחירת תצורה חדשה:"
+
+#: ../data/ui/format_dialog.ui:148
+msgid "Enter new label:"
+msgstr "נא למלא תווית חדשה:"
+
+#: ../data/ui/format_dialog.ui:186 ../data/ui/mountpoint_dialog.ui:88
+msgid "Enter new mountpoint:"
+msgstr "נא למלא נקודת עיגון חדשה:"
+
+#: ../data/ui/size_chooser.ui:14
+msgid "Size:"
+msgstr "גודל:"
+
+#: ../data/ui/size_area.ui:23
+msgid "Manually specify layout"
+msgstr "ציון פריסה ידנית"
+
+#: ../data/ui/add_disklabel_dialog.ui:11
+msgid "No partition table found on disk"
+msgstr "לא נמצאה טבלת מחיצות בכונן"
+
+#: ../data/ui/add_disklabel_dialog.ui:12
+msgid "A partition table is required before partitions can be added."
+msgstr "בטרם הוספת מחיצות יש להקים טבלת מחיצות."
+
+#: ../data/ui/add_disklabel_dialog.ui:52
+msgid "Select new partition table type:"
+msgstr "נא לבחור את סוג טבלת המחיצות החדשה:"
+
+#: ../data/ui/show_actions_dialog.ui:13
+msgid "Pending actions"
+msgstr "פעולות ממתינות"
+
+#: ../data/ui/encryption_chooser.ui:20
+msgid "Encrypt:"
+msgstr "הצפנה:"
+
+#: ../data/ui/encryption_chooser.ui:32
+msgid "Encryption type:"
+msgstr "סוג הצפנה:"
+
+#: ../data/ui/encryption_chooser.ui:56
+msgid "Repeat Passphrase:"
+msgstr "חזרה על מילת הצופן:"
+
+#: ../data/ui/info_dialog.ui:12
+msgid "Information:"
+msgstr "פרטים:"
+
+#: ../data/ui/parent_chooser.ui:37
+msgid "Parent name:"
+msgstr "שם אב:"
+
+#: ../data/ui/parent_chooser.ui:80
+msgid "Available space:"
+msgstr "מקום זמין:"
+
+#: ../data/ui/custom_dialog.ui:55
+msgid "label"
+msgstr "תווית"
+
+#: ../data/ui/custom_dialog.ui:62
+msgid "Details"
+msgstr "פרטים"
+
+#: ../data/ui/cache_area.ui:31
+msgid "Cache this LV:"
+msgstr "שמירת כרך לוגי זה במטמון:"
+
+#: ../data/ui/cache_area.ui:98
+msgid "Free space"
+msgstr "מקום פנוי"
+
+#: ../data/ui/cache_area.ui:109
+msgid "On disk"
+msgstr "בכונן"
+
+#: ../data/ui/cache_area.ui:142
+msgid "Cache type:"
+msgstr "סוג המטמון:"
+
+#: ../data/ui/cache_area.ui:156
+msgid "Writethrough"
+msgstr "כתיבה מבעד"
+
+#: ../data/ui/cache_area.ui:157
+msgid "Writeback"
+msgstr "כתיבה חוזרת"
+
+#: ../data/ui/about_dialog.ui:11
+msgid "Copyright © Red Hat Inc."
+msgstr "כל הזכויות שמורות © Red Hat בע״מ"
+
+#: ../data/ui/resize_dialog.ui:7
+msgid "Resize device"
+msgstr "שינוי גודל התקן"
+
+#: ../data/ui/resize_dialog.ui:45
+msgid "_Resize"
+msgstr "_שינוי גודל"
+
+#. Perform selected format change on this device.
+#: ../data/ui/label_dialog.ui:39
+msgctxt "Dialog|Format"
+msgid "Relabel"
+msgstr "להחליף תווית"
+
+#: ../data/ui/label_dialog.ui:71
+msgid "Enter new label for this filesystem:"
+msgstr "נא למלא תווית חדשה למערכת הקבצים הזו:"
+
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
 msgstr "_קביעת נקודות עיגון"
+
+#~ msgid "{0} disklabel"
+#~ msgstr "תווית כונן {0}"
+
+#~ msgid "Encrypted device (open)"
+#~ msgstr "התקן מוצפן (פתוח)"
+
+#~ msgid "Decrypt device"
+#~ msgstr "פענוח התקן"
