@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-07-02 13:37+0200\n"
-"PO-Revision-Date: 2020-07-05 12:01+0000\n"
+"PO-Revision-Date: 2020-09-15 19:29+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/tr/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.2.2\n"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
@@ -950,7 +950,7 @@ msgstr "Anlık görüntü"
 
 #: ../blivetgui/visualization/rectangle.py:56
 msgid "Missing partition table"
-msgstr "Bölümleme tablosu yok"
+msgstr "Bölümlendirme tablosu yok"
 
 #: ../blivetgui/visualization/rectangle.py:57
 msgid "Device or format is write protected"
@@ -1055,15 +1055,16 @@ msgstr "Yerleşimi manuel olarak belirtin"
 
 #: ../data/ui/add_disklabel_dialog.ui:11
 msgid "No partition table found on disk"
-msgstr "Disk üzerinde bölümleme tablosu bulunamadı"
+msgstr "Disk üzerinde bölümlendirme tablosu bulunamadı"
 
 #: ../data/ui/add_disklabel_dialog.ui:12
 msgid "A partition table is required before partitions can be added."
-msgstr "Bölüm eklemeden önce bir bölümleme tablosu oluşturmanız gerekmektedir."
+msgstr ""
+"Bölüm eklemeden önce bir bölümlendirme tablosu oluşturmanız gerekmektedir."
 
 #: ../data/ui/add_disklabel_dialog.ui:52
 msgid "Select new partition table type:"
-msgstr "Yeni bölümleme tablosu türünü seçin:"
+msgstr "Yeni bölümlendirme tablosu türünü seçin:"
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
@@ -1188,7 +1189,7 @@ msgstr "Etiketi ayarla"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
 msgid "Set partition table"
-msgstr "Bölümleme tablosunu ayarla"
+msgstr "Bölümlendirme tablosunu ayarla"
 
 #: ../data/ui/blivet-gui.ui:102
 msgid "Decrypt"
