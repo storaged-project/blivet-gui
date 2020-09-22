@@ -56,6 +56,8 @@ class BlivetUtilsAnaconda(BlivetUtils):
     def __init__(self):
         # pylint: disable=super-init-not-called
 
+        self._resizable_filesystems = None
+
         self._storage = None
         _log_file, self.log = set_logging(component="blivet-gui-utils")
 
