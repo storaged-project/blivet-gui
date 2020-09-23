@@ -157,7 +157,8 @@ class BlivetGUI(object):
         if self._supported_filesystems:
             return self._supported_filesystems
 
-        self._supported_filesystems = self.client.remote_call("get_supported_filesystems")
+        self._supported_filesystems = self.client.remote_call("get_supported_filesystems",
+                                                              self.installer_mode)
         return self._supported_filesystems
 
     def initialize(self):
