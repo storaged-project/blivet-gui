@@ -225,6 +225,42 @@ class SizeAreaTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             size_area.max_size_limit = Size(-10)  # smaller tnan min size
 
+    def test_45_basic_limits_combined(self):
+        """ Test SizeArea limits functionality without ParentArea """
+
+        parents = [MagicMock(device=self._mock_device(), min_size=Size("1 MiB"), max_size=Size("1 GiB"),
+                             reserved_size=Size(0)),
+                   MagicMock(device=self._mock_device(), min_size=Size("1 MiB"), max_size=Size("1 GiB"),
+                             reserved_size=Size(0))]
+
+        size_area = SizeArea(device_type="lvm", parents=parents,
+                             min_limit=Size(1), max_limit=Size("200 GiB"),
+                             raid_type=None)
+
+        # changing both limits at once
+        size_area.set_size_limits(Size("100 MiB"), Size("1 GiB"))
+        self.assertEqual(size_area.min_size, Size("100 MiB"))
+        self.assertEqual(size_area.max_size, Size("1 GiB"))
+
+        size_area.set_size_limits(Size("2 MiB"), Size("10 MiB"))
+        self.assertEqual(size_area.min_size, Size("2 MiB"))
+        self.assertEqual(size_area.max_size, Size("10 MiB"))
+
+        size_area.set_size_limits(Size("100 MiB"), Size("200 MiB"))
+        self.assertEqual(size_area.min_size, Size("100 MiB"))
+        self.assertEqual(size_area.max_size, Size("200 MiB"))
+
+        size_area.set_size_limits(Size("2 MiB"), Size("4 MiB"))
+        self.assertEqual(size_area.min_size, Size("2 MiB"))
+        self.assertEqual(size_area.max_size, Size("4 MiB"))
+
+        size_area.set_size_limits(Size("10 MiB"), Size("10 MiB"))
+        self.assertEqual(size_area.min_size, Size("10 MiB"))
+        self.assertEqual(size_area.max_size, Size("10 MiB"))
+
+        with self.assertRaises(ValueError):
+            size_area.set_size_limits(Size("100 MiB"), Size("20 MiB"))
+
     def test_50_advanced_limits(self):
         """ Test SizeArea limits functionality with ParentArea """
 
