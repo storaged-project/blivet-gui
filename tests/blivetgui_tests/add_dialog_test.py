@@ -527,6 +527,28 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog.mountpoint_entry.get_visible())
         self.assertTrue(add_dialog.label_entry.get_visible())
 
+    def test_fs_chooser_biosboot(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        _filesystems = self.supported_filesystems[:]
+        _filesystems.append(formats.biosboot.BIOSBoot())
+        _filesystems.append(formats.fs.BTRFS())
+
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
+                               [("free", free_device)], _filesystems,
+                               [], True)  # with installer_mode=True
+
+        # switch from biosboot to btrfs and ext4 (rhbz#1881472)
+        add_dialog.filesystems_combo.set_active_id("biosboot")
+        self.assertEqual(add_dialog.filesystems_combo.get_active_id(), "biosboot")
+        add_dialog.filesystems_combo.set_active_id("btrfs")
+        self.assertEqual(add_dialog.filesystems_combo.get_active_id(), "btrfs")
+        add_dialog.filesystems_combo.set_active_id("biosboot")
+        self.assertEqual(add_dialog.filesystems_combo.get_active_id(), "biosboot")
+        add_dialog.filesystems_combo.set_active_id("ext4")
+        self.assertEqual(add_dialog.filesystems_combo.get_active_id(), "ext4")
+
     def test_md_type(self):
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device)

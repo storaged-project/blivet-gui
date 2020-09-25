@@ -813,8 +813,10 @@ class AddDialog(Gtk.Dialog):
                 self.show_widgets(["label"])
 
         # update size
-        self.size_area.min_size_limit = self._get_min_size_limit()
-        self.size_area.max_size_limit = self._get_max_size_limit()
+        min_size_limit = self._get_min_size_limit()
+        max_size_limit = self._get_max_size_limit()
+
+        self.size_area.set_size_limits(min_size_limit, max_size_limit)
 
     def add_name_chooser(self):
         label_label = Gtk.Label(label=_("Label:"), xalign=1)

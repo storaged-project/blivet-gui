@@ -141,7 +141,7 @@ class SizeArea(GUIWidget):
         if new_size <= 0:
             raise ValueError("Size limit must be greater than zero.")
 
-        if new_size >= self.max_size:
+        if new_size > self.max_size:
             raise ValueError("Size limit for minimal size cannot be greater than current maximum size.")
 
         self._min_size_limit = new_size
@@ -182,6 +182,22 @@ class SizeArea(GUIWidget):
         # (if parent area exists, it takes care of main chooser)
         if self._parent_area is None:
             self.main_chooser.max_size = self.max_size
+
+    def set_size_limits(self, min_size_limit, max_size_limit):
+        """ Set both size limits at once avoiding issues with new size limits being outside of
+            existing limits. E.g. when changing limits from (1 MiB, 2 MiB) to (256 MiB, 1 GiB)
+            changing the min limit will fail because it is greater than existing max limit.
+        """
+
+        if min_size_limit > self.max_size:
+            self.max_size_limit = max_size_limit
+            self.min_size_limit = min_size_limit
+        elif max_size_limit < self.min_size:
+            self.min_size_limit = min_size_limit
+            self.max_size_limit = max_size_limit
+        else:
+            self.max_size_limit = max_size_limit
+            self.min_size_limit = min_size_limit
 
     # PUBLIC METHODS
     def connect(self, signal_name, signal_handler, *args):  # pylint: disable=unused-argument
