@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-11 17:13+0200\n"
-"PO-Revision-Date: 2020-09-21 20:29+0000\n"
+"PO-Revision-Date: 2020-09-26 13:29+0000\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fur/>\n"
@@ -344,42 +344,40 @@ msgstr "I struments par ridimensionâ il formât {type} no son disponibii."
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:651
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "Chest dispositîf nol pues jessi ridimensionât."
+msgstr "I formâts programâts pe creazion no puedin jessi ridimensionâts"
 
 #: ../blivetgui/blivet_utils.py:656
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
+"Il formât {type} nol supuarte l'inzornament des informazions dal sô limit di "
+"dimension"
 
 #: ../blivetgui/blivet_utils.py:661
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Mounted devices cannot be resized"
-msgstr "Chest dispositîf nol pues jessi ridimensionât."
+msgstr "No si pues ridimensionâ i dispositîfs montâts."
 
 #: ../blivetgui/blivet_utils.py:666
-#, fuzzy
-#| msgid "Logical Volumes with snapshots couldn't be resized."
 msgid "Logical Volumes with snapshots cannot be resized."
-msgstr "I volums logjics cun istantaniis no puedin jessi ridimensionâts."
+msgstr "No si pues ridimensionâ i volums logjics cun istantaniis."
 
 #: ../blivetgui/blivet_utils.py:678
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr ""
+"No si è rivâts a inzornâ lis informazions su la dimension dal filesystem: "
+"{error}"
 
 #: ../blivetgui/blivet_utils.py:697
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Device is not resizable."
-msgstr "Chest dispositîf nol pues jessi ridimensionât."
+msgstr "Nol è pussibil ridimensionâ il dispositîf."
 
 #: ../blivetgui/blivet_utils.py:699
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
+"No si pues ridimensionâ il formât dopo vê inzornât lis sôs informazions sui "
+"limits de dimension."
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
 #: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
@@ -454,7 +452,7 @@ msgstr "\"{0}\" no je une etichete valide."
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "{label} no je une etichete valide par chest filesystem"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:518
@@ -523,10 +521,8 @@ msgstr ""
 "gjavâts di chest grup di volums."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
-#, fuzzy
-#| msgid "Currently is possible to remove only one parent at time."
 msgid "Currently it is possible to remove only one parent at time."
-msgstr "Pal moment al è pussibil gjavâ dome un gjenitôr ae volte."
+msgstr "Pal moment si pues gjavâ dome un gjenitôr ae volte."
 
 #: ../blivetgui/dialogs/edit_dialog.py:658
 msgid "Remove?"
@@ -728,7 +724,7 @@ msgstr "Array RAID MD"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "DM Integrity Device"
-msgstr ""
+msgstr "Dispositîf di integritât DM"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:101
 #: ../blivetgui/dialogs/device_info_dialog.py:223
@@ -1036,11 +1032,11 @@ msgstr "Stabilìs pont di montaç"
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
 msgid "Set label"
-msgstr ""
+msgstr "Stabilìs etichete"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
 msgid "Set partition table"
-msgstr ""
+msgstr "Stabilìs tabele des partizions"
 
 #: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
@@ -1101,10 +1097,8 @@ msgid "Format"
 msgstr "Formât"
 
 #: ../data/ui/blivet-gui.ui:511
-#, fuzzy
-#| msgid "Label:"
 msgid "Label"
-msgstr "Etichete:"
+msgstr "Etichete"
 
 #: ../data/ui/blivet-gui.ui:522
 msgid "Mountpoint"
@@ -1132,12 +1126,10 @@ msgstr "Informazions su blivet-gui"
 
 #: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
 msgid "Cancel"
-msgstr ""
+msgstr "Anule"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
-#, fuzzy
-#| msgid "Unmount"
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
 msgstr "Dismonte"
@@ -1149,6 +1141,10 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>Il dispositîf selezionât al è montât\n"
+"su plui ponts di montaç.</b>\n"
+"\n"
+"Selezione i ponts di montaç di dismontâ:"
 
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
@@ -1227,7 +1223,7 @@ msgstr "Cifradure:"
 
 #: ../data/ui/encryption_chooser.ui:32
 msgid "Encryption type:"
-msgstr ""
+msgstr "Gjenar di cifradure:"
 
 #: ../data/ui/encryption_chooser.ui:56
 msgid "Repeat Passphrase:"
@@ -1279,7 +1275,7 @@ msgstr ""
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
-msgstr ""
+msgstr "Copyright © Red Hat Inc."
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
@@ -1297,7 +1293,7 @@ msgstr ""
 
 #: ../data/ui/label_dialog.ui:71
 msgid "Enter new label for this filesystem:"
-msgstr ""
+msgstr "Inserìs la gnove etichete par chest filesystem:"
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
