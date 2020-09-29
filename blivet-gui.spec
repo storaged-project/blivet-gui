@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.2.0
+Version: 2.2.1
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -68,6 +68,16 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Tue Sep 29 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.2.1-1
+- Translated using Weblate (Friulian) (f.t.public)
+- Fix ValueError when trying to set both upper and lower size limits (vtrefny)
+- Fix getting list of supported filesystems in installer mode (vtrefny)
+- Fix missing attribute _resizable_filesystems in BlivetUtilsAnaconda (vtrefny)
+- Translated using Weblate (Friulian) (f.t.public)
+- Update translation files (noreply)
+- Translated using Weblate (Turkish) (oguzersen)
+- Sync spec with downstream (vtrefny)
+
 * Fri Sep 11 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.2.0-1
 - Handle sector mode NVDIMMs as disks (vtrefny)
 - Allow adding VG to all devices with LVMPV format (vtrefny)
