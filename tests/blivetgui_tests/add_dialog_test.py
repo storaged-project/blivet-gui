@@ -366,7 +366,7 @@ class AddDialogTest(unittest.TestCase):
 
         self.assertFalse(add_dialog.filesystems_combo.get_visible())
         self.assertTrue(add_dialog.name_entry.get_visible())
-        self.assertFalse(add_dialog._encryption_chooser._encrypt_check.get_visible())
+        self.assertTrue(add_dialog._encryption_chooser._encrypt_check.get_visible())
         self.assertTrue(add_dialog._raid_chooser.get_visible())
         self.assertIsNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())

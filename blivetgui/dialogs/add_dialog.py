@@ -678,6 +678,9 @@ class AddDialog(Gtk.Dialog):
         if self.selected_fs:
             limit = self.selected_fs._min_size
 
+        parent_limit = self._get_parent_min_size()
+        limit = max(limit, parent_limit)
+
         return limit or size.Size("1 MiB")
 
     def _get_max_size_limit(self):
@@ -935,8 +938,8 @@ class AddDialog(Gtk.Dialog):
             self.hide_widgets(["encrypt", "advanced", "mdraid"])
 
         elif device_type == "btrfs volume":
-            self.show_widgets(["name", "size", "mountpoint"])
-            self.hide_widgets(["label", "fs", "encrypt", "advanced", "mdraid"])
+            self.show_widgets(["encrypt", "name", "size", "mountpoint"])
+            self.hide_widgets(["label", "fs", "advanced", "mdraid"])
 
         elif device_type == "btrfs subvolume":
             self.show_widgets(["name", "mountpoint"])

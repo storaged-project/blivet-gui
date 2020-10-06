@@ -1191,7 +1191,9 @@ class BlivetUtils(object):
             size_selection = ProxyDataContainer(total_size=parent.selected_size, parents=[parent])
             part_input = ProxyDataContainer(size_selection=size_selection,
                                             filesystem="btrfs",
-                                            encrypt=False,
+                                            encrypt=user_input.encrypt,
+                                            passphrase=user_input.passphrase,
+                                            encryption_type=user_input.encryption_type,
                                             label=None,
                                             mountpoint=None,
                                             create_volume=False)
