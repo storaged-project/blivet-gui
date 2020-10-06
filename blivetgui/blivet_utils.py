@@ -289,9 +289,13 @@ class BlivetUtils(object):
             raise TypeError("device %s is not a disk" % blivet_device.name)
 
         if blivet_device.is_disk and not blivet_device.format.type:
-            # empty disk without disk label
-            partitions = [FreeSpaceDevice(blivet_device.size, self.storage.next_id, 0, blivet_device.current_size, [blivet_device], False)]
-            return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
+            if blivet_device.format.name != "Unknown":
+                # disk with unsupported format
+                return ProxyDataContainer(partitions=[blivet_device], extended=None, logicals=None)
+            else:
+                # empty disk without disk label
+                partitions = [FreeSpaceDevice(blivet_device.size, self.storage.next_id, 0, blivet_device.current_size, [blivet_device], False)]
+                return ProxyDataContainer(partitions=partitions, extended=None, logicals=None)
 
         if blivet_device.format and blivet_device.format.type not in ("disklabel", "btrfs", "luks", None):
             # special occasion -- raw device format
