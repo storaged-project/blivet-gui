@@ -9,6 +9,20 @@
   become: true
 
   tasks:
+  - name: Install runtime and build dependencies (Fedora)
+    package: name={{item}} state=installed
+    with_items:
+      - gettext
+      - python3-setuptools
+      - python3
+      - python3-gobject
+      - gettext
+      - python3-blivet
+      - gtk3
+      - python3-pid
+      - make
+    when: ansible_distribution == "Fedora"
+
   - name: Install test dependencies (Fedora)
     package: name={{item}} state=installed
     with_items:
@@ -22,8 +36,19 @@
       - python3-polib
     when: ansible_distribution == "Fedora"
 
-  - name: Install test dependencies (Debian)
-    package: name={{item}} state=installed
+  - name: Install runtime and build dependencies (Ubuntu/Debian)
+    package: name={{item}} state=present
+    with_items:
+      - debhelper
+      - python3-setuptools
+      - gettext
+      - dh-python
+      - python3-gi-cairo
+      - gir1.2-gtk-3.0
+    when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
+  - name: Install test dependencies (Ubuntu/Debian)
+    package: name={{item}} state=present
     with_items:
       - python3-mock
       - python3-coverage
@@ -34,17 +59,30 @@
       - python3-pip
       - gettext
       - python3-polib
-    when: ansible_distribution == "Debian"
+    when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
-  # pocketlint is not packaged on Debian
-  - name: Install pocketlint using pip (Debian)
-    pip: name=git+http://github.com/rhinstaller/pocketlint executable=pip3
-    when: ansible_distribution == "Debian"
-
-  # packaged versions of pylint and astroid are too old on Debian
-  - name: Install newest pylint and astroid using pip (Debian)
-    pip: name={{item}} executable=pip3
+  - name: Install Blivet dependencies not covered by PyPI (Ubuntu/Debian)
+    package: name={{item}} state=present
     with_items:
-      - astroid
-      - pylint
-    when: ansible_distribution == "Debian"
+      - python3-blockdev
+      - python3-bytesize
+      - python3-parted
+      - python3-selinux
+      - gir1.2-blockdev-2.0
+      - libblockdev-lvm2
+      - libblockdev-btrfs2
+      - libblockdev-swap2
+      - libblockdev-loop2
+      - libblockdev-crypto2
+      - libblockdev-mpath2
+      - libblockdev-dm2
+      - libblockdev-mdraid2
+      - libblockdev-nvdimm2
+      - libblockdev-part2
+    when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
+  # pocketlint, blivet and pid is not packaged on Ubuntu/Debian
+  - name: Install pocketlint using pip (Ubuntu/Debian)
+    pip:
+      name: ['pocketlint', 'blivet', 'pid']
+    when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
