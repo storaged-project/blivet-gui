@@ -1,0 +1,53 @@
+#
+# A Vagrantfile template that can be used for creating machines for blivet-gui
+# development/testing.
+#
+# Use 'vagrant up && vagrant ssh' to spawn the default machine (most recent
+# Fedora) and ssh into it or e.g. 'vagrant up blivet-gui-f32 && vagrant ssh blivet-gui-f32'
+# to use a Fedora 33 based machine, etc.
+#
+
+def os_cpu_cores
+  case RbConfig::CONFIG['host_os']
+  when /darwin/
+    Integer(`sysctl -n hw.ncpu`)
+  when /linux/
+    Integer(`getconf _NPROCESSORS_ONLN`)
+  else
+    raise StandardError, "Unsupported platform"
+  end
+end
+
+Vagrant.configure("2") do |config|
+  # common configuration
+
+  config.vm.synced_folder "../", "/home/vagrant/blivet-gui/",
+                          type: "rsync", rsync__args: ["-a", "-l", "--exclude=misc"]  # override the default args
+
+  # CHECK THAT THE BELOW OPTIONS ARE OKAY FOR YOUR HW
+  config.vm.provider :libvirt do |v|
+    v.memory = "1024"
+    v.cpus = os_cpu_cores
+    v.volume_cache = :unsafe
+  end
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "install-test-dependencies.yml"
+  end
+
+  config.vm.define "blivet-gui-f32", primary: true, autostart: true do |f32|
+    f32.vm.box = "fedora/32-cloud-base"
+  end
+
+  config.vm.define "blivet-gui-f31", primary: false, autostart: false do |f31|
+    f31.vm.box = "fedora/31-cloud-base"
+  end
+
+  config.vm.define "blivet-gui-ubuntu-2004", primary: false, autostart: false do |focal|
+    focal.vm.box = "generic/ubuntu2004"
+  end
+
+  config.vm.define "blivet-gui-debian-testing", primary: false, autostart: false do |testing|
+    testing.vm.box = "debian/testing64"
+  end
+end
