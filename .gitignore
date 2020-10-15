@@ -32,3 +32,5 @@ doc/tests
 
 pylint-log
 tests/pylint/.pylint.d
+
+misc/.vagrant
