@@ -527,6 +527,14 @@ class BlivetGUI(object):
 
         return deletable_parents
 
+    def _device_descendants(self, device):
+        descendants = []
+        for child in device.children:
+            descendants.append(child)
+            descendants.extend(self._device_descendants(child))
+
+        return descendants
+
     def delete_selected_partition(self, _widget=None):
         """ Delete selected partition
 
@@ -538,7 +546,8 @@ class BlivetGUI(object):
         deleted_device = self.list_partitions.selected_partition[0]
         dialog = message_dialogs.ConfirmDeleteDialog(parent_window=self.main_window,
                                                      device=deleted_device,
-                                                     parents=self._deletable_parents(deleted_device))
+                                                     parents=self._deletable_parents(deleted_device),
+                                                     children=self._device_descendants(deleted_device))
         message = _("Failed to delete the device:")
         response = self.run_dialog(dialog)
 

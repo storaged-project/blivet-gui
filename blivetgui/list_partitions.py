@@ -162,11 +162,32 @@ class ListPartitions(object):
 
         return device_iter
 
-    def _allow_delete_device(self, device):
+    def _allow_recursive_delete_device(self, device):
+        if device.type not in ("btrfs volume", "mdarray", "lvmvg"):
+            return False
+
+        def _device_descendants(device):
+            descendants = []
+            for child in device.children:
+                descendants.append(child)
+                descendants.extend(_device_descendants(child))
+
+            return descendants
+
+        for d in _device_descendants(device):
+            if not self._allow_delete_device(d, recursive=True):
+                return False
+
+        return True
+
+    def _allow_delete_device(self, device, recursive=False):
         if device.protected:
             return False
 
-        if device.type in ("free space",) or not device.isleaf:
+        if device.type in ("free space",):
+            return False
+
+        elif not recursive and not device.isleaf:
             return False
 
         else:
@@ -278,7 +299,7 @@ class ListPartitions(object):
         if device.type != "free space":
             self.blivet_gui.activate_device_actions(["info"])
 
-        if self._allow_delete_device(device):
+        if self._allow_delete_device(device) or self._allow_recursive_delete_device(device):
             self.blivet_gui.activate_device_actions(["delete"])
 
         if self._allow_resize_device(device):

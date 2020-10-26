@@ -515,6 +515,34 @@ class BlivetUtils(object):
 
         return ProxyDataContainer(success=True, actions=[action], message=None, exception=None, traceback=None)
 
+    def _delete_device(self, blivet_device):
+        actions = []
+
+        if blivet_device.children:
+            for device in blivet_device.children:
+                res = self._delete_device(device)
+                if not res.success:
+                    return res
+                else:
+                    actions.extend(res.actions)
+
+        try:
+            if not blivet_device.format_immutable:
+                ac_fmt = blivet.deviceaction.ActionDestroyFormat(blivet_device)
+                self.storage.devicetree.actions.add(ac_fmt)
+                actions.append(ac_fmt)
+
+            ac_dev = blivet.deviceaction.ActionDestroyDevice(blivet_device)
+            self.storage.devicetree.actions.add(ac_dev)
+            actions.append(ac_dev)
+
+        except Exception as e:  # pylint: disable=broad-except
+            return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
+                                      traceback=traceback.format_exc())
+
+        return ProxyDataContainer(success=True, actions=actions, message=None, exception=None,
+                                  traceback=None)
+
     def delete_device(self, blivet_device, delete_parents):
         """ Delete device
 
@@ -535,24 +563,16 @@ class BlivetUtils(object):
             result = self._delete_disk_label(blivet_device)
             return result
 
-        try:
-            if not blivet_device.format_immutable:
-                ac_fmt = blivet.deviceaction.ActionDestroyFormat(blivet_device)
-                self.storage.devicetree.actions.add(ac_fmt)
-                actions.append(ac_fmt)
-
-            ac_dev = blivet.deviceaction.ActionDestroyDevice(blivet_device)
-            self.storage.devicetree.actions.add(ac_dev)
-            actions.append(ac_dev)
-
-        except Exception as e:  # pylint: disable=broad-except
-            return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                                      traceback=traceback.format_exc())
+        result = self._delete_device(blivet_device)
+        if not result.success:
+            return result
+        else:
+            actions.extend(result.actions)
 
         # for encrypted partitions/lvms delete the luks-formatted partition too
         if blivet_device.type in ("luks/dm-crypt", "integrity/dm-crypt"):
             for parent in blivet_device.parents:
-                result = self.delete_device(parent, False)
+                result = self._delete_device(parent)
                 if not result.success:
                     return result
                 else:
@@ -564,7 +584,7 @@ class BlivetUtils(object):
                 if parent.is_disk:
                     result = self._delete_disk_label(parent)
                 else:
-                    result = self.delete_device(parent, False)
+                    result = self._delete_device(parent)
 
                 if not result.success:
                     return result
