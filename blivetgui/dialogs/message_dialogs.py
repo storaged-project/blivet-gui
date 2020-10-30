@@ -185,7 +185,7 @@ class ConfirmDeleteDialog(object):
     """ General confirmation dialog
     """
 
-    def __init__(self, parent_window, device, parents=None):
+    def __init__(self, parent_window, device, parents=None, children=None):
 
         builder = Gtk.Builder()
         builder.set_translation_domain("blivet-gui")
@@ -200,8 +200,17 @@ class ConfirmDeleteDialog(object):
         self.dialog.set_markup("<b>" + title + "</b>")
         self.dialog.format_secondary_text(msg)
 
+        self.children_label = builder.get_object("children_label")
         self.parent_check = builder.get_object("parent_check")
         self.parent_label = builder.get_object("parent_label")
+
+        if children:
+            children_text = _("Following children of {name} will be also removed by this action:\n").format(name=device.name)
+            for child in children:
+                children_text += " • {size} {type} {name}\n".format(size=child.size,
+                                                                    type=child.type,
+                                                                    name=child.name)
+            self.children_label.set_label(children_text)
 
         if parents:
             check_text = _("Also delete following parent devices of {name}:").format(name=device.name)
@@ -216,6 +225,9 @@ class ConfirmDeleteDialog(object):
             self.parent_label.set_label(parent_text)
 
         self.dialog.show_all()
+
+        if not children:
+            self.children_label.hide()
 
         if parents is None:
             self.parent_check.hide()

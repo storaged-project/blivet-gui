@@ -57,6 +57,18 @@ class ListPartitionsTest(unittest.TestCase):
         device = MagicMock(type="partition", isleaf=True, protected=True)
         self.assertFalse(self.list_partitions._allow_delete_device(device))
 
+        # devices with children (like vgs) can be deleted if children can be deleted
+        lv = MagicMock(type="lvmlv", isleaf=True, format=MagicMock(type="ext4", mountable=True, status=False), protected=False)
+        vg = MagicMock(type="lvmvg", isleaf=False, children=[lv], protected=False)
+        self.assertFalse(self.list_partitions._allow_delete_device(vg))
+        self.assertTrue(self.list_partitions._allow_recursive_delete_device(vg))
+
+        # but of vg with mounted lv can't be deleted
+        lv = MagicMock(type="lvmlv", isleaf=True, format=MagicMock(type="ext4", mountable=True, status=True), protected=False)
+        vg = MagicMock(type="lvmvg", isleaf=False, children=[lv], protected=False)
+        self.assertFalse(self.list_partitions._allow_delete_device(vg))
+        self.assertFalse(self.list_partitions._allow_recursive_delete_device(vg))
+
     def test_allow_add(self):
         # do not allow adding on protected devices
         device = MagicMock(type="free space", protected=True)
