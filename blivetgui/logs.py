@@ -68,6 +68,15 @@ def set_logging(component, logging_level=logging.DEBUG):
 
 
 def _unpack_input(user_input, level, devices, message):
+    """
+    Unpack a list of a list.
+
+    Args:
+        user_input: (todo): write your description
+        level: (int): write your description
+        devices: (list): write your description
+        message: (str): write your description
+    """
     # value is a list --> just unpack all its items
     if isinstance(user_input, (list, tuple)):
         for i in user_input:
@@ -100,6 +109,14 @@ def _unpack_input(user_input, level, devices, message):
 
 
 def log_utils_call(log, message, user_input):
+    """
+    Logs a message to the device.
+
+    Args:
+        log: (todo): write your description
+        message: (str): write your description
+        user_input: (todo): write your description
+    """
     devices = []
     message += "=" * 80
     message += "\n"

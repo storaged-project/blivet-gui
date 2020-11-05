@@ -10,6 +10,14 @@ from .blivetutilstestcase import BlivetUtilsTestCase, BlivetUtilsTestToolkit
 class DisksTestToolkit(BlivetUtilsTestToolkit):
 
     def create_part_table(self, disk, table="msdos"):
+        """
+        Create a new part table.
+
+        Args:
+            self: (todo): write your description
+            disk: (str): write your description
+            table: (str): write your description
+        """
         ret = self.blivet_utils.create_disk_label(disk, table)
 
         self.assertTrue(ret.success)
@@ -20,6 +28,16 @@ class DisksTestToolkit(BlivetUtilsTestToolkit):
         return ret.actions
 
     def format_device(self, device, fstype="ext4", label=None, mountpoint=None):
+        """
+        Formats the block device object.
+
+        Args:
+            self: (todo): write your description
+            device: (str): write your description
+            fstype: (str): write your description
+            label: (todo): write your description
+            mountpoint: (int): write your description
+        """
         # prepare "user input" for editting (in this case formatting) a device
         user_input = ProxyDataContainer(edit_device=device, format=True,
                                         filesystem=fstype, label=label,
@@ -37,6 +55,12 @@ class DisksTestToolkit(BlivetUtilsTestToolkit):
 class BlivetUtilsDisksTest(BlivetUtilsTestCase, DisksTestToolkit):
 
     def test_10_empty_disks(self):
+        """
+        !
+
+        Args:
+            self: (todo): write your description
+        """
         # all disks are empty --> no "group" devices
         group_devices = self.blivet_utils.get_group_devices()
         self.assertDictEqual(group_devices, {"lvm": [], "raid": [], "btrfs": []})
@@ -65,6 +89,12 @@ class BlivetUtilsDisksTest(BlivetUtilsTestCase, DisksTestToolkit):
             self.assertEqual(children.partitions[0].parents[0], disk_device)
 
     def test_20_partition_table(self):
+        """
+        !
+
+        Args:
+            self: (todo): write your description
+        """
         blivet_disk = self.get_blivet_device(self.vdevs[0])
         label = "msdos"
 
@@ -94,6 +124,12 @@ class BlivetUtilsDisksTest(BlivetUtilsTestCase, DisksTestToolkit):
         self.assertEqual(children.partitions[0].parents[0], blivet_disk)
 
     def test_30_raw_format(self):
+        """
+        Test if the raw disk format.
+
+        Args:
+            self: (todo): write your description
+        """
         blivet_disk = self.get_blivet_device(self.vdevs[0])
         fs = "ext4"
 

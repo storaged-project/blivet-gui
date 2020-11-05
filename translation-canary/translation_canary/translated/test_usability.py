@@ -27,6 +27,12 @@ import polib
 import subprocess
 
 def test_usability(pofile):
+    """
+    Test if a tempability file.
+
+    Args:
+        pofile: (str): write your description
+    """
     # Use polib to write a mofile
     with tempfile.NamedTemporaryFile(mode="w+b") as mofile:
         pofile = polib.pofile(pofile)
@@ -36,6 +42,12 @@ def test_usability(pofile):
         _t = gettext.GNUTranslations(fp=mofile)
 
 def test_msgfmt(pofile):
+    """
+    Test for test test.
+
+    Args:
+        pofile: (str): write your description
+    """
     # Check that the .po file can actually be compiled
     with tempfile.NamedTemporaryFile(mode="w+b", suffix=".mo") as mofile:
         try:

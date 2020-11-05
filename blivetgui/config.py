@@ -26,22 +26,49 @@
 class BlivetGUIConfig(dict):
 
     def __init__(self, *args, **kwargs):
+        """
+        Initialize initialisation.
+
+        Args:
+            self: (todo): write your description
+        """
         super().__init__(self, *args, **kwargs)
 
         self["default_fstype"] = "ext4"
         self["log_dir"] = "/var/log/blivet-gui"
 
     def __getattr__(self, name):
+        """
+        Return the value from the given name.
+
+        Args:
+            self: (todo): write your description
+            name: (str): write your description
+        """
         if name not in self.keys() and not hasattr(self, name):
             raise AttributeError("BlivetGUIConfig has no attribute %s" % name)
         return self[name]
 
     def __setattr__(self, name, value):
+        """
+        Sets an attribute.
+
+        Args:
+            self: (todo): write your description
+            name: (str): write your description
+            value: (todo): write your description
+        """
         if name not in self.keys() and not hasattr(self, name):
             raise AttributeError("BlivetGUIConfig has no attribute %s" % name)
         self[name] = value
 
     def __repr__(self):
+        """
+        Return a human - readable representation of this object.
+
+        Args:
+            self: (todo): write your description
+        """
         return "BlivetGUIConfig:\n%s" % str(self)
 
 

@@ -21,6 +21,18 @@ PartSpec = namedtuple("PartSpec", ["start", "size", "ptype"])
 class PartitioningTestToolkit(DisksTestToolkit):
 
     def get_next_free_space(self, disk, min_size=blivet.size.Size("10 MiB"), logical=False):
+        """
+        Get a free space for a disk.
+
+        Args:
+            self: (todo): write your description
+            disk: (todo): write your description
+            min_size: (int): write your description
+            blivet: (todo): write your description
+            size: (int): write your description
+            Size: (int): write your description
+            logical: (str): write your description
+        """
         children = self.blivet_utils.get_disk_children(disk)
         if logical:
             free = next((p for p in children.logicals if p.type == "free space" and
@@ -32,15 +44,44 @@ class PartitioningTestToolkit(DisksTestToolkit):
         return free
 
     def get_free_spaces(self, disk, min_size=blivet.size.Size("10 MiB")):
+        """
+        Return a list of free disk children.
+
+        Args:
+            self: (todo): write your description
+            disk: (str): write your description
+            min_size: (int): write your description
+            blivet: (str): write your description
+            size: (int): write your description
+            Size: (int): write your description
+        """
         children = self.blivet_utils.get_disk_children(disk)
         return [p for p in children.partitions if p.type == "free space" and
                 p.size >= min_size]
 
     def get_partitions(self, disk):
+        """
+        Returns a list of disk partitions.
+
+        Args:
+            self: (todo): write your description
+            disk: (todo): write your description
+        """
         children = self.blivet_utils.get_disk_children(disk)
         return [p for p in children.partitions if p.type == "partition"]
 
     def create_partition(self, free_space, size=None, fstype="ext4", label=None, ptype="primary"):
+        """
+        Return a partition ::
+
+        Args:
+            self: (todo): write your description
+            free_space: (str): write your description
+            size: (int): write your description
+            fstype: (str): write your description
+            label: (str): write your description
+            ptype: (str): write your description
+        """
         if size is None:
             size = free_space.size
 
@@ -71,6 +112,15 @@ class PartitioningTestToolkit(DisksTestToolkit):
         return ret.actions
 
     def create_preexisting(self, disk, table_type, partitions):
+        """
+        Create a partition in the given disk.
+
+        Args:
+            self: (todo): write your description
+            disk: (todo): write your description
+            table_type: (str): write your description
+            partitions: (str): write your description
+        """
         table = BlockDev.PartTableType.MSDOS if table_type == "msdos" else BlockDev.PartTableType.GPT
         BlockDev.part_create_table(disk, table)
 
@@ -78,6 +128,14 @@ class PartitioningTestToolkit(DisksTestToolkit):
             BlockDev.part_create_part(disk, part.ptype, part.start, part.size, BlockDev.PartAlign.OPTIMAL)
 
     def clean_up_preexisting(self, disk, partitions):
+        """
+        Clean up all the disk entries.
+
+        Args:
+            self: (todo): write your description
+            disk: (todo): write your description
+            partitions: (str): write your description
+        """
         for i in range(len(partitions)):
             BlockDev.part_delete_part(disk, "%s%d" % (disk, i + 1))
         os.system("wipefs -a %s > /dev/null" % disk)
@@ -87,6 +145,12 @@ class BlivetUtilsDisksTest(BlivetUtilsTestCase, PartitioningTestToolkit):
 
     @classmethod
     def setUpClass(cls):
+        """
+        Sets the list of - plugins.
+
+        Args:
+            cls: (todo): write your description
+        """
         plugins = BlockDev.plugin_specs_from_names(("part",))
         if not BlockDev.is_initialized():
             BlockDev.init(plugins, None)
@@ -96,6 +160,14 @@ class BlivetUtilsDisksTest(BlivetUtilsTestCase, PartitioningTestToolkit):
         super().setUpClass()
 
     def _check_part_actions(self, actions, blivet_part):
+        """
+        Check actions checking actions.
+
+        Args:
+            self: (todo): write your description
+            actions: (str): write your description
+            blivet_part: (str): write your description
+        """
         # there should be two actions --> one for partition and another one for fs
         self.assertEqual(len(actions), 2)
 
@@ -111,6 +183,14 @@ class BlivetUtilsDisksTest(BlivetUtilsTestCase, PartitioningTestToolkit):
         self.assertIsInstance(blivet_part.format, blivet.formats.fs.Ext4FS)
 
     def _create_and_check_multiple_partitions(self, disk, num_parts):
+        """
+        Create a list of all the same as possible.
+
+        Args:
+            self: (todo): write your description
+            disk: (todo): write your description
+            num_parts: (int): write your description
+        """
         blivet_parts = []
         for i in range(num_parts):
             free = self.get_next_free_space(disk)

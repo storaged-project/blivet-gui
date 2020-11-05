@@ -75,6 +75,12 @@ class LoadingWindow(Gtk.Dialog):
         self.show_all()
 
     def stop(self):
+        """
+        Stop the current thread.
+
+        Args:
+            self: (todo): write your description
+        """
         self.destroy()
 
     def start(self):

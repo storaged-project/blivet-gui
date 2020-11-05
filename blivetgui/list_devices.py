@@ -56,6 +56,12 @@ class ListDevices(object):
         self.selection_signal = selection.connect("changed", self.on_disk_selection_changed)
 
     def load_devices(self):
+        """
+        !
+
+        Args:
+            self: (todo): write your description
+        """
         self.device_list.clear()
 
         self.load_disks()
@@ -143,6 +149,13 @@ class ListDevices(object):
             self.disks_view.set_cursor(1)
 
     def select_device_by_name(self, device_name):
+        """
+        Select a device by its name.
+
+        Args:
+            self: (todo): write your description
+            device_name: (str): write your description
+        """
         for idx, device in enumerate(self.device_list):
             if device[0] and device[0].name == device_name:
                 self.disks_view.set_cursor(idx)

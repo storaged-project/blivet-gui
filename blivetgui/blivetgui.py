@@ -67,6 +67,13 @@ class BlivetGUI(object):
     installer_mode = False
 
     def __init__(self, client):
+        """
+        Initialize main window
+
+        Args:
+            self: (todo): write your description
+            client: (todo): write your description
+        """
 
         self.client = client
 
@@ -154,6 +161,12 @@ class BlivetGUI(object):
 
     @property
     def supported_filesystems(self):
+        """
+        Returns a list of supported filesystems.
+
+        Args:
+            self: (todo): write your description
+        """
         if self._supported_filesystems:
             return self._supported_filesystems
 
@@ -162,6 +175,12 @@ class BlivetGUI(object):
         return self._supported_filesystems
 
     def initialize(self):
+        """
+        Initialize main window
+
+        Args:
+            self: (todo): write your description
+        """
         self.list_devices.load_devices()
         self.list_actions.initialize()
 
@@ -171,6 +190,13 @@ class BlivetGUI(object):
         self.list_devices.disks_view.set_cursor(0)
 
     def _set_physical_view_visible(self, visible):
+        """
+        Assigns the panel view to the panel
+
+        Args:
+            self: (todo): write your description
+            visible: (todo): write your description
+        """
         notebook = self.builder.get_object("notebook_views")
         physical_page = notebook.get_nth_page(1)
 
@@ -180,10 +206,22 @@ class BlivetGUI(object):
             physical_page.hide()
 
     def update_partitions_view(self):
+        """
+        Update the partitions.
+
+        Args:
+            self: (todo): write your description
+        """
         self.list_partitions.update_partitions_list(self.list_devices.selected_device)
         self.logical_view.visualize_devices(self.list_partitions.partitions_list)
 
     def update_physical_view(self):
+        """
+        Updates the currently selected view.
+
+        Args:
+            self: (todo): write your description
+        """
         self.list_parents.update_parents_list(self.list_devices.selected_device)
         self.physical_view.visualize_parents(self.list_parents.parents_list)
 
@@ -233,34 +271,94 @@ class BlivetGUI(object):
         self.popup_menu.deactivate_all()
 
     def _reraise_exception(self, exception, traceback, message, dialog_window=None):
+        """
+        Reraise an exception with an exception.
+
+        Args:
+            self: (todo): write your description
+            exception: (todo): write your description
+            traceback: (todo): write your description
+            message: (str): write your description
+            dialog_window: (todo): write your description
+        """
         raise type(exception)(message + "\n" + str(exception) + "\n" + traceback)
 
     def show_error_dialog(self, error_message):
+        """
+        Show error dialog dialog
+
+        Args:
+            self: (todo): write your description
+            error_message: (str): write your description
+        """
         message_dialogs.ErrorDialog(self.main_window, error_message)
 
     def show_warning_dialog(self, warning_message):
+        """
+        Show a warning dialog dialog
+
+        Args:
+            self: (todo): write your description
+            warning_message: (todo): write your description
+        """
         message_dialogs.WarningDialog(self.main_window, warning_message)
 
     def show_confirmation_dialog(self, title, question):
+        """
+        Original doc : class : dialog
+
+        Args:
+            self: (todo): write your description
+            title: (str): write your description
+            question: (str): write your description
+        """
         dialog = message_dialogs.ConfirmDialog(self.main_window, title, question)
         response = dialog.run()
 
         return response
 
     def run_dialog(self, dialog):
+        """
+        Run a dialog dialog.
+
+        Args:
+            self: (todo): write your description
+            dialog: (todo): write your description
+        """
         response = dialog.run()
         return response
 
     def _raise_exception(self, exception, traceback):
+        """
+        Raise the given exception.
+
+        Args:
+            self: (todo): write your description
+            exception: (todo): write your description
+            traceback: (todo): write your description
+        """
         raise exception.with_traceback(traceback)
 
     def switch_device_view(self, device):
+        """
+        Sets the switch view to the given device.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+        """
         if not (device.is_disk or device.type in ("lvmvg", "btrfs volume", "mdarray")):
             raise ValueError
 
         self.list_devices.select_device_by_name(device.name)
 
     def _handle_user_change(self):
+        """
+        Handle user change change.
+
+        Args:
+            self: (todo): write your description
+        """
         # do this after user changed something -- curretnly only used
         # in installer mode
         pass
@@ -276,6 +374,13 @@ class BlivetGUI(object):
         dialog.destroy()
 
     def resize_device(self, _widget=None):
+        """
+        Resize the partition.
+
+        Args:
+            self: (todo): write your description
+            _widget: (todo): write your description
+        """
         device = self.list_partitions.selected_partition[0]
 
         dialog = edit_dialog.ResizeDialog(self.main_window, device,
@@ -299,6 +404,13 @@ class BlivetGUI(object):
                 self.update_partitions_view()
 
     def format_device(self, _widget=None):
+        """
+        Formats the partition.
+
+        Args:
+            self: (todo): write your description
+            _widget: (todo): write your description
+        """
         device = self.list_partitions.selected_partition[0]
 
         if self.installer_mode:
@@ -370,6 +482,13 @@ class BlivetGUI(object):
         self._add_disklabel(device.disk)
 
     def edit_label(self, _widget=None):
+        """
+        Edit selected label
+
+        Args:
+            self: (todo): write your description
+            _widget: (todo): write your description
+        """
         device = self.list_partitions.selected_partition[0]
         dialog = edit_dialog.LabelDialog(self.main_window, device, installer_mode=self.installer_mode)
 
@@ -516,6 +635,13 @@ class BlivetGUI(object):
         dialog.destroy()
 
     def _deletable_parents(self, device):
+        """
+        Deletable all children of a device.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+        """
 
         if device.type not in ("btrfs volume", "mdarray", "lvmvg"):
             return None
@@ -528,6 +654,13 @@ class BlivetGUI(object):
         return deletable_parents
 
     def _device_descendants(self, device):
+        """
+        Return all descendants of this device.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+        """
         descendants = []
         for child in device.children:
             descendants.append(child)
@@ -571,6 +704,13 @@ class BlivetGUI(object):
             self.list_devices.update_devices_view()
 
     def set_mountpoint(self, _widget=None):
+        """
+        Set the mountpoint on the partition.
+
+        Args:
+            self: (todo): write your description
+            _widget: (todo): write your description
+        """
         device = self.list_partitions.selected_partition[0]
 
         if not device.format.mountable:
@@ -599,6 +739,14 @@ class BlivetGUI(object):
         """
 
         def end(success, error, traceback):
+            """
+            Ends the main window
+
+            Args:
+                success: (str): write your description
+                error: (todo): write your description
+                traceback: (str): write your description
+            """
             if success:
                 dialog.stop()
             else:
@@ -608,6 +756,12 @@ class BlivetGUI(object):
                 self._reraise_exception(error, traceback, message, dialog_window=dialog)  # pylint: disable=raising-bad-type
 
         def show_progress(message):
+            """
+            Show the progress of a message.
+
+            Args:
+                message: (str): write your description
+            """
             dialog.progress_msg(message)
 
         def do_it():
@@ -759,6 +913,12 @@ class BlivetGUI(object):
         return True
 
     def _blivet_init_already_running(self):
+        """
+        Initialize the main window
+
+        Args:
+            self: (todo): write your description
+        """
         dialog = message_dialogs.CustomDialog(parent_window=self.main_window,
                                               buttons=[_("Quit"),
                                                        Gtk.ResponseType.ACCEPT])
@@ -777,6 +937,12 @@ class BlivetGUI(object):
         sys.exit(1)
 
     def blivet_init(self):
+        """
+        Initialize the window.
+
+        Args:
+            self: (todo): write your description
+        """
         loading_window = LoadingWindow(self.main_window)
         ret = self._run_thread(loading_window, self.client.remote_control, ("init", self.ignored_disks))
 
@@ -803,6 +969,14 @@ class BlivetGUI(object):
                                         dialog_window=loading_window)
 
     def _blivet_init_ignore(self, exception, device_name):
+        """
+        Function to create a main window
+
+        Args:
+            self: (todo): write your description
+            exception: (todo): write your description
+            device_name: (str): write your description
+        """
 
         dialog = message_dialogs.CustomDialog(parent_window=self.main_window,
                                               buttons=[_("Quit blivet-gui"),
@@ -821,13 +995,32 @@ class BlivetGUI(object):
         return response == Gtk.ResponseType.ACCEPT
 
     def _run_thread(self, dialog, method, args):
+        """
+        Run a thread.
+
+        Args:
+            self: (todo): write your description
+            dialog: (str): write your description
+            method: (str): write your description
+        """
 
         ret = []
 
         def end():
+            """
+            Ends the end of the dialog.
+
+            Args:
+            """
             dialog.stop()
 
         def do_it(ret):
+            """
+            Add a method to the end of the operation.
+
+            Args:
+                ret: (bool): write your description
+            """
             ret.append(method(*args))
             GLib.idle_add(end)
 

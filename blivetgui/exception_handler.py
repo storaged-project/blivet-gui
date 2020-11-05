@@ -46,10 +46,25 @@ class BlivetGUIExceptionHandler(object):
     allow_ignore = False
 
     def __init__(self, main_window, excepthook):
+        """
+        Initialize window
+
+        Args:
+            self: (todo): write your description
+            main_window: (int): write your description
+            excepthook: (str): write your description
+        """
         self.main_window = main_window
         self.excepthook = excepthook
 
     def _parse_exception(self, exc_value):
+        """
+        Parse an exception. exc_value.
+
+        Args:
+            self: (todo): write your description
+            exc_value: (todo): write your description
+        """
         if TRACEBACK in str(exc_value):
             exc = str(exc_value).split(TRACEBACK)[0]  # exception message is always first
             tr = "".join(str(exc_value).split(TRACEBACK)[1:])  # there might be more exceptions (and tracebacks)
@@ -58,6 +73,15 @@ class BlivetGUIExceptionHandler(object):
             return (str(exc_value), None)
 
     def handle_exception(self, exc_type, exc_value, exc_traceback):
+        """
+        Handles an exception.
+
+        Args:
+            self: (todo): write your description
+            exc_type: (todo): write your description
+            exc_value: (todo): write your description
+            exc_traceback: (todo): write your description
+        """
 
         # exceptions from blivet_utils have 'original' traceback as part of the message
         # but we want to show the original message and traceback separately

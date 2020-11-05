@@ -96,6 +96,13 @@ def adjust_scrolled_size(scrolledwindow, width_limit, height_limit):
 
 
 def is_name_valid(device_type, name):
+    """
+    Returns true if the device name is valid.
+
+    Args:
+        device_type: (str): write your description
+        name: (str): write your description
+    """
     if device_type in ("lvmvg", "lvm", "lvmlv"):
         return lvm.is_lvm_name_valid(name)
     elif device_type in ("btrfs volume", "btrfs subvolume"):
@@ -105,6 +112,13 @@ def is_name_valid(device_type, name):
 
 
 def is_label_valid(format_type, label):
+    """
+    Return true if label is valid.
+
+    Args:
+        format_type: (str): write your description
+        label: (str): write your description
+    """
     if format_type in ("ext2", "ext3", "ext4"):
         return Ext2FSLabeling.label_format_ok(label)
     elif format_type == "vfat":
@@ -153,14 +167,29 @@ def is_mountpoint_valid(used_mountpoints, new_mountpoint, old_mountpoint=None):
 
 
 def supported_raids():
+    """
+    Return the raid ids of - raid raid.
+
+    Args:
+    """
     return {"btrfs volume": devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_BTRFS),
             "mdraid": devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_MD),
             "lvmlv": devicefactory.get_supported_raid_levels(devicefactory.DEVICE_TYPE_LVM)}
 
 
 def supported_encryption_types():
+    """
+    Returns the supported encryption types.
+
+    Args:
+    """
     return crypto.LUKS_VERSIONS
 
 
 def default_encryption_type():
+    """
+    Returns the default encryption type.
+
+    Args:
+    """
     return crypto.DEFAULT_LUKS_VERSION

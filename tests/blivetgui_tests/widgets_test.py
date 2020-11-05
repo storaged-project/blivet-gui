@@ -18,6 +18,12 @@ from blivetgui.i18n import _
 class RaidChooserTest(unittest.TestCase):
 
     def test_10_update(self):
+        """
+        Update the current raid.
+
+        Args:
+            self: (todo): write your description
+        """
         chooser = RaidChooser()
         chooser.supported_raids = {"mdraid": [RAID0, RAID1, RAID5, Linear],
                                    "lvmlv": [RAID0, RAID1, RAID5, Linear],
@@ -70,6 +76,12 @@ class RaidChooserTest(unittest.TestCase):
         self.assertFalse(chooser.get_sensitive())
 
     def test_20_selection(self):
+        """
+        Determine the selected choices.
+
+        Args:
+            self: (todo): write your description
+        """
         chooser = RaidChooser()
         chooser.supported_raids = {"mdraid": [RAID0, RAID1, RAID5, Linear]}
         chooser.update("mdraid", 2)
@@ -86,6 +98,12 @@ class RaidChooserTest(unittest.TestCase):
 class EncryptionChooserTest(unittest.TestCase):
 
     def test_encrypt_validity_check(self):
+        """
+        Encrypts the user and encryption.
+
+        Args:
+            self: (todo): write your description
+        """
         encrypt_chooser = EncryptionChooser()
 
         # passphrases specified and matches
@@ -112,6 +130,12 @@ class EncryptionChooserTest(unittest.TestCase):
         self.assertEqual(msg, _("Passphrase not specified."))
 
     def test_encryption_selection(self):
+        """
+        Encrypts and encryption encryption encryption.
+
+        Args:
+            self: (todo): write your description
+        """
         encrypt_chooser = EncryptionChooser()
 
         encrypt_chooser.encrypt = True
@@ -124,6 +148,12 @@ class EncryptionChooserTest(unittest.TestCase):
         self.assertEqual(user_input.encryption_type, crypto.DEFAULT_LUKS_VERSION)
 
     def test_encryption_chooser(self):
+        """
+        Encrypts the encryption encryption and decryptphrase.
+
+        Args:
+            self: (todo): write your description
+        """
         encrypt_chooser = EncryptionChooser()
 
         encrypt_chooser.encrypt = True
@@ -136,6 +166,12 @@ class EncryptionChooserTest(unittest.TestCase):
         self.assertFalse(encrypt_chooser._repeat_entry.get_visible())
 
     def test_passphrase_entry(self):
+        """
+        Encrypt the password entry in the gtkentry.
+
+        Args:
+            self: (todo): write your description
+        """
         encrypt_chooser = EncryptionChooser()
 
         encrypt_chooser.encrypt = True

@@ -54,6 +54,12 @@ class BlivetUtilsAnaconda(BlivetUtils):
     installer_mode = True
 
     def __init__(self):
+        """
+        Initialize the filesystem.
+
+        Args:
+            self: (todo): write your description
+        """
         # pylint: disable=super-init-not-called
 
         self._resizable_filesystems = None
@@ -63,22 +69,55 @@ class BlivetUtilsAnaconda(BlivetUtils):
 
     @property
     def storage(self):
+        """
+        Storage storage.
+
+        Args:
+            self: (todo): write your description
+        """
         return self._storage
 
     @storage.setter
     def storage(self, storage):
+        """
+        Set the storage.
+
+        Args:
+            self: (todo): write your description
+            storage: (todo): write your description
+        """
         self._storage = storage
 
 
 class BlivetGUIAnacondaClient(object):
 
     def __init__(self):
+        """
+        Initialize the connection.
+
+        Args:
+            self: (todo): write your description
+        """
         self.utils = BlivetUtilsAnaconda()
 
     def initialize(self, storage):
+        """
+        Initialize the storage.
+
+        Args:
+            self: (todo): write your description
+            storage: (todo): write your description
+        """
         self.utils.storage = storage
 
     def remote_call(self, method, *args):
+        """
+        Calls a remote method with the given method.
+
+        Args:
+            self: (todo): write your description
+            method: (str): write your description
+        """
 
         utils_method = getattr(self.utils, method, None)
         if utils_method is None:
@@ -93,6 +132,15 @@ class BlivetGUIAnaconda(BlivetGUI):
     allow_ignore = True
 
     def __init__(self, client, spoke, spoke_container):
+        """
+        Initialize the container
+
+        Args:
+            self: (todo): write your description
+            client: (todo): write your description
+            spoke: (str): write your description
+            spoke_container: (todo): write your description
+        """
         # pylint: disable=super-init-not-called
 
         self.spoke = spoke
@@ -146,6 +194,12 @@ class BlivetGUIAnaconda(BlivetGUI):
         self.builder.get_object("scrolledwindow_physical").add(self.physical_view.vbox)
 
     def initialize(self):
+        """
+        Initialize the client.
+
+        Args:
+            self: (todo): write your description
+        """
         super().initialize()
 
         # set some defaults from blivet now
@@ -192,20 +246,45 @@ class BlivetGUIAnaconda(BlivetGUI):
 
     @property
     def label_actions(self):
+        """
+        Returns a list of actions.
+
+        Args:
+            self: (todo): write your description
+        """
         # Gtk.Label with number of currently scheduled actions is placed
         # in the spoke, not in blivet-gui window
         return self.spoke.label_actions
 
     def activate_action_buttons(self, activate):
+        """
+        Activates the selected action.
+
+        Args:
+            self: (todo): write your description
+            activate: (todo): write your description
+        """
         # 'action' buttons (reset and undo) are in the spoke
         self.spoke.activate_action_buttons(activate)
 
     @property
     def main_window(self):
+        """
+        Main main window.
+
+        Args:
+            self: (todo): write your description
+        """
         return self.spoke.main_window
 
     @contextmanager
     def enlightbox(self):
+        """
+        Make the main windowbox.
+
+        Args:
+            self: (todo): write your description
+        """
         self.main_window.lightbox_on()
 
         yield
@@ -213,6 +292,16 @@ class BlivetGUIAnaconda(BlivetGUI):
         self.main_window.lightbox_off()
 
     def _reraise_exception(self, exception, traceback, message, dialog_window=None):
+        """
+        Displays an exception to the exception.
+
+        Args:
+            self: (todo): write your description
+            exception: (todo): write your description
+            traceback: (todo): write your description
+            message: (str): write your description
+            dialog_window: (todo): write your description
+        """
         allow_report = True
         allow_ignore = self.allow_ignore and issubclass(type(exception), StorageError)
         if allow_ignore:
@@ -236,14 +325,36 @@ class BlivetGUIAnaconda(BlivetGUI):
                 sys.exit(0)
 
     def show_error_dialog(self, error_message):
+        """
+        Show error dialog
+
+        Args:
+            self: (todo): write your description
+            error_message: (str): write your description
+        """
         with self.enlightbox():
             message_dialogs.ErrorDialog(self.main_window, error_message, decorated=False)
 
     def show_warning_dialog(self, warning_message):
+        """
+        Show a warning dialog.
+
+        Args:
+            self: (todo): write your description
+            warning_message: (todo): write your description
+        """
         with self.enlightbox():
             message_dialogs.WarningDialog(self.main_window, warning_message, decorated=False)
 
     def show_confirmation_dialog(self, title, question):
+        """
+        Show a dialog dialog
+
+        Args:
+            self: (todo): write your description
+            title: (str): write your description
+            question: (str): write your description
+        """
         with self.enlightbox():
             dialog = message_dialogs.ConfirmDialog(self.main_window, title, question, decorated=False)
             response = dialog.run()
@@ -251,6 +362,13 @@ class BlivetGUIAnaconda(BlivetGUI):
         return response
 
     def run_dialog(self, dialog):
+        """
+        Run a dialog.
+
+        Args:
+            self: (todo): write your description
+            dialog: (todo): write your description
+        """
         with self.enlightbox():
             if hasattr(dialog, "set_decorated"):  # FIXME
                 dialog.set_decorated(False)
@@ -259,6 +377,13 @@ class BlivetGUIAnaconda(BlivetGUI):
         return response
 
     def set_actions(self, blivet_actions):
+        """
+        Set the actions.
+
+        Args:
+            self: (todo): write your description
+            blivet_actions: (str): write your description
+        """
         if not blivet_actions:
             return
 
@@ -270,6 +395,12 @@ class BlivetGUIAnaconda(BlivetGUI):
         self.list_actions.append("misc", action_str, blivet_actions)
 
     def _handle_user_change(self):
+        """
+        Handles the user changes.
+
+        Args:
+            self: (todo): write your description
+        """
         # user changed something blivet-gui -- blivet-gui spoke needs to clear
         # existing errors and run checks again to see if this change fixed that
         self.spoke._back_already_clicked = False

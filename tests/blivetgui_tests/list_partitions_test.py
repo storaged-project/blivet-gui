@@ -20,6 +20,12 @@ from gi.repository import Gtk
 class ListPartitionsTest(unittest.TestCase):
 
     def setUp(self):
+        """
+        Set the gui.
+
+        Args:
+            self: (todo): write your description
+        """
 
         _builder = Gtk.Builder()
         _builder.add_from_file(locate_ui_file("blivet-gui.ui"))
@@ -29,6 +35,12 @@ class ListPartitionsTest(unittest.TestCase):
         self.list_partitions = ListPartitions(self.blivet_gui)
 
     def test_allow_delete(self):
+        """
+        Test if the partition is mounted.
+
+        Args:
+            self: (todo): write your description
+        """
         # do not allow deleting free space and non-leaf devices
         device = MagicMock(type="free space")
         self.assertFalse(self.list_partitions._allow_delete_device(device))
@@ -70,6 +82,12 @@ class ListPartitionsTest(unittest.TestCase):
         self.assertFalse(self.list_partitions._allow_recursive_delete_device(vg))
 
     def test_allow_add(self):
+        """
+        Add a new partition to the partition.
+
+        Args:
+            self: (todo): write your description
+        """
         # do not allow adding on protected devices
         device = MagicMock(type="free space", protected=True)
         self.assertFalse(self.list_partitions._allow_add_device(device))
@@ -91,6 +109,12 @@ class ListPartitionsTest(unittest.TestCase):
         self.assertTrue(self.list_partitions._allow_add_device(device))
 
     def test_add_to_store(self):
+        """
+        Add a partition to the partition.
+
+        Args:
+            self: (todo): write your description
+        """
 
         # simple partition -- test if added to store correctly
         device = MagicMock(type="partition", size=Size("1 GiB"), path="/dev/vda1",

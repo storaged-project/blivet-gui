@@ -8,6 +8,12 @@ from blivetgui.communication.proxy_utils import ProxyID, ProxyDataContainer
 class ProxyUtilsTest(unittest.TestCase):
 
     def test_proxy_id(self):
+        """
+        Set the proxy id1 id1 id1 id1 id2.
+
+        Args:
+            self: (todo): write your description
+        """
         # test unique ID
         id1 = ProxyID()
         id2 = ProxyID()
@@ -15,6 +21,12 @@ class ProxyUtilsTest(unittest.TestCase):
         self.assertNotEqual(id1.id, id2.id)
 
     def test_proxy_data_container(self):
+        """
+        Test for proxy container.
+
+        Args:
+            self: (todo): write your description
+        """
         container = ProxyDataContainer(a="a", b="b", c="c")
 
         # __iter__

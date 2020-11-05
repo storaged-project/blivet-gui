@@ -12,6 +12,12 @@ from blivet.size import Size
 class BlivetGUIClientTest(unittest.TestCase):
 
     def test_convert_answer(self):
+        """
+        Respond to an answer.
+
+        Args:
+            self: (todo): write your description
+        """
         # string (shouldn't be converted at all)
         msg = "abcdef"
         converted_answer = BlivetGUIClient._answer_convertTo_object(MagicMock(), msg)
@@ -31,6 +37,12 @@ class BlivetGUIClientTest(unittest.TestCase):
 
     @patch("blivetgui.communication.client.BlivetGUIClient.__init__", lambda a, b: None)
     def test_convert_args(self):
+        """
+        Convert arguments
+
+        Args:
+            self: (todo): write your description
+        """
         client = BlivetGUIClient(MagicMock())
 
         # 'normal' arguments

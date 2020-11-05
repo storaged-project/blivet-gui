@@ -18,6 +18,12 @@
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
 def test_comment(poentry):
+    """
+    Test if a comment.
+
+    Args:
+        poentry: (todo): write your description
+    """
     # Single-character translatable strings (e.g., the 'c' of press c to
     # continue) need some additional context in order to make sense. Make
     # sure that they have it.

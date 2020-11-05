@@ -44,6 +44,13 @@ class ListActions(object):
     """
 
     def __init__(self, blivet_gui):
+        """
+        Initialize gui
+
+        Args:
+            self: (todo): write your description
+            blivet_gui: (todo): write your description
+        """
 
         self.blivet_gui = blivet_gui
 
@@ -57,6 +64,12 @@ class ListActions(object):
                              "misc": icon_misc}
 
     def initialize(self):
+        """
+        Initializes the history.
+
+        Args:
+            self: (todo): write your description
+        """
 
         # list of blivet actions
         self.history = []

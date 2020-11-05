@@ -129,6 +129,13 @@ class ProcessingActions(Gtk.Dialog):
         return actions_view, actions_list
 
     def _set_applied_icon(self, position):
+        """
+        Set icon icon on gtk
+
+        Args:
+            self: (todo): write your description
+            position: (int): write your description
+        """
         icon_theme = Gtk.IconTheme.get_default()  # pylint: disable=no-value-for-parameter
         icon_applied = Gtk.IconTheme.lookup_icon(icon_theme, "emblem-ok-symbolic", 16,
                                                  Gtk.IconLookupFlags.GENERIC_FALLBACK)
@@ -170,6 +177,13 @@ class ProcessingActions(Gtk.Dialog):
         self.set_resizable(False)
 
     def progress_msg(self, message):
+        """
+        Print progress bar.
+
+        Args:
+            self: (todo): write your description
+            message: (str): write your description
+        """
         self.label.set_markup(_("<b>Processing action {num} of {total}</b>:"
                                 "\n<i>{action}</i>").format(num=self.finished_actions,
                                                             total=len(self.actions),

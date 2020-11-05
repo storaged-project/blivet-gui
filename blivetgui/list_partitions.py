@@ -28,6 +28,13 @@ class ListPartitions(object):
     """
 
     def __init__(self, blivet_gui):
+        """
+        Init the partition
+
+        Args:
+            self: (todo): write your description
+            blivet_gui: (todo): write your description
+        """
 
         self.blivet_gui = blivet_gui
 
@@ -66,6 +73,13 @@ class ListPartitions(object):
                 return child
 
         def _add_chilren(childs, parent_iter=None):
+            """
+            Add a child to the remote.
+
+            Args:
+                childs: (todo): write your description
+                parent_iter: (int): write your description
+            """
             for child in childs:
                 if child.children:
                     child_iter = self._add_to_store(child, parent_iter)
@@ -108,6 +122,13 @@ class ListPartitions(object):
         self.partitions_view.expand_all()
 
     def _is_group_device(self, blivet_device):
+        """
+        Return true if the device group device group device.
+
+        Args:
+            self: (todo): write your description
+            blivet_device: (todo): write your description
+        """
         # btrfs volume on raw disk
         if blivet_device.type in ("btrfs volume", "lvmvg"):
             return True
@@ -163,10 +184,23 @@ class ListPartitions(object):
         return device_iter
 
     def _allow_recursive_delete_device(self, device):
+        """
+        Determine if there is a device.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+        """
         if device.type not in ("btrfs volume", "mdarray", "lvmvg"):
             return False
 
         def _device_descendants(device):
+            """
+            Return all descendants of a device.
+
+            Args:
+                device: (todo): write your description
+            """
             descendants = []
             for child in device.children:
                 descendants.append(child)
@@ -181,6 +215,14 @@ class ListPartitions(object):
         return True
 
     def _allow_delete_device(self, device, recursive=False):
+        """
+        Check if a device is mounted.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+            recursive: (bool): write your description
+        """
         if device.protected:
             return False
 
@@ -205,6 +247,13 @@ class ListPartitions(object):
                     return not device.format.status
 
     def _allow_resize_device(self, device):
+        """
+        Check if a resize to a resize.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+        """
         if device.protected or device.children or device.format_immutable:
             return False
 
@@ -214,6 +263,13 @@ class ListPartitions(object):
         return True
 
     def _allow_format_device(self, device):
+        """
+        Checks if the format is valid.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+        """
         if device.protected or device.children:
             return False
 
@@ -229,6 +285,13 @@ class ListPartitions(object):
         return not device.format.status
 
     def _allow_set_mountpoint(self, device):
+        """
+        Allow to set of a mountpoint.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+        """
         if not self.blivet_gui.installer_mode:
             return False
 
@@ -244,6 +307,13 @@ class ListPartitions(object):
         return device.format.mountable
 
     def _allow_set_partition_table(self, device):
+        """
+        Return true if the partition is already exists.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+        """
         # there is no special "device" representing disks in the UI
         # so we are "editting" a free space
         if device.type != "free space":
@@ -260,12 +330,26 @@ class ListPartitions(object):
         return False
 
     def _allow_relabel_device(self, device):
+        """
+        Check if a device should only be disabled.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+        """
         if device.protected or device.format.status:
             return False
 
         return device.format.labeling() and device.format.relabels()
 
     def _allow_add_device(self, device):
+        """
+        Check if a new device exists.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+        """
         if device.protected:
             return False
 
@@ -334,6 +418,15 @@ class ListPartitions(object):
         """ Select device from list """
 
         def _search(model, path, treeiter, device):
+            """
+            Search for select_path.
+
+            Args:
+                model: (todo): write your description
+                path: (str): write your description
+                treeiter: (int): write your description
+                device: (str): write your description
+            """
             if model[treeiter][0] == device:
                 self.select.select_path(path)
 

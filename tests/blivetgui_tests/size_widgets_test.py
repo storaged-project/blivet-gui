@@ -16,6 +16,14 @@ from blivet.devicelibs.raid import Single, Linear, RAID0, RAID1
 class SizeAreaTest(unittest.TestCase):
 
     def _mock_device(self, name="vda1", fmt_type=None):
+        """
+        Create a mock device.
+
+        Args:
+            self: (todo): write your description
+            name: (str): write your description
+            fmt_type: (str): write your description
+        """
         dev = MagicMock()
         fmt = MagicMock(type=fmt_type)
         dev.configure_mock(name=name, format=fmt)
@@ -578,6 +586,14 @@ class SizeAreaTest(unittest.TestCase):
 class ParentAreaTest(unittest.TestCase):
 
     def _mock_device(self, name="vda1", fmt_type=None):
+        """
+        Create a mock device.
+
+        Args:
+            self: (todo): write your description
+            name: (str): write your description
+            fmt_type: (str): write your description
+        """
         dev = MagicMock()
         fmt = MagicMock(type=fmt_type)
         dev.configure_mock(name=name, format=fmt)
@@ -950,9 +966,21 @@ class ParentChooserTest(unittest.TestCase):
 class SizeChooserAreaTest(unittest.TestCase):
 
     def setUp(self):
+        """
+        Sets the size of this widget.
+
+        Args:
+            self: (todo): write your description
+        """
         self.size_chooser = SizeChooser(max_size=Size("100 GiB"), min_size=Size("1 MiB"))
 
     def test_10_unit_change(self):
+        """
+        Change the unit unit
+
+        Args:
+            self: (todo): write your description
+        """
         original_size = self.size_chooser.selected_size
 
         for idx, unit in enumerate(self.size_chooser.available_units):
@@ -963,6 +991,12 @@ class SizeChooserAreaTest(unittest.TestCase):
             self.assertEqual(original_size, new_size)
 
     def test_20_scale_spin(self):
+        """
+        Changes the scale.
+
+        Args:
+            self: (todo): write your description
+        """
         old_value = self.size_chooser._scale.get_value()
         new_value = old_value // 2
 
@@ -973,10 +1007,22 @@ class SizeChooserAreaTest(unittest.TestCase):
         self.assertEqual(old_value, self.size_chooser._scale.get_value())
 
     def test_30_get_size(self):
+        """
+        Set the size of the test.
+
+        Args:
+            self: (todo): write your description
+        """
         selected_size = Size(str(self.size_chooser._spin.get_value()) + " " + unit_str(self.size_chooser.selected_unit))
         self.assertEqual(selected_size, self.size_chooser.selected_size)
 
     def test_40_set_size(self):
+        """
+        Set the size of the selected size.
+
+        Args:
+            self: (todo): write your description
+        """
         selected_size = (self.size_chooser.max_size - self.size_chooser.min_size) // 2
         self.size_chooser.selected_size = selected_size
         self.assertEqual(selected_size, self.size_chooser.selected_size)
@@ -988,6 +1034,12 @@ class SizeChooserAreaTest(unittest.TestCase):
             self.size_chooser.selected_size = self.size_chooser.max_size + 1  # not between min and max
 
     def test_50_set_limits(self):
+        """
+        Set the size and set
+
+        Args:
+            self: (todo): write your description
+        """
         self.size_chooser.min_size = Size("2 MiB")
         self.assertEqual(self.size_chooser.min_size, Size("2 MiB"))
 
@@ -1007,6 +1059,12 @@ class SizeChooserAreaTest(unittest.TestCase):
         self.assertEqual(self.size_chooser.selected_size, Size("50 GiB"))
 
     def test_60_widget_status(self):
+        """
+        Test the status of the widgets
+
+        Args:
+            self: (todo): write your description
+        """
         self.size_chooser.hide()
         for widget in self.size_chooser.widgets:
             if hasattr(widget, "get_visible"):
@@ -1028,6 +1086,12 @@ class SizeChooserAreaTest(unittest.TestCase):
                 self.assertTrue(widget.get_sensitive())
 
     def test_70_signals(self):
+        """
+        Test for the current unit size.
+
+        Args:
+            self: (todo): write your description
+        """
         unit_handler = MagicMock()
         size_handler1 = MagicMock()
         size_handler2 = MagicMock()
@@ -1052,12 +1116,24 @@ class SizeChooserAreaTest(unittest.TestCase):
         size_handler2.assert_called_with(self.size_chooser.selected_size, "foo")
 
     def test_80_selection(self):
+        """
+        Test if the selected window is selected.
+
+        Args:
+            self: (todo): write your description
+        """
         self.size_chooser.selected_size = Size("125 MiB")
 
         selection = self.size_chooser.get_selection()
         self.assertEqual(selection, Size("125 MiB"))
 
     def test_90_available_units(self):
+        """
+        Determine the units to use in - memory units.
+
+        Args:
+            self: (todo): write your description
+        """
         # max device size is 100 GiB (100 GiB - 1 MiB), units up to GiB should
         # be available and default should be GiB
         chooser = SizeChooser(max_size=Size("100 GiB"), min_size=Size("1 MiB"))

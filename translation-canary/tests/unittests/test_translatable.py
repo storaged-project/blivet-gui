@@ -28,6 +28,12 @@ from translation_canary.translatable import testString, testPOT
 
 class TestMarkup(unittest.TestCase):
     def test_ok(self):
+        """
+        Makes a ok ok ok message.
+
+        Args:
+            self: (todo): write your description
+        """
         # no markup
         test_markup(POEntry(msgid="test string"))
 
@@ -35,10 +41,22 @@ class TestMarkup(unittest.TestCase):
         test_markup(POEntry(msgid="<b>test</b> string"))
 
     def test_unnecessary_markup(self):
+        """
+        Marks a test as read.
+
+        Args:
+            self: (todo): write your description
+        """
         self.assertRaises(AssertionError, test_markup, POEntry(msgid="<b>test string</b>"))
 
 class TestComment(unittest.TestCase):
     def test_ok(self):
+        """
+        The test token.
+
+        Args:
+            self: (todo): write your description
+        """
         # Perfectly fine string
         test_comment(POEntry(msgid="Hello, I am a test string"))
 
@@ -46,32 +64,74 @@ class TestComment(unittest.TestCase):
         test_comment(POEntry(msgid="c", comment="TRANSLATORS: 'c' to continue"))
 
     def test_no_comment(self):
+        """
+        Ens if a test.
+
+        Args:
+            self: (todo): write your description
+        """
         self.assertRaises(AssertionError, test_comment, POEntry(msgid="c"))
 
 # Test the top-level functions
 # fake tests for testing with
 def _true_test(_s):
+    """
+    True if the given string is a test.
+
+    Args:
+        _s: (todo): write your description
+    """
     pass
 
 def _false_test(_s):
+    """
+    Evaluate a test.
+
+    Args:
+        _s: (todo): write your description
+    """
     raise AssertionError("no good")
 
 def _picky_test(s):
+    """
+    Raise a test.
+
+    Args:
+        s: (array): write your description
+    """
     if s.msgstr.startswith("p"):
         raise AssertionError("I don't like this one")
 
 class TestTestString(unittest.TestCase):
     @unittest.mock.patch("translation_canary.translatable._tests", [_true_test])
     def test_success(self):
+        """
+        Synchronously run a success.
+
+        Args:
+            self: (todo): write your description
+        """
         self.assertTrue(testString(POEntry()))
 
     @unittest.mock.patch("translation_canary.translatable._tests", [_false_test])
     def test_failure(self):
+        """
+        Asserts that the failure.
+
+        Args:
+            self: (todo): write your description
+        """
         self.assertFalse(testString(POEntry()))
 
 @unittest.mock.patch("translation_canary.translatable._tests", [_picky_test])
 class TestTestPOT(unittest.TestCase):
     def test_success(self):
+        """
+        Test for test test.
+
+        Args:
+            self: (todo): write your description
+        """
         with tempfile.NamedTemporaryFile(suffix=".pot") as potfile:
             poobj = POFile()
             poobj.append(POEntry(msgstr="test string"))
@@ -80,6 +140,12 @@ class TestTestPOT(unittest.TestCase):
             self.assertTrue(testPOT(potfile.name))
 
     def test_some_failure(self):
+        """
+        Create a failure in testfile
+
+        Args:
+            self: (todo): write your description
+        """
         with tempfile.NamedTemporaryFile(suffix=".pot") as potfile:
             poobj = POFile()
             poobj.append(POEntry(msgstr="test string"))
@@ -89,6 +155,12 @@ class TestTestPOT(unittest.TestCase):
             self.assertFalse(testPOT(potfile.name))
 
     def test_all_failure(self):
+        """
+        Test for all test files to testfile
+
+        Args:
+            self: (todo): write your description
+        """
         with tempfile.NamedTemporaryFile(suffix=".pot") as potfile:
             poobj = POFile()
             poobj.append(POEntry(msgstr="pest string"))

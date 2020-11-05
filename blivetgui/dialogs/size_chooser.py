@@ -47,12 +47,29 @@ UNITS = OrderedDict([("B", size.B), ("KB", size.KB), ("MB", size.MB),
 class SizeSelection(ProxyDataContainer):
 
     def __init__(self, total_size, parents):
+        """
+        Initialize the list.
+
+        Args:
+            self: (todo): write your description
+            total_size: (int): write your description
+            parents: (todo): write your description
+        """
         super().__init__(total_size=total_size, parents=parents)
 
 
 class ParentSelection(ProxyDataContainer):
 
     def __init__(self, parent_device, free_space, selected_size):
+        """
+        Initialize a new device.
+
+        Args:
+            self: (todo): write your description
+            parent_device: (todo): write your description
+            free_space: (todo): write your description
+            selected_size: (int): write your description
+        """
         super().__init__(parent_device=parent_device,
                          free_space=free_space,
                          selected_size=selected_size)
@@ -138,6 +155,13 @@ class SizeArea(GUIWidget):
 
     @min_size_limit.setter
     def min_size_limit(self, new_size):
+        """
+        Changes the minimum size of the widget.
+
+        Args:
+            self: (todo): write your description
+            new_size: (int): write your description
+        """
         if new_size <= 0:
             raise ValueError("Size limit must be greater than zero.")
 
@@ -170,6 +194,13 @@ class SizeArea(GUIWidget):
 
     @max_size_limit.setter
     def max_size_limit(self, new_size):
+        """
+        Set the maximum size.
+
+        Args:
+            self: (todo): write your description
+            new_size: (int): write your description
+        """
         if new_size <= 0:
             raise ValueError("Size limit must be greater than zero.")
 
@@ -206,6 +237,12 @@ class SizeArea(GUIWidget):
         raise TypeError("Unknown signal type '%s' for widget %s" % (signal_name, self.name))
 
     def validate_user_input(self):
+        """
+        Validate the user input
+
+        Args:
+            self: (todo): write your description
+        """
         selection = self.get_selection()
 
         if selection.total_size > self.max_size_limit:
@@ -258,9 +295,21 @@ class SizeArea(GUIWidget):
 
     # PRIVATE METHODS
     def _allow_size_selection(self):
+        """
+        Return size of device device.
+
+        Args:
+            self: (todo): write your description
+        """
         return self.device_type not in ("lvmvg", "lvm thinsnapshot")
 
     def _allow_advanced_configuration(self):
+        """
+        Check if a raid configuration.
+
+        Args:
+            self: (todo): write your description
+        """
         # manual configuration of parents is allowed only for devices with multiple
         # parents but not for thinpools, lvm snapshots and linear LVs
         if self.parents and len(self.parents) > 1:
@@ -274,10 +323,22 @@ class SizeArea(GUIWidget):
             return False
 
     def _enforce_advanced_configuration(self):
+        """
+        Enforce raid configuration.
+
+        Args:
+            self: (todo): write your description
+        """
         # always show if raid level is selected
         return self.raid_type not in (Linear, Single, None)
 
     def _add_advanced_area(self):
+        """
+        Initialize window area.
+
+        Args:
+            self: (todo): write your description
+        """
         self._parent_area = ParentArea(self.device_type, self.parents, self.raid_type, self.main_chooser)
         self.grid.attach(self._parent_area.frame, 0, 2, 5, 1)
         self.widgets.append(self._parent_area)
@@ -285,6 +346,12 @@ class SizeArea(GUIWidget):
         self.main_chooser.set_sensitive(False)
 
     def _remove_advanced_area(self):
+        """
+        Removes the main area area.
+
+        Args:
+            self: (todo): write your description
+        """
         self._parent_area.destroy()
         self.widgets.remove(self._parent_area)
         self._parent_area = None
@@ -339,6 +406,16 @@ class ParentArea(GUIWidget):
     glade_file = "parent_area.ui"
 
     def __init__(self, device_type, parents, raid_type, main_chooser):
+        """
+        Initialize the main window.
+
+        Args:
+            self: (todo): write your description
+            device_type: (str): write your description
+            parents: (todo): write your description
+            raid_type: (str): write your description
+            main_chooser: (todo): write your description
+        """
 
         super().__init__()
 
@@ -361,6 +438,12 @@ class ParentArea(GUIWidget):
     # PROPERTIES
     @property
     def selected_choosers(self):
+        """
+        Returns a list of the selected choices.
+
+        Args:
+            self: (todo): write your description
+        """
         return [chooser for chooser in self.choosers if chooser.selected]
 
     @property
@@ -418,6 +501,12 @@ class ParentArea(GUIWidget):
         raise TypeError("Unknown signal type '%s' for widget %s" % (signal_name, self.name))
 
     def get_selection(self):
+        """
+        Return a list of selection.
+
+        Args:
+            self: (todo): write your description
+        """
         parents = []
         for chooser in self.choosers:
             if chooser.selected:
@@ -443,6 +532,13 @@ class ParentArea(GUIWidget):
 
     # PRIVATE METHODS
     def _allow_select_chooser(self, chooser):
+        """
+        Return true if this node has been selected.
+
+        Args:
+            self: (todo): write your description
+            chooser: (todo): write your description
+        """
         # parents are selectable only for LVs
         if self.device_type != "lvmlv":
             return False
@@ -463,6 +559,12 @@ class ParentArea(GUIWidget):
         return True
 
     def _add_parent_choosers(self):
+        """
+        Add parent choices to the parent.
+
+        Args:
+            self: (todo): write your description
+        """
         for idx, parent in enumerate(self.parents):
             # with raid selected, all parents have to has the same size (and max size)
             if self.raid_type not in (Linear, Single, None):
@@ -493,6 +595,12 @@ class ParentArea(GUIWidget):
             self.grid.attach(chooser.grid, 0, idx + 1, 1, 1)
 
     def _update_main_chooser(self):
+        """
+        Updates main choices
+
+        Args:
+            self: (todo): write your description
+        """
         self.main_chooser.max_size = self.total_max
         self.main_chooser.min_size = self.total_min
         self.main_chooser.selected_size = self.total_size
@@ -545,6 +653,20 @@ class ParentChooser(GUIWidget):
     glade_file = "parent_chooser.ui"
 
     def __init__(self, parent, free_space, min_size, max_size, reserved_size, selected, parent_selectable, size_selectable):
+        """
+        Initialize window.
+
+        Args:
+            self: (todo): write your description
+            parent: (todo): write your description
+            free_space: (todo): write your description
+            min_size: (int): write your description
+            max_size: (int): write your description
+            reserved_size: (int): write your description
+            selected: (str): write your description
+            parent_selectable: (todo): write your description
+            size_selectable: (int): write your description
+        """
 
         super().__init__()
 
@@ -588,10 +710,23 @@ class ParentChooser(GUIWidget):
     # PROPERTIES
     @property
     def selected(self):
+        """
+        Return the selected item.
+
+        Args:
+            self: (todo): write your description
+        """
         return self._selected
 
     @selected.setter
     def selected(self, status):
+        """
+        Set the selected status.
+
+        Args:
+            self: (todo): write your description
+            status: (str): write your description
+        """
         self._selected = status
 
         # mark the button as (not) selected
@@ -609,10 +744,23 @@ class ParentChooser(GUIWidget):
 
     @property
     def selected_size(self):
+        """
+        The size of the selected size.
+
+        Args:
+            self: (todo): write your description
+        """
         return self.size_chooser.selected_size
 
     @selected_size.setter
     def selected_size(self, new_size):
+        """
+        Return the size of the selected size.
+
+        Args:
+            self: (todo): write your description
+            new_size: (int): write your description
+        """
         if self.size_chooser.selected_size == new_size:
             return
 
@@ -620,28 +768,67 @@ class ParentChooser(GUIWidget):
 
     @property
     def min_size(self):
+        """
+        The minimum size of the minimum size.
+
+        Args:
+            self: (todo): write your description
+        """
         return (self._min_size + self._reserved_size)
 
     @min_size.setter
     def min_size(self, new_size):
+        """
+        The minimum size.
+
+        Args:
+            self: (todo): write your description
+            new_size: (int): write your description
+        """
         self._min_size = new_size
         self.size_chooser.min_size = self.min_size
 
     @property
     def max_size(self):
+        """
+        Returns the maximum size of the queue.
+
+        Args:
+            self: (todo): write your description
+        """
         return self._max_size
 
     @max_size.setter
     def max_size(self, new_size):
+        """
+        Changes the maximum size of the queue.
+
+        Args:
+            self: (todo): write your description
+            new_size: (int): write your description
+        """
         self._max_size = new_size
         self.size_chooser.max_size = new_size
 
     @property
     def reserved_size(self):
+        """
+        The size of the queue.
+
+        Args:
+            self: (todo): write your description
+        """
         return self._reserved_size
 
     @reserved_size.setter
     def reserved_size(self, new_size):
+        """
+        Reserved the new_size.
+
+        Args:
+            self: (todo): write your description
+            new_size: (int): write your description
+        """
         self._reserved_size = new_size
 
         # update the size chooser to reflect updated min size
@@ -661,6 +848,13 @@ class ParentChooser(GUIWidget):
 
     # SIGNAL HANDLERS
     def _on_parent_toggled(self, checkbutton):
+        """
+        Show the button handlers.
+
+        Args:
+            self: (todo): write your description
+            checkbutton: (todo): write your description
+        """
         # set the button to be (not) selected
         # and set sensitivity and selection of the size chooser accordingly
         self.selected = checkbutton.get_active()
@@ -709,10 +903,23 @@ class SizeChooser(GUIWidget):
 
     @property
     def selected_size(self):
+        """
+        The size of the selected size.
+
+        Args:
+            self: (todo): write your description
+        """
         return size.Size(str(self._scale.get_value()) + " " + size.unit_str(self.selected_unit))
 
     @selected_size.setter
     def selected_size(self, selected_size):
+        """
+        Set the size of the selected size.
+
+        Args:
+            self: (todo): write your description
+            selected_size: (int): write your description
+        """
         # XXX: block signals here?
         if selected_size > self.max_size or selected_size < self.min_size:
             raise ValueError("New size must be between minimal (%s) and maximum (%s) size." % (self.min_size, self.max_size))
@@ -721,10 +928,23 @@ class SizeChooser(GUIWidget):
 
     @property
     def max_size(self):
+        """
+        Returns the maximum size of the queue.
+
+        Args:
+            self: (todo): write your description
+        """
         return self._max_size
 
     @max_size.setter
     def max_size(self, max_size):
+        """
+        Return the maximum size of the table.
+
+        Args:
+            self: (todo): write your description
+            max_size: (int): write your description
+        """
         if max_size < 0:
             raise ValueError("New maximum size cannot be negative.")
         if max_size < self.min_size:
@@ -738,10 +958,23 @@ class SizeChooser(GUIWidget):
 
     @property
     def min_size(self):
+        """
+        The minimum size of the minimum size.
+
+        Args:
+            self: (todo): write your description
+        """
         return self._min_size
 
     @min_size.setter
     def min_size(self, min_size):
+        """
+        Return the minimum size of the widget.
+
+        Args:
+            self: (todo): write your description
+            min_size: (int): write your description
+        """
         if min_size < 0:
             raise ValueError("New minimal size cannot be negative.")
         if min_size > self.max_size:
@@ -886,6 +1119,14 @@ class SizeChooser(GUIWidget):
             self.selected_size = selected_size
 
     def update_size_limits(self, min_size=None, max_size=None):
+        """
+        Updates the size
+
+        Args:
+            self: (todo): write your description
+            min_size: (int): write your description
+            max_size: (int): write your description
+        """
         if min_size:
             self.min_size = min_size
         if max_size:

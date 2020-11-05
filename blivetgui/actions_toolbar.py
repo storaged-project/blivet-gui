@@ -26,6 +26,13 @@
 class BlivetGUIToolbar(object):
 
     def __init__(self, blivet_gui):
+        """
+        Initialize the gui.
+
+        Args:
+            self: (todo): write your description
+            blivet_gui: (todo): write your description
+        """
         self.blivet_gui = blivet_gui
         self.buttons = {}
 
@@ -59,6 +66,13 @@ class DeviceToolbar(BlivetGUIToolbar):
     """
 
     def __init__(self, blivet_gui):
+        """
+        Call this method to initialize all devices.
+
+        Args:
+            self: (todo): write your description
+            blivet_gui: (todo): write your description
+        """
         super(DeviceToolbar, self).__init__(blivet_gui)
 
         items = [("add", "clicked", self.blivet_gui.add_device),
@@ -91,6 +105,13 @@ class DeviceToolbar(BlivetGUIToolbar):
 class ActionsToolbar(BlivetGUIToolbar):
 
     def __init__(self, blivet_gui):
+        """
+        Initialize the main window
+
+        Args:
+            self: (todo): write your description
+            blivet_gui: (todo): write your description
+        """
         super(ActionsToolbar, self).__init__(blivet_gui)
 
         self.toolbar = self.blivet_gui.builder.get_object("vbox_topbar")
@@ -108,4 +129,10 @@ class ActionsToolbar(BlivetGUIToolbar):
         self.buttons["undo"] = button_back
 
     def deactivate_all(self):
+        """
+        Deactivate all the items in the database.
+
+        Args:
+            self: (todo): write your description
+        """
         pass

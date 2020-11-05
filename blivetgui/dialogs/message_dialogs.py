@@ -42,6 +42,15 @@ class WarningDialog(object):
     """
 
     def __init__(self, parent_window, msg, decorated=True):
+        """
+        Init a new dialog
+
+        Args:
+            self: (todo): write your description
+            parent_window: (int): write your description
+            msg: (str): write your description
+            decorated: (todo): write your description
+        """
 
         builder = Gtk.Builder()
         builder.set_translation_domain("blivet-gui")
@@ -62,6 +71,15 @@ class ErrorDialog(object):
     """
 
     def __init__(self, parent_window, msg, decorated=True):
+        """
+        Init a new dialog
+
+        Args:
+            self: (todo): write your description
+            parent_window: (int): write your description
+            msg: (str): write your description
+            decorated: (todo): write your description
+        """
 
         builder = Gtk.Builder()
         builder.set_translation_domain("blivet-gui")
@@ -82,6 +100,15 @@ class InfoDialog(object):
     """
 
     def __init__(self, parent_window, msg, decorated=True):
+        """
+        Init a new dialog
+
+        Args:
+            self: (todo): write your description
+            parent_window: (int): write your description
+            msg: (str): write your description
+            decorated: (todo): write your description
+        """
 
         builder = Gtk.Builder()
         builder.set_translation_domain("blivet-gui")
@@ -102,6 +129,18 @@ class ExceptionDialog(object):
     """
 
     def __init__(self, parent_window, allow_ignore, allow_report, msg, traceback, decorated=True):
+        """
+        Initialize the main window
+
+        Args:
+            self: (todo): write your description
+            parent_window: (int): write your description
+            allow_ignore: (bool): write your description
+            allow_report: (bool): write your description
+            msg: (str): write your description
+            traceback: (todo): write your description
+            decorated: (todo): write your description
+        """
 
         self.allow_ignore = allow_ignore
         self.allow_report = allow_report
@@ -128,6 +167,12 @@ class ExceptionDialog(object):
         button_quit.connect("clicked", self._on_quit_button)
 
     def run(self):
+        """
+        Run the button.
+
+        Args:
+            self: (todo): write your description
+        """
         self.dialog.show_all()
 
         # hide buttons
@@ -143,12 +188,33 @@ class ExceptionDialog(object):
         return response
 
     def _on_back_button(self, _button):
+        """
+        Set the back button button_button signal.
+
+        Args:
+            self: (todo): write your description
+            _button: (todo): write your description
+        """
         self.dialog.response(DialogResponseType.BACK)
 
     def _on_report_button(self, _button):
+        """
+        Handle the report button.
+
+        Args:
+            self: (todo): write your description
+            _button: (todo): write your description
+        """
         self.dialog.response(DialogResponseType.REPORT)
 
     def _on_quit_button(self, _button):
+        """
+        Function called when the button is clicked.
+
+        Args:
+            self: (todo): write your description
+            _button: (todo): write your description
+        """
         self.dialog.response(DialogResponseType.QUIT)
 
 
@@ -157,6 +223,16 @@ class ConfirmDialog(object):
     """
 
     def __init__(self, parent_window, title, msg, decorated=True):
+        """
+        Initialize window
+
+        Args:
+            self: (todo): write your description
+            parent_window: (int): write your description
+            title: (str): write your description
+            msg: (str): write your description
+            decorated: (todo): write your description
+        """
 
         builder = Gtk.Builder()
         builder.set_translation_domain("blivet-gui")
@@ -186,6 +262,16 @@ class ConfirmDeleteDialog(object):
     """
 
     def __init__(self, parent_window, device, parents=None, children=None):
+        """
+        Initialize the window.
+
+        Args:
+            self: (todo): write your description
+            parent_window: (int): write your description
+            device: (todo): write your description
+            parents: (todo): write your description
+            children: (todo): write your description
+        """
 
         builder = Gtk.Builder()
         builder.set_translation_domain("blivet-gui")
@@ -234,6 +320,13 @@ class ConfirmDeleteDialog(object):
             self.parent_label.hide()
 
     def set_decorated(self, decorated):
+        """
+        Sets the decor for this widget.
+
+        Args:
+            self: (todo): write your description
+            decorated: (todo): write your description
+        """
         self.dialog.set_decorated(decorated)
 
     def run(self):
@@ -250,6 +343,12 @@ class ConfirmDeleteDialog(object):
 
 
 def show_actions_list(treestore_actions):
+    """
+    Show list of actions list
+
+    Args:
+        treestore_actions: (bool): write your description
+    """
     builder = Gtk.Builder()
     builder.set_translation_domain("blivet-gui")
     builder.add_from_file(locate_ui_file("blivet-gui.ui"))
@@ -266,6 +365,16 @@ class ConfirmActionsDialog(object):
     """
 
     def __init__(self, parent_window, title, msg, treestore_actions):
+        """
+        Function creates window
+
+        Args:
+            self: (todo): write your description
+            parent_window: (todo): write your description
+            title: (str): write your description
+            msg: (str): write your description
+            treestore_actions: (todo): write your description
+        """
         builder = Gtk.Builder()
         builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file("confirm_actions_dialog.ui"))
@@ -305,6 +414,14 @@ class ShowActionsDialog(object):
     """
 
     def __init__(self, parent_window, treestore_actions):
+        """
+        Init window
+
+        Args:
+            self: (todo): write your description
+            parent_window: (todo): write your description
+            treestore_actions: (todo): write your description
+        """
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain("blivet-gui")
         self.builder.add_from_file(locate_ui_file("show_actions_dialog.ui"))
@@ -331,6 +448,13 @@ class ShowActionsDialog(object):
         adjust_scrolled_size(scrolledwindow, win_width, win_height)
 
     def set_decorated(self, decorated):
+        """
+        Sets the decor for this widget.
+
+        Args:
+            self: (todo): write your description
+            decorated: (todo): write your description
+        """
         self.dialog.set_decorated(decorated)
 
     def run(self):
@@ -346,6 +470,14 @@ class CustomDialog(object):
     """
 
     def __init__(self, parent_window, buttons):
+        """
+        Initializes the dialog.
+
+        Args:
+            self: (todo): write your description
+            parent_window: (int): write your description
+            buttons: (todo): write your description
+        """
         builder = Gtk.Builder()
         builder.set_translation_domain("blivet-gui")
         builder.add_from_file(locate_ui_file("custom_dialog.ui"))

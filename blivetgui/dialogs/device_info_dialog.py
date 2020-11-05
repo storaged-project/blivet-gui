@@ -98,6 +98,12 @@ class DeviceInformationDialog(Gtk.Dialog):
         self.show_all()
 
     def _get_partition_info(self):
+        """
+        Return partition information.
+
+        Args:
+            self: (todo): write your description
+        """
         info = _(" • <i>Type:</i> {type}\n").format(type=PARTITION_TYPE[self.device.part_type])
 
         if self.device.parted_partition:
@@ -108,6 +114,12 @@ class DeviceInformationDialog(Gtk.Dialog):
         return info
 
     def _get_lvmlv_info(self):
+        """
+        Returns a string containing the lvm device.
+
+        Args:
+            self: (todo): write your description
+        """
         info = ""
         if self.device.type == "lvmsnapshot":
             info += _(" • <i>Origin:</i> {origin}\n").format(origin=self.device.origin.name)
@@ -126,6 +138,12 @@ class DeviceInformationDialog(Gtk.Dialog):
         return info
 
     def _get_lvmvg_info(self):
+        """
+        Returns a list of device information.
+
+        Args:
+            self: (todo): write your description
+        """
         info = _(" • <i>PE Size:</i> {pesize}\n").format(pesize=str(self.device.pe_size))
         info += _(" • <i>PE Count:</i> {pecount}\n").format(pecount=self.device.pe_count)
         info += _(" • <i>Free Space:</i> {free}\n").format(free=str(self.device.free))
@@ -136,6 +154,12 @@ class DeviceInformationDialog(Gtk.Dialog):
         return info
 
     def _get_btrfs_info(self):
+        """
+        Returns device information.
+
+        Args:
+            self: (todo): write your description
+        """
         info = _(" • <i>Subvol ID:</i> {id}\n").format(id=self.device.format.subvolspec)
 
         if self.device.type == "btrfs volume":
@@ -145,6 +169,12 @@ class DeviceInformationDialog(Gtk.Dialog):
         return info
 
     def _get_mdarray_info(self):
+        """
+        Get metadata
+
+        Args:
+            self: (todo): write your description
+        """
         info = _(" • <i>Level:</i> {level}\n").format(level=str(self.device.level))
         info += _(" • <i>Devices:</i> {dcount}\n").format(dcount=self.device.total_devices)
         info += _(" • <i>Spares:</i> {spares}\n").format(spares=str(self.device.spares))

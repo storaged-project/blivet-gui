@@ -48,6 +48,13 @@ for finder, mod_name, _ispkg in pkgutil.iter_modules(__path__):
             _tests.append(attr)
 
 def _remove_lingua(linguas, language):
+    """
+    Removes the variables in the given language.
+
+    Args:
+        linguas: (str): write your description
+        language: (str): write your description
+    """
     # Read in the LINGUAS file
     with open(linguas, "rt") as f:
         lingua_lines = f.readlines()

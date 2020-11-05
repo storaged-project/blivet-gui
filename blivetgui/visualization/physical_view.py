@@ -35,6 +35,13 @@ from .rectangle import Rectangle
 
 class PhysicalView(object):
     def __init__(self, blivet_gui):
+        """
+        Initialize the gui boxes.
+
+        Args:
+            self: (todo): write your description
+            blivet_gui: (todo): write your description
+        """
         self.blivet_gui = blivet_gui
 
         self.vbox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
@@ -46,6 +53,13 @@ class PhysicalView(object):
         self._devices_list = None
 
     def visualize_parents(self, devices_list):
+        """
+        Visualize parents of the device.
+
+        Args:
+            self: (todo): write your description
+            devices_list: (todo): write your description
+        """
         self._devices_list = devices_list
         self._clear()
 
@@ -55,6 +69,15 @@ class PhysicalView(object):
         self.vbox.show_all()
 
     def _visualization_loop(self, treeiter, box=None, rect_widths=None):
+        """
+        Make a loop.
+
+        Args:
+            self: (todo): write your description
+            treeiter: (todo): write your description
+            box: (todo): write your description
+            rect_widths: (todo): write your description
+        """
         while treeiter:
             depth = self._devices_list.iter_depth(treeiter)
             # lower level of the tree -> visualization of childs
@@ -94,6 +117,14 @@ class PhysicalView(object):
             treeiter = self._devices_list.iter_next(treeiter)
 
     def _compute_rect_widths(self, parent_iter, view_width):
+        """
+        Compute the widths of each element in the tree.
+
+        Args:
+            self: (todo): write your description
+            parent_iter: (int): write your description
+            view_width: (int): write your description
+        """
         width_dict = {}
         allocated_width = 0
 
@@ -171,6 +202,12 @@ class PhysicalView(object):
         return total_size
 
     def _clear(self):
+        """
+        Clears all boxes.
+
+        Args:
+            self: (todo): write your description
+        """
         for rect in self.rectangles:
             rect.hide()
             rect.destroy()
@@ -182,6 +219,16 @@ class PhysicalView(object):
         self.boxes = []
 
     def _new_rectangle(self, device, rtype="", width=90, height=90):
+        """
+        Return a new rectangle.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+            rtype: (str): write your description
+            width: (float): write your description
+            height: (todo): write your description
+        """
         # no labels for 'invalid rectangles' in physical view
         label = not rtype.startswith("child-invalid-")
 
@@ -192,6 +239,13 @@ class PhysicalView(object):
         return rect
 
     def _get_child_position(self, child_iter):
+        """
+        Get the child of the devices.
+
+        Args:
+            self: (todo): write your description
+            child_iter: (int): write your description
+        """
         parent_iter = self._devices_list.iter_parent(child_iter)
         num_childs = self._devices_list.iter_n_children(parent_iter)
 
@@ -203,6 +257,14 @@ class PhysicalView(object):
             return "inner"
 
     def _on_button_press(self, button, event):
+        """
+        Button press press press press.
+
+        Args:
+            self: (todo): write your description
+            button: (todo): write your description
+            event: (todo): write your description
+        """
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             if button.device.is_disk or button.device.type in ("lvmvg", "btrfs volume", "mdarray"):
                 self.blivet_gui.switch_device_view(button.device)

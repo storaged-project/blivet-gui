@@ -31,6 +31,12 @@ from pocketlint.pangocheck import is_markup, markup_match
 import xml.etree.ElementTree as ET
 
 def test_markup(pofile):
+    """
+    Test if the specified translations.
+
+    Args:
+        pofile: (str): write your description
+    """
     po = polib.pofile(pofile)
 
     for entry in po.translated_entries():

@@ -41,6 +41,14 @@ class AboutDialog(object):
     """
 
     def __init__(self, parent_window, version):
+        """
+        Create a context menu
+
+        Args:
+            self: (todo): write your description
+            parent_window: (int): write your description
+            version: (todo): write your description
+        """
 
         builder = Gtk.Builder()
         builder.set_translation_domain("blivet-gui")
@@ -86,9 +94,22 @@ class AddLabelDialog(object):
         self.dialog.show_all()
 
     def set_decorated(self, decorated):
+        """
+        Sets the decor for this widget.
+
+        Args:
+            self: (todo): write your description
+            decorated: (todo): write your description
+        """
         self.dialog.set_decorated(decorated)
 
     def run(self):
+        """
+        Function run the dialog
+
+        Args:
+            self: (todo): write your description
+        """
         response = self.dialog.run()
         label = self.pttype_combo.get_active_text()
 
@@ -123,9 +144,22 @@ class LuksPassphraseDialog(object):
         self.dialog.show_all()
 
     def set_decorated(self, decorated):
+        """
+        Sets the decor for this widget.
+
+        Args:
+            self: (todo): write your description
+            decorated: (todo): write your description
+        """
         self.dialog.set_decorated(decorated)
 
     def run(self):
+        """
+        Function called when a gtk.
+
+        Args:
+            self: (todo): write your description
+        """
 
         response = self.dialog.run()
         passphrase = self.entry_passphrase.get_text()

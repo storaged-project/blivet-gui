@@ -28,10 +28,24 @@ class ListParents(object):
     """
 
     def __init__(self, blivet_gui):
+        """
+        Initialize the gui.
+
+        Args:
+            self: (todo): write your description
+            blivet_gui: (todo): write your description
+        """
         self.blivet_gui = blivet_gui
         self.parents_list = self.blivet_gui.builder.get_object("liststore_physical")
 
     def update_parents_list(self, selected_device):
+        """
+        Update the list of children.
+
+        Args:
+            self: (todo): write your description
+            selected_device: (todo): write your description
+        """
         self.parents_list.clear()
 
         # no physical view for disks, empty list and return
@@ -63,6 +77,13 @@ class ListParents(object):
                     self.parents_list.append(root_iter, [child, False])
 
     def _get_parent_devices(self, device):
+        """
+        Return a list of parent devices.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+        """
         parents = []
         if device.type == "lvmvg":
             for pv in device.pvs:

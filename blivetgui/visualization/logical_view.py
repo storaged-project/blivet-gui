@@ -40,6 +40,13 @@ RECT_MIN_SIZE = 100
 class LogicalView(object):
 
     def __init__(self, blivet_gui):
+        """
+        Initialize all widgets
+
+        Args:
+            self: (todo): write your description
+            blivet_gui: (todo): write your description
+        """
         self.blivet_gui = blivet_gui
 
         self.hbox = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=1)
@@ -54,6 +61,13 @@ class LogicalView(object):
         self._allocated_width = 0
 
     def visualize_devices(self, devices_list):
+        """
+        Visualize all devices.
+
+        Args:
+            self: (todo): write your description
+            devices_list: (todo): write your description
+        """
         self._devices_list = devices_list
 
         self._view_width = self.hbox.get_parent().get_allocation().width
@@ -71,6 +85,12 @@ class LogicalView(object):
         self.hbox.show_all()
 
     def _clear(self):
+        """
+        Clears all boxes.
+
+        Args:
+            self: (todo): write your description
+        """
         for rect in self.rectangles:
             rect.hide()
             rect.destroy()
@@ -82,6 +102,15 @@ class LogicalView(object):
         self.boxes = []
 
     def _visualization_loop(self, rect_widths, treeiter, box):
+        """
+        Perform a loop.
+
+        Args:
+            self: (todo): write your description
+            rect_widths: (todo): write your description
+            treeiter: (todo): write your description
+            box: (todo): write your description
+        """
         while treeiter:
             depth = self._devices_list.iter_depth(treeiter)
             rect_width = rect_widths[self._devices_list[treeiter][0]]
@@ -115,6 +144,12 @@ class LogicalView(object):
             treeiter = self._devices_list.iter_next(treeiter)
 
     def _compute_rect_widths(self):
+        """
+        Computes all the widths of the tree.
+
+        Args:
+            self: (todo): write your description
+        """
         allocated_width = len(self._devices_list) - 1  # spacing
         width_dict = {}
 
@@ -222,6 +257,16 @@ class LogicalView(object):
         return total_size
 
     def _new_rectangle(self, device, rtype="", width=-1, height=-1):
+        """
+        Return a new rectangle with a new rectangles.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+            rtype: (todo): write your description
+            width: (float): write your description
+            height: (todo): write your description
+        """
         button_group = self.rectangles[0] if self.rectangles else None
 
         rect = Rectangle(rtype, button_group, width, height, device)
@@ -233,6 +278,13 @@ class LogicalView(object):
         return rect
 
     def _get_child_position(self, child_iter):
+        """
+        Return the children of the children.
+
+        Args:
+            self: (todo): write your description
+            child_iter: (int): write your description
+        """
         parent_iter = self._devices_list.iter_parent(child_iter)
         num_childs = self._devices_list.iter_n_children(parent_iter)
 
@@ -246,22 +298,52 @@ class LogicalView(object):
             return "inner"
 
     def select_rectanlge(self, device):
+        """
+        Select all rectanlgelge.
+
+        Args:
+            self: (todo): write your description
+            device: (todo): write your description
+        """
         for rect in self.rectangles:
             if rect.device == device:
                 rect.set_active(True)
 
     def _on_rectangle_toggle(self, button):
+        """
+        Toggle the given button.
+
+        Args:
+            self: (todo): write your description
+            button: (todo): write your description
+        """
         if not self._ignore_toggle:
             self._ignore_toggle = True
             self.blivet_gui.list_partitions.select_device(button.device)
             self._ignore_toggle = False
 
     def _on_button_release(self, button, event):
+        """
+        Handle keyboard release events.
+
+        Args:
+            self: (todo): write your description
+            button: (todo): write your description
+            event: (todo): write your description
+        """
         if event.button == 3:
             self._on_rectangle_toggle(button)  # select the button
             self.blivet_gui.popup_menu.menu.popup_at_pointer(None)
 
     def _on_button_press(self, button, event):
+        """
+        Button press press press press.
+
+        Args:
+            self: (todo): write your description
+            button: (todo): write your description
+            event: (todo): write your description
+        """
         if event.type == Gdk.EventType._2BUTTON_PRESS:
             if button.device.is_disk or button.device.type in ("lvmvg", "btrfs volume", "mdarray"):
                 self.blivet_gui.switch_device_view(button.device)

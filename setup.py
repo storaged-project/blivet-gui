@@ -33,15 +33,35 @@ class blivet_gui_sdist(sdist):
     user_options = sdist.user_options + [('mode=', None, "specify mode for sdist; one of 'release', 'normal'"),]
 
     def initialize_options(self):
+        """
+        Initialize options.
+
+        Args:
+            self: (todo): write your description
+        """
         sdist.initialize_options(self)
         self.mode = None
 
     def finalize_options(self):
+        """
+        Finalize options.
+
+        Args:
+            self: (todo): write your description
+        """
         sdist.finalize_options(self)
         if self.mode not in (None, 'release', 'normal'):
             raise AttributeError('Unknown mode %s' % self.mode)
 
     def make_release_tree(self, base_dir, files):
+        """
+        Create a new release tree.
+
+        Args:
+            self: (todo): write your description
+            base_dir: (str): write your description
+            files: (str): write your description
+        """
         # Run the parent command first
         sdist.make_release_tree(self, base_dir, files)
 

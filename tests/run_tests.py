@@ -25,6 +25,11 @@ def _get_tests_from_suite(suite, tests):
 
 
 def parse_args():
+    """
+    Parse command line arguments.
+
+    Args:
+    """
     argparser = argparse.ArgumentParser(description="Blivet-GUI test suite")
     argparser.add_argument("testname", nargs="?",
                            help="name of test class or method (e. g. 'blivetutils_tests.edit_dialog_test')")
@@ -35,6 +40,11 @@ def parse_args():
 
 
 def main():
+    """
+    Main function.
+
+    Args:
+    """
     testdir = os.path.abspath(os.path.dirname(__file__))
     projdir = os.path.abspath(os.path.normpath(os.path.join(testdir, "..")))
 

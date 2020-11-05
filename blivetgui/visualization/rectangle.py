@@ -34,6 +34,18 @@ class Rectangle(Gtk.RadioButton):
     """ Rectangle object """
 
     def __init__(self, rtype, group, width, height, device, label=True):
+        """
+        Initialize a gtk interface.
+
+        Args:
+            self: (todo): write your description
+            rtype: (todo): write your description
+            group: (todo): write your description
+            width: (int): write your description
+            height: (int): write your description
+            device: (todo): write your description
+            label: (str): write your description
+        """
         self.width = width
         self.height = height
 
@@ -68,6 +80,12 @@ class Rectangle(Gtk.RadioButton):
             hbox.pack_start(child=icons, expand=False, fill=False, padding=0)
 
     def _add_device_icons(self):
+        """
+        Add a gtk device to the gtk.
+
+        Args:
+            self: (todo): write your description
+        """
         device_properties = self._get_device_properties()
 
         icon_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, homogeneous=False, spacing=4)
@@ -80,6 +98,12 @@ class Rectangle(Gtk.RadioButton):
         return icon_box
 
     def _get_device_properties(self):
+        """
+        Returns a list of all the device.
+
+        Args:
+            self: (todo): write your description
+        """
         properties = []
         if self.device.type in ("lvmvg", "btrfs volume", "mdarray"):
             properties.append("group")

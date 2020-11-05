@@ -9,6 +9,12 @@ from blivetgui.blivet_utils import BlivetUtils
 
 
 def run_command(command):
+    """
+    Run a command and return its output.
+
+    Args:
+        command: (str): write your description
+    """
     res = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE,
                            stderr=subprocess.PIPE)
 
@@ -26,6 +32,12 @@ class BlivetUtilsTestToolkit(unittest.TestCase):
     blivet_utils = None
 
     def setUp(self):
+        """
+        Sets the devt_utils.
+
+        Args:
+            self: (todo): write your description
+        """
         self.blivet_utils = BlivetUtils(exclusive_disks=self.vdevs)
 
         # check we are really working only with the targetcli disks
@@ -33,9 +45,22 @@ class BlivetUtilsTestToolkit(unittest.TestCase):
         self.assertCountEqual(self.vdevs, [d.name for d in disks])
 
     def get_blivet_device(self, device_name):
+        """
+        Get a device device.
+
+        Args:
+            self: (todo): write your description
+            device_name: (str): write your description
+        """
         return self.blivet_utils.storage.devicetree.get_device_by_name(device_name)
 
     def reset(self):
+        """
+        Reset the controller.
+
+        Args:
+            self: (todo): write your description
+        """
         self.blivet_utils.blivet_reset()
 
 
@@ -45,6 +70,12 @@ class BlivetUtilsTestCase(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """
+        Finds the device classes of the device.
+
+        Args:
+            cls: (todo): write your description
+        """
 
         orig_devs = {dev for dev in os.listdir("/dev") if re.match(r"sd[a-z]+$", dev)}
 
@@ -67,6 +98,12 @@ class BlivetUtilsTestCase(unittest.TestCase):
 
     @classmethod
     def tearDownClass(cls):
+        """
+        Tear down files
+
+        Args:
+            cls: (todo): write your description
+        """
         # remove the fake SCSI devices and their backing files
         _ret, _out = run_command("targetcli clearconfig confirm=True")
         for disk_file in glob.glob("/var/tmp/blivetgui_test_disk*"):

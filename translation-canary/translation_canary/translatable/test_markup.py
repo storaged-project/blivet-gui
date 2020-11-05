@@ -22,6 +22,12 @@ from pocketlint.pangocheck import is_markup, markup_necessary
 import xml.etree.ElementTree as ET
 
 def test_markup(poentry):
+    """
+    Makes an entry as a markup file exists.
+
+    Args:
+        poentry: (todo): write your description
+    """
     # Unnecessary markup is markup applied to an entire string, such as
     # _("<b>Bold Text</b>"). This could be instead be translated as
     # "<b>%s</b>" % _("Bold Text"), and then the translator doesn't have to see

@@ -32,6 +32,12 @@ except ImportError:
 threshold = 10
 
 def test_percentage(pofile):
+    """
+    Calculate percentage of pofile
+
+    Args:
+        pofile: (todo): write your description
+    """
     pofile = polib.pofile(pofile)
     if pofile.percent_translated() < threshold:
         # Issue a warning instead of an exception, since these should probably

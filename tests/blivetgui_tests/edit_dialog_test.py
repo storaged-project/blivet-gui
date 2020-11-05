@@ -19,6 +19,12 @@ class FormatDialogTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """
+        Sets the gtkclsystem.
+
+        Args:
+            cls: (todo): write your description
+        """
         import gi
         gi.require_version("Gtk", "3.0")
         from gi.repository import Gtk
@@ -27,6 +33,12 @@ class FormatDialogTest(unittest.TestCase):
         cls.supported_filesystems = supported_filesystems()
 
     def test_basic(self):
+        """
+        Test the selected.
+
+        Args:
+            self: (todo): write your description
+        """
 
         dev = MagicMock(size=Size("1 GiB"), format=MagicMock(mountpoint=None))
         dialog = FormatDialog(self.parent_window, dev, self.supported_filesystems, [], False)
@@ -63,6 +75,12 @@ class FormatDialogTest(unittest.TestCase):
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_installer(self):
+        """
+        Test for the test test suite.
+
+        Args:
+            self: (todo): write your description
+        """
         dev = MagicMock(size=Size("1 GiB"), format=MagicMock(mountpoint=None))
 
         dialog = FormatDialog(self.parent_window, dev, self.supported_filesystems, [], True)

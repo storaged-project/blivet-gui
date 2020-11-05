@@ -14,6 +14,12 @@ from blivet.size import Size
 class BlivetUtilsServerTest(unittest.TestCase):
 
     def test_pickle_answer(self):
+        """
+        Perform an answer to an answer.
+
+        Args:
+            self: (todo): write your description
+        """
         # string
         msg = "abcdef"
         pickled_msg = BlivetUtilsServer._pickle_answer(MagicMock(), msg)
@@ -65,6 +71,12 @@ class BlivetUtilsServerTest(unittest.TestCase):
         self.assertEqual(unpickled_msg[1], msg[1])
 
     def test_convert_args(self):
+        """
+        Convert arguments to sqlalchemy
+
+        Args:
+            self: (todo): write your description
+        """
         # 'normal' arguments
         args = ["abcdef", 1, 1.01, True, None]
         converted_args = BlivetUtilsServer._args_convertTo_objects(MagicMock(), args)
@@ -97,6 +109,12 @@ class BlivetUtilsServerTest(unittest.TestCase):
         self.assertEqual(converted_args[0]["data3"], arg3_obj.blivet_object)
 
     def test_convert_kwargs(self):
+        """
+        Convert kwargs to kwargs.
+
+        Args:
+            self: (todo): write your description
+        """
         test_dict = {}
 
         arg1 = ProxyID()
@@ -117,27 +135,63 @@ class BlivetProxyObjectTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        """
+        Sets the proxy.
+
+        Args:
+            cls: (todo): write your description
+        """
         cls.blivet_object = MagicMock(set_test=None)
         del cls.blivet_object.non_existing  # mock non-existing attribude
         cls.obj_id = ProxyID()
         cls.proxy_object = BlivetProxyObject(cls.blivet_object, cls.obj_id)
 
     def test_getattr(self):
+        """
+        Get the value is a test.
+
+        Args:
+            self: (todo): write your description
+        """
         self.assertEqual(self.proxy_object.existing, self.blivet_object.existing)
         with self.assertRaises(AttributeError):
             self.proxy_object.non_existing  # pylint: disable=W0104
 
     def test_setattr(self):
+        """
+        Sets the test to the test.
+
+        Args:
+            self: (todo): write your description
+        """
         self.proxy_object.set_test = "test"
         self.assertEqual(self.blivet_object.set_test, "test")
 
     def test_getitem(self):
+        """
+        Retrieve the test results of given an item.
+
+        Args:
+            self: (todo): write your description
+        """
         self.assertEqual(self.proxy_object["key"], self.blivet_object["key"])  # pylint: disable=unsubscriptable-object
 
     def test_str(self):
+        """
+        Test if the test string represents.
+
+        Args:
+            self: (todo): write your description
+        """
         self.assertEqual(str(self.proxy_object), str(self.blivet_object))
 
     def test_len(self):
+        """
+        Test if the objective todo.
+
+        Args:
+            self: (todo): write your description
+        """
         self.assertEqual(len(self.proxy_object), len(self.blivet_object))
 
 

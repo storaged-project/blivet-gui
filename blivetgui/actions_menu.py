@@ -27,6 +27,13 @@ class ActionsMenu(object):
     """
 
     def __init__(self, blivet_gui):
+        """
+        Initialize the menu.
+
+        Args:
+            self: (todo): write your description
+            blivet_gui: (todo): write your description
+        """
         self.blivet_gui = blivet_gui
         self.menu = self.blivet_gui.builder.get_object("actions_menu")
 

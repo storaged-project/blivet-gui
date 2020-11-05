@@ -51,10 +51,25 @@ class BlivetProxyObject(object):
     attrs = ("blivet_object", "id")
 
     def __init__(self, blivet_object, obj_id):
+        """
+        Stub
+
+        Args:
+            self: (todo): write your description
+            blivet_object: (todo): write your description
+            obj_id: (str): write your description
+        """
         self.blivet_object = blivet_object
         self.id = obj_id
 
     def __getattr__(self, name):
+        """
+        Get an object by name.
+
+        Args:
+            self: (todo): write your description
+            name: (str): write your description
+        """
         if not hasattr(self.blivet_object, name):
             raise AttributeError
 
@@ -63,17 +78,39 @@ class BlivetProxyObject(object):
         return subobject
 
     def __setattr__(self, name, value):
+        """
+        Set the value of an attribute.
+
+        Args:
+            self: (todo): write your description
+            name: (str): write your description
+            value: (todo): write your description
+        """
         if name in self.attrs + tuple(object.__dict__.keys()):
             super().__setattr__(name, value)
         else:
             return setattr(self.blivet_object, name, value)
 
     def is_method(self, param_name):
+        """
+        Return true if the given parameter is a method method.
+
+        Args:
+            self: (todo): write your description
+            param_name: (str): write your description
+        """
         subobject = getattr(self.blivet_object, param_name)
 
         return inspect.ismethod(subobject)
 
     def __getitem__(self, key):
+        """
+        Get an item from cache.
+
+        Args:
+            self: (todo): write your description
+            key: (str): write your description
+        """
         try:
             if isinstance(self.blivet_object[key], picklable_types):
                 return self.blivet_object[key]
@@ -85,9 +122,21 @@ class BlivetProxyObject(object):
             return e
 
     def __str__(self):
+        """
+        Returns the string representation of the object.
+
+        Args:
+            self: (todo): write your description
+        """
         return str(self.blivet_object)
 
     def __len__(self):
+        """
+        Returns the number of bytes in bytes.
+
+        Args:
+            self: (todo): write your description
+        """
         if hasattr(self.blivet_object, "__len__"):
             return len(self.blivet_object)
 
@@ -324,6 +373,13 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
         self._send(pickled_answer)
 
     def _progress_report_hook(self, message):
+        """
+        Emit a message.
+
+        Args:
+            self: (todo): write your description
+            message: (str): write your description
+        """
         pickled_msg = self._pickle_answer((False, message))
         self._send(pickled_msg)
 
@@ -356,6 +412,12 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
         return args_obj
 
     def _kwargs_convertTo_objects(self, kwargs):
+        """
+        Convert kwargs to kwargs.
+
+        Args:
+            self: (todo): write your description
+        """
         kwargs_obj = {}
 
         for key in kwargs.keys():
@@ -364,5 +426,12 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-
         return kwargs_obj
 
     def _send(self, data):
+        """
+        Send data to the socket.
+
+        Args:
+            self: (str): write your description
+            data: (todo): write your description
+        """
         data = struct.pack(">I", len(data)) + data
         self.request.sendall(data)  # pylint: disable=no-member

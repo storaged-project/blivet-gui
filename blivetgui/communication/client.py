@@ -41,18 +41,44 @@ class ClientProxyObject(object):
     attrs = ("client", "proxy_id")
 
     def __init__(self, client, proxy_id):
+        """
+        Initialize a proxy.
+
+        Args:
+            self: (todo): write your description
+            client: (todo): write your description
+            proxy_id: (str): write your description
+        """
         self.client = client
         self.proxy_id = proxy_id
 
     def __len__(self):
+        """
+        Return the remote remote proxy
+
+        Args:
+            self: (todo): write your description
+        """
         remote_ret = self.client.remote_method(self.proxy_id, "__len__", (), {})
         return remote_ret
 
     def __iter__(self):
+        """
+        Return an iterator of remote proxy.
+
+        Args:
+            self: (todo): write your description
+        """
         remote_iter = self.client.remote_method(self.proxy_id, "__iter__", (), {})
         return remote_iter
 
     def __call__(self, *args, **kwargs):
+        """
+        Calls the remote method.
+
+        Args:
+            self: (todo): write your description
+        """
         remote_res = self.client.remote_method(self.proxy_id, "__call__", args, kwargs)
 
         if isinstance(remote_res, BaseException):
@@ -61,6 +87,12 @@ class ClientProxyObject(object):
             return remote_res
 
     def __next__(self):
+        """
+        Returns the next remote proxy.
+
+        Args:
+            self: (todo): write your description
+        """
         remote_ret = self.client.remote_next(self.proxy_id)
 
         if isinstance(remote_ret, BaseException):
@@ -71,6 +103,13 @@ class ClientProxyObject(object):
         return remote_ret
 
     def __getitem__(self, key):
+        """
+        Retrieves the key from the cache.
+
+        Args:
+            self: (todo): write your description
+            key: (str): write your description
+        """
         remote_key = self.client.remote_key(self.proxy_id, key)
 
         if isinstance(remote_key, BaseException):
@@ -79,10 +118,23 @@ class ClientProxyObject(object):
             return remote_key
 
     def __str__(self):
+        """
+        Returns a string representation of this proxy.
+
+        Args:
+            self: (todo): write your description
+        """
         remote_str = self.client.remote_method(self.proxy_id, "__str__", (), {})
         return remote_str
 
     def __getattr__(self, attr_name):
+        """
+        Get attribute from the attribute.
+
+        Args:
+            self: (todo): write your description
+            attr_name: (str): write your description
+        """
         remote_attr = self.client.remote_param(self.proxy_id, attr_name)
 
         if isinstance(remote_attr, BaseException) and attr_name not in ("exception",):
@@ -92,6 +144,14 @@ class ClientProxyObject(object):
             return remote_attr
 
     def __setattr__(self, attr_name, value):
+        """
+        Set an attribute on an object.
+
+        Args:
+            self: (todo): write your description
+            attr_name: (str): write your description
+            value: (todo): write your description
+        """
         if attr_name in self.attrs + tuple(object.__dict__.keys()):
             super().__setattr__(attr_name, value)
         else:
@@ -108,6 +168,13 @@ class BlivetGUIClient(object):
     id_dict = {}
 
     def __init__(self, server_socket):
+        """
+        Create a socket.
+
+        Args:
+            self: (todo): write your description
+            server_socket: (todo): write your description
+        """
         self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         self.sock.connect(server_socket)
         self.mutex = Lock()
@@ -239,6 +306,13 @@ class BlivetGUIClient(object):
         return self._answer_convertTo_object(answer)
 
     def remote_do_it(self, show_progress_clbk):
+        """
+        Perform remote pickle on remote
+
+        Args:
+            self: (todo): write your description
+            show_progress_clbk: (bool): write your description
+        """
 
         pickled_data = pickle.dumps(("call", "blivet_do_it", ()))
 
@@ -310,6 +384,13 @@ class BlivetGUIClient(object):
         return data
 
     def _send(self, data):
+        """
+        Send data to the socket.
+
+        Args:
+            self: (str): write your description
+            data: (todo): write your description
+        """
         data = struct.pack(">I", len(data)) + data
 
         try:
