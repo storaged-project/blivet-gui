@@ -55,6 +55,7 @@ from .config import config
 import threading
 import sys
 import atexit
+import os
 
 # ---------------------------------------------------------------------------- #
 
@@ -66,7 +67,7 @@ class BlivetGUI(object):
 
     installer_mode = False
 
-    def __init__(self, client):
+    def __init__(self, client, exclusive_disks=None):
 
         self.client = client
 
@@ -75,6 +76,12 @@ class BlivetGUI(object):
         self.builder.add_from_file(locate_ui_file("blivet-gui.ui"))
 
         self.ignored_disks = []
+
+        # blivet needs only names not paths, e.g. "sda" not "/dev/sda"
+        if exclusive_disks:
+            self.exclusive_disks = [os.path.basename(d) for d in exclusive_disks]
+        else:
+            self.exclusive_disks = []
 
         # allow creating ntfs filesystem
         # XXX: This shouldn't be necessary, NTFS is already "_formattable",
@@ -778,7 +785,7 @@ class BlivetGUI(object):
 
     def blivet_init(self):
         loading_window = LoadingWindow(self.main_window)
-        ret = self._run_thread(loading_window, self.client.remote_control, ("init", self.ignored_disks))
+        ret = self._run_thread(loading_window, self.client.remote_control, ("init", self.ignored_disks, self.exclusive_disks))
 
         if not ret.success:  # pylint: disable=maybe-no-member
             # blivet-gui is already running --> quit
