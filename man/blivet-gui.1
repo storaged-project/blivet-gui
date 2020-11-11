@@ -5,7 +5,7 @@ blivet-gui \- GTK tool for storage configuration
 .B blivet-gui
 [\fB\-h\fR]
 [\fB\-v\fR]
-[\fB\-k\fR]
+[disk]...
 .SH DESCRIPTION
 .B blivet-gui
 is a graphical (GTK) tool for manipulation and configuration of data storage (disks, LVMs, RAIDs) based on blivet library.
@@ -17,8 +17,15 @@ show this help information and exit
 .BR \-v ", " \-\-version
 show version information and exit
 
+.SH EXAMPLES
+You can run blivet-gui from a command line and specify one or more disks.
+.TP
+For example, to start blivet-gui with the disks /dev/sda and /dev/sdb you would use the following command:
+
+blivet-gui /dev/sda /dev/sdb
+
 .SH AUTHOR
 Vojtech Trefny <vtrefny@redhat.com>
 
 .SH COPYRIGHT
-2015, Red Hat, Licensed under GPLv2+
+2020, Red Hat, Licensed under GPLv2+

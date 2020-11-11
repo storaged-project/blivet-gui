@@ -75,6 +75,8 @@ def parse_options():
     parser = argparse.ArgumentParser(description="blivet-gui")
     parser.add_argument("-v", "--version", action="store_true", dest="version", default=False,
                         help=_("show version information"))
+    parser.add_argument("disks", metavar="disk", type=str, nargs="*",
+                        help="run blivet-gui only on specified disk(s) (optional)")
 
     return parser.parse_args()
 
@@ -106,7 +108,7 @@ def main():
             sockfile = output.split()[0]
 
             client = BlivetGUIClient(server_socket=sockfile)
-            BlivetGUI(client)
+            BlivetGUI(client, exclusive_disks=options.disks)
 
 
 if __name__ == '__main__':
