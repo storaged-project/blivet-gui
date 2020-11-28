@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-11 17:13+0200\n"
+"POT-Creation-Date: 2020-09-29 13:02+0200\n"
 "PO-Revision-Date: 2020-06-26 09:40+0000\n"
 "Last-Translator: Akarshan Biswas <akarshan.biswas@gmail.com>\n"
 "Language-Team: Bengali (India) <https://translate.fedoraproject.org/projects/"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.1.1\n"
 
-#: ../blivetgui/osinstall.py:217
+#: ../blivetgui/osinstall.py:219
 #, python-brace-format
 msgid ""
 "{message}\n"
@@ -32,7 +32,7 @@ msgstr ""
 "যদি আপনি এটি প্রতিবেদন করতে চান তবে অ্যানাকোন্ডাকে রিপোর্ট প্রক্রিয়াটি পরিচালনা "
 "করতে দিন।"
 
-#: ../blivetgui/osinstall.py:219
+#: ../blivetgui/osinstall.py:221
 #, python-brace-format
 msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
@@ -42,7 +42,7 @@ msgstr ""
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
-#: ../blivetgui/osinstall.py:267
+#: ../blivetgui/osinstall.py:269
 msgid "actions configured by installer"
 msgstr "ইনস্টলার দ্বারা কনফিগার করা ক্রিয়াগুলি"
 
@@ -118,54 +118,54 @@ msgstr ""
 "অজানা ত্রুটি ঘটেছে। ব্লাইভেট-গুই বন্ধ হয়ে যাবে।\n"
 "{error}"
 
-#: ../blivetgui/blivetgui.py:282
+#: ../blivetgui/blivetgui.py:283
 msgid "Failed to resize the device:"
 msgstr "ডিভাইসটির আকার পরিবর্তন করতে ব্যর্থ:"
 
-#: ../blivetgui/blivetgui.py:294
+#: ../blivetgui/blivetgui.py:295
 #, python-brace-format
 msgid "resize {name} {type}"
 msgstr "পুনরায় আকার দেওয়ার {name}{type}"
 
-#: ../blivetgui/blivetgui.py:313
+#: ../blivetgui/blivetgui.py:314
 msgid "Failed to format the device:"
 msgstr "ডিভাইসটি ফর্ম্যাট করতে ব্যর্থ হয়েছে:"
 
-#: ../blivetgui/blivetgui.py:327
+#: ../blivetgui/blivetgui.py:328
 #, python-brace-format
 msgid "format {name} {type}"
 msgstr "ফরম্যাট {name}{type}"
 
-#: ../blivetgui/blivetgui.py:340
+#: ../blivetgui/blivetgui.py:341
 msgid "Failed to edit the LVM2 Volume Group:"
 msgstr "LVM2 ভলিউম গ্রুপ সম্পাদনা করতে ব্যর্থ:"
 
-#: ../blivetgui/blivetgui.py:355
+#: ../blivetgui/blivetgui.py:356
 #, python-brace-format
 msgid "edit {name} {type}"
 msgstr "সম্পাদন {name}{type}"
 
-#: ../blivetgui/blivetgui.py:384
+#: ../blivetgui/blivetgui.py:385
 msgid "Failed to change filesystem label on the device:"
 msgstr "ডিভাইসে ফাইল সিস্টেম লেবেল পরিবর্তন করতে ব্যর্থ:"
 
-#: ../blivetgui/blivetgui.py:389
+#: ../blivetgui/blivetgui.py:390
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
 msgstr "{name}{type} এর ফাইল সিস্টেম লেভেল পরিবর্তন করুন"
 
-#: ../blivetgui/blivetgui.py:405
+#: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
 "PVs."
 msgstr "{name} সম্পূর্ণ নয়। নিখোঁজ PVগুলি সহ VG তে নতুন LV যুক্ত করা সম্ভব নয়।"
 
-#: ../blivetgui/blivetgui.py:410
+#: ../blivetgui/blivetgui.py:411
 msgid "Not enough free space for a new LVM Volume Group."
 msgstr "নতুন LVM ভলিউম গ্রুপের জন্য পর্যাপ্ত ফাঁকা জায়গা নেই।"
 
-#: ../blivetgui/blivetgui.py:416
+#: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
@@ -174,73 +174,73 @@ msgstr ""
 "ডিস্ক {name} ইতিমধ্যে {label} ডিস্কলেবেলের প্রাথমিক পার্টিশনের সর্বাধিক অনুমোদিত "
 "সংখ্যায় পৌঁছেছে।"
 
-#: ../blivetgui/blivetgui.py:426
+#: ../blivetgui/blivetgui.py:427
 msgid "Failed to add disklabel:"
 msgstr "ডিসক্লেবেল যোগ করতে ব্যর্থ:"
 
-#: ../blivetgui/blivetgui.py:439
+#: ../blivetgui/blivetgui.py:440
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "{name} এ নতুন ডিস্ক্লেবেল তৈরি করুন"
 
-#: ../blivetgui/blivetgui.py:491
+#: ../blivetgui/blivetgui.py:492
 msgid "Failed to add the device:"
 msgstr "ডিভাইস যুক্ত করতে ব্যর্থ:"
 
-#: ../blivetgui/blivetgui.py:506
+#: ../blivetgui/blivetgui.py:507
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr "{size}{type} ডিভাইস যুক্ত করুন"
 
-#: ../blivetgui/blivetgui.py:541
+#: ../blivetgui/blivetgui.py:542
 msgid "Failed to delete the device:"
 msgstr "ডিভাইস মুছতে ব্যর্থ:"
 
-#: ../blivetgui/blivetgui.py:556
+#: ../blivetgui/blivetgui.py:557
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr "পার্টিশন {name} মুছুন"
 
-#: ../blivetgui/blivetgui.py:595
+#: ../blivetgui/blivetgui.py:596
 msgid "Failed to perform the actions:"
 msgstr "ক্রিয়া সম্পাদন করতে ব্যর্থ:"
 
-#: ../blivetgui/blivetgui.py:639
+#: ../blivetgui/blivetgui.py:640
 msgid "Confirm scheduled actions"
 msgstr "নির্ধারিত কর্মের নিশ্চয়তা দিন"
 
-#: ../blivetgui/blivetgui.py:640
+#: ../blivetgui/blivetgui.py:641
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "আপনি কি নির্ধারিত যে আপনি কর্ম সম্পাদন করতে চান?"
 
-#: ../blivetgui/blivetgui.py:681
+#: ../blivetgui/blivetgui.py:682
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
 "'{mountpoint}}' এর আনমাউন্ট ব্যর্থ। আপনি কি নিশ্চিত যে ডিভাইসটি ব্যবহার হচ্ছে না?"
 
-#: ../blivetgui/blivetgui.py:703
+#: ../blivetgui/blivetgui.py:704
 #, fuzzy
 #| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "ডিভাইস ডিক্রিপশন ব্যর্থ হয়েছে। আপনি কি নিশ্চিতভাবে প্রদত্ত পাসওয়ার্ডটি সঠিক?"
 
-#: ../blivetgui/blivetgui.py:753 ../data/ui/blivet-gui.ui:659
+#: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:659
 msgid "Quit"
 msgstr "প্রস্থান"
 
-#: ../blivetgui/blivetgui.py:756
+#: ../blivetgui/blivetgui.py:757
 msgid "blivet-gui is already running"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:757
+#: ../blivetgui/blivetgui.py:758
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:759
+#: ../blivetgui/blivetgui.py:760
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -251,24 +251,24 @@ msgid ""
 "command to force quit it."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:791
+#: ../blivetgui/blivetgui.py:792
 msgid "Failed to init blivet:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:798
+#: ../blivetgui/blivetgui.py:799
 msgid "Quit blivet-gui"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:800
+#: ../blivetgui/blivetgui.py:801
 msgid "Ignore disk and continue"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:803
+#: ../blivetgui/blivetgui.py:804
 #, python-brace-format
 msgid "Error: {error}"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:804
+#: ../blivetgui/blivetgui.py:805
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -277,19 +277,19 @@ msgid ""
 "this disk."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:840
+#: ../blivetgui/blivetgui.py:841
 msgid "Confirm reload storage"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:841
+#: ../blivetgui/blivetgui.py:842
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:872
+#: ../blivetgui/blivetgui.py:873
 msgid "Are you sure you want to quit?"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:873
+#: ../blivetgui/blivetgui.py:874
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
@@ -384,17 +384,17 @@ msgstr ""
 msgid "Scanning storage configuration..."
 msgstr ""
 
-#: ../blivetgui/dialogs/size_chooser.py:196
+#: ../blivetgui/dialogs/size_chooser.py:212
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
 msgstr ""
 
-#: ../blivetgui/dialogs/size_chooser.py:199
+#: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr ""
 
-#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1000
+#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1002
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr ""
@@ -421,7 +421,7 @@ msgid "unformatted"
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:232
-#: ../blivetgui/dialogs/add_dialog.py:1027
+#: ../blivetgui/dialogs/add_dialog.py:1029
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
 msgstr ""
@@ -608,23 +608,23 @@ msgstr ""
 msgid "Filesystem:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:820
+#: ../blivetgui/dialogs/add_dialog.py:822
 msgid "Label:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:828
+#: ../blivetgui/dialogs/add_dialog.py:830
 msgid "Name:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:839
+#: ../blivetgui/dialogs/add_dialog.py:841
 msgid "Mountpoint:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1007
+#: ../blivetgui/dialogs/add_dialog.py:1009
 msgid "Please select at least two parent devices."
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:1021
+#: ../blivetgui/dialogs/add_dialog.py:1023
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr ""

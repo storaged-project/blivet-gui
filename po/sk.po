@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-11 17:13+0200\n"
+"POT-Creation-Date: 2020-09-29 13:02+0200\n"
 "PO-Revision-Date: 2020-09-01 20:29+0000\n"
 "Last-Translator: Ondrej Sulek <feonsu@gmail.com>\n"
 "Language-Team: Slovak <https://translate.fedoraproject.org/projects/blivet/"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Weblate 4.2.1\n"
 
-#: ../blivetgui/osinstall.py:217
+#: ../blivetgui/osinstall.py:219
 #, python-brace-format
 msgid ""
 "{message}\n"
@@ -33,7 +33,7 @@ msgstr ""
 " Kliknite na tlačidlo Nahlásiť na vyvolanie chyby a umožnite anaconde \n"
 " spracovať proces nahlásenia, ak chcete nahlásiť túto chybu."
 
-#: ../blivetgui/osinstall.py:219
+#: ../blivetgui/osinstall.py:221
 #, python-brace-format
 msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
@@ -43,7 +43,7 @@ msgstr ""
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
-#: ../blivetgui/osinstall.py:267
+#: ../blivetgui/osinstall.py:269
 msgid "actions configured by installer"
 msgstr "akcie nastavené inštalátorom"
 
@@ -115,43 +115,43 @@ msgstr ""
 "Vyskytla sa neznáma chyba. Blivet-gui bude ukončený.\n"
 "{error}"
 
-#: ../blivetgui/blivetgui.py:282
+#: ../blivetgui/blivetgui.py:283
 msgid "Failed to resize the device:"
 msgstr "Nepodarilo sa zmeniť veľkosť zariadenia:"
 
-#: ../blivetgui/blivetgui.py:294
+#: ../blivetgui/blivetgui.py:295
 #, python-brace-format
 msgid "resize {name} {type}"
 msgstr "zmeniť veľkosť {name} {type}"
 
-#: ../blivetgui/blivetgui.py:313
+#: ../blivetgui/blivetgui.py:314
 msgid "Failed to format the device:"
 msgstr "Nepodarilo sa naformátovať zariadenie:"
 
-#: ../blivetgui/blivetgui.py:327
+#: ../blivetgui/blivetgui.py:328
 #, python-brace-format
 msgid "format {name} {type}"
 msgstr "formátovať {name} {type}"
 
-#: ../blivetgui/blivetgui.py:340
+#: ../blivetgui/blivetgui.py:341
 msgid "Failed to edit the LVM2 Volume Group:"
 msgstr "Nepodarilo sa upraviť skupinu zväzkov LVM2:"
 
-#: ../blivetgui/blivetgui.py:355
+#: ../blivetgui/blivetgui.py:356
 #, python-brace-format
 msgid "edit {name} {type}"
 msgstr "upraviť {name} {type}"
 
-#: ../blivetgui/blivetgui.py:384
+#: ../blivetgui/blivetgui.py:385
 msgid "Failed to change filesystem label on the device:"
 msgstr "Nepodarilo sa zmeniť menovku súborového systému na zariadení:"
 
-#: ../blivetgui/blivetgui.py:389
+#: ../blivetgui/blivetgui.py:390
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
 msgstr "zmeniť menovku súborového systému {name} {type}"
 
-#: ../blivetgui/blivetgui.py:405
+#: ../blivetgui/blivetgui.py:406
 #, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
@@ -160,11 +160,11 @@ msgstr ""
 "{name} nie je kompletný. Nie je možné pridať nové logické zväzky (LV) do "
 "skupiny zväzkov (VG) s chýbajúcimi fyzickými zväzkami (PV)."
 
-#: ../blivetgui/blivetgui.py:410
+#: ../blivetgui/blivetgui.py:411
 msgid "Not enough free space for a new LVM Volume Group."
 msgstr "Na vytvorenie skupiny zväzkov (VG) LVM nie je dostatok volného miesta."
 
-#: ../blivetgui/blivetgui.py:416
+#: ../blivetgui/blivetgui.py:417
 #, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
@@ -173,68 +173,68 @@ msgstr ""
 "Disk {name} už dosiahol maximálny počet primárnych oddielov pre tabuľku "
 "oddielov {label}."
 
-#: ../blivetgui/blivetgui.py:426
+#: ../blivetgui/blivetgui.py:427
 msgid "Failed to add disklabel:"
 msgstr "Nepodarilo sa pridať menovku disku:"
 
-#: ../blivetgui/blivetgui.py:439
+#: ../blivetgui/blivetgui.py:440
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "vytvoriť novú tabuľku oddielov na {name}"
 
-#: ../blivetgui/blivetgui.py:491
+#: ../blivetgui/blivetgui.py:492
 msgid "Failed to add the device:"
 msgstr "Nepodarilo sa pridať zariadenie:"
 
-#: ../blivetgui/blivetgui.py:506
+#: ../blivetgui/blivetgui.py:507
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr "pridať {size} {type} zariadenie"
 
-#: ../blivetgui/blivetgui.py:541
+#: ../blivetgui/blivetgui.py:542
 msgid "Failed to delete the device:"
 msgstr "Nepodarilo sa zmazať zariadenie:"
 
-#: ../blivetgui/blivetgui.py:556
+#: ../blivetgui/blivetgui.py:557
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr "odstrániť oddiel {name}"
 
-#: ../blivetgui/blivetgui.py:595
+#: ../blivetgui/blivetgui.py:596
 msgid "Failed to perform the actions:"
 msgstr "Nepodarilo sa vykonať akcie:"
 
-#: ../blivetgui/blivetgui.py:639
+#: ../blivetgui/blivetgui.py:640
 msgid "Confirm scheduled actions"
 msgstr "Potvrdenie naplánovaných akcií"
 
-#: ../blivetgui/blivetgui.py:640
+#: ../blivetgui/blivetgui.py:641
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Naozaj chcete vykonať naplánované akcie?"
 
-#: ../blivetgui/blivetgui.py:681
+#: ../blivetgui/blivetgui.py:682
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
 "Odpojenie '{mountpoint}' zlyhalo. Ste si istý, že sa zariadenie nepoužíva?"
 
-#: ../blivetgui/blivetgui.py:703
+#: ../blivetgui/blivetgui.py:704
 #, fuzzy
 #| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr ""
 "Rozšifrovanie zariadenia zlyhalo. Ste si istý, že ste zadali správne heslo?"
 
-#: ../blivetgui/blivetgui.py:753 ../data/ui/blivet-gui.ui:659
+#: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:659
 msgid "Quit"
 msgstr "Ukončiť"
 
-#: ../blivetgui/blivetgui.py:756
+#: ../blivetgui/blivetgui.py:757
 msgid "blivet-gui is already running"
 msgstr "blivet-gui je už spustený"
 
-#: ../blivetgui/blivetgui.py:757
+#: ../blivetgui/blivetgui.py:758
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -242,7 +242,7 @@ msgstr ""
 "Iná inštancia blivet-gui je už spustená.\n"
 "Súčasne môže bežať iba jedna inštancia blivet-gui."
 
-#: ../blivetgui/blivetgui.py:759
+#: ../blivetgui/blivetgui.py:760
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -260,24 +260,24 @@ msgstr ""
 "\n"
 "na jeho vynútené ukončenie."
 
-#: ../blivetgui/blivetgui.py:791
+#: ../blivetgui/blivetgui.py:792
 msgid "Failed to init blivet:"
 msgstr "Nepodarilo sa inicializovať blivet:"
 
-#: ../blivetgui/blivetgui.py:798
+#: ../blivetgui/blivetgui.py:799
 msgid "Quit blivet-gui"
 msgstr "Ukončiť blivet-gui"
 
-#: ../blivetgui/blivetgui.py:800
+#: ../blivetgui/blivetgui.py:801
 msgid "Ignore disk and continue"
 msgstr "Ignorovať disk a pokračovať"
 
-#: ../blivetgui/blivetgui.py:803
+#: ../blivetgui/blivetgui.py:804
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "Chyba: {error}"
 
-#: ../blivetgui/blivetgui.py:804
+#: ../blivetgui/blivetgui.py:805
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -289,19 +289,19 @@ msgstr ""
 "oddielov.\n"
 "Môžete teraz ukončiť blivet-gui, alebo pokračovať bez použitia tohto disku."
 
-#: ../blivetgui/blivetgui.py:840
+#: ../blivetgui/blivetgui.py:841
 msgid "Confirm reload storage"
 msgstr "Potvrdenie znovu načítania úložiska"
 
-#: ../blivetgui/blivetgui.py:841
+#: ../blivetgui/blivetgui.py:842
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "Sú dostupné čakajúce operácie. Naozaj chcete pokračovať?"
 
-#: ../blivetgui/blivetgui.py:872
+#: ../blivetgui/blivetgui.py:873
 msgid "Are you sure you want to quit?"
 msgstr "Naozaj chcete ukončiť aplikáciu?"
 
-#: ../blivetgui/blivetgui.py:873
+#: ../blivetgui/blivetgui.py:874
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr "Sú dostupné čakajúce operácie. Naozaj chcete ukončiť blivet-gui?"
@@ -396,19 +396,19 @@ msgstr "Prehľadáva sa úložisko"
 msgid "Scanning storage configuration..."
 msgstr "Prehľadáva sa konfigurácia úložiska..."
 
-#: ../blivetgui/dialogs/size_chooser.py:196
+#: ../blivetgui/dialogs/size_chooser.py:212
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
 msgstr ""
 "Aktuálne vybratá veľkosť je väčšia ako maximálny limit pre tento výber."
 
-#: ../blivetgui/dialogs/size_chooser.py:199
+#: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr ""
 "Aktuálne vybratá veľkosť je menšia ako minimálny limit pre tento výber."
 
-#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1000
+#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1002
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" nie je platný bod pripojenia."
@@ -437,7 +437,7 @@ msgid "unformatted"
 msgstr "neformátované"
 
 #: ../blivetgui/dialogs/edit_dialog.py:232
-#: ../blivetgui/dialogs/add_dialog.py:1027
+#: ../blivetgui/dialogs/add_dialog.py:1029
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
 msgstr "\"{0}\" nie je platná menovka."
@@ -628,23 +628,23 @@ msgstr "MDArray typ:"
 msgid "Filesystem:"
 msgstr "Súborový systém:"
 
-#: ../blivetgui/dialogs/add_dialog.py:820
+#: ../blivetgui/dialogs/add_dialog.py:822
 msgid "Label:"
 msgstr "Menovka:"
 
-#: ../blivetgui/dialogs/add_dialog.py:828
+#: ../blivetgui/dialogs/add_dialog.py:830
 msgid "Name:"
 msgstr "Názov:"
 
-#: ../blivetgui/dialogs/add_dialog.py:839
+#: ../blivetgui/dialogs/add_dialog.py:841
 msgid "Mountpoint:"
 msgstr "Bod pripojenia:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1007
+#: ../blivetgui/dialogs/add_dialog.py:1009
 msgid "Please select at least two parent devices."
 msgstr "Vyberte aspoň dve rodičovské zariadenia."
 
-#: ../blivetgui/dialogs/add_dialog.py:1021
+#: ../blivetgui/dialogs/add_dialog.py:1023
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" nie je platný názov."
