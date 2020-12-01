@@ -12,6 +12,7 @@ BuildRequires: libappstream-glib
 
 Requires: blivet-gui-runtime = %{version}-%{release}
 Requires: PolicyKit-authentication-agent
+Requires: libblockdev-plugins-all
 
 %description
 Graphical (GTK) tool for manipulation and configuration of data storage
