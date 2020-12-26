@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Luca Ciavatta <luca.ciavatta@gmail.com>, 2016. #zanata
 # Alessio <alciregi@posteo.net>, 2020.
+# Nathan <nathan95@live.it>, 2020.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2020-05-16 06:40+0000\n"
-"Last-Translator: Alessio <alciregi@posteo.net>\n"
+"PO-Revision-Date: 2020-12-26 14:36+0000\n"
+"Last-Translator: Nathan <nathan95@live.it>\n"
 "Language-Team: Italian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/it/>\n"
 "Language: it\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.0.4\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #: ../blivetgui/osinstall.py:219
 #, fuzzy, python-brace-format
@@ -113,6 +114,8 @@ msgid ""
 "Unknown error occured. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
+"Si è verificato un errore sconosciuto. Blivet-gui verrà terminato.\n"
+"{error}"
 
 #: ../blivetgui/blivetgui.py:283
 msgid "Failed to resize the device:"
@@ -125,7 +128,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:314
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "Impossibile formattare il device:"
 
 #: ../blivetgui/blivetgui.py:328
 #, python-brace-format
