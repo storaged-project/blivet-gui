@@ -7,13 +7,14 @@
 # Máximo Castañeda Riloba <mcrcctm@gmail.com>, 2017. #zanata
 # Máximo Castañeda Riloba <mcrcctm@gmail.com>, 2018. #zanata
 # Adolfo Jayme Barrientos <fitoschido@gmail.com>, 2020.
+# Emilio Herrera <ehespinosa57@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2020-08-15 12:16+0000\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitoschido@gmail.com>\n"
+"PO-Revision-Date: 2021-01-09 16:36+0000\n"
+"Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/es/>\n"
 "Language: es\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.4\n"
 
 #: ../blivetgui/osinstall.py:219
 #, python-brace-format
@@ -225,11 +226,9 @@ msgstr ""
 "esté en uso."
 
 #: ../blivetgui/blivetgui.py:704
-#, fuzzy
-#| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr ""
-"No se pudo descifrar el dispositivo. Compruebe que la contraseña es correcta."
+"Falló el desbloqueo. ¿Está seguro de haber puesto la contraseña correcta?"
 
 #: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:659
 msgid "Quit"
@@ -949,16 +948,12 @@ msgid "LiveUSB device"
 msgstr "Dispositivo LiveUSB"
 
 #: ../blivetgui/visualization/rectangle.py:52
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (locked)"
-msgstr "Dispositivo cifrado (cerrado)"
+msgstr "Dispositivo cifrado (bloqueado)"
 
 #: ../blivetgui/visualization/rectangle.py:53
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (unlocked)"
-msgstr "Dispositivo cifrado (cerrado)"
+msgstr "Dispositivo cifrado (desbloqueado)"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Empty device"
@@ -977,10 +972,8 @@ msgid "Device or format is write protected"
 msgstr "El dispositivo o el formato están protegidos contra escritura"
 
 #: ../blivetgui/visualization/rectangle.py:58
-#, fuzzy
-#| msgid "Edit device"
 msgid "Cached device"
-msgstr "Editar dispositivo"
+msgstr "Dispositivo en caché"
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
@@ -991,18 +984,13 @@ msgid "Error"
 msgstr "Error"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
-#, fuzzy
-#| msgctxt "ActionsToolbar|Decrypt"
-#| msgid "Unlock/Open selected device"
 msgid "Unlock device"
-msgstr "Desbloquear/abrir dispositivo seleccionado"
+msgstr "Desbloquea dispositivo"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
-#, fuzzy
-#| msgid "Please enter passphrase to decrypt selected device."
 msgid "Please enter passphrase to unlock selected device."
 msgstr ""
-"Introduzca la frase de acceso para descifrar el dispositivo seleccionado."
+"Introduzca la frase de acceso para desbloquear el dispositivo seleccionado."
 
 #: ../data/ui/luks_passphrase_dialog.ui:52 ../data/ui/encryption_chooser.ui:44
 msgid "Passphrase:"
