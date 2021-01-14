@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # Niv Baehr <bloop93@gmail.com>, 2017. #zanata
-# Yaron Shahrabani <sh.yaron@gmail.com>, 2020.
+# Yaron Shahrabani <sh.yaron@gmail.com>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2020-08-04 15:29+0000\n"
+"PO-Revision-Date: 2021-01-13 19:36+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/he/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.4.1\n"
 
 #: ../blivetgui/osinstall.py:219
 #, python-brace-format
@@ -218,10 +218,8 @@ msgid ""
 msgstr "הניתוק של ‚{mountpoint}’ נכשל. ההתקן אכן לא בשימוש?"
 
 #: ../blivetgui/blivetgui.py:704
-#, fuzzy
-#| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr "פענוח הכונן נכשל. הססמה הזאת בוודאות נכונה?"
+msgstr "השחרור נכשל. הססמה הזאת בוודאות נכונה?"
 
 #: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:659
 msgid "Quit"
@@ -929,16 +927,12 @@ msgid "LiveUSB device"
 msgstr "התקן LiveUSB"
 
 #: ../blivetgui/visualization/rectangle.py:52
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (locked)"
-msgstr "התקן מוצפן (סגור)"
+msgstr "התקן מוצפן (נעול)"
 
 #: ../blivetgui/visualization/rectangle.py:53
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (unlocked)"
-msgstr "התקן מוצפן (סגור)"
+msgstr "התקן מוצפן (משוחרר)"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Empty device"
@@ -957,10 +951,8 @@ msgid "Device or format is write protected"
 msgstr "ההתקן או הפרמוט מוגנים מפני כתיבה"
 
 #: ../blivetgui/visualization/rectangle.py:58
-#, fuzzy
-#| msgid "Edit device"
 msgid "Cached device"
-msgstr "עריכת התקן"
+msgstr "התקן במטמון"
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
@@ -971,17 +963,12 @@ msgid "Error"
 msgstr "שגיאה"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
-#, fuzzy
-#| msgctxt "ActionsToolbar|Decrypt"
-#| msgid "Unlock/Open selected device"
 msgid "Unlock device"
-msgstr "שחרור/פתיחת ההתקן שנבחר"
+msgstr "שחרור התקן"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
-#, fuzzy
-#| msgid "Please enter passphrase to decrypt selected device."
 msgid "Please enter passphrase to unlock selected device."
-msgstr "נא להקליד את מילת הצופן כדי לפענח את ההתקן הנבחר."
+msgstr "נא להקליד את מילת הצופן כדי לשחרר את ההתקן הנבחר."
 
 #: ../data/ui/luks_passphrase_dialog.ui:52 ../data/ui/encryption_chooser.ui:44
 msgid "Passphrase:"
