@@ -1,23 +1,24 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # A S Alam <aalam@fedoraproject.org>, 2019. #zanata
+# A S Alam <amanpreet.alam@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2019-05-23 02:37+0000\n"
-"Last-Translator: A S Alam <aalam@fedoraproject.org>\n"
-"Language-Team: Punjabi\n"
+"PO-Revision-Date: 2021-01-24 19:38+0000\n"
+"Last-Translator: A S Alam <amanpreet.alam@gmail.com>\n"
+"Language-Team: Punjabi <https://translate.fedoraproject.org/projects/blivet/"
+"blivet-gui/pa/>\n"
 "Language: pa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Weblate 4.4.2\n"
 
 #: ../blivetgui/osinstall.py:219
 #, python-brace-format
@@ -106,7 +107,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:283
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "ਡਿਵਾਈਸ ਦਾ ਆਕਾਰ ਬਦਲਣ ਲਈ ਅਸਫ਼ਲ:"
 
 #: ../blivetgui/blivetgui.py:295
 #, python-brace-format
@@ -115,7 +116,7 @@ msgstr "ਮੁੜ-ਆਕਾਰ {name} {type}"
 
 #: ../blivetgui/blivetgui.py:314
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "ਡਿਵਾਈਸ ਨੂੰ ਫਾਰਮੈਟ ਕਰਨ ਲਈ ਅਸਫ਼ਲ:"
 
 #: ../blivetgui/blivetgui.py:328
 #, python-brace-format
@@ -124,7 +125,7 @@ msgstr "ਫਾਰਮੈਟ {name} {type}"
 
 #: ../blivetgui/blivetgui.py:341
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "LVM2 ਵਾਲੀਅਮ ਗਰੁੱਪ ਸੋਧਣ ਲਈ ਅਸਫ਼ਲ ਹੈ:"
 
 #: ../blivetgui/blivetgui.py:356
 #, python-brace-format
@@ -133,12 +134,12 @@ msgstr "{name} {type} ਸੋਧੋ"
 
 #: ../blivetgui/blivetgui.py:385
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "ਡਿਵਾਈਸ ਉੱਤੇ ਫਾਇਲ-ਸਿਸਟਮ ਲੇਬਲ ਨੂੰ ਬਦਲਣ ਲਈ ਅਸਫ਼ਲ ਹੈ:"
 
 #: ../blivetgui/blivetgui.py:390
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "{name} {type} ਦਾ ਫਾਇਲ-ਸਿਸਟਮ ਲੇਬਲ ਬਦਲੋ"
 
 #: ../blivetgui/blivetgui.py:406
 #, python-brace-format
@@ -206,7 +207,7 @@ msgstr "ਅਣ-ਮਾਊਂਟ ਕਰਨਾ ਅਸਫ਼ਲ ਹੈ। ਪੱਕ�
 
 #: ../blivetgui/blivetgui.py:704
 msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr ""
+msgstr "ਅਣ-ਲਾਕ ਕਰਨਾ ਅਸਫ਼ਲ। ਕੀ ਤੁਸੀਂ ਠੀਕ ਪਾਸਵਰਡ ਦਿੱਤਾ ਹੈ?"
 
 #: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:659
 msgid "Quit"
@@ -239,7 +240,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:799
 msgid "Quit blivet-gui"
-msgstr ""
+msgstr "blivet-gui ਤੋਂ ਬਾਹਰ"
 
 #: ../blivetgui/blivetgui.py:801
 msgid "Ignore disk and continue"
@@ -265,7 +266,7 @@ msgstr "ਸਟੋਰੇਜ਼ ਮੁੜ-ਲੋਡ ਕਰਨ ਦੀ ਤਸਦੀ�
 
 #: ../blivetgui/blivetgui.py:842
 msgid "There are pending operations. Are you sure you want to continue?"
-msgstr ""
+msgstr "ਕਾਰਵਾਈਆਂ ਬਾਕੀ ਪਈਆਂ ਹਨ। ਕੀ ਤੁਸੀਂ ਜਾਰੀ ਰੱਖਣਾ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: ../blivetgui/blivetgui.py:873
 msgid "Are you sure you want to quit?"
@@ -283,7 +284,7 @@ msgstr "ਖਾਲੀ ਥਾਂ"
 #: ../blivetgui/blivet_utils.py:606
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
-msgstr ""
+msgstr "{type} ਡਿਵਾਈਸ ਨੂੰ ਮੁੜ-ਆਕਾਰ ਕਰਨਾ ਇਸ ਵੇਲੇ ਸਹਾਇਕ ਨਹੀਂ ਹੈ"
 
 #: ../blivetgui/blivet_utils.py:611
 #, fuzzy
@@ -303,19 +304,19 @@ msgstr "ਇਹ ਡਿਵਾਈਸ ਦਾ ਆਕਾਰ ਬਦਲਿਆ ਨਹੀ�
 
 #: ../blivetgui/blivet_utils.py:632
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "ਨਾ-ਫਾਰਮੈਟ ਕੀਤੇ ਡਿਵਾਈਸ ਆਕਾਰ ਬਦਲਣਯੋਗ ਨਹੀਂ ਹਨ"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
 #: ../blivetgui/blivet_utils.py:639
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
-msgstr ""
+msgstr "{type} ਫਾਰਮੈਤ ਨੂੰ ਮੁੜ-ਆਕਾਰ ਕਰਨ ਇਸ ਵੇਲੇ ਸਹਾਇਕ ਨਹੀਂ ਹੈ"
 
 #: ../blivetgui/blivet_utils.py:644
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
-msgstr ""
+msgstr "{type} ਫਾਰਮੈਟ ਨੂੰ ਮੁੜ ਆਕਾਰ ਵਾਲੇ ਟੂਲ ਮੌਜੂਦ ਨਹੀਂ ਹਨ।"
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
@@ -331,25 +332,21 @@ msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
 
 #: ../blivetgui/blivet_utils.py:661
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Mounted devices cannot be resized"
-msgstr "ਇਹ ਡਿਵਾਈਸ ਦਾ ਆਕਾਰ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ।"
+msgstr "ਮਾਊੰਟ ਕੀਤੇ ਡਿਵਾਈਸਾ ਦਾ ਆਕਾਰ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: ../blivetgui/blivet_utils.py:666
 msgid "Logical Volumes with snapshots cannot be resized."
-msgstr ""
+msgstr "ਸਨੈਪਸ਼ਾਟ ਵਾਲੇ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਦਾ ਆਕਾਰ ਨਹੀਂ ਬਦਲਿਆ ਜਾ ਸਕਦਾ ਹੈ।"
 
 #: ../blivetgui/blivet_utils.py:678
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
-msgstr ""
+msgstr "ਫਾਇਲ-ਸਿਸਟਮ ਆਕਾਰ ਦੀ ਜਾਣਕਾਰੀ ਅੱਪਡੇਟ ਕਰਨ ਲਈ ਅਸਫ਼ਲ: {error}"
 
 #: ../blivetgui/blivet_utils.py:697
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Device is not resizable."
-msgstr "ਇਹ ਡਿਵਾਈਸ ਦਾ ਆਕਾਰ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ।"
+msgstr "ਡਿਵਾਈਸ ਦਾ ਆਕਾਰ ਬਦਲਣਯੋਗ ਨਹੀਂ ਹੈ।"
 
 #: ../blivetgui/blivet_utils.py:699
 msgid "Format is not resizable after updating its size limit information."
@@ -364,8 +361,8 @@ msgstr "ਕੋਈ ਬਕਾਇਆ ਕਾਰਵਾਈ ਨਹੀਂ ਹੈ"
 #, python-format
 msgid "%s pending action"
 msgid_plural "%s pending actions"
-msgstr[0] "%s ਕਾਰਵਾਈਆਂ ਬਕਾਇਆ ਹਨ"
-msgstr[1] ""
+msgstr[0] "%s ਕਾਰਵਾਈ ਬਕਾਇਆ ਹੈ"
+msgstr[1] "%s ਕਾਰਵਾਈਆਂ ਬਕਾਇਆ ਹਨ"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -373,7 +370,7 @@ msgstr "ਸਟੋਰੇਜ਼ ਦੀ ਪੜਤਾਲ ਕਰੋ"
 
 #: ../blivetgui/loading_window.py:65
 msgid "Scanning storage configuration..."
-msgstr ""
+msgstr "...ਸਟੋਰੇਜ਼ ਸੰਰਚਨਾ ਦੀ ਜਾਂਚ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
 
 #: ../blivetgui/dialogs/size_chooser.py:212
 msgid ""
@@ -388,12 +385,12 @@ msgstr ""
 #: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1002
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
-msgstr ""
+msgstr "\"{0}\" ਵਾਜਬ ਮਾਊਂਟ ਪੁਆਇੰਟ ਨਹੀਂ ਹੈ।"
 
 #: ../blivetgui/dialogs/helpers.py:148
 #, python-brace-format
 msgid "Selected mountpoint \"{0}\" is already set for another device."
-msgstr ""
+msgstr "ਚੁਣਿਆ ਮਾਊਂਟ ਪੁਆਇੰਟ \"{0}\" ਪਹਿਲਾਂ ਹੀ ਹੋਰ ਡਿਵਾਈਸ ਲਈ ਸੈੱਟ ਕੀਤਾ ਹੈ।"
 
 #: ../blivetgui/dialogs/edit_dialog.py:103
 #, python-brace-format
@@ -401,6 +398,8 @@ msgid ""
 "<b>This device cannot be resized:</b>\n"
 "<i>{0}</i>"
 msgstr ""
+"<b>ਇਸ ਡਿਵਾਈਸ ਦਾ ਆਕਾਰ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ:</b>\n"
+"<i>{0}</i>"
 
 #: ../blivetgui/dialogs/edit_dialog.py:105
 msgid "This device cannot be resized."
@@ -415,12 +414,12 @@ msgstr "ਬਿਨ-ਫਾਰਮੈਟ ਕੀਤਾ"
 #: ../blivetgui/dialogs/add_dialog.py:1029
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
-msgstr ""
+msgstr "\"{0}\" ਵਾਜਬ ਲੇਬਲ ਨਹੀਂ ਹੈ।"
 
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "'{label}' ਇਸ ਫਾਇਲ-ਸਿਸਟਮ ਲਈ ਵਾਜਬ ਲੇਬਲ ਨਹੀਂ ਹੈ"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:518
@@ -496,7 +495,7 @@ msgstr "ਹਟਾਉਣਾ ਹੈ?"
 #. your name and email address (optional) here. Separate translator names with newlines.
 #: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
-msgstr ""
+msgstr "ਅ ਸ ਆਲਮ (੨੦੨੧) www.satluj.org"
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
@@ -585,7 +584,7 @@ msgstr ""
 #: ../blivetgui/dialogs/add_dialog.py:410
 #: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "Btrfs Subvolume"
-msgstr ""
+msgstr "Btrfs ਸਬ-ਵਾਲੀਅਮ"
 
 #: ../blivetgui/dialogs/add_dialog.py:416
 msgid "Device type:"
@@ -618,7 +617,7 @@ msgstr ""
 #: ../blivetgui/dialogs/add_dialog.py:1023
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
-msgstr ""
+msgstr "\"{0}\" ਵਾਜਬ ਨਾਂ ਨਹੀਂ ਹੈ।"
 
 #: ../blivetgui/dialogs/message_dialogs.py:197
 msgid "Confirm delete operation"
@@ -676,15 +675,15 @@ msgstr "{0} ਬਾਰੇ ਜਾਣਕਾਰੀ"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:81
 msgid "LVM2 Snapshot"
-msgstr ""
+msgstr "LVM2 ਸਨੈਪਸ਼ਾਟ"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:84
 msgid "LUKS/DM-Crypt Device"
-msgstr ""
+msgstr "LUKS/DM-ਕ੍ਰਿਪਟ ਡਿਵਾਈਸ"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:87
 msgid "MD RAID Array"
-msgstr ""
+msgstr "MD RAID ਅਰੇ"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "DM Integrity Device"
@@ -699,34 +698,34 @@ msgstr " • <i>ਕਿਸਮ:</i> {type}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:104
 #, python-brace-format
 msgid " • <i>Length:</i> {length}\n"
-msgstr ""
+msgstr " • <i>ਲੰਬਾਈ:</i> {length}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:105
 #, python-brace-format
 msgid " • <i>Start:</i> {start}\n"
-msgstr ""
+msgstr " • <i>ਸ਼ੁਰੂ:</i> {start}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:106
 #, python-brace-format
 msgid " • <i>End:</i> {end}\n"
-msgstr ""
+msgstr " • <i>ਅੰਤ:</i> {end}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:113
 #, python-brace-format
 msgid " • <i>Origin:</i> {origin}\n"
-msgstr ""
+msgstr " • <i>ਮੁੱਢ:</i> {origin}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:114
 #: ../blivetgui/dialogs/device_info_dialog.py:116
 #: ../blivetgui/dialogs/device_info_dialog.py:120
 #, python-brace-format
 msgid " • <i>Segment type:</i> {segtype}\n"
-msgstr ""
+msgstr " • <i>ਸਿਗਮੈਂਟ ਕਿਸਮ:</i> {segtype}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:117
 #, python-brace-format
 msgid " • <i>Free space:</i> {free}\n"
-msgstr ""
+msgstr " • <i>ਖਾਲੀ ਥਾਂ:</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:118
 #, python-brace-format
@@ -740,7 +739,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/device_info_dialog.py:124
 msgid " • <i>Cached:</i> No\n"
-msgstr ""
+msgstr " • <i>ਕੈਸ਼ ਕੀਤਾ:</i> ਨਹੀਂ\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:129
 #, python-brace-format
@@ -755,7 +754,7 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:131
 #, python-brace-format
 msgid " • <i>Free Space:</i> {free}\n"
-msgstr ""
+msgstr " • <i>ਖਾਲੀ ਥਾਂ:</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:132
 #, python-brace-format
@@ -791,7 +790,7 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:148
 #, python-brace-format
 msgid " • <i>Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>ਲੈਵਲ:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:149
 #, python-brace-format
@@ -801,7 +800,7 @@ msgstr " • <i>ਡਿਵਾਈਸ:</i> {dcount}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:150
 #, python-brace-format
 msgid " • <i>Spares:</i> {spares}\n"
-msgstr ""
+msgstr " • <i>ਸਪੇਅਰ:</i> {spares}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
@@ -811,7 +810,7 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:152
 #, python-brace-format
 msgid " • <i>Metadata Version:</i> {metadata}\n"
-msgstr ""
+msgstr " • <i>ਮੇਟਾਡਾਟਾ ਵਰਜ਼ਨ:</i> {metadata}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:167
 #, python-brace-format
@@ -834,7 +833,7 @@ msgstr "ਮੌਜੂਦਾ"
 #: ../blivetgui/dialogs/device_info_dialog.py:221
 #: ../blivetgui/dialogs/device_info_dialog.py:256
 msgid "non-existing"
-msgstr ""
+msgstr "ਗ਼ੈਰ-ਮੌਜੂਦ"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:186
 #: ../blivetgui/dialogs/device_info_dialog.py:222
@@ -850,12 +849,12 @@ msgstr " • <i>ਨਾਂ:</i> {name}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:188
 #, python-brace-format
 msgid " • <i>Path:</i> {path}\n"
-msgstr ""
+msgstr " • <i>ਪਾਥ:</i> {path}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:189
 #, python-brace-format
 msgid " • <i>Size:</i> {size}\n"
-msgstr ""
+msgstr " • <i>ਆਕਾਰ:</i> {size}\n"
 
 #. device format header
 #: ../blivetgui/dialogs/device_info_dialog.py:210
@@ -894,7 +893,7 @@ msgstr " • {exists} {size} {type} {name}\n"
 #: ../blivetgui/communication/client.py:302
 #: ../blivetgui/communication/client.py:319
 msgid "Failed to connect to blivet-gui-daemon"
-msgstr ""
+msgstr "blivet-gui-daemon ਨਾਲ ਕਨੈਕਟ ਹੋਣ ਲਈ ਅਸਫ਼ਲ"
 
 #: ../blivetgui/visualization/rectangle.py:50
 msgid "Group device"
@@ -902,7 +901,7 @@ msgstr "ਗਰੁੱਪ ਡਿਵਾਈਸ"
 
 #: ../blivetgui/visualization/rectangle.py:51
 msgid "LiveUSB device"
-msgstr ""
+msgstr "LiveUSB ਡਿਵਾਈਸ"
 
 #: ../blivetgui/visualization/rectangle.py:52
 #, fuzzy
@@ -912,7 +911,7 @@ msgstr "ਡਿਵਾਈਸ ਡਿਕ੍ਰਿਪਟ ਕਰੋ"
 
 #: ../blivetgui/visualization/rectangle.py:53
 msgid "Encrypted device (unlocked)"
-msgstr ""
+msgstr "ਇੰਕ੍ਰਿਪਟ ਕੀਤਾ ਡਿਵਾਈਸ (ਅਣ-ਲਾਕ)"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Empty device"
@@ -928,7 +927,7 @@ msgstr "ਪਾਰਟੀਸ਼ਨ ਟੇਬਲ ਗੁੰਮ ਹੈ"
 
 #: ../blivetgui/visualization/rectangle.py:57
 msgid "Device or format is write protected"
-msgstr ""
+msgstr "ਡਿਵਾਈਸ ਜਾਂ ਫਾਰਮੈਟ ਲਿਖਣ ਤੋਂ ਸੁਰੱਖਿਅਤ ਹੈ"
 
 #: ../blivetgui/visualization/rectangle.py:58
 #, fuzzy
@@ -994,7 +993,7 @@ msgstr "ਮਾਊਂਟ-ਥਾਂ ਨਿਯਤ ਕਰੋ"
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
 msgid "Set label"
-msgstr ""
+msgstr "ਲੇਬਲ ਦਿਓ"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
 msgid "Set partition table"
@@ -1090,7 +1089,7 @@ msgstr "blivet-gui ਬਾਰੇ"
 
 #: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
 msgid "Cancel"
-msgstr ""
+msgstr "ਰੱਦ ਕਰੋ"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
@@ -1185,7 +1184,7 @@ msgstr "ਇੰਕ੍ਰਿਪਸ਼ਨ:"
 
 #: ../data/ui/encryption_chooser.ui:32
 msgid "Encryption type:"
-msgstr ""
+msgstr "ਇੰਕ੍ਰਿਪਸ਼ਨ ਦੀ ਕਿਸਮ:"
 
 #: ../data/ui/encryption_chooser.ui:56
 msgid "Repeat Passphrase:"
@@ -1251,11 +1250,11 @@ msgstr "ਆਕਾਰ ਬਦਲੋ(_R)"
 #: ../data/ui/label_dialog.ui:39
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "ਲੇਬਲ ਬਦਲੋ"
 
 #: ../data/ui/label_dialog.ui:71
 msgid "Enter new label for this filesystem:"
-msgstr ""
+msgstr "ਇਸ ਫਾਇਲ ਸਿਸਟਮ ਲਈ ਨਵਾਂ ਲੇਬਲ ਦਿਓ:"
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
