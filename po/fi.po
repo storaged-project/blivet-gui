@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2018. #zanata, 2020.
-# Ricky Tigg <ricky.tigg@gmail.com>, 2020.
+# Ricky Tigg <ricky.tigg@gmail.com>, 2020, 2021.
 # Jan Kuparinen <copper_fin@hotmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2021-01-10 19:36+0000\n"
-"Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
+"PO-Revision-Date: 2021-02-13 07:40+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fi/>\n"
 "Language: fi\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4\n"
+"X-Generator: Weblate 4.4.2\n"
 
 #: ../blivetgui/osinstall.py:219
 #, python-brace-format
@@ -976,7 +976,7 @@ msgstr "Avaa laite"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
 msgid "Please enter passphrase to unlock selected device."
-msgstr "Anna tunnuslause avataksesi valittu laite."
+msgstr "Anna tunnuslause avataksesi valitun laitteen lukituksen."
 
 #: ../data/ui/luks_passphrase_dialog.ui:52 ../data/ui/encryption_chooser.ui:44
 msgid "Passphrase:"
