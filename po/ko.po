@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2021-03-10 17:01+0000\n"
+"Last-Translator: simmon <simmon@nplob.com>\n"
+"Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
+"blivet-gui/ko/>\n"
 "Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.5.1\n"
 
 #: ../blivetgui/osinstall.py:219
 #, python-brace-format
@@ -24,6 +26,10 @@ msgid ""
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+"Please click Report button to raise the error and let anaconda\n"
+"to handle the report process if you want to report this."
 
 #: ../blivetgui/osinstall.py:221
 #, python-brace-format
@@ -31,52 +37,54 @@ msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
+"알지 못하는 오류가 발생하였습니다. 아나콘다가 종료됩니다.\n"
+"{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
 #: ../blivetgui/osinstall.py:269
 msgid "actions configured by installer"
-msgstr ""
+msgstr "설치 관리자에 의해 구성한 동작"
 
 #: ../blivetgui/list_devices.py:82
 msgid "Disks"
-msgstr ""
+msgstr "디스크"
 
 #: ../blivetgui/list_devices.py:102
 msgid "LVM"
-msgstr ""
+msgstr "LVM"
 
 #: ../blivetgui/list_devices.py:105
 msgid "LVM2 VG"
-msgstr ""
+msgstr "LVM2 VG"
 
 #: ../blivetgui/list_devices.py:108
 msgid "RAID"
-msgstr ""
+msgstr "레이드"
 
 #: ../blivetgui/list_devices.py:111
 msgid "MDArray"
-msgstr ""
+msgstr "MDArray"
 
 #: ../blivetgui/list_devices.py:114
 msgid "Btrfs Volumes"
-msgstr ""
+msgstr "Btrfs 볼륨"
 
 #: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:388
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "Btrfs Volume"
-msgstr ""
+msgstr "Btrfs 볼륨"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
-msgstr ""
+msgstr "처리중"
 
 #: ../blivetgui/processing_window.py:83
 msgid "Show actions"
-msgstr ""
+msgstr "실행 보여주기"
 
 #: ../blivetgui/processing_window.py:158
 msgid "All queued actions have been processed."
-msgstr ""
+msgstr "모든 작업이 처리되었습니다."
 
 #: ../blivetgui/processing_window.py:173
 #, python-brace-format
@@ -84,6 +92,8 @@ msgid ""
 "<b>Processing action {num} of {total}</b>:\n"
 "<i>{action}</i>"
 msgstr ""
+"<b>진행 동작 {total}의 {num}</b>:\n"
+"<i>{action}</i>"
 
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
@@ -91,6 +101,8 @@ msgid ""
 "Unknown error occured.\n"
 "{error}"
 msgstr ""
+"알지 못하는 오류 발생.\n"
+"{error}"
 
 #: ../blivetgui/exception_handler.py:77
 #, python-brace-format
@@ -98,24 +110,26 @@ msgid ""
 "Unknown error occured. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
+"알지 못하는 오류 발생. Blivet-gui는 종료됩니다.\n"
+"{error}"
 
 #: ../blivetgui/blivetgui.py:283
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "장치 조정이 실패하였습니다:"
 
 #: ../blivetgui/blivetgui.py:295
 #, python-brace-format
 msgid "resize {name} {type}"
-msgstr ""
+msgstr "조정 {name} {type}"
 
 #: ../blivetgui/blivetgui.py:314
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "장치 초기화에 실패하였습니다:"
 
 #: ../blivetgui/blivetgui.py:328
 #, python-brace-format
 msgid "format {name} {type}"
-msgstr ""
+msgstr "초기화 {name} {type}"
 
 #: ../blivetgui/blivetgui.py:341
 msgid "Failed to edit the LVM2 Volume Group:"
