@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2021-03-20 06:01+0000\n"
+"PO-Revision-Date: 2021-03-22 08:01+0000\n"
 "Last-Translator: simmon <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
@@ -245,11 +245,11 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:792
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "blivet 초기화에 실패하였습니다:"
 
 #: ../blivetgui/blivetgui.py:799
 msgid "Quit blivet-gui"
-msgstr ""
+msgstr "blivet-gui 종료"
 
 #: ../blivetgui/blivetgui.py:801
 msgid "Ignore disk and continue"
@@ -288,7 +288,7 @@ msgstr ""
 
 #: ../blivetgui/blivet_utils.py:78
 msgid "free space"
-msgstr ""
+msgstr "여유 공간"
 
 #: ../blivetgui/blivet_utils.py:606
 #, python-brace-format
@@ -297,7 +297,7 @@ msgstr ""
 
 #: ../blivetgui/blivet_utils.py:611
 msgid "Protected devices cannot be resized"
-msgstr ""
+msgstr "보호된 장치는 크기를 줄일 수 없습니다"
 
 #: ../blivetgui/blivet_utils.py:616
 msgid "Immutable formats cannot be resized"
@@ -336,11 +336,11 @@ msgstr ""
 
 #: ../blivetgui/blivet_utils.py:661
 msgid "Mounted devices cannot be resized"
-msgstr ""
+msgstr "적재된 장치는 크기를 줄일 수 없습니다"
 
 #: ../blivetgui/blivet_utils.py:666
 msgid "Logical Volumes with snapshots cannot be resized."
-msgstr ""
+msgstr "스냅샷과 같은 로지컬 볼륨은 크기를 줄일 수 없습니다."
 
 #: ../blivetgui/blivet_utils.py:678
 #, python-brace-format
@@ -349,7 +349,7 @@ msgstr ""
 
 #: ../blivetgui/blivet_utils.py:697
 msgid "Device is not resizable."
-msgstr ""
+msgstr "장치는 크기를 재지정 할 수 없습니다."
 
 #: ../blivetgui/blivet_utils.py:699
 msgid "Format is not resizable after updating its size limit information."
@@ -358,21 +358,21 @@ msgstr ""
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
 #: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
 msgid "No pending actions"
-msgstr ""
+msgstr "지연 동작이 없습니다"
 
 #: ../blivetgui/list_actions.py:99 ../blivetgui/list_actions.py:123
 #, python-format
 msgid "%s pending action"
 msgid_plural "%s pending actions"
-msgstr[0] ""
+msgstr[0] "%s 지연 동작"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
-msgstr ""
+msgstr "저장장치 탐색"
 
 #: ../blivetgui/loading_window.py:65
 msgid "Scanning storage configuration..."
-msgstr ""
+msgstr "저장장치 설정 찾기..."
 
 #: ../blivetgui/dialogs/size_chooser.py:212
 msgid ""
@@ -403,12 +403,12 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:105
 msgid "This device cannot be resized."
-msgstr ""
+msgstr "이 장치는 크기를 조절 할 수 없습니다."
 
 #: ../blivetgui/dialogs/edit_dialog.py:165
 #: ../blivetgui/dialogs/add_dialog.py:792
 msgid "unformatted"
-msgstr ""
+msgstr "형식화 되지 않은"
 
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #: ../blivetgui/dialogs/add_dialog.py:1029
@@ -424,7 +424,7 @@ msgstr ""
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:518
 msgid "Edit device"
-msgstr ""
+msgstr "장치 편집"
 
 #: ../blivetgui/dialogs/edit_dialog.py:548
 #: ../blivetgui/dialogs/edit_dialog.py:597
@@ -432,7 +432,7 @@ msgstr ""
 #: ../blivetgui/dialogs/add_dialog.py:451 ../data/ui/blivet-gui.ui:465
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
-msgstr ""
+msgstr "장치"
 
 #: ../blivetgui/dialogs/edit_dialog.py:549
 #: ../blivetgui/dialogs/edit_dialog.py:598
@@ -440,26 +440,26 @@ msgstr ""
 #: ../blivetgui/dialogs/add_dialog.py:452 ../data/ui/blivet-gui.ui:478
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
-msgstr ""
+msgstr "유형"
 
 #: ../blivetgui/dialogs/edit_dialog.py:550
 #: ../blivetgui/dialogs/edit_dialog.py:599
 #: ../blivetgui/dialogs/edit_dialog.py:661
 #: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/blivet-gui.ui:500
 msgid "Size"
-msgstr ""
+msgstr "크기"
 
 #: ../blivetgui/dialogs/edit_dialog.py:558
 msgid "Parent devices:"
-msgstr ""
+msgstr "부모 장치:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
 msgid "Add parent"
-msgstr ""
+msgstr "부모 추가"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
 msgid "Remove parent"
-msgstr ""
+msgstr "부모 제거"
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
 msgid ""
@@ -469,13 +469,13 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:596
 msgid "Add?"
-msgstr ""
+msgstr "추가할까요?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:608
 #: ../blivetgui/dialogs/edit_dialog.py:670
 #: ../blivetgui/dialogs/add_dialog.py:462 ../data/ui/cache_area.ui:130
 msgid "Available devices:"
-msgstr ""
+msgstr "사용 가능한 장치:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
 msgid ""
@@ -485,17 +485,17 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
 msgid "Currently it is possible to remove only one parent at time."
-msgstr ""
+msgstr "현재 시간에 하나의 부모만 제거 할 수 있습니다."
 
 #: ../blivetgui/dialogs/edit_dialog.py:658
 msgid "Remove?"
-msgstr ""
+msgstr "제거 할까요?"
 
 #. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
 #. your name and email address (optional) here. Separate translator names with newlines.
 #: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
-msgstr ""
+msgstr "simmon <simmon@nplob.com>"
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
