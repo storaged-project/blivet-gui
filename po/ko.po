@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2021-03-22 08:01+0000\n"
+"PO-Revision-Date: 2021-03-24 15:01+0000\n"
 "Last-Translator: simmon <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
@@ -165,9 +165,7 @@ msgstr "새로운 LVM 볼륨 그룹을 위해 충분한 여유 공간이 없습�
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
 "{label} disklabel."
-msgstr ""
-"디스크 {name}는 이미 디스크이름표 {label}를 위하여 중요 구성표(primary partitions)의 최대 허용 수에 "
-"도달하였습니다."
+msgstr "디스크 {name}는 이미 디스크이름표 {label}를 위하여 주 파티션의 최대 허용 수에 도달하였습니다."
 
 #: ../blivetgui/blivetgui.py:427
 msgid "Failed to add disklabel:"
@@ -206,17 +204,17 @@ msgstr "계획된 동작을 확인합니다"
 
 #: ../blivetgui/blivetgui.py:641
 msgid "Are you sure you want to perform scheduled actions?"
-msgstr ""
+msgstr "계획된 동작을 수행할까요?"
 
 #: ../blivetgui/blivetgui.py:682
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
-msgstr ""
+msgstr "'{mountpoint}' 내려놓기에 실패하였습니다. 장치를 사용하지 않는 상태가 확실한가요?"
 
 #: ../blivetgui/blivetgui.py:704
 msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr ""
+msgstr "해제에 실패하였습니다. 제공된 비밀번호가 확실한가요?"
 
 #: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:659
 msgid "Quit"
@@ -224,13 +222,15 @@ msgstr "종료"
 
 #: ../blivetgui/blivetgui.py:757
 msgid "blivet-gui is already running"
-msgstr ""
+msgstr "blivet-gui는 이미 동작중입니다"
 
 #: ../blivetgui/blivetgui.py:758
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
+"blivet-gui의 다른 예제가 이미 동작중입니다.\n"
+"blivet-gui의 예제 한 개만 동시에 실행 할 수 있습니다."
 
 #: ../blivetgui/blivetgui.py:760
 msgid ""
@@ -242,6 +242,12 @@ msgid ""
 "\n"
 "command to force quit it."
 msgstr ""
+"blivet-gui 앞선 예가 충돌하면, <i>blivet-gui-daemon</i> 처리가 역시 끝났는지 확실히 해주세요.\n"
+"아직 동작중이면 사용 할 수 있습니다\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"이는 강제로 종료하는 명령입니다."
 
 #: ../blivetgui/blivetgui.py:792
 msgid "Failed to init blivet:"
@@ -253,12 +259,12 @@ msgstr "blivet-gui 종료"
 
 #: ../blivetgui/blivetgui.py:801
 msgid "Ignore disk and continue"
-msgstr ""
+msgstr "디스크를 무시하고 계속"
 
 #: ../blivetgui/blivetgui.py:804
 #, python-brace-format
 msgid "Error: {error}"
-msgstr ""
+msgstr "오류: {error}"
 
 #: ../blivetgui/blivetgui.py:805
 #, python-brace-format
@@ -268,23 +274,25 @@ msgid ""
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
+"Blivet-gui는 오염되었거나/알지 못하는 디스크라벨로 인하여 <b>{name}</b> 디스크를 사용 할 수 없습니다.\n"
+"당신은 blbiet-gui를 멈추거나 이 디스크를 사용 할 수 없는 때에도 계속 할 수 있습니다."
 
 #: ../blivetgui/blivetgui.py:841
 msgid "Confirm reload storage"
-msgstr ""
+msgstr "저장소 재적재 확인"
 
 #: ../blivetgui/blivetgui.py:842
 msgid "There are pending operations. Are you sure you want to continue?"
-msgstr ""
+msgstr "지연 동작 중입니다. 계속하길 원하나요?"
 
 #: ../blivetgui/blivetgui.py:873
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "종료하길 원하나요?"
 
 #: ../blivetgui/blivetgui.py:874
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
-msgstr ""
+msgstr "지연 동작 중입니다. 지금 blivet-gui를 종료하길 원하나요?"
 
 #: ../blivetgui/blivet_utils.py:78
 msgid "free space"
@@ -293,7 +301,7 @@ msgstr "여유 공간"
 #: ../blivetgui/blivet_utils.py:606
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
-msgstr ""
+msgstr "{type} 장치 크기 조절은 현재 지원하지 않습니다"
 
 #: ../blivetgui/blivet_utils.py:611
 msgid "Protected devices cannot be resized"
@@ -301,38 +309,38 @@ msgstr "보호된 장치는 크기를 줄일 수 없습니다"
 
 #: ../blivetgui/blivet_utils.py:616
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "변경 할 수 없는 형식은 크기 조절을 할 수 없습니다"
 
 #: ../blivetgui/blivet_utils.py:621
 msgid "Devices with children cannot be resized"
-msgstr ""
+msgstr "어린이가 있는(사용하는) 장치는 크기를 조절 할 수 없습니다"
 
 #: ../blivetgui/blivet_utils.py:632
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "형식화(format) 되지 않는 장치는 크기를 조절 할 수 없습니다"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
 #: ../blivetgui/blivet_utils.py:639
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
-msgstr ""
+msgstr "{type} 형식(format)크기 조절은 현재 지원하지 않습니다"
 
 #: ../blivetgui/blivet_utils.py:644
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
-msgstr ""
+msgstr "형식(format) {type} 크기 조절을 위한 도구는 이용 할 수 없습니다."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:651
 msgid "Formats scheduled to be created cannot be resized"
-msgstr ""
+msgstr "생성되어진 계획된 형식(format)은 크기 조절 할 수 없습니다"
 
 #: ../blivetgui/blivet_utils.py:656
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
-msgstr ""
+msgstr "형식(format) {type}은 이 크기 제한 정보 최신화를 지원하지 않습니다"
 
 #: ../blivetgui/blivet_utils.py:661
 msgid "Mounted devices cannot be resized"
@@ -345,7 +353,7 @@ msgstr "스냅샷과 같은 로지컬 볼륨은 크기를 줄일 수 없습니�
 #: ../blivetgui/blivet_utils.py:678
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
-msgstr ""
+msgstr "파일시스템 크기 정보: {error} 최신화에 실패하였습니다"
 
 #: ../blivetgui/blivet_utils.py:697
 msgid "Device is not resizable."
@@ -353,7 +361,7 @@ msgstr "장치는 크기를 재지정 할 수 없습니다."
 
 #: ../blivetgui/blivet_utils.py:699
 msgid "Format is not resizable after updating its size limit information."
-msgstr ""
+msgstr "형식(format)은 이 크기 제한 정보 최신화 후에 크기를 조절 할 수 없습니다."
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
 #: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
@@ -368,31 +376,31 @@ msgstr[0] "%s 지연 동작"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
-msgstr "저장장치 탐색"
+msgstr "저장소 탐색 중"
 
 #: ../blivetgui/loading_window.py:65
 msgid "Scanning storage configuration..."
-msgstr "저장장치 설정 찾기..."
+msgstr "저장소 설정 찾기..."
 
 #: ../blivetgui/dialogs/size_chooser.py:212
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
-msgstr ""
+msgstr "현재 선택된 크기는 이 선택을 위해 최대 제한치 보다 큽니다."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
-msgstr ""
+msgstr "현재 선택된 크기는 이 부분을 위해 최소 제한치 보다 작습니다."
 
 #: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1002
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
-msgstr ""
+msgstr "\"{0}\"는 유효한 적재점이 아닙니다."
 
 #: ../blivetgui/dialogs/helpers.py:148
 #, python-brace-format
 msgid "Selected mountpoint \"{0}\" is already set for another device."
-msgstr ""
+msgstr "선택된 적재점\"{0}\"은 이미 다른 장치를 위한 설정입니다."
 
 #: ../blivetgui/dialogs/edit_dialog.py:103
 #, python-brace-format
@@ -400,6 +408,8 @@ msgid ""
 "<b>This device cannot be resized:</b>\n"
 "<i>{0}</i>"
 msgstr ""
+"<b>이 장치는 크기 조절을 할 수 없습니다:</b>\n"
+"<i>{0}</i>"
 
 #: ../blivetgui/dialogs/edit_dialog.py:105
 msgid "This device cannot be resized."
@@ -414,12 +424,12 @@ msgstr "형식화 되지 않은"
 #: ../blivetgui/dialogs/add_dialog.py:1029
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
-msgstr ""
+msgstr "\"{0}\"는 유효한 이름표가 아닙니다."
 
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "'{label}' 은 이 파일시스템을 위한 유효한 이름표가 아닙니다"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:518
@@ -466,6 +476,8 @@ msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
 msgstr ""
+"현재 빈 물리 볼륨이나 하나를 생성하기에\n"
+"충분한 여유 공간에 디스크가 없습니다."
 
 #: ../blivetgui/dialogs/edit_dialog.py:596
 msgid "Add?"
@@ -482,6 +494,8 @@ msgid ""
 "There is no physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
+"이 볼륨 그룹에서 제거되어질\n"
+"물리 볼륨이 없습니다."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
 msgid "Currently it is possible to remove only one parent at time."
@@ -499,59 +513,59 @@ msgstr "simmon <simmon@nplob.com>"
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
-msgstr ""
+msgstr "고급 선택 보기"
 
 #: ../blivetgui/dialogs/add_dialog.py:85
 msgid "PE Size:"
-msgstr ""
+msgstr "PE 크기:"
 
 #: ../blivetgui/dialogs/add_dialog.py:109
 msgid "Partition type:"
-msgstr ""
+msgstr "분할 유형:"
 
 #: ../blivetgui/dialogs/add_dialog.py:118
 msgid "Logical"
-msgstr ""
+msgstr "논리"
 
 #: ../blivetgui/dialogs/add_dialog.py:120
 #: ../blivetgui/dialogs/add_dialog.py:122
 #: ../blivetgui/dialogs/add_dialog.py:124
 msgid "Primary"
-msgstr ""
+msgstr "우선"
 
 #: ../blivetgui/dialogs/add_dialog.py:122
 msgid "Extended"
-msgstr ""
+msgstr "확장된"
 
 #: ../blivetgui/dialogs/add_dialog.py:149
 msgid "Chunk Size:"
-msgstr ""
+msgstr "청크 크기:"
 
 #: ../blivetgui/dialogs/add_dialog.py:212
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
-msgstr ""
+msgstr "'{0}'는 유효한 청크 크기 상세입니다."
 
 #: ../blivetgui/dialogs/add_dialog.py:217
 msgid "Chunk size must be multiple of 4 KiB."
-msgstr ""
+msgstr "청크 크기는 다중 4KiB여야 합니다."
 
 #: ../blivetgui/dialogs/add_dialog.py:273
 msgid "Create new device"
-msgstr ""
+msgstr "새 장치를 생성합니다"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:382
 #: ../blivetgui/dialogs/add_dialog.py:739
 #: ../blivetgui/dialogs/device_info_dialog.py:78
 msgid "Partition"
-msgstr ""
+msgstr "파티션"
 
 #: ../blivetgui/dialogs/add_dialog.py:385
 #: ../blivetgui/dialogs/add_dialog.py:398
 #: ../blivetgui/dialogs/device_info_dialog.py:79
 msgid "LVM2 Volume Group"
-msgstr ""
+msgstr "LVM2 볼륨 그룹"
 
 #. number of free disk regions
 #: ../blivetgui/dialogs/add_dialog.py:391
@@ -566,37 +580,37 @@ msgstr "LVM2 로지컬 볼륨"
 #: ../blivetgui/dialogs/add_dialog.py:394
 #: ../blivetgui/dialogs/device_info_dialog.py:82
 msgid "LVM2 ThinPool"
-msgstr ""
+msgstr "LVM2ThinPool"
 
 #: ../blivetgui/dialogs/add_dialog.py:401
 msgid "LVM2 Snaphost"
-msgstr ""
+msgstr "LVM2 스냅샷"
 
 #: ../blivetgui/dialogs/add_dialog.py:404
 msgid "LVM2 Thin Snaphost"
-msgstr ""
+msgstr "LVM2 씬 Snaphost"
 
 #: ../blivetgui/dialogs/add_dialog.py:407
 #: ../blivetgui/dialogs/device_info_dialog.py:83
 msgid "LVM2 Thin Logical Volume"
-msgstr ""
+msgstr "LVM2 씬 로지컬 Snaphost"
 
 #: ../blivetgui/dialogs/add_dialog.py:410
 #: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "Btrfs Subvolume"
-msgstr ""
+msgstr "Btrfs 하위볼륨"
 
 #: ../blivetgui/dialogs/add_dialog.py:416
 msgid "Device type:"
-msgstr ""
+msgstr "장치 유형:"
 
 #: ../blivetgui/dialogs/add_dialog.py:734
 msgid "MDArray type:"
-msgstr ""
+msgstr "MDArray 유형:"
 
 #: ../blivetgui/dialogs/add_dialog.py:766
 msgid "Filesystem:"
-msgstr ""
+msgstr "파일시스템:"
 
 #: ../blivetgui/dialogs/add_dialog.py:822
 msgid "Label:"
@@ -612,12 +626,12 @@ msgstr "적재장소:"
 
 #: ../blivetgui/dialogs/add_dialog.py:1009
 msgid "Please select at least two parent devices."
-msgstr ""
+msgstr "적어도 2개의 부모 장치를 선택합니다."
 
 #: ../blivetgui/dialogs/add_dialog.py:1023
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
-msgstr ""
+msgstr "\"{0}\" 는 유효한 이름이 아닙니다."
 
 #: ../blivetgui/dialogs/message_dialogs.py:197
 msgid "Confirm delete operation"
@@ -626,24 +640,24 @@ msgstr "삭제 동작을 확인합니다"
 #: ../blivetgui/dialogs/message_dialogs.py:198
 #, python-brace-format
 msgid "Are you sure you want delete device {name}?"
-msgstr ""
+msgstr "장치 {name} 제거가 확실한가요?"
 
 #: ../blivetgui/dialogs/message_dialogs.py:207
 #, python-brace-format
 msgid "Also delete following parent devices of {name}:"
-msgstr ""
+msgstr "또한 {name} 의 다음 부모 장치를 삭제합니다:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:304
 msgid "There are no pending actions."
-msgstr ""
+msgstr "지연된 동작이 없습니다."
 
 #: ../blivetgui/dialogs/widgets.py:328
 msgid "Passphrase not specified."
-msgstr ""
+msgstr "비밀번호가 지정되지 않았습니다."
 
 #: ../blivetgui/dialogs/widgets.py:331
 msgid "Provided passphrases do not match."
-msgstr ""
+msgstr "제공된 암호문이 일치하지 않습니다."
 
 #: ../blivetgui/dialogs/widgets.py:353
 msgid "Passphrases match."
@@ -651,17 +665,17 @@ msgstr "암호가 일치합니다."
 
 #: ../blivetgui/dialogs/widgets.py:356
 msgid "Passphrases don't match."
-msgstr "암호가 일치하지 않습니다."
+msgstr "암호문이 일치하지 않습니다."
 
 #. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
-msgstr "우선"
+msgstr "주"
 
 #. pylint: disable=W9902
 #: ../blivetgui/dialogs/device_info_dialog.py:38
 msgid "logical"
-msgstr "지역"
+msgstr "논리"
 
 #. pylint: disable=W9902
 #: ../blivetgui/dialogs/device_info_dialog.py:39
@@ -693,294 +707,294 @@ msgstr "DM 무결성 장치"
 #: ../blivetgui/dialogs/device_info_dialog.py:223
 #, python-brace-format
 msgid " • <i>Type:</i> {type}\n"
-msgstr ""
+msgstr " • <i>유형:</i> {type}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:104
 #, python-brace-format
 msgid " • <i>Length:</i> {length}\n"
-msgstr ""
+msgstr " • <i>길이:</i> {length}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:105
 #, python-brace-format
 msgid " • <i>Start:</i> {start}\n"
-msgstr ""
+msgstr " • <i>시작:</i> {start}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:106
 #, python-brace-format
 msgid " • <i>End:</i> {end}\n"
-msgstr ""
+msgstr " • <i>종료:</i> {end}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:113
 #, python-brace-format
 msgid " • <i>Origin:</i> {origin}\n"
-msgstr ""
+msgstr " • <i>원점:</i> {origin}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:114
 #: ../blivetgui/dialogs/device_info_dialog.py:116
 #: ../blivetgui/dialogs/device_info_dialog.py:120
 #, python-brace-format
 msgid " • <i>Segment type:</i> {segtype}\n"
-msgstr ""
+msgstr " • <i>구획 유형:</i> {segtype}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:117
 #, python-brace-format
 msgid " • <i>Free space:</i> {free}\n"
-msgstr ""
+msgstr " • <i>여유공간:</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:118
 #, python-brace-format
 msgid " • <i>Space used:</i> {used}\n"
-msgstr ""
+msgstr " • <i>사용공간:</i> {used}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:122
 #, python-brace-format
 msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
-msgstr ""
+msgstr " • <i>Cached:</i> 네 (캐쉬 크기: {cache_size})\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:124
 msgid " • <i>Cached:</i> No\n"
-msgstr ""
+msgstr " • <i>캐쉬:</i> 아니요\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:129
 #, python-brace-format
 msgid " • <i>PE Size:</i> {pesize}\n"
-msgstr ""
+msgstr " • <i>PE 크기:</i> {pesize}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:130
 #, python-brace-format
 msgid " • <i>PE Count:</i> {pecount}\n"
-msgstr ""
+msgstr " • <i>PE 계산:</i> {pecount}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:131
 #, python-brace-format
 msgid " • <i>Free Space:</i> {free}\n"
-msgstr ""
+msgstr " • <i>여유 공간:</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:132
 #, python-brace-format
 msgid " • <i>PE Free:</i> {pefree}\n"
-msgstr ""
+msgstr " • <i>PE 크기:</i> {pefree}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:133
 #, python-brace-format
 msgid " • <i>Reserved Space:</i> {res}\n"
-msgstr ""
+msgstr " • <i>예약된 공간:</i> {res}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:134
 #: ../blivetgui/dialogs/device_info_dialog.py:153
 #, python-brace-format
 msgid " • <i>Complete:</i> {complete}\n"
-msgstr ""
+msgstr " • <i>완료:</i> {complete}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:139
 #, python-brace-format
 msgid " • <i>Subvol ID:</i> {id}\n"
-msgstr ""
+msgstr " • <i>하위볼륨 ID:</i> {id}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:142
 #, python-brace-format
 msgid " • <i>Data Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>자료 수준:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:143
 #, python-brace-format
 msgid " • <i>Metadata Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>메타자료 수준:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:148
 #, python-brace-format
 msgid " • <i>Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>수준:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:149
 #, python-brace-format
 msgid " • <i>Devices:</i> {dcount}\n"
-msgstr ""
+msgstr " • <i>장치:</i> {dcount}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:150
 #, python-brace-format
 msgid " • <i>Spares:</i> {spares}\n"
-msgstr ""
+msgstr " • <i>여분:</i> {spares}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
 msgid " • <i>Degraded:</i> {degraded}\n"
-msgstr ""
+msgstr " • <i>강등:</i> {degraded}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:152
 #, python-brace-format
 msgid " • <i>Metadata Version:</i> {metadata}\n"
-msgstr ""
+msgstr " • <i>메타자료 버전:</i> {metadata}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:167
 #, python-brace-format
 msgid "Unknown device {name}"
-msgstr ""
+msgstr "모르는 장치 {name}"
 
 #. device info header
 #: ../blivetgui/dialogs/device_info_dialog.py:175
 msgid "Basic information"
-msgstr ""
+msgstr "기본 정보"
 
 #. 'basic' information about selected device
 #: ../blivetgui/dialogs/device_info_dialog.py:185
 #: ../blivetgui/dialogs/device_info_dialog.py:221
 #: ../blivetgui/dialogs/device_info_dialog.py:256
 msgid "existing"
-msgstr ""
+msgstr "존재"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:185
 #: ../blivetgui/dialogs/device_info_dialog.py:221
 #: ../blivetgui/dialogs/device_info_dialog.py:256
 msgid "non-existing"
-msgstr ""
+msgstr "부-존재"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:186
 #: ../blivetgui/dialogs/device_info_dialog.py:222
 #, python-brace-format
 msgid " • <i>Status:</i> {exist}\n"
-msgstr ""
+msgstr " • <i>상태:</i> {exist}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:187
 #, python-brace-format
 msgid " • <i>Name:</i> {name}\n"
-msgstr ""
+msgstr " • <i>이름:</i> {name}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:188
 #, python-brace-format
 msgid " • <i>Path:</i> {path}\n"
-msgstr ""
+msgstr " • <i>경로:</i> {path}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:189
 #, python-brace-format
 msgid " • <i>Size:</i> {size}\n"
-msgstr ""
+msgstr " • <i>크기:</i> {size}\n"
 
 #. device format header
 #: ../blivetgui/dialogs/device_info_dialog.py:210
 msgid "Device format"
-msgstr ""
+msgstr "장치 형식(초기화)"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:224
 #, python-brace-format
 msgid " • <i>UUID:</i> {uuid}\n"
-msgstr ""
+msgstr " • <i>UUID:</i> {uuid}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:226
 #, python-brace-format
 msgid " • <i>Label:</i> {label}\n"
-msgstr ""
+msgstr " • <i>이름표:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:228
 #, python-brace-format
 msgid " • <i>Mountpoint:</i> {mountpoint}\n"
-msgstr ""
+msgstr " • <i>적재점:</i> {mountpoint}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:231
 msgid " • <i>Type:</i> None"
-msgstr ""
+msgstr " • <i>유형:</i> 없음"
 
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid "Parents"
-msgstr ""
+msgstr "부모"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:257
 #, python-brace-format
 msgid " • {exists} {size} {type} {name}\n"
-msgstr ""
+msgstr " • {exists} {size} {type} {name}\n"
 
 #: ../blivetgui/communication/client.py:302
 #: ../blivetgui/communication/client.py:319
 msgid "Failed to connect to blivet-gui-daemon"
-msgstr ""
+msgstr "blivet-gui-daemon 에 연결이 실패하였습니다"
 
 #: ../blivetgui/visualization/rectangle.py:50
 msgid "Group device"
-msgstr ""
+msgstr "그룹 장치"
 
 #: ../blivetgui/visualization/rectangle.py:51
 msgid "LiveUSB device"
-msgstr ""
+msgstr "LiveUSB 장치"
 
 #: ../blivetgui/visualization/rectangle.py:52
 msgid "Encrypted device (locked)"
-msgstr ""
+msgstr "암호화된 장치(잠금)"
 
 #: ../blivetgui/visualization/rectangle.py:53
 msgid "Encrypted device (unlocked)"
-msgstr ""
+msgstr "암호화된 장치(잠금해제)"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Empty device"
-msgstr ""
+msgstr "빈 장치"
 
 #: ../blivetgui/visualization/rectangle.py:55
 msgid "Snapshot"
-msgstr ""
+msgstr "스냅샷"
 
 #: ../blivetgui/visualization/rectangle.py:56
 msgid "Missing partition table"
-msgstr ""
+msgstr "구성표 누락"
 
 #: ../blivetgui/visualization/rectangle.py:57
 msgid "Device or format is write protected"
-msgstr ""
+msgstr "장치 또는 형식이 쓰기 보호 되었습니다"
 
 #: ../blivetgui/visualization/rectangle.py:58
 msgid "Cached device"
-msgstr ""
+msgstr "캐쉬된 장치"
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
-msgstr ""
+msgstr "루트 권한은 blivet-gui를 위해 필요합니다."
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
-msgstr ""
+msgstr "오류"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
-msgstr ""
+msgstr "잠금해제 장치"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
 msgid "Please enter passphrase to unlock selected device."
-msgstr ""
+msgstr "선택된 장치 잠금해제를 위해 비밀번호를 입력해주세요."
 
 #: ../data/ui/luks_passphrase_dialog.ui:52 ../data/ui/encryption_chooser.ui:44
 msgid "Passphrase:"
-msgstr ""
+msgstr "암호:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "New"
-msgstr ""
+msgstr "새"
 
 #: ../data/ui/blivet-gui.ui:23
 msgid "Delete"
-msgstr ""
+msgstr "삭제"
 
 #: ../data/ui/blivet-gui.ui:32
 msgid "Edit"
-msgstr ""
+msgstr "편집"
 
 #: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
 msgid "Resize"
-msgstr ""
+msgstr "재크기"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
 msgctxt "Menu|Edit"
 msgid "Format"
-msgstr ""
+msgstr "구성화"
 
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:138
 msgid "Modify parents"
-msgstr ""
+msgstr "부모 변경"
 
 #: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:146
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
-msgstr ""
+msgstr "적재점 설정"
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
 msgid "Set label"
@@ -1040,13 +1054,13 @@ msgstr "선택한 장치 잠금해제/열기"
 #: ../data/ui/blivet-gui.ui:436
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
-msgstr ""
+msgstr "선택된 장치에 대한 정보 표시"
 
 #. Format (filesystem) type of selected device.
 #: ../data/ui/blivet-gui.ui:489
 msgctxt "LogicalView|Column"
 msgid "Format"
-msgstr "초기화"
+msgstr "구성화"
 
 #: ../data/ui/blivet-gui.ui:511
 msgid "Label"
@@ -1054,7 +1068,7 @@ msgstr "이름표"
 
 #: ../data/ui/blivet-gui.ui:522
 msgid "Mountpoint"
-msgstr "적재장소"
+msgstr "적재점"
 
 #: ../data/ui/blivet-gui.ui:544
 msgid "Logical View"
@@ -1093,156 +1107,160 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>선택된 장치는 현재 여러 적재점에\n"
+"적재되었습니다.</b>\n"
+"\n"
+"내려놓기에 적재점을 선택 해주세요:"
 
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
-msgstr ""
+msgstr "레이드 수준:"
 
 #: ../data/ui/exception_dialog.ui:27
 msgid "_Back"
-msgstr ""
+msgstr "_뒤로"
 
 #: ../data/ui/exception_dialog.ui:41
 msgid "_Report a bug"
-msgstr ""
+msgstr "_결점 보고"
 
 #: ../data/ui/exception_dialog.ui:55
 msgid "_Quit"
-msgstr ""
+msgstr "_종료"
 
 #: ../data/ui/exception_dialog.ui:107
 msgid "Show traceback"
-msgstr ""
+msgstr "역추적 보기"
 
 #: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
 msgid "Format device"
-msgstr ""
+msgstr "초기화 장치"
 
 #: ../data/ui/format_dialog.ui:39 ../data/ui/resize_dialog.ui:30
 #: ../data/ui/mountpoint_dialog.ui:29
 msgid "_Cancel"
-msgstr ""
+msgstr "_취소"
 
 #. Perform selected format change on this device.
 #: ../data/ui/format_dialog.ui:54
 msgctxt "Dialog|Format"
 msgid "_Format"
-msgstr ""
+msgstr "_형식"
 
 #: ../data/ui/format_dialog.ui:101
 msgid "Select new format:"
-msgstr ""
+msgstr "새로운 형태 선택:"
 
 #: ../data/ui/format_dialog.ui:148
 msgid "Enter new label:"
-msgstr ""
+msgstr "새로운 이름표 입력:"
 
 #: ../data/ui/format_dialog.ui:186 ../data/ui/mountpoint_dialog.ui:88
 msgid "Enter new mountpoint:"
-msgstr ""
+msgstr "새로운 적재점 입력:"
 
 #: ../data/ui/size_chooser.ui:14
 msgid "Size:"
-msgstr ""
+msgstr "크기:"
 
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
-msgstr ""
+msgstr "수동으로 배열을 지정합니다"
 
 #: ../data/ui/add_disklabel_dialog.ui:11
 msgid "No partition table found on disk"
-msgstr ""
+msgstr "디스크에 구성(partition)표를 찾을 수 없습니다"
 
 #: ../data/ui/add_disklabel_dialog.ui:12
 msgid "A partition table is required before partitions can be added."
-msgstr ""
+msgstr "구성표는 구성을 추가하기 전에 필요합니다."
 
 #: ../data/ui/add_disklabel_dialog.ui:52
 msgid "Select new partition table type:"
-msgstr ""
+msgstr "새로운 구성표 형식을 선택합니다:"
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
-msgstr ""
+msgstr "지연 동작"
 
 #: ../data/ui/encryption_chooser.ui:20
 msgid "Encrypt:"
-msgstr ""
+msgstr "암호화:"
 
 #: ../data/ui/encryption_chooser.ui:32
 msgid "Encryption type:"
-msgstr ""
+msgstr "암호화 유형:"
 
 #: ../data/ui/encryption_chooser.ui:56
 msgid "Repeat Passphrase:"
-msgstr ""
+msgstr "암호문 반복:"
 
 #: ../data/ui/info_dialog.ui:12
 msgid "Information:"
-msgstr ""
+msgstr "정보:"
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
-msgstr ""
+msgstr "부모 이름:"
 
 #: ../data/ui/parent_chooser.ui:80
 msgid "Available space:"
-msgstr ""
+msgstr "가용 공간:"
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
-msgstr ""
+msgstr "이름표"
 
 #: ../data/ui/custom_dialog.ui:62
 msgid "Details"
-msgstr ""
+msgstr "상세 정보"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
-msgstr ""
+msgstr "이 논리볼륨 캐쉬:"
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
-msgstr ""
+msgstr "여유공간"
 
 #: ../data/ui/cache_area.ui:109
 msgid "On disk"
-msgstr ""
+msgstr "디스크에서"
 
 #: ../data/ui/cache_area.ui:142
 msgid "Cache type:"
-msgstr ""
+msgstr "캐쉬 유형:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
-msgstr ""
+msgstr "쓰기"
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
-msgstr ""
+msgstr "다시쓰기"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
-msgstr ""
+msgstr "Copyright © Red Hat Inc."
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
-msgstr ""
+msgstr "장치 크기 변경"
 
 #: ../data/ui/resize_dialog.ui:45
 msgid "_Resize"
-msgstr ""
+msgstr "_크기조절"
 
 #. Perform selected format change on this device.
 #: ../data/ui/label_dialog.ui:39
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "이름표 재지정"
 
 #: ../data/ui/label_dialog.ui:71
 msgid "Enter new label for this filesystem:"
-msgstr ""
+msgstr "이 파일시스템을 위해 새로운 이름표를 입력:"
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
-msgstr ""
+msgstr "_적재점 설정"
