@@ -6,13 +6,13 @@
 # mosquito <sensor.wen@gmail.com>, 2016. #zanata
 # cheng ye <18969068329@163.com>, 2017. #zanata
 # Tian Shixiong <tiansworld@gmail.com>, 2020.
-# Charles Lee <lchopn@gmail.com>, 2020.
+# Charles Lee <lchopn@gmail.com>, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2020-07-18 17:28+0000\n"
+"PO-Revision-Date: 2021-03-26 15:01+0000\n"
 "Last-Translator: Charles Lee <lchopn@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/zh_CN/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.5.1\n"
 
 #: ../blivetgui/osinstall.py:219
 #, python-brace-format
@@ -218,10 +218,8 @@ msgid ""
 msgstr "卸载 {mountpoint} 时失败。您确定设备没有在使用吗？"
 
 #: ../blivetgui/blivetgui.py:704
-#, fuzzy
-#| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr "设备解密失败。您确定密码正确？"
+msgstr "解锁失败。您确定密码正确？"
 
 #: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:659
 msgid "Quit"
@@ -926,16 +924,12 @@ msgid "LiveUSB device"
 msgstr "LiveUSB 设备"
 
 #: ../blivetgui/visualization/rectangle.py:52
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (locked)"
-msgstr "加密设备（已关闭）"
+msgstr "加密设备（已锁定）"
 
 #: ../blivetgui/visualization/rectangle.py:53
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (unlocked)"
-msgstr "加密设备（已关闭）"
+msgstr "加密设备（已解锁）"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Empty device"
@@ -954,10 +948,8 @@ msgid "Device or format is write protected"
 msgstr "设备或格式有写保护"
 
 #: ../blivetgui/visualization/rectangle.py:58
-#, fuzzy
-#| msgid "Edit device"
 msgid "Cached device"
-msgstr "编辑设备"
+msgstr "已缓存的设备"
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
@@ -968,17 +960,12 @@ msgid "Error"
 msgstr "错误"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
-#, fuzzy
-#| msgctxt "ActionsToolbar|Decrypt"
-#| msgid "Unlock/Open selected device"
 msgid "Unlock device"
-msgstr "解锁/打开所选设备"
+msgstr "解锁设备"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
-#, fuzzy
-#| msgid "Please enter passphrase to decrypt selected device."
 msgid "Please enter passphrase to unlock selected device."
-msgstr "请输入口令来解密所选设备。"
+msgstr "请输入口令来解锁所选设备。"
 
 #: ../data/ui/luks_passphrase_dialog.ui:52 ../data/ui/encryption_chooser.ui:44
 msgid "Passphrase:"
