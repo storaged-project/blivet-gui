@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2021-03-24 15:01+0000\n"
+"PO-Revision-Date: 2021-04-03 17:01+0000\n"
 "Last-Translator: simmon <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.5.1\n"
+"X-Generator: Weblate 4.5.3\n"
 
 #: ../blivetgui/osinstall.py:219
 #, python-brace-format
@@ -461,15 +461,15 @@ msgstr "크기"
 
 #: ../blivetgui/dialogs/edit_dialog.py:558
 msgid "Parent devices:"
-msgstr "부모 장치:"
+msgstr "원인 장치:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
 msgid "Add parent"
-msgstr "부모 추가"
+msgstr "원인 추가"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
 msgid "Remove parent"
-msgstr "부모 제거"
+msgstr "원인 제거"
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
 msgid ""
@@ -499,7 +499,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
 msgid "Currently it is possible to remove only one parent at time."
-msgstr "현재 시간에 하나의 부모만 제거 할 수 있습니다."
+msgstr "현재 시간에 하나의 원인만 제거 할 수 있습니다."
 
 #: ../blivetgui/dialogs/edit_dialog.py:658
 msgid "Remove?"
@@ -626,7 +626,7 @@ msgstr "적재장소:"
 
 #: ../blivetgui/dialogs/add_dialog.py:1009
 msgid "Please select at least two parent devices."
-msgstr "적어도 2개의 부모 장치를 선택합니다."
+msgstr "적어도 2개의 원인 장치를 선택합니다."
 
 #: ../blivetgui/dialogs/add_dialog.py:1023
 #, python-brace-format
@@ -645,7 +645,7 @@ msgstr "장치 {name} 제거가 확실한가요?"
 #: ../blivetgui/dialogs/message_dialogs.py:207
 #, python-brace-format
 msgid "Also delete following parent devices of {name}:"
-msgstr "또한 {name} 의 다음 부모 장치를 삭제합니다:"
+msgstr "또한 {name} 의 다음 원인 장치를 삭제합니다:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:304
 msgid "There are no pending actions."
@@ -897,7 +897,7 @@ msgstr " • <i>유형:</i> 없음"
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid "Parents"
-msgstr "부모"
+msgstr "원인"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:257
 #, python-brace-format
@@ -989,7 +989,7 @@ msgstr "구성화"
 
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:138
 msgid "Modify parents"
-msgstr "부모 변경"
+msgstr "원인 변경"
 
 #: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:146
 #: ../data/ui/mountpoint_dialog.ui:7
@@ -1201,7 +1201,7 @@ msgstr "정보:"
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
-msgstr "부모 이름:"
+msgstr "원인 이름:"
 
 #: ../data/ui/parent_chooser.ui:80
 msgid "Available space:"
