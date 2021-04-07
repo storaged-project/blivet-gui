@@ -29,8 +29,9 @@ Daily builds of _blivet_, _libblockdev_ and _libbytesize_ are also in this repo.
 
 #### OBS repository (for Ubuntu and Debian)
 
-Official packages for Debian (testing and unstable) and Ubuntu (19.04 and newer) are available through the Open Build Service.
-Instructions for adding the repository are available [here](https://software.opensuse.org/download.html?project=home:vtrefny&package=blivet-gui).
+Official packages for Debian (testing and unstable) and Ubuntu (19.04 and newer) are available in our [Open Build Service repository](https://software.opensuse.org/download.html?project=home:vtrefny&package=blivet-gui).
+
+This repository contains blivet-gui and its dependencies that are not available in the official Ubuntu/Debian repositories. We recommend adding the repository to your system, if you want to install the packages manually, you'll also need to install [blivet](https://software.opensuse.org/download.html?project=home:vtrefny&package=python3-blivet) and [pid](https://software.opensuse.org/download.html?project=home:vtrefny&package=python3-pid) from the same source.
 
 #### Manual
 
