@@ -65,7 +65,7 @@ class SizeArea(GUIWidget):
     name = "size area"
     glade_file = "size_area.ui"
 
-    def __init__(self, device_type, parents, min_limit, max_limit, raid_type):
+    def __init__(self, device_type, parents, min_limit, max_limit, raid_type, overprovisioning=False):
         """
             :param device_type: type of device we are creating
             :param parents: list of available/selected parents
@@ -89,6 +89,7 @@ class SizeArea(GUIWidget):
 
         self._min_size_limit = min_limit
         self._max_size_limit = max_limit
+        self._overprovisioning = overprovisioning
 
         # "main" size chooser
         self.main_chooser = SizeChooser(max_size=self.max_size, min_size=self.min_size)
@@ -157,7 +158,10 @@ class SizeArea(GUIWidget):
             parents, raid level and limits for the newly created device
         """
         if self._parent_area is None:
-            return min(sum(parent.max_size for parent in self.parents), self.max_size_limit)
+            if self._overprovisioning:
+                return self.max_size_limit
+            else:
+                return min(sum(parent.max_size for parent in self.parents), self.max_size_limit)
         else:
             return self._parent_area.total_max
 
@@ -223,10 +227,18 @@ class SizeArea(GUIWidget):
             them (either specified by user or just fraction of total size)
         """
         if self._parent_area is None:
-            # no advanced selection -> we will use all available parents and set
-            # same size for each of them and return total selected size
             total_size = self.main_chooser.selected_size
-            parents = self._get_parents_allocation()
+
+            if self._overprovisioning:
+                # with overprovisioning parent allocation doesn't really make sense
+                parents = [ParentSelection(parent_device=p.device,
+                                           free_space=size.Size(0),
+                                           selected_size=total_size) for p in self.parents]
+            else:
+                # no advanced selection -> we will use all available parents and set
+                # same size for each of them and return total selected size
+                parents = self._get_parents_allocation()
+
             return SizeSelection(total_size=total_size, parents=parents)
         else:
             # selection is handled by the parent area
