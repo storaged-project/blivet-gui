@@ -247,14 +247,14 @@ class BlivetUtils(object):
         """
 
         # already a group device
-        if blivet_device.type in ("btrfs volume", "lvmvg", "mdarray"):
+        if blivet_device.type in ("btrfs volume", "lvmvg", "mdarray", "stratis_pool"):
             return blivet_device
 
         # encrypted group device -> get the luks device instead
         if blivet_device.format.type in ("luks", "integrity"):
             blivet_device = self.get_luks_device(blivet_device)
 
-        if not blivet_device.format or blivet_device.format.type not in ("lvmpv", "btrfs", "mdmember", "luks"):
+        if not blivet_device.format or blivet_device.format.type not in ("lvmpv", "btrfs", "mdmember", "luks", "stratis"):
             return None
         if len(blivet_device.children) != 1:
             return None
@@ -321,6 +321,11 @@ class BlivetUtils(object):
             # btrfs volume on raw device
             btrfs_volume = blivet_device.children[0]
             return ProxyDataContainer(partitions=[btrfs_volume], extended=None, logicals=None)
+
+        if blivet_device.format and blivet_device.format.type == "stratis" and blivet_device.children:
+            # stratis pool on raw device
+            stratis_pool = blivet_device.children[0]
+            return ProxyDataContainer(partitions=[stratis_pool], extended=None, logicals=None)
 
         if blivet_device.format and blivet_device.format.type in ("luks", "integrity"):
             if blivet_device.children:
@@ -448,6 +453,9 @@ class BlivetUtils(object):
         elif blivet_device.type in ("mdarray", "btrfs volume"):
             for member in blivet_device.members:
                 roots.add(self._get_root_device(member))
+        elif blivet_device.type == "stratis_pool":
+            for blockdev in blivet_device.blockdevs:
+                roots.add(self._get_root_device(blockdev))
         elif blivet_device.type in ("luks/dm-crypt", "integrity/dm-crypt"):
             roots.add(self._get_root_device(blivet_device.raw_device))
 
