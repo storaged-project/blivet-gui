@@ -72,5 +72,7 @@ class ListParents(object):
                     parents.append(pv)
         elif device.type in ("btrfs volume", "mdarray"):
             return device.members
+        elif device.type == "stratis_pool":
+            return device.blockdevs
 
         return parents

@@ -93,7 +93,7 @@ class ListPartitions(object):
         # for btrfs volumes and mdarrays its necessary to add the device itself to the view
         # because these devices don't need to have children (only btrfs volume or only mdarray
         # is a valid, usable device)
-        elif selected_device.type == "btrfs volume" or (selected_device.type == "mdarray" and not selected_device.children):
+        elif selected_device.type in ("btrfs volume", "stratis_pool") or (selected_device.type == "mdarray" and not selected_device.children):
             parent_iter = self._add_to_store(selected_device)
             childs = self.blivet_gui.client.remote_call("get_children", selected_device)
             _add_chilren(childs, parent_iter)
@@ -109,16 +109,16 @@ class ListPartitions(object):
 
     def _is_group_device(self, blivet_device):
         # btrfs volume on raw disk
-        if blivet_device.type in ("btrfs volume", "lvmvg"):
+        if blivet_device.type in ("btrfs volume", "lvmvg", "stratis_pool"):
             return True
 
-        if blivet_device.format and blivet_device.format.type in ("lvmpv", "btrfs", "mdmember"):
+        if blivet_device.format and blivet_device.format.type in ("lvmpv", "btrfs", "mdmember", "stratis"):
             return (len(blivet_device.children) > 0)
 
         # encrypted group device
         if blivet_device.format and blivet_device.format.type in ("luks", "integrity") and blivet_device.children:
             luks_device = self.blivet_gui.client.remote_call("get_luks_device", blivet_device)
-            if luks_device.format and luks_device.format.type in ("lvmpv", "btrfs", "mdmember"):
+            if luks_device.format and luks_device.format.type in ("lvmpv", "btrfs", "mdmember", "stratis"):
                 return (len(luks_device.children) > 0)
 
         return False
@@ -223,7 +223,7 @@ class ListPartitions(object):
         if device.type == "partition" and device.is_extended:
             return False
 
-        if device.format.type in ("mdmember", "btrfs"):
+        if device.format.type in ("mdmember", "btrfs", "stratis"):
             return False
 
         return not device.format.status
