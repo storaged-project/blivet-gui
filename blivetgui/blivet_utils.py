@@ -211,6 +211,7 @@ class BlivetUtils(object):
         devices["lvm"] = self.storage.vgs
         devices["raid"] = self.storage.mdarrays
         devices["btrfs"] = self.storage.btrfs_volumes
+        devices["stratis"] = self.storage.stratis_pools
 
         return devices
 
