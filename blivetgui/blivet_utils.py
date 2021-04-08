@@ -24,6 +24,7 @@
 import blivet
 
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice
+from blivet.devices import StratisFilesystemDevice, StratisPoolDevice
 from blivet.formats import DeviceFormat
 from blivet.size import Size
 
@@ -247,7 +248,7 @@ class BlivetUtils(object):
         """
 
         # already a group device
-        if blivet_device.type in ("btrfs volume", "lvmvg", "mdarray", "stratis_pool"):
+        if blivet_device.type in ("btrfs volume", "lvmvg", "mdarray", "stratis pool"):
             return blivet_device
 
         # encrypted group device -> get the luks device instead
@@ -453,7 +454,7 @@ class BlivetUtils(object):
         elif blivet_device.type in ("mdarray", "btrfs volume"):
             for member in blivet_device.members:
                 roots.add(self._get_root_device(member))
-        elif blivet_device.type == "stratis_pool":
+        elif blivet_device.type == "stratis pool":
             for blockdev in blivet_device.blockdevs:
                 roots.add(self._get_root_device(blockdev))
         elif blivet_device.type in ("luks/dm-crypt", "integrity/dm-crypt"):
@@ -509,6 +510,12 @@ class BlivetUtils(object):
         # Btrfs Volume -- size of the subvolumes/snapshots is limited by the size of the volume
         elif blivet_device.type == "btrfs volume":
             return FreeSpaceDevice(free_size=blivet_device.size,
+                                   dev_id=self.storage.next_id,
+                                   start=None, end=None,
+                                   parents=[blivet_device])
+        # Stratis Pool -- size of the filesystems is fixed
+        elif blivet_device.type == "stratis pool":
+            return FreeSpaceDevice(free_size=blivet.devicelibs.stratis.STRATIS_FS_SIZE,
                                    dev_id=self.storage.next_id,
                                    start=None, end=None,
                                    parents=[blivet_device])
@@ -635,7 +642,7 @@ class BlivetUtils(object):
                     actions.extend(result.actions)
 
         # for btrfs volumes delete parents partition after deleting volume
-        if blivet_device.type in ("btrfs volume", "mdarray", "lvmvg") and delete_parents:
+        if blivet_device.type in ("btrfs volume", "mdarray", "lvmvg", "stratis pool") and delete_parents:
             for parent in blivet_device.parents:
                 result = self.delete_device(parent, delete_parents=False)
 
@@ -915,7 +922,11 @@ class BlivetUtils(object):
             if parent_device:
                 # parent name is part of the child name only on LVM
                 if parent_device.type == "lvmvg":
-                    name = self.storage.suggest_device_name(parent=parent_device, swap=False)
+                    name = self.storage.suggest_device_name(parent=parent_device, swap=False,
+                                                            device_type=blivet.devicefactory.DEVICE_TYPE_LVM)
+                elif parent_device.type == "stratis pool":
+                    name = self.storage.suggest_device_name(parent=parent_device, swap=False,
+                                                            device_type=blivet.devicefactory.DEVICE_TYPE_STRATIS)
                 else:
                     name = self.storage.suggest_device_name(swap=False)
             elif snapshot:
@@ -924,15 +935,23 @@ class BlivetUtils(object):
                 name = self.storage.suggest_container_name()
 
         else:
+            if not parent_device:
+                full_name = name
+            else:
+                if parent_device.type == "stratis pool":
+                    full_name = "%s/%s" % (parent_device.name, name)
+                else:
+                    full_name = "%s-%s" % (parent_device.name, name)
             # if name exists add -XX suffix
-            if name in self.storage.names or (parent_device and parent_device.name + "-" + name in self.storage.names):
+            if full_name in self.storage.names:
                 for i in range(100):
-                    if name + "-" + str(i) not in self.storage.names:
+                    if full_name + "-" + str(i) not in self.storage.names:
                         name = name + "-" + str(i)
+                        full_name = full_name + "-" + str(i)
                         break
 
             # if still exists let blivet pick it
-            if name in self.storage.names:
+            if full_name in self.storage.names:
                 name = self._pick_device_name(name=None, parent_device=parent_device)
 
         return name
@@ -1326,6 +1345,49 @@ class BlivetUtils(object):
 
         return actions
 
+    def _create_stratis_pool(self, user_input):
+        actions = []
+        device_name = self._pick_device_name(user_input.name)
+
+        for parent in user_input.size_selection.parents:
+            # _create_partition needs user_input but we actually don't have it for individual
+            # parent partitions so we need to 'create' it
+            size_selection = ProxyDataContainer(total_size=parent.selected_size, parents=[parent])
+            part_input = ProxyDataContainer(size_selection=size_selection,
+                                            filesystem="stratis",
+                                            encrypt=False,
+                                            label=None,
+                                            mountpoint=None)
+            part_actions = self._create_partition(part_input)
+
+            # we need to try to create partitions immediately, if something
+            # fails, fail now
+            for ac in part_actions:
+                self.storage.devicetree.actions.add(ac)
+            actions.extend(part_actions)
+
+        stratis_parents = [ac.device for ac in actions if (ac.is_format and ac.is_create) and ac._format.type == "stratis"]
+        new_pool = StratisPoolDevice(device_name,
+                                     parents=stratis_parents,
+                                     encrypted=user_input.encrypt,
+                                     passphrase=user_input.passphrase)
+        actions.append(blivet.deviceaction.ActionCreateDevice(new_pool))
+
+        return actions
+
+    def _create_stratis_filesystem(self, user_input):
+        actions = []
+        device_name = self._pick_device_name(user_input.name,
+                                             user_input.size_selection.parents[0].parent_device)
+
+        new_filesystem = StratisFilesystemDevice(device_name,
+                                                 parents=[i.parent_device for i in user_input.size_selection.parents])
+        new_filesystem.format = blivet.formats.get_format("stratis xfs", mountpoint=user_input.mountpoint)
+        actions.append(blivet.deviceaction.ActionCreateDevice(new_filesystem))
+        actions.append(blivet.deviceaction.ActionCreateFormat(new_filesystem))
+
+        return actions
+
     add_dict = {"partition": _create_partition,
                 "lvm": _create_lvm,
                 "lvmlv": _create_lvmlv,
@@ -1337,7 +1399,9 @@ class BlivetUtils(object):
                 "btrfs subvolume": _create_btrfs_subvolume,
                 "mdraid": _create_mdraid,
                 "lvm snapshot": _create_snapshot,
-                "lvm thinsnapshot": _create_snapshot}
+                "lvm thinsnapshot": _create_snapshot,
+                "stratis pool": _create_stratis_pool,
+                "stratis filesystem": _create_stratis_filesystem}
 
     def add_device(self, user_input):
         """ Create new device

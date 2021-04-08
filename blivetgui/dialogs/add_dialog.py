@@ -31,8 +31,9 @@ gi.require_version("Gdk", "3.0")
 from gi.repository import Gtk
 
 from blivet import size
-from blivet.devicelibs import crypto, lvm
+from blivet.devicelibs import crypto, lvm, stratis
 from blivet.formats.fs import BTRFS
+from blivet.formats.stratis import StratisBlockdev
 
 from ..dialogs import message_dialogs
 
@@ -387,6 +388,9 @@ class AddDialog(Gtk.Dialog):
             if self.selected_free.size > BTRFS._min_size:
                 types.append((_("Btrfs Volume"), "btrfs volume"))
 
+            if self.selected_free.size > StratisBlockdev._min_size:
+                types.append((_("Stratis Pool"), "stratis pool"))
+
             if len([f[0] for f in self.available_free if f[0] == "free"]) > 1:  # number of free disk regions
                 types.append((_("Software RAID"), "mdraid"))
 
@@ -408,6 +412,9 @@ class AddDialog(Gtk.Dialog):
 
         elif self.selected_parent.type in ("btrfs volume", "btrfs subvolume"):
             types.append((_("Btrfs Subvolume"), "btrfs subvolume"))
+
+        elif self.selected_parent.type == "stratis pool":
+            types.append((_("Stratis Filesystem"), "stratis filesystem"))
 
         return types
 
@@ -521,11 +528,15 @@ class AddDialog(Gtk.Dialog):
                     self.parents_store.append([fdevice.parents[0], fdevice, False, False,
                                                fdevice.parents[0].name, ftype, str(fdevice.size)])
 
-        elif self.selected_type in ("btrfs volume", "lvm", "mdraid"):
+        elif self.selected_type in ("btrfs volume", "lvm", "mdraid", "stratis pool"):
             for ftype, fdevice in self.available_free:
                 if ftype == "free":
                     if self.selected_type == "btrfs volume" and fdevice.size < BTRFS._min_size:
                         # too small for new btrfs
+                        continue
+
+                    if self.selected_type == "stratis pool" and fdevice.size < StratisBlockdev._min_size:
+                        # too small for new stratis pool
                         continue
 
                     self.parents_store.append([fdevice.disk, fdevice, False, False,
@@ -598,6 +609,7 @@ class AddDialog(Gtk.Dialog):
             - lv, thinpool (including thin): one extent
             - lvm: 2 * lvm.LVM_PE_SIZE
             - btrfs volume: 256 MiB
+            - stratis pool: 1 GiB
             - luks: crypto.LUKS_METADATA_SIZE
 
         """
@@ -612,6 +624,8 @@ class AddDialog(Gtk.Dialog):
             min_size = self.selected_parent.vg.pe_size
         elif device_type == "btrfs volume":
             min_size = BTRFS._min_size
+        elif device_type == "stratis pool":
+            min_size = StratisBlockdev._min_size
         else:
             min_size = size.Size("1 MiB")
 
@@ -624,7 +638,7 @@ class AddDialog(Gtk.Dialog):
 
         device_type = self.selected_type
 
-        if device_type in ("partition", "lvm", "btrfs volume", "mdraid"):
+        if device_type in ("partition", "lvm", "btrfs volume", "mdraid", "stratis pool"):
             # partition or a device we are going to create partition as a parent
             # --> we need to use disklabel limit
             disklabel_limit = size.Size(parent_device.format.parted_disk.maxPartitionLength * parent_device.format.sector_size)
@@ -705,6 +719,10 @@ class AddDialog(Gtk.Dialog):
         elif self.selected_type == "lvmthinpool":
             limit = min(self.selected_parent.free_space * POOL_RESERVED, limit)
 
+        if self.selected_type == "stratis filesystem":
+            # stratis filesystem size is always 1 TiB and unrelated to the pool size
+            return stratis.STRATIS_FS_SIZE
+
         # limit from the parents maximum size
         parents_limit = sum(p.max_size for p in self._get_parents())
         limit = min(parents_limit, limit)
@@ -723,6 +741,11 @@ class AddDialog(Gtk.Dialog):
         else:
             raid_level = None
 
+        if device_type == "stratis filesystem":
+            overprovisioning = True
+        else:
+            overprovisioning = False
+
         min_size_limit = self._get_min_size_limit()
         max_size_limit = self._get_max_size_limit()
         parents = self._get_parents()
@@ -731,7 +754,8 @@ class AddDialog(Gtk.Dialog):
                              parents=parents,
                              min_limit=min_size_limit,
                              max_limit=max_size_limit,
-                             raid_type=raid_level)
+                             raid_type=raid_level,
+                             overprovisioning=overprovisioning)
 
         self.grid.attach(size_area.frame, 0, 6, 6, 1)
 
@@ -978,6 +1002,14 @@ class AddDialog(Gtk.Dialog):
         elif device_type == "lvmthinpool":
             self.show_widgets(["name", "size"])
             self.hide_widgets(["label", "fs", "encrypt", "advanced", "mdraid", "mountpoint"])
+
+        elif device_type == "stratis pool":
+            self.show_widgets(["encrypt", "name", "size"])
+            self.hide_widgets(["label", "fs", "advanced", "mdraid", "mountpoint"])
+
+        elif device_type == "stratis filesystem":
+            self.show_widgets(["name", "mountpoint"])
+            self.hide_widgets(["label", "fs", "encrypt", "size", "advanced", "mdraid"])
 
         # hide "advanced" encryption widgets if encrypt not checked
         self._encryption_chooser.set_advanced_visible(self._encryption_chooser.encrypt)

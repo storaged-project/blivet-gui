@@ -267,7 +267,7 @@ class BlivetGUI(object):
         raise exception.with_traceback(traceback)
 
     def switch_device_view(self, device):
-        if not (device.is_disk or device.type in ("lvmvg", "btrfs volume", "mdarray")):
+        if not (device.is_disk or device.type in ("lvmvg", "btrfs volume", "mdarray", "stratis pool")):
             raise ValueError
 
         self.list_devices.select_device_by_name(device.name)
@@ -530,7 +530,7 @@ class BlivetGUI(object):
 
     def _deletable_parents(self, device):
 
-        if device.type not in ("btrfs volume", "mdarray", "lvmvg"):
+        if device.type not in ("btrfs volume", "mdarray", "lvmvg", "stratis pool"):
             return None
 
         deletable_parents = []

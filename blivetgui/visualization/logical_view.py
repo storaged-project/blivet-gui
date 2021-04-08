@@ -260,5 +260,5 @@ class LogicalView(object):
 
     def _on_button_press(self, button, event):
         if event.type == Gdk.EventType._2BUTTON_PRESS:
-            if button.device.is_disk or button.device.type in ("lvmvg", "btrfs volume", "mdarray", "stratis_pool"):
+            if button.device.is_disk or button.device.type in ("lvmvg", "btrfs volume", "mdarray", "stratis pool"):
                 self.blivet_gui.switch_device_view(button.device)

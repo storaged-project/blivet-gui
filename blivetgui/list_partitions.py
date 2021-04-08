@@ -93,7 +93,7 @@ class ListPartitions(object):
         # for btrfs volumes and mdarrays its necessary to add the device itself to the view
         # because these devices don't need to have children (only btrfs volume or only mdarray
         # is a valid, usable device)
-        elif selected_device.type in ("btrfs volume", "stratis_pool") or (selected_device.type == "mdarray" and not selected_device.children):
+        elif selected_device.type in ("btrfs volume", "stratis pool") or (selected_device.type == "mdarray" and not selected_device.children):
             parent_iter = self._add_to_store(selected_device)
             childs = self.blivet_gui.client.remote_call("get_children", selected_device)
             _add_chilren(childs, parent_iter)
@@ -109,7 +109,7 @@ class ListPartitions(object):
 
     def _is_group_device(self, blivet_device):
         # btrfs volume on raw disk
-        if blivet_device.type in ("btrfs volume", "lvmvg", "stratis_pool"):
+        if blivet_device.type in ("btrfs volume", "lvmvg", "stratis pool"):
             return True
 
         if blivet_device.format and blivet_device.format.type in ("lvmpv", "btrfs", "mdmember", "stratis"):
