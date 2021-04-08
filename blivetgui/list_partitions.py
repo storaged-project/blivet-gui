@@ -163,7 +163,7 @@ class ListPartitions(object):
         return device_iter
 
     def _allow_recursive_delete_device(self, device):
-        if device.type not in ("btrfs volume", "mdarray", "lvmvg"):
+        if device.type not in ("btrfs volume", "mdarray", "lvmvg", "stratis pool"):
             return False
 
         def _device_descendants(device):
@@ -269,7 +269,8 @@ class ListPartitions(object):
         if device.protected:
             return False
 
-        if device.type in ("free space", "btrfs volume", "btrfs subvolume", "lvmthinpool"):
+        if device.type in ("free space", "btrfs volume", "btrfs subvolume", "lvmthinpool",
+                           "stratis pool"):
             return True
 
         # empty lvmpv
