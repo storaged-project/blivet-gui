@@ -329,7 +329,8 @@ class ListPartitions(object):
         if device.format:
             if device.format.type == "luks" and not device.format.status and device.format.exists:
                 self.blivet_gui.activate_device_actions(["decrypt"])
-
+            elif device.format.type == "stratis" and device.format.locked_pool and not device.children:
+                self.blivet_gui.activate_device_actions(["decrypt"])
             elif device.format.mountable and device.format.system_mountpoint:
                 self.blivet_gui.activate_device_actions(["unmount"])
 

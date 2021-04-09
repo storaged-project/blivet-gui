@@ -1563,7 +1563,18 @@ class BlivetUtils(object):
 
         return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
-    def luks_decrypt(self, blivet_device, passphrase):
+    def unlock_device(self, blivet_device, passphrase):
+        """ Unlock/open this LUKS/dm-crypt encrypted device
+        """
+
+        if blivet_device.format.type == "luks":
+            return self._luks_unlock(blivet_device, passphrase)
+        elif blivet_device.format.type == "stratis":
+            return self._stratis_unlock(blivet_device, passphrase)
+        else:
+            return False
+
+    def _luks_unlock(self, blivet_device, passphrase):
         """ Decrypt selected luks device
 
             :param blivet_device: device to decrypt
@@ -1591,6 +1602,30 @@ class BlivetUtils(object):
             # save passphrase for future use (in Anaconda only)
             blivet_device.original_format.passphrase = passphrase
             self.storage.save_passphrase(blivet_device)
+            self.storage.devicetree.populate()
+            return True
+
+    def _stratis_unlock(self, blivet_device, passphrase):
+        """ Unlock Stratis pool on this device
+
+            :param blivet_device: stratis blockdev with a locked pool
+            :type blivet_device: StorageDevice
+            :param passphrase: passphrase
+            :type passphrase: str
+
+        """
+
+        log_msg = "Opening Stratis device '%s':\n" % blivet_device
+        log_utils_call(log=self.log, message=log_msg,
+                       user_input={"device": blivet_device})
+
+        blivet_device.format.passphrase = passphrase
+
+        try:
+            blivet_device.format.unlock_pool()
+        except blivet.errors.StratisError:
+            return False
+        else:
             self.storage.devicetree.populate()
             return True
 

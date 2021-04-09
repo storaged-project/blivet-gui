@@ -722,7 +722,7 @@ class BlivetGUI(object):
         response = self.run_dialog(dialog)
 
         if response:
-            ret = self.client.remote_call("luks_decrypt", self.list_partitions.selected_partition[0], response)
+            ret = self.client.remote_call("unlock_device", self.list_partitions.selected_partition[0], response)
 
             if not ret:
                 msg = _("Unlocking failed. Are you sure provided password is correct?")
