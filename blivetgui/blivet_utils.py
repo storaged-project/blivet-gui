@@ -515,6 +515,22 @@ class BlivetUtils(object):
 
         return ProxyDataContainer(success=True, actions=[action], message=None, exception=None, traceback=None)
 
+    def _delete_format(self, blivet_device):
+        actions = []
+
+        try:
+            if not blivet_device.format_immutable:
+                ac_fmt = blivet.deviceaction.ActionDestroyFormat(blivet_device)
+                self.storage.devicetree.actions.add(ac_fmt)
+                actions.append(ac_fmt)
+
+        except Exception as e:  # pylint: disable=broad-except
+            return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
+                                      traceback=traceback.format_exc())
+
+        return ProxyDataContainer(success=True, actions=actions, message=None, exception=None,
+                                  traceback=None)
+
     def _delete_device(self, blivet_device):
         actions = []
 
@@ -573,6 +589,21 @@ class BlivetUtils(object):
         if blivet_device.type in ("luks/dm-crypt", "integrity/dm-crypt"):
             for parent in blivet_device.parents:
                 result = self._delete_device(parent)
+                if not result.success:
+                    return result
+                else:
+                    actions.extend(result.actions)
+
+        # destroy action for MD array is no-op, the array is destroyed by removing
+        # the mdmember format from the parents
+        if blivet_device.type == "mdarray":
+            for parent in blivet_device.parents:
+                try:
+                    parent.format.teardown()
+                except Exception as e:  # pylint: disable=broad-except
+                    return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
+                                              traceback=traceback.format_exc())
+                result = self._delete_format(parent)
                 if not result.success:
                     return result
                 else:
