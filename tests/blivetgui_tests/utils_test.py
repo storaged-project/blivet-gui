@@ -104,7 +104,7 @@ class BlivetUtilsTest(unittest.TestCase):
         device.format.configure_mock(resizable=False, type="ext4")
         res = storage.device_resizable(device)
         self.assertFalse(res.resizable)
-        self.assertIsNone(res.error)
+        self.assertEqual(res.error, _("Format is not resizable after updating its size limit information."))
         self.assertEqual(res.min_size, Size("1 MiB"))
         self.assertEqual(res.max_size, Size("1 GiB"))
 

@@ -678,7 +678,7 @@ class BlivetUtils(object):
 
         elif blivet_device.format.type and not hasattr(blivet_device.format, "update_size_info"):
             msg = _("Format {type} doesn't support updating its size limit information").format(format_type=blivet_device.format.type)
-            return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
+            return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
         elif hasattr(blivet_device.format, "system_mountpoint") and blivet_device.format.system_mountpoint:
@@ -719,9 +719,9 @@ class BlivetUtils(object):
         else:
             if not blivet_device.resizable:
                 msg = _("Device is not resizable.")
-            if not blivet_device.format.resizable:
+            elif not blivet_device.format.resizable:
                 msg = _("Format is not resizable after updating its size limit information.")
-            return ProxyDataContainer(resizable=False, error=None, min_size=blivet.size.Size("1 MiB"),
+            return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
     def format_device(self, user_input):
