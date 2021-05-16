@@ -10,26 +10,26 @@
 # Jacek Smyda <smyda@posexperts.com.pl>, 1998
 # Leszek Matok <lam@lac.pl>, 2004
 # Pawel Szopinski <pawel@szopinski.co.uk>, 2004
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2015, 2020.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2015, 2020, 2021.
 # Radosław Zawartko <radzaw@radzaw.one.pl>, 2004
 # sonyam <sonyam@tlen.pl>, 2004
 # Stanisław Małolepszy <smalolepszy@aviary.pl>, 2006
 # Tom Berner <tom@lodz.pl>, 2005
 # Tom Berner <tom@man.lodz.pl>, 2004
 # Wojciech Kapusta <wojciech@aviary.pl>, 2006
-# Piotr Drąg <piotrdrag@gmail.com>, 2014, 2020.
-# Piotr Drąg <piotrdrag@gmail.com>, 2013-2014, 2020.
-# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020.
+# Piotr Drąg <piotrdrag@gmail.com>, 2014, 2020, 2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2013-2014, 2020, 2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
-# Piotr Drąg <piotrdrag@gmail.com>, 2017. #zanata, 2020.
-# Piotr Drąg <piotrdrag@gmail.com>, 2018. #zanata, 2020.
-# Piotr Drąg <piotrdrag@gmail.com>, 2020. #zanata
+# Piotr Drąg <piotrdrag@gmail.com>, 2017. #zanata, 2020, 2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2018. #zanata, 2020, 2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2020. #zanata, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2020-12-28 12:23+0000\n"
+"PO-Revision-Date: 2021-05-16 09:59+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/pl/>\n"
@@ -39,7 +39,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4\n"
+"X-Generator: Weblate 4.6.2\n"
 
 #: ../blivetgui/osinstall.py:219
 #, python-brace-format
@@ -783,7 +783,7 @@ msgstr " • <i>Koniec:</i> {end}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:113
 #, python-brace-format
 msgid " • <i>Origin:</i> {origin}\n"
-msgstr " • <i>Pierwotne:</i> {origin}\n"
+msgstr " • <i>Źródło:</i> {origin}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:114
 #: ../blivetgui/dialogs/device_info_dialog.py:116
