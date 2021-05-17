@@ -180,9 +180,6 @@ class LogicalView(object):
         """
 
         total_size = self._get_total_device_size(treeiter)
-        remaining_space = (available_width - allocated_width)
-
-        total_size = self._get_total_device_size(treeiter)
         if total_size == 0:
             return
 

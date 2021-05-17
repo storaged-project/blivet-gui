@@ -68,8 +68,6 @@ class ClientProxyObject(object):
         else:
             return remote_ret
 
-        return remote_ret
-
     def __getitem__(self, key):
         remote_key = self.client.remote_key(self.proxy_id, key)
 
