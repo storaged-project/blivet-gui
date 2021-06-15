@@ -63,6 +63,8 @@ def main():
     for test in tests:
         if isinstance(test, unittest.loader._FailedTest):
             print("Failed to add test '%s' to test suite." % test.id(), file=sys.stderr)
+            if hasattr(test, "_exception"):
+                print(str(test._exception), file=sys.stderr)
             sys.exit(1)
 
         if args.testname and not test.id().startswith(args.testname):
