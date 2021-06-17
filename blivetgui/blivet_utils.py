@@ -956,10 +956,10 @@ class BlivetUtils(object):
             if disk.format.logical_partitions:
                 # start 1 MiB after last logical partition
                 last_logical = sorted(disk.format.logical_partitions, key=lambda x: x.geometry.start)[-1]
-                start = (last_logical.geometry.end) + (Size("1 MiB") / disk.format.sector_size)
+                start = int((last_logical.geometry.end) + (Size("1 MiB") / disk.format.sector_size))
             else:
                 # first logical partition -- start 1 MiB after extended partition start
-                start = (extended.geometry.start) + (Size("1 MiB") / disk.format.sector_size)
+                start = int((extended.geometry.start) + (Size("1 MiB") / disk.format.sector_size))
 
         # align the start sector up
         constraint = disk.format.parted_device.optimalAlignedConstraint
