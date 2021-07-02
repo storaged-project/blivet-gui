@@ -1,11 +1,11 @@
-# Fabio Tomat <f.t.public@gmail.com>, 2017. #zanata, 2020.
-# Fabio Tomat <f.t.public@gmail.com>, 2019. #zanata, 2020.
+# Fabio Tomat <f.t.public@gmail.com>, 2017. #zanata, 2020, 2021.
+# Fabio Tomat <f.t.public@gmail.com>, 2019. #zanata, 2020, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2020-09-26 13:29+0000\n"
+"PO-Revision-Date: 2021-07-01 18:04+0000\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fur/>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.2.2\n"
+"X-Generator: Weblate 4.7.1\n"
 
 #: ../blivetgui/osinstall.py:219
 #, python-brace-format
@@ -113,7 +113,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:283
 msgid "Failed to resize the device:"
-msgstr "No si è rivâts a ridimensionâ il dispositîf:"
+msgstr "Impussibil ridimensionâ il dispositîf:"
 
 #: ../blivetgui/blivetgui.py:295
 #, python-brace-format
@@ -122,7 +122,7 @@ msgstr "cambie dimension {name} {type}"
 
 #: ../blivetgui/blivetgui.py:314
 msgid "Failed to format the device:"
-msgstr "No si è rivâts a formatâ il dispositîf:"
+msgstr "Impussibil formatâ il dispositîf:"
 
 #: ../blivetgui/blivetgui.py:328
 #, python-brace-format
@@ -131,7 +131,7 @@ msgstr "formate {name} {type}"
 
 #: ../blivetgui/blivetgui.py:341
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr "No si è rivâts a modificâ il Grup di Volums LVM2:"
+msgstr "Impussibil modificâ il Grup di Volums LVM2:"
 
 #: ../blivetgui/blivetgui.py:356
 #, python-brace-format
@@ -140,7 +140,7 @@ msgstr "modifiche {name} {type}"
 
 #: ../blivetgui/blivetgui.py:385
 msgid "Failed to change filesystem label on the device:"
-msgstr "No si è rivâts a cambiâ la etichete dal filesystem sul dispositîf:"
+msgstr "Impussibil cambiâ la etichete dal filesystem sul dispositîf:"
 
 #: ../blivetgui/blivetgui.py:390
 #, python-brace-format
@@ -171,7 +171,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:427
 msgid "Failed to add disklabel:"
-msgstr "No si è rivâts a zontâ la etichete dal disc:"
+msgstr "Impussibil zontâ la etichete dal disc:"
 
 #: ../blivetgui/blivetgui.py:440
 #, python-brace-format
@@ -180,7 +180,7 @@ msgstr "cree une gnove etichete disc su {name}"
 
 #: ../blivetgui/blivetgui.py:492
 msgid "Failed to add the device:"
-msgstr "No si è rivâts a zontâ il dispositîf:"
+msgstr "Impussibil a zontâ il dispositîf:"
 
 #: ../blivetgui/blivetgui.py:507
 #, python-brace-format
@@ -189,7 +189,7 @@ msgstr "zonte dispositîf {size} {type}"
 
 #: ../blivetgui/blivetgui.py:542
 msgid "Failed to delete the device:"
-msgstr "No si è rivâts a eliminâ il dispositîf:"
+msgstr "Impussibil eliminâ il dispositîf:"
 
 #: ../blivetgui/blivetgui.py:557
 #, python-brace-format
@@ -198,7 +198,7 @@ msgstr "elimine partizion {name}"
 
 #: ../blivetgui/blivetgui.py:596
 msgid "Failed to perform the actions:"
-msgstr "No si è rivâts a eseguî lis azions:"
+msgstr "Impussibil eseguî lis azions:"
 
 #: ../blivetgui/blivetgui.py:640
 msgid "Confirm scheduled actions"
@@ -213,16 +213,12 @@ msgstr "Sigûrs di eseguî lis azions planificadis?"
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
-"No si è rivâts a dismontâ '{mountpoint}'. Sino sigûrs che il dispositîf nol "
-"sedi in ûs?"
+"Impussibil dismontâ '{mountpoint}'. Sino sigûrs che il dispositîf nol sedi "
+"in ûs?"
 
 #: ../blivetgui/blivetgui.py:704
-#, fuzzy
-#| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr ""
-"No si è rivâts a decifrâ il dispositîf. Sigûrs che la password dade e sedi "
-"juste?"
+msgstr "Impussibil sblocâ. Sino sigûrs che la password dade e sedi juste?"
 
 #: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:659
 msgid "Quit"
@@ -260,7 +256,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:792
 msgid "Failed to init blivet:"
-msgstr "No si è rivâts a inizializâ blivet:"
+msgstr "Impussibil inizializâ blivet:"
 
 #: ../blivetgui/blivetgui.py:799
 msgid "Quit blivet-gui"
@@ -315,15 +311,15 @@ msgstr "Il ridimensionament dai dispositîfs {type} nol è ancjemò supuartât"
 
 #: ../blivetgui/blivet_utils.py:611
 msgid "Protected devices cannot be resized"
-msgstr "I dispositîfs protets no puedin jessi ridimensionâts."
+msgstr "Nol è pussibil ridimensionâ i dispositîfs protets."
 
 #: ../blivetgui/blivet_utils.py:616
 msgid "Immutable formats cannot be resized"
-msgstr "I formâts imutabii no puedin jessi ridimensionâts"
+msgstr "Nol è pussibil ridimensionâ i formâts imutabii"
 
 #: ../blivetgui/blivet_utils.py:621
 msgid "Devices with children cannot be resized"
-msgstr "I dispositîfs cui fîs no puedin jessi ridimensionâts."
+msgstr "Nol è pussibil ridimensionâ i dispositîfs cui fîs"
 
 #: ../blivetgui/blivet_utils.py:632
 msgid "Unformatted devices are not resizable"
@@ -339,19 +335,19 @@ msgstr "Il ridimensionament dal formât {type} nol è ancjemò supuartât"
 #: ../blivetgui/blivet_utils.py:644
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
-msgstr "I struments par ridimensionâ il formât {type} no son disponibii."
+msgstr "No son disponibii i struments par ridimensionâ il formât {type}."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:651
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "I formâts programâts pe creazion no puedin jessi ridimensionâts"
+msgstr "Nol è pussibil ridimensionâ i formâts programâts pe creazion"
 
 #: ../blivetgui/blivet_utils.py:656
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
-"Il formât {type} nol supuarte l'inzornament des informazions dal sô limit di "
+"Il formât {type} nol supuarte l'inzornament des informazions dal so limit di "
 "dimension"
 
 #: ../blivetgui/blivet_utils.py:661
@@ -366,8 +362,7 @@ msgstr "No si pues ridimensionâ i volums logjics cun istantaniis."
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr ""
-"No si è rivâts a inzornâ lis informazions su la dimension dal filesystem: "
-"{error}"
+"Impussibil inzornâ lis informazions su la dimension dal filesystem: {error}"
 
 #: ../blivetgui/blivet_utils.py:697
 msgid "Device is not resizable."
@@ -436,7 +431,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:105
 msgid "This device cannot be resized."
-msgstr "Chest dispositîf nol pues jessi ridimensionât."
+msgstr "Nol è pussibil ridimensionâ chest dispositîf."
 
 #: ../blivetgui/dialogs/edit_dialog.py:165
 #: ../blivetgui/dialogs/add_dialog.py:792
@@ -930,7 +925,7 @@ msgstr " • {exists} {size} {type} {name}\n"
 #: ../blivetgui/communication/client.py:302
 #: ../blivetgui/communication/client.py:319
 msgid "Failed to connect to blivet-gui-daemon"
-msgstr "No si è rivâts a conetisi a blivet-gui-daemon"
+msgstr "Impussibil conetisi a blivet-gui-daemon"
 
 #: ../blivetgui/visualization/rectangle.py:50
 msgid "Group device"
@@ -941,16 +936,12 @@ msgid "LiveUSB device"
 msgstr "Dispositîf LiveUSB"
 
 #: ../blivetgui/visualization/rectangle.py:52
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (locked)"
-msgstr "Dispositîf cifrât (sierât)"
+msgstr "Dispositîf cifrât (blocât)"
 
 #: ../blivetgui/visualization/rectangle.py:53
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (unlocked)"
-msgstr "Dispositîf cifrât (sierât)"
+msgstr "Dispositîf cifrât (sblocât)"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Empty device"
@@ -969,31 +960,24 @@ msgid "Device or format is write protected"
 msgstr "Il dispositîf o il formât al è protet de scriture"
 
 #: ../blivetgui/visualization/rectangle.py:58
-#, fuzzy
-#| msgid "Edit device"
 msgid "Cached device"
-msgstr "Modifiche dispositîf"
+msgstr "Dispositîf in cache"
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
-msgstr "I privileçs di root a son necessaris par eseguî blivet-gui."
+msgstr "A coventin i privileçs di root par eseguî blivet-gui."
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
 msgstr "Erôr"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
-#, fuzzy
-#| msgctxt "ActionsToolbar|Decrypt"
-#| msgid "Unlock/Open selected device"
 msgid "Unlock device"
-msgstr "Sbloche/Vierç dispositîf selezionât"
+msgstr "Sbloche dispositîf"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
-#, fuzzy
-#| msgid "Please enter passphrase to decrypt selected device."
 msgid "Please enter passphrase to unlock selected device."
-msgstr "Inserìs la passphrase par decifrâ il dispositîf selezionât."
+msgstr "Inserìs la passphrase par sblocâ il dispositîf selezionât."
 
 #: ../data/ui/luks_passphrase_dialog.ui:52 ../data/ui/encryption_chooser.ui:44
 msgid "Passphrase:"
@@ -1164,7 +1148,7 @@ msgstr "_Jes"
 
 #: ../data/ui/exception_dialog.ui:107
 msgid "Show traceback"
-msgstr ""
+msgstr "Mostre traceback"
 
 #: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
 msgid "Format device"
@@ -1267,11 +1251,11 @@ msgstr "Gjenar di cache:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
-msgstr ""
+msgstr "Scriture simultanie (writethrough)"
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
-msgstr ""
+msgstr "Scriture rimandade (writeback)"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1289,7 +1273,7 @@ msgstr "_Ridimensione"
 #: ../data/ui/label_dialog.ui:39
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "Torne a etichetâ"
 
 #: ../data/ui/label_dialog.ui:71
 msgid "Enter new label for this filesystem:"
