@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Andika Triwidada <andika@gmail.com>, 2020.
+# Didik Supriadi <didiksupriadi41@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2020-12-28 12:23+0000\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"PO-Revision-Date: 2021-07-07 17:04+0000\n"
+"Last-Translator: Didik Supriadi <didiksupriadi41@gmail.com>\n"
 "Language-Team: Indonesian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/id/>\n"
 "Language: id\n"
@@ -16,10 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.4\n"
+"X-Generator: Weblate 4.7.1\n"
 
 #: ../blivetgui/osinstall.py:219
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "{message}\n"
 "{error}\n"
@@ -28,29 +29,26 @@ msgid ""
 msgstr ""
 "{message}\n"
 "{error}\n"
-" Silakan klik tombol Laporkan untuk menaikkan kesalahan dan membiarkan "
-"anaconda \n"
-" untuk menangani proses laporan jika Anda ingin melaporkan hal ini."
+" Harap tekan tombol \"Laporkan\" untuk melaporkan kesalahan yang terjadi "
+"dengan anaconda"
 
 #: ../blivetgui/osinstall.py:221
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Unknown error occured. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
-"Timbul galat tak dikenal. Anaconda akan dihentikan.\n"
+"Terjadi kesalahan yang tak diketahui. Anaconda akan dihentikan.\n"
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
 #: ../blivetgui/osinstall.py:269
-#, fuzzy
 msgid "actions configured by installer"
-msgstr "tindakan yang dikonfigurasi oleh penginstal"
+msgstr "aksi dikonfigurasi oleh installer"
 
 #: ../blivetgui/list_devices.py:82
-#, fuzzy
 msgid "Disks"
-msgstr "Diska"
+msgstr "Disk"
 
 #: ../blivetgui/list_devices.py:102
 msgid "LVM"
@@ -79,132 +77,125 @@ msgstr "Volume Btrfs"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
-msgstr "Memroses"
+msgstr "Memproses"
 
 #: ../blivetgui/processing_window.py:83
 msgid "Show actions"
 msgstr "Perlihatkan aksi"
 
 #: ../blivetgui/processing_window.py:158
-#, fuzzy
 msgid "All queued actions have been processed."
-msgstr "Semua tindakan yang diantrikan telah diproses."
+msgstr "Semua aksi yang baru saja diantrikan telah diproses."
 
 #: ../blivetgui/processing_window.py:173
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "<b>Processing action {num} of {total}</b>:\n"
 "<i>{action}</i>"
-msgstr "<b>Tindakan pemrosesan {num} {total} </b>:<i>{action}</i>"
+msgstr ""
+"<b>Memproses aksi {num} dari {total} </b>:\n"
+"<i>{action}</i>"
 
 #: ../blivetgui/exception_handler.py:75
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Unknown error occured.\n"
 "{error}"
 msgstr ""
-"Timbul galat tak dikenal.\n"
+"Terjadi kesalahan yang tak diketahui.\n"
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Unknown error occured. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
-"Timbul galat tak dikenal. Blivet-gui akan dihentikan.\n"
+"Terjadi kesalahan yang tak diketahui. Blivet-gui akan dihentikan.\n"
 "{error}"
 
 #: ../blivetgui/blivetgui.py:283
-#, fuzzy
 msgid "Failed to resize the device:"
 msgstr "Gagal mengubah ukuran perangkat:"
 
 #: ../blivetgui/blivetgui.py:295
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "resize {name} {type}"
 msgstr "mengubah ukuran {name} {type}"
 
 #: ../blivetgui/blivetgui.py:314
-#, fuzzy
 msgid "Failed to format the device:"
-msgstr "Gagal memformat peranti:"
+msgstr "Gagal memformat perangkat:"
 
 #: ../blivetgui/blivetgui.py:328
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "format {name} {type}"
 msgstr "format {name} {type}"
 
 #: ../blivetgui/blivetgui.py:341
-#, fuzzy
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr "Gagal mengedit Grup Volume LVM2:"
+msgstr "Gagal mengedit LVM2 VG:"
 
 #: ../blivetgui/blivetgui.py:356
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "edit {name} {type}"
 msgstr "edit {name} {type}"
 
 #: ../blivetgui/blivetgui.py:385
-#, fuzzy
 msgid "Failed to change filesystem label on the device:"
-msgstr "Gagal mengubah label sistem berkas pada peranti:"
+msgstr "Gagal mengubah label filesystem pada perangkat:"
 
 #: ../blivetgui/blivetgui.py:390
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr "ubah label sistem berkas {name} {type}"
+msgstr "ubah label filesystem {name} {type}"
 
 #: ../blivetgui/blivetgui.py:406
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
 "PVs."
 msgstr ""
-"{name} tidak lengkap. Tidak dimungkinkan untuk menambahkan OC baru ke VG "
-"dengan PC yang hilang."
+"{name} tidak lengkap. Tidak mungkin menambahkan LV baru ke VG jika PV tidak "
+"ada."
 
 #: ../blivetgui/blivetgui.py:411
-#, fuzzy
 msgid "Not enough free space for a new LVM Volume Group."
-msgstr "Tidak cukup ruang kosong untuk Grup Volume LVM baru."
+msgstr "Tidak cukup ruang untuk LVM VG baru."
 
 #: ../blivetgui/blivetgui.py:417
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
 "{label} disklabel."
 msgstr ""
-"Disk {name} telah mencapai jumlah maksimum yang diizinkan dari partisi "
-"primer untuk {label} disklabel."
+"Disk {name} sudah mencapai jumlah partisi primer maksimum untuk disklabel "
+"{label}."
 
 #: ../blivetgui/blivetgui.py:427
-#, fuzzy
 msgid "Failed to add disklabel:"
 msgstr "Gagal menambahkan disklabel:"
 
 #: ../blivetgui/blivetgui.py:440
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "buat disklabel baru pada {name}"
 
 #: ../blivetgui/blivetgui.py:492
-#, fuzzy
 msgid "Failed to add the device:"
-msgstr "Gagal menambahkan peranti:"
+msgstr "Gagal menambahkan perangkat:"
 
 #: ../blivetgui/blivetgui.py:507
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "add {size} {type} device"
-msgstr "tambah {size} {type} anda"
+msgstr "tambah {size} {type} perangkat"
 
 #: ../blivetgui/blivetgui.py:542
-#, fuzzy
 msgid "Failed to delete the device:"
-msgstr "Gagal menghapus peranti:"
+msgstr "Gagal menghapus perangkat:"
 
 #: ../blivetgui/blivetgui.py:557
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "delete partition {name}"
 msgstr "hapus partisi {name}"
 
