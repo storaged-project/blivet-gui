@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-09-29 13:02+0200\n"
-"PO-Revision-Date: 2021-07-07 17:04+0000\n"
+"PO-Revision-Date: 2021-07-14 01:04+0000\n"
 "Last-Translator: Didik Supriadi <didiksupriadi41@gmail.com>\n"
 "Language-Team: Indonesian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/id/>\n"
@@ -44,7 +44,7 @@ msgstr ""
 #. add a new 'placeholder' action for all currently registered blivet actions
 #: ../blivetgui/osinstall.py:269
 msgid "actions configured by installer"
-msgstr "aksi dikonfigurasi oleh installer"
+msgstr "tindakan dikonfigurasi oleh installer"
 
 #: ../blivetgui/list_devices.py:82
 msgid "Disks"
