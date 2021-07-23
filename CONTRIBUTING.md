@@ -32,24 +32,17 @@ PYTHONPATH=. PATH=`pwd`:$PATH blivet-gui
     * it is possible to run these separately -- `make pep8`, `make pylint` or
       `make canary`
   * `sudo install-requires`
-    * install some addition dependencies needed for tests (uses _dnf_)
+    * install some addition dependencies needed for tests (uses an _ansible_ playbook, Fedora, Debian and Ubuntu are currently supported by this target)
 
 ### Contributing
 
 #### Branches
 
-  * `master` is the only "active development" branch, new features should go
-    to this branch
-  * only bug fixes are being added to the "older" branches
-    * names are currently based on the Fedora releases
-      * `f25-devel` -- blivet-gui 2.0.x
-      * `f24-devel` -- blivet-gui 1.2.x
-      * `f23-devel` -- blivet-gui 1.0.x (not supported)
-      * `f22-devel` -- blivet-gui 0.2.x (not supported)
+  * `master` is the only "active development" branch, new features should go to this branch
 
 #### Code style
 
-  * `pep8` and `pylint` are used to check the code, see __Running the tests__
+  * `pep8` (`pycodestyle`) and `pylint` are used to check the code, see __Running the tests__
     * some checks are disabled, e.g. check for maximum line length (try to keep
       lines under 100 characters but avoid "artificial" line breaks just to keep
       lines short)
@@ -57,7 +50,7 @@ PYTHONPATH=. PATH=`pwd`:$PATH blivet-gui
 ### Building blocks of blivet-gui
 
 This is just a short summary of blivet-gui code structure/building blocks.
-See [storaged-project.github.io/blivet-gui/doc](https://storaged-project.github.io/blivet-gui/docs)
+See [storaged-project.github.io/blivet-gui](https://storaged-project.github.io/blivet-gui/
 for a complete API documentation.
 
 #### BlivetUtils
