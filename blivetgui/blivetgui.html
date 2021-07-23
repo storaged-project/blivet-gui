@@ -1,0 +1,1294 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>blivetgui package &#8212; blivet-gui 2.2.1 documentation</title>
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+    
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="blivetgui.communication package" href="blivetgui.communication.html" />
+    <link rel="prev" title="Introduction to blivet-gui" href="../intro.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="blivetgui.communication.html" title="blivetgui.communication package"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../intro.html" title="Introduction to blivet-gui"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">blivet-gui 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">blivetgui package</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="blivetgui-package">
+<h1>blivetgui package<a class="headerlink" href="#blivetgui-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="blivetgui.communication.html">blivetgui.communication package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.communication.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.communication.html#module-blivetgui.communication.client">blivetgui.communication.client module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.communication.html#module-blivetgui.communication.constants">blivetgui.communication.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.communication.html#module-blivetgui.communication.errors">blivetgui.communication.errors module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.communication.html#module-blivetgui.communication.proxy_utils">blivetgui.communication.proxy_utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.communication.html#module-blivetgui.communication.server">blivetgui.communication.server module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.communication.html#module-blivetgui.communication">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blivetgui.dialogs.html">blivetgui.dialogs package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.dialogs.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.dialogs.html#module-blivetgui.dialogs.add_dialog">blivetgui.dialogs.add_dialog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.dialogs.html#module-blivetgui.dialogs.constants">blivetgui.dialogs.constants module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.dialogs.html#module-blivetgui.dialogs.device_info_dialog">blivetgui.dialogs.device_info_dialog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.dialogs.html#module-blivetgui.dialogs.edit_dialog">blivetgui.dialogs.edit_dialog module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.dialogs.html#module-blivetgui.dialogs.helpers">blivetgui.dialogs.helpers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.dialogs.html#module-blivetgui.dialogs.message_dialogs">blivetgui.dialogs.message_dialogs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.dialogs.html#module-blivetgui.dialogs.other_dialogs">blivetgui.dialogs.other_dialogs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.dialogs.html#module-blivetgui.dialogs.size_chooser">blivetgui.dialogs.size_chooser module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.dialogs.html#module-blivetgui.dialogs.widgets">blivetgui.dialogs.widgets module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.dialogs.html#module-blivetgui.dialogs">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="blivetgui.visualization.html">blivetgui.visualization package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.visualization.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.visualization.html#module-blivetgui.visualization.logical_view">blivetgui.visualization.logical_view module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.visualization.html#module-blivetgui.visualization.physical_view">blivetgui.visualization.physical_view module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.visualization.html#module-blivetgui.visualization.rectangle">blivetgui.visualization.rectangle module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.visualization.html#module-blivetgui.visualization">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-blivetgui.actions_menu">
+<span id="blivetgui-actions-menu-module"></span><h2>blivetgui.actions_menu module<a class="headerlink" href="#module-blivetgui.actions_menu" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.actions_menu.ActionsMenu">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.actions_menu.</code><code class="sig-name descname">ActionsMenu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_gui</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.actions_menu.ActionsMenu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Popup context menu for devices</p>
+<dl class="py method">
+<dt id="blivetgui.actions_menu.ActionsMenu.activate_menu_items">
+<code class="sig-name descname">activate_menu_items</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">menu_item_names</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.actions_menu.ActionsMenu.activate_menu_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate selected menu items</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>menu_item_names</strong> – names of menu items to activate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.actions_menu.ActionsMenu.create_menu">
+<code class="sig-name descname">create_menu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.actions_menu.ActionsMenu.create_menu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create popup menu</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.actions_menu.ActionsMenu.deactivate_all">
+<code class="sig-name descname">deactivate_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.actions_menu.ActionsMenu.deactivate_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deactivate all partition based buttons</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.actions_menu.ActionsMenu.deactivate_menu_items">
+<code class="sig-name descname">deactivate_menu_items</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">menu_item_names</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.actions_menu.ActionsMenu.deactivate_menu_items" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deactivate selected buttons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>menu_item_names</strong> – names of menu items to activate</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.actions_toolbar">
+<span id="blivetgui-actions-toolbar-module"></span><h2>blivetgui.actions_toolbar module<a class="headerlink" href="#module-blivetgui.actions_toolbar" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.actions_toolbar.ActionsToolbar">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.actions_toolbar.</code><code class="sig-name descname">ActionsToolbar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_gui</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.actions_toolbar.ActionsToolbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#blivetgui.actions_toolbar.BlivetGUIToolbar" title="blivetgui.actions_toolbar.BlivetGUIToolbar"><code class="xref py py-class docutils literal notranslate"><span class="pre">blivetgui.actions_toolbar.BlivetGUIToolbar</span></code></a></p>
+<dl class="py method">
+<dt id="blivetgui.actions_toolbar.ActionsToolbar.deactivate_all">
+<code class="sig-name descname">deactivate_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.actions_toolbar.ActionsToolbar.deactivate_all" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="blivetgui.actions_toolbar.BlivetGUIToolbar">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.actions_toolbar.</code><code class="sig-name descname">BlivetGUIToolbar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_gui</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.actions_toolbar.BlivetGUIToolbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="blivetgui.actions_toolbar.BlivetGUIToolbar.activate_buttons">
+<code class="sig-name descname">activate_buttons</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">button_names</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.actions_toolbar.BlivetGUIToolbar.activate_buttons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate selected buttons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>button_names</strong> (<em>list of str</em>) – names of buttons to activate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.actions_toolbar.BlivetGUIToolbar.deactivate_buttons">
+<code class="sig-name descname">deactivate_buttons</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">button_names</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.actions_toolbar.BlivetGUIToolbar.deactivate_buttons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deactivate selected buttons</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>button_names</strong> (<em>list of str</em>) – names of buttons to deactivate</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="blivetgui.actions_toolbar.DeviceToolbar">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.actions_toolbar.</code><code class="sig-name descname">DeviceToolbar</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_gui</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.actions_toolbar.DeviceToolbar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#blivetgui.actions_toolbar.BlivetGUIToolbar" title="blivetgui.actions_toolbar.BlivetGUIToolbar"><code class="xref py py-class docutils literal notranslate"><span class="pre">blivetgui.actions_toolbar.BlivetGUIToolbar</span></code></a></p>
+<p>Create toolbar with action buttons</p>
+<dl class="py method">
+<dt id="blivetgui.actions_toolbar.DeviceToolbar.deactivate_all">
+<code class="sig-name descname">deactivate_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.actions_toolbar.DeviceToolbar.deactivate_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deactivate all partition based buttons</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.blivet_utils">
+<span id="blivetgui-blivet-utils-module"></span><h2>blivetgui.blivet_utils module<a class="headerlink" href="#module-blivetgui.blivet_utils" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.blivet_utils.BlivetUtils">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.blivet_utils.</code><code class="sig-name descname">BlivetUtils</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ignored_disks</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">exclusive_disks</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class with utils directly working with blivet itselves</p>
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.add_device">
+<code class="sig-name descname">add_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user_input</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.add_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create new device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>user_input</strong> (<em>class UserInput</em>) – selected parameters from AddDialog</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>new device name</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="blivetgui.blivet_utils.BlivetUtils.add_dict">
+<code class="sig-name descname">add_dict</code><em class="property"> = {'btrfs subvolume': &lt;function BlivetUtils._create_btrfs_subvolume&gt;, 'btrfs volume': &lt;function BlivetUtils._create_btrfs_volume&gt;, 'lvm': &lt;function BlivetUtils._create_lvm&gt;, 'lvm snapshot': &lt;function BlivetUtils._create_snapshot&gt;, 'lvm thinsnapshot': &lt;function BlivetUtils._create_snapshot&gt;, 'lvmlv': &lt;function BlivetUtils._create_lvmlv&gt;, 'lvmpv': &lt;function BlivetUtils._create_lvmpv&gt;, 'lvmthinlv': &lt;function BlivetUtils._create_lvmthinlv&gt;, 'lvmthinpool': &lt;function BlivetUtils._create_lvmthinpool&gt;, 'lvmvg': &lt;function BlivetUtils._create_lvmvg&gt;, 'mdraid': &lt;function BlivetUtils._create_mdraid&gt;, 'partition': &lt;function BlivetUtils._create_partition&gt;}</em><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.add_dict" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.blivet_cancel_actions">
+<code class="sig-name descname">blivet_cancel_actions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">actions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.blivet_cancel_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cancel scheduled actions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.blivet_do_it">
+<code class="sig-name descname">blivet_do_it</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">progress_report_hook</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.blivet_do_it" title="Permalink to this definition">¶</a></dt>
+<dd><p>Blivet.do_it()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.blivet_reset">
+<code class="sig-name descname">blivet_reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.blivet_reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Blivet.reset()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.create_disk_label">
+<code class="sig-name descname">create_disk_label</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_device</span></em>, <em class="sig-param"><span class="n">label_type</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.create_disk_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create disklabel</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>blivet_device</strong> (<em>blivet.Device</em>) – blivet device</p></li>
+<li><p><strong>label_type</strong> (<em>str</em>) – type of label to create</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.delete_device">
+<code class="sig-name descname">delete_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_device</span></em>, <em class="sig-param"><span class="n">delete_parents</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.delete_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>blivet_device</strong> (<em>blivet.Device</em>) – blivet device</p></li>
+<li><p><strong>delete_parents</strong> (<em>bool</em>) – delete parent devices too?</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.device_resizable">
+<code class="sig-name descname">device_resizable</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.device_resizable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is given device resizable</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>blivet_device</strong> (<em>blivet.Device</em>) – blivet device</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>device resizable, min_size, max_size, size</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.edit_lvmvg_device">
+<code class="sig-name descname">edit_lvmvg_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user_input</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.edit_lvmvg_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edit LVM Volume group</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.format_device">
+<code class="sig-name descname">format_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user_input</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.format_device" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_actions">
+<code class="sig-name descname">get_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of currently registered actions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_children">
+<code class="sig-name descname">get_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_children" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get partitions (children) of selected device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>blivet_device</strong> (<em>blivet.device.Device</em>) – blivet device</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of child devices</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list of blivet.device.Device</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_default_filesystem">
+<code class="sig-name descname">get_default_filesystem</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_default_filesystem" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_disk_children">
+<code class="sig-name descname">get_disk_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_disk_children" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_disks">
+<code class="sig-name descname">get_disks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_disks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of all disk devices on current system</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of all “disk” devices</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_free_device">
+<code class="sig-name descname">get_free_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_free_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get FreeSpaceDevice object for selected device (e.g. VG)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_free_info">
+<code class="sig-name descname">get_free_info</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_free_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of free ‘devices’ (PVs and disk regions) that can be used
+as parents for newly added devices</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_group_device">
+<code class="sig-name descname">get_group_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_group_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get ‘group’ device based on underlying device (lvmpv/btrfs/mdmember/luks partition)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_group_devices">
+<code class="sig-name descname">get_group_devices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_group_devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of LVM2 Volume Group devices</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of LVM2 VG devices</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_luks_device">
+<code class="sig-name descname">get_luks_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_luks_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get luks or integrity device based on underlying partition</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_mountpoints">
+<code class="sig-name descname">get_mountpoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_mountpoints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return list of current mountpoints</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_roots">
+<code class="sig-name descname">get_roots</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_roots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of parents for selected device with its structure</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_supported_filesystems">
+<code class="sig-name descname">get_supported_filesystems</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">installer_mode</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_supported_filesystems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.get_system_mountpoints">
+<code class="sig-name descname">get_system_mountpoints</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.get_system_mountpoints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="blivetgui.blivet_utils.BlivetUtils.installer_mode">
+<code class="sig-name descname">installer_mode</code><em class="property"> = False</em><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.installer_mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.luks_decrypt">
+<code class="sig-name descname">luks_decrypt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_device</span></em>, <em class="sig-param"><span class="n">passphrase</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.luks_decrypt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decrypt selected luks device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>blivet_device</strong> (<em>LUKSDevice</em>) – device to decrypt</p></li>
+<li><p><strong>passphrase</strong> (<em>str</em>) – passphrase</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.relabel_format">
+<code class="sig-name descname">relabel_format</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user_input</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.relabel_format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.resizable_filesystems">
+<em class="property">property </em><code class="sig-name descname">resizable_filesystems</code><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.resizable_filesystems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.BlivetUtils.resize_device">
+<code class="sig-name descname">resize_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">user_input</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils.resize_device" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="blivetgui.blivet_utils.FreeSpaceDevice">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.blivet_utils.</code><code class="sig-name descname">FreeSpaceDevice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">free_size</span></em>, <em class="sig-param"><span class="n">dev_id</span></em>, <em class="sig-param"><span class="n">start</span></em>, <em class="sig-param"><span class="n">end</span></em>, <em class="sig-param"><span class="n">parents</span></em>, <em class="sig-param"><span class="n">logical</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.FreeSpaceDevice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Special class to represent free space on disk (device)
+(blivet doesn’t have class/device to represent free space)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>free_size</strong> (<em>blivet.size.Size</em>) – size of free space</p></li>
+<li><p><strong>start</strong> – start block</p></li>
+<li><p><strong>end</strong> (<em>int</em>) – end block</p></li>
+<li><p><strong>parents</strong> (<em>blivet.devices.lib.ParentList</em>) – list of parent devices</p></li>
+<li><p><strong>logical</strong> (<em>bool</em>) – is this free space inside extended partition</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.FreeSpaceDevice.is_empty_disk">
+<em class="property">property </em><code class="sig-name descname">is_empty_disk</code><a class="headerlink" href="#blivetgui.blivet_utils.FreeSpaceDevice.is_empty_disk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.FreeSpaceDevice.is_free_region">
+<em class="property">property </em><code class="sig-name descname">is_free_region</code><a class="headerlink" href="#blivetgui.blivet_utils.FreeSpaceDevice.is_free_region" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.FreeSpaceDevice.is_uninitialized_disk">
+<em class="property">property </em><code class="sig-name descname">is_uninitialized_disk</code><a class="headerlink" href="#blivetgui.blivet_utils.FreeSpaceDevice.is_uninitialized_disk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivet_utils.FreeSpaceDevice.protected">
+<em class="property">property </em><code class="sig-name descname">protected</code><a class="headerlink" href="#blivetgui.blivet_utils.FreeSpaceDevice.protected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="blivetgui.blivet_utils.lsblk">
+<code class="sig-prename descclassname">blivetgui.blivet_utils.</code><code class="sig-name descname">lsblk</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.lsblk" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.blivetgui">
+<span id="blivetgui-blivetgui-module"></span><h2>blivetgui.blivetgui module<a class="headerlink" href="#module-blivetgui.blivetgui" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.blivetgui.BlivetGUI">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.blivetgui.</code><code class="sig-name descname">BlivetGUI</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">client</span></em>, <em class="sig-param"><span class="n">exclusive_disks</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Class representing the GUI part of the application. It creates all the
+Gtk.Widgets used in blivet-gui.</p>
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.actions_undo">
+<code class="sig-name descname">actions_undo</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.actions_undo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Undo last action</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>widget</strong> (<em>Gtk.Widget</em><em>(</em><em>)</em>) – widget calling this function (only for calls via signal.connect)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.activate_action_buttons">
+<code class="sig-name descname">activate_action_buttons</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">activate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.activate_action_buttons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the actions toolbar buttons (in)active</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.activate_device_actions">
+<code class="sig-name descname">activate_device_actions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">activate_list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.activate_device_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate available device actions in device toolbar and popup menu</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>activate_list</strong> (<em>list of str</em>) – list of items to activate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.add_device">
+<code class="sig-name descname">add_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.add_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show dialog for adding new device and create the device based on
+user selection</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.apply_event">
+<code class="sig-name descname">apply_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.apply_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply event for main menu/toolbar
+:param widget: widget calling this function (only for calls via signal.connect)
+:type widget: Gtk.Widget()</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.blivet_init">
+<code class="sig-name descname">blivet_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.blivet_init" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.clear_actions">
+<code class="sig-name descname">clear_actions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.clear_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all scheduled actions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>widget</strong> (<em>Gtk.Widget</em><em>(</em><em>)</em>) – widget calling this function (only for calls via signal.connect)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.deactivate_all_actions">
+<code class="sig-name descname">deactivate_all_actions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.deactivate_all_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deactivate all partition-based buttons/menu items</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.deactivate_device_actions">
+<code class="sig-name descname">deactivate_device_actions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">deactivate_list</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.deactivate_device_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deactivate toolbar buttons and menu items</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>deactivate_list</strong> (<em>list of str</em>) – list of items to deactivate</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.decrypt_device">
+<code class="sig-name descname">decrypt_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.decrypt_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unlock selected device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>widget</strong> (<em>Gtk.Widget</em><em>(</em><em>)</em>) – widget calling this function (only for calls via signal.connect)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.delete_selected_partition">
+<code class="sig-name descname">delete_selected_partition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.delete_selected_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete selected partition</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>widget</strong> (<em>Gtk.Widget</em><em>(</em><em>)</em>) – widget calling this function (only for calls via signal.connect)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.device_information">
+<code class="sig-name descname">device_information</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.device_information" title="Permalink to this definition">¶</a></dt>
+<dd><p>Display information about currently selected device</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.edit_label">
+<code class="sig-name descname">edit_label</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.edit_label" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.edit_lvmvg">
+<code class="sig-name descname">edit_lvmvg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.edit_lvmvg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Edit selected lvmvg</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.format_device">
+<code class="sig-name descname">format_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.format_device" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="blivetgui.blivetgui.BlivetGUI.installer_mode">
+<code class="sig-name descname">installer_mode</code><em class="property"> = False</em><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.installer_mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.perform_actions">
+<code class="sig-name descname">perform_actions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dialog</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.perform_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform queued actions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.quit">
+<code class="sig-name descname">quit</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_event</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.quit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Quit blivet-gui</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>widget</strong> (<em>Gtk.Widget</em><em>(</em><em>)</em>) – widget calling this function (only for calls via signal.connect)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.reload">
+<code class="sig-name descname">reload</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload storage information</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>widget</strong> (<em>Gtk.Widget</em><em>(</em><em>)</em>) – widget calling this function (only for calls via signal.connect)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.resize_device">
+<code class="sig-name descname">resize_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.resize_device" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.run_dialog">
+<code class="sig-name descname">run_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dialog</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.run_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.set_mountpoint">
+<code class="sig-name descname">set_mountpoint</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.set_mountpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.set_partition_table">
+<code class="sig-name descname">set_partition_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.set_partition_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create partition table on selected disk</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.show_actions">
+<code class="sig-name descname">show_actions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">_uri</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.show_actions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show scheduled actions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.show_confirmation_dialog">
+<code class="sig-name descname">show_confirmation_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">question</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.show_confirmation_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.show_error_dialog">
+<code class="sig-name descname">show_error_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">error_message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.show_error_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.show_warning_dialog">
+<code class="sig-name descname">show_warning_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">warning_message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.show_warning_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.supported_filesystems">
+<em class="property">property </em><code class="sig-name descname">supported_filesystems</code><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.supported_filesystems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.switch_device_view">
+<code class="sig-name descname">switch_device_view</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.switch_device_view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.umount_partition">
+<code class="sig-name descname">umount_partition</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.umount_partition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Unmount selected partition</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>widget</strong> (<em>Gtk.Widget</em><em>(</em><em>)</em>) – widget calling this function (only for calls via signal.connect)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.update_partitions_view">
+<code class="sig-name descname">update_partitions_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.update_partitions_view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.blivetgui.BlivetGUI.update_physical_view">
+<code class="sig-name descname">update_physical_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI.update_physical_view" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.config">
+<span id="blivetgui-config-module"></span><h2>blivetgui.config module<a class="headerlink" href="#module-blivetgui.config" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.config.BlivetGUIConfig">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.config.</code><code class="sig-name descname">BlivetGUIConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.config.BlivetGUIConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.exception_handler">
+<span id="blivetgui-exception-handler-module"></span><h2>blivetgui.exception_handler module<a class="headerlink" href="#module-blivetgui.exception_handler" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.exception_handler.BlivetGUIExceptionHandler">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.exception_handler.</code><code class="sig-name descname">BlivetGUIExceptionHandler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">main_window</span></em>, <em class="sig-param"><span class="n">excepthook</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.exception_handler.BlivetGUIExceptionHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt id="blivetgui.exception_handler.BlivetGUIExceptionHandler.allow_ignore">
+<code class="sig-name descname">allow_ignore</code><em class="property"> = False</em><a class="headerlink" href="#blivetgui.exception_handler.BlivetGUIExceptionHandler.allow_ignore" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.exception_handler.BlivetGUIExceptionHandler.handle_exception">
+<code class="sig-name descname">handle_exception</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exc_type</span></em>, <em class="sig-param"><span class="n">exc_value</span></em>, <em class="sig-param"><span class="n">exc_traceback</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.exception_handler.BlivetGUIExceptionHandler.handle_exception" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.gui_utils">
+<span id="blivetgui-gui-utils-module"></span><h2>blivetgui.gui_utils module<a class="headerlink" href="#module-blivetgui.gui_utils" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="blivetgui.gui_utils.command_exists">
+<code class="sig-prename descclassname">blivetgui.gui_utils.</code><code class="sig-name descname">command_exists</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">command</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.gui_utils.command_exists" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find if given command exists</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="blivetgui.gui_utils.locate_css_file">
+<code class="sig-prename descclassname">blivetgui.gui_utils.</code><code class="sig-name descname">locate_css_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.gui_utils.locate_css_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Locate CSS files</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="blivetgui.gui_utils.locate_ui_file">
+<code class="sig-prename descclassname">blivetgui.gui_utils.</code><code class="sig-name descname">locate_ui_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.gui_utils.locate_ui_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Locate Glade ui files</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.i18n">
+<span id="blivetgui-i18n-module"></span><h2>blivetgui.i18n module<a class="headerlink" href="#module-blivetgui.i18n" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="blivetgui.i18n.N_">
+<code class="sig-prename descclassname">blivetgui.i18n.</code><code class="sig-name descname">N_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.i18n.N_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="blivetgui.i18n.P_">
+<code class="sig-prename descclassname">blivetgui.i18n.</code><code class="sig-name descname">P_</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">x</span></em>, <em class="sig-param"><span class="n">y</span></em>, <em class="sig-param"><span class="n">z</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.i18n.P_" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.list_actions">
+<span id="blivetgui-list-actions-module"></span><h2>blivetgui.list_actions module<a class="headerlink" href="#module-blivetgui.list_actions" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.list_actions.ListActions">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.list_actions.</code><code class="sig-name descname">ListActions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_gui</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_actions.ListActions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>List of childs of selected device</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are two types of ‘actions’: ‘blivet actions’ – simply instances of
+blivet.DeviceAction and ‘blivet-gui actions’ created as a reaction on user
+action, eg. adding new device or deleting one. One blivet-gui action can
+consist of more blivet actions (eg. adding a new partition creates two
+blivet actions – creating of a partition device and creatig format for it)</p>
+</div>
+<dl class="py method">
+<dt id="blivetgui.list_actions.ListActions.append">
+<code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">action_type</span></em>, <em class="sig-param"><span class="n">action_desc</span></em>, <em class="sig-param"><span class="n">blivet_actions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_actions.ListActions.append" title="Permalink to this definition">¶</a></dt>
+<dd><p>Append newly scheduled actions to the list of actions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>action_type</strong> (<em>str</em>) – type of action (delete/add/edit)</p></li>
+<li><p><strong>action_desc</strong> – description of scheduled action</p></li>
+<li><p><strong>blivet_actions</strong> (<em>list of blivet.DeviceAction</em>) – list of actions</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.list_actions.ListActions.clear">
+<code class="sig-name descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_actions.ListActions.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete all actions in actions view</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.list_actions.ListActions.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_actions.ListActions.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.list_actions.ListActions.pop">
+<code class="sig-name descname">pop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_actions.ListActions.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove last action from the list of actions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of blivet actions belonging to the last action</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>list of blivet.DeviceAction</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.list_devices">
+<span id="blivetgui-list-devices-module"></span><h2>blivetgui.list_devices module<a class="headerlink" href="#module-blivetgui.list_devices" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.list_devices.ListDevices">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.list_devices.</code><code class="sig-name descname">ListDevices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_gui</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_devices.ListDevices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>List of parent devices</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>blivet_gui</strong> (<a class="reference internal" href="#blivetgui.blivetgui.BlivetGUI" title="blivetgui.blivetgui.BlivetGUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetGUI</span></code></a>) – instance of BlivetGUI class</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="blivetgui.list_devices.ListDevices.load_devices">
+<code class="sig-name descname">load_devices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_devices.ListDevices.load_devices" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.list_devices.ListDevices.load_disks">
+<code class="sig-name descname">load_disks</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_devices.ListDevices.load_disks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load disks</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.list_devices.ListDevices.load_group_devices">
+<code class="sig-name descname">load_group_devices</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_devices.ListDevices.load_group_devices" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load LVM2 VGs, Btrfs Volumes and MDArrays</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.list_devices.ListDevices.on_disk_selection_changed">
+<code class="sig-name descname">on_disk_selection_changed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">selection</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_devices.ListDevices.on_disk_selection_changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Onselect action for devices</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.list_devices.ListDevices.select_device_by_name">
+<code class="sig-name descname">select_device_by_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device_name</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_devices.ListDevices.select_device_by_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.list_devices.ListDevices.update_devices_view">
+<code class="sig-name descname">update_devices_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_devices.ListDevices.update_devices_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update device view</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.list_parents">
+<span id="blivetgui-list-parents-module"></span><h2>blivetgui.list_parents module<a class="headerlink" href="#module-blivetgui.list_parents" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.list_parents.ListParents">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.list_parents.</code><code class="sig-name descname">ListParents</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_gui</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_parents.ListParents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>List of parents of selected device</p>
+<dl class="py method">
+<dt id="blivetgui.list_parents.ListParents.update_parents_list">
+<code class="sig-name descname">update_parents_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">selected_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_parents.ListParents.update_parents_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.list_partitions">
+<span id="blivetgui-list-partitions-module"></span><h2>blivetgui.list_partitions module<a class="headerlink" href="#module-blivetgui.list_partitions" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.list_partitions.ListPartitions">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.list_partitions.</code><code class="sig-name descname">ListPartitions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_gui</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_partitions.ListPartitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>List of childs of selected device</p>
+<dl class="py method">
+<dt id="blivetgui.list_partitions.ListPartitions.activate_action_buttons">
+<code class="sig-name descname">activate_action_buttons</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">selected_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_partitions.ListPartitions.activate_action_buttons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Activate buttons in toolbar based on selected device</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>selected_device</strong> (<em>Gtk.TreeModelRow</em>) – Selected partition</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.list_partitions.ListPartitions.on_partition_selection_changed">
+<code class="sig-name descname">on_partition_selection_changed</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">selection</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_partitions.ListPartitions.on_partition_selection_changed" title="Permalink to this definition">¶</a></dt>
+<dd><p>On selected partition action</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.list_partitions.ListPartitions.on_right_click_event">
+<code class="sig-name descname">on_right_click_event</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">treeview</span></em>, <em class="sig-param"><span class="n">event</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_partitions.ListPartitions.on_right_click_event" title="Permalink to this definition">¶</a></dt>
+<dd><p>Right click event on partition treeview</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.list_partitions.ListPartitions.select_device">
+<code class="sig-name descname">select_device</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_partitions.ListPartitions.select_device" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select device from list</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.list_partitions.ListPartitions.update_partitions_list">
+<code class="sig-name descname">update_partitions_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">selected_device</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.list_partitions.ListPartitions.update_partitions_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update partition view with selected disc children (partitions)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>selected_device</strong> – selected device from list (eg. disk or VG)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.loading_window">
+<span id="blivetgui-loading-window-module"></span><h2>blivetgui.loading_window module<a class="headerlink" href="#module-blivetgui.loading_window" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.loading_window.LoadingWindow">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.loading_window.</code><code class="sig-name descname">LoadingWindow</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent_window</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.loading_window.LoadingWindow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gi.overrides.Gtk.Dialog</span></code></p>
+<p>Processing actions dialog</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>main_window</strong> – BlivetGUI main window</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="blivetgui.loading_window.LoadingWindow.on_timeout">
+<code class="sig-name descname">on_timeout</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_user_data</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.loading_window.LoadingWindow.on_timeout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Timeout fuction for progressbar pulsing</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.loading_window.LoadingWindow.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.loading_window.LoadingWindow.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the dialog</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.loading_window.LoadingWindow.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.loading_window.LoadingWindow.stop" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.logs">
+<span id="blivetgui-logs-module"></span><h2>blivetgui.logs module<a class="headerlink" href="#module-blivetgui.logs" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="blivetgui.logs.log_utils_call">
+<code class="sig-prename descclassname">blivetgui.logs.</code><code class="sig-name descname">log_utils_call</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">log</span></em>, <em class="sig-param"><span class="n">message</span></em>, <em class="sig-param"><span class="n">user_input</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.logs.log_utils_call" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="blivetgui.logs.set_logging">
+<code class="sig-prename descclassname">blivetgui.logs.</code><code class="sig-name descname">set_logging</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">component</span></em>, <em class="sig-param"><span class="n">logging_level</span><span class="o">=</span><span class="default_value">10</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.logs.set_logging" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure logging</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>component</strong> (<em>str</em>) – name of a component</p></li>
+<li><p><strong>logging_level</strong> (<em>int</em>) – loglevel</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.main_menu">
+<span id="blivetgui-main-menu-module"></span><h2>blivetgui.main_menu module<a class="headerlink" href="#module-blivetgui.main_menu" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.main_menu.MainMenu">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.main_menu.</code><code class="sig-name descname">MainMenu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_gui</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.main_menu.MainMenu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Main menu for blivet-gui</p>
+<dl class="py method">
+<dt id="blivetgui.main_menu.MainMenu.on_about_item">
+<code class="sig-name descname">on_about_item</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">_args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.main_menu.MainMenu.on_about_item" title="Permalink to this definition">¶</a></dt>
+<dd><p>Onselect action for ‘About’</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.osinstall">
+<span id="blivetgui-osinstall-module"></span><h2>blivetgui.osinstall module<a class="headerlink" href="#module-blivetgui.osinstall" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.osinstall.</code><code class="sig-name descname">BlivetGUIAnaconda</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">client</span></em>, <em class="sig-param"><span class="n">spoke</span></em>, <em class="sig-param"><span class="n">spoke_container</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#blivetgui.blivetgui.BlivetGUI" title="blivetgui.blivetgui.BlivetGUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">blivetgui.blivetgui.BlivetGUI</span></code></a></p>
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.activate_action_buttons">
+<code class="sig-name descname">activate_action_buttons</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">activate</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.activate_action_buttons" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the actions toolbar buttons (in)active</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.allow_ignore">
+<code class="sig-name descname">allow_ignore</code><em class="property"> = True</em><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.allow_ignore" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.enlightbox">
+<code class="sig-name descname">enlightbox</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.enlightbox" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.installer_mode">
+<code class="sig-name descname">installer_mode</code><em class="property"> = True</em><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.installer_mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.label_actions">
+<em class="property">property </em><code class="sig-name descname">label_actions</code><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.label_actions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.main_window">
+<em class="property">property </em><code class="sig-name descname">main_window</code><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.main_window" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.reload">
+<code class="sig-name descname">reload</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_widget</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.reload" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reload storage information</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.run_dialog">
+<code class="sig-name descname">run_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dialog</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.run_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.set_actions">
+<code class="sig-name descname">set_actions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_actions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.set_actions" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.set_keyboard_shortcuts">
+<code class="sig-name descname">set_keyboard_shortcuts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_spoke</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.set_keyboard_shortcuts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Configure blivet-gui keyboard shortcuts and add our accel group
+to the Anaconda main window. This configuration should be removed
+using “unset_keyboard_shortcuts” when exitting blivet-gui spoke</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.show_confirmation_dialog">
+<code class="sig-name descname">show_confirmation_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">title</span></em>, <em class="sig-param"><span class="n">question</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.show_confirmation_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.show_error_dialog">
+<code class="sig-name descname">show_error_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">error_message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.show_error_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.show_warning_dialog">
+<code class="sig-name descname">show_warning_dialog</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">warning_message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.show_warning_dialog" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.ui_refresh">
+<code class="sig-name descname">ui_refresh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_spoke</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.ui_refresh" title="Permalink to this definition">¶</a></dt>
+<dd><p>This should be called only from Anaconda using the spoke ‘entered’
+signal.</p>
+<p>In Anaconda blivetgui.initialize runs during ‘refresh’ when Gtk
+widgets are not visible (‘realized’) and this causes some UI
+elements to look weird because of wrong size allocation
+(unrealized widgets don’t have size allocation so things like
+size of devices in visualization fail).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnaconda.unset_keyboard_shortcuts">
+<code class="sig-name descname">unset_keyboard_shortcuts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_spoke</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnaconda.unset_keyboard_shortcuts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove configuration added using “set_keyboard_shortcuts”</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="blivetgui.osinstall.BlivetGUIAnacondaClient">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.osinstall.</code><code class="sig-name descname">BlivetGUIAnacondaClient</code><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnacondaClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnacondaClient.initialize">
+<code class="sig-name descname">initialize</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">storage</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnacondaClient.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetGUIAnacondaClient.remote_call">
+<code class="sig-name descname">remote_call</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">method</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.osinstall.BlivetGUIAnacondaClient.remote_call" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="blivetgui.osinstall.BlivetUtilsAnaconda">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.osinstall.</code><code class="sig-name descname">BlivetUtilsAnaconda</code><a class="headerlink" href="#blivetgui.osinstall.BlivetUtilsAnaconda" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#blivetgui.blivet_utils.BlivetUtils" title="blivetgui.blivet_utils.BlivetUtils"><code class="xref py py-class docutils literal notranslate"><span class="pre">blivetgui.blivet_utils.BlivetUtils</span></code></a></p>
+<dl class="py attribute">
+<dt id="blivetgui.osinstall.BlivetUtilsAnaconda.installer_mode">
+<code class="sig-name descname">installer_mode</code><em class="property"> = True</em><a class="headerlink" href="#blivetgui.osinstall.BlivetUtilsAnaconda.installer_mode" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.osinstall.BlivetUtilsAnaconda.storage">
+<em class="property">property </em><code class="sig-name descname">storage</code><a class="headerlink" href="#blivetgui.osinstall.BlivetUtilsAnaconda.storage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui.processing_window">
+<span id="blivetgui-processing-window-module"></span><h2>blivetgui.processing_window module<a class="headerlink" href="#module-blivetgui.processing_window" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt id="blivetgui.processing_window.ProcessingActions">
+<em class="property">class </em><code class="sig-prename descclassname">blivetgui.processing_window.</code><code class="sig-name descname">ProcessingActions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">blivet_gui</span></em>, <em class="sig-param"><span class="n">actions</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.processing_window.ProcessingActions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">gi.overrides.Gtk.Dialog</span></code></p>
+<p>Processing actions dialog</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>blivet-gui</strong> (<a class="reference internal" href="#blivetgui.blivetgui.BlivetGUI" title="blivetgui.blivetgui.BlivetGUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetGUI</span></code></a>) – BlivetGUI instance</p></li>
+<li><p><strong>actions</strong> (<em>int</em>) – number of actions to process</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="blivetgui.processing_window.ProcessingActions.add_action_view">
+<code class="sig-name descname">add_action_view</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.processing_window.ProcessingActions.add_action_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show list of actions</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.processing_window.ProcessingActions.progress_msg">
+<code class="sig-name descname">progress_msg</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">message</span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.processing_window.ProcessingActions.progress_msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.processing_window.ProcessingActions.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.processing_window.ProcessingActions.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the dialog</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="blivetgui.processing_window.ProcessingActions.stop">
+<code class="sig-name descname">stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.processing_window.ProcessingActions.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>End the thread</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-blivetgui">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-blivetgui" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">blivetgui package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-blivetgui.actions_menu">blivetgui.actions_menu module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.actions_toolbar">blivetgui.actions_toolbar module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.blivet_utils">blivetgui.blivet_utils module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.blivetgui">blivetgui.blivetgui module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.config">blivetgui.config module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.exception_handler">blivetgui.exception_handler module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.gui_utils">blivetgui.gui_utils module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.i18n">blivetgui.i18n module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.list_actions">blivetgui.list_actions module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.list_devices">blivetgui.list_devices module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.list_parents">blivetgui.list_parents module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.list_partitions">blivetgui.list_partitions module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.loading_window">blivetgui.loading_window module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.logs">blivetgui.logs module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.main_menu">blivetgui.main_menu module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.osinstall">blivetgui.osinstall module</a></li>
+<li><a class="reference internal" href="#module-blivetgui.processing_window">blivetgui.processing_window module</a></li>
+<li><a class="reference internal" href="#module-blivetgui">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../intro.html"
+                        title="previous chapter">Introduction to blivet-gui</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="blivetgui.communication.html"
+                        title="next chapter">blivetgui.communication package</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/blivetgui/blivetgui.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="blivetgui.communication.html" title="blivetgui.communication package"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../intro.html" title="Introduction to blivet-gui"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">blivet-gui 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">blivetgui package</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2014,-2020, Red Hat, Inc..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+    </div>
+  </body>
+</html>
