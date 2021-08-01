@@ -39,6 +39,11 @@
       - libblockdev-part
     when: ansible_distribution == "Fedora"
 
+  - name: Update apt cache (Debian/Ubuntu)
+    apt:
+      update_cache: yes
+    when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+
   - name: Install runtime and build dependencies (Ubuntu/Debian)
     package: name={{item}} state=present
     with_items:
