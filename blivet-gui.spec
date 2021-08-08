@@ -126,6 +126,18 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 - Fix displaying disks with unknown formats (vtrefny)
 - Allow creating encrypted btrfs volumes (vtrefny)
 
+* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
+
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.2.1-4
+- Rebuilt for Python 3.10
+
+* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+
+* Mon Nov 30 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.2.1-2
+- Add explicit dependency on libblockdev-plugins-all
+
 * Tue Sep 29 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.2.1-1
 - Translated using Weblate (Friulian) (f.t.public)
 - Fix ValueError when trying to set both upper and lower size limits (vtrefny)
