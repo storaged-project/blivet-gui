@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.2.1
+Version: 2.3.0
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 License: GPLv2+
@@ -70,6 +70,62 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Sun Aug 08 2021 Vojtech Trefny <vtrefny@redhat.com> - 2.3.0-1
+- README: Add information about the openSUSE and Mageia Copr repo (vtrefny)
+- Update distributions in Vagrantfile (vtrefny)
+- CONTRIBUTING.md update (vtrefny)
+- Translated using Weblate (Indonesian) (didiksupriadi41)
+- Translated using Weblate (Indonesian) (didiksupriadi41)
+- Translated using Weblate (Friulian) (f.t.public)
+- tests: Print exception when we fail to a load test case (vtrefny)
+- Make sure we pass start sector as int to pyparted not as Decimal (vtrefny)
+- Fix various alerts found by LGTM (vtrefny)
+- Translated using Weblate (Polish) (piotrdrag)
+- Fix removing existing MD arrays (vtrefny)
+- Translated using Weblate (Korean) (simmon)
+- README: Add more information about the OBS repository and its usage (vtrefny)
+- Translated using Weblate (Korean) (simmon)
+- Translated using Weblate (Chinese (Simplified) (zh_CN)) (lchopn)
+- Translated using Weblate (Korean) (simmon)
+- Translated using Weblate (Korean) (simmon)
+- Translated using Weblate (Korean) (simmon)
+- Add make to build dependencies (vtrefny)
+- Translated using Weblate (Korean) (simmon)
+- Added translation using Weblate (Korean) (simmon)
+- Added translation using Weblate (Sinhala) (r45xveza)
+- Translated using Weblate (Finnish) (ricky.tigg)
+- Translated using Weblate (Russian) (igor.gorbounov)
+- Translated using Weblate (Hungarian) (meskobalazs)
+- Squashed 'translation-canary/' changes from edda4ea..4d4e65b (vtrefny)
+- Translated using Weblate (Slovak) (feonsu)
+- Translated using Weblate (Punjabi) (amanpreet.alam)
+- Translated using Weblate (Hebrew) (sh.yaron)
+- Translated using Weblate (Finnish) (copper_fin)
+- Translated using Weblate (Spanish) (ehespinosa57)
+- Translated using Weblate (French) (julroy67)
+- Translated using Weblate (Turkish) (oguzersen)
+- Translated using Weblate (Ukrainian) (yurchor)
+- Update translation files (noreply)
+- Translated using Weblate (Indonesian) (andika)
+- Translated using Weblate (Polish) (piotrdrag)
+- Added translation using Weblate (Indonesian) (andika)
+- Translated using Weblate (Italian) (nathan95)
+- Translated using Weblate (Portuguese (Brazil)) (sigmasquadron)
+- Translated using Weblate (Portuguese (Brazil)) (sigmasquadron)
+- spec: Require all libblockdev plugins (vtrefny)
+- Update translation files (noreply)
+- Translated using Weblate (Finnish) (ricky.tigg)
+- man: Remove old unused option "-k" from blivet-gui manpage (vtrefny)
+- Allow specifying exclusive disks when running blivet-gui (vtrefny)
+- Allow removing devices with children (vtrefny)
+- Add libblockdev part plugin to test dependencies (vtrefny)
+- Add Vagrant file for running development/testing VMs (vtrefny)
+- Force ansible to use python3 in install-test-dependencies.yml (vtrefny)
+- Install all dependencies in install-test-dependencies.yml (vtrefny)
+- Move install-test-dependencies.yml to a special folder (vtrefny)
+- Fix displaying disks with unknown formats (vtrefny)
+- Allow creating encrypted btrfs volumes (vtrefny)
+
 * Tue Sep 29 2020 Vojtech Trefny <vtrefny@redhat.com> - 2.2.1-1
 - Translated using Weblate (Friulian) (f.t.public)
 - Fix ValueError when trying to set both upper and lower size limits (vtrefny)
