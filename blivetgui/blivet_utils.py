@@ -722,6 +722,11 @@ class BlivetUtils(object):
             return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
+        elif blivet_device.type == "luks/dm-crypt" and blivet_device.raw_device.format.luks_version == "luks2":
+            msg = _("Resizing of LUKS2 devices is currently not supported.")
+            return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
+                                      max_size=blivet_device.size)
+
         if not self.installer_mode:
             try:
                 blivet_device.format.update_size_info()

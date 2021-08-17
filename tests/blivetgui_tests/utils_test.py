@@ -118,6 +118,16 @@ class BlivetUtilsTest(unittest.TestCase):
             self.assertEqual(res.min_size, Size("1 MiB"))
             self.assertEqual(res.max_size, Size("1 GiB"))
 
+        # LUKS2 -> not resizable
+        device.configure_mock(type="luks/dm-crypt", resizable=True, max_size=Size("2 GiB"), min_size=Size("500 MiB"),
+                              raw_device=MagicMock(format=MagicMock(luks_version="luks2")))
+        device.format.configure_mock(resizable=True, type="ext4", system_mountpoint=None)
+        res = storage.device_resizable(device)
+        self.assertFalse(res.resizable)
+        self.assertEqual(res.error, _("Resizing of LUKS2 devices is currently not supported."))
+        self.assertEqual(res.min_size, Size("1 MiB"))
+        self.assertEqual(res.max_size, Size("1 GiB"))
+
 
 if __name__ == "__main__":
     unittest.main()

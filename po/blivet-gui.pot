@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-08 17:06+0200\n"
+"POT-Creation-Date: 2021-08-17 16:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -245,16 +245,20 @@ msgstr ""
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:733
+#: ../blivetgui/blivet_utils.py:726
+msgid "Resizing of LUKS2 devices is currently not supported."
+msgstr ""
+
+#: ../blivetgui/blivet_utils.py:738
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:752
+#: ../blivetgui/blivet_utils.py:757
 msgid "Device is not resizable."
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:754
+#: ../blivetgui/blivet_utils.py:759
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
 
