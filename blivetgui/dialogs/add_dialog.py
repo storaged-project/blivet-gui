@@ -489,6 +489,10 @@ class AddDialog(Gtk.Dialog):
     def on_raid_type_changed(self, _widget):
         self.add_size_area()
 
+        if self.selected_type == "mdraid":
+            self.add_advanced_options()
+            self.show_widgets(["advanced"])
+
     def select_selected_free_region(self):
         """ In parent list select the free region user selected checkbox as checked
         """
@@ -859,10 +863,15 @@ class AddDialog(Gtk.Dialog):
             self.advanced.destroy()
 
         if device_type in ("lvm", "lvmvg", "partition", "mdraid"):
-            self.advanced = AdvancedOptions(self, device_type, self.selected_parent, self.selected_free)
-            self.widgets_dict["advanced"] = [self.advanced]
+            if device_type == "mdraid" and self._raid_chooser.selected_level.name == "raid1":
+                self.advanced = None
+                self.widgets_dict["advanced"] = []
+            else:
+                self.advanced = AdvancedOptions(self, device_type, self.selected_parent,
+                                                self.selected_free)
+                self.widgets_dict["advanced"] = [self.advanced]
 
-            self.grid.attach(self.advanced.expander, 0, 15, 6, 1)
+                self.grid.attach(self.advanced.expander, 0, 15, 6, 1)
 
         else:
             self.advanced = None

@@ -1209,12 +1209,16 @@ class BlivetUtils(object):
             actions.extend(part_actions)
 
         md_parents = [ac.device for ac in actions if ac.is_format and ac._format.type == "mdmember"]
+        if user_input.advanced:
+            chunk_size = user_input.advanced["chunk_size"]
+        else:
+            chunk_size = None
         new_md = MDRaidArrayDevice(parents=md_parents,
                                    name=device_name,
                                    level=user_input.raid_level,
                                    member_devices=len(md_parents),
                                    total_devices=len(md_parents),
-                                   chunk_size=user_input.advanced["chunk_size"])
+                                   chunk_size=chunk_size)
         actions.append(blivet.deviceaction.ActionCreateDevice(new_md))
 
         if user_input.encrypt:
