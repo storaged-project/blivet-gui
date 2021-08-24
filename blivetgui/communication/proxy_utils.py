@@ -59,7 +59,7 @@ class ProxyID(object):
     _newid_gen = functools.partial(next, itertools.count())
 
     def __init__(self):
-        self.id = self._newid_gen()
+        self.id = self._newid_gen()  # pylint: disable=assignment-from-no-return
 
     def __repr__(self):
         return "'Proxy ID, %s'" % self.id

@@ -10,6 +10,7 @@ import os
 
 from blivet.size import Size
 from blivet import formats
+from blivet.devicelibs import raid
 
 
 def supported_filesystems():
@@ -582,6 +583,17 @@ class AddDialogTest(unittest.TestCase):
 
         # raid0 type is selected --> we should have 2 size areas, both with max size 4 GiB (smaller free space size)
         self.assertEqual(add_dialog.size_area.max_size, Size("8 GiB"))
+
+        # raid0 is selected --> advanced options (chunk size) should be visible
+        self.assertIsNotNone(add_dialog.advanced)
+
+        # select raid1 --> advanced options (chunk size) should be disappear
+        add_dialog._raid_chooser.selected_level = raid.RAID1
+        self.assertIsNone(add_dialog.advanced)
+
+        # back to raid0 just to be sure
+        add_dialog._raid_chooser.selected_level = raid.RAID0
+        self.assertIsNotNone(add_dialog.advanced)
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_mountpoint_validity_check(self):
