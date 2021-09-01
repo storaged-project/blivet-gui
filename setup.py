@@ -1,7 +1,7 @@
 from __future__ import print_function
 
-from distutils.core import setup
-from distutils.command.sdist import sdist
+from setuptools import setup
+from setuptools.command.sdist import sdist
 import glob
 import sys
 
