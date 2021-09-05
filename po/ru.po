@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-29 13:02+0200\n"
+"POT-Creation-Date: 2021-08-17 16:56+0200\n"
 "PO-Revision-Date: 2021-02-11 19:40+0000\n"
 "Last-Translator: Igor Gorbounov <igor.gorbounov@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/blivet/"
@@ -20,33 +20,308 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.4.2\n"
 
-#: ../blivetgui/osinstall.py:219
+#: ../blivetgui/blivetgui.py:290
+msgid "Failed to resize the device:"
+msgstr "Не удалось изменить размер устройства:"
+
+#: ../blivetgui/blivetgui.py:302
+#, python-brace-format
+msgid "resize {name} {type}"
+msgstr "изменить размер {name} {type}"
+
+#: ../blivetgui/blivetgui.py:321
+msgid "Failed to format the device:"
+msgstr "Не удалось форматировать устройство:"
+
+#: ../blivetgui/blivetgui.py:335
+#, python-brace-format
+msgid "format {name} {type}"
+msgstr "форматировать {name} {type}"
+
+#: ../blivetgui/blivetgui.py:348
+msgid "Failed to edit the LVM2 Volume Group:"
+msgstr "Не удалось изменить группу томов LVM2:"
+
+#: ../blivetgui/blivetgui.py:363
+#, python-brace-format
+msgid "edit {name} {type}"
+msgstr "изменить {name} {type}"
+
+#: ../blivetgui/blivetgui.py:392
+msgid "Failed to change filesystem label on the device:"
+msgstr "Не удалось изменить метку файловой системы на устройстве:"
+
+#: ../blivetgui/blivetgui.py:397
+#, python-brace-format
+msgid "change filesystem label of {name} {type}"
+msgstr "изменить метку файловой системы для {name} {type}"
+
+#: ../blivetgui/blivetgui.py:413
 #, python-brace-format
 msgid ""
-"{message}\n"
-"{error}\n"
-" Please click Report button to raise the error and let anaconda \n"
-" to handle the report process if you want to report this."
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
 msgstr ""
-"{message}\n"
-"{error}\n"
-" Нажмите кнопку «Сообщить», чтобы сигнализировать об ошибке и дать "
-"anaconda \n"
-" управлять процессом отчета, если вы хотите сообщить об этом."
+"{name} имеет неполную структуру. Невозможно добавить новый логический том к "
+"группе с отсутствующими физическими томами."
 
-#: ../blivetgui/osinstall.py:221
+#: ../blivetgui/blivetgui.py:418
+msgid "Not enough free space for a new LVM Volume Group."
+msgstr "Недостаточно места для создания группы томов LVM."
+
+#: ../blivetgui/blivetgui.py:424
 #, python-brace-format
 msgid ""
-"Unknown error occured. Anaconda will be terminated.\n"
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
+msgstr ""
+"На диске {name} уже достигнуто максимально допустимое число первичных "
+"разделов для метки {label}."
+
+#: ../blivetgui/blivetgui.py:434
+msgid "Failed to add disklabel:"
+msgstr "Не удалось добавить метку диска:"
+
+#: ../blivetgui/blivetgui.py:447
+#, python-brace-format
+msgid "create new disklabel on {name}"
+msgstr "создать новую метку диска на {name}"
+
+#: ../blivetgui/blivetgui.py:499
+msgid "Failed to add the device:"
+msgstr "Не удалось добавить устройство:"
+
+#: ../blivetgui/blivetgui.py:514
+#, python-brace-format
+msgid "add {size} {type} device"
+msgstr "добавить устройство {size} {type}"
+
+#: ../blivetgui/blivetgui.py:558
+msgid "Failed to delete the device:"
+msgstr "Не удалось удалить устройство:"
+
+#: ../blivetgui/blivetgui.py:573
+#, python-brace-format
+msgid "delete partition {name}"
+msgstr "удалить раздел {name}"
+
+#: ../blivetgui/blivetgui.py:612
+msgid "Failed to perform the actions:"
+msgstr "Не удалось выполнить действия:"
+
+#: ../blivetgui/blivetgui.py:656
+msgid "Confirm scheduled actions"
+msgstr "Подтверждение плана действий"
+
+#: ../blivetgui/blivetgui.py:657
+msgid "Are you sure you want to perform scheduled actions?"
+msgstr "Вы действительно хотите выполнить запланированные действия?"
+
+#: ../blivetgui/blivetgui.py:698
+#, python-brace-format
+msgid ""
+"Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
+msgstr ""
+"Размонтирование «{mountpoint}» не удалось. Вы уверены, что устройство не "
+"используется?"
+
+#: ../blivetgui/blivetgui.py:720
+msgid "Unlocking failed. Are you sure provided password is correct?"
+msgstr "Разблокировка не удалась. Возможно, вы указали неправильный пароль?"
+
+#: ../blivetgui/blivetgui.py:770 ../data/ui/blivet-gui.ui:659
+msgid "Quit"
+msgstr "Выйти"
+
+#: ../blivetgui/blivetgui.py:773
+msgid "blivet-gui is already running"
+msgstr "blivet-gui уже запущен"
+
+#: ../blivetgui/blivetgui.py:774
+msgid ""
+"Another instance of blivet-gui is already running.\n"
+"Only one instance of blivet-gui can run at the same time."
+msgstr ""
+"Уже запущен другой экземпляр blivet-gui.\n"
+"Одновременно может работать только один экземпляр blivet-gui."
+
+#: ../blivetgui/blivetgui.py:776
+msgid ""
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
+"If it is still running you can use\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"command to force quit it."
+msgstr ""
+"Если предыдущий экземпляр blivet-gui аварийно завершился, убедитесь, что "
+"процесс <i>blivet-gui-daemon</i> тоже остановлен.\n"
+"Если он все еще работает, можно использовать команду\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"для принудительного завершения."
+
+#: ../blivetgui/blivetgui.py:808
+msgid "Failed to init blivet:"
+msgstr "Не удалось инициализировать blivet:"
+
+#: ../blivetgui/blivetgui.py:815
+msgid "Quit blivet-gui"
+msgstr "Выйти из blivet-gui"
+
+#: ../blivetgui/blivetgui.py:817
+msgid "Ignore disk and continue"
+msgstr "Игнорировать диск и продолжить"
+
+#: ../blivetgui/blivetgui.py:820
+#, python-brace-format
+msgid "Error: {error}"
+msgstr "Ошибка: {error}"
+
+#: ../blivetgui/blivetgui.py:821
+#, python-brace-format
+msgid ""
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
+msgstr ""
+"Blivet-gui не может использовать диск <b>{name}</b> из-за поврежденной или "
+"неизвестной метки диска.\n"
+"Вы можете либо выйти сейчас из blivet-gui, либо продолжить, не имея "
+"возможности использовать этот диск."
+
+#: ../blivetgui/blivetgui.py:857
+msgid "Confirm reload storage"
+msgstr "Подтвердите перезагрузку устройства хранения"
+
+#: ../blivetgui/blivetgui.py:858
+msgid "There are pending operations. Are you sure you want to continue?"
+msgstr "Есть незаконченные операции. Вы точно хотите продолжить?"
+
+#: ../blivetgui/blivetgui.py:889
+msgid "Are you sure you want to quit?"
+msgstr "Вы действительно хотите завершить работу?"
+
+#: ../blivetgui/blivetgui.py:890
+msgid ""
+"There are pending operations. Are you sure you want to quit blivet-gui now?"
+msgstr "Есть незаконченные операции. Вы точно хотите завершить blivet-gui?"
+
+#: ../blivetgui/blivet_utils.py:78
+msgid "free space"
+msgstr "свободно"
+
+#: ../blivetgui/blivet_utils.py:661
+#, python-brace-format
+msgid "Resizing of {type} devices is currently not supported"
+msgstr ""
+"Изменение размера для устройств {type} в настоящее время не поддерживается"
+
+#: ../blivetgui/blivet_utils.py:666
+msgid "Protected devices cannot be resized"
+msgstr "Размер защищенных устройств не может быть изменен."
+
+#: ../blivetgui/blivet_utils.py:671
+msgid "Immutable formats cannot be resized"
+msgstr "Для неизменяемых форматов не может быть изменения размера"
+
+#: ../blivetgui/blivet_utils.py:676
+msgid "Devices with children cannot be resized"
+msgstr "Размер устройств с дочерними устройствами не может быть изменен"
+
+#: ../blivetgui/blivet_utils.py:687
+msgid "Unformatted devices are not resizable"
+msgstr "Нельзя изменять размер неформатированных устройств"
+
+#. unfortunately we can't use format._resizable here because blivet uses it to both mark
+#. formats as not resizable and force users to call update_size_info on resizable formats
+#: ../blivetgui/blivet_utils.py:694
+#, python-brace-format
+msgid "Resizing of {type} format is currently not supported"
+msgstr ""
+"Изменение размера для формата {type} в настоящее время не поддерживается"
+
+#: ../blivetgui/blivet_utils.py:699
+#, python-brace-format
+msgid "Tools for resizing format {type} are not available."
+msgstr "Нет средств для изменения размера формата {type}."
+
+#. TODO: we could support this by simply changing formats target size but we'd need
+#. a workaround for the missing action
+#: ../blivetgui/blivet_utils.py:706
+msgid "Formats scheduled to be created cannot be resized"
+msgstr ""
+"Не может быть изменен размер для форматов, создание которых запланировано"
+
+#: ../blivetgui/blivet_utils.py:711
+#, python-brace-format
+msgid "Format {type} doesn't support updating its size limit information"
+msgstr ""
+"Формат {type} не поддерживает обновление информации об ограничении размера"
+
+#: ../blivetgui/blivet_utils.py:716
+msgid "Mounted devices cannot be resized"
+msgstr "Нельзя изменить размер смонтированных устройств"
+
+#: ../blivetgui/blivet_utils.py:721
+msgid "Logical Volumes with snapshots cannot be resized."
+msgstr "Нельзя изменить размер логических томов со снимками."
+
+#: ../blivetgui/blivet_utils.py:726
+#, fuzzy
+#| msgid "Resizing of {type} devices is currently not supported"
+msgid "Resizing of LUKS2 devices is currently not supported."
+msgstr ""
+"Изменение размера для устройств {type} в настоящее время не поддерживается"
+
+#: ../blivetgui/blivet_utils.py:738
+#, python-brace-format
+msgid "Failed to update filesystem size info: {error}"
+msgstr "Не удалось обновить информацию о размере файловой системы: {error}"
+
+#: ../blivetgui/blivet_utils.py:757
+msgid "Device is not resizable."
+msgstr "Размер устройства нельзя изменить."
+
+#: ../blivetgui/blivet_utils.py:759
+msgid "Format is not resizable after updating its size limit information."
+msgstr ""
+"У формата нельзя изменить размер после обновления информации об ограничении "
+"размера."
+
+#: ../blivetgui/exception_handler.py:75
+#, python-brace-format
+msgid ""
+"Unknown error occured.\n"
 "{error}"
 msgstr ""
-"Произошла неизвестная ошибка. Anaconda будет завершена.\n"
+"Произошла неизвестная ошибка.\n"
 "{error}"
 
-#. add a new 'placeholder' action for all currently registered blivet actions
-#: ../blivetgui/osinstall.py:269
-msgid "actions configured by installer"
-msgstr "действия, настроенные установщиком"
+#: ../blivetgui/exception_handler.py:77
+#, python-brace-format
+msgid ""
+"Unknown error occured. Blivet-gui will be terminated.\n"
+"{error}"
+msgstr ""
+"Произошла неизвестная ошибка. Blivet-gui будет завершена.\n"
+"{error}"
+
+#: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
+#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
+msgid "No pending actions"
+msgstr "Нет ожидающих действий"
+
+#: ../blivetgui/list_actions.py:99 ../blivetgui/list_actions.py:123
+#, python-format
+msgid "%s pending action"
+msgid_plural "%s pending actions"
+msgstr[0] "%s ожидающее действие"
+msgstr[1] "%s ожидающих действия"
+msgstr[2] "%s ожидающих действий"
 
 #: ../blivetgui/list_devices.py:82
 msgid "Disks"
@@ -77,6 +352,42 @@ msgstr "Тома Btrfs"
 msgid "Btrfs Volume"
 msgstr "Том Btrfs"
 
+#: ../blivetgui/loading_window.py:48
+msgid "Probing storage"
+msgstr "Проверка устройств хранения"
+
+#: ../blivetgui/loading_window.py:65
+msgid "Scanning storage configuration..."
+msgstr "Выполняется проверка конфигурации устройств хранения..."
+
+#: ../blivetgui/osinstall.py:219
+#, python-brace-format
+msgid ""
+"{message}\n"
+"{error}\n"
+" Please click Report button to raise the error and let anaconda \n"
+" to handle the report process if you want to report this."
+msgstr ""
+"{message}\n"
+"{error}\n"
+" Нажмите кнопку «Сообщить», чтобы сигнализировать об ошибке и дать "
+"anaconda \n"
+" управлять процессом отчета, если вы хотите сообщить об этом."
+
+#: ../blivetgui/osinstall.py:221
+#, python-brace-format
+msgid ""
+"Unknown error occured. Anaconda will be terminated.\n"
+"{error}"
+msgstr ""
+"Произошла неизвестная ошибка. Anaconda будет завершена.\n"
+"{error}"
+
+#. add a new 'placeholder' action for all currently registered blivet actions
+#: ../blivetgui/osinstall.py:269
+msgid "actions configured by installer"
+msgstr "действия, настроенные установщиком"
+
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
 msgstr "Обработка"
@@ -98,440 +409,10 @@ msgstr ""
 "<b>Обработка действия {num} из {total}</b>:\n"
 "<i>{action}</i>"
 
-#: ../blivetgui/exception_handler.py:75
-#, python-brace-format
-msgid ""
-"Unknown error occured.\n"
-"{error}"
-msgstr ""
-"Произошла неизвестная ошибка.\n"
-"{error}"
-
-#: ../blivetgui/exception_handler.py:77
-#, python-brace-format
-msgid ""
-"Unknown error occured. Blivet-gui will be terminated.\n"
-"{error}"
-msgstr ""
-"Произошла неизвестная ошибка. Blivet-gui будет завершена.\n"
-"{error}"
-
-#: ../blivetgui/blivetgui.py:283
-msgid "Failed to resize the device:"
-msgstr "Не удалось изменить размер устройства:"
-
-#: ../blivetgui/blivetgui.py:295
-#, python-brace-format
-msgid "resize {name} {type}"
-msgstr "изменить размер {name} {type}"
-
-#: ../blivetgui/blivetgui.py:314
-msgid "Failed to format the device:"
-msgstr "Не удалось форматировать устройство:"
-
-#: ../blivetgui/blivetgui.py:328
-#, python-brace-format
-msgid "format {name} {type}"
-msgstr "форматировать {name} {type}"
-
-#: ../blivetgui/blivetgui.py:341
-msgid "Failed to edit the LVM2 Volume Group:"
-msgstr "Не удалось изменить группу томов LVM2:"
-
-#: ../blivetgui/blivetgui.py:356
-#, python-brace-format
-msgid "edit {name} {type}"
-msgstr "изменить {name} {type}"
-
-#: ../blivetgui/blivetgui.py:385
-msgid "Failed to change filesystem label on the device:"
-msgstr "Не удалось изменить метку файловой системы на устройстве:"
-
-#: ../blivetgui/blivetgui.py:390
-#, python-brace-format
-msgid "change filesystem label of {name} {type}"
-msgstr "изменить метку файловой системы для {name} {type}"
-
-#: ../blivetgui/blivetgui.py:406
-#, python-brace-format
-msgid ""
-"{name} is not complete. It is not possible to add new LVs to VG with missing "
-"PVs."
-msgstr ""
-"{name} имеет неполную структуру. Невозможно добавить новый логический том к "
-"группе с отсутствующими физическими томами."
-
-#: ../blivetgui/blivetgui.py:411
-msgid "Not enough free space for a new LVM Volume Group."
-msgstr "Недостаточно места для создания группы томов LVM."
-
-#: ../blivetgui/blivetgui.py:417
-#, python-brace-format
-msgid ""
-"Disk {name} already reached maximum allowed number of primary partitions for "
-"{label} disklabel."
-msgstr ""
-"На диске {name} уже достигнуто максимально допустимое число первичных "
-"разделов для метки {label}."
-
-#: ../blivetgui/blivetgui.py:427
-msgid "Failed to add disklabel:"
-msgstr "Не удалось добавить метку диска:"
-
-#: ../blivetgui/blivetgui.py:440
-#, python-brace-format
-msgid "create new disklabel on {name}"
-msgstr "создать новую метку диска на {name}"
-
-#: ../blivetgui/blivetgui.py:492
-msgid "Failed to add the device:"
-msgstr "Не удалось добавить устройство:"
-
-#: ../blivetgui/blivetgui.py:507
-#, python-brace-format
-msgid "add {size} {type} device"
-msgstr "добавить устройство {size} {type}"
-
-#: ../blivetgui/blivetgui.py:542
-msgid "Failed to delete the device:"
-msgstr "Не удалось удалить устройство:"
-
-#: ../blivetgui/blivetgui.py:557
-#, python-brace-format
-msgid "delete partition {name}"
-msgstr "удалить раздел {name}"
-
-#: ../blivetgui/blivetgui.py:596
-msgid "Failed to perform the actions:"
-msgstr "Не удалось выполнить действия:"
-
-#: ../blivetgui/blivetgui.py:640
-msgid "Confirm scheduled actions"
-msgstr "Подтверждение плана действий"
-
-#: ../blivetgui/blivetgui.py:641
-msgid "Are you sure you want to perform scheduled actions?"
-msgstr "Вы действительно хотите выполнить запланированные действия?"
-
-#: ../blivetgui/blivetgui.py:682
-#, python-brace-format
-msgid ""
-"Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
-msgstr ""
-"Размонтирование «{mountpoint}» не удалось. Вы уверены, что устройство не "
-"используется?"
-
-#: ../blivetgui/blivetgui.py:704
-msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr "Разблокировка не удалась. Возможно, вы указали неправильный пароль?"
-
-#: ../blivetgui/blivetgui.py:754 ../data/ui/blivet-gui.ui:659
-msgid "Quit"
-msgstr "Выйти"
-
-#: ../blivetgui/blivetgui.py:757
-msgid "blivet-gui is already running"
-msgstr "blivet-gui уже запущен"
-
-#: ../blivetgui/blivetgui.py:758
-msgid ""
-"Another instance of blivet-gui is already running.\n"
-"Only one instance of blivet-gui can run at the same time."
-msgstr ""
-"Уже запущен другой экземпляр blivet-gui.\n"
-"Одновременно может работать только один экземпляр blivet-gui."
-
-#: ../blivetgui/blivetgui.py:760
-msgid ""
-"If your previous instance of blivet-gui crashed, please make sure that the "
-"<i>blivet-gui-daemon</i> process was terminated too.\n"
-"If it is still running you can use\n"
-"\n"
-"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
-"\n"
-"command to force quit it."
-msgstr ""
-"Если предыдущий экземпляр blivet-gui аварийно завершился, убедитесь, что "
-"процесс <i>blivet-gui-daemon</i> тоже остановлен.\n"
-"Если он все еще работает, можно использовать команду\n"
-"\n"
-"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
-"\n"
-"для принудительного завершения."
-
-#: ../blivetgui/blivetgui.py:792
-msgid "Failed to init blivet:"
-msgstr "Не удалось инициализировать blivet:"
-
-#: ../blivetgui/blivetgui.py:799
-msgid "Quit blivet-gui"
-msgstr "Выйти из blivet-gui"
-
-#: ../blivetgui/blivetgui.py:801
-msgid "Ignore disk and continue"
-msgstr "Игнорировать диск и продолжить"
-
-#: ../blivetgui/blivetgui.py:804
-#, python-brace-format
-msgid "Error: {error}"
-msgstr "Ошибка: {error}"
-
-#: ../blivetgui/blivetgui.py:805
-#, python-brace-format
-msgid ""
-"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
-"disklabel.\n"
-"You can either quit blivet-gui now or continue without being able to use "
-"this disk."
-msgstr ""
-"Blivet-gui не может использовать диск <b>{name}</b> из-за поврежденной или "
-"неизвестной метки диска.\n"
-"Вы можете либо выйти сейчас из blivet-gui, либо продолжить, не имея "
-"возможности использовать этот диск."
-
-#: ../blivetgui/blivetgui.py:841
-msgid "Confirm reload storage"
-msgstr "Подтвердите перезагрузку устройства хранения"
-
-#: ../blivetgui/blivetgui.py:842
-msgid "There are pending operations. Are you sure you want to continue?"
-msgstr "Есть незаконченные операции. Вы точно хотите продолжить?"
-
-#: ../blivetgui/blivetgui.py:873
-msgid "Are you sure you want to quit?"
-msgstr "Вы действительно хотите завершить работу?"
-
-#: ../blivetgui/blivetgui.py:874
-msgid ""
-"There are pending operations. Are you sure you want to quit blivet-gui now?"
-msgstr "Есть незаконченные операции. Вы точно хотите завершить blivet-gui?"
-
-#: ../blivetgui/blivet_utils.py:78
-msgid "free space"
-msgstr "свободно"
-
-#: ../blivetgui/blivet_utils.py:606
-#, python-brace-format
-msgid "Resizing of {type} devices is currently not supported"
-msgstr ""
-"Изменение размера для устройств {type} в настоящее время не поддерживается"
-
-#: ../blivetgui/blivet_utils.py:611
-msgid "Protected devices cannot be resized"
-msgstr "Размер защищенных устройств не может быть изменен."
-
-#: ../blivetgui/blivet_utils.py:616
-msgid "Immutable formats cannot be resized"
-msgstr "Для неизменяемых форматов не может быть изменения размера"
-
-#: ../blivetgui/blivet_utils.py:621
-msgid "Devices with children cannot be resized"
-msgstr "Размер устройств с дочерними устройствами не может быть изменен"
-
-#: ../blivetgui/blivet_utils.py:632
-msgid "Unformatted devices are not resizable"
-msgstr "Нельзя изменять размер неформатированных устройств"
-
-#. unfortunately we can't use format._resizable here because blivet uses it to both mark
-#. formats as not resizable and force users to call update_size_info on resizable formats
-#: ../blivetgui/blivet_utils.py:639
-#, python-brace-format
-msgid "Resizing of {type} format is currently not supported"
-msgstr ""
-"Изменение размера для формата {type} в настоящее время не поддерживается"
-
-#: ../blivetgui/blivet_utils.py:644
-#, python-brace-format
-msgid "Tools for resizing format {type} are not available."
-msgstr "Нет средств для изменения размера формата {type}."
-
-#. TODO: we could support this by simply changing formats target size but we'd need
-#. a workaround for the missing action
-#: ../blivetgui/blivet_utils.py:651
-msgid "Formats scheduled to be created cannot be resized"
-msgstr ""
-"Не может быть изменен размер для форматов, создание которых запланировано"
-
-#: ../blivetgui/blivet_utils.py:656
-#, python-brace-format
-msgid "Format {type} doesn't support updating its size limit information"
-msgstr ""
-"Формат {type} не поддерживает обновление информации об ограничении размера"
-
-#: ../blivetgui/blivet_utils.py:661
-msgid "Mounted devices cannot be resized"
-msgstr "Нельзя изменить размер смонтированных устройств"
-
-#: ../blivetgui/blivet_utils.py:666
-msgid "Logical Volumes with snapshots cannot be resized."
-msgstr "Нельзя изменить размер логических томов со снимками."
-
-#: ../blivetgui/blivet_utils.py:678
-#, python-brace-format
-msgid "Failed to update filesystem size info: {error}"
-msgstr "Не удалось обновить информацию о размере файловой системы: {error}"
-
-#: ../blivetgui/blivet_utils.py:697
-msgid "Device is not resizable."
-msgstr "Размер устройства нельзя изменить."
-
-#: ../blivetgui/blivet_utils.py:699
-msgid "Format is not resizable after updating its size limit information."
-msgstr ""
-"У формата нельзя изменить размер после обновления информации об ограничении "
-"размера."
-
-#: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
-#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
-msgid "No pending actions"
-msgstr "Нет ожидающих действий"
-
-#: ../blivetgui/list_actions.py:99 ../blivetgui/list_actions.py:123
-#, python-format
-msgid "%s pending action"
-msgid_plural "%s pending actions"
-msgstr[0] "%s ожидающее действие"
-msgstr[1] "%s ожидающих действия"
-msgstr[2] "%s ожидающих действий"
-
-#: ../blivetgui/loading_window.py:48
-msgid "Probing storage"
-msgstr "Проверка устройств хранения"
-
-#: ../blivetgui/loading_window.py:65
-msgid "Scanning storage configuration..."
-msgstr "Выполняется проверка конфигурации устройств хранения..."
-
-#: ../blivetgui/dialogs/size_chooser.py:212
-msgid ""
-"Currently selected size is greater than maximum limit for this selection."
-msgstr ""
-"Выбранный сейчас размер больше, чем максимальный предел для этого выбора."
-
-#: ../blivetgui/dialogs/size_chooser.py:215
-msgid ""
-"Currently selected size is smaller than minimum limit for this selection."
-msgstr "Выбранный сейчас размер меньше минимального предела для этого выбора."
-
-#: ../blivetgui/dialogs/helpers.py:141 ../blivetgui/dialogs/add_dialog.py:1002
-#, python-brace-format
-msgid "\"{0}\" is not a valid mountpoint."
-msgstr "Недопустимая точка монтирования «{0}»"
-
-#: ../blivetgui/dialogs/helpers.py:148
-#, python-brace-format
-msgid "Selected mountpoint \"{0}\" is already set for another device."
-msgstr "Выбранная точка монтирования «{0}» уже задана для другого устройства."
-
-#: ../blivetgui/dialogs/edit_dialog.py:103
-#, python-brace-format
-msgid ""
-"<b>This device cannot be resized:</b>\n"
-"<i>{0}</i>"
-msgstr ""
-"<b>Размер этого устройства не может быть изменен:</b>\n"
-"<i>{0}</i>"
-
-#: ../blivetgui/dialogs/edit_dialog.py:105
-msgid "This device cannot be resized."
-msgstr "Размер этого устройства не может быть изменен."
-
-#: ../blivetgui/dialogs/edit_dialog.py:165
-#: ../blivetgui/dialogs/add_dialog.py:792
-msgid "unformatted"
-msgstr "не форматировано"
-
-#: ../blivetgui/dialogs/edit_dialog.py:232
-#: ../blivetgui/dialogs/add_dialog.py:1029
-#, python-brace-format
-msgid "\"{0}\" is not a valid label."
-msgstr "Недопустимая метка: «{0}»."
-
-#: ../blivetgui/dialogs/edit_dialog.py:407
-#, python-brace-format
-msgid "'{label}' is not a valid label for this filesystem"
-msgstr "«{label}» - неправильная метка для этой файловой системы"
-
-#. auto shrink after removing/hiding widgets
-#: ../blivetgui/dialogs/edit_dialog.py:518
-msgid "Edit device"
-msgstr "Изменить устройство"
-
-#: ../blivetgui/dialogs/edit_dialog.py:548
-#: ../blivetgui/dialogs/edit_dialog.py:597
-#: ../blivetgui/dialogs/edit_dialog.py:659
-#: ../blivetgui/dialogs/add_dialog.py:451 ../data/ui/blivet-gui.ui:465
-#: ../data/ui/cache_area.ui:76
-msgid "Device"
-msgstr "Устройство"
-
-#: ../blivetgui/dialogs/edit_dialog.py:549
-#: ../blivetgui/dialogs/edit_dialog.py:598
-#: ../blivetgui/dialogs/edit_dialog.py:660
-#: ../blivetgui/dialogs/add_dialog.py:452 ../data/ui/blivet-gui.ui:478
-#: ../data/ui/cache_area.ui:87
-msgid "Type"
-msgstr "Тип"
-
-#: ../blivetgui/dialogs/edit_dialog.py:550
-#: ../blivetgui/dialogs/edit_dialog.py:599
-#: ../blivetgui/dialogs/edit_dialog.py:661
-#: ../blivetgui/dialogs/add_dialog.py:453 ../data/ui/blivet-gui.ui:500
-msgid "Size"
-msgstr "Размер"
-
-#: ../blivetgui/dialogs/edit_dialog.py:558
-msgid "Parent devices:"
-msgstr "Родительские устройства:"
-
-#: ../blivetgui/dialogs/edit_dialog.py:565
-msgid "Add parent"
-msgstr "Добавить родительское устройство"
-
-#: ../blivetgui/dialogs/edit_dialog.py:568
-msgid "Remove parent"
-msgstr "Удалить родительское устройство"
-
-#: ../blivetgui/dialogs/edit_dialog.py:579
-msgid ""
-"There are currently no empty physical volumes or\n"
-"disks with enough free space to create one."
-msgstr ""
-"Нет пустых физических томов или дисков\n"
-"с достаточным свободным местом для их создания."
-
-#: ../blivetgui/dialogs/edit_dialog.py:596
-msgid "Add?"
-msgstr "Добавить?"
-
-#: ../blivetgui/dialogs/edit_dialog.py:608
-#: ../blivetgui/dialogs/edit_dialog.py:670
-#: ../blivetgui/dialogs/add_dialog.py:462 ../data/ui/cache_area.ui:130
-msgid "Available devices:"
-msgstr "Доступные устройства:"
-
-#: ../blivetgui/dialogs/edit_dialog.py:638
-msgid ""
-"There is no physical volume that could be\n"
-"removed from this volume group."
-msgstr ""
-"Нет физических томов, которые можно\n"
-"удалить из этой группы томов."
-
-#: ../blivetgui/dialogs/edit_dialog.py:650
-msgid "Currently it is possible to remove only one parent at time."
-msgstr ""
-"В настоящее время удалить можно только одно родительское устройство за раз."
-
-#: ../blivetgui/dialogs/edit_dialog.py:658
-msgid "Remove?"
-msgstr "Удалить?"
-
-#. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
-#. your name and email address (optional) here. Separate translator names with newlines.
-#: ../blivetgui/dialogs/other_dialogs.py:53
-msgid "translator-credits"
-msgstr "благодарность переводчикам"
+#: ../blivetgui/communication/client.py:300
+#: ../blivetgui/communication/client.py:317
+msgid "Failed to connect to blivet-gui-daemon"
+msgstr "Не удалось подключиться к blivet-gui-daemon"
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
@@ -578,7 +459,7 @@ msgstr "Создать новое устройство"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:382
-#: ../blivetgui/dialogs/add_dialog.py:739
+#: ../blivetgui/dialogs/add_dialog.py:742
 #: ../blivetgui/dialogs/device_info_dialog.py:78
 msgid "Partition"
 msgstr "Раздел"
@@ -626,68 +507,79 @@ msgstr "Подтом Brtfs"
 msgid "Device type:"
 msgstr "Тип устройства:"
 
-#: ../blivetgui/dialogs/add_dialog.py:734
+#: ../blivetgui/dialogs/add_dialog.py:451
+#: ../blivetgui/dialogs/edit_dialog.py:548
+#: ../blivetgui/dialogs/edit_dialog.py:597
+#: ../blivetgui/dialogs/edit_dialog.py:659 ../data/ui/blivet-gui.ui:465
+#: ../data/ui/cache_area.ui:76
+msgid "Device"
+msgstr "Устройство"
+
+#: ../blivetgui/dialogs/add_dialog.py:452
+#: ../blivetgui/dialogs/edit_dialog.py:549
+#: ../blivetgui/dialogs/edit_dialog.py:598
+#: ../blivetgui/dialogs/edit_dialog.py:660 ../data/ui/blivet-gui.ui:478
+#: ../data/ui/cache_area.ui:87
+msgid "Type"
+msgstr "Тип"
+
+#: ../blivetgui/dialogs/add_dialog.py:453
+#: ../blivetgui/dialogs/edit_dialog.py:550
+#: ../blivetgui/dialogs/edit_dialog.py:599
+#: ../blivetgui/dialogs/edit_dialog.py:661 ../data/ui/blivet-gui.ui:500
+msgid "Size"
+msgstr "Размер"
+
+#: ../blivetgui/dialogs/add_dialog.py:462
+#: ../blivetgui/dialogs/edit_dialog.py:608
+#: ../blivetgui/dialogs/edit_dialog.py:670 ../data/ui/cache_area.ui:130
+msgid "Available devices:"
+msgstr "Доступные устройства:"
+
+#: ../blivetgui/dialogs/add_dialog.py:737
 msgid "MDArray type:"
 msgstr "Тип MDArray:"
 
-#: ../blivetgui/dialogs/add_dialog.py:766
+#: ../blivetgui/dialogs/add_dialog.py:769
 msgid "Filesystem:"
 msgstr "Файловая система:"
 
-#: ../blivetgui/dialogs/add_dialog.py:822
+#: ../blivetgui/dialogs/add_dialog.py:795
+#: ../blivetgui/dialogs/edit_dialog.py:165
+msgid "unformatted"
+msgstr "не форматировано"
+
+#: ../blivetgui/dialogs/add_dialog.py:825
 msgid "Label:"
 msgstr "Метка:"
 
-#: ../blivetgui/dialogs/add_dialog.py:830
+#: ../blivetgui/dialogs/add_dialog.py:833
 msgid "Name:"
 msgstr "Имя:"
 
-#: ../blivetgui/dialogs/add_dialog.py:841
+#: ../blivetgui/dialogs/add_dialog.py:844
 msgid "Mountpoint:"
 msgstr "Точка монтирования:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1009
+#: ../blivetgui/dialogs/add_dialog.py:1005 ../blivetgui/dialogs/helpers.py:141
+#, python-brace-format
+msgid "\"{0}\" is not a valid mountpoint."
+msgstr "Недопустимая точка монтирования «{0}»"
+
+#: ../blivetgui/dialogs/add_dialog.py:1012
 msgid "Please select at least two parent devices."
 msgstr "Выберите как минимум два родительских устройства."
 
-#: ../blivetgui/dialogs/add_dialog.py:1023
+#: ../blivetgui/dialogs/add_dialog.py:1026
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "Недопустимое имя: «{0}»."
 
-#: ../blivetgui/dialogs/message_dialogs.py:197
-msgid "Confirm delete operation"
-msgstr "Подтвердите операцию удаления"
-
-#: ../blivetgui/dialogs/message_dialogs.py:198
+#: ../blivetgui/dialogs/add_dialog.py:1032
+#: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
-msgid "Are you sure you want delete device {name}?"
-msgstr "Вы действительно хотите удалить устройство {name}?"
-
-#: ../blivetgui/dialogs/message_dialogs.py:207
-#, python-brace-format
-msgid "Also delete following parent devices of {name}:"
-msgstr "Удалить также следующие родительские устройства {name}:"
-
-#: ../blivetgui/dialogs/message_dialogs.py:304
-msgid "There are no pending actions."
-msgstr "Нет ожидающих действий."
-
-#: ../blivetgui/dialogs/widgets.py:328
-msgid "Passphrase not specified."
-msgstr "Пароль не указан."
-
-#: ../blivetgui/dialogs/widgets.py:331
-msgid "Provided passphrases do not match."
-msgstr "Предоставленные пароли не совпадают."
-
-#: ../blivetgui/dialogs/widgets.py:353
-msgid "Passphrases match."
-msgstr "Пароли совпадают."
-
-#: ../blivetgui/dialogs/widgets.py:356
-msgid "Passphrases don't match."
-msgstr "Пароли не совпадают."
+msgid "\"{0}\" is not a valid label."
+msgstr "Недопустимая метка: «{0}»."
 
 #. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
@@ -926,10 +818,130 @@ msgstr "Родители"
 msgid " • {exists} {size} {type} {name}\n"
 msgstr " • {exists} {size} {type} {name}\n"
 
-#: ../blivetgui/communication/client.py:302
-#: ../blivetgui/communication/client.py:319
-msgid "Failed to connect to blivet-gui-daemon"
-msgstr "Не удалось подключиться к blivet-gui-daemon"
+#: ../blivetgui/dialogs/edit_dialog.py:103
+#, python-brace-format
+msgid ""
+"<b>This device cannot be resized:</b>\n"
+"<i>{0}</i>"
+msgstr ""
+"<b>Размер этого устройства не может быть изменен:</b>\n"
+"<i>{0}</i>"
+
+#: ../blivetgui/dialogs/edit_dialog.py:105
+msgid "This device cannot be resized."
+msgstr "Размер этого устройства не может быть изменен."
+
+#: ../blivetgui/dialogs/edit_dialog.py:407
+#, python-brace-format
+msgid "'{label}' is not a valid label for this filesystem"
+msgstr "«{label}» - неправильная метка для этой файловой системы"
+
+#. auto shrink after removing/hiding widgets
+#: ../blivetgui/dialogs/edit_dialog.py:518
+msgid "Edit device"
+msgstr "Изменить устройство"
+
+#: ../blivetgui/dialogs/edit_dialog.py:558
+msgid "Parent devices:"
+msgstr "Родительские устройства:"
+
+#: ../blivetgui/dialogs/edit_dialog.py:565
+msgid "Add parent"
+msgstr "Добавить родительское устройство"
+
+#: ../blivetgui/dialogs/edit_dialog.py:568
+msgid "Remove parent"
+msgstr "Удалить родительское устройство"
+
+#: ../blivetgui/dialogs/edit_dialog.py:579
+msgid ""
+"There are currently no empty physical volumes or\n"
+"disks with enough free space to create one."
+msgstr ""
+"Нет пустых физических томов или дисков\n"
+"с достаточным свободным местом для их создания."
+
+#: ../blivetgui/dialogs/edit_dialog.py:596
+msgid "Add?"
+msgstr "Добавить?"
+
+#: ../blivetgui/dialogs/edit_dialog.py:638
+msgid ""
+"There is no physical volume that could be\n"
+"removed from this volume group."
+msgstr ""
+"Нет физических томов, которые можно\n"
+"удалить из этой группы томов."
+
+#: ../blivetgui/dialogs/edit_dialog.py:650
+msgid "Currently it is possible to remove only one parent at time."
+msgstr ""
+"В настоящее время удалить можно только одно родительское устройство за раз."
+
+#: ../blivetgui/dialogs/edit_dialog.py:658
+msgid "Remove?"
+msgstr "Удалить?"
+
+#: ../blivetgui/dialogs/helpers.py:148
+#, python-brace-format
+msgid "Selected mountpoint \"{0}\" is already set for another device."
+msgstr "Выбранная точка монтирования «{0}» уже задана для другого устройства."
+
+#: ../blivetgui/dialogs/message_dialogs.py:197
+msgid "Confirm delete operation"
+msgstr "Подтвердите операцию удаления"
+
+#: ../blivetgui/dialogs/message_dialogs.py:198
+#, python-brace-format
+msgid "Are you sure you want delete device {name}?"
+msgstr "Вы действительно хотите удалить устройство {name}?"
+
+#: ../blivetgui/dialogs/message_dialogs.py:208
+#, python-brace-format
+msgid "Following children of {name} will be also removed by this action:\n"
+msgstr ""
+
+#: ../blivetgui/dialogs/message_dialogs.py:216
+#, python-brace-format
+msgid "Also delete following parent devices of {name}:"
+msgstr "Удалить также следующие родительские устройства {name}:"
+
+#: ../blivetgui/dialogs/message_dialogs.py:316
+msgid "There are no pending actions."
+msgstr "Нет ожидающих действий."
+
+#. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
+#. your name and email address (optional) here. Separate translator names with newlines.
+#: ../blivetgui/dialogs/other_dialogs.py:53
+msgid "translator-credits"
+msgstr "благодарность переводчикам"
+
+#: ../blivetgui/dialogs/size_chooser.py:212
+msgid ""
+"Currently selected size is greater than maximum limit for this selection."
+msgstr ""
+"Выбранный сейчас размер больше, чем максимальный предел для этого выбора."
+
+#: ../blivetgui/dialogs/size_chooser.py:215
+msgid ""
+"Currently selected size is smaller than minimum limit for this selection."
+msgstr "Выбранный сейчас размер меньше минимального предела для этого выбора."
+
+#: ../blivetgui/dialogs/widgets.py:328
+msgid "Passphrase not specified."
+msgstr "Пароль не указан."
+
+#: ../blivetgui/dialogs/widgets.py:331
+msgid "Provided passphrases do not match."
+msgstr "Предоставленные пароли не совпадают."
+
+#: ../blivetgui/dialogs/widgets.py:353
+msgid "Passphrases match."
+msgstr "Пароли совпадают."
+
+#: ../blivetgui/dialogs/widgets.py:356
+msgid "Passphrases don't match."
+msgstr "Пароли не совпадают."
 
 #: ../blivetgui/visualization/rectangle.py:50
 msgid "Group device"
@@ -967,25 +979,21 @@ msgstr "Устройство или формат защищены от запи�
 msgid "Cached device"
 msgstr "Кешированное устройство"
 
-#: ../data/ui/root_check_window.ui:24
-msgid "Root privileges are required for running blivet-gui."
-msgstr "Для запуска blivet-gui требуются привилегии root."
+#: ../data/ui/about_dialog.ui:11
+msgid "Copyright © Red Hat Inc."
+msgstr "© Red Hat Inc."
 
-#: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
-msgid "Error"
-msgstr "Ошибка"
+#: ../data/ui/add_disklabel_dialog.ui:11
+msgid "No partition table found on disk"
+msgstr "На диске не найдена таблица разделов"
 
-#: ../data/ui/luks_passphrase_dialog.ui:11
-msgid "Unlock device"
-msgstr "Разблокировать устройство"
+#: ../data/ui/add_disklabel_dialog.ui:12
+msgid "A partition table is required before partitions can be added."
+msgstr "Прежде чем добавить разделы, необходимо создать таблицу разделов."
 
-#: ../data/ui/luks_passphrase_dialog.ui:12
-msgid "Please enter passphrase to unlock selected device."
-msgstr "Введите парольную фразу для разблокирования выбранного устройства."
-
-#: ../data/ui/luks_passphrase_dialog.ui:52 ../data/ui/encryption_chooser.ui:44
-msgid "Passphrase:"
-msgstr "Пароль:"
+#: ../data/ui/add_disklabel_dialog.ui:52
+msgid "Select new partition table type:"
+msgstr "Выберите тип новой таблицы разделов:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "New"
@@ -1112,131 +1120,6 @@ msgstr "Очередь действий"
 msgid "About blivet-gui"
 msgstr "О программе blivet-gui"
 
-#: ../data/ui/unmount_dialog.ui:36 ../data/ui/label_dialog.ui:25
-msgid "Cancel"
-msgstr "Отменить"
-
-#. Confirmation dialog button for unmounting selected mountpoints.
-#: ../data/ui/unmount_dialog.ui:50
-msgctxt "Dialog|Unmount"
-msgid "Unmount"
-msgstr "Размонтировать"
-
-#: ../data/ui/unmount_dialog.ui:87
-msgid ""
-"<b>Selected device is currently mounted\n"
-"at multiple mountpoints.</b>\n"
-"\n"
-"Please select mountpoint(s) to unmount:"
-msgstr ""
-"<b>Выбранное устройство сейчас смонтировано\n"
-"в нескольких точках монтирования.</b>\n"
-"\n"
-"Выберите точки для размонтирования:"
-
-#: ../data/ui/raid_chooser.ui:21
-msgid "RAID level:"
-msgstr "Уровень RAID:"
-
-#: ../data/ui/exception_dialog.ui:27
-msgid "_Back"
-msgstr "_Назад"
-
-#: ../data/ui/exception_dialog.ui:41
-msgid "_Report a bug"
-msgstr "_Сообщить об ошибке"
-
-#: ../data/ui/exception_dialog.ui:55
-msgid "_Quit"
-msgstr "Вы_йти"
-
-#: ../data/ui/exception_dialog.ui:107
-msgid "Show traceback"
-msgstr "Показать трассировку"
-
-#: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
-msgid "Format device"
-msgstr "Форматировать устройство"
-
-#: ../data/ui/format_dialog.ui:39 ../data/ui/resize_dialog.ui:30
-#: ../data/ui/mountpoint_dialog.ui:29
-msgid "_Cancel"
-msgstr "От_менить"
-
-#. Perform selected format change on this device.
-#: ../data/ui/format_dialog.ui:54
-msgctxt "Dialog|Format"
-msgid "_Format"
-msgstr "_Форматировать"
-
-#: ../data/ui/format_dialog.ui:101
-msgid "Select new format:"
-msgstr "Выберите новый формат:"
-
-#: ../data/ui/format_dialog.ui:148
-msgid "Enter new label:"
-msgstr "Введите новую метку:"
-
-#: ../data/ui/format_dialog.ui:186 ../data/ui/mountpoint_dialog.ui:88
-msgid "Enter new mountpoint:"
-msgstr "Введите новую точку монтирования:"
-
-#: ../data/ui/size_chooser.ui:14
-msgid "Size:"
-msgstr "Размер:"
-
-#: ../data/ui/size_area.ui:23
-msgid "Manually specify layout"
-msgstr "Вручную укажите раскладку"
-
-#: ../data/ui/add_disklabel_dialog.ui:11
-msgid "No partition table found on disk"
-msgstr "На диске не найдена таблица разделов"
-
-#: ../data/ui/add_disklabel_dialog.ui:12
-msgid "A partition table is required before partitions can be added."
-msgstr "Прежде чем добавить разделы, необходимо создать таблицу разделов."
-
-#: ../data/ui/add_disklabel_dialog.ui:52
-msgid "Select new partition table type:"
-msgstr "Выберите тип новой таблицы разделов:"
-
-#: ../data/ui/show_actions_dialog.ui:13
-msgid "Pending actions"
-msgstr "Ожидающие действия"
-
-#: ../data/ui/encryption_chooser.ui:20
-msgid "Encrypt:"
-msgstr "Зашифровать:"
-
-#: ../data/ui/encryption_chooser.ui:32
-msgid "Encryption type:"
-msgstr "Тип шифрования:"
-
-#: ../data/ui/encryption_chooser.ui:56
-msgid "Repeat Passphrase:"
-msgstr "Повторите пароль:"
-
-#: ../data/ui/info_dialog.ui:12
-msgid "Information:"
-msgstr "Сведения:"
-
-#: ../data/ui/parent_chooser.ui:37
-msgid "Parent name:"
-msgstr "Название родителя:"
-
-#: ../data/ui/parent_chooser.ui:80
-msgid "Available space:"
-msgstr "Доступное место:"
-
-#: ../data/ui/custom_dialog.ui:55
-msgid "label"
-msgstr "метка"
-
-#: ../data/ui/custom_dialog.ui:62
-msgid "Details"
-msgstr "Подробности"
-
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
 msgstr "Кэшировать этот LV:"
@@ -1261,17 +1144,84 @@ msgstr "Сквозная запись"
 msgid "Writeback"
 msgstr "Перезапись"
 
-#: ../data/ui/about_dialog.ui:11
-msgid "Copyright © Red Hat Inc."
-msgstr "© Red Hat Inc."
+#: ../data/ui/custom_dialog.ui:55
+msgid "label"
+msgstr "метка"
 
-#: ../data/ui/resize_dialog.ui:7
-msgid "Resize device"
-msgstr "Изменить размер устройства"
+#: ../data/ui/custom_dialog.ui:62
+msgid "Details"
+msgstr "Подробности"
 
-#: ../data/ui/resize_dialog.ui:45
-msgid "_Resize"
-msgstr "_Изменить размер"
+#: ../data/ui/encryption_chooser.ui:20
+msgid "Encrypt:"
+msgstr "Зашифровать:"
+
+#: ../data/ui/encryption_chooser.ui:32
+msgid "Encryption type:"
+msgstr "Тип шифрования:"
+
+#: ../data/ui/encryption_chooser.ui:44 ../data/ui/luks_passphrase_dialog.ui:52
+msgid "Passphrase:"
+msgstr "Пароль:"
+
+#: ../data/ui/encryption_chooser.ui:56
+msgid "Repeat Passphrase:"
+msgstr "Повторите пароль:"
+
+#: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
+msgid "Error"
+msgstr "Ошибка"
+
+#: ../data/ui/exception_dialog.ui:27
+msgid "_Back"
+msgstr "_Назад"
+
+#: ../data/ui/exception_dialog.ui:41
+msgid "_Report a bug"
+msgstr "_Сообщить об ошибке"
+
+#: ../data/ui/exception_dialog.ui:55
+msgid "_Quit"
+msgstr "Вы_йти"
+
+#: ../data/ui/exception_dialog.ui:107
+msgid "Show traceback"
+msgstr "Показать трассировку"
+
+#: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
+msgid "Format device"
+msgstr "Форматировать устройство"
+
+#: ../data/ui/format_dialog.ui:39 ../data/ui/mountpoint_dialog.ui:29
+#: ../data/ui/resize_dialog.ui:30
+msgid "_Cancel"
+msgstr "От_менить"
+
+#. Perform selected format change on this device.
+#: ../data/ui/format_dialog.ui:54
+msgctxt "Dialog|Format"
+msgid "_Format"
+msgstr "_Форматировать"
+
+#: ../data/ui/format_dialog.ui:101
+msgid "Select new format:"
+msgstr "Выберите новый формат:"
+
+#: ../data/ui/format_dialog.ui:148
+msgid "Enter new label:"
+msgstr "Введите новую метку:"
+
+#: ../data/ui/format_dialog.ui:186 ../data/ui/mountpoint_dialog.ui:88
+msgid "Enter new mountpoint:"
+msgstr "Введите новую точку монтирования:"
+
+#: ../data/ui/info_dialog.ui:12
+msgid "Information:"
+msgstr "Сведения:"
+
+#: ../data/ui/label_dialog.ui:25 ../data/ui/unmount_dialog.ui:36
+msgid "Cancel"
+msgstr "Отменить"
 
 #. Perform selected format change on this device.
 #: ../data/ui/label_dialog.ui:39
@@ -1283,9 +1233,71 @@ msgstr "Изменить метку"
 msgid "Enter new label for this filesystem:"
 msgstr "Введите новую метку для этой файловой системы:"
 
+#: ../data/ui/luks_passphrase_dialog.ui:11
+msgid "Unlock device"
+msgstr "Разблокировать устройство"
+
+#: ../data/ui/luks_passphrase_dialog.ui:12
+msgid "Please enter passphrase to unlock selected device."
+msgstr "Введите парольную фразу для разблокирования выбранного устройства."
+
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
 msgstr "_Установить точку монтирования"
+
+#: ../data/ui/parent_chooser.ui:37
+msgid "Parent name:"
+msgstr "Название родителя:"
+
+#: ../data/ui/parent_chooser.ui:80
+msgid "Available space:"
+msgstr "Доступное место:"
+
+#: ../data/ui/raid_chooser.ui:21
+msgid "RAID level:"
+msgstr "Уровень RAID:"
+
+#: ../data/ui/resize_dialog.ui:7
+msgid "Resize device"
+msgstr "Изменить размер устройства"
+
+#: ../data/ui/resize_dialog.ui:45
+msgid "_Resize"
+msgstr "_Изменить размер"
+
+#: ../data/ui/root_check_window.ui:24
+msgid "Root privileges are required for running blivet-gui."
+msgstr "Для запуска blivet-gui требуются привилегии root."
+
+#: ../data/ui/show_actions_dialog.ui:13
+msgid "Pending actions"
+msgstr "Ожидающие действия"
+
+#: ../data/ui/size_area.ui:23
+msgid "Manually specify layout"
+msgstr "Вручную укажите раскладку"
+
+#: ../data/ui/size_chooser.ui:14
+msgid "Size:"
+msgstr "Размер:"
+
+#. Confirmation dialog button for unmounting selected mountpoints.
+#: ../data/ui/unmount_dialog.ui:50
+msgctxt "Dialog|Unmount"
+msgid "Unmount"
+msgstr "Размонтировать"
+
+#: ../data/ui/unmount_dialog.ui:87
+msgid ""
+"<b>Selected device is currently mounted\n"
+"at multiple mountpoints.</b>\n"
+"\n"
+"Please select mountpoint(s) to unmount:"
+msgstr ""
+"<b>Выбранное устройство сейчас смонтировано\n"
+"в нескольких точках монтирования.</b>\n"
+"\n"
+"Выберите точки для размонтирования:"
 
 #~ msgid "{0} disklabel"
 #~ msgstr "метка диска {0}"
