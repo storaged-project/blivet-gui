@@ -33,9 +33,9 @@ Official packages for Debian (testing and unstable) and Ubuntu (19.04 and newer)
 
 This repository contains blivet-gui and its dependencies that are not available in the official Ubuntu/Debian repositories. We recommend adding the repository to your system, if you want to install the packages manually, you'll also need to install [blivet](https://software.opensuse.org/download.html?project=home:vtrefny&package=python3-blivet) and [pid](https://software.opensuse.org/download.html?project=home:vtrefny&package=python3-pid) from the same source.
 
-#### Copr repository for openSUSE and Mageia
+#### Copr repository for openSUSE, Mageia and OpenMandriva
 
-Packages for openSUSE Tumbleweed and Mageia (8 and newer) are available in our [blivet-stable Copr repository](https://copr.fedorainfracloud.org/coprs/g/storage/blivet-stable/). This repository contains latest stable versions of both blivet-gui and blivet.
+Packages for openSUSE Tumbleweed, Mageia (8 and newer) and OpenMandriva (Cooker and Rolling) are available in our [blivet-stable Copr repository](https://copr.fedorainfracloud.org/coprs/g/storage/blivet-stable/). This repository contains latest stable versions of both blivet-gui and blivet.
 
 #### Manual
 
