@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 16:56+0200\n"
-"PO-Revision-Date: 2021-09-05 20:04+0000\n"
+"PO-Revision-Date: 2021-09-07 19:04+0000\n"
 "Last-Translator: Oğuz Ersen <oguzersen@protonmail.com>\n"
 "Language-Team: Turkish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/tr/>\n"
@@ -266,10 +266,8 @@ msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "Anlık görüntülere sahip Mantıksal Birimler yeniden boyutlandırılamaz."
 
 #: ../blivetgui/blivet_utils.py:726
-#, fuzzy
-#| msgid "Resizing of {type} devices is currently not supported"
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr "{type} aygıtlarının yeniden boyutlandırılması şu anda desteklenmiyor"
+msgstr "LUKS2 aygıtlarının yeniden boyutlandırılması şu anda desteklenmiyor."
 
 #: ../blivetgui/blivet_utils.py:738
 #, python-brace-format
@@ -889,7 +887,7 @@ msgstr "{name} aygıtını silmek istediğinizden emin misiniz?"
 #: ../blivetgui/dialogs/message_dialogs.py:208
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
-msgstr ""
+msgstr "{name} aygıtının aşağıdaki alt aygıtları da bu işlemle kaldırılacak:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:216
 #, python-brace-format
