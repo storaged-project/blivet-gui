@@ -1,15 +1,15 @@
-# Yuri Chornoivan <yurchor@ukr.net>, 2015, 2020.
+# Yuri Chornoivan <yurchor@ukr.net>, 2015, 2020, 2021.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
-# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020.
-# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020.
-# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020. #zanata
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020, 2021.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020. #zanata, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 16:56+0200\n"
-"PO-Revision-Date: 2020-12-29 14:36+0000\n"
+"PO-Revision-Date: 2021-09-07 19:04+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/uk/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4\n"
+"X-Generator: Weblate 4.8\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -277,11 +277,9 @@ msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "Не можна змінювати розмір логічних томів із знімками."
 
 #: ../blivetgui/blivet_utils.py:726
-#, fuzzy
-#| msgid "Resizing of {type} devices is currently not supported"
 msgid "Resizing of LUKS2 devices is currently not supported."
 msgstr ""
-"У поточній версії можливості зміни розмірів пристроїв {type} не передбачено"
+"У поточній версії можливості зміни розмірів пристроїв LUKS2 не передбачено."
 
 #: ../blivetgui/blivet_utils.py:738
 #, python-brace-format
@@ -906,6 +904,8 @@ msgstr "Ви справді хочете вилучити пристрій {name
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
 msgstr ""
+"У результаті виконання цієї дії буде також вилучено такі дочірні записи "
+"{name}:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:216
 #, python-brace-format
