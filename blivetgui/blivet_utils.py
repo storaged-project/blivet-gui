@@ -598,11 +598,12 @@ class BlivetUtils(object):
         # the mdmember format from the parents
         if blivet_device.type == "mdarray":
             for parent in blivet_device.parents:
-                try:
-                    parent.format.teardown()
-                except Exception as e:  # pylint: disable=broad-except
-                    return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
-                                              traceback=traceback.format_exc())
+                if parent.format.exists:
+                    try:
+                        parent.format.teardown()
+                    except Exception as e:  # pylint: disable=broad-except
+                        return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
+                                                  traceback=traceback.format_exc())
                 result = self._delete_format(parent)
                 if not result.success:
                     return result
