@@ -10,25 +10,26 @@
 # Vojtěch Trefný <vtrefny@redhat.com>, 2017. #zanata
 # Zdenek <chmelarz@gmail.com>, 2018. #zanata
 # Daniel Rusek <mail@asciiwolf.com>, 2019. #zanata
+# Pavel Borecki <pavel.borecki@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 16:56+0200\n"
-"PO-Revision-Date: 2019-08-16 07:22+0000\n"
-"Last-Translator: Daniel Rusek <mail@asciiwolf.com>\n"
-"Language-Team: Czech (http://www.transifex.com/projects/p/blivet-gui/"
-"language/cs/)\n"
+"PO-Revision-Date: 2021-09-23 07:05+0000\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"Language-Team: Czech <https://translate.fedoraproject.org/projects/blivet/"
+"blivet-gui/cs/>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Zanata 4.6.2\n"
+"X-Generator: Weblate 4.8\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "Nepodařilo se změnit velikost zařízení:"
 
 #: ../blivetgui/blivetgui.py:302
 #, python-brace-format
@@ -37,7 +38,7 @@ msgstr "změnit velikost {type} {name}"
 
 #: ../blivetgui/blivetgui.py:321
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "Nepodařilo se naformátovat zařízení:"
 
 #: ../blivetgui/blivetgui.py:335
 #, python-brace-format
@@ -46,7 +47,7 @@ msgstr "formátovat {type} {name}"
 
 #: ../blivetgui/blivetgui.py:348
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "Nepodařilo se upravit LVM2 skupinu svazků:"
 
 #: ../blivetgui/blivetgui.py:363
 #, python-brace-format
@@ -55,12 +56,12 @@ msgstr "upravit {type} {name}"
 
 #: ../blivetgui/blivetgui.py:392
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "Nepodařilo se změnit štítek souborového systému na zařízení:"
 
 #: ../blivetgui/blivetgui.py:397
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "změnit štítek souborového systému {name} {type}"
 
 #: ../blivetgui/blivetgui.py:413
 #, python-brace-format
@@ -86,7 +87,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:434
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "Nepodařilo se přidat štítek disku:"
 
 #: ../blivetgui/blivetgui.py:447
 #, python-brace-format
@@ -95,7 +96,7 @@ msgstr "vytvořit novou tabulku oddílů na {name}"
 
 #: ../blivetgui/blivetgui.py:499
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "Nepodařilo se přidat zařízení:"
 
 #: ../blivetgui/blivetgui.py:514
 #, python-brace-format
@@ -104,7 +105,7 @@ msgstr "přidat {size} {type}"
 
 #: ../blivetgui/blivetgui.py:558
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "Nepodařilo se smazat zařízení:"
 
 #: ../blivetgui/blivetgui.py:573
 #, python-brace-format
@@ -113,7 +114,7 @@ msgstr "smazat oddíl {name}"
 
 #: ../blivetgui/blivetgui.py:612
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "Nepodařilo se provést akce:"
 
 #: ../blivetgui/blivetgui.py:656
 msgid "Confirm scheduled actions"
@@ -225,34 +226,30 @@ msgstr "volné místo"
 #: ../blivetgui/blivet_utils.py:661
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
-msgstr ""
+msgstr "Změna velikost {type} zařízení zatím není podporována"
 
 #: ../blivetgui/blivet_utils.py:666
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Protected devices cannot be resized"
-msgstr "U tohoto zařízení není možné měnit velikost."
+msgstr "Velikost chráněných zařízení nemůže být změněna"
 
 #: ../blivetgui/blivet_utils.py:671
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "Velikost neměnných formátů nemůže být změněna"
 
 #: ../blivetgui/blivet_utils.py:676
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Devices with children cannot be resized"
-msgstr "U tohoto zařízení není možné měnit velikost."
+msgstr "Velikost zařízení, která mají jim podřízená, nemůže být změněna"
 
 #: ../blivetgui/blivet_utils.py:687
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "Velikost nenaformátovaných zařízení nemůže být změněna"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
 #: ../blivetgui/blivet_utils.py:694
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
-msgstr ""
+msgstr "Změna velikosti formátu {type} zatím není podporována"
 
 #: ../blivetgui/blivet_utils.py:699
 #, python-brace-format
