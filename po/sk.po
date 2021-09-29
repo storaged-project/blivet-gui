@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 16:56+0200\n"
-"PO-Revision-Date: 2021-01-26 10:38+0000\n"
+"PO-Revision-Date: 2021-09-29 10:05+0000\n"
 "Last-Translator: Ondrej Sulek <feonsu@gmail.com>\n"
 "Language-Team: Slovak <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/sk/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4.2\n"
+"X-Generator: Weblate 4.8\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -266,10 +266,8 @@ msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "Logickým zväzkom (LV) so snapshotmi nejde zmeniť veľkosť."
 
 #: ../blivetgui/blivet_utils.py:726
-#, fuzzy
-#| msgid "Resizing of {type} devices is currently not supported"
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr "Zmena veľkosti zariadení {type} nie je momentálne podporovaná"
+msgstr "Zmena veľkosti LUKS2 zariadení nie je momentálne podporovaná."
 
 #: ../blivetgui/blivet_utils.py:738
 #, python-brace-format
@@ -889,7 +887,7 @@ msgstr "Naozaj chcete odstrániť zariadenie {name}?"
 #: ../blivetgui/dialogs/message_dialogs.py:208
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
-msgstr ""
+msgstr "Nasledujúce podradené položky {name} budú touto akciou tiež vymazané:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:216
 #, python-brace-format
