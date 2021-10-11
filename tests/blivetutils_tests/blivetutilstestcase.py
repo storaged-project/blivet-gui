@@ -62,7 +62,7 @@ class BlivetUtilsTestCase(unittest.TestCase):
 
         # let's be 100% sure that we pick a virtual ones
         for d in cls.vdevs:
-            with open('/sys/block/%s/device/model' % d) as model_file:
+            with open('/sys/block/%s/device/model' % d, encoding="utf-8") as model_file:
                 assert model_file.read().strip() == 'blivetgui_test_'
 
     @classmethod

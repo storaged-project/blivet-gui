@@ -40,8 +40,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'blivet-gui'
-copyright = u'2014,-2021, Red Hat, Inc.' # pylint: disable=W0622
+project = 'blivet-gui'
+copyright = '2014,-2021, Red Hat, Inc.'  # pylint: disable=W0622
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -184,10 +184,7 @@ latex_elements = {
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
-latex_documents = [
-  ('index', 'blivet-gui.tex', u'blivet-gui Documentation',
-   u'Vojtech Trefny', 'manual'),
-]
+latex_documents = [('index', 'blivet-gui.tex', 'blivet-gui Documentation', 'Vojtech Trefny', 'manual'), ]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
@@ -214,10 +211,7 @@ latex_documents = [
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    ('index', 'blivet-gui', u'blivet-gui Documentation',
-     [u'Vojtech Trefny'], 1)
-]
+man_pages = [('index', 'blivet-gui', 'blivet-gui Documentation', ['Vojtech Trefny'], 1)]
 
 # If true, show URL addresses after external links.
 #man_show_urls = False
@@ -228,11 +222,8 @@ man_pages = [
 # Grouping the document tree into Texinfo files. List of tuples
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
-texinfo_documents = [
-  ('index', 'blivet-gui', u'blivet-gui Documentation',
-   u'Vojtech Trefny', 'blivet-gui', 'One line description of project.',
-   'Miscellaneous'),
-]
+texinfo_documents = [('index', 'blivet-gui', 'blivet-gui Documentation', 'Vojtech Trefny',
+                      'blivet-gui', 'One line description of project.', 'Miscellaneous'), ]
 
 # Documents to append as an appendix to all manuals.
 #texinfo_appendices = []
