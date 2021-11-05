@@ -8,13 +8,14 @@
 # Máximo Castañeda Riloba <mcrcctm@gmail.com>, 2018. #zanata
 # Adolfo Jayme Barrientos <fitoschido@gmail.com>, 2020.
 # Emilio Herrera <ehespinosa57@gmail.com>, 2021.
+# Pedro Luis Valades Viera <perikiyoxd@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 16:56+0200\n"
-"PO-Revision-Date: 2021-01-09 16:36+0000\n"
-"Last-Translator: Emilio Herrera <ehespinosa57@gmail.com>\n"
+"PO-Revision-Date: 2021-11-04 22:05+0000\n"
+"Last-Translator: Pedro Luis Valades Viera <perikiyoxd@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/es/>\n"
 "Language: es\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4\n"
+"X-Generator: Weblate 4.8\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -1008,11 +1009,11 @@ msgstr "Nuevo"
 
 #: ../data/ui/blivet-gui.ui:23
 msgid "Delete"
-msgstr "Borrar"
+msgstr "Eliminar"
 
 #: ../data/ui/blivet-gui.ui:32
 msgid "Edit"
-msgstr "Eliminar"
+msgstr "Editar"
 
 #: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
 msgid "Resize"
