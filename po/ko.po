@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 16:56+0200\n"
-"PO-Revision-Date: 2021-09-07 19:04+0000\n"
+"PO-Revision-Date: 2021-11-07 10:19+0000\n"
 "Last-Translator: simmon <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
@@ -1103,7 +1103,7 @@ msgstr "대기중인 작업"
 
 #: ../data/ui/blivet-gui.ui:673
 msgid "About blivet-gui"
-msgstr "blivet-gui에 대하여"
+msgstr "blivet-gui 정보"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
