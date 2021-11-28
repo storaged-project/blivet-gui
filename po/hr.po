@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Gogo Gogsi <linux.hr@protonmail.com>, 2021.
+# Tomislav Krznar <tomislav.krznar@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 16:56+0200\n"
-"PO-Revision-Date: 2021-10-21 13:05+0000\n"
-"Last-Translator: Gogo Gogsi <linux.hr@protonmail.com>\n"
+"PO-Revision-Date: 2021-11-28 09:10+0000\n"
+"Last-Translator: Tomislav Krznar <tomislav.krznar@gmail.com>\n"
 "Language-Team: Croatian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/hr/>\n"
 "Language: hr\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.9.1\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -434,16 +435,16 @@ msgstr "Proširena"
 
 #: ../blivetgui/dialogs/add_dialog.py:149
 msgid "Chunk Size:"
-msgstr ""
+msgstr "Veličina bloka:"
 
 #: ../blivetgui/dialogs/add_dialog.py:212
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
-msgstr ""
+msgstr "'{0}' nije valjana veličina bloka."
 
 #: ../blivetgui/dialogs/add_dialog.py:217
 msgid "Chunk size must be multiple of 4 KiB."
-msgstr ""
+msgstr "Veličina bloka mora biti višekratnik 4 KiB."
 
 #: ../blivetgui/dialogs/add_dialog.py:273
 msgid "Create new device"
@@ -474,21 +475,24 @@ msgstr "ULU2 Logički uređaj"
 
 #: ../blivetgui/dialogs/add_dialog.py:394
 #: ../blivetgui/dialogs/device_info_dialog.py:82
+#, fuzzy
 msgid "LVM2 ThinPool"
-msgstr ""
+msgstr "LVM2 ThinPool"
 
 #: ../blivetgui/dialogs/add_dialog.py:401
 msgid "LVM2 Snaphost"
 msgstr "Snimka"
 
 #: ../blivetgui/dialogs/add_dialog.py:404
+#, fuzzy
 msgid "LVM2 Thin Snaphost"
-msgstr ""
+msgstr "LVM2 Thin Snaphost"
 
 #: ../blivetgui/dialogs/add_dialog.py:407
 #: ../blivetgui/dialogs/device_info_dialog.py:83
+#, fuzzy
 msgid "LVM2 Thin Logical Volume"
-msgstr ""
+msgstr "LVM2 Thin logički uređaj"
 
 #: ../blivetgui/dialogs/add_dialog.py:410
 #: ../blivetgui/dialogs/device_info_dialog.py:86
@@ -720,12 +724,12 @@ msgstr " • <i>Uređaji:</i> {dcount}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:150
 #, python-brace-format
 msgid " • <i>Spares:</i> {spares}\n"
-msgstr ""
+msgstr " • <i>Rezerva:</i> {spares}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
 msgid " • <i>Degraded:</i> {degraded}\n"
-msgstr ""
+msgstr " • <i>Degradirano:</i> {degraded}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:152
 #, python-brace-format
