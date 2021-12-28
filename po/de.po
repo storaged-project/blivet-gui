@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 16:56+0200\n"
-"PO-Revision-Date: 2021-11-08 14:05+0000\n"
+"PO-Revision-Date: 2021-12-28 21:16+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/de/>\n"
@@ -19,11 +19,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "Ändern der Größe des Geräts ist fehlgeschlagen:"
 
 #: ../blivetgui/blivetgui.py:302
 #, python-brace-format
@@ -41,7 +41,7 @@ msgstr "formatieren {name} {type}"
 
 #: ../blivetgui/blivetgui.py:348
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "Bearbeiten der LVM2-Volumengruppe ist fehlgeschlagen:"
 
 #: ../blivetgui/blivetgui.py:363
 #, python-brace-format
@@ -50,12 +50,12 @@ msgstr "{name} {type} bearbeiten"
 
 #: ../blivetgui/blivetgui.py:392
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "Ändern der Dateisystembezeichnung auf dem Gerät ist fehlgeschlagen:"
 
 #: ../blivetgui/blivetgui.py:397
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "Dateisystembezeichnung von {name} {type} ändern"
 
 #: ../blivetgui/blivetgui.py:413
 #, python-brace-format
@@ -128,12 +128,10 @@ msgstr ""
 "Benutzung ist?"
 
 #: ../blivetgui/blivetgui.py:720
-#, fuzzy
-#| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr ""
-"Entschlüsselung des Laufwerks fehlgeschlagen. Sind Sie sicher das richtige "
-"Passwort eingegeben zu haben?"
+"Entsperrung fehlgeschlagen. Sind Sie sicher, dass das angegebene Passwort "
+"korrekt ist?"
 
 #: ../blivetgui/blivetgui.py:770 ../data/ui/blivet-gui.ui:659
 msgid "Quit"
@@ -148,6 +146,8 @@ msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
+"Eine andere Instanz von blivet-gui läuft bereits.\n"
+"Es kann nur eine Instanz von blivet-gui zur gleichen Zeit laufen."
 
 #: ../blivetgui/blivetgui.py:776
 msgid ""
@@ -242,14 +242,15 @@ msgstr ""
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr ""
+"Werkzeuge zur Änderung der Größe von Format {type} sind nicht verfügbar."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:706
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "Die Größe dieses Laufwerk kann nicht geändert werden. "
+msgstr ""
+"Formate, die erstellt werden sollen, können nicht in der Größe verändert "
+"werden"
 
 #: ../blivetgui/blivet_utils.py:711
 #, python-brace-format
@@ -267,12 +268,13 @@ msgstr ""
 
 #: ../blivetgui/blivet_utils.py:726
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr ""
+msgstr "Ändern der Größe von LUKS2-Geräten wird derzeit nicht unterstützt."
 
 #: ../blivetgui/blivet_utils.py:738
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr ""
+"Aktualisieren der Dateisystemgrößeninformation ist fehlgeschlagen: {error}"
 
 #: ../blivetgui/blivet_utils.py:757
 msgid "Device is not resizable."
@@ -370,7 +372,7 @@ msgstr ""
 #. add a new 'placeholder' action for all currently registered blivet actions
 #: ../blivetgui/osinstall.py:269
 msgid "actions configured by installer"
-msgstr ""
+msgstr "vom Installationsprogramm konfigurierte Aktionen"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
@@ -382,7 +384,7 @@ msgstr "Aktionen anzeigen"
 
 #: ../blivetgui/processing_window.py:158
 msgid "All queued actions have been processed."
-msgstr ""
+msgstr "Alle in der Warteschlange befindlichen Aktionen wurden abgearbeitet."
 
 #: ../blivetgui/processing_window.py:173
 #, python-brace-format
@@ -719,7 +721,7 @@ msgstr " • <i>Reserve:</i> {spares}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
 msgid " • <i>Degraded:</i> {degraded}\n"
-msgstr ""
+msgstr " • <i>Degradiert:</i> {degraded}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:152
 #, python-brace-format
@@ -965,10 +967,8 @@ msgid "Device or format is write protected"
 msgstr "Gerät oder Format ist schreibgeschützt"
 
 #: ../blivetgui/visualization/rectangle.py:58
-#, fuzzy
-#| msgid "Edit device"
 msgid "Cached device"
-msgstr "Laufwerk bearbeiten"
+msgstr ""
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1121,7 +1121,7 @@ msgstr "Freier Platz"
 
 #: ../data/ui/cache_area.ui:109
 msgid "On disk"
-msgstr ""
+msgstr "Auf Laufwerk"
 
 #: ../data/ui/cache_area.ui:142
 msgid "Cache type:"
@@ -1133,7 +1133,7 @@ msgstr ""
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
-msgstr ""
+msgstr "Zurückschreiben"
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
@@ -1177,7 +1177,7 @@ msgstr "_Beenden"
 
 #: ../data/ui/exception_dialog.ui:107
 msgid "Show traceback"
-msgstr ""
+msgstr "Rückverfolgung anzeigen"
 
 #: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
 msgid "Format device"
@@ -1229,10 +1229,8 @@ msgid "Unlock device"
 msgstr "Gerät entsperren"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
-#, fuzzy
-#| msgid "Please enter passphrase to decrypt selected device."
 msgid "Please enter passphrase to unlock selected device."
-msgstr "Bitte Passwort zum Entschlüsseln des Geräts eingeben."
+msgstr "Bitte Passphrase zum Entsperren des ausgewählten Geräts eingeben."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
