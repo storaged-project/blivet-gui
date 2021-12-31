@@ -29,7 +29,7 @@ BuildRequires: make
 Requires: python3
 Requires: python3-gobject
 Requires: gettext
-Requires: python3-blivet >= 1:3.1.2
+Requires: python3-blivet >= 1:3.3.0
 Requires: gtk3
 Requires: python3-pid
 Requires: libreport
