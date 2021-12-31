@@ -228,9 +228,10 @@ class RaidChooser(GUIWidget):
 
 class EncryptionSelection(ProxyDataContainer):
 
-    def __init__(self, encrypt, encryption_type, passphrase, rpassphrase):
+    def __init__(self, encrypt, encryption_type, passphrase, rpassphrase, sector_size):
         super().__init__(encrypt=encrypt, encryption_type=encryption_type,
-                         passphrase=passphrase, rpassphrase=rpassphrase)
+                         passphrase=passphrase, rpassphrase=rpassphrase,
+                         encryption_sector_size=sector_size)
 
 
 class EncryptionChooser(GUIWidget):
@@ -242,11 +243,14 @@ class EncryptionChooser(GUIWidget):
         super().__init__()
 
         self._type_changed_handlers = []
+        self._ess_changed_handlers = []
         self._encrypt_toggled_handlers = []
 
         self.grid = self._builder.get_object("grid")
 
         self._combobox_type = self._builder.get_object("combobox_type")
+        self._label_ess = self._builder.get_object("label_ess")
+        self._combobox_ess = self._builder.get_object("combobox_ess")
         self._encrypt_check = self._builder.get_object("check_encrypt")
         self._passphrase_entry = self._builder.get_object("entry_passphrase")
         self._repeat_entry = self._builder.get_object("entry_repeat")
@@ -258,6 +262,8 @@ class EncryptionChooser(GUIWidget):
         # "advanced" widgets -- visible only when encrypt is checked
         self._advanced_widgests = [self._builder.get_object("label_type"),
                                    self._combobox_type,
+                                   self._label_ess,
+                                   self._combobox_ess,
                                    self._builder.get_object("label_passphrase"),
                                    self._passphrase_entry,
                                    self._builder.get_object("label_repeat"),
@@ -272,16 +278,33 @@ class EncryptionChooser(GUIWidget):
         if len(etypes) == 1:
             self._combobox_type.set_sensitive(False)
 
+        # fill combobox with supported sector sizes and select the default one
+        self.supported_encryption_sector_sizes = {_("Automatic"): 0, "512": 512, "4096": 4096}
+        for ess in self.supported_encryption_sector_sizes.keys():
+            self._combobox_ess.append_text(ess)
+        self._combobox_ess.set_active(0)
+        self._set_ess_visibility()
+
         # signals
         self._encrypt_check.connect("toggled", self._on_encrypt_toggled)
         self._passphrase_entry.connect("changed", self._on_passphrase_changed)
         self._repeat_entry.connect("changed", self._on_passphrase_changed)
         self._combobox_type.connect("changed", self._on_type_changed)
+        self._combobox_type.connect("changed", self._on_ess_changed)
 
     @property
     def selected_type(self):
         """ Currently selected encryption type """
         return self._combobox_type.get_active_text()
+
+    @property
+    def selected_ess(self):
+        """ Currently selected encryption sector size """
+        if self.selected_type != "luks2":
+            return 0
+
+        selected = self._combobox_ess.get_active_text()
+        return self.supported_encryption_sector_sizes[selected]
 
     @property
     def encrypt(self):
@@ -292,6 +315,15 @@ class EncryptionChooser(GUIWidget):
     def encrypt(self, state):
         self._encrypt_check.set_active(state)
 
+    def _set_ess_visibility(self):
+        # sector size is available only with LUKS 2
+        if self.selected_type == "luks2":
+            self._label_ess.show()
+            self._combobox_ess.show()
+        else:
+            self._label_ess.hide()
+            self._combobox_ess.hide()
+
     def set_advanced_visible(self, visible):
         for widget in self._advanced_widgests:
             widget.set_visible(visible)
@@ -301,10 +333,13 @@ class EncryptionChooser(GUIWidget):
 
         # show/hide "advanced" widgets
         self.set_advanced_visible(self.encrypt)
+        self._set_ess_visibility()
 
     def connect(self, signal_name, signal_handler, *args):
         if signal_name == "type-changed":
             self._type_changed_handlers.append(SignalHandler(method=signal_handler, args=args))
+        elif signal_name == "ess-changed":
+            self._ess_changed_handlers.append(SignalHandler(method=signal_handler, args=args))
         elif signal_name == "encrypt-toggled":
             self._encrypt_toggled_handlers.append(SignalHandler(method=signal_handler, args=args))
         else:
@@ -315,8 +350,9 @@ class EncryptionChooser(GUIWidget):
         etype = self.selected_type
         passphrase = self._passphrase_entry.get_text()
         rpassphrase = self._repeat_entry.get_text()
+        ess = self.selected_ess
 
-        return EncryptionSelection(encrypt, etype, passphrase, rpassphrase)
+        return EncryptionSelection(encrypt, etype, passphrase, rpassphrase, ess)
 
     def validate_user_input(self):
         selection = self.get_selection()
@@ -336,15 +372,23 @@ class EncryptionChooser(GUIWidget):
     def _on_encrypt_toggled(self, _widget):
         # show/hide "advanced" widgets
         self.set_advanced_visible(self.encrypt)
+        self._set_ess_visibility()
 
         # call the signal handler for the encrypt-toggled event
         for handler in self._encrypt_toggled_handlers:
             handler.method(self.encrypt, *handler.args)
 
     def _on_type_changed(self, _widget):
-        # nothing for us, just call registered handlers
+        # call registered handlers
         for handler in self._type_changed_handlers:
             handler.method(self.selected_type, *handler.args)
+
+        self._set_ess_visibility()
+
+    def _on_ess_changed(self, _widget):
+        # nothing for us, just call registered handlers
+        for handler in self._ess_changed_handlers:
+            handler.method(self.selected_ess, *handler.args)
 
     def _on_passphrase_changed(self, _widget):
         # check if passphrases match

@@ -1099,5 +1099,6 @@ class AddDialog(Gtk.Dialog):
                                   encrypt=encryption_selection.encrypt,
                                   passphrase=encryption_selection.passphrase,
                                   encryption_type=encryption_selection.encryption_type,
+                                  encryption_sector_size=encryption_selection.encryption_sector_size,
                                   raid_level=raid_level,
                                   advanced=advanced)

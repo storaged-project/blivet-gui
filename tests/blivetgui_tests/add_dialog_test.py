@@ -709,6 +709,7 @@ class AddDialogTest(unittest.TestCase):
         self.assertEqual(selection.mountpoint, mountpoint)
         self.assertTrue(selection.encrypt)
         self.assertEqual(selection.passphrase, password)
+        self.assertEqual(selection.encryption_sector_size, 0)
         self.assertEqual(selection.size_selection.parents[0].parent_device, parent_device)
         self.assertEqual(selection.size_selection.parents[0].selected_size, size)
         self.assertIsNone(selection.raid_level)
