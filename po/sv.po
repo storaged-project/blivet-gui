@@ -18,39 +18,39 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "Misslyckades med att ändra storlek på enheten:"
 
 #: ../blivetgui/blivetgui.py:302
 #, python-brace-format
 msgid "resize {name} {type}"
-msgstr ""
+msgstr "ändra storlek på {name} {type}"
 
 #: ../blivetgui/blivetgui.py:321
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "Misslyckades med att formatera enheten:"
 
 #: ../blivetgui/blivetgui.py:335
 #, python-brace-format
 msgid "format {name} {type}"
-msgstr ""
+msgstr "formatera {name} {type}"
 
 #: ../blivetgui/blivetgui.py:348
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "Misslyckades att redigera LVM2-volymgruppen:"
 
 #: ../blivetgui/blivetgui.py:363
 #, python-brace-format
 msgid "edit {name} {type}"
-msgstr ""
+msgstr "redigera {name} {type}"
 
 #: ../blivetgui/blivetgui.py:392
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "Misslyckades med att ändra filsystemsetiketten på enheten:"
 
 #: ../blivetgui/blivetgui.py:397
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "ändra filsystemsetikett på {name} {type}"
 
 #: ../blivetgui/blivetgui.py:413
 #, python-brace-format
@@ -58,10 +58,12 @@ msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
 "PVs."
 msgstr ""
+"{name} är inte fullständig. Det är inte möjligt att lägga till nya LV:er "
+"till en VG med saknade PV:er."
 
 #: ../blivetgui/blivetgui.py:418
 msgid "Not enough free space for a new LVM Volume Group."
-msgstr ""
+msgstr "Inte tillräckligt med fritt utrymme för en ny LVM-volymgrupp."
 
 #: ../blivetgui/blivetgui.py:424
 #, python-brace-format
@@ -69,45 +71,47 @@ msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
 "{label} disklabel."
 msgstr ""
+"Disken {name} har redan nått maximalt tillåtet antal primära partitioner för "
+"disketiketten {label}."
 
 #: ../blivetgui/blivetgui.py:434
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "Misslyckades med att lägga till en disketikett:"
 
 #: ../blivetgui/blivetgui.py:447
 #, python-brace-format
 msgid "create new disklabel on {name}"
-msgstr ""
+msgstr "skapa en ny disketikett på {name}"
 
 #: ../blivetgui/blivetgui.py:499
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "Misslyckades med att lägga till enheten:"
 
 #: ../blivetgui/blivetgui.py:514
 #, python-brace-format
 msgid "add {size} {type} device"
-msgstr ""
+msgstr "lägg till {size} {type}-enhet"
 
 #: ../blivetgui/blivetgui.py:558
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "Misslyckades med att radera enheten:"
 
 #: ../blivetgui/blivetgui.py:573
 #, python-brace-format
 msgid "delete partition {name}"
-msgstr ""
+msgstr "radera partitionen {name}"
 
 #: ../blivetgui/blivetgui.py:612
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "Misslyckades med att utföra åtgärderna:"
 
 #: ../blivetgui/blivetgui.py:656
 msgid "Confirm scheduled actions"
-msgstr ""
+msgstr "Bekräfta schemalagda åtgärder"
 
 #: ../blivetgui/blivetgui.py:657
 msgid "Are you sure you want to perform scheduled actions?"
-msgstr ""
+msgstr "Är du säker på att du vill utföra de schemalagda åtgärderna?"
 
 #: ../blivetgui/blivetgui.py:698
 #, python-brace-format
