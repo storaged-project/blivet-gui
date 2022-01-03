@@ -149,6 +149,33 @@ class EncryptionChooserTest(unittest.TestCase):
         encrypt_chooser._repeat_entry.set_text("aa")
         self.assertEqual(encrypt_chooser._repeat_entry.get_icon_name(Gtk.EntryIconPosition.SECONDARY), "emblem-ok-symbolic")
 
+    def test_sector_size_selection(self):
+        encrypt_chooser = EncryptionChooser()
+
+        encrypt_chooser.encrypt = True
+
+        # luks1 -> sector size should be hidden and "0" returned
+        encrypt_chooser._combobox_type.set_active(list(crypto.LUKS_VERSIONS.keys()).index("luks1"))
+        self.assertFalse(encrypt_chooser._combobox_ess.get_visible())
+
+        user_input = encrypt_chooser.get_selection()
+        self.assertEqual(user_input.encryption_sector_size, 0)
+
+        # luks2 -> sector size should be visible and "0" (default for automatic) should be selected
+        encrypt_chooser._combobox_type.set_active(list(crypto.LUKS_VERSIONS.keys()).index("luks2"))
+        self.assertTrue(encrypt_chooser._combobox_ess.get_visible())
+
+        user_input = encrypt_chooser.get_selection()
+        self.assertEqual(user_input.encryption_sector_size, 0)
+
+        encrypt_chooser._combobox_ess.set_active(list(encrypt_chooser.supported_encryption_sector_sizes.keys()).index("4096"))
+        user_input = encrypt_chooser.get_selection()
+        self.assertEqual(user_input.encryption_sector_size, 4096)
+
+        # luks1 -> sector size should be hidden and "0" returned
+        encrypt_chooser._combobox_type.set_active(list(crypto.LUKS_VERSIONS.keys()).index("luks1"))
+        self.assertFalse(encrypt_chooser._combobox_ess.get_visible())
+
 
 if __name__ == "__main__":
     unittest.main()
