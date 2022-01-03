@@ -613,10 +613,7 @@ class BlivetUtils(object):
         # for btrfs volumes delete parents partition after deleting volume
         if blivet_device.type in ("btrfs volume", "mdarray", "lvmvg") and delete_parents:
             for parent in blivet_device.parents:
-                if parent.is_disk:
-                    result = self._delete_disk_label(parent)
-                else:
-                    result = self._delete_device(parent)
+                result = self.delete_device(parent, delete_parents=False)
 
                 if not result.success:
                     return result
