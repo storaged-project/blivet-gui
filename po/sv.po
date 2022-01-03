@@ -1,20 +1,22 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Göran Uddeborg <goeran@uddeborg.se>, 2021.
+# Göran Uddeborg <goeran@uddeborg.se>, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-17 16:56+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-01-03 14:16+0000\n"
+"Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
+"Language-Team: Swedish <https://translate.fedoraproject.org/projects/blivet/"
+"blivet-gui/sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -129,13 +131,15 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:773
 msgid "blivet-gui is already running"
-msgstr ""
+msgstr "blivet-gui kör redan"
 
 #: ../blivetgui/blivetgui.py:774
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
+"En annan instans av blivet-gui kör redan.\n"
+"Endast en instans av blivet-gui kan köra på samma gång."
 
 #: ../blivetgui/blivetgui.py:776
 msgid ""
@@ -147,10 +151,17 @@ msgid ""
 "\n"
 "command to force quit it."
 msgstr ""
+"Om den tidigare instansen av blivet-gui kraschade, se till att processen <i"
+">blivet-gui-daemon</i> också avslutades.\n"
+"Om den fortfarande kör kan man använda kommandot\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"för att tvinga den att avsluta."
 
 #: ../blivetgui/blivetgui.py:808
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "Misslyckades att initiera blivet:"
 
 #: ../blivetgui/blivetgui.py:815
 msgid "Quit blivet-gui"
@@ -173,6 +184,10 @@ msgid ""
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
+"Blivet-gui kan inte använda disken <b>{name}</b> för på grund av en trasig/"
+"okänd disketikett.\n"
+"Du kan antingen avsluta blivet-gui nu eller fortsätta utan att kunna använda "
+"denna disk."
 
 #: ../blivetgui/blivetgui.py:857
 msgid "Confirm reload storage"
@@ -202,19 +217,19 @@ msgstr ""
 
 #: ../blivetgui/blivet_utils.py:666
 msgid "Protected devices cannot be resized"
-msgstr ""
+msgstr "Man kan inte ändra storlek på skyddade enheter"
 
 #: ../blivetgui/blivet_utils.py:671
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "Man kan inte ändra storlek på oföränderliga format"
 
 #: ../blivetgui/blivet_utils.py:676
 msgid "Devices with children cannot be resized"
-msgstr ""
+msgstr "Man kan inte ändra storlek på enheter med barn"
 
 #: ../blivetgui/blivet_utils.py:687
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "Man kan inte ändra storlek på oformaterade enheter"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
@@ -226,30 +241,31 @@ msgstr ""
 #: ../blivetgui/blivet_utils.py:699
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
-msgstr ""
+msgstr "Verktyg för att ändra storlek på formatet {type} är inte tillgängliga."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:706
 msgid "Formats scheduled to be created cannot be resized"
-msgstr ""
+msgstr "Man kan inte ändra storlek på format som är schemalagda att skapas"
 
 #: ../blivetgui/blivet_utils.py:711
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
+"Formatet {type} stödjer inte uppdatering av dess information om storleksgräns"
 
 #: ../blivetgui/blivet_utils.py:716
 msgid "Mounted devices cannot be resized"
-msgstr ""
+msgstr "Man kan inte ändra storlek på monterade enheter"
 
 #: ../blivetgui/blivet_utils.py:721
 msgid "Logical Volumes with snapshots cannot be resized."
-msgstr ""
+msgstr "Man kan inte ändra storlek på logiska volymer med ögonblicksbilder."
 
 #: ../blivetgui/blivet_utils.py:726
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr ""
+msgstr "Ändring av storlek på LUKS2-enheter stödJs för närvarande inte."
 
 #: ../blivetgui/blivet_utils.py:738
 #, python-brace-format
@@ -258,11 +274,13 @@ msgstr ""
 
 #: ../blivetgui/blivet_utils.py:757
 msgid "Device is not resizable."
-msgstr ""
+msgstr "Det går inte att ändra storlek på enheten."
 
 #: ../blivetgui/blivet_utils.py:759
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
+"Det går inte att ändra storlek på formatet effter att des information som "
+"storleksgräns uppdaterats."
 
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
@@ -335,6 +353,10 @@ msgid ""
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+" Klicka rapportknappen för att signalera felet och låt anaconda \n"
+" hantera rapporteringsprocessen om du vill rapportera detta."
 
 #: ../blivetgui/osinstall.py:221
 #, python-brace-format
@@ -366,11 +388,13 @@ msgid ""
 "<b>Processing action {num} of {total}</b>:\n"
 "<i>{action}</i>"
 msgstr ""
+"<b>Bearbetar åggärd {num} av {total}</b>:\n"
+"<i>{action}</i>"
 
 #: ../blivetgui/communication/client.py:300
 #: ../blivetgui/communication/client.py:317
 msgid "Failed to connect to blivet-gui-daemon"
-msgstr ""
+msgstr "Misslyckades att ansluta till blivet-gui-daemon"
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
