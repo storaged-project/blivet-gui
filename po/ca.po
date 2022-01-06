@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-17 16:56+0200\n"
+"POT-Creation-Date: 2021-12-31 19:18+0100\n"
 "PO-Revision-Date: 2018-10-24 11:38+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan\n"
@@ -208,84 +208,84 @@ msgstr ""
 msgid "free space"
 msgstr "espai lliure"
 
-#: ../blivetgui/blivet_utils.py:661
+#: ../blivetgui/blivet_utils.py:662
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:666
+#: ../blivetgui/blivet_utils.py:667
 #, fuzzy
 #| msgid "This device cannot be resized."
 msgid "Protected devices cannot be resized"
 msgstr "No es pot redimensionar aquest dispositiu."
 
-#: ../blivetgui/blivet_utils.py:671
+#: ../blivetgui/blivet_utils.py:672
 msgid "Immutable formats cannot be resized"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:676
+#: ../blivetgui/blivet_utils.py:677
 #, fuzzy
 #| msgid "This device cannot be resized."
 msgid "Devices with children cannot be resized"
 msgstr "No es pot redimensionar aquest dispositiu."
 
-#: ../blivetgui/blivet_utils.py:687
+#: ../blivetgui/blivet_utils.py:688
 msgid "Unformatted devices are not resizable"
 msgstr ""
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
-#: ../blivetgui/blivet_utils.py:694
+#: ../blivetgui/blivet_utils.py:695
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:699
+#: ../blivetgui/blivet_utils.py:700
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr ""
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
-#: ../blivetgui/blivet_utils.py:706
+#: ../blivetgui/blivet_utils.py:707
 #, fuzzy
 #| msgid "This device cannot be resized."
 msgid "Formats scheduled to be created cannot be resized"
 msgstr "No es pot redimensionar aquest dispositiu."
 
-#: ../blivetgui/blivet_utils.py:711
+#: ../blivetgui/blivet_utils.py:712
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:716
+#: ../blivetgui/blivet_utils.py:717
 #, fuzzy
 #| msgid "This device cannot be resized."
 msgid "Mounted devices cannot be resized"
 msgstr "No es pot redimensionar aquest dispositiu."
 
-#: ../blivetgui/blivet_utils.py:721
+#: ../blivetgui/blivet_utils.py:722
 #, fuzzy
 #| msgid "Logical Volumes with snapshots couldn't be resized."
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "Els volums lògics amb instantànies no poden redimensionar-se."
 
-#: ../blivetgui/blivet_utils.py:726
+#: ../blivetgui/blivet_utils.py:727
 msgid "Resizing of LUKS2 devices is currently not supported."
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:738
+#: ../blivetgui/blivet_utils.py:739
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:757
+#: ../blivetgui/blivet_utils.py:758
 #, fuzzy
 #| msgid "This device cannot be resized."
 msgid "Device is not resizable."
 msgstr "No es pot redimensionar aquest dispositiu."
 
-#: ../blivetgui/blivet_utils.py:759
+#: ../blivetgui/blivet_utils.py:760
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
 
@@ -448,7 +448,7 @@ msgstr "Crea un nou dispositiu"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:382
-#: ../blivetgui/dialogs/add_dialog.py:742
+#: ../blivetgui/dialogs/add_dialog.py:746
 #: ../blivetgui/dialogs/device_info_dialog.py:78
 msgid "Partition"
 msgstr "Partició"
@@ -525,46 +525,46 @@ msgstr "Mida"
 msgid "Available devices:"
 msgstr "Dispositius disponibles:"
 
-#: ../blivetgui/dialogs/add_dialog.py:737
+#: ../blivetgui/dialogs/add_dialog.py:741
 msgid "MDArray type:"
 msgstr "Tipus MDArray:"
 
-#: ../blivetgui/dialogs/add_dialog.py:769
+#: ../blivetgui/dialogs/add_dialog.py:773
 msgid "Filesystem:"
 msgstr "Sistema de fitxers:"
 
-#: ../blivetgui/dialogs/add_dialog.py:795
+#: ../blivetgui/dialogs/add_dialog.py:799
 #: ../blivetgui/dialogs/edit_dialog.py:165
 msgid "unformatted"
 msgstr "sense format"
 
-#: ../blivetgui/dialogs/add_dialog.py:825
+#: ../blivetgui/dialogs/add_dialog.py:829
 msgid "Label:"
 msgstr "Etiqueta:"
 
-#: ../blivetgui/dialogs/add_dialog.py:833
+#: ../blivetgui/dialogs/add_dialog.py:837
 msgid "Name:"
 msgstr "Nom:"
 
-#: ../blivetgui/dialogs/add_dialog.py:844
+#: ../blivetgui/dialogs/add_dialog.py:848
 msgid "Mountpoint:"
 msgstr "Punt de muntatge:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1005 ../blivetgui/dialogs/helpers.py:141
+#: ../blivetgui/dialogs/add_dialog.py:1014 ../blivetgui/dialogs/helpers.py:141
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" ino és un punt de muntatge vàlid."
 
-#: ../blivetgui/dialogs/add_dialog.py:1012
+#: ../blivetgui/dialogs/add_dialog.py:1021
 msgid "Please select at least two parent devices."
 msgstr "Si us plau, seleccioneu almenys dos dispositius primaris."
 
-#: ../blivetgui/dialogs/add_dialog.py:1026
+#: ../blivetgui/dialogs/add_dialog.py:1035
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" no és un nom vàlid."
 
-#: ../blivetgui/dialogs/add_dialog.py:1032
+#: ../blivetgui/dialogs/add_dialog.py:1041
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -922,19 +922,24 @@ msgstr ""
 "La mida seleccionada actualment és més petita que el límit mínim per a "
 "aquesta selecció."
 
-#: ../blivetgui/dialogs/widgets.py:328
+#. fill combobox with supported sector sizes and select the default one
+#: ../blivetgui/dialogs/widgets.py:282
+msgid "Automatic"
+msgstr ""
+
+#: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
 msgstr "No s'ha especificat la contrasenya."
 
-#: ../blivetgui/dialogs/widgets.py:331
+#: ../blivetgui/dialogs/widgets.py:367
 msgid "Provided passphrases do not match."
 msgstr "Les contrasenyes proporcionades no coincideixen."
 
-#: ../blivetgui/dialogs/widgets.py:353
+#: ../blivetgui/dialogs/widgets.py:397
 msgid "Passphrases match."
 msgstr "Les contrasenyes coincideixen."
 
-#: ../blivetgui/dialogs/widgets.py:356
+#: ../blivetgui/dialogs/widgets.py:400
 msgid "Passphrases don't match."
 msgstr "Les contrasenyes no coincideixen."
 
@@ -1157,21 +1162,25 @@ msgstr "etiqueta"
 msgid "Details"
 msgstr "Detalls"
 
-#: ../data/ui/encryption_chooser.ui:20
+#: ../data/ui/encryption_chooser.ui:21
 msgid "Encrypt:"
 msgstr "Xifratge:"
 
-#: ../data/ui/encryption_chooser.ui:32
+#: ../data/ui/encryption_chooser.ui:33
 msgid "Encryption type:"
 msgstr ""
 
-#: ../data/ui/encryption_chooser.ui:44 ../data/ui/luks_passphrase_dialog.ui:52
+#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
 msgid "Passphrase:"
 msgstr "Contrasenya:"
 
-#: ../data/ui/encryption_chooser.ui:56
+#: ../data/ui/encryption_chooser.ui:57
 msgid "Repeat Passphrase:"
 msgstr "Repetiu la contrasenya:"
+
+#: ../data/ui/encryption_chooser.ui:118
+msgid "Sector size:"
+msgstr ""
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
