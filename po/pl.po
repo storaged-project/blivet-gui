@@ -10,26 +10,26 @@
 # Jacek Smyda <smyda@posexperts.com.pl>, 1998
 # Leszek Matok <lam@lac.pl>, 2004
 # Pawel Szopinski <pawel@szopinski.co.uk>, 2004
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2015, 2020, 2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2015, 2020, 2021, 2022.
 # Radosław Zawartko <radzaw@radzaw.one.pl>, 2004
 # sonyam <sonyam@tlen.pl>, 2004
 # Stanisław Małolepszy <smalolepszy@aviary.pl>, 2006
 # Tom Berner <tom@lodz.pl>, 2005
 # Tom Berner <tom@man.lodz.pl>, 2004
 # Wojciech Kapusta <wojciech@aviary.pl>, 2006
-# Piotr Drąg <piotrdrag@gmail.com>, 2014, 2020, 2021.
-# Piotr Drąg <piotrdrag@gmail.com>, 2013-2014, 2020, 2021.
-# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2014, 2020, 2021, 2022.
+# Piotr Drąg <piotrdrag@gmail.com>, 2013-2014, 2020, 2021, 2022.
+# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021, 2022.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
-# Piotr Drąg <piotrdrag@gmail.com>, 2017. #zanata, 2020, 2021.
-# Piotr Drąg <piotrdrag@gmail.com>, 2018. #zanata, 2020, 2021.
-# Piotr Drąg <piotrdrag@gmail.com>, 2020. #zanata, 2021.
+# Piotr Drąg <piotrdrag@gmail.com>, 2017. #zanata, 2020, 2021, 2022.
+# Piotr Drąg <piotrdrag@gmail.com>, 2018. #zanata, 2020, 2021, 2022.
+# Piotr Drąg <piotrdrag@gmail.com>, 2020. #zanata, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-31 19:18+0100\n"
-"PO-Revision-Date: 2021-09-05 21:28+0000\n"
+"PO-Revision-Date: 2022-01-06 15:02+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/pl/>\n"
@@ -39,7 +39,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -944,7 +944,7 @@ msgstr "Brak oczekujących działań."
 #. your name and email address (optional) here. Separate translator names with newlines.
 #: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
-msgstr "Piotr Drąg <piotrdrag@gmail.com>, 2014-2018"
+msgstr "Piotr Drąg <piotrdrag@gmail.com>, 2014-2022"
 
 #: ../blivetgui/dialogs/size_chooser.py:212
 msgid ""
@@ -963,7 +963,7 @@ msgstr ""
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "Automatyczny"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -1208,7 +1208,7 @@ msgstr "Powtórzenie hasła:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Rozmiar sektora:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
