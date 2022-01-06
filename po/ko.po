@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# simmon <simmon@nplob.com>, 2021.
+# simmon <simmon@nplob.com>, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-31 19:18+0100\n"
-"PO-Revision-Date: 2021-11-07 10:19+0000\n"
+"PO-Revision-Date: 2022-01-06 15:02+0000\n"
 "Last-Translator: simmon <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -915,7 +915,7 @@ msgstr "현재 선택된 크기는 이 부분을 위해 최소 제한치 보다 
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "자동"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -1160,7 +1160,7 @@ msgstr "암호문 반복:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "섹터 크기(S):"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
