@@ -311,6 +311,30 @@ class BlivetGUI(object):
                 self._handle_user_change()
                 self.update_partitions_view()
 
+    def rename_device(self, _widget=None):
+        device = self.list_partitions.selected_partition[0]
+        names = self.client.remote_call("get_names")
+
+        dialog = edit_dialog.RenameDialog(self.main_window, device, names,
+                                          installer_mode=self.installer_mode)
+        message = _("Failed to rename the device:")
+        user_input = self.run_dialog(dialog)
+        if user_input.rename:
+            result = self.client.remote_call("rename_device", user_input)
+            if not result.success:
+                if not result.exception:
+                    self.show_error_dialog(result.message)
+                else:
+                    self._reraise_exception(result.exception, result.traceback, message,
+                                            dialog_window=dialog.dialog)
+            else:
+                if result.actions:
+                    action_str = _("rename {name} {type}").format(name=device.name, type=device.type)
+                    self.list_actions.append("edit", action_str, result.actions)
+
+                self._handle_user_change()
+                self.update_partitions_view()
+
     def format_device(self, _widget=None):
         device = self.list_partitions.selected_partition[0]
 

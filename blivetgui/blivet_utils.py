@@ -875,6 +875,20 @@ class BlivetUtils(object):
             return ProxyDataContainer(success=True, actions=[label_ac], message=None,
                                       exception=None, traceback=None)
 
+    def rename_device(self, user_input):
+        rename_ac = blivet.deviceaction.ActionConfigureDevice(device=user_input.edit_device,
+                                                              attr="name",
+                                                              new_value=user_input.name)
+
+        try:
+            self.storage.devicetree.actions.add(rename_ac)
+        except Exception as e:  # pylint: disable=broad-except
+            return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
+                                      traceback=traceback.format_exc())
+        else:
+            return ProxyDataContainer(success=True, actions=[rename_ac], message=None,
+                                      exception=None, traceback=None)
+
     def edit_lvmvg_device(self, user_input):
         """ Edit LVM Volume group
         """
@@ -1511,6 +1525,12 @@ class BlivetUtils(object):
         """
 
         return list(self.storage.mountpoints.keys())
+
+    def get_names(self):
+        """ Return list of currently used device names
+        """
+
+        return self.storage.names
 
     def get_supported_filesystems(self):
         _fs_types = []

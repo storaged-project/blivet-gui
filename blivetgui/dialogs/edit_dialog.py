@@ -28,7 +28,7 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 from .size_chooser import SizeChooser
-from .helpers import is_mountpoint_valid, is_label_valid
+from .helpers import is_mountpoint_valid, is_label_valid, is_name_valid
 from ..dialogs import message_dialogs
 from ..gui_utils import locate_ui_file
 from ..communication.proxy_utils import ProxyDataContainer
@@ -429,6 +429,87 @@ class LabelDialog(object):
         self.dialog.response(Gtk.ResponseType.REJECT)
 
     def _on_format_button(self, _button):
+        self.dialog.response(Gtk.ResponseType.ACCEPT)
+
+
+class RenameDialog(object):
+
+    def __init__(self, main_window, edit_device, names, installer_mode=False):
+        self.main_window = main_window
+        self.edit_device = edit_device
+        self.names = names
+        self.installer_mode = installer_mode
+
+        self.builder = Gtk.Builder()
+        self.builder.set_translation_domain("blivet-gui")
+        self.builder.add_from_file(locate_ui_file("rename_dialog.ui"))
+
+        self.dialog = self.builder.get_object("rename_dialog")
+        self.dialog.set_transient_for(self.main_window)
+
+        self.entry_rename = self.builder.get_object("entry_rename")
+
+        button_cancel = self.builder.get_object("button_cancel")
+        button_cancel.connect("clicked", self._on_cancel_button)
+
+        button_rename = self.builder.get_object("button_rename")
+        button_rename.connect("clicked", self._on_rename_button)
+
+    def set_decorated(self, decorated):
+        self.dialog.set_decorated(decorated)
+
+        # no decoration --> display dialog title in the dialog
+        if not decorated:
+            label = self.builder.get_object("label_title")
+            title = self.dialog.get_title()
+            label.set_text(title)
+
+    def _validate_user_input(self, name):
+        if not is_name_valid(self.edit_device.type, name):
+            msg = _("\"{0}\" is not a valid name.").format(name)
+            message_dialogs.ErrorDialog(self, msg,
+                                        not self.installer_mode)  # do not show decoration in installer mode
+            return False
+
+        if hasattr(self.edit_device, "lvname"):
+            old_name = self.edit_device.lvname
+            new_name = "%s-%s" % (self.edit_device.vg.name, name)
+        else:
+            old_name = self.edit_device.name
+            new_name = name
+
+        if name == old_name:
+            msg = _("Selected device is already named \"{0}\".").format(name)
+            message_dialogs.ErrorDialog(self.dialog, msg,
+                                        not self.installer_mode)  # do not show decoration in installer mode
+            return False
+
+        if new_name in self.names:
+            msg = _("Selected name \"{0}\" is already in use.").format(name)
+            message_dialogs.ErrorDialog(self.dialog, msg,
+                                        not self.installer_mode)  # do not show decoration in installer mode
+            return False
+
+        return True
+
+    def run(self):
+        response = self.dialog.run()
+
+        if response == Gtk.ResponseType.REJECT:
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, rename=False, name=None)
+        else:
+            new_name = self.entry_rename.get_text()
+            if not self._validate_user_input(new_name):
+                return self.run()
+            else:
+                self.dialog.destroy()
+                return ProxyDataContainer(edit_device=self.edit_device, rename=True, name=new_name)
+
+    def _on_cancel_button(self, _button):
+        self.dialog.response(Gtk.ResponseType.REJECT)
+
+    def _on_rename_button(self, _button):
         self.dialog.response(Gtk.ResponseType.ACCEPT)
 
 
