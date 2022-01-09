@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-31 19:18+0100\n"
-"PO-Revision-Date: 2022-01-05 20:16+0000\n"
+"PO-Revision-Date: 2022-01-08 22:16+0000\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/sv/>\n"
@@ -726,12 +726,12 @@ msgstr " • <i>Reserver:</i> {spares}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
 msgid " • <i>Degraded:</i> {degraded}\n"
-msgstr ""
+msgstr " • <i>Degenererade:</i> {degraded}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:152
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid " • <i>Metadata Version:</i> {metadata}\n"
-msgstr " • <i>Metadata Version:</i> {metadata}\n"
+msgstr " • <i>Metadataversion:</i> {metadata}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:167
 #, python-brace-format
@@ -804,7 +804,7 @@ msgstr " • <i>Typ:</i> Ingen"
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid "Parents"
-msgstr ""
+msgstr "Föräldrar"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:257
 #, python-brace-format
@@ -817,10 +817,12 @@ msgid ""
 "<b>This device cannot be resized:</b>\n"
 "<i>{0}</i>"
 msgstr ""
+"<b>Det går inte att ändra storlek på denna enhet:</b>\n"
+"<i>{0}</i>"
 
 #: ../blivetgui/dialogs/edit_dialog.py:105
 msgid "This device cannot be resized."
-msgstr ""
+msgstr "Det går inte att ändra storlek på denna enhet."
 
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
@@ -834,21 +836,23 @@ msgstr "Redigera enhet"
 
 #: ../blivetgui/dialogs/edit_dialog.py:558
 msgid "Parent devices:"
-msgstr ""
+msgstr "Föräldraenheter:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
 msgid "Add parent"
-msgstr ""
+msgstr "Lägg till förälder"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
 msgid "Remove parent"
-msgstr ""
+msgstr "Ta bort förälder"
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
 msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
 msgstr ""
+"Det finns för närvarande inga tomma fysiska volymer eller\n"
+"diskar med tillräckligt med fritt utrymme för att skapa en."
 
 #: ../blivetgui/dialogs/edit_dialog.py:596
 msgid "Add?"
@@ -859,10 +863,12 @@ msgid ""
 "There is no physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
+"Det finns ingen fysisk volym som skulle kunna\n"
+"tas bort från denna volymgrupp."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
 msgid "Currently it is possible to remove only one parent at time."
-msgstr ""
+msgstr "För närvarande är det endast möjligt att ta bort en förälder åt gången."
 
 #: ../blivetgui/dialogs/edit_dialog.py:658
 msgid "Remove?"
@@ -876,7 +882,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/message_dialogs.py:197
 msgid "Confirm delete operation"
-msgstr ""
+msgstr "Bekräfta åtgärden att radera"
 
 #: ../blivetgui/dialogs/message_dialogs.py:198
 #, python-brace-format
@@ -886,12 +892,12 @@ msgstr "Är du säker på att du vill ta bort enhet {name}?"
 #: ../blivetgui/dialogs/message_dialogs.py:208
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
-msgstr ""
+msgstr "Följande barn till {name} kommer också tas bort med denna åtgärd:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:216
 #, python-brace-format
 msgid "Also delete following parent devices of {name}:"
-msgstr ""
+msgstr "Ta även bort följande föräldraneheter till {name}:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:316
 msgid "There are no pending actions."
@@ -917,11 +923,12 @@ msgstr ""
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr ""
+"Den för närvarande valda storleken är mindre än mingränsen för detta val."
 
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "Automatisk"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -989,7 +996,7 @@ msgstr "En partitionstabell krävs innan partitioner kan läggas till."
 
 #: ../data/ui/add_disklabel_dialog.ui:52
 msgid "Select new partition table type:"
-msgstr ""
+msgstr "Välj en ny partitionstabelltyp:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "New"
@@ -1005,7 +1012,7 @@ msgstr "Redigera"
 
 #: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
 msgid "Resize"
-msgstr ""
+msgstr "Ändra storlek"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
@@ -1015,7 +1022,7 @@ msgstr "Formatera"
 
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:138
 msgid "Modify parents"
-msgstr ""
+msgstr "Ändra föräldrar"
 
 #: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:146
 #: ../data/ui/mountpoint_dialog.ui:7
@@ -1110,7 +1117,7 @@ msgstr "Ladda om lagring"
 
 #: ../data/ui/blivet-gui.ui:651
 msgid "Queued Actions"
-msgstr ""
+msgstr "Uppköade åtgärder"
 
 #: ../data/ui/blivet-gui.ui:673
 msgid "About blivet-gui"
@@ -1134,11 +1141,11 @@ msgstr "Cachetyp:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
-msgstr ""
+msgstr "Genomskrivning"
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
-msgstr ""
+msgstr "Återskrivning"
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
@@ -1166,7 +1173,7 @@ msgstr "Upprepa lösenfrasen:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Sektorstorlek:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
@@ -1186,7 +1193,7 @@ msgstr "_Avsluta"
 
 #: ../data/ui/exception_dialog.ui:107
 msgid "Show traceback"
-msgstr ""
+msgstr "Visa stackspår"
 
 #: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
 msgid "Format device"
@@ -1227,7 +1234,7 @@ msgstr "Avbryt"
 #: ../data/ui/label_dialog.ui:39
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "Etikettera om"
 
 #: ../data/ui/label_dialog.ui:71
 msgid "Enter new label for this filesystem:"
@@ -1247,7 +1254,7 @@ msgstr "_Ställ in monteringspunkt"
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
-msgstr ""
+msgstr "Föräldranamn:"
 
 #: ../data/ui/parent_chooser.ui:80
 msgid "Available space:"
@@ -1294,3 +1301,7 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>Den valda enheten är monterad\n"
+"på flera monteringspunkter.</b>\n"
+"\n"
+"Välj monteringspunkt(er) att avmontera:"
