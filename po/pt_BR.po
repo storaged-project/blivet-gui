@@ -7,13 +7,13 @@
 # Ruhan Macedo <ruhanmachado@gmail.com>, 2017. #zanata
 # Lucas Fernandes <lucas.af88@gmail.com>, 2020.
 # Anonymous <noreply@weblate.org>, 2020.
-# Fernando Rodrigues <sigmasquadron@icloud.com>, 2020.
+# Fernando Rodrigues <sigmasquadron@icloud.com>, 2020, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-12-31 19:18+0100\n"
-"PO-Revision-Date: 2020-12-22 02:35+0000\n"
+"PO-Revision-Date: 2022-01-11 05:16+0000\n"
 "Last-Translator: Fernando Rodrigues <sigmasquadron@icloud.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/pt_BR/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.3.2\n"
+"X-Generator: Weblate 4.10.1\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -130,12 +130,8 @@ msgstr ""
 "não está em uso?"
 
 #: ../blivetgui/blivetgui.py:720
-#, fuzzy
-#| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr ""
-"Decrepitação do dispositivo falou. Você está certo que a senha fornecida "
-"está correta?"
+msgstr "Desbloqueamento falhou. Está certo que a senha fornecida está correta?"
 
 #: ../blivetgui/blivetgui.py:770 ../data/ui/blivet-gui.ui:659
 msgid "Quit"
@@ -276,10 +272,8 @@ msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "Volumes lógicos com snapshots não podem ser redimensionados."
 
 #: ../blivetgui/blivet_utils.py:727
-#, fuzzy
-#| msgid "Resizing of {type} devices is currently not supported"
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr "Redimensionamento de dispositivos {type} não é atualmente suportado"
+msgstr "Redimensionamento de dispositivos LUKS2 não é atualmente suportado."
 
 #: ../blivetgui/blivet_utils.py:739
 #, python-brace-format
@@ -901,6 +895,8 @@ msgstr "Tem certeza de que deseja excluir o dispositivo {name}?"
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
 msgstr ""
+"Os seguintes dispositivos secundários de {name} também serão removidos por "
+"essa ação:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:216
 #, python-brace-format
@@ -934,7 +930,7 @@ msgstr ""
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "Automático"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -962,11 +958,11 @@ msgstr "Dispositivo USB Live"
 
 #: ../blivetgui/visualization/rectangle.py:52
 msgid "Encrypted device (locked)"
-msgstr ""
+msgstr "Dispositivo criptografado (bloqueado)"
 
 #: ../blivetgui/visualization/rectangle.py:53
 msgid "Encrypted device (unlocked)"
-msgstr ""
+msgstr "Dispositivo criptografado (desbloqueado)"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Empty device"
@@ -985,10 +981,8 @@ msgid "Device or format is write protected"
 msgstr "Dispositivo ou formato é protegido contra gravação"
 
 #: ../blivetgui/visualization/rectangle.py:58
-#, fuzzy
-#| msgid "Edit device"
 msgid "Cached device"
-msgstr "Editar dispositivo"
+msgstr "Dispositivo em cache"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1182,7 +1176,7 @@ msgstr "Repita a Palavra Chave:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Tamanho do setor:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
@@ -1251,11 +1245,12 @@ msgstr "Entre o novo rótulo para este sistema de arquivos:"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
-msgstr ""
+msgstr "Desbloquear dispositivo"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
 msgid "Please enter passphrase to unlock selected device."
 msgstr ""
+"Por favor, entre a palavra chave para desbloquear o dispositivo selecionado."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
