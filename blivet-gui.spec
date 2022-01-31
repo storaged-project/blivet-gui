@@ -12,6 +12,7 @@ BuildRequires: libappstream-glib
 
 Requires: blivet-gui-runtime = %{version}-%{release}
 Requires: PolicyKit-authentication-agent
+Requires: polkit
 Requires: libblockdev-plugins-all
 
 %description
