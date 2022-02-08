@@ -31,8 +31,8 @@ PYTHONPATH=. PATH=`pwd`:$PATH blivet-gui
     * run static code checks (_pylint_, _pep8_ and _translation canary_)
     * it is possible to run these separately -- `make pep8`, `make pylint` or
       `make canary`
-  * `sudo install-requires`
-    * install some addition dependencies needed for tests (uses an _ansible_ playbook, Fedora, Debian and Ubuntu are currently supported by this target)
+  * `sudo make install-requires`
+    * install some additional dependencies needed for tests (uses an _ansible_ playbook, Fedora, Debian and Ubuntu are currently supported by this target)
 
 ### Contributing
 
