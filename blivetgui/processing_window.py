@@ -93,9 +93,9 @@ class ProcessingActions(Gtk.Dialog):
         """
 
         icon_theme = Gtk.IconTheme.get_default()  # pylint: disable=no-value-for-parameter
-        icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add", 16, 0)
-        icon_delete = Gtk.IconTheme.load_icon(icon_theme, "edit-delete", 16, 0)
-        icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all", 16, 0)
+        icon_add = Gtk.IconTheme.load_icon(icon_theme, "list-add-symbolic", 16, 0)
+        icon_delete = Gtk.IconTheme.load_icon(icon_theme, "edit-delete-symbolic", 16, 0)
+        icon_edit = Gtk.IconTheme.load_icon(icon_theme, "edit-select-all-symbolic", 16, 0)
 
         actions_list = Gtk.ListStore(GdkPixbuf.Pixbuf, str, GdkPixbuf.Pixbuf)
 
