@@ -90,7 +90,7 @@
     when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
   # pocketlint, blivet and pid is not packaged on Ubuntu/Debian
-  - name: Install pocketlint using pip (Ubuntu/Debian)
+  - name: Install pocketlint, blivet and pid using pip (Ubuntu/Debian)
     pip:
       name: ['pocketlint', 'blivet', 'pid']
     when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
