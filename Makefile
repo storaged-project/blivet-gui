@@ -1,12 +1,9 @@
-PKGNAME=blivetgui
 APPNAME=blivet-gui
 SPECFILE=blivet-gui.spec
 VERSION=$(shell awk '/Version:/ { print $$2 }' $(SPECFILE))
 RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE) | sed -e 's|%.*$$||g')
 RELEASE_TAG=$(VERSION)-$(RELEASE)
 
-ZANATA_PULL_ARGS = --transdir ./
-ZANATA_PUSH_ARGS = --srcdir ./ --push-type source --force
 PYTHON=python3
 
 all:
