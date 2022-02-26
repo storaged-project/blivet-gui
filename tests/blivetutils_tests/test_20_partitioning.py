@@ -83,7 +83,7 @@ class PartitioningTestToolkit(DisksTestToolkit):
         os.system("wipefs -a %s > /dev/null" % disk)
 
 
-class BlivetUtilsDisksTest(BlivetUtilsTestCase, PartitioningTestToolkit):
+class BlivetUtilsPartitionsTest(BlivetUtilsTestCase, PartitioningTestToolkit):
 
     @classmethod
     def setUpClass(cls):
@@ -306,6 +306,56 @@ class BlivetUtilsDisksTest(BlivetUtilsTestCase, PartitioningTestToolkit):
         sorted_parts = sorted(blivet_parts, key=lambda p: p.parted_partition.geometry.start)
         self.assertCountEqual([p.format.label for p in sorted_parts],
                               [str(i) for i in range(num_parts)])
+
+    def test_60_resize(self):
+        """ Test that we can resize a partition """
+
+        blivet_disk = self.get_blivet_device(self.vdevs[1])
+
+        parts = [PartSpec(start=1024, size=blivet_disk.size / 2, ptype=BlockDev.PartType.NORMAL)]
+        self.create_preexisting(blivet_disk.path, "msdos", parts)
+        self.addCleanup(self.clean_up_preexisting, blivet_disk.path, parts)
+
+        self.reset()
+        blivet_part = self.get_blivet_device(self.vdevs[1] + "1")  # vda1
+        self.assertIsNotNone(blivet_part)
+
+        resizable = self.blivet_utils.device_resizable(blivet_part)
+        self.assertIsNotNone(resizable)
+        self.assertFalse(resizable.resizable)
+        self.assertEqual(resizable.error, "Unformatted devices are not resizable")
+
+        # create filesystem on the partition to make it resizable
+        os.system("mkfs.ext4 /dev/%s1 >/dev/null 2>&1" % self.vdevs[1])
+        self.reset()
+        blivet_part = self.get_blivet_device(self.vdevs[1] + "1")  # vda1
+        self.assertIsNotNone(blivet_part)
+
+        resizable = self.blivet_utils.device_resizable(blivet_part)
+        self.assertIsNotNone(resizable)
+        self.assertTrue(resizable.resizable, resizable.error)
+        self.assertIsNone(resizable.error)
+        self.assertGreaterEqual(resizable.max_size, blivet_part.size)
+        self.assertLessEqual(resizable.min_size, blivet_part.size)
+
+        # now resize the partition
+        user_input = ProxyDataContainer(edit_device=blivet_part,
+                                        resize=True,
+                                        size=resizable.min_size)
+        ret = self.blivet_utils.resize_device(user_input)
+        self.assertTrue(ret.success)
+        self.assertIsNone(ret.exception)
+        self.assertIsNone(ret.message)
+        self.assertIsNone(ret.traceback)
+        self.assertEqual(len(ret.actions), 2)
+
+        part_ac = next((ac for ac in ret.actions if ac.is_device), None)
+        self.assertIsNotNone(part_ac)
+        self.assertTrue(part_ac.is_resize)
+
+        fmt_ac = next((ac for ac in ret.actions if ac.is_format), None)
+        self.assertIsNotNone(fmt_ac)
+        self.assertTrue(fmt_ac.is_resize)
 
 
 if __name__ == "__main__":
