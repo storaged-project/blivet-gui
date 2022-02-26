@@ -30,7 +30,7 @@ class ListPartitionsTest(unittest.TestCase):
 
     def test_allow_delete(self):
         # do not allow deleting free space and non-leaf devices
-        device = MagicMock(type="free space")
+        device = MagicMock(type="free space", protected=False)
         self.assertFalse(self.list_partitions._allow_delete_device(device))
         device = MagicMock(type="partition", isleaf=False, protected=False)
         self.assertFalse(self.list_partitions._allow_delete_device(device))
@@ -38,6 +38,7 @@ class ListPartitionsTest(unittest.TestCase):
         # unformatted leaves can be deleted
         device = MagicMock(type="partition", isleaf=True, format=MagicMock(type=None), protected=False)
         self.assertTrue(self.list_partitions._allow_delete_device(device))
+        self.assertFalse(self.list_partitions._allow_recursive_delete_device(device))
 
         # only non-active swap can be deleted
         device = MagicMock(type="partition", isleaf=True, format=MagicMock(type="swap", status=True), protected=False)
@@ -86,9 +87,147 @@ class ListPartitionsTest(unittest.TestCase):
         device = MagicMock(type="partition", protected=False, children=[MagicMock()], format=MagicMock(type="lvmpv"))
         self.assertFalse(self.list_partitions._allow_add_device(device))
 
-        # allow adding lvm snapshots
-        device = MagicMock(type="lvmlv", protected=False, vg=MagicMock(free_space=Size("1 GiB"), pe_size=Size("4 MiB")))
+        # allow adding lvm snapshots (if lv exists)
+        device = MagicMock(type="lvmlv", protected=False, exists=True,
+                           vg=MagicMock(free_space=Size("1 GiB"), pe_size=Size("4 MiB")))
         self.assertTrue(self.list_partitions._allow_add_device(device))
+        device = MagicMock(type="lvmlv", protected=False, exists=False,
+                           vg=MagicMock(free_space=Size("1 GiB"), pe_size=Size("4 MiB")))
+        self.assertFalse(self.list_partitions._allow_add_device(device))
+
+        # allow adding thin lvm snapshots (if thin lv exists)
+        device = MagicMock(type="lvmthinlv", protected=False, exists=True, vg=MagicMock(free_space=Size("1 GiB"), pe_size=Size("4 MiB")))
+        self.assertTrue(self.list_partitions._allow_add_device(device))
+        device = MagicMock(type="lvmthinlv", protected=False, exists=False, vg=MagicMock(free_space=Size("1 GiB"), pe_size=Size("4 MiB")))
+        self.assertFalse(self.list_partitions._allow_add_device(device))
+
+        # do not allow adding on other devices
+        device = MagicMock(type="mdarray", protected=False)
+        self.assertFalse(self.list_partitions._allow_add_device(device))
+
+    def test_allow_format(self):
+        # do not allow to format protected devices
+        device = MagicMock(type="partition", protected=True, is_extended=False, children=[],
+                           format=MagicMock(type="ext4", status=False))
+        self.assertFalse(self.list_partitions._allow_format_device(device))
+
+        # do not allow to format extended partitions
+        device = MagicMock(type="partition", protected=False, is_extended=True, children=[],
+                           format=MagicMock(type="ext4", status=False))
+        self.assertFalse(self.list_partitions._allow_format_device(device))
+
+        # free space cannot be formatted
+        device = MagicMock(type="free space", protected=False, children=[])
+        self.assertFalse(self.list_partitions._allow_format_device(device))
+
+        # devices with children cannot be resized
+        device = MagicMock(type="partition", protected=False, is_extended=False, children=[MagicMock()],
+                           format=MagicMock(type="ext4", status=False))
+        self.assertFalse(self.list_partitions._allow_format_device(device))
+
+        # active devices cannot be formatted
+        device = MagicMock(type="partition", protected=False, is_extended=False, children=[],
+                           format=MagicMock(type="ext4", status=True))
+        self.assertFalse(self.list_partitions._allow_format_device(device))
+
+        device = MagicMock(type="partition", protected=False, is_extended=False, children=[],
+                           format=MagicMock(type="ext4", status=False))
+        self.assertTrue(self.list_partitions._allow_format_device(device))
+
+    def test_allow_resize(self):
+        # protected devices and devices with immutable formats cannot be resized
+        device = MagicMock(type="partition", protected=True, format_immutable=False, children=[], _resizable=True)
+        self.assertFalse(self.list_partitions._allow_resize_device(device))
+        device = MagicMock(type="partition", protected=False, format_immutable=True, children=[], _resizable=True)
+        self.assertFalse(self.list_partitions._allow_resize_device(device))
+
+        # devices with children cannot be resized
+        device = MagicMock(type="partition", protected=False, format_immutable=False, children=[MagicMock()], _resizable=True)
+        self.assertFalse(self.list_partitions._allow_resize_device(device))
+
+        device = MagicMock(type="partition", protected=False, format_immutable=False, children=[], _resizable=False)
+        self.assertFalse(self.list_partitions._allow_resize_device(device))
+
+        device = MagicMock(type="partition", protected=False, format_immutable=False, children=[], _resizable=True)
+        self.assertTrue(self.list_partitions._allow_resize_device(device))
+
+    def test_allow_set_mountpoint(self):
+        # not installer mode, do not allow to add
+        device = MagicMock(type="partition", direct=True, format=MagicMock(type="ext4", mountable=True, status=False))
+        self.assertFalse(self.list_partitions._allow_set_mountpoint(device))
+
+        self.blivet_gui.installer_mode = True
+
+        # same for non-existing snapshots
+        device = MagicMock(type="lvmsnapshot", exists=False, direct=True,
+                           format=MagicMock(type="ext4", mountable=True, status=False))
+        self.assertFalse(self.list_partitions._allow_set_mountpoint(device))
+
+        # but existing snapshots can be mounted
+        device = MagicMock(type="lvmsnapshot", exists=True, direct=True,
+                           format=MagicMock(type="ext4", mountable=True, status=False))
+        self.assertTrue(self.list_partitions._allow_set_mountpoint(device))
+
+        # devices that are not direct cannot be mounted
+        device = MagicMock(type="partition", exists=True, direct=False,
+                           format=MagicMock(type="ext4", mountable=True, status=False))
+        self.assertFalse(self.list_partitions._allow_set_mountpoint(device))
+
+        # unmountable filesystem cannot be mounted
+        device = MagicMock(type="partition", exists=True, direct=True,
+                           format=MagicMock(type="ext4", mountable=False, status=False))
+        self.assertFalse(self.list_partitions._allow_set_mountpoint(device))
+
+        # allow else
+        device = MagicMock(type="partition", exists=True, direct=True,
+                           format=MagicMock(type="ext4", mountable=True, status=False))
+        self.assertTrue(self.list_partitions._allow_set_mountpoint(device))
+
+    def test_allow_relabel(self):
+        fmt = MagicMock(type="ext4", status=False)
+        fmt.labeling.return_value = True
+        fmt.relabels.return_value = True
+
+        # do not allow to relabel protected devices
+        device = MagicMock(type="partition", protected=True, format=fmt)
+        self.assertFalse(self.list_partitions._allow_relabel_device(device))
+
+        # do not allow to relabel active formats
+        fmt.status = True
+        device = MagicMock(type="partition", protected=False, format=fmt)
+        self.assertFalse(self.list_partitions._allow_relabel_device(device))
+
+        # allow if labeling and relabels
+        fmt.status = False
+        device = MagicMock(type="partition", protected=False, format=fmt)
+        self.assertTrue(self.list_partitions._allow_relabel_device(device))
+
+        # do not allow else
+        fmt.labeling.return_value = False
+        device = MagicMock(type="partition", protected=False, format=fmt)
+        self.assertFalse(self.list_partitions._allow_relabel_device(device))
+
+        fmt.labeling.return_value = True
+        fmt.relabels.return_value = False
+        device = MagicMock(type="partition", protected=False, format=fmt)
+        self.assertFalse(self.list_partitions._allow_relabel_device(device))
+
+    def test_allow_partition_table(self):
+        # only allow on free space
+        device = MagicMock(type="partition", protected=False)
+        self.assertFalse(self.list_partitions._allow_set_partition_table(device))
+
+        # always allow on unitialized disks
+        device = MagicMock(type="free space", is_uninitialized_disk=True, is_empty_disk=True)
+        self.assertTrue(self.list_partitions._allow_set_partition_table(device))
+
+        # on empty disks allow if formatted with partition table
+        device = MagicMock(type="free space", is_uninitialized_disk=False, is_empty_disk=True,
+                           disk=MagicMock(format=MagicMock(type="disklabel")))
+        self.assertTrue(self.list_partitions._allow_set_partition_table(device))
+        device = MagicMock(type="free space", is_uninitialized_disk=False, is_empty_disk=True,
+                           disk=MagicMock(format=MagicMock(type="ext4")))
+        self.assertFalse(self.list_partitions._allow_set_partition_table(device))
 
     def test_add_to_store(self):
 
