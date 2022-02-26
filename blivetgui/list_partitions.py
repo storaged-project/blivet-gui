@@ -284,6 +284,8 @@ class ListPartitions(object):
         if device.type == "lvmlv":
             return device.vg.free_space >= device.vg.pe_size and device.exists
 
+        return False
+
     def activate_action_buttons(self, selected_device):
         """ Activate buttons in toolbar based on selected device
 
