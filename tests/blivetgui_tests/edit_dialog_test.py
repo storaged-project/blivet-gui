@@ -6,7 +6,7 @@ from unittest.mock import MagicMock, patch
 
 from blivet.size import Size
 
-from blivetgui.dialogs.edit_dialog import FormatDialog, MountpointDialog
+from blivetgui.dialogs.edit_dialog import FormatDialog, MountpointDialog, LabelDialog
 from blivetgui.i18n import _
 
 from .add_dialog_test import supported_filesystems
@@ -160,6 +160,67 @@ class MountpointDialogTest(unittest.TestCase):
             self.assertEqual(ret.edit_device, dev)
             self.assertTrue(ret.do_set)
             self.assertEqual(ret.mountpoint, "/etc")
+
+
+@unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
+class LabelDialogTest(unittest.TestCase):
+
+    error_dialog = MagicMock()
+
+    @classmethod
+    def setUpClass(cls):
+        import gi
+        gi.require_version("Gtk", "3.0")
+        from gi.repository import Gtk
+
+        cls.parent_window = Gtk.Window()
+
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_basic(self):
+        fmt = MagicMock()
+        dev = MagicMock(size=Size("1 GiB"), format=fmt)
+
+        dialog = LabelDialog(self.parent_window, dev, installer_mode=False)
+
+        # invalid label
+        attrs = {"label_format_ok.return_value": False}
+        fmt.configure_mock(**attrs)
+        dialog.entry_label.set_text("aaaaa")
+        succ = dialog._validate_user_input("aaaaa")
+        self.assertFalse(succ)
+        self.error_dialog.assert_any_call(dialog.dialog,
+                                          _("'{label}' is not a valid label for this filesystem").format(label="aaaaa"),
+                                          True)
+
+        # valid label
+        attrs = {"label_format_ok.return_value": True}
+        fmt.configure_mock(**attrs)
+        dialog.entry_label.set_text("aaaaa")
+        succ = dialog._validate_user_input("aaaaa")
+        self.assertTrue(succ)
+
+        import gi
+        gi.require_version("Gtk", "3.0")
+        from gi.repository import Gtk
+
+        with patch.object(dialog.dialog, "run", lambda: Gtk.ResponseType.REJECT):
+            ret = dialog.run()
+            self.assertEqual(ret.edit_device, dev)
+            self.assertFalse(ret.relabel)
+            self.assertIsNone(ret.label)
+
+        # valid label
+        attrs = {"label_format_ok.return_value": True}
+        fmt.configure_mock(**attrs)
+        dialog.entry_label.set_text("aaaaa")
+        succ = dialog._validate_user_input("aaaaa")
+        self.assertTrue(succ)
+
+        with patch.object(dialog.dialog, "run", lambda: Gtk.ResponseType.ACCEPT):
+            ret = dialog.run()
+            self.assertEqual(ret.edit_device, dev)
+            self.assertTrue(ret.relabel)
+            self.assertEqual(ret.label, "aaaaa")
 
 
 if __name__ == "__main__":
