@@ -44,6 +44,14 @@
               </object>
             </child>
             <child>
+              <object class="GtkMenuItem" id="menuitem_rename">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Rename</property>
+                <property name="use-underline">True</property>
+              </object>
+            </child>
+            <child>
               <object class="GtkMenuItem" id="menuitem_format">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
@@ -120,6 +128,14 @@
         <property name="visible">True</property>
         <property name="can-focus">False</property>
         <property name="label" translatable="yes">Resize</property>
+        <property name="use-underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="button_rename">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Rename</property>
         <property name="use-underline">True</property>
       </object>
     </child>
