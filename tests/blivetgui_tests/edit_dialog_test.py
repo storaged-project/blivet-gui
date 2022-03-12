@@ -2,11 +2,11 @@
 
 import os
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, Mock, patch
 
 from blivet.size import Size
 
-from blivetgui.dialogs.edit_dialog import FormatDialog, MountpointDialog, LabelDialog, UnmountDialog
+from blivetgui.dialogs.edit_dialog import FormatDialog, MountpointDialog, LabelDialog, UnmountDialog, ResizeDialog
 from blivetgui.i18n import _
 
 from .add_dialog_test import supported_filesystems
@@ -276,6 +276,67 @@ class UnmountDialogTest(unittest.TestCase):
             self.assertEqual(ret.edit_device, dev)
             self.assertTrue(ret.unmount)
             self.assertListEqual(ret.mountpoints, ["/mnt/a"])
+
+
+@unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
+class ResizeDialogTest(unittest.TestCase):
+
+    error_dialog = MagicMock()
+
+    @classmethod
+    def setUpClass(cls):
+        import gi
+        gi.require_version("Gtk", "3.0")
+        from gi.repository import Gtk
+
+        cls.parent_window = Gtk.Window()
+
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_basic(self):
+        fmt = MagicMock()
+        dev = MagicMock(size=Size("1 GiB"), format=fmt)
+
+        # device is not resizable
+        resize_info = Mock(resizable=False, error="test", min_size=Size("1 MiB"), max_size=dev.size)
+        dialog = ResizeDialog(self.parent_window, dev, resize_info=resize_info)
+
+        self.assertIsNone(dialog.size_chooser)
+        button_resize = dialog.builder.get_object("button_resize")
+        self.assertFalse(button_resize.get_visible(), False)
+
+        import gi
+        gi.require_version("Gtk", "3.0")
+        from gi.repository import Gtk
+
+        with patch.object(dialog.dialog, "run", lambda: Gtk.ResponseType.REJECT):
+            ret = dialog.run()
+            self.assertEqual(ret.edit_device, dev)
+            self.assertFalse(ret.resize)
+            self.assertIsNone(ret.size)
+
+        dialog = ResizeDialog(self.parent_window, dev, resize_info=resize_info)
+
+        with patch.object(dialog.dialog, "run", lambda: Gtk.ResponseType.ACCEPT):
+            ret = dialog.run()
+            self.assertEqual(ret.edit_device, dev)
+            self.assertFalse(ret.resize)
+            self.assertIsNone(ret.size)
+
+        # device is resizable
+        resize_info = Mock(resizable=True, error=None, min_size=Size("1 MiB"), max_size=dev.size)
+        dialog = ResizeDialog(self.parent_window, dev, resize_info=resize_info)
+
+        self.assertIsNotNone(dialog.size_chooser)
+        button_resize = dialog.builder.get_object("button_resize")
+        self.assertTrue(button_resize.get_visible(), False)
+
+        dialog.size_chooser.selected_size = Size("10 MiB")
+
+        with patch.object(dialog.dialog, "run", lambda: Gtk.ResponseType.ACCEPT):
+            ret = dialog.run()
+            self.assertEqual(ret.edit_device, dev)
+            self.assertTrue(ret.resize)
+            self.assertEqual(ret.size, Size("10 MiB"))
 
 
 if __name__ == "__main__":
