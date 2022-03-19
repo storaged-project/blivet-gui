@@ -1,6 +1,6 @@
 [![Copr build status](https://copr.fedorainfracloud.org/coprs/g/storage/blivet-daily/package/blivet-gui/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/g/storage/blivet-daily/package/blivet-gui/)
 
-blivet-gui is a graphical tool for storage configuration using blivet library
+blivet-gui is a graphical tool for storage configuration using the [blivet](https://github.com/storaged-project/blivet) library
 
 ### CI status
 
@@ -29,13 +29,13 @@ Daily builds of _blivet_, _libblockdev_ and _libbytesize_ are also in this repo.
 
 #### OBS repository for Ubuntu and Debian
 
-Official packages for Debian (testing and unstable) and Ubuntu (19.04 and newer) are available in our [Open Build Service repository](https://software.opensuse.org/download.html?project=home:vtrefny&package=blivet-gui).
+Official packages for Debian and Ubuntu (19.04 and newer) are available in our [Open Build Service repository](https://software.opensuse.org/download.html?project=home:vtrefny&package=blivet-gui).
 
 This repository contains blivet-gui and its dependencies that are not available in the official Ubuntu/Debian repositories. We recommend adding the repository to your system, if you want to install the packages manually, you'll also need to install [blivet](https://software.opensuse.org/download.html?project=home:vtrefny&package=python3-blivet) and [pid](https://software.opensuse.org/download.html?project=home:vtrefny&package=python3-pid) from the same source.
 
 #### Copr repository for openSUSE, Mageia and OpenMandriva
 
-Packages for openSUSE Tumbleweed, Mageia (8 and newer) and OpenMandriva (Cooker and Rolling) are available in our [blivet-stable Copr repository](https://copr.fedorainfracloud.org/coprs/g/storage/blivet-stable/). This repository contains latest stable versions of both blivet-gui and blivet.
+Packages for openSUSE Tumbleweed, Mageia (8 and newer) and OpenMandriva (Cooker and Rolling) are available in our [blivet-stable Copr repository](https://copr.fedorainfracloud.org/coprs/g/storage/blivet-stable/). This repository contains the latest stable versions of both blivet-gui and blivet.
 
 #### Manual
 
@@ -45,7 +45,7 @@ Main dependencies include [blivet](https://github.com/storaged-project/blivet),
 [libbytesize](https://github.com/storaged-project/libbytesize).
   * Clone the repo or download a [release tarball](https://github.com/storaged-project/blivet-gui/releases).
   * Run `sudo make install`
-  * Detailed instruction for manual installation for some distributions are available on the [Wiki](https://github.com/storaged-project/blivet-gui/wiki).
+  * Detailed instructions for manual installation for some distributions are available on the [Wiki](https://github.com/storaged-project/blivet-gui/wiki).
 
 ### Development
 
@@ -61,7 +61,7 @@ Bugs should be reported to [bugzilla.redhat.com](https://bugzilla.redhat.com/ent
 If it is possible, report bugs using the [Automatic Bug Reporting Tool (ABRT)](http://abrt.readthedocs.io/en/latest/) --
 it automatically uploads logs and some other important information.
 
-You can also report bug using the [GitHub issues](https://github.com/storaged-project/blivet-gui/issues).
+You can also report a bug using the [GitHub issues](https://github.com/storaged-project/blivet-gui/issues).
 
-If you report a bug manually, attach blivet-gui logs to the report please.
+If you report a bug manually, attach blivet-gui logs to the report, please.
 You can find the logs in `/var/log/blivet-gui`.

@@ -4,8 +4,8 @@
 
 #### Running from source
 
-To run blivet-gui directly from source without installing it (e.g. to test some
-changes) clone the repo (or download a release tarball) and from directory with
+To run blivet-gui directly from the source without installing it (e.g. to test some
+changes) clone the repo (or download a release tarball) and from the directory with
 the source run
 
 ```
@@ -26,7 +26,7 @@ PYTHONPATH=. PATH=`pwd`:$PATH blivet-gui
       * `sudo make utils-test`
         * tests for the backend ("utils") part of blivet-gui
         * these tests create virtual SCSI drives using the `targetcli` utility, it is neccessary
-          to run these with root privilegies
+          to run these with root privileges
   * `make check`
     * run static code checks (_pylint_, _pep8_ and _translation canary_)
     * it is possible to run these separately -- `make pep8`, `make pylint` or
@@ -51,7 +51,7 @@ PYTHONPATH=. PATH=`pwd`:$PATH blivet-gui
 
 This is just a short summary of blivet-gui code structure/building blocks.
 See [storaged-project.github.io/blivet-gui](https://storaged-project.github.io/blivet-gui/
-for a complete API documentation.
+for complete API documentation.
 
 #### BlivetUtils
 
@@ -116,18 +116,18 @@ storage but it isn't desirable to run GUI applications as root.
 
 Both processes communicate using a socket file.
 
-> For most cases, you don't need to worry about this. Only difference is that
+> For most cases, you don't need to worry about this. The only difference is that
 > instead calling methods from `BlivetUtils`, you need to call them by using
-> `BlivetGUIClient` (`BlivetGUI` class has and instance of it) `remote_call` method.
-> So for example to get list of disks you'll need to use
-> `self.client.remote_call("get_disks")`. It will return list of objects that
+> `BlivetGUIClient` (`BlivetGUI` class has an instance of it) `remote_call` method.
+> So for example to get a list of disks you'll need to use
+> `self.client.remote_call("get_disks")`. It will return a list of objects that
 > you can use in the same way as [DiskDevice](http://storaged-project.github.io/blivet/docs/blivet/blivet.devices.html#blivet.devices.disk.DiskDevice)
 > objects from blivet.
 
 ##### Proxy
 
 blivet-gui uses [pickle](https://docs.python.org/3/library/pickle.html) to send
-objects between the processes. Unfortunately most blivet objects are not picklable.
+objects between the processes. Unfortunately, most blivet objects are not picklable.
 To solve this, server and client parts of blivet-gui use "proxy objects" to
 exchange unpicklable data. When `BlivetGUI` class "asks" for some "information"
 that isn't picklable (e.g. using the `get_disks` method from `BlivetUtils` which
@@ -143,7 +143,7 @@ can ask the server for values of attributes that `BlivetGUI` asks for.
 Thanks to this, `BlivetGUI` can work with the blivet object without actually having it.
 
 `ProxyDataContainer` ([communication/proxy_utils.py](blivetgui/communication/proxy_utils.py))
-is a helper class used as a simple picklable container similar to namedtuple.
+is a helper class used as a simple picklable container similar to `namedtuple`.
 
 ##### BlivetGUIClient
 
@@ -158,5 +158,5 @@ with the `BlivetUtils` via `BlivetUtilsServer`.
 
 `BlivetUtilsServer` ([communication/server.py](blivetgui/communication/server.py))
 provides support for multiprocess communication for the server part of the blivet-gui.
-It's a synchronous socketserver, it has an instance of `BlivetUtils` and processes
+It's a synchronous `socketserver`, it has an instance of `BlivetUtils` and processes
 tasks from the `BlivetGUIClient`.

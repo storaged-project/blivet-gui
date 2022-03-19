@@ -15,7 +15,7 @@ BlivetGUI
 ^^^^^^^^^
 
 :class:`~.blivetgui.BlivetGUI` is the main class for the GUI. There are separate classes for every UI part. These
-classes creates all the necessary Gtk widgets (or loads them from Glade files) and provides signal handlers and other
+classes create all the necessary Gtk widgets (or loads them from Glade files) and provide signal handlers and other
 helper functions.
 
 Important GUI objects:
@@ -43,8 +43,8 @@ Multiprocess Communication
 
 Blivet-gui creates two processes -- `blivet-gui` for the UI and `blivet-gui-daemon` for working with blivet.
 
-Two processes are necessary because blivet needs root privilegies to work with storage but GUI applications shouldn't be
-running with root privilegies.
+Two processes are necessary because blivet needs root privileges to work with storage but GUI applications shouldn't be
+running with root privileges.
 
 Both processes communicate using a socket file.
 
@@ -93,4 +93,4 @@ processes tasks from the :class:`~.communication.client.BlivetGUIClient`.
 
   Only one `blivet-gui-daemon` process can run at a time and it can communicate with only one `blivet-gui` process.
   "Binary" file `blivet-gui` should be used to start blivet-gui. It will automatically spawn the `blivet-gui-daemon`
-  process with root privilegies using `pkexec`.
+  process with root privileges using `pkexec`.
