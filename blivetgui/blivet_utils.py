@@ -174,6 +174,11 @@ class BlivetUtils(object):
 
         return self._resizable_filesystems
 
+    def log_debug(self, message, user_input):
+        """ Log message to the blivet-gui-utils log
+        """
+        log_utils_call(log=self.log, message=message, user_input=user_input)
+
     def get_disks(self):
         """ Return list of all disk devices on current system
 
