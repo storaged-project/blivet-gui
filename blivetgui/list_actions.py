@@ -83,7 +83,6 @@ class ListActions(object):
 
         # update number of actions label
         self.actions += 1
-        # self.blivet_gui.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 
         # add new actions to the view
         parent_iter = self.actions_list.append(None, [self.action_icons[action_type], action_desc, None])
@@ -110,7 +109,6 @@ class ListActions(object):
 
         # upate number of actions label
         self.actions -= 1
-        # self.blivet_gui.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 
         # remove actions from view
         self.actions_list.remove(self.actions_list.get_iter(len(self.actions_list) - 1))
@@ -132,7 +130,6 @@ class ListActions(object):
 
         # upate number of actions label
         self.actions = 0
-        # self.blivet_gui.actions_label.set_text(_("Pending actions ({0})").format(self.actions))
 
         # remove all actions from view
         self.actions_list.clear()
