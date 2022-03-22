@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 from setuptools import setup
 from setuptools.command.sdist import sdist
 import glob

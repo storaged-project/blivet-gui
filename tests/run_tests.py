@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 
-from __future__ import print_function
-
 import os
-import six
 import sys
 import argparse
 import unittest
@@ -45,8 +42,7 @@ def main():
         os.environ["PYTHONPATH"] = projdir  # pylint: disable=environment-modify
 
         try:
-            pyver = "python3" if six.PY3 else "python"
-            os.execv(sys.executable, [pyver] + sys.argv)
+            os.execv(sys.executable, ["python3"] + sys.argv)
         except OSError as e:
             print("Failed re-exec with a new PYTHONPATH: %s" % str(e))
             sys.exit(1)
