@@ -725,6 +725,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="tooltip-text" translatable="yes">Apply pending actions</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="image">image_apply</property>
@@ -740,6 +741,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="tooltip-text" translatable="yes">Clear scheduled actions</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="image">image_clear</property>
@@ -755,6 +757,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="tooltip-text" translatable="yes">Undo last action</property>
             <property name="halign">center</property>
             <property name="valign">center</property>
             <property name="image">image_back</property>
