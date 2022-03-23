@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-22 20:26+0100\n"
+"POT-Creation-Date: 2022-03-23 18:01+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -505,7 +505,7 @@ msgstr ""
 msgid "unformatted"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:829
+#: ../blivetgui/dialogs/add_dialog.py:829 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr ""
 
@@ -513,7 +513,7 @@ msgstr ""
 msgid "Name:"
 msgstr ""
 
-#: ../blivetgui/dialogs/add_dialog.py:848
+#: ../blivetgui/dialogs/add_dialog.py:848 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr ""
 
@@ -1161,27 +1161,19 @@ msgstr ""
 msgid "Format device"
 msgstr ""
 
-#: ../data/ui/format_dialog.ui:39 ../data/ui/mountpoint_dialog.ui:29
+#: ../data/ui/format_dialog.ui:35 ../data/ui/mountpoint_dialog.ui:29
 #: ../data/ui/resize_dialog.ui:30
 msgid "_Cancel"
 msgstr ""
 
 #. Perform selected format change on this device.
-#: ../data/ui/format_dialog.ui:54
+#: ../data/ui/format_dialog.ui:50
 msgctxt "Dialog|Format"
 msgid "_Format"
 msgstr ""
 
-#: ../data/ui/format_dialog.ui:101
+#: ../data/ui/format_dialog.ui:98
 msgid "Select new format:"
-msgstr ""
-
-#: ../data/ui/format_dialog.ui:148
-msgid "Enter new label:"
-msgstr ""
-
-#: ../data/ui/format_dialog.ui:186 ../data/ui/mountpoint_dialog.ui:88
-msgid "Enter new mountpoint:"
 msgstr ""
 
 #: ../data/ui/info_dialog.ui:12
@@ -1216,6 +1208,10 @@ msgstr ""
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
+msgstr ""
+
+#: ../data/ui/mountpoint_dialog.ui:88
+msgid "Enter new mountpoint:"
 msgstr ""
 
 #: ../data/ui/parent_chooser.ui:37

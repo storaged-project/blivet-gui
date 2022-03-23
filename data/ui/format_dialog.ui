@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.22.1 -->
+<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk+" version="3.16"/>
   <object class="GtkListStore" id="liststore_format">
@@ -13,34 +13,30 @@
     </columns>
   </object>
   <object class="GtkDialog" id="format_dialog">
-    <property name="can_focus">False</property>
+    <property name="can-focus">False</property>
     <property name="title" translatable="yes">Format device</property>
-    <property name="window_position">center-on-parent</property>
-    <property name="type_hint">dialog</property>
+    <property name="resizable">False</property>
+    <property name="window-position">center-on-parent</property>
+    <property name="type-hint">dialog</property>
     <property name="gravity">center</property>
-    <child>
-      <placeholder/>
-    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox">
-        <property name="can_focus">False</property>
-        <property name="margin_left">6</property>
-        <property name="margin_right">6</property>
-        <property name="margin_top">6</property>
-        <property name="margin_bottom">6</property>
+        <property name="can-focus">False</property>
+        <property name="margin-right">16</property>
+        <property name="margin-top">2</property>
+        <property name="margin-bottom">2</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="dialog-action_area">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
+            <property name="can-focus">False</property>
+            <property name="layout-style">end</property>
             <child>
               <object class="GtkButton" id="button_cancel">
                 <property name="label" translatable="yes">_Cancel</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-underline">True</property>
                 <property name="yalign">0.62000000476837158</property>
               </object>
               <packing>
@@ -53,9 +49,9 @@
               <object class="GtkButton" id="button_format">
                 <property name="label" translatable="yes" context="Dialog|Format" comments="Perform selected format change on this device.">_Format</property>
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
+                <property name="can-focus">True</property>
+                <property name="receives-default">True</property>
+                <property name="use-underline">True</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -73,7 +69,7 @@
         <child>
           <object class="GtkLabel" id="label_title">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
+            <property name="can-focus">False</property>
             <attributes>
               <attribute name="weight" value="bold"/>
             </attributes>
@@ -87,17 +83,18 @@
         <child>
           <object class="GtkBox" id="box_format">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_left">12</property>
-            <property name="margin_right">12</property>
-            <property name="margin_top">8</property>
-            <property name="margin_bottom">8</property>
+            <property name="can-focus">False</property>
+            <property name="margin-right">8</property>
+            <property name="margin-top">8</property>
+            <property name="margin-bottom">8</property>
+            <property name="spacing">4</property>
             <property name="homogeneous">True</property>
             <child>
               <object class="GtkLabel" id="label_format">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_right">6</property>
+                <property name="can-focus">False</property>
+                <property name="halign">end</property>
+                <property name="margin-right">6</property>
                 <property name="label" translatable="yes">Select new format:</property>
                 <property name="justify">center</property>
               </object>
@@ -110,10 +107,10 @@
             <child>
               <object class="GtkComboBox" id="combobox_format">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
+                <property name="can-focus">False</property>
                 <property name="model">liststore_format</property>
-                <property name="entry_text_column">2</property>
-                <property name="id_column">1</property>
+                <property name="entry-text-column">2</property>
+                <property name="id-column">1</property>
                 <child>
                   <object class="GtkCellRendererText" id="cellrenderertext1"/>
                   <attributes>
@@ -137,15 +134,18 @@
         <child>
           <object class="GtkBox" id="box_label">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_top">8</property>
-            <property name="margin_bottom">8</property>
+            <property name="can-focus">False</property>
+            <property name="margin-top">8</property>
+            <property name="margin-bottom">8</property>
+            <property name="spacing">4</property>
             <property name="homogeneous">True</property>
             <child>
               <object class="GtkLabel" id="label_label">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Enter new label:</property>
+                <property name="can-focus">False</property>
+                <property name="halign">end</property>
+                <property name="margin-right">6</property>
+                <property name="label" translatable="yes">Label:</property>
                 <property name="justify">center</property>
               </object>
               <packing>
@@ -157,7 +157,7 @@
             <child>
               <object class="GtkEntry" id="entry_label">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can-focus">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -175,15 +175,18 @@
         <child>
           <object class="GtkBox" id="box_mountpoint">
             <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="margin_top">8</property>
-            <property name="margin_bottom">8</property>
+            <property name="can-focus">False</property>
+            <property name="margin-top">8</property>
+            <property name="margin-bottom">8</property>
+            <property name="spacing">4</property>
             <property name="homogeneous">True</property>
             <child>
               <object class="GtkLabel" id="label_mountpoint">
                 <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Enter new mountpoint:</property>
+                <property name="can-focus">False</property>
+                <property name="halign">end</property>
+                <property name="margin-right">6</property>
+                <property name="label" translatable="yes">Mountpoint:</property>
                 <property name="justify">center</property>
               </object>
               <packing>
@@ -195,7 +198,7 @@
             <child>
               <object class="GtkEntry" id="entry_mountpoint">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
+                <property name="can-focus">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
