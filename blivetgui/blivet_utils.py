@@ -831,6 +831,9 @@ class BlivetUtils(object):
                                       traceback=traceback.format_exc())
 
     def relabel_format(self, user_input):
+        log_msg = "Setting format label for '%s'\n" % user_input.edit_device.name
+        log_utils_call(log=self.log, message=log_msg,
+                       user_input=user_input)
         label_ac = blivet.deviceaction.ActionConfigureFormat(device=user_input.edit_device,
                                                              attr="label",
                                                              new_value=user_input.label)
@@ -847,6 +850,10 @@ class BlivetUtils(object):
     def edit_lvmvg_device(self, user_input):
         """ Edit LVM Volume group
         """
+
+        log_msg = "Editing parents for LVM volume group '%s'\n" % user_input.edit_device.name
+        log_utils_call(log=self.log, message=log_msg,
+                       user_input=user_input)
 
         actions = []
 
