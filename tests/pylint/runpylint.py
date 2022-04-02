@@ -31,6 +31,10 @@ class BlivetGUILintConfig(PocketLintConfig):
     def ignoreNames(self):
         return {"translation-canary"}
 
+    @property
+    def extraArgs(self):
+        return ["--unsafe-load-any-extension=yes"]
+
 
 if __name__ == "__main__":
     conf = BlivetGUILintConfig()
