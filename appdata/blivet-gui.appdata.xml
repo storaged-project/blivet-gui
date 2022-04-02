@@ -10,7 +10,7 @@
     Blivet-gui is a graphical tool that provides an easy way to create, delete or edit partitions, LVM, RAID or Btrfs volumes.
   </p>
     <p>
-    Available advanced options includes setting up encrypted devices (LUKS), LVM or Btrfs volumes spanning more drives and creating kickstart files for automated installations.
+    Available advanced options includes setting up encrypted devices (LUKS), LVM or Btrfs volumes spanning more drives.
   </p>
   </description>
   <screenshots>
