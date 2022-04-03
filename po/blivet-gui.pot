@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-01 19:33+0200\n"
+"POT-Creation-Date: 2022-04-03 17:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -800,11 +800,11 @@ msgid "Parent devices:"
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-msgid "Add parent"
+msgid "Add a parent"
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-msgid "Remove parent"
+msgid "Remove a parent"
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
@@ -819,7 +819,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
 msgid ""
-"There is no physical volume that could be\n"
+"There isn't a physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
 

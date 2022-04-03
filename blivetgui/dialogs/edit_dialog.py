@@ -562,10 +562,10 @@ class LVMEditDialog(Gtk.Dialog):
 
     def add_toggle_buttons(self):
 
-        button_add = Gtk.ToggleButton(label=_("Add parent"))
+        button_add = Gtk.ToggleButton(label=_("Add a parent"))
         self.grid.attach(button_add, 0, 4, 1, 1)
 
-        button_remove = Gtk.ToggleButton(label=_("Remove parent"))
+        button_remove = Gtk.ToggleButton(label=_("Remove a parent"))
         self.grid.attach(button_remove, 1, 4, 1, 1)
 
         button_add.connect("toggled", self.on_button_toggled, "add", button_remove)
@@ -635,7 +635,7 @@ class LVMEditDialog(Gtk.Dialog):
         removable_pvs = [pv for pv in self.edited_device.pvs if (pv.size // self.edited_device.pe_size) <= self.edited_device.free_extents]
 
         if len(removable_pvs) == 0:
-            label_none = Gtk.Label(label=_("There is no physical volume that could be\n"
+            label_none = Gtk.Label(label=_("There isn't a physical volume that could be\n"
                                            "removed from this volume group."))
             self.grid.attach(label_none, 0, 5, 4, 1)
 
