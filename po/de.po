@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-31 19:18+0100\n"
+"POT-Creation-Date: 2022-04-03 17:59+0200\n"
 "PO-Revision-Date: 2021-12-28 21:16+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/blivet/"
@@ -106,19 +106,19 @@ msgstr "Löschen des Geräts fehlgeschlagen:"
 msgid "delete partition {name}"
 msgstr "Partition {name} löschen"
 
-#: ../blivetgui/blivetgui.py:612
+#: ../blivetgui/blivetgui.py:615
 msgid "Failed to perform the actions:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:656
+#: ../blivetgui/blivetgui.py:659
 msgid "Confirm scheduled actions"
 msgstr "Geplante Aktionen bestätigen"
 
-#: ../blivetgui/blivetgui.py:657
+#: ../blivetgui/blivetgui.py:660
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Wollen Sie wirklich die geplanten Aktionen durchführen?"
 
-#: ../blivetgui/blivetgui.py:698
+#: ../blivetgui/blivetgui.py:701
 #, fuzzy, python-brace-format
 #| msgid "Unmount failed. Are you sure device is not in use?"
 msgid ""
@@ -127,21 +127,21 @@ msgstr ""
 "Aushängen des Laufwerks fehlgeschlagen. Sind Sie sicher, dass es nicht in "
 "Benutzung ist?"
 
-#: ../blivetgui/blivetgui.py:720
+#: ../blivetgui/blivetgui.py:723
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr ""
 "Entsperrung fehlgeschlagen. Sind Sie sicher, dass das angegebene Passwort "
 "korrekt ist?"
 
-#: ../blivetgui/blivetgui.py:770 ../data/ui/blivet-gui.ui:659
+#: ../blivetgui/blivetgui.py:773 ../data/ui/blivet-gui.ui:662
 msgid "Quit"
 msgstr "Beenden"
 
-#: ../blivetgui/blivetgui.py:773
+#: ../blivetgui/blivetgui.py:776
 msgid "blivet-gui is already running"
 msgstr "blivet-gui läuft bereits"
 
-#: ../blivetgui/blivetgui.py:774
+#: ../blivetgui/blivetgui.py:777
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -149,7 +149,7 @@ msgstr ""
 "Eine andere Instanz von blivet-gui läuft bereits.\n"
 "Es kann nur eine Instanz von blivet-gui zur gleichen Zeit laufen."
 
-#: ../blivetgui/blivetgui.py:776
+#: ../blivetgui/blivetgui.py:779
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -160,24 +160,24 @@ msgid ""
 "command to force quit it."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:808
+#: ../blivetgui/blivetgui.py:811
 msgid "Failed to init blivet:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:815
+#: ../blivetgui/blivetgui.py:818
 msgid "Quit blivet-gui"
 msgstr "blivet-gui beenden"
 
-#: ../blivetgui/blivetgui.py:817
+#: ../blivetgui/blivetgui.py:820
 msgid "Ignore disk and continue"
 msgstr "Festplatte ignorieren und fortsetzen"
 
-#: ../blivetgui/blivetgui.py:820
+#: ../blivetgui/blivetgui.py:823
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "Fehler: {error}"
 
-#: ../blivetgui/blivetgui.py:821
+#: ../blivetgui/blivetgui.py:824
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -186,20 +186,20 @@ msgid ""
 "this disk."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:857
+#: ../blivetgui/blivetgui.py:860
 msgid "Confirm reload storage"
 msgstr "Neuladen des Speichers bestätigen"
 
-#: ../blivetgui/blivetgui.py:858
+#: ../blivetgui/blivetgui.py:861
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr ""
 "Es existieren ausstehende Vorgänge. Sind sie sicher fortfahren zu wollen?"
 
-#: ../blivetgui/blivetgui.py:889
+#: ../blivetgui/blivetgui.py:892
 msgid "Are you sure you want to quit?"
 msgstr "Möchten Sie das Programm wirklich beenden?"
 
-#: ../blivetgui/blivetgui.py:890
+#: ../blivetgui/blivetgui.py:893
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
@@ -210,35 +210,35 @@ msgstr ""
 msgid "free space"
 msgstr "Freier Speicher"
 
-#: ../blivetgui/blivet_utils.py:662
+#: ../blivetgui/blivet_utils.py:664
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:667
+#: ../blivetgui/blivet_utils.py:669
 msgid "Protected devices cannot be resized"
 msgstr "Die Größe geschützter Geräte kann nicht geändert werden"
 
-#: ../blivetgui/blivet_utils.py:672
+#: ../blivetgui/blivet_utils.py:674
 msgid "Immutable formats cannot be resized"
 msgstr "Die Größe unveränderlicher Formate kann nicht geändert werden"
 
-#: ../blivetgui/blivet_utils.py:677
+#: ../blivetgui/blivet_utils.py:679
 msgid "Devices with children cannot be resized"
 msgstr "Die Größe von Geräten mit Kindern kann nicht geändert werden"
 
-#: ../blivetgui/blivet_utils.py:688
+#: ../blivetgui/blivet_utils.py:690
 msgid "Unformatted devices are not resizable"
 msgstr "Die Größe nicht formatierter Geräte kann nicht geändert werden"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
-#: ../blivetgui/blivet_utils.py:695
+#: ../blivetgui/blivet_utils.py:697
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:700
+#: ../blivetgui/blivet_utils.py:702
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr ""
@@ -246,41 +246,41 @@ msgstr ""
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
-#: ../blivetgui/blivet_utils.py:707
+#: ../blivetgui/blivet_utils.py:709
 msgid "Formats scheduled to be created cannot be resized"
 msgstr ""
 "Formate, die erstellt werden sollen, können nicht in der Größe verändert "
 "werden"
 
-#: ../blivetgui/blivet_utils.py:712
+#: ../blivetgui/blivet_utils.py:714
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
 
-#: ../blivetgui/blivet_utils.py:717
+#: ../blivetgui/blivet_utils.py:719
 msgid "Mounted devices cannot be resized"
 msgstr "Die Größe eingehängter Geräte kann nicht geändert werden"
 
-#: ../blivetgui/blivet_utils.py:722
+#: ../blivetgui/blivet_utils.py:724
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr ""
 "Die Größe logischer Volumen mit Schnappschüssen kann nicht geändert werden."
 
-#: ../blivetgui/blivet_utils.py:727
+#: ../blivetgui/blivet_utils.py:729
 msgid "Resizing of LUKS2 devices is currently not supported."
 msgstr "Ändern der Größe von LUKS2-Geräten wird derzeit nicht unterstützt."
 
-#: ../blivetgui/blivet_utils.py:739
+#: ../blivetgui/blivet_utils.py:741
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr ""
 "Aktualisieren der Dateisystemgrößeninformation ist fehlgeschlagen: {error}"
 
-#: ../blivetgui/blivet_utils.py:758
+#: ../blivetgui/blivet_utils.py:760
 msgid "Device is not resizable."
 msgstr "Die Größe des Geräts kann nicht geändert werden."
 
-#: ../blivetgui/blivet_utils.py:760
+#: ../blivetgui/blivet_utils.py:762
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
 
@@ -302,12 +302,12 @@ msgstr ""
 "Unbekannter Fehler aufgetreten. Blivet-gui wird geschlossen.\n"
 "{error}"
 
-#: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
-#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
+#: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:119
+#: ../blivetgui/list_actions.py:141 ../data/ui/blivet-gui.ui:617
 msgid "No pending actions"
 msgstr "Keine ausstehenden Aktionen"
 
-#: ../blivetgui/list_actions.py:99 ../blivetgui/list_actions.py:123
+#: ../blivetgui/list_actions.py:98 ../blivetgui/list_actions.py:121
 #, python-format
 msgid "%s pending action"
 msgid_plural "%s pending actions"
@@ -498,7 +498,7 @@ msgstr "Laufwerkstyp"
 #: ../blivetgui/dialogs/add_dialog.py:451
 #: ../blivetgui/dialogs/edit_dialog.py:548
 #: ../blivetgui/dialogs/edit_dialog.py:597
-#: ../blivetgui/dialogs/edit_dialog.py:659 ../data/ui/blivet-gui.ui:465
+#: ../blivetgui/dialogs/edit_dialog.py:659 ../data/ui/blivet-gui.ui:469
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
 msgstr "Laufwerk"
@@ -506,7 +506,7 @@ msgstr "Laufwerk"
 #: ../blivetgui/dialogs/add_dialog.py:452
 #: ../blivetgui/dialogs/edit_dialog.py:549
 #: ../blivetgui/dialogs/edit_dialog.py:598
-#: ../blivetgui/dialogs/edit_dialog.py:660 ../data/ui/blivet-gui.ui:478
+#: ../blivetgui/dialogs/edit_dialog.py:660 ../data/ui/blivet-gui.ui:482
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
 msgstr "Typ"
@@ -514,7 +514,7 @@ msgstr "Typ"
 #: ../blivetgui/dialogs/add_dialog.py:453
 #: ../blivetgui/dialogs/edit_dialog.py:550
 #: ../blivetgui/dialogs/edit_dialog.py:599
-#: ../blivetgui/dialogs/edit_dialog.py:661 ../data/ui/blivet-gui.ui:500
+#: ../blivetgui/dialogs/edit_dialog.py:661 ../data/ui/blivet-gui.ui:504
 msgid "Size"
 msgstr "Größe"
 
@@ -537,7 +537,7 @@ msgstr "Dateisystem:"
 msgid "unformatted"
 msgstr "unformatiert"
 
-#: ../blivetgui/dialogs/add_dialog.py:829
+#: ../blivetgui/dialogs/add_dialog.py:829 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr "Bezeichnung:"
 
@@ -545,7 +545,7 @@ msgstr "Bezeichnung:"
 msgid "Name:"
 msgstr "Name:"
 
-#: ../blivetgui/dialogs/add_dialog.py:848
+#: ../blivetgui/dialogs/add_dialog.py:848 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr "Einhängepunkt:"
 
@@ -834,11 +834,15 @@ msgid "Parent devices:"
 msgstr "Übergeordnetes Ressource:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-msgid "Add parent"
+#, fuzzy
+#| msgid "Add parent"
+msgid "Add a parent"
 msgstr "Übergeordnete Ressource hinzufügen"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-msgid "Remove parent"
+#, fuzzy
+#| msgid "Remove parent"
+msgid "Remove a parent"
 msgstr "Übergeordnete Ressource entfernen"
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
@@ -855,8 +859,12 @@ msgid "Add?"
 msgstr "Hinzufügen?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
+#, fuzzy
+#| msgid ""
+#| "There is no physical volume that could be\n"
+#| "removed from this volume group."
 msgid ""
-"There is no physical volume that could be\n"
+"There isn't a physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
 "Es existieren kein physikalischer Datenträger der aus dieser "
@@ -1035,8 +1043,10 @@ msgid "Unmount"
 msgstr "Aushängen"
 
 #: ../data/ui/blivet-gui.ui:102
-msgid "Decrypt"
-msgstr "Entschlüsseln"
+#, fuzzy
+#| msgid "Unlock device"
+msgid "Unlock"
+msgstr "Gerät entsperren"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1047,8 +1057,8 @@ msgid "blivet-gui"
 msgstr "blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
-#: ../data/ui/blivet-gui.ui:821 ../data/ui/blivet-gui.ui:832
-#: ../data/ui/blivet-gui.ui:843
+#: ../data/ui/blivet-gui.ui:827 ../data/ui/blivet-gui.ui:838
+#: ../data/ui/blivet-gui.ui:849
 msgid "column"
 msgstr "Spalte"
 
@@ -1083,38 +1093,54 @@ msgid "Display information about selected device"
 msgstr "Informationen über das ausgewählte Gerät anzeigen"
 
 #. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:489
+#: ../data/ui/blivet-gui.ui:493
 msgctxt "LogicalView|Column"
 msgid "Format"
 msgstr "Formatieren"
 
-#: ../data/ui/blivet-gui.ui:511
+#: ../data/ui/blivet-gui.ui:515
 msgid "Label"
 msgstr "Bezeichnung"
 
-#: ../data/ui/blivet-gui.ui:522
+#: ../data/ui/blivet-gui.ui:526
 msgid "Mountpoint"
 msgstr "Einhängepunkt"
 
-#: ../data/ui/blivet-gui.ui:544
+#: ../data/ui/blivet-gui.ui:550
 msgid "Logical View"
 msgstr "Logische Ansicht"
 
-#: ../data/ui/blivet-gui.ui:567
+#: ../data/ui/blivet-gui.ui:573
 msgid "Physical View"
 msgstr "Physische Ansicht"
 
-#: ../data/ui/blivet-gui.ui:643
+#: ../data/ui/blivet-gui.ui:646
 msgid "Reload Storage"
 msgstr "Speicher neu laden"
 
-#: ../data/ui/blivet-gui.ui:651
+#: ../data/ui/blivet-gui.ui:654
 msgid "Queued Actions"
 msgstr "Ausstehende Aktionen"
 
-#: ../data/ui/blivet-gui.ui:673
+#: ../data/ui/blivet-gui.ui:676
 msgid "About blivet-gui"
 msgstr "Über blivet-gui"
+
+#: ../data/ui/blivet-gui.ui:728
+#, fuzzy
+#| msgid "No pending actions"
+msgid "Apply pending actions"
+msgstr "Keine ausstehenden Aktionen"
+
+#: ../data/ui/blivet-gui.ui:744
+#, fuzzy
+#| msgid "Confirm scheduled actions"
+msgid "Clear scheduled actions"
+msgstr "Geplante Aktionen bestätigen"
+
+#: ../data/ui/blivet-gui.ui:760
+msgid "Undo last action"
+msgstr ""
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1188,48 +1214,46 @@ msgstr "_Beenden"
 msgid "Show traceback"
 msgstr "Rückverfolgung anzeigen"
 
-#: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
+#: ../data/ui/format_dialog.ui:17
 msgid "Format device"
 msgstr "Gerät formatieren"
 
-#: ../data/ui/format_dialog.ui:39 ../data/ui/mountpoint_dialog.ui:29
+#: ../data/ui/format_dialog.ui:35 ../data/ui/mountpoint_dialog.ui:29
 #: ../data/ui/resize_dialog.ui:30
 msgid "_Cancel"
 msgstr "Abbre_chen"
 
 #. Perform selected format change on this device.
-#: ../data/ui/format_dialog.ui:54
+#: ../data/ui/format_dialog.ui:50
 msgctxt "Dialog|Format"
 msgid "_Format"
 msgstr "_Formatieren"
 
-#: ../data/ui/format_dialog.ui:101
+#: ../data/ui/format_dialog.ui:98
 msgid "Select new format:"
 msgstr "Neues Format auswählen:"
-
-#: ../data/ui/format_dialog.ui:148
-msgid "Enter new label:"
-msgstr "Neue Bezeichnung eingeben:"
-
-#: ../data/ui/format_dialog.ui:186 ../data/ui/mountpoint_dialog.ui:88
-msgid "Enter new mountpoint:"
-msgstr "Neuen Einhängepunkt eingeben:"
 
 #: ../data/ui/info_dialog.ui:12
 msgid "Information:"
 msgstr "Information:"
 
-#: ../data/ui/label_dialog.ui:25 ../data/ui/unmount_dialog.ui:36
+#: ../data/ui/label_dialog.ui:7
+#, fuzzy
+#| msgid "Set label"
+msgid "Set filesystem label"
+msgstr "Bezeichnung festlegen"
+
+#: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
 msgstr "Abbrechen"
 
 #. Perform selected format change on this device.
-#: ../data/ui/label_dialog.ui:39
+#: ../data/ui/label_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Relabel"
 msgstr ""
 
-#: ../data/ui/label_dialog.ui:71
+#: ../data/ui/label_dialog.ui:68
 msgid "Enter new label for this filesystem:"
 msgstr "Neue Bezeichnung für dieses Dateisystem eingeben:"
 
@@ -1244,6 +1268,10 @@ msgstr "Bitte Passphrase zum Entsperren des ausgewählten Geräts eingeben."
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
 msgstr "Einhängepunkt _festlegen"
+
+#: ../data/ui/mountpoint_dialog.ui:88
+msgid "Enter new mountpoint:"
+msgstr "Neuen Einhängepunkt eingeben:"
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
@@ -1294,6 +1322,12 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+
+#~ msgid "Decrypt"
+#~ msgstr "Entschlüsseln"
+
+#~ msgid "Enter new label:"
+#~ msgstr "Neue Bezeichnung eingeben:"
 
 #~ msgid "{0} disklabel"
 #~ msgstr "{0} Datenträgerbezeichnung"

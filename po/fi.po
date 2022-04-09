@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-31 19:18+0100\n"
+"POT-Creation-Date: 2022-04-03 17:59+0200\n"
 "PO-Revision-Date: 2022-01-08 22:16+0000\n"
 "Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/blivet/"
@@ -106,19 +106,19 @@ msgstr "Laitteen poistaminen epäonnistui:"
 msgid "delete partition {name}"
 msgstr "poista osio {name}"
 
-#: ../blivetgui/blivetgui.py:612
+#: ../blivetgui/blivetgui.py:615
 msgid "Failed to perform the actions:"
 msgstr "Toimintojen toteuttaminen epäonnistui:"
 
-#: ../blivetgui/blivetgui.py:656
+#: ../blivetgui/blivetgui.py:659
 msgid "Confirm scheduled actions"
 msgstr "Vahvista ajastetut toiminnot"
 
-#: ../blivetgui/blivetgui.py:657
+#: ../blivetgui/blivetgui.py:660
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Haluatko suorittaa ajastetut toiminnot?"
 
-#: ../blivetgui/blivetgui.py:698
+#: ../blivetgui/blivetgui.py:701
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
@@ -126,19 +126,19 @@ msgstr ""
 "{mountpoint}:n irrottaminen epäonnistui. Oletko varma, että laitetta ei "
 "käytetä?"
 
-#: ../blivetgui/blivetgui.py:720
+#: ../blivetgui/blivetgui.py:723
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "Avaaminen epäonnistui. Annoitko varmasti oikean salasanan?"
 
-#: ../blivetgui/blivetgui.py:770 ../data/ui/blivet-gui.ui:659
+#: ../blivetgui/blivetgui.py:773 ../data/ui/blivet-gui.ui:662
 msgid "Quit"
 msgstr "Lopeta"
 
-#: ../blivetgui/blivetgui.py:773
+#: ../blivetgui/blivetgui.py:776
 msgid "blivet-gui is already running"
 msgstr "blivet-gui on jo käynnissä"
 
-#: ../blivetgui/blivetgui.py:774
+#: ../blivetgui/blivetgui.py:777
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -146,7 +146,7 @@ msgstr ""
 "Toinen blivet-gui-istunto on jo käynnissä.\n"
 "Vain yksi blivet-gui-istunto voi toimia samanaikaisesti."
 
-#: ../blivetgui/blivetgui.py:776
+#: ../blivetgui/blivetgui.py:779
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -164,24 +164,24 @@ msgstr ""
 "\n"
 "käske pakottaen lopettamaan se."
 
-#: ../blivetgui/blivetgui.py:808
+#: ../blivetgui/blivetgui.py:811
 msgid "Failed to init blivet:"
 msgstr "blivet:n aloittaminen epäonnistui:"
 
-#: ../blivetgui/blivetgui.py:815
+#: ../blivetgui/blivetgui.py:818
 msgid "Quit blivet-gui"
 msgstr "Lopeta blivet-gui"
 
-#: ../blivetgui/blivetgui.py:817
+#: ../blivetgui/blivetgui.py:820
 msgid "Ignore disk and continue"
 msgstr "Ohita levy ja jatka"
 
-#: ../blivetgui/blivetgui.py:820
+#: ../blivetgui/blivetgui.py:823
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "Virhe: {error}"
 
-#: ../blivetgui/blivetgui.py:821
+#: ../blivetgui/blivetgui.py:824
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -194,19 +194,19 @@ msgstr ""
 "Voit joko lopettaa blivet-gui:n nyt tai jatkaa ilman, että voit käyttää tätä "
 "levyä."
 
-#: ../blivetgui/blivetgui.py:857
+#: ../blivetgui/blivetgui.py:860
 msgid "Confirm reload storage"
 msgstr "Vahvista tallennustilan uudelleen lataus"
 
-#: ../blivetgui/blivetgui.py:858
+#: ../blivetgui/blivetgui.py:861
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "Keskeneräisiä toimintoja on. Oletko varma, että haluat jatkaa?"
 
-#: ../blivetgui/blivetgui.py:889
+#: ../blivetgui/blivetgui.py:892
 msgid "Are you sure you want to quit?"
 msgstr "Haluatko varmasti lopettaa?"
 
-#: ../blivetgui/blivetgui.py:890
+#: ../blivetgui/blivetgui.py:893
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
@@ -216,73 +216,73 @@ msgstr ""
 msgid "free space"
 msgstr "vapaa tila"
 
-#: ../blivetgui/blivet_utils.py:662
+#: ../blivetgui/blivet_utils.py:664
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr "{type}-laitteiden koon muuttamista ei tällä hetkellä tueta"
 
-#: ../blivetgui/blivet_utils.py:667
+#: ../blivetgui/blivet_utils.py:669
 msgid "Protected devices cannot be resized"
 msgstr "Suojattujen laitteiden kokoa ei voi muuttaa"
 
-#: ../blivetgui/blivet_utils.py:672
+#: ../blivetgui/blivet_utils.py:674
 msgid "Immutable formats cannot be resized"
 msgstr "Muuttamattomien muotojen kokoa ei voi muuttaa"
 
-#: ../blivetgui/blivet_utils.py:677
+#: ../blivetgui/blivet_utils.py:679
 msgid "Devices with children cannot be resized"
 msgstr "Lapsia sisältävien laitteiden kokoa ei voi muuttaa"
 
-#: ../blivetgui/blivet_utils.py:688
+#: ../blivetgui/blivet_utils.py:690
 msgid "Unformatted devices are not resizable"
 msgstr "Alustamattomia laitteita ei voi muuttaa"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
-#: ../blivetgui/blivet_utils.py:695
+#: ../blivetgui/blivet_utils.py:697
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr "Muodon {type} koon muuttamista ei tällä hetkellä tueta"
 
-#: ../blivetgui/blivet_utils.py:700
+#: ../blivetgui/blivet_utils.py:702
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr "Työkalut muodon {type} koon muuttamiseksi eivät ole käytettävissä."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
-#: ../blivetgui/blivet_utils.py:707
+#: ../blivetgui/blivet_utils.py:709
 msgid "Formats scheduled to be created cannot be resized"
 msgstr "Muotoja, jotka on ajoitettu luotavaksi ei voi muuttaa"
 
-#: ../blivetgui/blivet_utils.py:712
+#: ../blivetgui/blivet_utils.py:714
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr "Muoto {type} ei tue kokorajoitustietojensa päivittämistä"
 
-#: ../blivetgui/blivet_utils.py:717
+#: ../blivetgui/blivet_utils.py:719
 msgid "Mounted devices cannot be resized"
 msgstr "Liitettyjen laitteiden kokoa ei voi muuttaa"
 
-#: ../blivetgui/blivet_utils.py:722
+#: ../blivetgui/blivet_utils.py:724
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr ""
 "Loogisia taltioita sisällyttävien tilannevedosten kokoja ei voi muuttaa."
 
-#: ../blivetgui/blivet_utils.py:727
+#: ../blivetgui/blivet_utils.py:729
 msgid "Resizing of LUKS2 devices is currently not supported."
 msgstr "LUKS2-laitteiden koon muuttamista ei tällä hetkellä tueta."
 
-#: ../blivetgui/blivet_utils.py:739
+#: ../blivetgui/blivet_utils.py:741
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr "Tiedostojärjestelmän koon tietojen päivittäminen epäonnistui: {error}"
 
-#: ../blivetgui/blivet_utils.py:758
+#: ../blivetgui/blivet_utils.py:760
 msgid "Device is not resizable."
 msgstr "Laitteen kokoa ei voi muuttaa."
 
-#: ../blivetgui/blivet_utils.py:760
+#: ../blivetgui/blivet_utils.py:762
 msgid "Format is not resizable after updating its size limit information."
 msgstr "Muotoa ei voi muuttaa sen kokorajoitustietojen päivittämisen jälkeen."
 
@@ -304,12 +304,12 @@ msgstr ""
 "Tapahtui tuntematon virhe. Blivet-gui lopetetaan.\n"
 "{error}"
 
-#: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:121
-#: ../blivetgui/list_actions.py:144 ../data/ui/blivet-gui.ui:611
+#: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:119
+#: ../blivetgui/list_actions.py:141 ../data/ui/blivet-gui.ui:617
 msgid "No pending actions"
 msgstr "Ei keskeneräisiä toimia"
 
-#: ../blivetgui/list_actions.py:99 ../blivetgui/list_actions.py:123
+#: ../blivetgui/list_actions.py:98 ../blivetgui/list_actions.py:121
 #, python-format
 msgid "%s pending action"
 msgid_plural "%s pending actions"
@@ -502,7 +502,7 @@ msgstr "Laitetyyppi:"
 #: ../blivetgui/dialogs/add_dialog.py:451
 #: ../blivetgui/dialogs/edit_dialog.py:548
 #: ../blivetgui/dialogs/edit_dialog.py:597
-#: ../blivetgui/dialogs/edit_dialog.py:659 ../data/ui/blivet-gui.ui:465
+#: ../blivetgui/dialogs/edit_dialog.py:659 ../data/ui/blivet-gui.ui:469
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
 msgstr "Laite"
@@ -510,7 +510,7 @@ msgstr "Laite"
 #: ../blivetgui/dialogs/add_dialog.py:452
 #: ../blivetgui/dialogs/edit_dialog.py:549
 #: ../blivetgui/dialogs/edit_dialog.py:598
-#: ../blivetgui/dialogs/edit_dialog.py:660 ../data/ui/blivet-gui.ui:478
+#: ../blivetgui/dialogs/edit_dialog.py:660 ../data/ui/blivet-gui.ui:482
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
 msgstr "Tyyppi"
@@ -518,7 +518,7 @@ msgstr "Tyyppi"
 #: ../blivetgui/dialogs/add_dialog.py:453
 #: ../blivetgui/dialogs/edit_dialog.py:550
 #: ../blivetgui/dialogs/edit_dialog.py:599
-#: ../blivetgui/dialogs/edit_dialog.py:661 ../data/ui/blivet-gui.ui:500
+#: ../blivetgui/dialogs/edit_dialog.py:661 ../data/ui/blivet-gui.ui:504
 msgid "Size"
 msgstr "Koko"
 
@@ -541,7 +541,7 @@ msgstr "Tiedostojärjestelmä:"
 msgid "unformatted"
 msgstr "alustamaton"
 
-#: ../blivetgui/dialogs/add_dialog.py:829
+#: ../blivetgui/dialogs/add_dialog.py:829 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr "Nimiö:"
 
@@ -549,7 +549,7 @@ msgstr "Nimiö:"
 msgid "Name:"
 msgstr "Nimi:"
 
-#: ../blivetgui/dialogs/add_dialog.py:848
+#: ../blivetgui/dialogs/add_dialog.py:848 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr "Liitospiste:"
 
@@ -838,11 +838,15 @@ msgid "Parent devices:"
 msgstr "Vanhemmat-laitteet:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-msgid "Add parent"
+#, fuzzy
+#| msgid "Add parent"
+msgid "Add a parent"
 msgstr "Lisää vanhemmat"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-msgid "Remove parent"
+#, fuzzy
+#| msgid "Remove parent"
+msgid "Remove a parent"
 msgstr "Poista vanhemmat"
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
@@ -858,8 +862,12 @@ msgid "Add?"
 msgstr "Lisätä?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
+#, fuzzy
+#| msgid ""
+#| "There is no physical volume that could be\n"
+#| "removed from this volume group."
 msgid ""
-"There is no physical volume that could be\n"
+"There isn't a physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
 "Ei ole fyysistä taltiota, joka voisi olla\n"
@@ -1036,8 +1044,10 @@ msgid "Unmount"
 msgstr "Irrota liitos"
 
 #: ../data/ui/blivet-gui.ui:102
-msgid "Decrypt"
-msgstr "Avaa salaus"
+#, fuzzy
+#| msgid "Unlock device"
+msgid "Unlock"
+msgstr "Avaa laite"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1048,8 +1058,8 @@ msgid "blivet-gui"
 msgstr "blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
-#: ../data/ui/blivet-gui.ui:821 ../data/ui/blivet-gui.ui:832
-#: ../data/ui/blivet-gui.ui:843
+#: ../data/ui/blivet-gui.ui:827 ../data/ui/blivet-gui.ui:838
+#: ../data/ui/blivet-gui.ui:849
 msgid "column"
 msgstr "sarake"
 
@@ -1084,38 +1094,54 @@ msgid "Display information about selected device"
 msgstr "Näytä tietoja valitusta laitteesta"
 
 #. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:489
+#: ../data/ui/blivet-gui.ui:493
 msgctxt "LogicalView|Column"
 msgid "Format"
 msgstr "Alusta"
 
-#: ../data/ui/blivet-gui.ui:511
+#: ../data/ui/blivet-gui.ui:515
 msgid "Label"
 msgstr "Nimiö"
 
-#: ../data/ui/blivet-gui.ui:522
+#: ../data/ui/blivet-gui.ui:526
 msgid "Mountpoint"
 msgstr "Liitospiste"
 
-#: ../data/ui/blivet-gui.ui:544
+#: ../data/ui/blivet-gui.ui:550
 msgid "Logical View"
 msgstr "Looginen näkymä"
 
-#: ../data/ui/blivet-gui.ui:567
+#: ../data/ui/blivet-gui.ui:573
 msgid "Physical View"
 msgstr "Fyysinen näkymä"
 
-#: ../data/ui/blivet-gui.ui:643
+#: ../data/ui/blivet-gui.ui:646
 msgid "Reload Storage"
 msgstr "Lataa tallennustila uudelleen"
 
-#: ../data/ui/blivet-gui.ui:651
+#: ../data/ui/blivet-gui.ui:654
 msgid "Queued Actions"
 msgstr "Jonossa olevat toimet"
 
-#: ../data/ui/blivet-gui.ui:673
+#: ../data/ui/blivet-gui.ui:676
 msgid "About blivet-gui"
 msgstr "Tietoja blivet-gui:sta"
+
+#: ../data/ui/blivet-gui.ui:728
+#, fuzzy
+#| msgid "No pending actions"
+msgid "Apply pending actions"
+msgstr "Ei keskeneräisiä toimia"
+
+#: ../data/ui/blivet-gui.ui:744
+#, fuzzy
+#| msgid "Confirm scheduled actions"
+msgid "Clear scheduled actions"
+msgstr "Vahvista ajastetut toiminnot"
+
+#: ../data/ui/blivet-gui.ui:760
+msgid "Undo last action"
+msgstr ""
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1189,48 +1215,46 @@ msgstr "_Lopeta"
 msgid "Show traceback"
 msgstr "Näytä jäljitys"
 
-#: ../data/ui/format_dialog.ui:17 ../data/ui/label_dialog.ui:7
+#: ../data/ui/format_dialog.ui:17
 msgid "Format device"
 msgstr "Alusta laite"
 
-#: ../data/ui/format_dialog.ui:39 ../data/ui/mountpoint_dialog.ui:29
+#: ../data/ui/format_dialog.ui:35 ../data/ui/mountpoint_dialog.ui:29
 #: ../data/ui/resize_dialog.ui:30
 msgid "_Cancel"
 msgstr "_Peru"
 
 #. Perform selected format change on this device.
-#: ../data/ui/format_dialog.ui:54
+#: ../data/ui/format_dialog.ui:50
 msgctxt "Dialog|Format"
 msgid "_Format"
 msgstr "_Alusta"
 
-#: ../data/ui/format_dialog.ui:101
+#: ../data/ui/format_dialog.ui:98
 msgid "Select new format:"
 msgstr "Valitse uusi alusta:"
-
-#: ../data/ui/format_dialog.ui:148
-msgid "Enter new label:"
-msgstr "Kirjoita uusi nimiö:"
-
-#: ../data/ui/format_dialog.ui:186 ../data/ui/mountpoint_dialog.ui:88
-msgid "Enter new mountpoint:"
-msgstr "Anna uusi liitospiste:"
 
 #: ../data/ui/info_dialog.ui:12
 msgid "Information:"
 msgstr "Tietoja:"
 
-#: ../data/ui/label_dialog.ui:25 ../data/ui/unmount_dialog.ui:36
+#: ../data/ui/label_dialog.ui:7
+#, fuzzy
+#| msgid "Set label"
+msgid "Set filesystem label"
+msgstr "Aseta nimiö"
+
+#: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
 msgstr "Peru"
 
 #. Perform selected format change on this device.
-#: ../data/ui/label_dialog.ui:39
+#: ../data/ui/label_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Relabel"
 msgstr "Uudelleen määritä nimiö"
 
-#: ../data/ui/label_dialog.ui:71
+#: ../data/ui/label_dialog.ui:68
 msgid "Enter new label for this filesystem:"
 msgstr "Anna tälle tiedostojärjestelmälle uusi nimiö:"
 
@@ -1245,6 +1269,10 @@ msgstr "Anna tunnuslause avataksesi valitun laitteen lukituksen."
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
 msgstr "_Aseta liitospiste"
+
+#: ../data/ui/mountpoint_dialog.ui:88
+msgid "Enter new mountpoint:"
+msgstr "Anna uusi liitospiste:"
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
@@ -1299,6 +1327,12 @@ msgstr ""
 " useisiin liitoskohtiin.</b>\n"
 "\n"
 "Valitse irrotettavat liitoskohdat:"
+
+#~ msgid "Decrypt"
+#~ msgstr "Avaa salaus"
+
+#~ msgid "Enter new label:"
+#~ msgstr "Kirjoita uusi nimiö:"
 
 #~ msgid "Encrypted device (open)"
 #~ msgstr "Salattu laite (avoin)"
