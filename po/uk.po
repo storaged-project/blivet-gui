@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-03 17:59+0200\n"
-"PO-Revision-Date: 2022-01-06 15:02+0000\n"
+"PO-Revision-Date: 2022-04-09 16:57+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/uk/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.11.2\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -849,14 +849,10 @@ msgid "Parent devices:"
 msgstr "Батьківські пристрої:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
 msgstr "Додати батьківський запис"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
 msgstr "Вилучити батьківський запис"
 
@@ -873,10 +869,6 @@ msgid "Add?"
 msgstr "Додати?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
@@ -1057,10 +1049,8 @@ msgid "Unmount"
 msgstr "Демонтувати"
 
 #: ../data/ui/blivet-gui.ui:102
-#, fuzzy
-#| msgid "Unlock device"
 msgid "Unlock"
-msgstr "Розблокувати пристрій"
+msgstr "Розблокувати"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1141,20 +1131,16 @@ msgid "About blivet-gui"
 msgstr "Про blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:728
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "Немає дій у черзі"
+msgstr "Застосувати дії з черги"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "Підтвердження запланованих дій"
+msgstr "Очистити список запланованих дій"
 
 #: ../data/ui/blivet-gui.ui:760
 msgid "Undo last action"
-msgstr ""
+msgstr "_Скасувати останню дію"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1252,10 +1238,8 @@ msgid "Information:"
 msgstr "Відомості:"
 
 #: ../data/ui/label_dialog.ui:7
-#, fuzzy
-#| msgid "Set label"
 msgid "Set filesystem label"
-msgstr "Встановити мітку"
+msgstr "Встановити мітку файлової системи"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
