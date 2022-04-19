@@ -10,13 +10,13 @@
 # Vojtěch Trefný <vtrefny@redhat.com>, 2017. #zanata
 # Zdenek <chmelarz@gmail.com>, 2018. #zanata
 # Daniel Rusek <mail@asciiwolf.com>, 2019. #zanata
-# Pavel Borecki <pavel.borecki@gmail.com>, 2021.
+# Pavel Borecki <pavel.borecki@gmail.com>, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-03 17:59+0200\n"
-"PO-Revision-Date: 2021-09-23 07:05+0000\n"
+"PO-Revision-Date: 2022-04-15 13:17+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/cs/>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.11.2\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -125,18 +125,17 @@ msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Jste si jisti, že chcete provést naplánované akce?"
 
 #: ../blivetgui/blivetgui.py:701
-#, fuzzy, python-brace-format
-#| msgid "Unmount failed. Are you sure device is not in use?"
+#, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
-msgstr "Odpojení selhalo. Jste si jisti, že se zařízení nepoužívá?"
+msgstr ""
+"Odpojení „{mountpoint}“ se nezdařilo. Jste si jistí, že zařízení není něčím "
+"používáno?"
 
 #: ../blivetgui/blivetgui.py:723
-#, fuzzy
-#| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr ""
-"Odemčení zařízení selhalo. Jste si jisti, že jste zadali správné heslo?"
+"Odemčení zařízení se nezdařilo. Jste si jisti, že jste zadali správné heslo?"
 
 #: ../blivetgui/blivetgui.py:773 ../data/ui/blivet-gui.ui:662
 msgid "Quit"
@@ -174,7 +173,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:811
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "Nepodařilo se inicializovat blivet:"
 
 #: ../blivetgui/blivetgui.py:818
 msgid "Quit blivet-gui"
