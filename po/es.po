@@ -9,13 +9,14 @@
 # Adolfo Jayme Barrientos <fitoschido@gmail.com>, 2020.
 # Emilio Herrera <ehespinosa57@gmail.com>, 2021.
 # Pedro Luis Valades Viera <perikiyoxd@gmail.com>, 2021.
+# Alejandro Alcaide <alex@blueselene.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-03 17:59+0200\n"
-"PO-Revision-Date: 2021-11-04 22:05+0000\n"
-"Last-Translator: Pedro Luis Valades Viera <perikiyoxd@gmail.com>\n"
+"PO-Revision-Date: 2022-05-03 07:54+0000\n"
+"Last-Translator: Alejandro Alcaide <alex@blueselene.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/es/>\n"
 "Language: es\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.12.1\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -278,10 +279,8 @@ msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "No se pueden redimensionar los volúmenes lógicos con instantáneas."
 
 #: ../blivetgui/blivet_utils.py:729
-#, fuzzy
-#| msgid "Resizing of {type} devices is currently not supported"
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr "Por ahora no se admite redimensionar dispositivos {type}"
+msgstr "Por ahora no se admite re-dimensionar dispositivos LUKS2."
 
 #: ../blivetgui/blivet_utils.py:741
 #, python-brace-format
@@ -946,7 +945,7 @@ msgstr ""
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "Automático"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -1157,7 +1156,7 @@ msgstr "Confirmar acciones planificadas"
 
 #: ../data/ui/blivet-gui.ui:760
 msgid "Undo last action"
-msgstr ""
+msgstr "Deshacer la última acción"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1209,7 +1208,7 @@ msgstr "Repita la frase de acceso:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Tamaño del sector:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
