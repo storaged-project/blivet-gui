@@ -2,13 +2,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Akarshan Biswas <akarshan.biswas@gmail.com>, 2020.
+# Anirban Mitra <mitra_anirban@yahoo.co.in>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-03 17:59+0200\n"
-"PO-Revision-Date: 2020-06-26 09:40+0000\n"
-"Last-Translator: Akarshan Biswas <akarshan.biswas@gmail.com>\n"
+"PO-Revision-Date: 2022-05-12 02:24+0000\n"
+"Last-Translator: Anirban Mitra <mitra_anirban@yahoo.co.in>\n"
 "Language-Team: Bengali (India) <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/bn_IN/>\n"
 "Language: bn_IN\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.12.1\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -121,10 +122,10 @@ msgstr ""
 "'{mountpoint}}' এর আনমাউন্ট ব্যর্থ। আপনি কি নিশ্চিত যে ডিভাইসটি ব্যবহার হচ্ছে না?"
 
 #: ../blivetgui/blivetgui.py:723
-#, fuzzy
-#| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr "ডিভাইস ডিক্রিপশন ব্যর্থ হয়েছে। আপনি কি নিশ্চিতভাবে প্রদত্ত পাসওয়ার্ডটি সঠিক?"
+msgstr ""
+"ডিভাইস ডিক্রিপশন ব্যর্থ হয়েছে। আপনি কি নিশ্চিতভাবে প্রদত্ত পাসওয়ার্ডটি "
+"সঠিক?"
 
 #: ../blivetgui/blivetgui.py:773 ../data/ui/blivet-gui.ui:662
 msgid "Quit"
@@ -132,13 +133,15 @@ msgstr "প্রস্থান"
 
 #: ../blivetgui/blivetgui.py:776
 msgid "blivet-gui is already running"
-msgstr ""
+msgstr "ব্লিভেট-গুই ইতিমধ্যে চলছে"
 
 #: ../blivetgui/blivetgui.py:777
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
+"আরেকটি ব্লিভেট-গুই ইতিমধ্যে চলছে ।\n"
+" একসাথে একটিই ব্লিভেট-গুই চলতে পারে ।"
 
 #: ../blivetgui/blivetgui.py:779
 msgid ""
@@ -150,23 +153,32 @@ msgid ""
 "\n"
 "command to force quit it."
 msgstr ""
+"যদি আপনার পূর্ববর্তী ব্লিভেট-গুই\n"
+"ক্র্যাশ করে থাকে তাহলে নিশ্চিত হন <i>blivet-gui-daemon</i> প্রসেসটিও বন্ধ "
+"হয়েছে ।\n"
+"যদি ওইটি চলতে থাকে তাহলে এই নির্দেশটি ব্যবহার করুন\n"
+"\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"এবং ওইটিকে বন্ধ হতে বাধ্য করুন।"
 
 #: ../blivetgui/blivetgui.py:811
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "ব্লিভেট চালু করতে ব্যর্থ:"
 
 #: ../blivetgui/blivetgui.py:818
 msgid "Quit blivet-gui"
-msgstr ""
+msgstr "ব্লিভেট-গুই থেকে বেরিয়ে যান"
 
 #: ../blivetgui/blivetgui.py:820
 msgid "Ignore disk and continue"
-msgstr ""
+msgstr "ডিস্কটি উপেক্ষা করুন ও চালিয়ে যান"
 
 #: ../blivetgui/blivetgui.py:823
 #, python-brace-format
 msgid "Error: {error}"
-msgstr ""
+msgstr "ভুল: {error}"
 
 #: ../blivetgui/blivetgui.py:824
 #, python-brace-format
@@ -176,10 +188,15 @@ msgid ""
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
+"ব্লিভেট-গুই <b>{name}</b> ডিস্কটি ব্যবহার করতে পারছে না কারন ডিস্কটির লেবেল "
+"অজানা বা ক্ষতিগ্রস্ত ।\n"
+"\n"
+"আপনি হয় ব্লিভেট-গুই থেকে বেরিয়ে যেতে পারেন অথবা এই ডিস্কটি ব্যবহার না করতে "
+"পেরে চালিয়ে যেতে পারেন ।"
 
 #: ../blivetgui/blivetgui.py:860
 msgid "Confirm reload storage"
-msgstr ""
+msgstr "স্টোরেজ আবার লোড করা নিশ্চিত করুন"
 
 #: ../blivetgui/blivetgui.py:861
 msgid "There are pending operations. Are you sure you want to continue?"
