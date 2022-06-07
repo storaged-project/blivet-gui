@@ -36,7 +36,7 @@ from blivetgui.communication.server import BlivetUtilsServer
 # ---------------------------------------------------------------------------- #
 
 
-class BlivetGUIServer(socketserver.UnixStreamServer):  # pylint: disable=no-init
+class BlivetGUIServer(socketserver.UnixStreamServer):
     """ Custom UnixStreamServer instance
     """
 

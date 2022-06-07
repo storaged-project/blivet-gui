@@ -96,7 +96,7 @@ class BlivetProxyObject(object):
             return 1
 
 
-class BlivetUtilsServer(socketserver.BaseRequestHandler):  # pylint: disable=no-init
+class BlivetUtilsServer(socketserver.BaseRequestHandler):
     blivet_utils = None
     proxy_objects = []
     object_dict = {}
