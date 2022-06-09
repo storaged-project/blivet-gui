@@ -1,11 +1,11 @@
-# Fabio Tomat <f.t.public@gmail.com>, 2017. #zanata, 2020, 2021.
-# Fabio Tomat <f.t.public@gmail.com>, 2019. #zanata, 2020, 2021.
+# Fabio Tomat <f.t.public@gmail.com>, 2017. #zanata, 2020, 2021, 2022.
+# Fabio Tomat <f.t.public@gmail.com>, 2019. #zanata, 2020, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-03 17:59+0200\n"
-"PO-Revision-Date: 2021-11-07 10:19+0000\n"
+"PO-Revision-Date: 2022-06-09 05:18+0000\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fur/>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.8\n"
+"X-Generator: Weblate 4.12.2\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -304,14 +304,14 @@ msgstr ""
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:119
 #: ../blivetgui/list_actions.py:141 ../data/ui/blivet-gui.ui:617
 msgid "No pending actions"
-msgstr "Nissune operazion in cors"
+msgstr "Nissune operazion in vore"
 
 #: ../blivetgui/list_actions.py:98 ../blivetgui/list_actions.py:121
 #, python-format
 msgid "%s pending action"
 msgid_plural "%s pending actions"
-msgstr[0] "%s azion in cors"
-msgstr[1] "%s azions in cors"
+msgstr[0] "%s azion in vore"
+msgstr[1] "%s azions in vore"
 
 #: ../blivetgui/list_devices.py:82
 msgid "Disks"
@@ -835,16 +835,12 @@ msgid "Parent devices:"
 msgstr "Dispositîfs gjenitôr:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
-msgstr "Zonte gjenitôr"
+msgstr "Zonte un gjenitôr"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
-msgstr "Gjave gjenitôr"
+msgstr "Gjave un gjenitôr"
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
 msgid ""
@@ -859,10 +855,6 @@ msgid "Add?"
 msgstr "Zontâ?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
@@ -906,7 +898,7 @@ msgstr "Elimine ancje chescj dispositîfs gjenitôr di {name}:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:316
 msgid "There are no pending actions."
-msgstr "Nissune azion lassade in pîts."
+msgstr "Nissune azion in vore."
 
 #. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
 #. your name and email address (optional) here. Separate translator names with newlines.
@@ -931,7 +923,7 @@ msgstr ""
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "Automatic"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -1045,10 +1037,8 @@ msgid "Unmount"
 msgstr "Dismonte"
 
 #: ../data/ui/blivet-gui.ui:102
-#, fuzzy
-#| msgid "Unlock device"
 msgid "Unlock"
-msgstr "Sbloche dispositîf"
+msgstr "Sbloche"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1129,20 +1119,16 @@ msgid "About blivet-gui"
 msgstr "Informazions su blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:728
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "Nissune operazion in cors"
+msgstr "Apliche operazions in spiete"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "Conferme azions planificadis"
+msgstr "Nete vie lis azions planificadis"
 
 #: ../data/ui/blivet-gui.ui:760
 msgid "Undo last action"
-msgstr ""
+msgstr "Disfe la ultime azion"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1194,7 +1180,7 @@ msgstr "Ripet passphrase:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Dimension setôr:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
@@ -1240,10 +1226,8 @@ msgid "Information:"
 msgstr "Informazion:"
 
 #: ../data/ui/label_dialog.ui:7
-#, fuzzy
-#| msgid "Set label"
 msgid "Set filesystem label"
-msgstr "Stabilìs etichete"
+msgstr "Stabilìs etichete dal filesystem"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
@@ -1301,7 +1285,7 @@ msgstr "A coventin i privileçs di root par eseguî blivet-gui."
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
-msgstr "Azions sospindudis"
+msgstr "Azions in vore"
 
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
