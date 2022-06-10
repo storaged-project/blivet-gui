@@ -1,0 +1,27 @@
+name: Static Analysis
+
+on:
+  pull_request:
+    branches:
+     - master
+  push:
+    branches:
+     - master
+  schedule:
+    - cron: 0 0 * * 0
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run:   |
+         sudo apt-get -qq update
+         sudo apt-get -y -qq install make ansible
+         sudo make install-requires
+    - name: Run checks
+      run: make check
+
