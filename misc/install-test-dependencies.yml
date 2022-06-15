@@ -28,7 +28,6 @@
   - name: Install test dependencies (Fedora)
     package: name={{item}} state=installed
     with_items:
-      - python3-mock
       - python3-coverage
       - python3-pocketlint
       - python3-pycodestyle
@@ -58,7 +57,6 @@
   - name: Install test dependencies (Ubuntu/Debian)
     package: name={{item}} state=present
     with_items:
-      - python3-mock
       - python3-coverage
       - python3-pycodestyle
       - pycodestyle
