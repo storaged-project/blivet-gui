@@ -3,6 +3,7 @@ Name: blivet-gui
 Version: 2.3.0
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source1: blivet-gui_event.conf
 License: GPLv2+
 BuildArch: noarch
 URL: http://github.com/storaged-project/blivet-gui
@@ -49,6 +50,9 @@ make DESTDIR=%{buildroot} install
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/blivet-gui.appdata.xml
+
+mkdir -p %{buildroot}/%{_sysconfdir}/libreport/events.d/
+install -m644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/libreport/events.d/
 
 mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 
