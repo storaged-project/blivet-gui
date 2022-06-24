@@ -7,41 +7,43 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-03 17:59+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2022-06-24 05:18+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <https://translate.fedoraproject.org/projects/blivet/"
+"blivet-gui/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "მოწყობილობის ზომის შეცვლის შეცდომა:"
 
 #: ../blivetgui/blivetgui.py:302
 #, python-brace-format
 msgid "resize {name} {type}"
-msgstr ""
+msgstr "resize {name} {type}"
 
 #: ../blivetgui/blivetgui.py:321
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "მოწყობილობის დაფორმატების შეცდომა:"
 
 #: ../blivetgui/blivetgui.py:335
 #, python-brace-format
 msgid "format {name} {type}"
-msgstr ""
+msgstr "format {name} {type}"
 
 #: ../blivetgui/blivetgui.py:348
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "LVM2 ტომების ჯგუფს ჩასწორების შეცდომა:"
 
 #: ../blivetgui/blivetgui.py:363
 #, python-brace-format
 msgid "edit {name} {type}"
-msgstr ""
+msgstr "edit {name} {type}"
 
 #: ../blivetgui/blivetgui.py:392
 msgid "Failed to change filesystem label on the device:"
@@ -72,30 +74,30 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:434
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "დისკის ჭდის დამატების შეცდომა:"
 
 #: ../blivetgui/blivetgui.py:447
 #, python-brace-format
 msgid "create new disklabel on {name}"
-msgstr ""
+msgstr "დისკის ახალი ჭდის შექმნა {name}-ზე"
 
 #: ../blivetgui/blivetgui.py:499
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "მოწყობილობის დამატების შეცდომა:"
 
 #: ../blivetgui/blivetgui.py:514
 #, python-brace-format
 msgid "add {size} {type} device"
-msgstr ""
+msgstr "{size} {type} მოწყობილობის დამატება"
 
 #: ../blivetgui/blivetgui.py:558
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "მოწყობილობის წაშლის შეცდომა:"
 
 #: ../blivetgui/blivetgui.py:573
 #, python-brace-format
 msgid "delete partition {name}"
-msgstr ""
+msgstr "დანაყოფის წაშლა: {name}"
 
 #: ../blivetgui/blivetgui.py:615
 msgid "Failed to perform the actions:"
@@ -121,7 +123,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:773 ../data/ui/blivet-gui.ui:662
 msgid "Quit"
-msgstr ""
+msgstr "გასვლა"
 
 #: ../blivetgui/blivetgui.py:776
 msgid "blivet-gui is already running"
@@ -150,7 +152,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:818
 msgid "Quit blivet-gui"
-msgstr ""
+msgstr "Blivet-gui-დან გასვლა"
 
 #: ../blivetgui/blivetgui.py:820
 msgid "Ignore disk and continue"
@@ -159,7 +161,7 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:823
 #, python-brace-format
 msgid "Error: {error}"
-msgstr ""
+msgstr "შეცდომა: {error}"
 
 #: ../blivetgui/blivetgui.py:824
 #, python-brace-format
@@ -189,7 +191,7 @@ msgstr ""
 
 #: ../blivetgui/blivet_utils.py:78
 msgid "free space"
-msgstr ""
+msgstr "თავისუფალი ადგილი"
 
 #: ../blivetgui/blivet_utils.py:664
 #, python-brace-format
@@ -288,36 +290,36 @@ msgstr[1] ""
 
 #: ../blivetgui/list_devices.py:82
 msgid "Disks"
-msgstr ""
+msgstr "დისკები"
 
 #: ../blivetgui/list_devices.py:102
 msgid "LVM"
-msgstr ""
+msgstr "LVM"
 
 #: ../blivetgui/list_devices.py:105
 msgid "LVM2 VG"
-msgstr ""
+msgstr "LVM2 VG"
 
 #: ../blivetgui/list_devices.py:108
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../blivetgui/list_devices.py:111
 msgid "MDArray"
-msgstr ""
+msgstr "MDArray"
 
 #: ../blivetgui/list_devices.py:114
 msgid "Btrfs Volumes"
-msgstr ""
+msgstr "Btrfs ტომები"
 
 #: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:388
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "Btrfs Volume"
-msgstr ""
+msgstr "Btrfs ტომი"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
-msgstr ""
+msgstr "საცავების ძებნა"
 
 #: ../blivetgui/loading_window.py:65
 msgid "Scanning storage configuration..."
@@ -346,11 +348,11 @@ msgstr ""
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
-msgstr ""
+msgstr "დამუშავება"
 
 #: ../blivetgui/processing_window.py:83
 msgid "Show actions"
-msgstr ""
+msgstr "ქმედებების ჩვენება"
 
 #: ../blivetgui/processing_window.py:158
 msgid "All queued actions have been processed."
@@ -374,29 +376,29 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:85
 msgid "PE Size:"
-msgstr ""
+msgstr "PE-ის ზომა:"
 
 #: ../blivetgui/dialogs/add_dialog.py:109
 msgid "Partition type:"
-msgstr ""
+msgstr "დანაყოფის ტიპი:"
 
 #: ../blivetgui/dialogs/add_dialog.py:118
 msgid "Logical"
-msgstr ""
+msgstr "ლოგიკური"
 
 #: ../blivetgui/dialogs/add_dialog.py:120
 #: ../blivetgui/dialogs/add_dialog.py:122
 #: ../blivetgui/dialogs/add_dialog.py:124
 msgid "Primary"
-msgstr ""
+msgstr "ძირითადი"
 
 #: ../blivetgui/dialogs/add_dialog.py:122
 msgid "Extended"
-msgstr ""
+msgstr "გაფართოებული"
 
 #: ../blivetgui/dialogs/add_dialog.py:149
 msgid "Chunk Size:"
-msgstr ""
+msgstr "ნაჭრის ზომა:"
 
 #: ../blivetgui/dialogs/add_dialog.py:212
 #, python-brace-format
@@ -409,43 +411,43 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:273
 msgid "Create new device"
-msgstr ""
+msgstr "ახალი მოწყობილობის შექმნა"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:382
 #: ../blivetgui/dialogs/add_dialog.py:746
 #: ../blivetgui/dialogs/device_info_dialog.py:78
 msgid "Partition"
-msgstr ""
+msgstr "დანაყოფი"
 
 #: ../blivetgui/dialogs/add_dialog.py:385
 #: ../blivetgui/dialogs/add_dialog.py:398
 #: ../blivetgui/dialogs/device_info_dialog.py:79
 msgid "LVM2 Volume Group"
-msgstr ""
+msgstr "LVM2 ტომების ჯგუფი"
 
 #. number of free disk regions
 #: ../blivetgui/dialogs/add_dialog.py:391
 msgid "Software RAID"
-msgstr ""
+msgstr "პროგრამული RAID"
 
 #: ../blivetgui/dialogs/add_dialog.py:394
 #: ../blivetgui/dialogs/device_info_dialog.py:80
 msgid "LVM2 Logical Volume"
-msgstr ""
+msgstr "LVM2 ლოგიკური ტომი"
 
 #: ../blivetgui/dialogs/add_dialog.py:394
 #: ../blivetgui/dialogs/device_info_dialog.py:82
 msgid "LVM2 ThinPool"
-msgstr ""
+msgstr "LVM2 ThinPool"
 
 #: ../blivetgui/dialogs/add_dialog.py:401
 msgid "LVM2 Snaphost"
-msgstr ""
+msgstr "LVM2 სწრაფი ასლი"
 
 #: ../blivetgui/dialogs/add_dialog.py:404
 msgid "LVM2 Thin Snaphost"
-msgstr ""
+msgstr "LVM2 თხელი სწრაფი ასლი"
 
 #: ../blivetgui/dialogs/add_dialog.py:407
 #: ../blivetgui/dialogs/device_info_dialog.py:83
@@ -459,7 +461,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:416
 msgid "Device type:"
-msgstr ""
+msgstr "მოწყობილობის ტიპი:"
 
 #: ../blivetgui/dialogs/add_dialog.py:451
 #: ../blivetgui/dialogs/edit_dialog.py:548
@@ -467,7 +469,7 @@ msgstr ""
 #: ../blivetgui/dialogs/edit_dialog.py:659 ../data/ui/blivet-gui.ui:469
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
-msgstr ""
+msgstr "მოწყობილობა"
 
 #: ../blivetgui/dialogs/add_dialog.py:452
 #: ../blivetgui/dialogs/edit_dialog.py:549
@@ -475,14 +477,14 @@ msgstr ""
 #: ../blivetgui/dialogs/edit_dialog.py:660 ../data/ui/blivet-gui.ui:482
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
-msgstr ""
+msgstr "ტიპი"
 
 #: ../blivetgui/dialogs/add_dialog.py:453
 #: ../blivetgui/dialogs/edit_dialog.py:550
 #: ../blivetgui/dialogs/edit_dialog.py:599
 #: ../blivetgui/dialogs/edit_dialog.py:661 ../data/ui/blivet-gui.ui:504
 msgid "Size"
-msgstr ""
+msgstr "ზომა"
 
 #: ../blivetgui/dialogs/add_dialog.py:462
 #: ../blivetgui/dialogs/edit_dialog.py:608
@@ -496,24 +498,24 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:773
 msgid "Filesystem:"
-msgstr ""
+msgstr "ფაილური სისტემა:"
 
 #: ../blivetgui/dialogs/add_dialog.py:799
 #: ../blivetgui/dialogs/edit_dialog.py:165
 msgid "unformatted"
-msgstr ""
+msgstr "დაუფორმატებელი"
 
 #: ../blivetgui/dialogs/add_dialog.py:829 ../data/ui/format_dialog.ui:148
 msgid "Label:"
-msgstr ""
+msgstr "ჭდე:"
 
 #: ../blivetgui/dialogs/add_dialog.py:837
 msgid "Name:"
-msgstr ""
+msgstr "სახელი:"
 
 #: ../blivetgui/dialogs/add_dialog.py:848 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
-msgstr ""
+msgstr "მიმაგრების წერტილი:"
 
 #: ../blivetgui/dialogs/add_dialog.py:1014 ../blivetgui/dialogs/helpers.py:141
 #, python-brace-format
@@ -538,17 +540,17 @@ msgstr ""
 #. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "primary"
-msgstr ""
+msgstr "ძირითადი"
 
 #. pylint: disable=W9902
 #: ../blivetgui/dialogs/device_info_dialog.py:38
 msgid "logical"
-msgstr ""
+msgstr "ლოგიკური"
 
 #. pylint: disable=W9902
 #: ../blivetgui/dialogs/device_info_dialog.py:39
 msgid "extended"
-msgstr ""
+msgstr "გაფართოებული თვისებები"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:66
 #, python-brace-format
@@ -557,15 +559,15 @@ msgstr ""
 
 #: ../blivetgui/dialogs/device_info_dialog.py:81
 msgid "LVM2 Snapshot"
-msgstr ""
+msgstr "LVM2 სწრაფი ასლი"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:84
 msgid "LUKS/DM-Crypt Device"
-msgstr ""
+msgstr "LUKS/DM-Crypt მოწყობილობა"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:87
 msgid "MD RAID Array"
-msgstr ""
+msgstr "MD RAID მასივი"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "DM Integrity Device"
@@ -575,202 +577,202 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:223
 #, python-brace-format
 msgid " • <i>Type:</i> {type}\n"
-msgstr ""
+msgstr " • <i>ტიპი:</i> {type}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:104
 #, python-brace-format
 msgid " • <i>Length:</i> {length}\n"
-msgstr ""
+msgstr " • <i>სიგრძე:</i> {length}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:105
 #, python-brace-format
 msgid " • <i>Start:</i> {start}\n"
-msgstr ""
+msgstr " • <i>დასაწყისი:</i> {start}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:106
 #, python-brace-format
 msgid " • <i>End:</i> {end}\n"
-msgstr ""
+msgstr " • <i>დასასრული:</i> {end}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:113
 #, python-brace-format
 msgid " • <i>Origin:</i> {origin}\n"
-msgstr ""
+msgstr " • <i>საწყისი:</i> {origin}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:114
 #: ../blivetgui/dialogs/device_info_dialog.py:116
 #: ../blivetgui/dialogs/device_info_dialog.py:120
 #, python-brace-format
 msgid " • <i>Segment type:</i> {segtype}\n"
-msgstr ""
+msgstr " • <i>სეგმენტის ტიპი:</i> {segtype}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:117
 #, python-brace-format
 msgid " • <i>Free space:</i> {free}\n"
-msgstr ""
+msgstr " • <i>თავისუფალი ადგილი:</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:118
 #, python-brace-format
 msgid " • <i>Space used:</i> {used}\n"
-msgstr ""
+msgstr " • <i>გამოყენებული ადგილი:</i> {used}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:122
 #, python-brace-format
 msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
-msgstr ""
+msgstr " • <i>დაქეშილი:</i> დიახ (ქეშის ზომა: {cache_size})\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:124
 msgid " • <i>Cached:</i> No\n"
-msgstr ""
+msgstr " • <i>დაქეშილი:</i> არა\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:129
 #, python-brace-format
 msgid " • <i>PE Size:</i> {pesize}\n"
-msgstr ""
+msgstr " • <i>PE ზომა:</i> {pesize}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:130
 #, python-brace-format
 msgid " • <i>PE Count:</i> {pecount}\n"
-msgstr ""
+msgstr " • <i>PE რაოდენობა:</i> {pecount}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:131
 #, python-brace-format
 msgid " • <i>Free Space:</i> {free}\n"
-msgstr ""
+msgstr " • <i>თავისუფალი ადგილი:</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:132
 #, python-brace-format
 msgid " • <i>PE Free:</i> {pefree}\n"
-msgstr ""
+msgstr " • <i>PE თავისუფალი:</i> {pefree}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:133
 #, python-brace-format
 msgid " • <i>Reserved Space:</i> {res}\n"
-msgstr ""
+msgstr " • <i>დარეზერვებულია ადგილი:</i> {res}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:134
 #: ../blivetgui/dialogs/device_info_dialog.py:153
 #, python-brace-format
 msgid " • <i>Complete:</i> {complete}\n"
-msgstr ""
+msgstr " • <i>დასრულდა:</i> {complete}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:139
 #, python-brace-format
 msgid " • <i>Subvol ID:</i> {id}\n"
-msgstr ""
+msgstr " • <i>ქვეტომის ID:</i> {id}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:142
 #, python-brace-format
 msgid " • <i>Data Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>მონაცემების დონე:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:143
 #, python-brace-format
 msgid " • <i>Metadata Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>მეტამონაცემების დონე:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:148
 #, python-brace-format
 msgid " • <i>Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>დონე:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:149
 #, python-brace-format
 msgid " • <i>Devices:</i> {dcount}\n"
-msgstr ""
+msgstr " • <i>მოწყობილობები:</i> {dcount}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:150
 #, python-brace-format
 msgid " • <i>Spares:</i> {spares}\n"
-msgstr ""
+msgstr " • <i>შემონახულები:</i> {spares}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
 msgid " • <i>Degraded:</i> {degraded}\n"
-msgstr ""
+msgstr " • <i>დეგრადირებული:</i> {degraded}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:152
 #, python-brace-format
 msgid " • <i>Metadata Version:</i> {metadata}\n"
-msgstr ""
+msgstr " • <i>მეტამონაცემების ვერსია:</i> {metadata}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:167
 #, python-brace-format
 msgid "Unknown device {name}"
-msgstr ""
+msgstr "უცნობი მოწყობილობა {name}"
 
 #. device info header
 #: ../blivetgui/dialogs/device_info_dialog.py:175
 msgid "Basic information"
-msgstr ""
+msgstr "Ძირითადი ინფორმაცია"
 
 #. 'basic' information about selected device
 #: ../blivetgui/dialogs/device_info_dialog.py:185
 #: ../blivetgui/dialogs/device_info_dialog.py:221
 #: ../blivetgui/dialogs/device_info_dialog.py:256
 msgid "existing"
-msgstr ""
+msgstr "არსებული"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:185
 #: ../blivetgui/dialogs/device_info_dialog.py:221
 #: ../blivetgui/dialogs/device_info_dialog.py:256
 msgid "non-existing"
-msgstr ""
+msgstr "არარსებული"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:186
 #: ../blivetgui/dialogs/device_info_dialog.py:222
 #, python-brace-format
 msgid " • <i>Status:</i> {exist}\n"
-msgstr ""
+msgstr " • <i>სტატუსი:</i> {exist}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:187
 #, python-brace-format
 msgid " • <i>Name:</i> {name}\n"
-msgstr ""
+msgstr " • <i>სახელი:</i> {name}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:188
 #, python-brace-format
 msgid " • <i>Path:</i> {path}\n"
-msgstr ""
+msgstr " • <i>ბილიკი:</i> {path}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:189
 #, python-brace-format
 msgid " • <i>Size:</i> {size}\n"
-msgstr ""
+msgstr " • <i>ზომა:</i> {size}\n"
 
 #. device format header
 #: ../blivetgui/dialogs/device_info_dialog.py:210
 msgid "Device format"
-msgstr ""
+msgstr "მოწყობილობის ფორმატი"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:224
 #, python-brace-format
 msgid " • <i>UUID:</i> {uuid}\n"
-msgstr ""
+msgstr " • <i>UUID:</i> {uuid}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:226
 #, python-brace-format
 msgid " • <i>Label:</i> {label}\n"
-msgstr ""
+msgstr " • <i>ჭდე:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:228
 #, python-brace-format
 msgid " • <i>Mountpoint:</i> {mountpoint}\n"
-msgstr ""
+msgstr " • <i>მიმაგრების წერტილი:</i> {mountpoint}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:231
 msgid " • <i>Type:</i> None"
-msgstr ""
+msgstr " • <i>ტიპი:</i> არცერთი"
 
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid "Parents"
-msgstr ""
+msgstr "მშობლები"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:257
 #, python-brace-format
 msgid " • {exists} {size} {type} {name}\n"
-msgstr ""
+msgstr " • {exists} {size} {type} {name}\n"
 
 #: ../blivetgui/dialogs/edit_dialog.py:103
 #, python-brace-format
@@ -778,10 +780,12 @@ msgid ""
 "<b>This device cannot be resized:</b>\n"
 "<i>{0}</i>"
 msgstr ""
+"<b>მოწყობილობის ზომის შეცვლა შეუძლებელია:</b>\n"
+"<i>{0}</i>"
 
 #: ../blivetgui/dialogs/edit_dialog.py:105
 msgid "This device cannot be resized."
-msgstr ""
+msgstr "მოწყობილობის ზომის შეცვლა შეუძლებელია."
 
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
@@ -791,19 +795,19 @@ msgstr ""
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:518
 msgid "Edit device"
-msgstr ""
+msgstr "მოწყობილობის ჩასწორება"
 
 #: ../blivetgui/dialogs/edit_dialog.py:558
 msgid "Parent devices:"
-msgstr ""
+msgstr "მშობელი მოწყობილობები:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
 msgid "Add a parent"
-msgstr ""
+msgstr "მშობლის დამატება"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
 msgid "Remove a parent"
-msgstr ""
+msgstr "მშობლის წაშლა"
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
 msgid ""
@@ -813,7 +817,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:596
 msgid "Add?"
-msgstr ""
+msgstr "დავამატო?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
 msgid ""
@@ -827,7 +831,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:658
 msgid "Remove?"
-msgstr ""
+msgstr "წავშალო?"
 
 #: ../blivetgui/dialogs/helpers.py:148
 #, python-brace-format
@@ -836,7 +840,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/message_dialogs.py:197
 msgid "Confirm delete operation"
-msgstr ""
+msgstr "დაადასტურეთ წაშლა"
 
 #: ../blivetgui/dialogs/message_dialogs.py:198
 #, python-brace-format
@@ -861,7 +865,7 @@ msgstr ""
 #. your name and email address (optional) here. Separate translator names with newlines.
 #: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
-msgstr ""
+msgstr "თემური დოღონაძე"
 
 #: ../blivetgui/dialogs/size_chooser.py:212
 msgid ""
@@ -876,7 +880,7 @@ msgstr ""
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "ავტომატური"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -916,7 +920,7 @@ msgstr ""
 
 #: ../blivetgui/visualization/rectangle.py:55
 msgid "Snapshot"
-msgstr ""
+msgstr "სწრაფი ასლი"
 
 #: ../blivetgui/visualization/rectangle.py:56
 msgid "Missing partition table"
@@ -932,100 +936,100 @@ msgstr ""
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
-msgstr ""
+msgstr "ყველა უფლება დაცულია © Red Hat, Inc."
 
 #: ../data/ui/add_disklabel_dialog.ui:11
 msgid "No partition table found on disk"
-msgstr ""
+msgstr "დისკზე დანაყოფების ცხრილი არ არსებობს"
 
 #: ../data/ui/add_disklabel_dialog.ui:12
 msgid "A partition table is required before partitions can be added."
-msgstr ""
+msgstr "დანაყოფების დამატებამდე საჭიროა მათი ცხრილის შექმნა."
 
 #: ../data/ui/add_disklabel_dialog.ui:52
 msgid "Select new partition table type:"
-msgstr ""
+msgstr "აირჩიეთ დანაყოფების ახალი ცხრილის ტიპი:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "New"
-msgstr ""
+msgstr "ახალი"
 
 #: ../data/ui/blivet-gui.ui:23
 msgid "Delete"
-msgstr ""
+msgstr "წაშლა"
 
 #: ../data/ui/blivet-gui.ui:32
 msgid "Edit"
-msgstr ""
+msgstr "ჩასწორება"
 
 #: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
 msgid "Resize"
-msgstr ""
+msgstr "ზომის შეცვლა"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
 msgctxt "Menu|Edit"
 msgid "Format"
-msgstr ""
+msgstr "ფორმატი"
 
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:138
 msgid "Modify parents"
-msgstr ""
+msgstr "მშობლების ჩასწრება"
 
 #: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:146
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
-msgstr ""
+msgstr "მიმაგრების წერტილის დაყენება"
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
 msgid "Set label"
-msgstr ""
+msgstr "ჭდის დაყენება"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
 msgid "Set partition table"
-msgstr ""
+msgstr "დანაყოფების ცხრილის დაყენება"
 
 #: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
-msgstr ""
+msgstr "მოხსნა"
 
 #: ../data/ui/blivet-gui.ui:102
 msgid "Unlock"
-msgstr ""
+msgstr "განბლოკვა"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
-msgstr ""
+msgstr "ინფორმაცია"
 
 #: ../data/ui/blivet-gui.ui:239
 msgid "blivet-gui"
-msgstr ""
+msgstr "blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
 #: ../data/ui/blivet-gui.ui:827 ../data/ui/blivet-gui.ui:838
 #: ../data/ui/blivet-gui.ui:849
 msgid "column"
-msgstr ""
+msgstr "სვეტი"
 
 #: ../data/ui/blivet-gui.ui:348
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
-msgstr ""
+msgstr "ახალი მოწყობილობის დამატება"
 
 #: ../data/ui/blivet-gui.ui:364
 msgctxt "ActionsToolbar|Delete"
 msgid "Delete selected device"
-msgstr ""
+msgstr "მონიშნული მოწყობილობის წაშლა"
 
 #: ../data/ui/blivet-gui.ui:380
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
-msgstr ""
+msgstr "არჩეული მოწყობილობის ჩასწორება"
 
 #: ../data/ui/blivet-gui.ui:406
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
-msgstr ""
+msgstr "მოწყობილობის მიმაგრების მოხსნა"
 
 #: ../data/ui/blivet-gui.ui:421
 msgctxt "ActionsToolbar|Decrypt"
@@ -1041,15 +1045,15 @@ msgstr ""
 #: ../data/ui/blivet-gui.ui:493
 msgctxt "LogicalView|Column"
 msgid "Format"
-msgstr ""
+msgstr "ფორმატი"
 
 #: ../data/ui/blivet-gui.ui:515
 msgid "Label"
-msgstr ""
+msgstr "ჭდე"
 
 #: ../data/ui/blivet-gui.ui:526
 msgid "Mountpoint"
-msgstr ""
+msgstr "მიმაგრების წერტილი"
 
 #: ../data/ui/blivet-gui.ui:550
 msgid "Logical View"
@@ -1089,7 +1093,7 @@ msgstr ""
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
-msgstr ""
+msgstr "თავისუფალი სივრცე"
 
 #: ../data/ui/cache_area.ui:109
 msgid "On disk"
@@ -1101,7 +1105,7 @@ msgstr ""
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
-msgstr ""
+msgstr "გამჭოლჩაწერილი"
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
@@ -1109,23 +1113,23 @@ msgstr ""
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
-msgstr ""
+msgstr "ჭდე"
 
 #: ../data/ui/custom_dialog.ui:62
 msgid "Details"
-msgstr ""
+msgstr "დეტალები"
 
 #: ../data/ui/encryption_chooser.ui:21
 msgid "Encrypt:"
-msgstr ""
+msgstr "დაშიფვრა:"
 
 #: ../data/ui/encryption_chooser.ui:33
 msgid "Encryption type:"
-msgstr ""
+msgstr "შიფრაციის ტიპი:"
 
 #: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
 msgid "Passphrase:"
-msgstr ""
+msgstr "საკვანძო ფრაზა:"
 
 #: ../data/ui/encryption_chooser.ui:57
 msgid "Repeat Passphrase:"
@@ -1133,23 +1137,23 @@ msgstr ""
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "სექტორის ზომა:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
-msgstr ""
+msgstr "შეცდომა"
 
 #: ../data/ui/exception_dialog.ui:27
 msgid "_Back"
-msgstr ""
+msgstr "უკან"
 
 #: ../data/ui/exception_dialog.ui:41
 msgid "_Report a bug"
-msgstr ""
+msgstr "_შეცდომის პატაკი"
 
 #: ../data/ui/exception_dialog.ui:55
 msgid "_Quit"
-msgstr ""
+msgstr "გასვ_ლა"
 
 #: ../data/ui/exception_dialog.ui:107
 msgid "Show traceback"
@@ -1157,48 +1161,48 @@ msgstr ""
 
 #: ../data/ui/format_dialog.ui:17
 msgid "Format device"
-msgstr ""
+msgstr "მოწყობილობის ფორმატირება"
 
 #: ../data/ui/format_dialog.ui:35 ../data/ui/mountpoint_dialog.ui:29
 #: ../data/ui/resize_dialog.ui:30
 msgid "_Cancel"
-msgstr ""
+msgstr "_გაუქმება"
 
 #. Perform selected format change on this device.
 #: ../data/ui/format_dialog.ui:50
 msgctxt "Dialog|Format"
 msgid "_Format"
-msgstr ""
+msgstr "_ფორმატირება"
 
 #: ../data/ui/format_dialog.ui:98
 msgid "Select new format:"
-msgstr ""
+msgstr "აირჩიეთ ახალი ფორმატი:"
 
 #: ../data/ui/info_dialog.ui:12
 msgid "Information:"
-msgstr ""
+msgstr "ინფორმაცია:"
 
 #: ../data/ui/label_dialog.ui:7
 msgid "Set filesystem label"
-msgstr ""
+msgstr "ფაილური სისტემის ჭდე"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
-msgstr ""
+msgstr "გაუქმება"
 
 #. Perform selected format change on this device.
 #: ../data/ui/label_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "ჭდის თავიდან დადება"
 
 #: ../data/ui/label_dialog.ui:68
 msgid "Enter new label for this filesystem:"
-msgstr ""
+msgstr "ფაილური სისტემის ახალი ჭდე:"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
-msgstr ""
+msgstr "დისკის განბლოკვა"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
 msgid "Please enter passphrase to unlock selected device."
@@ -1206,31 +1210,31 @@ msgstr ""
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
-msgstr ""
+msgstr "_მიმაგრების წერტილის დაყენება"
 
 #: ../data/ui/mountpoint_dialog.ui:88
 msgid "Enter new mountpoint:"
-msgstr ""
+msgstr "მიმაგრების ახალი წერტილი:"
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
-msgstr ""
+msgstr "მშობლის სახელი:"
 
 #: ../data/ui/parent_chooser.ui:80
 msgid "Available space:"
-msgstr ""
+msgstr "ხელმისაწვდომი სივრცე:"
 
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
-msgstr ""
+msgstr "RAID-ის დონე:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
-msgstr ""
+msgstr "მოწყობილობის ზომის შეცვლა"
 
 #: ../data/ui/resize_dialog.ui:45
 msgid "_Resize"
-msgstr ""
+msgstr "ზომის შეცვლა"
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
@@ -1246,13 +1250,13 @@ msgstr ""
 
 #: ../data/ui/size_chooser.ui:14
 msgid "Size:"
-msgstr ""
+msgstr "ზომა:"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
-msgstr ""
+msgstr "მოხსნა"
 
 #: ../data/ui/unmount_dialog.ui:87
 msgid ""
