@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-03 17:59+0200\n"
-"PO-Revision-Date: 2022-06-24 05:18+0000\n"
+"PO-Revision-Date: 2022-07-02 18:18+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ka/>\n"
@@ -896,7 +896,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/widgets.py:400
 msgid "Passphrases don't match."
-msgstr ""
+msgstr "პაროლები არ ემთხვევა."
 
 #: ../blivetgui/visualization/rectangle.py:50
 msgid "Group device"
@@ -1133,7 +1133,7 @@ msgstr "საკვანძო ფრაზა:"
 
 #: ../data/ui/encryption_chooser.ui:57
 msgid "Repeat Passphrase:"
-msgstr ""
+msgstr "გაიმეორეთ საკვანძო სიტყვა:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
