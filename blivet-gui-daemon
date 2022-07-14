@@ -85,6 +85,14 @@ def main(argv):
     """ Main for blivet-gui-daemon
     """
 
+    if len(argv) != 1:
+        print("Expected exactly one positional argument %d given" % len(argv))
+        sys.exit(1)
+
+    if os.geteuid() != 0:
+        print("Root privileges required to run blivet-gui-daemon")
+        sys.exit(1)
+
     sock_file = create_sock_file()
 
     server = BlivetGUIServer(sock_file, BlivetUtilsServer)
