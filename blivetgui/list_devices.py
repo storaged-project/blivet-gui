@@ -96,7 +96,7 @@ class ListDevices(object):
         gdevices = self.blivet_gui.client.remote_call("get_group_devices")
 
         icon_theme = Gtk.IconTheme.get_default()  # pylint: disable=no-value-for-parameter
-        icon_group = Gtk.IconTheme.load_icon(icon_theme, "drive-multidisk", 32, 0)
+        icon_group = Gtk.IconTheme.load_icon(icon_theme, "folder", 32, 0)
 
         if gdevices["lvm"]:
             self.device_list.append([None, None, "<b>%s</b>" % _("LVM")])
