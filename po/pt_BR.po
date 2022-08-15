@@ -8,13 +8,14 @@
 # Lucas Fernandes <lucas.af88@gmail.com>, 2020.
 # Anonymous <noreply@weblate.org>, 2020.
 # Fernando Rodrigues <sigmasquadron@icloud.com>, 2020, 2022.
+# Maíra Canal <mairacanal@riseup.net>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-03 17:59+0200\n"
-"PO-Revision-Date: 2022-01-11 05:16+0000\n"
-"Last-Translator: Fernando Rodrigues <sigmasquadron@icloud.com>\n"
+"PO-Revision-Date: 2022-08-15 19:19+0000\n"
+"Last-Translator: Maíra Canal <mairacanal@riseup.net>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.13\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -840,14 +841,10 @@ msgid "Parent devices:"
 msgstr "Dispositivos primários:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
 msgstr "Adicionar primário"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
 msgstr "Remover primário"
 
@@ -864,10 +861,6 @@ msgid "Add?"
 msgstr "Adicionar?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
@@ -1053,10 +1046,8 @@ msgid "Unmount"
 msgstr "Desmontar"
 
 #: ../data/ui/blivet-gui.ui:102
-#, fuzzy
-#| msgid "Unlock device"
 msgid "Unlock"
-msgstr "Desbloquear dispositivo"
+msgstr "Desbloquear"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1137,20 +1128,16 @@ msgid "About blivet-gui"
 msgstr "Sobre blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:728
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "Sem ações pendentes"
+msgstr "Aplicar ações pendentes"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "Confirmar ações agendadas"
+msgstr "Limpar ações agendadas"
 
 #: ../data/ui/blivet-gui.ui:760
 msgid "Undo last action"
-msgstr ""
+msgstr "Desfazer última ação"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1248,10 +1235,8 @@ msgid "Information:"
 msgstr "Informações:"
 
 #: ../data/ui/label_dialog.ui:7
-#, fuzzy
-#| msgid "Set label"
 msgid "Set filesystem label"
-msgstr "Definir o rótulo"
+msgstr "Definir o rótulo do sistema de arquivos"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
