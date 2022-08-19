@@ -10,3 +10,11 @@ jobs:
     targets:
     - fedora-all
   trigger: pull_request
+
+srpm_build_deps:
+ - make
+ - gettext
+ - python3-devel
+ - python3-setuptools
+ - desktop-file-utils
+ - libappstream-glib
