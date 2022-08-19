@@ -161,6 +161,9 @@ class BlivetUtils(object):
         blivet.formats.fs.NTFS._formattable = True
         blivet.formats.fs.NTFS._supported = True
 
+        # ignore zram devices
+        blivet.udev.ignored_device_names.append(r"^zram")
+
         self.blivet_reset()
         self._update_min_sizes_info()
 
