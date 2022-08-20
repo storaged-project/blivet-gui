@@ -50,4 +50,8 @@ Vagrant.configure("2") do |config|
   config.vm.define "blivet-gui-debian-testing", primary: false, autostart: false do |testing|
     testing.vm.box = "debian/testing64"
   end
+
+  config.vm.define "blivet-gui-opensuse", primary: false, autostart: false do |suse|
+    suse.vm.box = "opensuse/Tumbleweed.x86_64"
+  end
 end

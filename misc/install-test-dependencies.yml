@@ -92,3 +92,63 @@
     pip:
       name: ['pocketlint', 'blivet', 'pid']
     when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
+
+  - name: Install runtime and build dependencies (OpenSUSE)
+    package: name={{item}} state=present
+    with_items:
+      - make
+      - appstream-glib
+      - polkit
+      - python3-setuptools
+      - python3-gobject
+      - gettext
+      - libgtk-3-0
+      - typelib-1_0-Gtk-3_0
+      - gobject-introspection
+      - python3-gobject-Gdk
+      - typelib-1_0-Gtk-3_0
+    when: ansible_os_family == "Suse"
+
+  - name: Install test dependencies (openSUSE)
+    package: name={{item}} state=present
+    with_items:
+      - python3-coverage
+      - python3-pycodestyle
+      - xorg-x11-server-Xvfb
+      - xvfb-run
+      - targetcli-fb
+      - python3-pip
+      - python3-polib
+      - libbd_part2
+      - e2fsprogs
+      - adwaita-icon-theme
+    when: ansible_os_family == "Suse"
+
+  - name: Install Blivet dependencies not covered by PyPI (openSUSE)
+    package: name={{item}} state=present
+    with_items:
+      - python3-libblockdev
+      - typelib-1_0-BlockDev-2_0
+      - python3-libbytesize
+      - python3-parted
+      - python3-pyudev
+      - python3-six
+      - udev
+      - libbd_btrfs2
+      - libbd_crypto2
+      - libbd_dm2
+      - libbd_fs2
+      - libbd_kbd2
+      - libbd_loop2
+      - libbd_lvm2
+      - libbd_mdraid2
+      - libbd_mpath2
+      - libbd_swap2
+      - libbd_utils2
+    when: ansible_os_family == "Suse"
+
+  # pocketlint, blivet and pid is not packaged on openSUSE
+  - name: Install pocketlint, blivet and pid using pip (openSUSE)
+    pip:
+      name: ['pocketlint', 'blivet', 'pid']
+    when: ansible_os_family == "Suse"
