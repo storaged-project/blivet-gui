@@ -3,13 +3,15 @@
 # Igor Gorbounov <igor.gorbounov@gmail.com>, 2020, 2021.
 # Petr Molodyk <pamolodyk@gmail.com>, 2020.
 # Anonymous <noreply@weblate.org>, 2020.
+# V I <xasertop@gmail.com>, 2022.
+# Olga Smirnova <mistresssilvara@hotmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-03 17:59+0200\n"
-"PO-Revision-Date: 2021-02-11 19:40+0000\n"
-"Last-Translator: Igor Gorbounov <igor.gorbounov@gmail.com>\n"
+"PO-Revision-Date: 2022-09-17 17:19+0000\n"
+"Last-Translator: Olga Smirnova <mistresssilvara@hotmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ru/>\n"
 "Language: ru\n"
@@ -18,7 +20,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4.2\n"
+"X-Generator: Weblate 4.14\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -222,7 +224,7 @@ msgstr ""
 
 #: ../blivetgui/blivet_utils.py:669
 msgid "Protected devices cannot be resized"
-msgstr "Размер защищенных устройств не может быть изменен."
+msgstr "Размер защищенных устройств не может быть изменен"
 
 #: ../blivetgui/blivet_utils.py:674
 msgid "Immutable formats cannot be resized"
@@ -271,11 +273,8 @@ msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "Нельзя изменить размер логических томов со снимками."
 
 #: ../blivetgui/blivet_utils.py:729
-#, fuzzy
-#| msgid "Resizing of {type} devices is currently not supported"
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr ""
-"Изменение размера для устройств {type} в настоящее время не поддерживается"
+msgstr "Изменение размера устройств LUKS2 в настоящее время не поддерживается."
 
 #: ../blivetgui/blivet_utils.py:741
 #, python-brace-format
@@ -564,7 +563,7 @@ msgstr "Точка монтирования:"
 #: ../blivetgui/dialogs/add_dialog.py:1014 ../blivetgui/dialogs/helpers.py:141
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
-msgstr "Недопустимая точка монтирования «{0}»"
+msgstr "Недопустимая точка монтирования «{0}»."
 
 #: ../blivetgui/dialogs/add_dialog.py:1021
 msgid "Please select at least two parent devices."
@@ -846,14 +845,10 @@ msgid "Parent devices:"
 msgstr "Родительские устройства:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
 msgstr "Добавить родительское устройство"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
 msgstr "Удалить родительское устройство"
 
@@ -870,10 +865,6 @@ msgid "Add?"
 msgstr "Добавить?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
@@ -908,6 +899,7 @@ msgstr "Вы действительно хотите удалить устрой
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
 msgstr ""
+"Этим действием также будут удалены следующие дочерние элементы {name}:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:216
 #, python-brace-format
@@ -938,7 +930,7 @@ msgstr "Выбранный сейчас размер меньше минимал
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "Автоматически"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -1052,10 +1044,8 @@ msgid "Unmount"
 msgstr "Размонтировать"
 
 #: ../data/ui/blivet-gui.ui:102
-#, fuzzy
-#| msgid "Unlock device"
 msgid "Unlock"
-msgstr "Разблокировать устройство"
+msgstr "Разблокировать"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1136,20 +1126,16 @@ msgid "About blivet-gui"
 msgstr "О программе blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:728
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "Нет ожидающих действий"
+msgstr "Применить ожидающие действия"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "Подтверждение плана действий"
+msgstr "Очистить план действий"
 
 #: ../data/ui/blivet-gui.ui:760
 msgid "Undo last action"
-msgstr ""
+msgstr "Отменить последнее действие"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1201,7 +1187,7 @@ msgstr "Повторите пароль:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Размер сектора:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
@@ -1247,10 +1233,8 @@ msgid "Information:"
 msgstr "Сведения:"
 
 #: ../data/ui/label_dialog.ui:7
-#, fuzzy
-#| msgid "Set label"
 msgid "Set filesystem label"
-msgstr "Установить метку"
+msgstr "Установить метку ФС"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
