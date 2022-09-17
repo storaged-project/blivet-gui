@@ -3,13 +3,14 @@
 # Igor Gorbounov <igor.gorbounov@gmail.com>, 2020, 2021.
 # Petr Molodyk <pamolodyk@gmail.com>, 2020.
 # Anonymous <noreply@weblate.org>, 2020.
+# V I <xasertop@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-03 17:59+0200\n"
-"PO-Revision-Date: 2021-02-11 19:40+0000\n"
-"Last-Translator: Igor Gorbounov <igor.gorbounov@gmail.com>\n"
+"PO-Revision-Date: 2022-09-17 17:19+0000\n"
+"Last-Translator: V I <xasertop@gmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ru/>\n"
 "Language: ru\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.4.2\n"
+"X-Generator: Weblate 4.14\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -222,7 +223,7 @@ msgstr ""
 
 #: ../blivetgui/blivet_utils.py:669
 msgid "Protected devices cannot be resized"
-msgstr "Размер защищенных устройств не может быть изменен."
+msgstr "Размер защищенных устройств не может быть изменен"
 
 #: ../blivetgui/blivet_utils.py:674
 msgid "Immutable formats cannot be resized"
@@ -564,7 +565,7 @@ msgstr "Точка монтирования:"
 #: ../blivetgui/dialogs/add_dialog.py:1014 ../blivetgui/dialogs/helpers.py:141
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
-msgstr "Недопустимая точка монтирования «{0}»"
+msgstr "Недопустимая точка монтирования «{0}»."
 
 #: ../blivetgui/dialogs/add_dialog.py:1021
 msgid "Please select at least two parent devices."
@@ -908,6 +909,7 @@ msgstr "Вы действительно хотите удалить устрой
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
 msgstr ""
+"Этим действием также будут удалены следующие дочерние элементы {name}:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:216
 #, python-brace-format
