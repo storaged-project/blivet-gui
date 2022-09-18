@@ -190,6 +190,27 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 - Translated using Weblate (Turkish) (oguzersen)
 - README: Add information about OpenMandriva repo (vtrefny)
 
+* Wed Aug 10 2022 Vojtech Trefny <vtrefny@redhat.com> - 2.3.0-8
+- Drop dependecy on gettext
+
+* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.3.0-6
+- Rebuilt for Python 3.11
+
+* Thu Feb 17 2022 Adam Williamson <awilliam@redhat.com> - 2.3.0-5
+- Backport PR #331 to fix with adwaita-icon-theme 42+
+
+* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+
+* Wed Sep 22 2021 Adam Williamson <awilliam@redhat.com> - 2.3.0-3
+- Backport PR #294 to fix bug deleting not-yet-created RAID device (#2005289)
+
+* Tue Aug 24 2021 Vojtech Trefny <vtrefny@redhat.com> - 2.3.0-2
+- Do not allow setting chunk size for RAID 1 (#1996223)
+
 * Sun Aug 08 2021 Vojtech Trefny <vtrefny@redhat.com> - 2.3.0-1
 - README: Add information about the openSUSE and Mageia Copr repo (vtrefny)
 - Update distributions in Vagrantfile (vtrefny)
