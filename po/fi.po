@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-03 17:59+0200\n"
+"POT-Creation-Date: 2022-09-18 10:11+0200\n"
 "PO-Revision-Date: 2022-04-13 08:16+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/blivet/"
@@ -216,73 +216,73 @@ msgstr ""
 msgid "free space"
 msgstr "vapaa tila"
 
-#: ../blivetgui/blivet_utils.py:664
+#: ../blivetgui/blivet_utils.py:667
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr "{type}-laitteiden koon muuttamista ei tällä hetkellä tueta"
 
-#: ../blivetgui/blivet_utils.py:669
+#: ../blivetgui/blivet_utils.py:672
 msgid "Protected devices cannot be resized"
 msgstr "Suojattujen laitteiden kokoa ei voi muuttaa"
 
-#: ../blivetgui/blivet_utils.py:674
+#: ../blivetgui/blivet_utils.py:677
 msgid "Immutable formats cannot be resized"
 msgstr "Muuttamattomien muotojen kokoa ei voi muuttaa"
 
-#: ../blivetgui/blivet_utils.py:679
+#: ../blivetgui/blivet_utils.py:682
 msgid "Devices with children cannot be resized"
 msgstr "Lapsia sisältävien laitteiden kokoa ei voi muuttaa"
 
-#: ../blivetgui/blivet_utils.py:690
+#: ../blivetgui/blivet_utils.py:693
 msgid "Unformatted devices are not resizable"
 msgstr "Alustamattomia laitteita ei voi muuttaa"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
-#: ../blivetgui/blivet_utils.py:697
+#: ../blivetgui/blivet_utils.py:700
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr "Muodon {type} koon muuttamista ei tällä hetkellä tueta"
 
-#: ../blivetgui/blivet_utils.py:702
+#: ../blivetgui/blivet_utils.py:705
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr "Työkalut muodon {type} koon muuttamiseksi eivät ole käytettävissä."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
-#: ../blivetgui/blivet_utils.py:709
+#: ../blivetgui/blivet_utils.py:712
 msgid "Formats scheduled to be created cannot be resized"
 msgstr "Muotoja, jotka on ajoitettu luotavaksi ei voi muuttaa"
 
-#: ../blivetgui/blivet_utils.py:714
+#: ../blivetgui/blivet_utils.py:717
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr "Muoto {type} ei tue kokorajoitustietojensa päivittämistä"
 
-#: ../blivetgui/blivet_utils.py:719
+#: ../blivetgui/blivet_utils.py:722
 msgid "Mounted devices cannot be resized"
 msgstr "Liitettyjen laitteiden kokoa ei voi muuttaa"
 
-#: ../blivetgui/blivet_utils.py:724
+#: ../blivetgui/blivet_utils.py:727
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr ""
 "Loogisia taltioita sisällyttävien tilannevedosten kokoja ei voi muuttaa."
 
-#: ../blivetgui/blivet_utils.py:729
+#: ../blivetgui/blivet_utils.py:732
 msgid "Resizing of LUKS2 devices is currently not supported."
 msgstr "LUKS2-laitteiden koon muuttamista ei tällä hetkellä tueta."
 
-#: ../blivetgui/blivet_utils.py:741
+#: ../blivetgui/blivet_utils.py:744
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr "Tiedostojärjestelmän koon tietojen päivittäminen epäonnistui: {error}"
 
-#: ../blivetgui/blivet_utils.py:760
+#: ../blivetgui/blivet_utils.py:763
 msgid "Device is not resizable."
 msgstr "Laitteen kokoa ei voi muuttaa."
 
-#: ../blivetgui/blivet_utils.py:762
+#: ../blivetgui/blivet_utils.py:765
 msgid "Format is not resizable after updating its size limit information."
 msgstr "Muotoa ei voi muuttaa sen kokorajoitustietojen päivittämisen jälkeen."
 
