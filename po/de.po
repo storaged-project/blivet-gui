@@ -4,13 +4,13 @@
 # Jens Maucher <jensmaucher@gmail.com>, 2020.
 # Chris Wehrli <christian.wehrli@gmx.ch>, 2020.
 # Fabian Affolter <mail@fabian-affolter.ch>, 2020.
-# Ettore Atalan <atalanttore@googlemail.com>, 2021.
+# Ettore Atalan <atalanttore@googlemail.com>, 2021, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-18 10:11+0200\n"
-"PO-Revision-Date: 2021-12-28 21:16+0000\n"
+"PO-Revision-Date: 2022-10-02 15:19+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/de/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -214,6 +214,7 @@ msgstr "Freier Speicher"
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr ""
+"Größenänderung von Geräten des Typs {type} wird derzeit nicht unterstützt"
 
 #: ../blivetgui/blivet_utils.py:672
 msgid "Protected devices cannot be resized"
@@ -236,7 +237,7 @@ msgstr "Die Größe nicht formatierter Geräte kann nicht geändert werden"
 #: ../blivetgui/blivet_utils.py:700
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
-msgstr ""
+msgstr "Größenänderung des Formats {type} wird derzeit nicht unterstützt"
 
 #: ../blivetgui/blivet_utils.py:705
 #, python-brace-format
@@ -256,6 +257,8 @@ msgstr ""
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
+"Format {type} unterstützt die Aktualisierung seiner "
+"Größenbegrenzungsinformationen nicht"
 
 #: ../blivetgui/blivet_utils.py:722
 msgid "Mounted devices cannot be resized"
@@ -283,6 +286,8 @@ msgstr "Die Größe des Geräts kann nicht geändert werden."
 #: ../blivetgui/blivet_utils.py:765
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
+"Größe des Formats kann nach der Aktualisierung der "
+"Größenbegrenzungsinformationen nicht mehr geändert werden."
 
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
@@ -680,7 +685,7 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:133
 #, python-brace-format
 msgid " • <i>Reserved Space:</i> {res}\n"
-msgstr ""
+msgstr " • <i>Reservierter Platz:</i> {res}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:134
 #: ../blivetgui/dialogs/device_info_dialog.py:153
@@ -799,7 +804,7 @@ msgstr " • <i>Typ:</i> Keiner"
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid "Parents"
-msgstr ""
+msgstr "Eltern"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:257
 #, python-brace-format
@@ -920,16 +925,18 @@ msgstr "Übersetzer"
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
 msgstr ""
+"Aktuell ausgewählte Größe ist größer als die Höchstgrenze für diese Auswahl."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr ""
+"Aktuell gewählte Größe ist kleiner als die Mindestgrenze für diese Auswahl."
 
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "Automatisch"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -949,7 +956,7 @@ msgstr "Passwörter stimmen nicht überein."
 
 #: ../blivetgui/visualization/rectangle.py:50
 msgid "Group device"
-msgstr ""
+msgstr "Gruppengerät"
 
 #: ../blivetgui/visualization/rectangle.py:51
 msgid "LiveUSB device"
@@ -1043,10 +1050,8 @@ msgid "Unmount"
 msgstr "Aushängen"
 
 #: ../data/ui/blivet-gui.ui:102
-#, fuzzy
-#| msgid "Unlock device"
 msgid "Unlock"
-msgstr "Gerät entsperren"
+msgstr "Entsperren"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1127,20 +1132,16 @@ msgid "About blivet-gui"
 msgstr "Über blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:728
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "Keine ausstehenden Aktionen"
+msgstr "Ausstehende Aktionen anwenden"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "Geplante Aktionen bestätigen"
+msgstr "Geplante Aktionen löschen"
 
 #: ../data/ui/blivet-gui.ui:760
 msgid "Undo last action"
-msgstr ""
+msgstr "Letzte Aktion rückgängig machen"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1159,8 +1160,9 @@ msgid "Cache type:"
 msgstr "Cache-Typ:"
 
 #: ../data/ui/cache_area.ui:156
+#, fuzzy
 msgid "Writethrough"
-msgstr ""
+msgstr "Durchschreiben"
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
@@ -1184,15 +1186,15 @@ msgstr "Verschlüsselungstyp:"
 
 #: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
 msgid "Passphrase:"
-msgstr "Passwort:"
+msgstr "Passphrase:"
 
 #: ../data/ui/encryption_chooser.ui:57
 msgid "Repeat Passphrase:"
-msgstr "Passwort wiederholen"
+msgstr "Passphrase wiederholen:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Sektorgröße:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
@@ -1238,10 +1240,8 @@ msgid "Information:"
 msgstr "Information:"
 
 #: ../data/ui/label_dialog.ui:7
-#, fuzzy
-#| msgid "Set label"
 msgid "Set filesystem label"
-msgstr "Bezeichnung festlegen"
+msgstr "Dateisystembezeichnung festlegen"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
@@ -1251,7 +1251,7 @@ msgstr "Abbrechen"
 #: ../data/ui/label_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "Neu bezeichnen"
 
 #: ../data/ui/label_dialog.ui:68
 msgid "Enter new label for this filesystem:"
@@ -1322,6 +1322,10 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>Das ausgewählte Gerät ist derzeit an\n"
+"mehreren Einhängepunkten eingehängt.</b>\n"
+"\n"
+"Bitte wählen Sie den/die Einhängepunkt(e) zum Aushängen aus:"
 
 #~ msgid "Decrypt"
 #~ msgstr "Entschlüsseln"
