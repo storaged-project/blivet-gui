@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-18 10:11+0200\n"
-"PO-Revision-Date: 2022-04-13 08:17+0000\n"
+"PO-Revision-Date: 2022-11-03 01:19+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.14.1\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -1153,7 +1153,7 @@ msgstr "이름표"
 
 #: ../data/ui/custom_dialog.ui:62
 msgid "Details"
-msgstr "상세 정보"
+msgstr "상세정보"
 
 #: ../data/ui/encryption_chooser.ui:21
 msgid "Encrypt:"
