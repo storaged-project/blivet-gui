@@ -7,13 +7,14 @@
 # cheng ye <18969068329@163.com>, 2017. #zanata
 # Tian Shixiong <tiansworld@gmail.com>, 2020.
 # Charles Lee <lchopn@gmail.com>, 2020, 2021.
+# yangyangdaji <1504305527@qq.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-09-18 10:11+0200\n"
-"PO-Revision-Date: 2021-11-19 17:16+0000\n"
-"Last-Translator: Charles Lee <lchopn@gmail.com>\n"
+"PO-Revision-Date: 2022-12-01 13:20+0000\n"
+"Last-Translator: yangyangdaji <1504305527@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/zh_CN/>\n"
 "Language: zh_CN\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.9\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -829,16 +830,12 @@ msgid "Parent devices:"
 msgstr "父设备："
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
-msgstr "添加上层设备"
+msgstr "添加父项"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
-msgstr "移除上层设备"
+msgstr "删除父项"
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
 msgid ""
@@ -853,16 +850,12 @@ msgid "Add?"
 msgstr "添加？"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
-"没有可以从该卷组中移除的\n"
-"物理卷。"
+"没有一个物理卷可以\n"
+"从此卷组中删除。"
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
 msgid "Currently it is possible to remove only one parent at time."
@@ -919,7 +912,7 @@ msgstr "所选大小小于其最小值。"
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "自动"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -1033,10 +1026,8 @@ msgid "Unmount"
 msgstr "卸载"
 
 #: ../data/ui/blivet-gui.ui:102
-#, fuzzy
-#| msgid "Unlock device"
 msgid "Unlock"
-msgstr "解锁设备"
+msgstr "解锁"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1117,20 +1108,16 @@ msgid "About blivet-gui"
 msgstr "关于 blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:728
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "没有待处理操作"
+msgstr "应用待处理的操作"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "确认预定的操作"
+msgstr "清除计划的操作"
 
 #: ../data/ui/blivet-gui.ui:760
 msgid "Undo last action"
-msgstr ""
+msgstr "撤消上次操作"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1182,7 +1169,7 @@ msgstr "重复口令："
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "扇区大小："
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
@@ -1228,10 +1215,8 @@ msgid "Information:"
 msgstr "信息："
 
 #: ../data/ui/label_dialog.ui:7
-#, fuzzy
-#| msgid "Set label"
 msgid "Set filesystem label"
-msgstr "设置标签"
+msgstr "设置文件系统标签"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
