@@ -144,7 +144,7 @@ class BlivetGUI(object):
         self.button_actions.connect("clicked", self.show_actions)
         self.list_actions = ListActions(self)
 
-        # Vizualisation
+        # Visualization
         self.logical_view = LogicalView(self)
         self.builder.get_object("image_window").add(self.logical_view.hbox)
 
@@ -268,7 +268,7 @@ class BlivetGUI(object):
         self.list_devices.select_device_by_name(device.name)
 
     def _handle_user_change(self):
-        # do this after user changed something -- curretnly only used
+        # do this after user changed something -- currently only used
         # in installer mode
         pass
 
@@ -794,7 +794,7 @@ class BlivetGUI(object):
             # blivet-gui is already running --> quit
             if ret.reason == ServerInitResponse.RUNNING:
                 self._blivet_init_already_running()
-            # unusable configuration (corrupted/unknow) disklabel --> ask
+            # unusable configuration (corrupted/unknown) disklabel --> ask
             elif ret.reason == ServerInitResponse.UNUSABLE:
                 loading_window.destroy()
 
@@ -806,7 +806,7 @@ class BlivetGUI(object):
                 else:
                     self.client.quit()
                     sys.exit(1)
-            # unknow problem --> re-raise exception
+            # unknown problem --> re-raise exception
             else:
                 message = _("Failed to init blivet:")
                 self._reraise_exception(ret.exception, ret.traceback, message,

@@ -99,7 +99,7 @@ class SizeArea(GUIWidget):
 
         self.main_chooser.selected_size = self.max_size
 
-        # checknutton for advanced/manual parent selection
+        # checkbutton for advanced/manual parent selection
         checkbutton_manual = self._builder.get_object("checkbutton_manual")
         checkbutton_manual.connect("toggled", self._on_manual_toggled)
         self.widgets.remove(checkbutton_manual)
@@ -201,7 +201,7 @@ class SizeArea(GUIWidget):
 
     # PUBLIC METHODS
     def connect(self, signal_name, signal_handler, *args):  # pylint: disable=unused-argument
-        """ Connect a signal hadler """
+        """ Connect a signal handler """
 
         raise TypeError("Unknown signal type '%s' for widget %s" % (signal_name, self.name))
 
@@ -331,7 +331,7 @@ class SizeArea(GUIWidget):
 
 
 class ParentArea(GUIWidget):
-    """ Widget for advanced/manual cofiguration of parents. ParentArea shows all
+    """ Widget for advanced/manual configuration of parents. ParentArea shows all
         available parents and allows user to select size for them.
     """
 
@@ -413,7 +413,7 @@ class ParentArea(GUIWidget):
 
     # PUBLIC METHODS
     def connect(self, signal_name, signal_handler, *args):  # pylint: disable=unused-argument
-        """ Connect a signal hadler """
+        """ Connect a signal handler """
 
         raise TypeError("Unknown signal type '%s' for widget %s" % (signal_name, self.name))
 
@@ -574,7 +574,7 @@ class ParentChooser(GUIWidget):
         self.grid.attach(self.size_chooser.grid, 3, 0, 1, 1)
         self.widgets.append(self.size_chooser)
 
-        # now set the intial state of this ParentChooser
+        # now set the initial state of this ParentChooser
         self.selected = selected
         self.selected_size = max_size
 
@@ -649,7 +649,7 @@ class ParentChooser(GUIWidget):
 
     # PUBLIC METHODS
     def connect(self, signal_name, signal_handler, *args):
-        """ Connect a signal hadler """
+        """ Connect a signal handler """
 
         if signal_name == "parent-toggled":
             self._parent_toggled_handlers.append(SignalHandler(method=signal_handler, args=args))
@@ -785,7 +785,7 @@ class SizeChooser(GUIWidget):
             return self.available_units[-1]
 
     def connect(self, signal_name, signal_handler, *args):
-        """ Connect a signal hadler """
+        """ Connect a signal handler """
 
         if signal_name == "size-changed":
             self._size_change_handlers.append(SignalHandler(method=signal_handler, args=args))

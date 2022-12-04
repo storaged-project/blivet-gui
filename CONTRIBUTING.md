@@ -25,7 +25,7 @@ PYTHONPATH=. PATH=`pwd`:$PATH blivet-gui
         * this test suite needs a graphical session (or a "fake" one like _Xvfb_) to run
       * `sudo make utils-test`
         * tests for the backend ("utils") part of blivet-gui
-        * these tests create virtual SCSI drives using the `targetcli` utility, it is neccessary
+        * these tests create virtual SCSI drives using the `targetcli` utility, it is necessary
           to run these with root privileges
   * `make check`
     * run static code checks (_pylint_, _pep8_ and _translation canary_)

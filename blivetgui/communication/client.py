@@ -116,7 +116,7 @@ class BlivetGUIClient(object):
         """
 
         if isinstance(answer, ProxyID):
-            if answer.id in self.id_dict.keys():  # we already recieved this id before and have our proxy object for it
+            if answer.id in self.id_dict.keys():  # we already received this id before and have our proxy object for it
                 return self.id_dict[answer]
             else:
                 self.id_dict[answer] = ClientProxyObject(client=self, proxy_id=answer)  # new id, create new proxy object
@@ -268,7 +268,7 @@ class BlivetGUIClient(object):
             self.sock.close()
 
     def _recv_msg(self):
-        """ Recieve a message from server
+        """ Receive a message from server
 
             ..note.: first for bites represents message length
         """
@@ -282,7 +282,7 @@ class BlivetGUIClient(object):
         return self._recv_data(msglen)
 
     def _recv_data(self, length):
-        """ Recieve 'length' of data from client
+        """ Receive 'length' of data from client
 
             :param length: length of data to receive
             :type length: int

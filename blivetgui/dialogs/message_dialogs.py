@@ -287,7 +287,7 @@ class ConfirmActionsDialog(object):
 
         self.dialog.show_all()
 
-        # yes, it is neccessary to call this twice, don't know why, just some Gtk magic
+        # yes, it is necessary to call this twice, don't know why, just some Gtk magic
         adjust_scrolled_size(scrolledwindow, win_width, win_height)
 
     def run(self):
@@ -327,7 +327,7 @@ class ShowActionsDialog(object):
 
         self.dialog.show_all()
 
-        # yes, it is neccessary to call this twice, don't know why, just some Gtk magic
+        # yes, it is necessary to call this twice, don't know why, just some Gtk magic
         adjust_scrolled_size(scrolledwindow, win_width, win_height)
 
     def set_decorated(self, decorated):

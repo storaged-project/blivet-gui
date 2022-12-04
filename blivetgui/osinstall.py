@@ -138,7 +138,7 @@ class BlivetGUIAnaconda(BlivetGUI):
         label_actions = self.builder.get_object("label_actions")
         label_actions.destroy()  # label with actions is part of the spoke
 
-        # Vizualisation
+        # Visualization
         self.logical_view = LogicalView(self)
         self.builder.get_object("image_window").add(self.logical_view.hbox)
 
@@ -162,14 +162,14 @@ class BlivetGUIAnaconda(BlivetGUI):
             size of devices in visualization fail).
         """
 
-        # just set cursor to firts line in the device view -- this will select
+        # just set cursor to first line in the device view -- this will select
         # the first disk and re-draw visualization
         self.list_devices.disks_view.set_cursor(0)
 
     def set_keyboard_shortcuts(self, _spoke):
         """ Configure blivet-gui keyboard shortcuts and add our accel group
             to the Anaconda main window. This configuration should be removed
-            using "unset_keyboard_shortcuts" when exitting blivet-gui spoke
+            using "unset_keyboard_shortcuts" when exiting blivet-gui spoke
         """
         accel = self.builder.get_object("accelgroup")
         self.main_window.add_accel_group(accel)
@@ -218,7 +218,7 @@ class BlivetGUIAnaconda(BlivetGUI):
         if allow_ignore:
             msg = _("{message}\n{error}\n Please click Report button to raise the error and let anaconda \n to handle the report process if you want to report this.").format(message=message, error=str(exception))
         else:
-            msg = _("Unknown error occured. Anaconda will be terminated.\n{error}").format(error=str(exception))
+            msg = _("Unknown error occurred. Anaconda will be terminated.\n{error}").format(error=str(exception))
 
         with self.enlightbox():
             dialog = message_dialogs.ExceptionDialog(dialog_window if dialog_window else self.main_window,

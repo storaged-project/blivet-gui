@@ -49,7 +49,7 @@ class SignalHandler(ProxyDataContainer):
 
 class GUIWidget(object):
     """ Helper class for 'composite' widgets for blivet-gui that reads given
-        Glade file and implements some usefull Gtk.Widget methods
+        Glade file and implements some useful Gtk.Widget methods
     """
 
     name = None

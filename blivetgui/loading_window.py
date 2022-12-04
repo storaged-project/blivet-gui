@@ -86,7 +86,7 @@ class LoadingWindow(Gtk.Dialog):
         self.destroy()
 
     def on_timeout(self, _user_data):
-        """ Timeout fuction for progressbar pulsing
+        """ Timeout function for progressbar pulsing
         """
 
         if self.pulse:

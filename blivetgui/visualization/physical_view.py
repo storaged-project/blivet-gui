@@ -57,7 +57,7 @@ class PhysicalView(object):
     def _visualization_loop(self, treeiter, box=None, rect_widths=None):
         while treeiter:
             depth = self._devices_list.iter_depth(treeiter)
-            # lower level of the tree -> visualization of childs
+            # lower level of the tree -> visualization of children
             if depth:
                 (device, is_valid) = self._devices_list[treeiter]
 
@@ -83,7 +83,7 @@ class PhysicalView(object):
                 self.boxes.append(child_box)
 
                 # it's not possible to get width of child box, so we take width
-                # of the vbox a substract width of parent device and its padding
+                # of the vbox and subtract width of parent device and its padding
                 box_width = self.vbox.get_allocation().width - 100 - 2 * 10
                 # compute rectangle widths for children
                 widths = self._compute_rect_widths(parent_iter=treeiter, view_width=box_width)

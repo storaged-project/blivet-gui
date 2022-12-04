@@ -56,7 +56,7 @@ To solve this, server and client parts of blivet-gui communicate using "proxy ob
 When :class:`~.blivetgui.BlivetGUI` "asks" for some "information" that isn't picklable (e.g. using
 :meth:`~.blivet_utils.BlivetUtils.get_disks` that returns list of :class:`blivet.devices.storage.StorageDevice`),
 :class:`~.communication.server.BlivetUtilsServer` creates a new instance of :class:`~.communication.proxy_utils.ProxyID`
-and sends it to the client instead. When client recieves it, it creates an instance of
+and sends it to the client instead. When client receives it, it creates an instance of
 :class:`~.communication.client.ClientProxyObject` and sends it to the :class:`~.blivetgui.BlivetGUI` instead.
 
 :class:`~.communication.client.ClientProxyObject` has a custom `__getattr__` method and has the ProxyID so it can ask

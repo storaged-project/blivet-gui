@@ -118,7 +118,7 @@ class BlivetProxyObjectTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.blivet_object = MagicMock(set_test=None)
-        del cls.blivet_object.non_existing  # mock non-existing attribude
+        del cls.blivet_object.non_existing  # mock non-existing attribute
         cls.obj_id = ProxyID()
         cls.proxy_object = BlivetProxyObject(cls.blivet_object, cls.obj_id)
 

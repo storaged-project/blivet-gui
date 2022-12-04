@@ -20,7 +20,7 @@ class DisksTestToolkit(BlivetUtilsTestToolkit):
         return ret.actions
 
     def format_device(self, device, fstype="ext4", label=None, mountpoint=None):
-        # prepare "user input" for editting (in this case formatting) a device
+        # prepare "user input" for editing (in this case formatting) a device
         user_input = ProxyDataContainer(edit_device=device, format=True,
                                         filesystem=fstype, label=label,
                                         mountpoint=mountpoint)

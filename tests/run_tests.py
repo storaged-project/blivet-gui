@@ -10,7 +10,7 @@ def _get_tests_from_suite(suite, tests):
     """ Extract tests from the test suite """
     # 'tests' we get from 'unittest.defaultTestLoader.discover' are "wrapped"
     # in multiple 'unittest.suite.TestSuite' classes/lists so we need to "unpack"
-    # the indivudual test cases
+    # the individual test cases
     for test in suite:
         if isinstance(test, unittest.suite.TestSuite):
             _get_tests_from_suite(test, tests)

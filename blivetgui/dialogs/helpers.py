@@ -73,7 +73,7 @@ def adjust_scrolled_size(scrolledwindow, width_limit, height_limit):
         height = preferred_size.minimum_size.height
         width = preferred_size.minimum_size.width
     else:
-        # this should never happend, but who knows what Gtk can really do
+        # this should never happened, but who knows what Gtk can really do
         width = None
         height = None
 

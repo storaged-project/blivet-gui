@@ -137,7 +137,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
                 self._get_key(unpickled_msg)
 
     def _recv_msg(self):
-        """ Recieve a message from client
+        """ Receive a message from client
 
             ..note.: first for bites represents message length
         """
@@ -152,7 +152,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
         return self._recv_data(msglen)
 
     def _recv_data(self, length):
-        """ Recieve 'length' of data from client
+        """ Receive 'length' of data from client
 
             :param length: length of data to receive
             :type length: int

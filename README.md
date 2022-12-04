@@ -6,7 +6,7 @@ blivet-gui is a graphical tool for storage configuration using the [blivet](http
 
 <img alt="CI status" src="https://fedorapeople.org/groups/storage_apis/statuses/blivet-gui-master.svg" width="100%" height="225ex" />
 
-### Licence
+### License
 
 See [COPYING](COPYING)
 

@@ -217,7 +217,7 @@ class ListPartitionsTest(unittest.TestCase):
         device = MagicMock(type="partition", protected=False)
         self.assertFalse(self.list_partitions._allow_set_partition_table(device))
 
-        # always allow on unitialized disks
+        # always allow on uninitialized disks
         device = MagicMock(type="free space", is_uninitialized_disk=True, is_empty_disk=True)
         self.assertTrue(self.list_partitions._allow_set_partition_table(device))
 

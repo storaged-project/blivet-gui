@@ -24,7 +24,7 @@
 
 
 class ListPartitions(object):
-    """ List of childs of selected device
+    """ List of children of selected device
     """
 
     def __init__(self, blivet_gui):
@@ -245,7 +245,7 @@ class ListPartitions(object):
 
     def _allow_set_partition_table(self, device):
         # there is no special "device" representing disks in the UI
-        # so we are "editting" a free space
+        # so we are "editing" a free space
         if device.type != "free space":
             return False
 

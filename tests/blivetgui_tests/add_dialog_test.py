@@ -487,9 +487,9 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog.parents_store[0][2])
         self.assertTrue(add_dialog.parents_store[0][3])
 
-        # lvm -- allow secting other parents
+        # lvm -- allow selecting other parents
         add_dialog.devices_combo.set_active_id("lvm")
-        # it is not possible to the emmit toggle programmatically, we need to call the signal handler manually and
+        # it is not possible to the emit toggle programmatically, we need to call the signal handler manually and
         # set the value in the TreeStore to True
         add_dialog.on_cell_toggled(None, 1)
         add_dialog.parents_store[1][2] = True

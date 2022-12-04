@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # edit_dialog.py
-# Gtk.Dialog for editting devices
+# Gtk.Dialog for editing devices
 #
 # Copyright (C) 2014  Red Hat, Inc.
 #

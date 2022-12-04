@@ -567,7 +567,7 @@ class SizeAreaTest(unittest.TestCase):
                              min_limit=Size(1), max_limit=Size("200 GiB"),
                              raid_type=None)
 
-        # select 3 and see how it will be devided between 2 devices
+        # select 3 and see how it will be divided between 2 devices
         size_area.main_chooser.selected_size = Size(3)
         ret = size_area._get_parents_allocation()
         selected_sizes = [r.selected_size for r in ret]
@@ -863,7 +863,7 @@ class ParentChooserTest(unittest.TestCase):
         self.assertTrue(chooser.selected)
 
     def test_30_size_selection(self):
-        """ Test chaning size selection """
+        """ Test changing size selection """
         parent = MagicMock()
         parent.configure_mock(name="vda")
         free = MagicMock()

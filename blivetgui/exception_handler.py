@@ -72,9 +72,9 @@ class BlivetGUIExceptionHandler(object):
         allow_ignore = self.allow_ignore and not issubclass(exc_type, errors.CommunicationError)
 
         if allow_ignore:
-            msg = _("Unknown error occured.\n{error}").format(error=exc_str)
+            msg = _("Unknown error occurred.\n{error}").format(error=exc_str)
         else:
-            msg = _("Unknown error occured. Blivet-gui will be terminated.\n{error}").format(error=exc_str)
+            msg = _("Unknown error occurred. Blivet-gui will be terminated.\n{error}").format(error=exc_str)
 
         dialog = message_dialogs.ExceptionDialog(self.main_window, allow_ignore,
                                                  allow_report, msg, tr_str)
