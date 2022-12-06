@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-18 10:11+0200\n"
+"POT-Creation-Date: 2022-12-04 15:59+0100\n"
 "PO-Revision-Date: 2021-01-13 19:36+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://translate.fedoraproject.org/projects/blivet/"
@@ -283,18 +283,24 @@ msgid "Format is not resizable after updating its size limit information."
 msgstr "לאחר עדכון פרטי הגבלת הגודל אפשרות שינוי הגודל של ההתקן תינעל."
 
 #: ../blivetgui/exception_handler.py:75
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured.\n"
+"Unknown error occurred.\n"
 "{error}"
 msgstr ""
 "אירעה שגיאה בלתי מוכרת.\n"
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured. Blivet-gui will be terminated.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured. Blivet-gui will be terminated.\n"
+"Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
 "אירעה שגיאה בלתי מוכרת. Blivet-gui יסתיים.\n"
@@ -363,9 +369,12 @@ msgstr ""
 " לטפל בתהליך הדיווח אם ברצונך לדווח."
 
 #: ../blivetgui/osinstall.py:221
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured. Anaconda will be terminated.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured. Anaconda will be terminated.\n"
+"Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
 "אירעה שגיאה בלתי ידועה. Anaconda תיעצר.\n"

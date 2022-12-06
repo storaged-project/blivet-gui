@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-18 10:11+0200\n"
+"POT-Creation-Date: 2022-12-04 15:59+0100\n"
 "PO-Revision-Date: 2022-06-04 13:18+0000\n"
 "Last-Translator: Alejandro Alcaide <alex@blueselene.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/blivet/"
@@ -300,18 +300,24 @@ msgstr ""
 "de límite de tamaño."
 
 #: ../blivetgui/exception_handler.py:75
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured.\n"
+"Unknown error occurred.\n"
 "{error}"
 msgstr ""
 "Se produjo un error desconocido.\n"
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured. Blivet-gui will be terminated.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured. Blivet-gui will be terminated.\n"
+"Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
 "Se produjo un error desconocido. Blivet-gui se cerrará.\n"
@@ -380,9 +386,12 @@ msgstr ""
 " enviarlo, permita que anaconda gestione el proceso."
 
 #: ../blivetgui/osinstall.py:221
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured. Anaconda will be terminated.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured. Anaconda will be terminated.\n"
+"Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
 "Se produjo un error desconocido. Anaconda se cerrará.\n"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-18 10:11+0200\n"
+"POT-Creation-Date: 2022-12-04 15:59+0100\n"
 "PO-Revision-Date: 2022-09-17 17:19+0000\n"
 "Last-Translator: Olga Smirnova <mistresssilvara@hotmail.com>\n"
 "Language-Team: Russian <https://translate.fedoraproject.org/projects/blivet/"
@@ -292,18 +292,24 @@ msgstr ""
 "размера."
 
 #: ../blivetgui/exception_handler.py:75
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured.\n"
+"Unknown error occurred.\n"
 "{error}"
 msgstr ""
 "Произошла неизвестная ошибка.\n"
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured. Blivet-gui will be terminated.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured. Blivet-gui will be terminated.\n"
+"Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
 "Произошла неизвестная ошибка. Blivet-gui будет завершена.\n"
@@ -374,9 +380,12 @@ msgstr ""
 " управлять процессом отчета, если вы хотите сообщить об этом."
 
 #: ../blivetgui/osinstall.py:221
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured. Anaconda will be terminated.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured. Anaconda will be terminated.\n"
+"Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
 "Произошла неизвестная ошибка. Anaconda будет завершена.\n"

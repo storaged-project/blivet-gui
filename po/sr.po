@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-18 10:11+0200\n"
+"POT-Creation-Date: 2022-12-04 15:59+0100\n"
 "PO-Revision-Date: 2017-09-09 04:34+0000\n"
 "Last-Translator: Marko Kostic <marko.m.kostic@gmail.com>\n"
 "Language-Team: Serbian\n"
@@ -287,18 +287,24 @@ msgid "Format is not resizable after updating its size limit information."
 msgstr ""
 
 #: ../blivetgui/exception_handler.py:75
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured.\n"
+"Unknown error occurred.\n"
 "{error}"
 msgstr ""
 "Непозната грешка се догодила.\n"
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured. Blivet-gui will be terminated.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured. Blivet-gui will be terminated.\n"
+"Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
 "Непозната грешка се догодила. Blivet-gui ће бити окончан.\n"
@@ -364,11 +370,16 @@ msgid ""
 msgstr ""
 
 #: ../blivetgui/osinstall.py:221
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured. Blivet-gui will be terminated.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured. Anaconda will be terminated.\n"
+"Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
+"Непозната грешка се догодила. Blivet-gui ће бити окончан.\n"
+"{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
 #: ../blivetgui/osinstall.py:269
