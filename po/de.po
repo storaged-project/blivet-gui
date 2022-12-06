@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-09-18 10:11+0200\n"
-"PO-Revision-Date: 2022-10-02 15:19+0000\n"
+"POT-Creation-Date: 2022-12-04 15:59+0100\n"
+"PO-Revision-Date: 2022-12-06 08:20+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/de/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -108,7 +108,7 @@ msgstr "Partition {name} löschen"
 
 #: ../blivetgui/blivetgui.py:615
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "Die Aktionen konnten nicht ausgeführt werden:"
 
 #: ../blivetgui/blivetgui.py:659
 msgid "Confirm scheduled actions"
@@ -119,13 +119,12 @@ msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Wollen Sie wirklich die geplanten Aktionen durchführen?"
 
 #: ../blivetgui/blivetgui.py:701
-#, fuzzy, python-brace-format
-#| msgid "Unmount failed. Are you sure device is not in use?"
+#, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
-"Aushängen des Laufwerks fehlgeschlagen. Sind Sie sicher, dass es nicht in "
-"Benutzung ist?"
+"Aushängen von '{mountpoint}' fehlgeschlagen. Sind Sie sicher, dass das Gerät "
+"nicht in Gebrauch ist?"
 
 #: ../blivetgui/blivetgui.py:723
 msgid "Unlocking failed. Are you sure provided password is correct?"
@@ -162,7 +161,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:811
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "blivet konnte nicht initialisiert werden:"
 
 #: ../blivetgui/blivetgui.py:818
 msgid "Quit blivet-gui"
@@ -290,18 +289,24 @@ msgstr ""
 "Größenbegrenzungsinformationen nicht mehr geändert werden."
 
 #: ../blivetgui/exception_handler.py:75
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured.\n"
+"Unknown error occurred.\n"
 "{error}"
 msgstr ""
 "Unbekannter Fehler aufgetreten.\n"
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured. Blivet-gui will be terminated.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured. Blivet-gui will be terminated.\n"
+"Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
 "Unbekannter Fehler aufgetreten. Blivet-gui wird geschlossen.\n"
@@ -364,11 +369,19 @@ msgid ""
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+" Bitte klicken Sie auf die Schaltfläche Melden, um den Fehler zu \n"
+" melden und lassen Sie anaconda den Meldevorgang durchführen, \n"
+" wenn Sie den Fehler melden möchten."
 
 #: ../blivetgui/osinstall.py:221
-#, python-brace-format
+#, fuzzy, python-brace-format
+#| msgid ""
+#| "Unknown error occured. Anaconda will be terminated.\n"
+#| "{error}"
 msgid ""
-"Unknown error occured. Anaconda will be terminated.\n"
+"Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
 "Unbekannter Fehler aufgetreten. Anacona wird geschlossen.\n"
@@ -433,16 +446,16 @@ msgstr "Erweitert"
 
 #: ../blivetgui/dialogs/add_dialog.py:149
 msgid "Chunk Size:"
-msgstr ""
+msgstr "Datenblockgröße:"
 
 #: ../blivetgui/dialogs/add_dialog.py:212
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
-msgstr ""
+msgstr "'{0}' ist keine gültige Angabe der Datenblockgröße."
 
 #: ../blivetgui/dialogs/add_dialog.py:217
 msgid "Chunk size must be multiple of 4 KiB."
-msgstr ""
+msgstr "Datenblockgröße muss ein Vielfaches von 4 KiB sein."
 
 #: ../blivetgui/dialogs/add_dialog.py:273
 msgid "Create new device"
@@ -741,7 +754,7 @@ msgstr "Unbekanntes Gerät {name}"
 #. device info header
 #: ../blivetgui/dialogs/device_info_dialog.py:175
 msgid "Basic information"
-msgstr ""
+msgstr "Grundinformation"
 
 #. 'basic' information about selected device
 #: ../blivetgui/dialogs/device_info_dialog.py:185
@@ -827,7 +840,7 @@ msgstr "Die Größe dieses Laufwerk kann nicht geändert werden. "
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "'{label}' ist keine gültige Bezeichnung für dieses Dateisystem"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:518
@@ -864,16 +877,12 @@ msgid "Add?"
 msgstr "Hinzufügen?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
-"Es existieren kein physikalischer Datenträger der aus dieser "
-"Datenträgergruppe (VG) entfernt werden könnte."
+"Es gibt keinen physikalischen Datenträger, der aus\n"
+"dieser Datenträgergruppe entfernt werden kann."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
 #, fuzzy
@@ -905,11 +914,13 @@ msgstr "Soll das Laufwerk {name} wirklich gelöscht werden?"
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
 msgstr ""
+"Die folgenden Kinder von {name} werden durch diese Aktion ebenfalls "
+"entfernt:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:216
 #, python-brace-format
 msgid "Also delete following parent devices of {name}:"
-msgstr ""
+msgstr "Auch folgende übergeordnete Geräte von {name} löschen:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:316
 msgid "There are no pending actions."
