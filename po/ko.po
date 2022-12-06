@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:59+0100\n"
-"PO-Revision-Date: 2022-11-03 01:19+0000\n"
+"PO-Revision-Date: 2022-12-06 16:50+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -284,27 +284,21 @@ msgstr ""
 "형식(format)은 이 크기 제한 정보 최신화 후에 크기를 조절 할 수 없습니다."
 
 #: ../blivetgui/exception_handler.py:75
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
 msgstr ""
-"알지 못하는 오류 발생.\n"
+"알지 못하는 오류 발생. \n"
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
-"알지 못하는 오류 발생. Blivet-gui는 종료됩니다.\n"
+"알지 못하는 오류 발생. Blivet-gui는 종료됩니다. \n"
 "{error}"
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:119
@@ -369,15 +363,12 @@ msgstr ""
 "한다면 보고 처리를 하도록 제안합니다."
 
 #: ../blivetgui/osinstall.py:221
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Anaconda will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
-"알지 못하는 오류가 발생하였습니다. 아나콘다가 종료됩니다.\n"
+"알지 못하는 오류가 발생하였습니다. 아나콘다가 종료됩니다. \n"
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
