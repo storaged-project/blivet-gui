@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2017. #zanata, 2020.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2017. #zanata, 2020, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:59+0100\n"
-"PO-Revision-Date: 2020-07-12 13:27+0000\n"
+"PO-Revision-Date: 2022-12-06 16:50+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/kk/>\n"
@@ -16,25 +16,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.1.1\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "Құрылғы өлшемін өзгерту сәтсіз аяқталды:"
 
 #: ../blivetgui/blivetgui.py:302
 #, python-brace-format
 msgid "resize {name} {type}"
-msgstr ""
+msgstr "өлшемін өзгерту {name} {type}"
 
 #: ../blivetgui/blivetgui.py:321
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "Құрылғыны пішімдеу сәтсіз аяқталды:"
 
 #: ../blivetgui/blivetgui.py:335
 #, python-brace-format
 msgid "format {name} {type}"
-msgstr ""
+msgstr "пішімдеу {name} {type}"
 
 #: ../blivetgui/blivetgui.py:348
 msgid "Failed to edit the LVM2 Volume Group:"
