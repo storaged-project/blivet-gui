@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:59+0100\n"
-"PO-Revision-Date: 2022-09-24 15:19+0000\n"
+"PO-Revision-Date: 2022-12-08 10:19+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/tr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.14.2\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -285,10 +285,7 @@ msgstr ""
 "Boyut sınırı bilgileri güncellendikten sonra biçim yeniden boyutlandırılamaz."
 
 #: ../blivetgui/exception_handler.py:75
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
@@ -297,10 +294,7 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
@@ -371,10 +365,7 @@ msgstr ""
 " izin vermek istiyorsanız lütfen Raporla düğmesine tıklayın."
 
 #: ../blivetgui/osinstall.py:221
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Anaconda will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
