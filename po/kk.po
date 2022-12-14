@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:59+0100\n"
-"PO-Revision-Date: 2022-12-11 16:19+0000\n"
+"PO-Revision-Date: 2022-12-13 16:19+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/kk/>\n"
@@ -47,7 +47,7 @@ msgstr "{name} {type} түзету"
 
 #: ../blivetgui/blivetgui.py:392
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "Құрылғыдағы файлдық жүйе белгісін өзгерту сәтсіз аяқталды:"
 
 #: ../blivetgui/blivetgui.py:397
 #, python-brace-format
