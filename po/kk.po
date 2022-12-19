@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:59+0100\n"
-"PO-Revision-Date: 2022-12-13 16:19+0000\n"
+"PO-Revision-Date: 2022-12-19 14:19+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/kk/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 4.15\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -78,7 +78,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:434
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "Диск белгісін қосу сәтсіз аяқталды:"
 
 #: ../blivetgui/blivetgui.py:447
 #, python-brace-format
@@ -87,7 +87,7 @@ msgstr "{name} үшін жаңа диск белгісін жасау"
 
 #: ../blivetgui/blivetgui.py:499
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "Құрылғыны қосу сәтсіз аяқталды:"
 
 #: ../blivetgui/blivetgui.py:514
 #, python-brace-format
@@ -96,7 +96,7 @@ msgstr "{size} {type} құрылғысын қосу"
 
 #: ../blivetgui/blivetgui.py:558
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "Құрылғыны өшіру сәтсіз аяқталды:"
 
 #: ../blivetgui/blivetgui.py:573
 #, python-brace-format
@@ -105,7 +105,7 @@ msgstr "{name} бөлімін өшіру"
 
 #: ../blivetgui/blivetgui.py:615
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "Әрекеттерді орындау сәтсіз аяқталды:"
 
 #: ../blivetgui/blivetgui.py:659
 msgid "Confirm scheduled actions"
@@ -116,18 +116,16 @@ msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Кезектегі әрекеттерді орындауды шынымен қалайсыз ба?"
 
 #: ../blivetgui/blivetgui.py:701
-#, fuzzy, python-brace-format
-#| msgid "Unmount failed. Are you sure device is not in use?"
+#, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
-"Тіркеуден босату сәтсіз аяқталды. Құрылғыңыз қолдануда болып тұрған жоқ па?"
+"\"{mountpoint}\" тіркеуден босату сәтсіз аяқталды. Құрылғыңыз қолдануда емес "
+"болып тұрғанына сенімдісіз бе?"
 
 #: ../blivetgui/blivetgui.py:723
-#, fuzzy
-#| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr "Құрылғыны дешифрлеу сәтсіз аяқталды. Көрсетілген пароль дұрыс па?"
+msgstr "Құлыптаудан босату сәтсіз аяқталды. Көрсетілген пароль дұрыс па?"
 
 #: ../blivetgui/blivetgui.py:773 ../data/ui/blivet-gui.ui:662
 msgid "Quit"
@@ -135,7 +133,7 @@ msgstr "Шығу"
 
 #: ../blivetgui/blivetgui.py:776
 msgid "blivet-gui is already running"
-msgstr ""
+msgstr "blivet-gui орындалып тұр"
 
 #: ../blivetgui/blivetgui.py:777
 msgid ""
@@ -164,12 +162,12 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:820
 msgid "Ignore disk and continue"
-msgstr ""
+msgstr "Дискті елемеу және жалғастыру"
 
 #: ../blivetgui/blivetgui.py:823
 #, python-brace-format
 msgid "Error: {error}"
-msgstr ""
+msgstr "Қате: {error}"
 
 #: ../blivetgui/blivetgui.py:824
 #, python-brace-format
