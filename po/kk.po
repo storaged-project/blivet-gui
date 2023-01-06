@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2017. #zanata, 2020, 2022.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2017. #zanata, 2020, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:59+0100\n"
-"PO-Revision-Date: 2022-12-19 14:19+0000\n"
+"PO-Revision-Date: 2023-01-06 14:20+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/kk/>\n"
@@ -52,7 +52,7 @@ msgstr "Құрылғыдағы файлдық жүйе белгісін өзге
 #: ../blivetgui/blivetgui.py:397
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "{name} {type} файлдық жүйе белгісін өзгерту"
 
 #: ../blivetgui/blivetgui.py:413
 #, python-brace-format
@@ -140,6 +140,8 @@ msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
+"Басқа blivet-gui данасы қазір жұмыс істеп тұр.\n"
+"Бір уақытта blivet-gui бір ғана данасы іске қосыла алады."
 
 #: ../blivetgui/blivetgui.py:779
 msgid ""
