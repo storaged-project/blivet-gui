@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:59+0100\n"
-"PO-Revision-Date: 2023-01-06 14:20+0000\n"
+"PO-Revision-Date: 2023-01-09 14:20+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/kk/>\n"
@@ -379,7 +379,7 @@ msgstr ""
 #. add a new 'placeholder' action for all currently registered blivet actions
 #: ../blivetgui/osinstall.py:269
 msgid "actions configured by installer"
-msgstr ""
+msgstr "орнатқыш баптаған әрекеттер"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
@@ -405,7 +405,7 @@ msgstr ""
 #: ../blivetgui/communication/client.py:300
 #: ../blivetgui/communication/client.py:317
 msgid "Failed to connect to blivet-gui-daemon"
-msgstr ""
+msgstr "blivet-gui-daemon қызметіне байланысу мүмкін болмады"
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
@@ -435,7 +435,7 @@ msgstr "Кеңейтілген"
 
 #: ../blivetgui/dialogs/add_dialog.py:149
 msgid "Chunk Size:"
-msgstr ""
+msgstr "Сегмент өлшемі:"
 
 #: ../blivetgui/dialogs/add_dialog.py:212
 #, python-brace-format
@@ -444,7 +444,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:217
 msgid "Chunk size must be multiple of 4 KiB."
-msgstr ""
+msgstr "Сегмент өлшемі 4 КБ-қа еселі болуы керек."
 
 #: ../blivetgui/dialogs/add_dialog.py:273
 msgid "Create new device"
@@ -484,7 +484,7 @@ msgstr "LVM2 снапшоты"
 
 #: ../blivetgui/dialogs/add_dialog.py:404
 msgid "LVM2 Thin Snaphost"
-msgstr ""
+msgstr "LVM2 жұқа снапшоты"
 
 #: ../blivetgui/dialogs/add_dialog.py:407
 #: ../blivetgui/dialogs/device_info_dialog.py:83
@@ -540,7 +540,7 @@ msgstr "Файлдық жүйе"
 #: ../blivetgui/dialogs/add_dialog.py:799
 #: ../blivetgui/dialogs/edit_dialog.py:165
 msgid "unformatted"
-msgstr ""
+msgstr "пішімделмеген"
 
 #: ../blivetgui/dialogs/add_dialog.py:829 ../data/ui/format_dialog.ui:148
 msgid "Label:"
@@ -1038,11 +1038,11 @@ msgstr ""
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
 msgid "Set label"
-msgstr ""
+msgstr "Белгіні орнату"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
 msgid "Set partition table"
-msgstr ""
+msgstr "Бөлімдер кестесін орнату"
 
 #: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
@@ -1050,7 +1050,7 @@ msgstr "Тіркеуден босату"
 
 #: ../data/ui/blivet-gui.ui:102
 msgid "Unlock"
-msgstr ""
+msgstr "Босату"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1069,22 +1069,22 @@ msgstr "баған"
 #: ../data/ui/blivet-gui.ui:348
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
-msgstr ""
+msgstr "Жаңа құрылғыны қосу"
 
 #: ../data/ui/blivet-gui.ui:364
 msgctxt "ActionsToolbar|Delete"
 msgid "Delete selected device"
-msgstr ""
+msgstr "Таңдалған құрылғыны өшіру"
 
 #: ../data/ui/blivet-gui.ui:380
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
-msgstr ""
+msgstr "Таңдалған құрылғыны түзету"
 
 #: ../data/ui/blivet-gui.ui:406
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
-msgstr ""
+msgstr "Таңдалған құрылғыны тіркеуден босату"
 
 #: ../data/ui/blivet-gui.ui:421
 msgctxt "ActionsToolbar|Decrypt"
