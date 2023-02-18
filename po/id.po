@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Andika Triwidada <andika@gmail.com>, 2020, 2021, 2022.
+# Andika Triwidada <andika@gmail.com>, 2020, 2021, 2022, 2023.
 # Didik Supriadi <didiksupriadi41@gmail.com>, 2021.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:59+0100\n"
-"PO-Revision-Date: 2022-01-08 22:16+0000\n"
+"PO-Revision-Date: 2023-02-18 12:20+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/id/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.10.1\n"
+"X-Generator: Weblate 4.15.2\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -285,10 +285,7 @@ msgstr ""
 "ukurannya."
 
 #: ../blivetgui/exception_handler.py:75
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
@@ -297,15 +294,12 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
-"Terjadi kesalahan yang tak diketahui. Blivet-gui akan dihentikan.\n"
+"Terjadi kesalahan yang tak diketahui. Blivet-gui akan diakhiri.\n"
 "{error}"
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:119
@@ -371,15 +365,12 @@ msgstr ""
 " bila Anda ingin melaporkan ini."
 
 #: ../blivetgui/osinstall.py:221
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Anaconda will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
-"Terjadi kesalahan yang tak diketahui. Anaconda akan dihentikan.\n"
+"Terjadi kesalahan yang tak diketahui. Anaconda akan diakhiri.\n"
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
@@ -845,14 +836,10 @@ msgid "Parent devices:"
 msgstr "Perangkat induk:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
 msgstr "Tambah induk"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
 msgstr "Hapus induk"
 
@@ -869,10 +856,6 @@ msgid "Add?"
 msgstr "Tambah?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
@@ -1054,10 +1037,8 @@ msgid "Unmount"
 msgstr "Lepas Kait"
 
 #: ../data/ui/blivet-gui.ui:102
-#, fuzzy
-#| msgid "Unlock device"
 msgid "Unlock"
-msgstr "Buka kunci perangkat"
+msgstr "Buka kunci"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1138,20 +1119,16 @@ msgid "About blivet-gui"
 msgstr "Tentang blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:728
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "Tidak ada tindakan tertunda"
+msgstr "Terapkan tindakan tertunda"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "Mengonfirmasi tindakan terjadwal"
+msgstr "Bersihkan tindakan terjadwal"
 
 #: ../data/ui/blivet-gui.ui:760
 msgid "Undo last action"
-msgstr ""
+msgstr "Batalkan aksi terakhir"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1249,10 +1226,8 @@ msgid "Information:"
 msgstr "Informasi:"
 
 #: ../data/ui/label_dialog.ui:7
-#, fuzzy
-#| msgid "Set label"
 msgid "Set filesystem label"
-msgstr "Atur label"
+msgstr "Atur label sistem berkas"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
