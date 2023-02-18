@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # Niv Baehr <bloop93@gmail.com>, 2017. #zanata
-# Yaron Shahrabani <sh.yaron@gmail.com>, 2020, 2021.
+# Yaron Shahrabani <sh.yaron@gmail.com>, 2020, 2021, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-04 15:59+0100\n"
-"PO-Revision-Date: 2021-01-13 19:36+0000\n"
+"PO-Revision-Date: 2023-02-18 12:20+0000\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/he/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.4.1\n"
+"X-Generator: Weblate 4.15.2\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -264,10 +264,8 @@ msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "לא ניתן לשנות גודל של התקנים לוגיים עם תמונות מצב."
 
 #: ../blivetgui/blivet_utils.py:732
-#, fuzzy
-#| msgid "Resizing of {type} devices is currently not supported"
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr "אין תמיכה בשינוי גודל של התקנים מסוג {type}"
+msgstr "אין תמיכה בשינוי גודל של התקנים מסוג LUKS2."
 
 #: ../blivetgui/blivet_utils.py:744
 #, python-brace-format
@@ -283,10 +281,7 @@ msgid "Format is not resizable after updating its size limit information."
 msgstr "לאחר עדכון פרטי הגבלת הגודל אפשרות שינוי הגודל של ההתקן תינעל."
 
 #: ../blivetgui/exception_handler.py:75
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
@@ -295,10 +290,7 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
@@ -369,10 +361,7 @@ msgstr ""
 " לטפל בתהליך הדיווח אם ברצונך לדווח."
 
 #: ../blivetgui/osinstall.py:221
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Anaconda will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
@@ -843,14 +832,10 @@ msgid "Parent devices:"
 msgstr "התקני הורים:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
 msgstr "הוספת הורה"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
 msgstr "הסרת הורה"
 
@@ -867,10 +852,6 @@ msgid "Add?"
 msgstr "להוסיף?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
@@ -903,7 +884,7 @@ msgstr "למחוק את ההתקן {name}?"
 #: ../blivetgui/dialogs/message_dialogs.py:208
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
-msgstr ""
+msgstr "הצאצאים הבאים של {name} יוסרו גם כן ע״י הפעולה הזאת:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:216
 #, python-brace-format
@@ -933,7 +914,7 @@ msgstr "הגודל שנבחר כרגע קטן מהמגבלה המזערית עב
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "אוטומטי"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -1047,10 +1028,8 @@ msgid "Unmount"
 msgstr "התרה"
 
 #: ../data/ui/blivet-gui.ui:102
-#, fuzzy
-#| msgid "Unlock device"
 msgid "Unlock"
-msgstr "שחרור התקן"
+msgstr "שחרור"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1131,20 +1110,16 @@ msgid "About blivet-gui"
 msgstr "על אודות blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:728
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "אין פעולות ממתינות"
+msgstr "החלת פעולות ממתינות"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "אישור פעולות מתוזמנות"
+msgstr "פינוי פעולות מתוזמנות"
 
 #: ../data/ui/blivet-gui.ui:760
 msgid "Undo last action"
-msgstr ""
+msgstr "ביטול הפעולה האחרונה"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1196,7 +1171,7 @@ msgstr "חזרה על מילת הצופן:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "גודל סקטור:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
@@ -1242,10 +1217,8 @@ msgid "Information:"
 msgstr "פרטים:"
 
 #: ../data/ui/label_dialog.ui:7
-#, fuzzy
-#| msgid "Set label"
 msgid "Set filesystem label"
-msgstr "הגדרת תווית"
+msgstr "הגדרת תווית מערכת קבצים"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
