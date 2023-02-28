@@ -4,12 +4,20 @@ actions:
   create-archive:
     - "make local"
     - 'bash -c "ls *.tar*"'
+
 jobs:
-- job: tests
+- job: copr_build
   metadata:
     targets:
     - fedora-all
   trigger: pull_request
+
+- job: copr_build
+  trigger: commit
+  owner: "@storage"
+  project: blivet-daily
+  branch: master
+  preserve_project: true
 
 srpm_build_deps:
  - make
