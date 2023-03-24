@@ -2,7 +2,7 @@ APPNAME=blivet-gui
 SPECFILE=blivet-gui.spec
 VERSION=$(shell awk '/Version:/ { print $$2 }' $(SPECFILE))
 RELEASE=$(shell awk '/Release:/ { print $$2 }' $(SPECFILE) | sed -e 's|%.*$$||g')
-RELEASE_TAG=$(VERSION)-$(RELEASE)
+RELEASE_TAG=$(VERSION)
 
 PYTHON=python3
 

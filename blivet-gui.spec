@@ -1,7 +1,7 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.4.0
-Release: 27%{?dist}
+Version: 2.4.1
+Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
 License: GPL-2.0-or-later
@@ -74,6 +74,43 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Fri Mar 24 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.4.1-1
+- ci: Add Packit configuration for downstream builds on release (vtrefny)
+- spec: Bump release to 27 for Packit daily builds (vtrefny)
+- ci: Use Packit for daily builds in Copr (vtrefny)
+- Translated using Weblate (Friulian) (f.t.public)
+- Translated using Weblate (Indonesian) (andika)
+- Translated using Weblate (Hebrew) (sh.yaron)
+- Translated using Weblate (Georgian) (temuri.doghonadze)
+- Translated using Weblate (Russian) (igor.gorbounov)
+- Translated using Weblate (Slovak) (feonsu)
+- Translated using Weblate (Kazakh) (baurthefirst)
+- Translated using Weblate (Swedish) (bittin)
+- Translated using Weblate (Kazakh) (baurthefirst)
+- Translated using Weblate (Kazakh) (baurthefirst)
+- Translated using Weblate (Croatian) (linux.hr)
+- Translated using Weblate (Kazakh) (baurthefirst)
+- Translated using Weblate (Kazakh) (baurthefirst)
+- Translated using Weblate (Kazakh) (baurthefirst)
+- Translated using Weblate (Turkish) (oguz)
+- Translated using Weblate (Chinese (Simplified) (zh_CN)) (1504305527)
+- Translated using Weblate (Korean) (simmon)
+- Translated using Weblate (Ukrainian) (yurchor)
+- Translated using Weblate (Polish) (piotrdrag)
+- Translated using Weblate (Kazakh) (baurthefirst)
+- Translated using Weblate (Finnish) (jiri.gronroos)
+- Update translation files (noreply)
+- Translated using Weblate (German) (atalanttore)
+- Fix various typos discovered by spellintian (vtrefny)
+- Translated using Weblate (Chinese (Simplified) (zh_CN)) (1504305527)
+- Translated using Weblate (French) (alexandre)
+- spec: Change license string to the SPDX format required by Fedora (vtrefny)
+- Translated using Weblate (Korean) (simmon)
+- Translated using Weblate (German) (atalanttore)
+- Update translation files (noreply)
+- Translated using Weblate (Turkish) (oguz)
+- Sync spec with downstream (vtrefny)
+
 * Sun Sep 18 2022 Vojtech Trefny <vtrefny@redhat.com> - 2.4.0-1
 - Translated using Weblate (Russian) (mistresssilvara)
 - Translated using Weblate (Russian) (xasertop)

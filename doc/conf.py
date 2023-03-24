@@ -48,7 +48,7 @@ copyright = '2014,-2022, Red Hat, Inc.'  # pylint: disable=W0622
 # built documents.
 #
 # The short X.Y version.
-version = '2.4.0'
+version = '2.4.1'
 # The full version, including alpha/beta/rc tags.
 release = version
 
