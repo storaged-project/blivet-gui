@@ -19,6 +19,21 @@ jobs:
   branch: master
   preserve_project: true
 
+- job: propose_downstream
+  trigger: release
+  dist_git_branches:
+    - fedora-all
+
+- job: koji_build
+  trigger: commit
+  dist_git_branches:
+    - fedora-all
+
+- job: bodhi_update
+  trigger: commit
+  dist_git_branches:
+    - fedora-branched
+
 srpm_build_deps:
  - make
  - gettext
@@ -26,3 +41,5 @@ srpm_build_deps:
  - python3-setuptools
  - desktop-file-utils
  - libappstream-glib
+
+downstream_package_name: blivet-gui
