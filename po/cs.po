@@ -10,13 +10,13 @@
 # Vojtěch Trefný <vtrefny@redhat.com>, 2017. #zanata
 # Zdenek <chmelarz@gmail.com>, 2018. #zanata
 # Daniel Rusek <mail@asciiwolf.com>, 2019. #zanata
-# Pavel Borecki <pavel.borecki@gmail.com>, 2021, 2022.
+# Pavel Borecki <pavel.borecki@gmail.com>, 2021, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-24 12:59+0100\n"
-"PO-Revision-Date: 2022-04-15 13:17+0000\n"
+"PO-Revision-Date: 2023-03-30 12:20+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/cs/>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.11.2\n"
+"X-Generator: Weblate 4.15.2\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -253,26 +253,24 @@ msgstr "Změna velikosti formátu {type} zatím není podporována"
 #: ../blivetgui/blivet_utils.py:705
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
-msgstr ""
+msgstr "Nástroje pro změnu velikosti formátu {type} nejsou nainstalované."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:712
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "U tohoto zařízení není možné měnit velikost."
+msgstr "Tam, kde je naplánováno formátování, není možné měnit velikost"
 
 #: ../blivetgui/blivet_utils.py:717
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
-msgstr ""
+msgstr "Formát {type} nepodporuje aktualizaci informace o limitu velikosti"
 
 #: ../blivetgui/blivet_utils.py:722
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Mounted devices cannot be resized"
-msgstr "U tohoto zařízení není možné měnit velikost."
+msgstr ""
+"U zařízení, ze kterých je připojený souborový systém, není možné měnit "
+"velikost"
 
 #: ../blivetgui/blivet_utils.py:727
 #, fuzzy
@@ -282,22 +280,24 @@ msgstr "U logických svazků se snapshoty nelze měnit velikost."
 
 #: ../blivetgui/blivet_utils.py:732
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr ""
+msgstr "Změna velikost LUKS2 zařízení zatím není podporována."
 
 #: ../blivetgui/blivet_utils.py:744
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr ""
+"Nepodařilo se zaktualizovat informaci o velikosti souborového systému: "
+"{error}"
 
 #: ../blivetgui/blivet_utils.py:763
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Device is not resizable."
 msgstr "U tohoto zařízení není možné měnit velikost."
 
 #: ../blivetgui/blivet_utils.py:765
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
+"Poté, co je aktualizována informace o limitu velikosti formátu, není možné "
+"měnit jeho velikost."
 
 #: ../blivetgui/exception_handler.py:75
 #, fuzzy, python-brace-format
