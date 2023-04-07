@@ -9,13 +9,14 @@
 # Anonymous <noreply@weblate.org>, 2020.
 # Fernando Rodrigues <sigmasquadron@icloud.com>, 2020, 2022.
 # Maíra Canal <mairacanal@riseup.net>, 2022.
+# Felipe Nogueira <contato.fnog@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-24 12:59+0100\n"
-"PO-Revision-Date: 2022-08-15 19:19+0000\n"
-"Last-Translator: Maíra Canal <mairacanal@riseup.net>\n"
+"PO-Revision-Date: 2023-04-07 05:20+0000\n"
+"Last-Translator: Felipe Nogueira <contato.fnog@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.13\n"
+"X-Generator: Weblate 4.15.2\n"
 
 #: ../blivetgui/blivetgui.py:290
 msgid "Failed to resize the device:"
@@ -290,10 +291,7 @@ msgid "Format is not resizable after updating its size limit information."
 msgstr "Formato não é redimensionável após atualizar seu limite de tamanho."
 
 #: ../blivetgui/exception_handler.py:75
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
@@ -302,15 +300,12 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
-"Um erro desconhecido ocorreu. Blivet-gui vai ser terminado.\n"
+"Um erro desconhecido ocorreu. Blivet-gui será terminado.\n"
 "{error}"
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:119
@@ -376,10 +371,7 @@ msgstr ""
 "lidar com o processo de relatório, se você quiser reportar isso."
 
 #: ../blivetgui/osinstall.py:221
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Anaconda will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
