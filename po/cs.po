@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-24 12:59+0100\n"
-"PO-Revision-Date: 2023-03-30 12:20+0000\n"
+"PO-Revision-Date: 2023-04-08 20:20+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/cs/>\n"
@@ -273,10 +273,8 @@ msgstr ""
 "velikost"
 
 #: ../blivetgui/blivet_utils.py:727
-#, fuzzy
-#| msgid "Logical Volumes with snapshots couldn't be resized."
 msgid "Logical Volumes with snapshots cannot be resized."
-msgstr "U logických svazků se snapshoty nelze měnit velikost."
+msgstr "U logických svazků se zachycenými stavy nelze měnit velikost."
 
 #: ../blivetgui/blivet_utils.py:732
 msgid "Resizing of LUKS2 devices is currently not supported."
@@ -300,10 +298,7 @@ msgstr ""
 "měnit jeho velikost."
 
 #: ../blivetgui/exception_handler.py:75
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
@@ -312,10 +307,7 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
@@ -383,15 +375,12 @@ msgid ""
 msgstr ""
 
 #: ../blivetgui/osinstall.py:221
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
-"Došlo k neznámé chybě. Blivet-gui bude ukončeno.\n"
+"Došlo k neznámé chybě. Anaconda bude ukončena.\n"
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
@@ -845,7 +834,7 @@ msgstr "U tohoto zařízení není možné měnit velikost."
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "„{label}“ není platným štítkem pro tento souborový systém"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:518
@@ -857,16 +846,12 @@ msgid "Parent devices:"
 msgstr "Rodiče:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
-msgstr "Přidat rodiče"
+msgstr "Přidat nadřazený"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
-msgstr "Odebrat rodiče"
+msgstr "Odebrat nadřazený"
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
 msgid ""
@@ -881,10 +866,6 @@ msgid "Add?"
 msgstr "Přidat?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
@@ -893,10 +874,8 @@ msgstr ""
 "odstraněn z této skupiny svazků."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
-#, fuzzy
-#| msgid "Currently is possible to remove only one parent at time."
 msgid "Currently it is possible to remove only one parent at time."
-msgstr "Momentálně je možné odstranit jen jeden z rodičů"
+msgstr "Momentálně je možné odstranit jen jeden z nadřazených naráz."
 
 #: ../blivetgui/dialogs/edit_dialog.py:658
 msgid "Remove?"
@@ -919,7 +898,7 @@ msgstr "Jste si jisti, že chcete smazat zařízení {name}?"
 #: ../blivetgui/dialogs/message_dialogs.py:208
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
-msgstr ""
+msgstr "Touto akcí budou také odebrány podřízené {name}:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:216
 #, python-brace-format
@@ -951,7 +930,7 @@ msgstr ""
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "Automaticky"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -978,16 +957,12 @@ msgid "LiveUSB device"
 msgstr "LiveUSB zařízení"
 
 #: ../blivetgui/visualization/rectangle.py:52
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (locked)"
 msgstr "Šifrované zařízení (zamčené)"
 
 #: ../blivetgui/visualization/rectangle.py:53
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (unlocked)"
-msgstr "Šifrované zařízení (zamčené)"
+msgstr "Šifrované zařízení (odemknuté)"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Empty device"
@@ -1006,10 +981,8 @@ msgid "Device or format is write protected"
 msgstr "Zařízení nebo jeho formát je chráněný proti zápisu"
 
 #: ../blivetgui/visualization/rectangle.py:58
-#, fuzzy
-#| msgid "Edit device"
 msgid "Cached device"
-msgstr "Upravit zařízení"
+msgstr "Zařízení v mezipaměti"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1060,7 +1033,7 @@ msgstr "Nastavit přípojný bod"
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
 msgid "Set label"
-msgstr ""
+msgstr "Nastavit štítek"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
 msgid "Set partition table"
@@ -1071,11 +1044,8 @@ msgid "Unmount"
 msgstr "Odpojit"
 
 #: ../data/ui/blivet-gui.ui:102
-#, fuzzy
-#| msgctxt "ActionsToolbar|Decrypt"
-#| msgid "Unlock/Open selected device"
 msgid "Unlock"
-msgstr "Odemknout vybrané zařízení"
+msgstr "Odemknout"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1128,10 +1098,8 @@ msgid "Format"
 msgstr "Formát"
 
 #: ../data/ui/blivet-gui.ui:515
-#, fuzzy
-#| msgid "Label:"
 msgid "Label"
-msgstr "Label:"
+msgstr "Štítek"
 
 #: ../data/ui/blivet-gui.ui:526
 msgid "Mountpoint"
@@ -1158,20 +1126,16 @@ msgid "About blivet-gui"
 msgstr "O blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:728
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "Žádné naplánované akce"
+msgstr "Uplatnit čekající akce"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "Potvrzení naplánovaných akcí"
+msgstr "Vyčistit naplánované akce"
 
 #: ../data/ui/blivet-gui.ui:760
 msgid "Undo last action"
-msgstr ""
+msgstr "Vrátit poslední akci"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1211,7 +1175,7 @@ msgstr "Šifrovat:"
 
 #: ../data/ui/encryption_chooser.ui:33
 msgid "Encryption type:"
-msgstr ""
+msgstr "Typ šifrování"
 
 #: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
 msgid "Passphrase:"
@@ -1223,7 +1187,7 @@ msgstr "Zopakujte heslo:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Velikost sektoru:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
@@ -1269,37 +1233,30 @@ msgid "Information:"
 msgstr "Informace:"
 
 #: ../data/ui/label_dialog.ui:7
-#, fuzzy
-#| msgid "change filesystem label of {name} {type}"
 msgid "Set filesystem label"
-msgstr "změnit štítek souborového systému {name} {type}"
+msgstr "Nastavit štítek souborového systému"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
-msgstr ""
+msgstr "Storno"
 
 #. Perform selected format change on this device.
 #: ../data/ui/label_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "Znovu opatřit štítkem"
 
 #: ../data/ui/label_dialog.ui:68
 msgid "Enter new label for this filesystem:"
-msgstr ""
+msgstr "Zadejte nový štítek pro tento souborový systém:"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
-#, fuzzy
-#| msgctxt "ActionsToolbar|Decrypt"
-#| msgid "Unlock/Open selected device"
 msgid "Unlock device"
-msgstr "Odemknout vybrané zařízení"
+msgstr "Odemknout zařízení"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
-#, fuzzy
-#| msgid "Please enter passphrase to decrypt selected device."
 msgid "Please enter passphrase to unlock selected device."
-msgstr "Zadejte prosím heslo pro rozšifrování tohoto zařízení."
+msgstr "Zadejte prosím heslo pro odemknutí vybraného zařízení."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
@@ -1347,8 +1304,6 @@ msgstr "Velikost:"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
-#, fuzzy
-#| msgid "Unmount"
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
 msgstr "Odpojit"
@@ -1360,6 +1315,10 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>Vybrané zařízení je v tuto chvíli připojené\n"
+"ve vícero přípojných bodech.</b>\n"
+"\n"
+"Vyberte přípojné body, které odpojit:"
 
 #~ msgid "Decrypt"
 #~ msgstr "Rozšifrovat"
