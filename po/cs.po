@@ -11,13 +11,14 @@
 # Zdenek <chmelarz@gmail.com>, 2018. #zanata
 # Daniel Rusek <mail@asciiwolf.com>, 2019. #zanata
 # Pavel Borecki <pavel.borecki@gmail.com>, 2021, 2022, 2023.
+# Jan Kalabza <jan.kalabza@gmail.com>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-03-24 12:59+0100\n"
-"PO-Revision-Date: 2023-04-08 20:20+0000\n"
-"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
+"PO-Revision-Date: 2023-04-18 10:20+0000\n"
+"Last-Translator: Jan Kalabza <jan.kalabza@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/cs/>\n"
 "Language: cs\n"
@@ -268,13 +269,11 @@ msgstr "Formát {type} nepodporuje aktualizaci informace o limitu velikosti"
 
 #: ../blivetgui/blivet_utils.py:722
 msgid "Mounted devices cannot be resized"
-msgstr ""
-"U zařízení, ze kterých je připojený souborový systém, není možné měnit "
-"velikost"
+msgstr "Velikost připojených zařízení nemůže být změněna"
 
 #: ../blivetgui/blivet_utils.py:727
 msgid "Logical Volumes with snapshots cannot be resized."
-msgstr "U logických svazků se zachycenými stavy nelze měnit velikost."
+msgstr "U logických svazků se snapshoty nelze měnit velikost."
 
 #: ../blivetgui/blivet_utils.py:732
 msgid "Resizing of LUKS2 devices is currently not supported."
@@ -373,6 +372,11 @@ msgid ""
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+" Klikněte prosím na tlačítko Report, abyste upozornili na chybu a nechali "
+"anacondu \n"
+" aby se postarala o proces hlášení, pokud chcete tuto skutečnost nahlásit."
 
 #: ../blivetgui/osinstall.py:221
 #, python-brace-format
@@ -416,7 +420,7 @@ msgstr "Nelze se připojit k blivet-gui-daemon"
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
-msgstr "Zobrazit pokročilé možnosti:"
+msgstr "Zobrazit pokročilé možnosti"
 
 #: ../blivetgui/dialogs/add_dialog.py:85
 msgid "PE Size:"
@@ -615,7 +619,7 @@ msgstr "Pole MD RAID"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "DM Integrity Device"
-msgstr ""
+msgstr "DM Integrita Zařízení"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:101
 #: ../blivetgui/dialogs/device_info_dialog.py:223
@@ -703,7 +707,7 @@ msgstr " • <i>Kompletní:</i> {complete}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:139
 #, python-brace-format
 msgid " • <i>Subvol ID:</i> {id}\n"
-msgstr " • <i>Subvol ID:</i> {id}\n"
+msgstr " • <i>ID pod-svazku:</i> {id}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:142
 #, python-brace-format
@@ -847,11 +851,11 @@ msgstr "Rodiče:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
 msgid "Add a parent"
-msgstr "Přidat nadřazený"
+msgstr "Přidat rodiče"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
 msgid "Remove a parent"
-msgstr "Odebrat nadřazený"
+msgstr "Odebrat rodiče"
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
 msgid ""
@@ -875,7 +879,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
 msgid "Currently it is possible to remove only one parent at time."
-msgstr "Momentálně je možné odstranit jen jeden z nadřazených naráz."
+msgstr "Momentálně je možné odstranit jednoho z rodičů."
 
 #: ../blivetgui/dialogs/edit_dialog.py:658
 msgid "Remove?"
@@ -1175,7 +1179,7 @@ msgstr "Šifrovat:"
 
 #: ../data/ui/encryption_chooser.ui:33
 msgid "Encryption type:"
-msgstr "Typ šifrování"
+msgstr "Typ šifrování:"
 
 #: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
 msgid "Passphrase:"
@@ -1276,7 +1280,7 @@ msgstr "Dostupné místo:"
 
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
-msgstr "RAID level:"
+msgstr "Typ RAID:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
