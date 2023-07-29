@@ -406,7 +406,7 @@ class AddDialog(Gtk.Dialog):
         elif self.selected_parent.type == "lvmthinpool":
             types.append((_("LVM2 Thin Logical Volume"), "lvmthinlv"))
 
-        elif self.selected_parent.type == "btrfs volume":
+        elif self.selected_parent.type in ("btrfs volume", "btrfs subvolume"):
             types.append((_("Btrfs Subvolume"), "btrfs subvolume"))
 
         return types

@@ -101,6 +101,10 @@ class ListPartitionsTest(unittest.TestCase):
         device = MagicMock(type="lvmthinlv", protected=False, exists=False, vg=MagicMock(free_space=Size("1 GiB"), pe_size=Size("4 MiB")))
         self.assertFalse(self.list_partitions._allow_add_device(device))
 
+        # allow adding nested btrfs subvolumes
+        device = MagicMock(type="btrfs subvolume", protected=False)
+        self.assertTrue(self.list_partitions._allow_add_device(device))
+
         # do not allow adding on other devices
         device = MagicMock(type="mdarray", protected=False)
         self.assertFalse(self.list_partitions._allow_add_device(device))
