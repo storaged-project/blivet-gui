@@ -39,7 +39,7 @@ class BlivetUtilsDisksTest(BlivetUtilsTestCase, DisksTestToolkit):
     def test_10_empty_disks(self):
         # all disks are empty --> no "group" devices
         group_devices = self.blivet_utils.get_group_devices()
-        self.assertDictEqual(group_devices, {"lvm": [], "raid": [], "btrfs": []})
+        self.assertDictEqual(group_devices, {"lvm": [], "raid": [], "btrfs": [], "stratis": []})
 
         # disks are empty and without partition table --> no usable free space
         # should be reported (unpartitioned disks are not considered usable)
