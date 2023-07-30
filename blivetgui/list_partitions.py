@@ -269,7 +269,7 @@ class ListPartitions(object):
         if device.protected:
             return False
 
-        if device.type in ("free space", "btrfs volume", "lvmthinpool"):
+        if device.type in ("free space", "btrfs volume", "btrfs subvolume", "lvmthinpool"):
             return True
 
         # empty lvmpv
