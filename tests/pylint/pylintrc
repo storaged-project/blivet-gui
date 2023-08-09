@@ -372,11 +372,3 @@ int-import-graph=
 # Force import order to recognize a module as part of the standard
 # compatibility libraries.
 known-standard-library=
-
-
-[EXCEPTIONS]
-
-# Exceptions that will emit a warning when being caught. Defaults to
-# "BaseException, Exception".
-overgeneral-exceptions=BaseException,
-                       Exception
