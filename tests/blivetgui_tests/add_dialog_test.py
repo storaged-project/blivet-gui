@@ -538,7 +538,7 @@ class AddDialogTest(unittest.TestCase):
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
                                [("free", free_device)], _filesystems,
-                               [], True)  # with installer_mode=True
+                               [])
 
         # switch from biosboot to btrfs and ext4 (rhbz#1881472)
         add_dialog.filesystems_combo.set_active_id("biosboot")

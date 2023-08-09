@@ -1425,12 +1425,10 @@ class BlivetUtils(object):
 
         return list(self.storage.mountpoints.keys())
 
-    def get_supported_filesystems(self, installer_mode=False):
+    def get_supported_filesystems(self):
         _fs_types = []
 
-        additional_fs = ["swap", "lvmpv"]
-        if installer_mode:
-            additional_fs.extend(["biosboot", "prepboot"])
+        additional_fs = ["swap", "lvmpv", "biosboot", "prepboot"]
 
         for cls in blivet.formats.device_formats.values():
             obj = cls()
