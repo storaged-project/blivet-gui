@@ -1,19 +1,22 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>blivetgui &#8212; blivet-gui 2.2.1 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/classic.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>blivetgui &#8212; blivet-gui 2.4.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -27,7 +30,7 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">blivet-gui 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">blivet-gui 2.4.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">blivetgui</a></li> 
       </ul>
     </div>  
@@ -37,8 +40,8 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="blivetgui">
-<h1>blivetgui<a class="headerlink" href="#blivetgui" title="Permalink to this headline">¶</a></h1>
+  <section id="blivetgui">
+<h1>blivetgui<a class="headerlink" href="#blivetgui" title="Permalink to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="blivetgui.html">blivetgui package</a><ul>
@@ -78,29 +81,247 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="blivetgui.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.actions_menu">blivetgui.actions_menu module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.actions_toolbar">blivetgui.actions_toolbar module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.blivet_utils">blivetgui.blivet_utils module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.blivetgui">blivetgui.blivetgui module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.config">blivetgui.config module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.exception_handler">blivetgui.exception_handler module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.gui_utils">blivetgui.gui_utils module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.i18n">blivetgui.i18n module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.list_actions">blivetgui.list_actions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.list_devices">blivetgui.list_devices module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.list_parents">blivetgui.list_parents module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.list_partitions">blivetgui.list_partitions module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.loading_window">blivetgui.loading_window module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.logs">blivetgui.logs module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.main_menu">blivetgui.main_menu module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.osinstall">blivetgui.osinstall module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.processing_window">blivetgui.processing_window module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.actions_menu">blivetgui.actions_menu module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.actions_menu.ActionsMenu"><code class="docutils literal notranslate"><span class="pre">ActionsMenu</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.actions_menu.ActionsMenu.activate_menu_items"><code class="docutils literal notranslate"><span class="pre">ActionsMenu.activate_menu_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.actions_menu.ActionsMenu.create_menu"><code class="docutils literal notranslate"><span class="pre">ActionsMenu.create_menu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.actions_menu.ActionsMenu.deactivate_all"><code class="docutils literal notranslate"><span class="pre">ActionsMenu.deactivate_all()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.actions_menu.ActionsMenu.deactivate_menu_items"><code class="docutils literal notranslate"><span class="pre">ActionsMenu.deactivate_menu_items()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.actions_toolbar">blivetgui.actions_toolbar module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.actions_toolbar.ActionsToolbar"><code class="docutils literal notranslate"><span class="pre">ActionsToolbar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.actions_toolbar.ActionsToolbar.deactivate_all"><code class="docutils literal notranslate"><span class="pre">ActionsToolbar.deactivate_all()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.actions_toolbar.BlivetGUIToolbar"><code class="docutils literal notranslate"><span class="pre">BlivetGUIToolbar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.actions_toolbar.BlivetGUIToolbar.activate_buttons"><code class="docutils literal notranslate"><span class="pre">BlivetGUIToolbar.activate_buttons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.actions_toolbar.BlivetGUIToolbar.deactivate_buttons"><code class="docutils literal notranslate"><span class="pre">BlivetGUIToolbar.deactivate_buttons()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.actions_toolbar.DeviceToolbar"><code class="docutils literal notranslate"><span class="pre">DeviceToolbar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.actions_toolbar.DeviceToolbar.deactivate_all"><code class="docutils literal notranslate"><span class="pre">DeviceToolbar.deactivate_all()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.blivet_utils">blivetgui.blivet_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils"><code class="docutils literal notranslate"><span class="pre">BlivetUtils</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.add_device"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.add_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.add_dict"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.add_dict</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.blivet_cancel_actions"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.blivet_cancel_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.blivet_do_it"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.blivet_do_it()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.blivet_reset"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.blivet_reset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.create_disk_label"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.create_disk_label()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.delete_device"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.delete_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.device_resizable"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.device_resizable()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.edit_lvmvg_device"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.edit_lvmvg_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.format_device"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.format_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_actions"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_children"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_children()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_default_filesystem"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_default_filesystem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_disk_children"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_disk_children()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_disks"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_disks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_free_device"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_free_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_free_info"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_free_info()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_group_device"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_group_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_group_devices"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_group_devices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_luks_device"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_luks_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_mountpoints"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_mountpoints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_roots"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_roots()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_supported_filesystems"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_supported_filesystems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.get_system_mountpoints"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.get_system_mountpoints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.installer_mode"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.installer_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.log_debug"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.log_debug()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.luks_decrypt"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.luks_decrypt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.relabel_format"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.relabel_format()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.resizable_filesystems"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.resizable_filesystems</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.BlivetUtils.resize_device"><code class="docutils literal notranslate"><span class="pre">BlivetUtils.resize_device()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.FreeSpaceDevice"><code class="docutils literal notranslate"><span class="pre">FreeSpaceDevice</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.FreeSpaceDevice.is_empty_disk"><code class="docutils literal notranslate"><span class="pre">FreeSpaceDevice.is_empty_disk</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.FreeSpaceDevice.is_free_region"><code class="docutils literal notranslate"><span class="pre">FreeSpaceDevice.is_free_region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.FreeSpaceDevice.is_uninitialized_disk"><code class="docutils literal notranslate"><span class="pre">FreeSpaceDevice.is_uninitialized_disk</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.FreeSpaceDevice.protected"><code class="docutils literal notranslate"><span class="pre">FreeSpaceDevice.protected</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.blivet_utils.lsblk"><code class="docutils literal notranslate"><span class="pre">lsblk()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.blivetgui">blivetgui.blivetgui module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI"><code class="docutils literal notranslate"><span class="pre">BlivetGUI</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.actions_undo"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.actions_undo()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.activate_action_buttons"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.activate_action_buttons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.activate_device_actions"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.activate_device_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.add_device"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.add_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.apply_event"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.apply_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.blivet_init"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.blivet_init()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.clear_actions"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.clear_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.deactivate_all_actions"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.deactivate_all_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.deactivate_device_actions"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.deactivate_device_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.decrypt_device"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.decrypt_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.delete_selected_partition"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.delete_selected_partition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.device_information"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.device_information()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.edit_label"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.edit_label()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.edit_lvmvg"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.edit_lvmvg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.format_device"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.format_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.initialize"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.initialize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.installer_mode"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.installer_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.perform_actions"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.perform_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.quit"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.quit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.reload"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.reload()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.resize_device"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.resize_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.run_dialog"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.run_dialog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.set_mountpoint"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.set_mountpoint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.set_partition_table"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.set_partition_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.show_actions"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.show_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.show_confirmation_dialog"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.show_confirmation_dialog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.show_error_dialog"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.show_error_dialog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.show_warning_dialog"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.show_warning_dialog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.supported_filesystems"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.supported_filesystems</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.switch_device_view"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.switch_device_view()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.umount_partition"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.umount_partition()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.update_partitions_view"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.update_partitions_view()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.blivetgui.BlivetGUI.update_physical_view"><code class="docutils literal notranslate"><span class="pre">BlivetGUI.update_physical_view()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.config">blivetgui.config module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.config.BlivetGUIConfig"><code class="docutils literal notranslate"><span class="pre">BlivetGUIConfig</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.exception_handler">blivetgui.exception_handler module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.exception_handler.BlivetGUIExceptionHandler"><code class="docutils literal notranslate"><span class="pre">BlivetGUIExceptionHandler</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.exception_handler.BlivetGUIExceptionHandler.allow_ignore"><code class="docutils literal notranslate"><span class="pre">BlivetGUIExceptionHandler.allow_ignore</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.exception_handler.BlivetGUIExceptionHandler.handle_exception"><code class="docutils literal notranslate"><span class="pre">BlivetGUIExceptionHandler.handle_exception()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.gui_utils">blivetgui.gui_utils module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.gui_utils.command_exists"><code class="docutils literal notranslate"><span class="pre">command_exists()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.gui_utils.locate_css_file"><code class="docutils literal notranslate"><span class="pre">locate_css_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.gui_utils.locate_ui_file"><code class="docutils literal notranslate"><span class="pre">locate_ui_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.i18n">blivetgui.i18n module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.i18n.N_"><code class="docutils literal notranslate"><span class="pre">N_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.i18n.P_"><code class="docutils literal notranslate"><span class="pre">P_()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.list_actions">blivetgui.list_actions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.list_actions.ListActions"><code class="docutils literal notranslate"><span class="pre">ListActions</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_actions.ListActions.append"><code class="docutils literal notranslate"><span class="pre">ListActions.append()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_actions.ListActions.clear"><code class="docutils literal notranslate"><span class="pre">ListActions.clear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_actions.ListActions.initialize"><code class="docutils literal notranslate"><span class="pre">ListActions.initialize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_actions.ListActions.pop"><code class="docutils literal notranslate"><span class="pre">ListActions.pop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.list_devices">blivetgui.list_devices module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.list_devices.ListDevices"><code class="docutils literal notranslate"><span class="pre">ListDevices</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_devices.ListDevices.load_devices"><code class="docutils literal notranslate"><span class="pre">ListDevices.load_devices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_devices.ListDevices.load_disks"><code class="docutils literal notranslate"><span class="pre">ListDevices.load_disks()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_devices.ListDevices.load_group_devices"><code class="docutils literal notranslate"><span class="pre">ListDevices.load_group_devices()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_devices.ListDevices.on_disk_selection_changed"><code class="docutils literal notranslate"><span class="pre">ListDevices.on_disk_selection_changed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_devices.ListDevices.select_device_by_name"><code class="docutils literal notranslate"><span class="pre">ListDevices.select_device_by_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_devices.ListDevices.update_devices_view"><code class="docutils literal notranslate"><span class="pre">ListDevices.update_devices_view()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.list_parents">blivetgui.list_parents module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.list_parents.ListParents"><code class="docutils literal notranslate"><span class="pre">ListParents</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_parents.ListParents.update_parents_list"><code class="docutils literal notranslate"><span class="pre">ListParents.update_parents_list()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.list_partitions">blivetgui.list_partitions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.list_partitions.ListPartitions"><code class="docutils literal notranslate"><span class="pre">ListPartitions</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_partitions.ListPartitions.activate_action_buttons"><code class="docutils literal notranslate"><span class="pre">ListPartitions.activate_action_buttons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_partitions.ListPartitions.on_partition_selection_changed"><code class="docutils literal notranslate"><span class="pre">ListPartitions.on_partition_selection_changed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_partitions.ListPartitions.on_right_click_event"><code class="docutils literal notranslate"><span class="pre">ListPartitions.on_right_click_event()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_partitions.ListPartitions.select_device"><code class="docutils literal notranslate"><span class="pre">ListPartitions.select_device()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.list_partitions.ListPartitions.update_partitions_list"><code class="docutils literal notranslate"><span class="pre">ListPartitions.update_partitions_list()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.loading_window">blivetgui.loading_window module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.loading_window.LoadingWindow"><code class="docutils literal notranslate"><span class="pre">LoadingWindow</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.loading_window.LoadingWindow.on_timeout"><code class="docutils literal notranslate"><span class="pre">LoadingWindow.on_timeout()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.loading_window.LoadingWindow.start"><code class="docutils literal notranslate"><span class="pre">LoadingWindow.start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.loading_window.LoadingWindow.stop"><code class="docutils literal notranslate"><span class="pre">LoadingWindow.stop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.logs">blivetgui.logs module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.logs.log_utils_call"><code class="docutils literal notranslate"><span class="pre">log_utils_call()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.logs.set_logging"><code class="docutils literal notranslate"><span class="pre">set_logging()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.main_menu">blivetgui.main_menu module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.main_menu.MainMenu"><code class="docutils literal notranslate"><span class="pre">MainMenu</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.main_menu.MainMenu.on_about_item"><code class="docutils literal notranslate"><span class="pre">MainMenu.on_about_item()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.osinstall">blivetgui.osinstall module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.activate_action_buttons"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.activate_action_buttons()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.allow_ignore"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.allow_ignore</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.enlightbox"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.enlightbox()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.initialize"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.initialize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.installer_mode"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.installer_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.label_actions"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.label_actions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.main_window"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.main_window</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.reload"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.reload()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.run_dialog"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.run_dialog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.set_actions"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.set_actions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.set_keyboard_shortcuts"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.set_keyboard_shortcuts()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.show_confirmation_dialog"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.show_confirmation_dialog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.show_error_dialog"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.show_error_dialog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.show_warning_dialog"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.show_warning_dialog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.ui_refresh"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.ui_refresh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnaconda.unset_keyboard_shortcuts"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnaconda.unset_keyboard_shortcuts()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnacondaClient"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnacondaClient</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnacondaClient.initialize"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnacondaClient.initialize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetGUIAnacondaClient.remote_call"><code class="docutils literal notranslate"><span class="pre">BlivetGUIAnacondaClient.remote_call()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetUtilsAnaconda"><code class="docutils literal notranslate"><span class="pre">BlivetUtilsAnaconda</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetUtilsAnaconda.installer_mode"><code class="docutils literal notranslate"><span class="pre">BlivetUtilsAnaconda.installer_mode</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.osinstall.BlivetUtilsAnaconda.storage"><code class="docutils literal notranslate"><span class="pre">BlivetUtilsAnaconda.storage</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui.processing_window">blivetgui.processing_window module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="blivetgui.html#blivetgui.processing_window.ProcessingActions"><code class="docutils literal notranslate"><span class="pre">ProcessingActions</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.processing_window.ProcessingActions.add_action_view"><code class="docutils literal notranslate"><span class="pre">ProcessingActions.add_action_view()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.processing_window.ProcessingActions.progress_msg"><code class="docutils literal notranslate"><span class="pre">ProcessingActions.progress_msg()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.processing_window.ProcessingActions.start"><code class="docutils literal notranslate"><span class="pre">ProcessingActions.start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="blivetgui.html#blivetgui.processing_window.ProcessingActions.stop"><code class="docutils literal notranslate"><span class="pre">ProcessingActions.stop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="blivetgui.html#module-blivetgui">Module contents</a></li>
 </ul>
 </li>
 </ul>
 </div>
-</div>
+</section>
 
 
             <div class="clearer"></div>
@@ -120,12 +341,12 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
@@ -139,13 +360,13 @@
         <li class="right" >
           <a href="../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">blivet-gui 2.2.1 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">blivet-gui 2.4.2 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">blivetgui</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2014,-2020, Red Hat, Inc..
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+        &#169; Copyright 2014,-2022, Red Hat, Inc..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
     </div>
   </body>
 </html>
