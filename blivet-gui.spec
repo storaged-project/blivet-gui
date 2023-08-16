@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.4.1
+Version: 2.4.2
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
@@ -74,6 +74,24 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Wed Aug 16 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.4.2-1
+- pylint: Update pylintrc (vtrefny)
+- Allow creating biosboot even if not in installer mode (vtrefny)
+- Allow adding nested btrfs subvolumes (vtrefny)
+- Squashed 'translation-canary/' changes from d6a4098..5bb8125 (vtrefny)
+- Translated using Weblate (Georgian) (temuri.doghonadze)
+- Translated using Weblate (Chinese (Simplified) (zh_CN)) (1504305527)
+- misc: Vagrantfile update (vtrefny)
+- Translated using Weblate (Korean) (simmon)
+- Translated using Weblate (Swedish) (bittin)
+- Translated using Weblate (Korean) (simmon)
+- Translated using Weblate (Czech) (jan.kalabza)
+- Translated using Weblate (Czech) (pavel.borecki)
+- Translated using Weblate (Portuguese (Brazil)) (contato.fnog)
+- Translated using Weblate (Czech) (pavel.borecki)
+- Update translation files (noreply)
+- Translated using Weblate (French) (grimaitres)
+
 * Fri Mar 24 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.4.1-1
 - ci: Add Packit configuration for downstream builds on release (vtrefny)
 - spec: Bump release to 27 for Packit daily builds (vtrefny)
