@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-24 12:59+0100\n"
+"POT-Creation-Date: 2023-08-16 13:52+0200\n"
 "PO-Revision-Date: 2018-10-24 11:38+0000\n"
 "Last-Translator: Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>\n"
 "Language-Team: Catalan\n"
@@ -17,43 +17,43 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Zanata 4.6.2\n"
 
-#: ../blivetgui/blivetgui.py:290
+#: ../blivetgui/blivetgui.py:289
 msgid "Failed to resize the device:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:302
+#: ../blivetgui/blivetgui.py:301
 #, python-brace-format
 msgid "resize {name} {type}"
 msgstr "redimensiona {type} {name}"
 
-#: ../blivetgui/blivetgui.py:321
+#: ../blivetgui/blivetgui.py:320
 msgid "Failed to format the device:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:335
+#: ../blivetgui/blivetgui.py:334
 #, python-brace-format
 msgid "format {name} {type}"
 msgstr "formata {type} {name}"
 
-#: ../blivetgui/blivetgui.py:348
+#: ../blivetgui/blivetgui.py:347
 msgid "Failed to edit the LVM2 Volume Group:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:363
+#: ../blivetgui/blivetgui.py:362
 #, python-brace-format
 msgid "edit {name} {type}"
 msgstr "edita {type} {name}"
 
-#: ../blivetgui/blivetgui.py:392
+#: ../blivetgui/blivetgui.py:391
 msgid "Failed to change filesystem label on the device:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:397
+#: ../blivetgui/blivetgui.py:396
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:413
+#: ../blivetgui/blivetgui.py:412
 #, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
@@ -62,11 +62,11 @@ msgstr ""
 "{name} no està complet. No és possible afegir els volums lògics al grup de "
 "volums quan falten volums físics."
 
-#: ../blivetgui/blivetgui.py:418
+#: ../blivetgui/blivetgui.py:417
 msgid "Not enough free space for a new LVM Volume Group."
 msgstr "No hi ha prou espai lliure per a un nou grup de volums LVM."
 
-#: ../blivetgui/blivetgui.py:424
+#: ../blivetgui/blivetgui.py:423
 #, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
@@ -75,46 +75,46 @@ msgstr ""
 "El disc {name} ja ha assolit el nombre màxim permès de particions primàries "
 "per a l'etiqueta de disc {label}."
 
-#: ../blivetgui/blivetgui.py:434
+#: ../blivetgui/blivetgui.py:433
 msgid "Failed to add disklabel:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:447
+#: ../blivetgui/blivetgui.py:446
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "crea una nova etiqueta de disc a {name}"
 
-#: ../blivetgui/blivetgui.py:499
+#: ../blivetgui/blivetgui.py:498
 msgid "Failed to add the device:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:514
+#: ../blivetgui/blivetgui.py:513
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr "afegeix un dispositiu {type} de {size}"
 
-#: ../blivetgui/blivetgui.py:558
+#: ../blivetgui/blivetgui.py:557
 msgid "Failed to delete the device:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:573
+#: ../blivetgui/blivetgui.py:572
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr "elimina la partició {name}"
 
-#: ../blivetgui/blivetgui.py:615
+#: ../blivetgui/blivetgui.py:614
 msgid "Failed to perform the actions:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:659
+#: ../blivetgui/blivetgui.py:658
 msgid "Confirm scheduled actions"
 msgstr "Confirmació de les accions planificades"
 
-#: ../blivetgui/blivetgui.py:660
+#: ../blivetgui/blivetgui.py:659
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Esteu segur que voleu realitzar les operacions planificades?"
 
-#: ../blivetgui/blivetgui.py:701
+#: ../blivetgui/blivetgui.py:700
 #, fuzzy, python-brace-format
 #| msgid "Unmount failed. Are you sure device is not in use?"
 msgid ""
@@ -122,7 +122,7 @@ msgid ""
 msgstr ""
 "Ha fallat el desmuntatge. Esteu segur que aquest dispositiu no està en ús?"
 
-#: ../blivetgui/blivetgui.py:723
+#: ../blivetgui/blivetgui.py:722
 #, fuzzy
 #| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
@@ -130,15 +130,15 @@ msgstr ""
 "Ha fallat el desxifratge del dispositiu. Esteu segur que la contrasenya que "
 "heu proporcionat és correcta?"
 
-#: ../blivetgui/blivetgui.py:773 ../data/ui/blivet-gui.ui:662
+#: ../blivetgui/blivetgui.py:772 ../data/ui/blivet-gui.ui:662
 msgid "Quit"
 msgstr "Surt"
 
-#: ../blivetgui/blivetgui.py:776
+#: ../blivetgui/blivetgui.py:775
 msgid "blivet-gui is already running"
 msgstr "ja s'està executant blivet-gui"
 
-#: ../blivetgui/blivetgui.py:777
+#: ../blivetgui/blivetgui.py:776
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -146,7 +146,7 @@ msgstr ""
 "Ja s'està executant una altra instància de blivet-gui.\n"
 "Només es pot executar una instància de blivet-gui alhora."
 
-#: ../blivetgui/blivetgui.py:779
+#: ../blivetgui/blivetgui.py:778
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -157,24 +157,24 @@ msgid ""
 "command to force quit it."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:811
+#: ../blivetgui/blivetgui.py:810
 msgid "Failed to init blivet:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:818
+#: ../blivetgui/blivetgui.py:817
 msgid "Quit blivet-gui"
 msgstr "Surt de blivet-gui"
 
-#: ../blivetgui/blivetgui.py:820
+#: ../blivetgui/blivetgui.py:819
 msgid "Ignore disk and continue"
 msgstr "Ignora el disc i continua"
 
-#: ../blivetgui/blivetgui.py:823
+#: ../blivetgui/blivetgui.py:822
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "Error: {error}"
 
-#: ../blivetgui/blivetgui.py:824
+#: ../blivetgui/blivetgui.py:823
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -186,19 +186,19 @@ msgstr ""
 "disc malmesa o desconeguda.\n"
 "Podeu sortir ara de blivet-gui o continuar sense poder utilitzar aquest disc."
 
-#: ../blivetgui/blivetgui.py:860
+#: ../blivetgui/blivetgui.py:859
 msgid "Confirm reload storage"
 msgstr "Confirmació per tornar a carregar l'emmagatzematge"
 
-#: ../blivetgui/blivetgui.py:861
+#: ../blivetgui/blivetgui.py:860
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "Encara hi ha operacions pendents. Esteu segur que voleu continuar?"
 
-#: ../blivetgui/blivetgui.py:892
+#: ../blivetgui/blivetgui.py:891
 msgid "Are you sure you want to quit?"
 msgstr "Esteu segur que voleu sortir?"
 
-#: ../blivetgui/blivetgui.py:893
+#: ../blivetgui/blivetgui.py:892
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
