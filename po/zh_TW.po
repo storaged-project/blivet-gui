@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-24 12:59+0100\n"
+"POT-Creation-Date: 2023-08-16 13:52+0200\n"
 "PO-Revision-Date: 2017-09-11 06:49+0000\n"
 "Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
 "Language-Team: Chinese (Taiwan)\n"
@@ -18,127 +18,127 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0\n"
 "X-Generator: Zanata 4.6.2\n"
 
-#: ../blivetgui/blivetgui.py:290
+#: ../blivetgui/blivetgui.py:289
 msgid "Failed to resize the device:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:302
+#: ../blivetgui/blivetgui.py:301
 #, python-brace-format
 msgid "resize {name} {type}"
 msgstr "調整大小 {name} {type}"
 
-#: ../blivetgui/blivetgui.py:321
+#: ../blivetgui/blivetgui.py:320
 msgid "Failed to format the device:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:335
+#: ../blivetgui/blivetgui.py:334
 #, python-brace-format
 msgid "format {name} {type}"
 msgstr "格式化 {name} {type}"
 
-#: ../blivetgui/blivetgui.py:348
+#: ../blivetgui/blivetgui.py:347
 msgid "Failed to edit the LVM2 Volume Group:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:363
+#: ../blivetgui/blivetgui.py:362
 #, python-brace-format
 msgid "edit {name} {type}"
 msgstr "編輯 {name} {type}"
 
-#: ../blivetgui/blivetgui.py:392
+#: ../blivetgui/blivetgui.py:391
 msgid "Failed to change filesystem label on the device:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:397
+#: ../blivetgui/blivetgui.py:396
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:413
+#: ../blivetgui/blivetgui.py:412
 #, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
 "PVs."
 msgstr "{name} 不完整。無法新增 LV 到缺失 PV 的 VG 中。"
 
-#: ../blivetgui/blivetgui.py:418
+#: ../blivetgui/blivetgui.py:417
 msgid "Not enough free space for a new LVM Volume Group."
 msgstr "新 LVM 儲區群組沒有足夠的可用空間。"
 
-#: ../blivetgui/blivetgui.py:424
+#: ../blivetgui/blivetgui.py:423
 #, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
 "{label} disklabel."
 msgstr "{name} 磁碟已經達到 {label} 磁碟標籤其主要分割區的最大上限數。"
 
-#: ../blivetgui/blivetgui.py:434
+#: ../blivetgui/blivetgui.py:433
 msgid "Failed to add disklabel:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:447
+#: ../blivetgui/blivetgui.py:446
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "在 {name} 上建立新的磁碟標籤"
 
-#: ../blivetgui/blivetgui.py:499
+#: ../blivetgui/blivetgui.py:498
 msgid "Failed to add the device:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:514
+#: ../blivetgui/blivetgui.py:513
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr "加入 {size} {type} 裝置"
 
-#: ../blivetgui/blivetgui.py:558
+#: ../blivetgui/blivetgui.py:557
 msgid "Failed to delete the device:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:573
+#: ../blivetgui/blivetgui.py:572
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr "刪除 {name} 分割區"
 
-#: ../blivetgui/blivetgui.py:615
+#: ../blivetgui/blivetgui.py:614
 msgid "Failed to perform the actions:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:659
+#: ../blivetgui/blivetgui.py:658
 msgid "Confirm scheduled actions"
 msgstr "確認安排的動作"
 
-#: ../blivetgui/blivetgui.py:660
+#: ../blivetgui/blivetgui.py:659
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "您確定要執行安排的動作？"
 
-#: ../blivetgui/blivetgui.py:701
+#: ../blivetgui/blivetgui.py:700
 #, fuzzy, python-brace-format
 #| msgid "Unmount failed. Are you sure device is not in use?"
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr "卸載失敗。您確定裝置沒有正在使用？"
 
-#: ../blivetgui/blivetgui.py:723
+#: ../blivetgui/blivetgui.py:722
 #, fuzzy
 #| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "裝置解密失敗。您確定提供的密碼正確？"
 
-#: ../blivetgui/blivetgui.py:773 ../data/ui/blivet-gui.ui:662
+#: ../blivetgui/blivetgui.py:772 ../data/ui/blivet-gui.ui:662
 msgid "Quit"
 msgstr "退出"
 
-#: ../blivetgui/blivetgui.py:776
+#: ../blivetgui/blivetgui.py:775
 msgid "blivet-gui is already running"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:777
+#: ../blivetgui/blivetgui.py:776
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:779
+#: ../blivetgui/blivetgui.py:778
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -149,24 +149,24 @@ msgid ""
 "command to force quit it."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:811
+#: ../blivetgui/blivetgui.py:810
 msgid "Failed to init blivet:"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:818
+#: ../blivetgui/blivetgui.py:817
 msgid "Quit blivet-gui"
 msgstr "退出 blivet-gui"
 
-#: ../blivetgui/blivetgui.py:820
+#: ../blivetgui/blivetgui.py:819
 msgid "Ignore disk and continue"
 msgstr "忽略磁碟並繼續"
 
-#: ../blivetgui/blivetgui.py:823
+#: ../blivetgui/blivetgui.py:822
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "錯誤：{error}"
 
-#: ../blivetgui/blivetgui.py:824
+#: ../blivetgui/blivetgui.py:823
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -177,19 +177,19 @@ msgstr ""
 "Blivet-gui 無法使用 <b>{name}</b> 磁碟，可能因為磁碟標籤受損/未知。\n"
 "您現在可以退出 blivet-gui，或是在無法使用此磁碟的情況下繼續。"
 
-#: ../blivetgui/blivetgui.py:860
+#: ../blivetgui/blivetgui.py:859
 msgid "Confirm reload storage"
 msgstr "確認重載儲存裝置"
 
-#: ../blivetgui/blivetgui.py:861
+#: ../blivetgui/blivetgui.py:860
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "還有擱置的作業。您確定要繼續？"
 
-#: ../blivetgui/blivetgui.py:892
+#: ../blivetgui/blivetgui.py:891
 msgid "Are you sure you want to quit?"
 msgstr "您確定要退出？"
 
-#: ../blivetgui/blivetgui.py:893
+#: ../blivetgui/blivetgui.py:892
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr "還有擱置的作業。您確定要現在退出 blivet-gui？"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-03-24 12:59+0100\n"
+"POT-Creation-Date: 2023-08-16 13:52+0200\n"
 "PO-Revision-Date: 2023-05-19 02:20+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
@@ -19,43 +19,43 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.17\n"
 
-#: ../blivetgui/blivetgui.py:290
+#: ../blivetgui/blivetgui.py:289
 msgid "Failed to resize the device:"
 msgstr "장치 조정이 실패하였습니다:"
 
-#: ../blivetgui/blivetgui.py:302
+#: ../blivetgui/blivetgui.py:301
 #, python-brace-format
 msgid "resize {name} {type}"
 msgstr "조정 {name} {type}"
 
-#: ../blivetgui/blivetgui.py:321
+#: ../blivetgui/blivetgui.py:320
 msgid "Failed to format the device:"
 msgstr "장치 초기화에 실패하였습니다:"
 
-#: ../blivetgui/blivetgui.py:335
+#: ../blivetgui/blivetgui.py:334
 #, python-brace-format
 msgid "format {name} {type}"
 msgstr "초기화 {name} {type}"
 
-#: ../blivetgui/blivetgui.py:348
+#: ../blivetgui/blivetgui.py:347
 msgid "Failed to edit the LVM2 Volume Group:"
 msgstr "LVM2 볼륨그룹 편집에 실패하였습니다:"
 
-#: ../blivetgui/blivetgui.py:363
+#: ../blivetgui/blivetgui.py:362
 #, python-brace-format
 msgid "edit {name} {type}"
 msgstr "편집 {name} {type}"
 
-#: ../blivetgui/blivetgui.py:392
+#: ../blivetgui/blivetgui.py:391
 msgid "Failed to change filesystem label on the device:"
 msgstr "장치에 파일시스템 이름표를 변경 할 수 없습니다:"
 
-#: ../blivetgui/blivetgui.py:397
+#: ../blivetgui/blivetgui.py:396
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
 msgstr "파일시스템 {name} {type} 이름표를 변경합니다"
 
-#: ../blivetgui/blivetgui.py:413
+#: ../blivetgui/blivetgui.py:412
 #, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
@@ -64,11 +64,11 @@ msgstr ""
 "{name} 는 완료하지 못했습니다. 누락된 PVs와 함께 VG에 새로운 LVs에 추가 할 "
 "수 없습니다."
 
-#: ../blivetgui/blivetgui.py:418
+#: ../blivetgui/blivetgui.py:417
 msgid "Not enough free space for a new LVM Volume Group."
 msgstr "새로운 LVM 볼륨 그룹을 위해 충분한 여유 공간이 없습니다."
 
-#: ../blivetgui/blivetgui.py:424
+#: ../blivetgui/blivetgui.py:423
 #, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
@@ -77,46 +77,46 @@ msgstr ""
 "디스크 {name}는 이미 디스크이름표 {label}를 위하여 주 파티션의 최대 허용 수"
 "에 도달하였습니다."
 
-#: ../blivetgui/blivetgui.py:434
+#: ../blivetgui/blivetgui.py:433
 msgid "Failed to add disklabel:"
 msgstr "디스크이름표를 추가에 실패하였습니다:"
 
-#: ../blivetgui/blivetgui.py:447
+#: ../blivetgui/blivetgui.py:446
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "{name}에서 새로운 디스크이름표를 생성합니다"
 
-#: ../blivetgui/blivetgui.py:499
+#: ../blivetgui/blivetgui.py:498
 msgid "Failed to add the device:"
 msgstr "장치 추가에 실패하였습니다:"
 
-#: ../blivetgui/blivetgui.py:514
+#: ../blivetgui/blivetgui.py:513
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr "장치 {size} {type} 추가합니다"
 
-#: ../blivetgui/blivetgui.py:558
+#: ../blivetgui/blivetgui.py:557
 msgid "Failed to delete the device:"
 msgstr "장치 삭제에 실패하였습니다:"
 
-#: ../blivetgui/blivetgui.py:573
+#: ../blivetgui/blivetgui.py:572
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr "구획표 {name} 삭제"
 
-#: ../blivetgui/blivetgui.py:615
+#: ../blivetgui/blivetgui.py:614
 msgid "Failed to perform the actions:"
 msgstr "동작을 수행하는데 실패하였습니다:"
 
-#: ../blivetgui/blivetgui.py:659
+#: ../blivetgui/blivetgui.py:658
 msgid "Confirm scheduled actions"
 msgstr "계획된 동작을 확인합니다"
 
-#: ../blivetgui/blivetgui.py:660
+#: ../blivetgui/blivetgui.py:659
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "계획된 동작을 수행할까요?"
 
-#: ../blivetgui/blivetgui.py:701
+#: ../blivetgui/blivetgui.py:700
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
@@ -124,19 +124,19 @@ msgstr ""
 "'{mountpoint}' 내려놓기에 실패하였습니다. 장치를 사용하지 않는 상태가 확실한"
 "가요?"
 
-#: ../blivetgui/blivetgui.py:723
+#: ../blivetgui/blivetgui.py:722
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "해제에 실패하였습니다. 제공된 비밀번호가 확실한가요?"
 
-#: ../blivetgui/blivetgui.py:773 ../data/ui/blivet-gui.ui:662
+#: ../blivetgui/blivetgui.py:772 ../data/ui/blivet-gui.ui:662
 msgid "Quit"
 msgstr "종료"
 
-#: ../blivetgui/blivetgui.py:776
+#: ../blivetgui/blivetgui.py:775
 msgid "blivet-gui is already running"
 msgstr "blivet-gui는 이미 동작중입니다"
 
-#: ../blivetgui/blivetgui.py:777
+#: ../blivetgui/blivetgui.py:776
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -144,7 +144,7 @@ msgstr ""
 "blivet-gui의 다른 예제가 이미 동작중입니다.\n"
 "blivet-gui의 예제 한 개만 동시에 실행 할 수 있습니다."
 
-#: ../blivetgui/blivetgui.py:779
+#: ../blivetgui/blivetgui.py:778
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -162,24 +162,24 @@ msgstr ""
 "\n"
 "이는 강제로 종료하는 명령입니다."
 
-#: ../blivetgui/blivetgui.py:811
+#: ../blivetgui/blivetgui.py:810
 msgid "Failed to init blivet:"
 msgstr "blivet 초기화에 실패하였습니다:"
 
-#: ../blivetgui/blivetgui.py:818
+#: ../blivetgui/blivetgui.py:817
 msgid "Quit blivet-gui"
 msgstr "blivet-gui 종료"
 
-#: ../blivetgui/blivetgui.py:820
+#: ../blivetgui/blivetgui.py:819
 msgid "Ignore disk and continue"
 msgstr "디스크를 무시하고 계속"
 
-#: ../blivetgui/blivetgui.py:823
+#: ../blivetgui/blivetgui.py:822
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "오류: {error}"
 
-#: ../blivetgui/blivetgui.py:824
+#: ../blivetgui/blivetgui.py:823
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -192,19 +192,19 @@ msgstr ""
 "당신은 blbiet-gui를 멈추거나 이 디스크를 사용 할 수 없는 때에도 계속 할 수 있"
 "습니다."
 
-#: ../blivetgui/blivetgui.py:860
+#: ../blivetgui/blivetgui.py:859
 msgid "Confirm reload storage"
 msgstr "저장소 재적재 확인"
 
-#: ../blivetgui/blivetgui.py:861
+#: ../blivetgui/blivetgui.py:860
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "지연 동작 중입니다. 계속하길 원하나요?"
 
-#: ../blivetgui/blivetgui.py:892
+#: ../blivetgui/blivetgui.py:891
 msgid "Are you sure you want to quit?"
 msgstr "종료하길 원하나요?"
 
-#: ../blivetgui/blivetgui.py:893
+#: ../blivetgui/blivetgui.py:892
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr "지연 동작 중입니다. 지금 blivet-gui를 종료하길 원하나요?"
