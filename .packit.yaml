@@ -16,7 +16,7 @@ jobs:
   trigger: commit
   owner: "@storage"
   project: blivet-daily
-  branch: master
+  branch: main
   preserve_project: true
 
 - job: propose_downstream
