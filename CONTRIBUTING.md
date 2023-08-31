@@ -38,7 +38,7 @@ PYTHONPATH=. PATH=`pwd`:$PATH blivet-gui
 
 #### Branches
 
-  * `master` is the only "active development" branch, new features should go to this branch
+  * `main` is the only "active development" branch, new features should go to this branch
 
 #### Code style
 
