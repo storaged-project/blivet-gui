@@ -162,6 +162,8 @@ class ListDevices(object):
                 selection.handler_block(self.selection_signal)
                 selection.unselect_iter(treeiter)
                 selection.handler_unblock(self.selection_signal)
+                if not model.iter_is_valid(self.last_iter):
+                    self.last_iter = model.get_iter(1)
                 selection.select_iter(self.last_iter)
                 treeiter = self.last_iter
 
