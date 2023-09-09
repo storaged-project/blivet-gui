@@ -26,7 +26,7 @@ def parse_args():
     argparser.add_argument("testname", nargs="?",
                            help="name of test class or method (e. g. 'blivetutils_tests.edit_dialog_test')")
     argparser.add_argument("-i", "--installed", dest="installed",
-                           help="run tests against installed version of libblockdev",
+                           help="run tests against installed version of blivet-gui",
                            action="store_true")
     return argparser.parse_args()
 
