@@ -67,7 +67,7 @@ class BlivetGUI(object):
 
     installer_mode = False
 
-    def __init__(self, client, exclusive_disks=None, keep_above=False):
+    def __init__(self, client, exclusive_disks=None, keep_above=False, auto_dev_updates=False):
 
         self.client = client
 
@@ -92,6 +92,10 @@ class BlivetGUI(object):
 
         # supported filesystems
         self._supported_filesystems = []
+
+        self.flags = dict()
+        if auto_dev_updates:
+            self.flags["auto_dev_updates"] = True
 
         # CSS styles
         css_provider = Gtk.CssProvider()
@@ -789,7 +793,7 @@ class BlivetGUI(object):
 
     def blivet_init(self):
         loading_window = LoadingWindow(self.main_window)
-        ret = self._run_thread(loading_window, self.client.remote_control, ("init", self.ignored_disks, self.exclusive_disks))
+        ret = self._run_thread(loading_window, self.client.remote_control, ("init", self.ignored_disks, self.exclusive_disks, self.flags))
 
         if not ret.success:  # pylint: disable=maybe-no-member
             # blivet-gui is already running --> quit

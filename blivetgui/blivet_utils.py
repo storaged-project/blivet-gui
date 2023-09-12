@@ -138,7 +138,7 @@ class BlivetUtils(object):
 
     installer_mode = False
 
-    def __init__(self, ignored_disks=None, exclusive_disks=None):
+    def __init__(self, ignored_disks=None, exclusive_disks=None, flags=None):
 
         self.ignored_disks = ignored_disks
         self.exclusive_disks = exclusive_disks
@@ -164,8 +164,17 @@ class BlivetUtils(object):
         # ignore zram devices
         blivet.udev.ignored_device_names.append(r"^zram")
 
+        # set blivet flags
+        if flags:
+            self._set_blivet_flags(flags)
+
         self.blivet_reset()
         self._update_min_sizes_info()
+
+    def _set_blivet_flags(self, flags):
+        for flag, value in flags.items():
+            self.log.info("setting blivet flag '%s' to '%s'", flag, value)
+            setattr(blivet.flags.flags, flag, value)
 
     @property
     def resizable_filesystems(self):
