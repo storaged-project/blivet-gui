@@ -73,6 +73,8 @@ def parse_options():
     parser = argparse.ArgumentParser(description="blivet-gui")
     parser.add_argument("-v", "--version", action="store_true", dest="version", default=False,
                         help=_("show version information"))
+    parser.add_argument("--keep-above", action="store_true", dest="keep_above", default=False,
+                        help=_("keep blivet-gui window above other windows"))
     parser.add_argument("disks", metavar="disk", type=str, nargs="*",
                         help="run blivet-gui only on specified disk(s) (optional)")
 
@@ -106,7 +108,7 @@ def main():
             sockfile = output.split()[0]
 
             client = BlivetGUIClient(server_socket=sockfile)
-            BlivetGUI(client, exclusive_disks=options.disks)
+            BlivetGUI(client, exclusive_disks=options.disks, keep_above=options.keep_above)
 
 
 if __name__ == '__main__':

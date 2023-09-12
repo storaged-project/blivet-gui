@@ -67,7 +67,7 @@ class BlivetGUI(object):
 
     installer_mode = False
 
-    def __init__(self, client, exclusive_disks=None):
+    def __init__(self, client, exclusive_disks=None, keep_above=False):
 
         self.client = client
 
@@ -103,6 +103,8 @@ class BlivetGUI(object):
         # MainWindow
         self.main_window = self.builder.get_object("main_window")
         self.main_window.connect("delete-event", self.quit)
+        if keep_above:
+            self.main_window.set_keep_above(True)
 
         # Exception handling
         self.exc = BlivetGUIExceptionHandler(self.main_window, sys.excepthook)
