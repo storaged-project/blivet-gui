@@ -110,10 +110,7 @@ class ResizeDialog(object):
     def run(self):
         response = self.dialog.run()
 
-        if response == Gtk.ResponseType.REJECT:
-            self.dialog.destroy()
-            return ProxyDataContainer(edit_device=self.resize_device, resize=False, size=None)
-        else:
+        if response == Gtk.ResponseType.ACCEPT:
             # size_chooser is None --> resizing is not allowed and error was displayed
             if self.size_chooser is None:
                 self.dialog.destroy()
@@ -123,6 +120,9 @@ class ResizeDialog(object):
             resize = selected_size != self.resize_device.size
             self.dialog.destroy()
             return ProxyDataContainer(edit_device=self.resize_device, resize=resize, size=selected_size)
+        else:
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.resize_device, resize=False, size=None)
 
     def _on_cancel_button(self, _button):
         self.dialog.response(Gtk.ResponseType.REJECT)
@@ -246,11 +246,7 @@ class FormatDialog(object):
     def run(self):
         response = self.dialog.run()
 
-        if response == Gtk.ResponseType.REJECT:
-            self.dialog.destroy()
-            return ProxyDataContainer(edit_device=self.edit_device, format=False,
-                                      filesystem=None, label=None, mountpoint=None)
-        else:
+        if response == Gtk.ResponseType.ACCEPT:
             if not self.validate_user_input():
                 return self.run()
 
@@ -259,6 +255,10 @@ class FormatDialog(object):
             return ProxyDataContainer(edit_device=self.edit_device, format=True,
                                       filesystem=selected_fs, label=selected_label,
                                       mountpoint=selected_mnt)
+        else:
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, format=False,
+                                      filesystem=None, label=None, mountpoint=None)
 
     def _allow_format_size(self, fs):
         if fs.max_size and self.edit_device.size > fs.max_size:
@@ -351,11 +351,7 @@ class MountpointDialog(object):
     def run(self):
         response = self.dialog.run()
 
-        if response == Gtk.ResponseType.REJECT:
-            self.dialog.destroy()
-            return ProxyDataContainer(edit_device=self.edit_device, do_set=False,
-                                      mountpoint=None)
-        else:
+        if response == Gtk.ResponseType.ACCEPT:
             if not self.validate_user_input():
                 return self.run()
 
@@ -363,6 +359,10 @@ class MountpointDialog(object):
             self.dialog.destroy()
             return ProxyDataContainer(edit_device=self.edit_device, do_set=True,
                                       mountpoint=selected_mnt)
+        else:
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, do_set=False,
+                                      mountpoint=None)
 
     def _on_cancel_button(self, _button):
         self.dialog.response(Gtk.ResponseType.REJECT)
@@ -414,16 +414,16 @@ class LabelDialog(object):
     def run(self):
         response = self.dialog.run()
 
-        if response == Gtk.ResponseType.REJECT:
-            self.dialog.destroy()
-            return ProxyDataContainer(edit_device=self.edit_device, relabel=False, label=None)
-        else:
+        if response == Gtk.ResponseType.ACCEPT:
             new_label = self.entry_label.get_text()
             if not self._validate_user_input(new_label):
                 return self.run()
             else:
                 self.dialog.destroy()
                 return ProxyDataContainer(edit_device=self.edit_device, relabel=True, label=new_label)
+        else:
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, relabel=False, label=None)
 
     def _on_cancel_button(self, _button):
         self.dialog.response(Gtk.ResponseType.REJECT)
@@ -471,10 +471,7 @@ class UnmountDialog(object):
     def run(self):
         response = self.dialog.run()
 
-        if response == Gtk.ResponseType.REJECT:
-            self.dialog.destroy()
-            return ProxyDataContainer(edit_device=self.edit_device, unmount=False, mountpoints=[])
-        else:
+        if response == Gtk.ResponseType.ACCEPT:
             mountpoints = []
             for row in self.mountpoints_store:
                 if row[0]:
@@ -482,6 +479,9 @@ class UnmountDialog(object):
 
             self.dialog.destroy()
             return ProxyDataContainer(edit_device=self.edit_device, unmount=True, mountpoints=mountpoints)
+        else:
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, unmount=False, mountpoints=[])
 
     def _on_unmount_toggled(self, _toggle, path):
         self.mountpoints_store[path][0] = not self.mountpoints_store[path][0]
