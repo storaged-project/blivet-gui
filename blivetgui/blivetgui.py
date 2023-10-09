@@ -601,10 +601,9 @@ class BlivetGUI(object):
 
         user_input = self.run_dialog(dialog)
 
-        msg = "Setting mountpoint for device '%s'" % device.name
-        self.client.remote_call("log_debug", msg, user_input)
-
         if user_input.do_set:
+            msg = "Setting mountpoint for device '%s'" % device.name
+            self.client.remote_call("log_debug", msg, user_input)
             device.format.mountpoint = user_input.mountpoint
             self._handle_user_change()
             self.update_partitions_view()
