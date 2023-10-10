@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-16 13:52+0200\n"
-"PO-Revision-Date: 2023-05-19 02:20+0000\n"
+"PO-Revision-Date: 2023-10-10 16:35+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Weblate 5.0.2\n"
 
 #: ../blivetgui/blivetgui.py:289
 msgid "Failed to resize the device:"
@@ -263,7 +263,7 @@ msgstr "적재된 장치는 크기를 줄일 수 없습니다"
 
 #: ../blivetgui/blivet_utils.py:727
 msgid "Logical Volumes with snapshots cannot be resized."
-msgstr "스냅샷과 같은 로지컬 볼륨은 크기를 줄일 수 없습니다."
+msgstr "순간찍기인 논리 볼륨은 크기를 조정 할 수 없습니다."
 
 #: ../blivetgui/blivet_utils.py:732
 msgid "Resizing of LUKS2 devices is currently not supported."
@@ -475,7 +475,7 @@ msgstr "LVM2ThinPool"
 
 #: ../blivetgui/dialogs/add_dialog.py:401
 msgid "LVM2 Snaphost"
-msgstr "LVM2 스냅샷"
+msgstr "LVM2 순간찍기"
 
 #: ../blivetgui/dialogs/add_dialog.py:404
 msgid "LVM2 Thin Snaphost"
@@ -591,7 +591,7 @@ msgstr "{0}에 대한 정보"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:81
 msgid "LVM2 Snapshot"
-msgstr "LVM2 스냅샷"
+msgstr "LVM2 순간찍기"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:84
 msgid "LUKS/DM-Crypt Device"
@@ -956,7 +956,7 @@ msgstr "빈 장치"
 
 #: ../blivetgui/visualization/rectangle.py:55
 msgid "Snapshot"
-msgstr "스냅샷"
+msgstr "순간찍기"
 
 #: ../blivetgui/visualization/rectangle.py:56
 msgid "Missing partition table"
