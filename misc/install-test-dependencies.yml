@@ -36,6 +36,10 @@
       - gettext
       - python3-polib
       - libblockdev-part
+      - btrfs-progs
+      - dosfstools
+      - e2fsprogs
+      - xfsprogs
     when: ansible_distribution == "Fedora"
 
   - name: Update apt cache (Debian/Ubuntu)
@@ -66,6 +70,10 @@
       - gettext
       - python3-polib
       - libblockdev-part2
+      - btrfs-progs
+      - dosfstools
+      - e2fsprogs
+      - xfsprogs
     when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
   - name: Install Blivet dependencies not covered by PyPI (Ubuntu/Debian)
@@ -120,7 +128,9 @@
       - python3-pip
       - python3-polib
       - libbd_part2
+      - btrfsprogs
       - e2fsprogs
+      - xfsprogs
       - adwaita-icon-theme
     when: ansible_os_family == "Suse"
 
