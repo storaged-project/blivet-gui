@@ -26,6 +26,13 @@ def supported_filesystems():
     return sorted(_fs_types, key=lambda fs: fs.type)
 
 
+SUPPORTED_RAIDS = {"btrfs volume": set((raid.RAID0, raid.RAID1, raid.RAID10, raid.Single)),
+                   "mdraid": set((raid.RAID0, raid.RAID1, raid.RAID4, raid.RAID5, raid.RAID6,
+                                  raid.RAID10, raid.Linear)),
+                   "lvmlv": set((raid.RAID0, raid.RAID1, raid.RAID4, raid.RAID5, raid.RAID6,
+                                 raid.RAID10, raid.Linear, raid.Striped))}
+
+
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class AdvancedOptionsTest(unittest.TestCase):
 
@@ -355,7 +362,9 @@ class AddDialogTest(unittest.TestCase):
         self.assertFalse(add_dialog.md_type_combo.get_visible())
         self.assertTrue(add_dialog.size_area.get_sensitive())
 
-    def test_btrfsvolume_widgets(self):
+    @patch("blivetgui.dialogs.add_dialog.supported_raids", return_value=SUPPORTED_RAIDS)
+    @patch("blivetgui.dialogs.widgets.supported_raids", return_value=SUPPORTED_RAIDS)
+    def test_btrfsvolume_widgets(self, *args):  # pylint: disable=unused-argument,arguments-differ
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device)
 
@@ -800,7 +809,9 @@ class AddDialogTest(unittest.TestCase):
         self.assertEqual(selection.size_selection.parents[1].selected_size, size)
         self.assertEqual(selection.raid_level, raidtype)
 
-    def test_btrfs_selection(self):
+    @patch("blivetgui.dialogs.add_dialog.supported_raids", return_value=SUPPORTED_RAIDS)
+    @patch("blivetgui.dialogs.widgets.supported_raids", return_value=SUPPORTED_RAIDS)
+    def test_btrfs_selection(self, *args):  # pylint: disable=unused-argument,arguments-differ
         parent_device = self._get_parent_device()
         free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), is_free_region=False,
                                             is_empty_disk=True)
