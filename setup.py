@@ -30,7 +30,7 @@ class blivet_gui_sdist(sdist):
 
     def initialize_options(self):
         sdist.initialize_options(self)
-        self.mode = None
+        self.mode = None  # pylint: disable=attribute-defined-outside-init
 
     def finalize_options(self):
         sdist.finalize_options(self)
