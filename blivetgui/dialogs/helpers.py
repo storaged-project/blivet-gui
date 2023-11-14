@@ -33,7 +33,7 @@ from gi.repository import Gtk
 
 from blivet import devicefactory
 from blivet.devicelibs import btrfs, lvm, crypto
-from blivet.tasks.fslabeling import Ext2FSLabeling, FATFSLabeling, JFSLabeling, ReiserFSLabeling, XFSLabeling, NTFSLabeling
+from blivet.tasks.fslabeling import Ext2FSLabeling, FATFSLabeling, XFSLabeling, NTFSLabeling
 
 # ---------------------------------------------------------------------------- #
 
@@ -109,10 +109,6 @@ def is_label_valid(format_type, label):
         return Ext2FSLabeling.label_format_ok(label)
     elif format_type == "vfat":
         return FATFSLabeling.label_format_ok(label)
-    elif format_type == "jfs":
-        return JFSLabeling.label_format_ok(label)
-    elif format_type == "raiserfs":
-        return ReiserFSLabeling.label_format_ok(label)
     elif format_type == "xfs":
         return XFSLabeling.label_format_ok(label)
     elif format_type == "ntfs":
