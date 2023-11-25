@@ -18,6 +18,10 @@ jobs:
   project: blivet-daily
   branch: main
   preserve_project: true
+  actions:
+    post-upstream-clone:
+      # bump release to 99 to always be ahead of Fedora builds
+      - 'bash -c "sed -i -r \"s/Release:(\s*)\S+/Release: 99%{?dist}/\" blivet-gui.spec"'
 
 - job: propose_downstream
   trigger: release
