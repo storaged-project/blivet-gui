@@ -19,6 +19,11 @@ jobs:
   branch: main
   preserve_project: true
   actions:
+    get-current-version:
+      - "python3 ./setup.py --version"
+    create-archive:
+      - "make local"
+      - 'bash -c "ls *.tar*"'
     post-upstream-clone:
       # bump release to 99 to always be ahead of Fedora builds
       - 'bash -c "sed -i -r \"s/Release:(\s*)\S+/Release: 99%{?dist}/\" blivet-gui.spec"'
