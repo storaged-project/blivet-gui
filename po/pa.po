@@ -4,13 +4,14 @@
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # A S Alam <aalam@fedoraproject.org>, 2019. #zanata
 # A S Alam <amanpreet.alam@gmail.com>, 2021.
+# A S Alam <aalam@users.noreply.translate.fedoraproject.org>, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-16 13:52+0200\n"
-"PO-Revision-Date: 2021-01-24 19:38+0000\n"
-"Last-Translator: A S Alam <amanpreet.alam@gmail.com>\n"
+"PO-Revision-Date: 2023-12-28 13:37+0000\n"
+"Last-Translator: A S Alam <aalam@users.noreply.translate.fedoraproject.org>\n"
 "Language-Team: Punjabi <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/pa/>\n"
 "Language: pa\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 4.4.2\n"
+"X-Generator: Weblate 5.3\n"
 
 #: ../blivetgui/blivetgui.py:289
 msgid "Failed to resize the device:"
@@ -61,7 +62,7 @@ msgstr "{name} {type} ਦਾ ਫਾਇਲ-ਸਿਸਟਮ ਲੇਬਲ ਬਦਲ
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
 "PVs."
-msgstr ""
+msgstr "{name} ਪੂਰਾ ਨਹੀਂ ਹੈ। ਬਿਨਾਂ PV ਦੇ LV ਨੂੰ VG ਵਿੱਚ ਜੋੜਨਾ ਸੰਭਵ ਨਹੀਂ ਹੈ।"
 
 #: ../blivetgui/blivetgui.py:417
 msgid "Not enough free space for a new LVM Volume Group."
@@ -73,10 +74,12 @@ msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
 "{label} disklabel."
 msgstr ""
+"{name} ਡਿਸਕ ਲਈ ਪਹਿਲਾਂ ਹੀ {label} ਡਿਸਕ-ਲੇਬਲ ਲਈ ਵੱਧ ਤੋਂ ਵੱਧ ਮਨਜ਼ੂਰ ਪ੍ਰਾਇਮਰੀ "
+"ਪਾਰਟੀਸ਼ਨ ਹੋ ਚੁੱਕੇ ਹਨ।"
 
 #: ../blivetgui/blivetgui.py:433
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "ਡਿਸਕ-ਲੇਬਲ ਜੋੜਨ ਲਈ ਅਸਫ਼ਲ:"
 
 #: ../blivetgui/blivetgui.py:446
 #, python-brace-format
@@ -85,7 +88,7 @@ msgstr "{name} ਉੱਤੇ ਨਵਾਂ ਡਿਸਕ-ਲੇਬਲ ਬਣਾਓ"
 
 #: ../blivetgui/blivetgui.py:498
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "ਡਿਵਾਈਸ ਜੋੜਨ ਲਈ ਅਸਫ਼ਲ:"
 
 #: ../blivetgui/blivetgui.py:513
 #, python-brace-format
@@ -94,7 +97,7 @@ msgstr "{size} {type} ਡਿਵਾਈਸ ਜੋੜੋ"
 
 #: ../blivetgui/blivetgui.py:557
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "ਡਿਵਾਈਸ ਨੂੰ ਹਟਾਉਣ ਲਈ ਅਸਫ਼ਲ:"
 
 #: ../blivetgui/blivetgui.py:572
 #, python-brace-format
@@ -103,22 +106,23 @@ msgstr "{name} ਪਾਰਟੀਸ਼ਨ ਹਟਾਓ"
 
 #: ../blivetgui/blivetgui.py:614
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "ਕਾਰਵਾਈਆਂ ਕਰਨ ਲਈ ਅਸਫ਼ਲ ਹੈ:"
 
 #: ../blivetgui/blivetgui.py:658
 msgid "Confirm scheduled actions"
-msgstr ""
+msgstr "ਤੈਅ ਕੀਤੀਆਂ ਕਾਰਵਾਈਆਂ ਦੀ ਤਸਦੀਕ"
 
 #: ../blivetgui/blivetgui.py:659
 msgid "Are you sure you want to perform scheduled actions?"
-msgstr ""
+msgstr "ਕੀ ਤੁਸੀਂ ਤੈਅ ਕੀਤੀਆਂ ਕਾਰਵਾਈਆਂ ਕਰਨੀਆਂ ਚਾਹੁੰਦੇ ਹੋ?"
 
 #: ../blivetgui/blivetgui.py:700
-#, fuzzy, python-brace-format
-#| msgid "Unmount failed. Are you sure device is not in use?"
+#, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
-msgstr "ਅਣ-ਮਾਊਂਟ ਕਰਨਾ ਅਸਫ਼ਲ ਹੈ। ਪੱਕਾ ਕਰੋ ਕਿ ਡਿਵਾਈਸ ਵਰਤਿਆ ਨਹੀਂ ਜਾ ਰਿਹਾ ਹੈ?"
+msgstr ""
+"'{mountpoint}' ਨੂੰ ਅਣ-ਮਾਊਂਟ ਕਰਨਾ ਅਸਫ਼ਲ ਹੈ। ਪੱਕਾ ਕਰੋ ਕਿ ਡਿਵਾਈਸ ਵਰਤਿਆ ਨਹੀਂ ਜਾ "
+"ਰਿਹਾ ਹੈ?"
 
 #: ../blivetgui/blivetgui.py:722
 msgid "Unlocking failed. Are you sure provided password is correct?"
@@ -202,10 +206,8 @@ msgid "Resizing of {type} devices is currently not supported"
 msgstr "{type} ਡਿਵਾਈਸ ਨੂੰ ਮੁੜ-ਆਕਾਰ ਕਰਨਾ ਇਸ ਵੇਲੇ ਸਹਾਇਕ ਨਹੀਂ ਹੈ"
 
 #: ../blivetgui/blivet_utils.py:672
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Protected devices cannot be resized"
-msgstr "ਇਹ ਡਿਵਾਈਸ ਦਾ ਆਕਾਰ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ।"
+msgstr "ਸੁਰੱਖਿਅਤ ਡਿਵਾਈਸ ਦਾ ਆਕਾਰ ਬਦਲਿਆ ਨਹੀਂ ਜਾ ਸਕਦਾ ਹੈ"
 
 #: ../blivetgui/blivet_utils.py:677
 msgid "Immutable formats cannot be resized"
@@ -244,7 +246,7 @@ msgstr "ਇਹ ਡਿਵਾਈਸ ਦਾ ਆਕਾਰ ਬਦਲਿਆ ਨਹੀ�
 #: ../blivetgui/blivet_utils.py:717
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
-msgstr ""
+msgstr "{type} ਫਾਰਮੈਟ ਇਸ ਦੀ ਆਕਾਰ ਲਿਮਟ ਜਾਣਕਾਰੀ ਨੂੰ ਅੱਪਡੇਟ ਕਰਨ ਲਈ ਸਹਾਇਕ ਨਹੀਂ ਹੈ"
 
 #: ../blivetgui/blivet_utils.py:722
 msgid "Mounted devices cannot be resized"
@@ -255,10 +257,8 @@ msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "ਸਨੈਪਸ਼ਾਟ ਵਾਲੇ ਲਾਜ਼ੀਕਲ ਵਾਲੀਅਮ ਦਾ ਆਕਾਰ ਨਹੀਂ ਬਦਲਿਆ ਜਾ ਸਕਦਾ ਹੈ।"
 
 #: ../blivetgui/blivet_utils.py:732
-#, fuzzy
-#| msgid "Resizing of {type} devices is currently not supported"
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr "{type} ਡਿਵਾਈਸ ਨੂੰ ਮੁੜ-ਆਕਾਰ ਕਰਨਾ ਇਸ ਵੇਲੇ ਸਹਾਇਕ ਨਹੀਂ ਹੈ"
+msgstr "LUKS2 ਡਿਵਾਈਸ ਨੂੰ ਮੁੜ-ਆਕਾਰ ਕਰਨਾ ਇਸ ਵੇਲੇ ਸਹਾਇਕ ਨਹੀਂ ਹੈ"
 
 #: ../blivetgui/blivet_utils.py:744
 #, python-brace-format
@@ -274,10 +274,7 @@ msgid "Format is not resizable after updating its size limit information."
 msgstr ""
 
 #: ../blivetgui/exception_handler.py:75
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
@@ -286,15 +283,12 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
-"ਅਣਪਛਾਤੀ ਗਲਤੀ ਆਈ ਹੈ।\n"
+"ਅਣਪਛਾਤੀ ਗਲਤੀ ਆਈ ਹੈ। Blivet-gui ਹੁਣ ਬੰਦ ਹੋਵੇਗਾ।\n"
 "{error}"
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:119
@@ -356,15 +350,12 @@ msgid ""
 msgstr ""
 
 #: ../blivetgui/osinstall.py:221
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
-"ਅਣਪਛਾਤੀ ਗਲਤੀ ਆਈ ਹੈ।\n"
+"ਅਣਪਛਾਤੀ ਗਲਤੀ ਆਈ ਹੈ। ਐਨਾਕਾਂਡਾ ਹੁਣ ਬੰਦ ਹੋਵੇਗਾ।\n"
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
@@ -390,6 +381,8 @@ msgid ""
 "<b>Processing action {num} of {total}</b>:\n"
 "<i>{action}</i>"
 msgstr ""
+"<b> {total} ਵਿੱਚੋਂ {num} ਕਾਰਵਾਈ ਜਾਰੀ:</b>:\n"
+"<i>{action}</i>"
 
 #: ../blivetgui/communication/client.py:300
 #: ../blivetgui/communication/client.py:317
@@ -659,7 +652,7 @@ msgstr " • <i>PE ਆਕਾਰ:</i> {pesize}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:130
 #, python-brace-format
 msgid " • <i>PE Count:</i> {pecount}\n"
-msgstr ""
+msgstr " • <i>PE ਗਿਣਤੀ:</i> {pecount}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:131
 #, python-brace-format
@@ -669,12 +662,12 @@ msgstr " • <i>ਖਾਲੀ ਥਾਂ:</i> {free}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:132
 #, python-brace-format
 msgid " • <i>PE Free:</i> {pefree}\n"
-msgstr ""
+msgstr " • <i>PE ਖਾਲੀ:</i> {pefree}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:133
 #, python-brace-format
 msgid " • <i>Reserved Space:</i> {res}\n"
-msgstr ""
+msgstr " • <i>ਰਾਖਵੀ ਕੀਤੀ ਥਾਂ:</i> {res}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:134
 #: ../blivetgui/dialogs/device_info_dialog.py:153
@@ -690,7 +683,7 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:142
 #, python-brace-format
 msgid " • <i>Data Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>ਡਾਟਾ ਪੱਧਰ:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:143
 #, python-brace-format
@@ -793,7 +786,7 @@ msgstr " • <i>ਕਿਸਮ:</i> None"
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid "Parents"
-msgstr ""
+msgstr "ਮੁੱਢ"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:257
 #, python-brace-format
@@ -828,14 +821,10 @@ msgid "Parent devices:"
 msgstr "ਮੁੱਢਲੇ ਡਿਵਾਈਸ:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
 msgstr "ਮੁੱਢ ਜੋੜੋ"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
 msgstr "ਮੁੱਢਲਾ ਹਟਾਓ"
 
@@ -844,6 +833,8 @@ msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
 msgstr ""
+"ਇਸ ਵੇਲੇ ਖਾਲੀ ਫਿਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਹੀਂ ਹਨ ਜਾਂ\n"
+"ਨਵਾਂ ਬਣਾਉਣ ਲਈ ਲੋੜੀਂਦੀ ਖਾਲੀ ਥਾਂ ਨਾਲ ਡਿਸਕਾਂ ਨਹੀਂ ਹਨ।"
 
 #: ../blivetgui/dialogs/edit_dialog.py:596
 msgid "Add?"
@@ -854,6 +845,8 @@ msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
+"ਇਸ ਵਾਲੀਅਮ ਗਰੁੱਪ ਵਿੱਚੋਂ ਹਟਾਏ ਜਾ ਸਕਣ ਵਾਲਾ ਕੋਈ\n"
+"ਫਿਜ਼ੀਕਲ ਵਾਲੀਅਮ ਨਹੀਂ ਹੈ।"
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
 msgid "Currently it is possible to remove only one parent at time."
@@ -910,7 +903,7 @@ msgstr ""
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
 msgid "Automatic"
-msgstr ""
+msgstr "ਆਪਣੇ-ਆਪ"
 
 #: ../blivetgui/dialogs/widgets.py:364
 msgid "Passphrase not specified."
@@ -937,10 +930,8 @@ msgid "LiveUSB device"
 msgstr "LiveUSB ਡਿਵਾਈਸ"
 
 #: ../blivetgui/visualization/rectangle.py:52
-#, fuzzy
-#| msgid "Decrypt device"
 msgid "Encrypted device (locked)"
-msgstr "ਡਿਵਾਈਸ ਡਿਕ੍ਰਿਪਟ ਕਰੋ"
+msgstr "ਇੰਕ੍ਰਿਪਟ ਕੀਤਾ ਡਿਵਾਈਸ (ਲਾਕ ਹੈ)"
 
 #: ../blivetgui/visualization/rectangle.py:53
 msgid "Encrypted device (unlocked)"
@@ -963,10 +954,8 @@ msgid "Device or format is write protected"
 msgstr "ਡਿਵਾਈਸ ਜਾਂ ਫਾਰਮੈਟ ਲਿਖਣ ਤੋਂ ਸੁਰੱਖਿਅਤ ਹੈ"
 
 #: ../blivetgui/visualization/rectangle.py:58
-#, fuzzy
-#| msgid "Edit device"
 msgid "Cached device"
-msgstr "ਡਿਵਾਈਸ ਸੋਧੋ"
+msgstr "ਕੈਸ਼ ਕੀਤਾ ਡਿਵਾਈਸ"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1028,11 +1017,8 @@ msgid "Unmount"
 msgstr "ਅਣ-ਮਾਊਂਟ ਕਰੋ"
 
 #: ../data/ui/blivet-gui.ui:102
-#, fuzzy
-#| msgctxt "ActionsToolbar|Decrypt"
-#| msgid "Unlock/Open selected device"
 msgid "Unlock"
-msgstr "ਚੁਣੇ ਡਿਵਾਈਸ ਨੂੰ ਅਣ-ਲਾਕ ਕਰੋ/ਖੋਲ੍ਹੋ"
+msgstr "ਅਣ-ਲਾਕ"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1085,10 +1071,8 @@ msgid "Format"
 msgstr "ਫਾਰਮੈਟ"
 
 #: ../data/ui/blivet-gui.ui:515
-#, fuzzy
-#| msgid "Label:"
 msgid "Label"
-msgstr "ਲੇਬਲ:"
+msgstr "ਲੇਬਲ"
 
 #: ../data/ui/blivet-gui.ui:526
 msgid "Mountpoint"
@@ -1115,18 +1099,16 @@ msgid "About blivet-gui"
 msgstr "blivet-gui ਬਾਰੇ"
 
 #: ../data/ui/blivet-gui.ui:728
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "ਕੋਈ ਬਕਾਇਆ ਕਾਰਵਾਈ ਨਹੀਂ ਹੈ"
+msgstr "ਬਾਕੀ ਕਾਰਵਾਈਆਂ ਲਾਗੂ ਕਰੋ"
 
 #: ../data/ui/blivet-gui.ui:744
 msgid "Clear scheduled actions"
-msgstr ""
+msgstr "ਤੈਅ ਕੀਤੀਆਂ ਕਾਰਵਾਈਆਂ ਨੂੰ ਸਾਫ਼ ਕਰੋ"
 
 #: ../data/ui/blivet-gui.ui:760
 msgid "Undo last action"
-msgstr ""
+msgstr "ਪਿਛਲੀ ਕਾਰਵਾਈ ਵਾਪਸ ਲਵੋ"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1178,7 +1160,7 @@ msgstr "ਵਾਕ ਦੁਹਰਾਓ:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "ਸੈਕਟਰ ਦਾ ਆਖਾਰ:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
@@ -1224,10 +1206,8 @@ msgid "Information:"
 msgstr "ਜਾਣਕਾਰੀ:"
 
 #: ../data/ui/label_dialog.ui:7
-#, fuzzy
-#| msgid "Set label"
 msgid "Set filesystem label"
-msgstr "ਲੇਬਲ ਦਿਓ"
+msgstr "ਫਾਇਲ-ਸਿਸਟਮ ਲੇਬਲ ਦਿਓ"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
@@ -1244,17 +1224,12 @@ msgid "Enter new label for this filesystem:"
 msgstr "ਇਸ ਫਾਇਲ ਸਿਸਟਮ ਲਈ ਨਵਾਂ ਲੇਬਲ ਦਿਓ:"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
-#, fuzzy
-#| msgctxt "ActionsToolbar|Decrypt"
-#| msgid "Unlock/Open selected device"
 msgid "Unlock device"
-msgstr "ਚੁਣੇ ਡਿਵਾਈਸ ਨੂੰ ਅਣ-ਲਾਕ ਕਰੋ/ਖੋਲ੍ਹੋ"
+msgstr "ਡਿਵਾਈਸ ਨੂੰ ਅਣ-ਲਾਕ ਕਰੋ"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
-#, fuzzy
-#| msgid "Please enter passphrase to decrypt selected device."
 msgid "Please enter passphrase to unlock selected device."
-msgstr "ਚੁਣੇ ਡਿਵਾਈਸ ਨੂੰ ਡਿਕ੍ਰਿਪਟ ਕਰਨ ਵਾਸਤੇ ਵਾਕ ਦਿਓ।"
+msgstr "ਚੁਣੇ ਡਿਵਾਈਸ ਨੂੰ ਅਣ-ਲਾਕ ਕਰਨ ਵਾਸਤੇ ਵਾਕ ਦਿਓ।"
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
@@ -1302,8 +1277,6 @@ msgstr "ਆਕਾਰ:"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
-#, fuzzy
-#| msgid "Unmount"
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
 msgstr "ਅਣ-ਮਾਊਂਟ ਕਰੋ"
@@ -1315,6 +1288,10 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>ਚੁਣਿਆ ਡਿਵਾਈਸ ਇਸ ਵੇਲੇ ਕਈ ਮਾਊਂਟ-ਥਾਵਾਂ\n"
+"ਉੱਤੇ ਮਾਊਂਟ ਕੀਤਾ ਹੋਇਆ ਹੈ।</b>\n"
+"\n"
+"ਅਣ-ਮਾਊਂਟ ਕਰਨ ਲਈ ਮਾਊਂਟ-ਥਾਵਾਂ ਚੁਣੋ:"
 
 #~ msgid "Decrypt"
 #~ msgstr "ਡਿਕ੍ਰਿਪਟ ਕਰੋ"
