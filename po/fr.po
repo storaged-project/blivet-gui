@@ -6,13 +6,14 @@
 # Alexandre Hen <alexandre@eskulap.fr>, 2022.
 # grimst <grimaitres@gmail.com>, 2023.
 # Corentin Maret <cmaret@noadcoco.fr>, 2024.
+# Damien Pou <dampato+linux@ik.me>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-16 13:52+0200\n"
-"PO-Revision-Date: 2024-01-07 23:36+0000\n"
-"Last-Translator: Corentin Maret <cmaret@noadcoco.fr>\n"
+"PO-Revision-Date: 2024-01-16 08:36+0000\n"
+"Last-Translator: Damien Pou <dampato+linux@ik.me>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fr/>\n"
 "Language: fr\n"
@@ -1180,7 +1181,6 @@ msgid "Writethrough"
 msgstr "double écriture"
 
 #: ../data/ui/cache_area.ui:157
-#, fuzzy
 msgid "Writeback"
 msgstr "Réécriture"
 
