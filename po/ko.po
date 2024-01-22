@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # simmon <simmon@nplob.com>, 2021, 2022.
-# 김인수 <simmon@nplob.com>, 2022, 2023.
+# 김인수 <simmon@nplob.com>, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-16 13:52+0200\n"
-"PO-Revision-Date: 2023-10-10 16:35+0000\n"
+"PO-Revision-Date: 2024-01-21 07:35+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: ../blivetgui/blivetgui.py:289
 msgid "Failed to resize the device:"
@@ -1141,7 +1141,7 @@ msgstr "캐쉬 유형:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
-msgstr "Writethrough"
+msgstr "연속쓰기"
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
