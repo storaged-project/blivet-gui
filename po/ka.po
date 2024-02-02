@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022, 2023.
+# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-16 13:52+0200\n"
-"PO-Revision-Date: 2023-10-16 13:36+0000\n"
+"PO-Revision-Date: 2024-02-02 06:35+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ka/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.0.2\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: ../blivetgui/blivetgui.py:289
 msgid "Failed to resize the device:"
@@ -52,7 +52,7 @@ msgstr "ჩავარდა ფაილური სისტემის ჭ
 #: ../blivetgui/blivetgui.py:396
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "ჭდის შეცვლა ფაილური სისტემისთვის {name}{type}"
 
 #: ../blivetgui/blivetgui.py:412
 #, python-brace-format
@@ -60,10 +60,12 @@ msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
 "PVs."
 msgstr ""
+"{name} დასრულებული არაა. VG-ებს, რომლებსაც PV-ები აკლია, ახალ LV-ებს ვერ "
+"დაამატებთ."
 
 #: ../blivetgui/blivetgui.py:417
 msgid "Not enough free space for a new LVM Volume Group."
-msgstr ""
+msgstr "ახალი LVM ტომების ჯგუფისთვის ადგილი საკმარისი არაა."
 
 #: ../blivetgui/blivetgui.py:423
 #, python-brace-format
@@ -71,6 +73,8 @@ msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
 "{label} disklabel."
 msgstr ""
+"დისკმა {name} უკვე მიაღწია ძირითადი დანაყოფების მაქსიმალურ დაშვებულ "
+"რაოდენობას დისკის ჭდისთვის {label}."
 
 #: ../blivetgui/blivetgui.py:433
 msgid "Failed to add disklabel:"
@@ -101,7 +105,7 @@ msgstr "დანაყოფის წაშლა: {name}"
 
 #: ../blivetgui/blivetgui.py:614
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "ჩავარდა შესრულება ქმედებებისთვის:"
 
 #: ../blivetgui/blivetgui.py:658
 msgid "Confirm scheduled actions"
@@ -109,17 +113,19 @@ msgstr "დაგეგმილი ქმედებების დადა�
 
 #: ../blivetgui/blivetgui.py:659
 msgid "Are you sure you want to perform scheduled actions?"
-msgstr ""
+msgstr "მართლა გნებავთ დაგეგმილი ქმედებების შესრულება?"
 
 #: ../blivetgui/blivetgui.py:700
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
+"'{mountpoint}'-ის მოხსნა ჩავარდა. დარწმუნებული ბრძანდებით, რო მოწყობილობა არ "
+"გამოიყენება?"
 
 #: ../blivetgui/blivetgui.py:722
 msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr ""
+msgstr "მოხსნა ჩავარდა. დარწმუნებული ბრძანდებით, რომ შეყვანილი პაროლი სწორია?"
 
 #: ../blivetgui/blivetgui.py:772 ../data/ui/blivet-gui.ui:662
 msgid "Quit"
@@ -127,13 +133,16 @@ msgstr "გასვლა"
 
 #: ../blivetgui/blivetgui.py:775
 msgid "blivet-gui is already running"
-msgstr ""
+msgstr "blivet-gui უკვე გაშვებულია"
 
 #: ../blivetgui/blivetgui.py:776
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
+"უკვე გაშვებულია blivet-gui-ის სხვა ასლი.\n"
+"დროის ერთ მონაკვეთში, blivet-gui-ის, მხოლოდ, ერთი ასლი შეიძლება იყოს "
+"გაშვებული."
 
 #: ../blivetgui/blivetgui.py:778
 msgid ""
@@ -145,10 +154,17 @@ msgid ""
 "\n"
 "command to force quit it."
 msgstr ""
+"თუ თქვენი blivet-gui-ის წინა გაშვებული ასლი ავარიულად დასრულდა, დარწმუნდით, "
+"რომ ასევე აღარაა გაშვებული პროცესი <i>blivet-gui-daemon</i>.\n"
+"თუ ის ჯერ კიდევ გაშვებულია, გამოიყენეთ ბრძანება\n"
+"\n"
+"<tt>$sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"რომ ძალით დაასრულოთ ის."
 
 #: ../blivetgui/blivetgui.py:810
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "Blivet-ის ინიციალიზაცია ჩავარდა:"
 
 #: ../blivetgui/blivetgui.py:817
 msgid "Quit blivet-gui"
@@ -156,7 +172,7 @@ msgstr "Blivet-gui-დან გასვლა"
 
 #: ../blivetgui/blivetgui.py:819
 msgid "Ignore disk and continue"
-msgstr ""
+msgstr "დისკის გამოტოვება და გაგრძელება"
 
 #: ../blivetgui/blivetgui.py:822
 #, python-brace-format
@@ -171,6 +187,10 @@ msgid ""
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
+"Blivet-gui-ის არ შეუძლია გამოიყენოს დისკი <b>{name}</b>, რადგან მისი დისკის "
+"ჭდე დაზიანებული/უცნობია.\n"
+"შეგიძლიათ, გახვიდეთ blivet-gui-დან ახლა, ან გააგრძელოთ ამ დისკის გამოყენების "
+"საშუალების გარეშე."
 
 #: ../blivetgui/blivetgui.py:859
 msgid "Confirm reload storage"
@@ -179,15 +199,19 @@ msgstr "საცავის თავიდან ჩატვირთვი�
 #: ../blivetgui/blivetgui.py:860
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr ""
+"რიგში ოპერაციები ჯერ კიდევაა. დარწმუნებული ბრძანდებით, რომ გნებავთ, "
+"გააგრძელოთ?"
 
 #: ../blivetgui/blivetgui.py:891
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "მართლა გნებავთ, გახვიდეთ?"
 
 #: ../blivetgui/blivetgui.py:892
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
+"დარჩენილია ოპერაციები. დარწმუნებული ბრძანდებით, რომ გნებავთ, გახვიდეთ blivet-"
+"gui-დან ახლავე?"
 
 #: ../blivetgui/blivet_utils.py:78
 msgid "free space"
@@ -196,71 +220,75 @@ msgstr "თავისუფალი ადგილი"
 #: ../blivetgui/blivet_utils.py:667
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
-msgstr ""
+msgstr "{type} მოწყობილობების ზომის შეცვლა ამჟამად მხარდაჭერილი არაა"
 
 #: ../blivetgui/blivet_utils.py:672
 msgid "Protected devices cannot be resized"
-msgstr ""
+msgstr "დაცული მოწყობილობების ზომის შეცვლა შეუძლებელია"
 
 #: ../blivetgui/blivet_utils.py:677
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "უცვლადი ფორმატების ზომის შეცვლა შეუძლებელია"
 
 #: ../blivetgui/blivet_utils.py:682
 msgid "Devices with children cannot be resized"
-msgstr ""
+msgstr "შვილების მქონე მოწყობილობების ზომის შეცვლა შეუძლებელია"
 
 #: ../blivetgui/blivet_utils.py:693
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "დაუფორმატებელ მოწყობილობებს ზომას ვერ შეუცვლით"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
 #: ../blivetgui/blivet_utils.py:700
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
-msgstr ""
+msgstr "{type} ფორმატის ზომის შეცვლა ამჟამად მხარდაჭერილი არაა"
 
 #: ../blivetgui/blivet_utils.py:705
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
-msgstr ""
+msgstr "ფორმატის {type} ზომის შეცვლის პროგრამები ხელმისაწვდომი არაა."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:712
 msgid "Formats scheduled to be created cannot be resized"
-msgstr ""
+msgstr "შექმნისთვის დაგეგმილი ფორმატების ზომის შეცვლა შეუძლებელია"
 
 #: ../blivetgui/blivet_utils.py:717
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
+"ფორმატს {type} მისი ზომის ლიმიტის ინფორმაციის განახლების მხარდაჭერა არ "
+"გააჩნია"
 
 #: ../blivetgui/blivet_utils.py:722
 msgid "Mounted devices cannot be resized"
-msgstr ""
+msgstr "მიმაგრებულ მოწყობილობებს ზომას ვერ შეუცვლით"
 
 #: ../blivetgui/blivet_utils.py:727
 msgid "Logical Volumes with snapshots cannot be resized."
-msgstr ""
+msgstr "სწრაფი ასლების მქონე ლოგიკური ტომების ზომის შეცვლა შეუძლებელია."
 
 #: ../blivetgui/blivet_utils.py:732
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr ""
+msgstr "LUKS2 მოწყობილობების ზომის შეცვლა ამჟამად მხარდაჭერილი არაა."
 
 #: ../blivetgui/blivet_utils.py:744
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
-msgstr ""
+msgstr "ფაილური სისტემის ზომის ინფორმაციის განახლება ჩავარდა: {error}"
 
 #: ../blivetgui/blivet_utils.py:763
 msgid "Device is not resizable."
-msgstr ""
+msgstr "მოწყობილობას ზომას ვერ შეუცვლით."
 
 #: ../blivetgui/blivet_utils.py:765
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
+"ფორმატის ზომის შეცვლა შეუძლებელია მისი ზომის ზღვრის ინფორმაციის განახლების "
+"შემდეგ."
 
 #: ../blivetgui/exception_handler.py:75
 #, python-brace-format
@@ -268,6 +296,8 @@ msgid ""
 "Unknown error occurred.\n"
 "{error}"
 msgstr ""
+"აღმოჩენილია უცნობი შეცდომა.\n"
+"{error}"
 
 #: ../blivetgui/exception_handler.py:77
 #, python-brace-format
@@ -275,6 +305,8 @@ msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
+"აღმოჩენილია უცნობი შეცდომა. Blivet-gui მუშაობას დაასრულებს.\n"
+"{error}"
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:119
 #: ../blivetgui/list_actions.py:141 ../data/ui/blivet-gui.ui:617
@@ -333,6 +365,10 @@ msgid ""
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+" დააწკაპუნეთ ანგარიშის გადაცემის ღილაკზე, რათა შეცდომა anaconda-ს გადასცეთ \n"
+" დასამუშავებლად, თუ გნებავთ, ამ შეცდომის შესახებ მოგვწეროთ."
 
 #: ../blivetgui/osinstall.py:221
 #, python-brace-format
@@ -340,11 +376,13 @@ msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
+"აღმოჩენილია უცნობი შეცდომა. Anaconda მუშაობას დაასრულებს.\n"
+"{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
 #: ../blivetgui/osinstall.py:269
 msgid "actions configured by installer"
-msgstr ""
+msgstr "დაყენების პროგრამის მიერ მორგებული ქმედებები"
 
 #: ../blivetgui/processing_window.py:58
 msgid "Processing"
@@ -356,7 +394,7 @@ msgstr "ქმედებების ჩვენება"
 
 #: ../blivetgui/processing_window.py:158
 msgid "All queued actions have been processed."
-msgstr ""
+msgstr "ყველა დაგეგმილი ქმედება დამუშავდა."
 
 #: ../blivetgui/processing_window.py:173
 #, python-brace-format
@@ -364,11 +402,13 @@ msgid ""
 "<b>Processing action {num} of {total}</b>:\n"
 "<i>{action}</i>"
 msgstr ""
+"<b>მუშავდება ქმედება {num} {total}-დან </b>:\n"
+"<i>{action}</i>"
 
 #: ../blivetgui/communication/client.py:300
 #: ../blivetgui/communication/client.py:317
 msgid "Failed to connect to blivet-gui-daemon"
-msgstr ""
+msgstr "დემონთაბ blivet-gui მიერთება ჩავარდა"
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
@@ -403,11 +443,11 @@ msgstr "ნაჭრის ზომა:"
 #: ../blivetgui/dialogs/add_dialog.py:212
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
-msgstr ""
+msgstr "'{0}' სწორი ნაგლეჯის ზომის სპეციფიკაცია არაა."
 
 #: ../blivetgui/dialogs/add_dialog.py:217
 msgid "Chunk size must be multiple of 4 KiB."
-msgstr ""
+msgstr "ნაგლეჯის ზომა 4კიბ-ის ნამრავლი უნდა იყოს."
 
 #: ../blivetgui/dialogs/add_dialog.py:273
 msgid "Create new device"
@@ -452,7 +492,7 @@ msgstr "LVM2 თხელი სწრაფი ასლი"
 #: ../blivetgui/dialogs/add_dialog.py:407
 #: ../blivetgui/dialogs/device_info_dialog.py:83
 msgid "LVM2 Thin Logical Volume"
-msgstr ""
+msgstr "LVM2 თხელი ლოგიკური ტომი"
 
 #: ../blivetgui/dialogs/add_dialog.py:410
 #: ../blivetgui/dialogs/device_info_dialog.py:86
@@ -520,22 +560,22 @@ msgstr "მიმაგრების წერტილი:"
 #: ../blivetgui/dialogs/add_dialog.py:1014 ../blivetgui/dialogs/helpers.py:141
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
-msgstr ""
+msgstr "\"{0}\" სწორი მიმაგრების წერტილი არაა."
 
 #: ../blivetgui/dialogs/add_dialog.py:1021
 msgid "Please select at least two parent devices."
-msgstr ""
+msgstr "აირჩიეთ სულ ცოტა ორი მშობელი მოწყობილობა."
 
 #: ../blivetgui/dialogs/add_dialog.py:1035
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
-msgstr ""
+msgstr "\"{0}\" სწორი სახელი არაა."
 
 #: ../blivetgui/dialogs/add_dialog.py:1041
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
-msgstr ""
+msgstr "\"{0}\" სწორი ჭდე არაა."
 
 #. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
@@ -571,7 +611,7 @@ msgstr "MD RAID მასივი"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "DM Integrity Device"
-msgstr ""
+msgstr "მოწყობილობა DM Integrity"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:101
 #: ../blivetgui/dialogs/device_info_dialog.py:223
@@ -790,7 +830,7 @@ msgstr "მოწყობილობის ზომის შეცვლა 
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "'{label}' ამ ფაილური სისტემისთვის სწორი ჭდე არაა"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:518
@@ -814,6 +854,8 @@ msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
 msgstr ""
+"ცარიელი ფიზიკური ტომები ან დისკები საკმარისი\n"
+"თავისუფალი ადგილით, რომ ისინი შეიქმნას, ვერ ვიპოვე."
 
 #: ../blivetgui/dialogs/edit_dialog.py:596
 msgid "Add?"
@@ -824,10 +866,12 @@ msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
+"ვერ ვიპოვე ფიზიკური ტომი, რომლის წაშლაც\n"
+"ამ ტომების ჯგუფიდან შეიძლება."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
 msgid "Currently it is possible to remove only one parent at time."
-msgstr ""
+msgstr "ამჟამად მშობლების სათითაოდ წაშლა მხარდაჭერილი არაა."
 
 #: ../blivetgui/dialogs/edit_dialog.py:658
 msgid "Remove?"
@@ -837,6 +881,7 @@ msgstr "წავშალო?"
 #, python-brace-format
 msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr ""
+"არჩეული მიმაგრების წერტილი \"{0}\" უკვე დაყენებულია სხვა მოწყობილობისთვის."
 
 #: ../blivetgui/dialogs/message_dialogs.py:197
 msgid "Confirm delete operation"
@@ -845,21 +890,21 @@ msgstr "დაადასტურეთ წაშლა"
 #: ../blivetgui/dialogs/message_dialogs.py:198
 #, python-brace-format
 msgid "Are you sure you want delete device {name}?"
-msgstr ""
+msgstr "მართლა გნებავთ წაშალოთ მოწყობილობა {name}?"
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
-msgstr ""
+msgstr "შემდეგი {name}-ის შვილები ასევე წაიშლება ამ ქმედების მიერ:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:216
 #, python-brace-format
 msgid "Also delete following parent devices of {name}:"
-msgstr ""
+msgstr "ასევე წაიშლება {name}-ის შემდეგი მშობელი მოწყობილობა:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:316
 msgid "There are no pending actions."
-msgstr ""
+msgstr "რიგში ქმედებები ჯერ კიდევაა."
 
 #. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
 #. your name and email address (optional) here. Separate translator names with newlines.
@@ -870,12 +915,12 @@ msgstr "თემური დოღონაძე"
 #: ../blivetgui/dialogs/size_chooser.py:212
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
-msgstr ""
+msgstr "ამჟამად არჩეული ზომა ამ მონიშნულისთვის მაქსიმალურ ლიმიტზე დიდია."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
-msgstr ""
+msgstr "ამჟამად არჩეული ზომა ამ მონიშნულისთვის მინიმალურ ზღვარზე მცირეა."
 
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:282
@@ -888,7 +933,7 @@ msgstr "საკვანძო ფრაზა მითითებული 
 
 #: ../blivetgui/dialogs/widgets.py:367
 msgid "Provided passphrases do not match."
-msgstr ""
+msgstr "მოწოდებული საკვანძო ფრაზები არ ემთხვევა."
 
 #: ../blivetgui/dialogs/widgets.py:397
 msgid "Passphrases match."
@@ -924,11 +969,11 @@ msgstr "სწრაფი ასლი"
 
 #: ../blivetgui/visualization/rectangle.py:56
 msgid "Missing partition table"
-msgstr ""
+msgstr "დანაყოფების ცხრილი ვერ ვიპოვე"
 
 #: ../blivetgui/visualization/rectangle.py:57
 msgid "Device or format is write protected"
-msgstr ""
+msgstr "მოწყობილობა ან ფორმატი ჩაწერისგან დაცულია"
 
 #: ../blivetgui/visualization/rectangle.py:58
 msgid "Cached device"
@@ -1034,12 +1079,12 @@ msgstr "მოწყობილობის მიმაგრების მ�
 #: ../data/ui/blivet-gui.ui:421
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
-msgstr ""
+msgstr "მონიშნული მოწყობილობის განბლოკვა/გახსნა"
 
 #: ../data/ui/blivet-gui.ui:436
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
-msgstr ""
+msgstr "ინფორმაციის ჩვენება მონიშნული მოწყობილობის შესახებ"
 
 #. Format (filesystem) type of selected device.
 #: ../data/ui/blivet-gui.ui:493
@@ -1077,7 +1122,7 @@ msgstr "Blivet-gui-ის შესახებ"
 
 #: ../data/ui/blivet-gui.ui:728
 msgid "Apply pending actions"
-msgstr ""
+msgstr "დარჩენილი ქმედებების გადატარება"
 
 #: ../data/ui/blivet-gui.ui:744
 msgid "Clear scheduled actions"
@@ -1089,7 +1134,7 @@ msgstr "ბოლო ბრძანების გაუქმება"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
-msgstr ""
+msgstr "დაკეშვა ამ LVM-სთვის:"
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
@@ -1105,11 +1150,11 @@ msgstr "კეშის ტიპი:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
-msgstr "გამჭოლჩაწერილი"
+msgstr "გამჭოლი ჩაწერა"
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
-msgstr "Writeback"
+msgstr "უკუჩანაწერილი"
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
@@ -1206,7 +1251,7 @@ msgstr "დისკის განბლოკვა"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
 msgid "Please enter passphrase to unlock selected device."
-msgstr ""
+msgstr "არჩეული მოწყობილობის განბლოკვისთვის შეიყვანეთ საკვანძო ფრაზა."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
@@ -1238,7 +1283,7 @@ msgstr "_ზომის შეცვლა"
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
-msgstr ""
+msgstr "Blivet-gui-ის გასაშვებად Root-ის პრივილეგიებია საჭირო."
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
@@ -1246,7 +1291,7 @@ msgstr "დარჩენილი ქმედებები"
 
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
-msgstr ""
+msgstr "განლაგების ხელით მითითება"
 
 #: ../data/ui/size_chooser.ui:14
 msgid "Size:"
@@ -1265,3 +1310,7 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>მონიშნული მოწყობილობა ამჟამად მიმაგრებულია\n"
+"ერთზე მეტ მიმაგრების წერტილზე.</b>\n"
+"\n"
+"აირჩიეთ მოსახსნელი მიმაგრების წერტილები:"
