@@ -17,21 +17,22 @@
 # Ooyama Yosiyuki <qqke6wd9k@apricot.ocn.ne.jp>, 2016. #zanata
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # Ooyama Yosiyuki <qqke6wd9k@apricot.ocn.ne.jp>, 2017. #zanata
+# 김인수 <simmon@nplob.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-16 13:52+0200\n"
-"PO-Revision-Date: 2017-06-19 07:33+0000\n"
-"Last-Translator: Ooyama Yosiyuki <qqke6wd9k@apricot.ocn.ne.jp>\n"
-"Language-Team: Japanese (http://www.transifex.com/dlehman/blivet/language/"
-"ja/)\n"
+"PO-Revision-Date: 2024-02-04 03:35+0000\n"
+"Last-Translator: 김인수 <simmon@nplob.com>\n"
+"Language-Team: Japanese <https://translate.fedoraproject.org/projects/blivet/"
+"blivet-gui/ja/>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Zanata 4.6.2\n"
+"X-Generator: Weblate 5.3.1\n"
 
 #: ../blivetgui/blivetgui.py:289
 msgid "Failed to resize the device:"
@@ -1148,11 +1149,11 @@ msgstr ""
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
-msgstr ""
+msgstr "ライトスルー"
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
-msgstr ""
+msgstr "ライトバック"
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
