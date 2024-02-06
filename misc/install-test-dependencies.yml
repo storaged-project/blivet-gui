@@ -23,6 +23,7 @@
       - gtk3
       - python3-pid
       - make
+      - python3-sphinx
     when: ansible_distribution == "Fedora"
 
   - name: Install test dependencies (Fedora)
