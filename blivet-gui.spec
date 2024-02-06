@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.4.2
+Version: 2.5.0
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
@@ -74,6 +74,42 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Tue Feb 06 2024 Vojtech Trefny <vtrefny@redhat.com> - 2.5.0-1
+- Translated using Weblate (Japanese) (simmon)
+- Translated using Weblate (Georgian) (temuri.doghonadze)
+- Translated using Weblate (Korean) (simmon)
+- Translated using Weblate (French) (dampato+linux)
+- Translated using Weblate (French) (cmaret)
+- Translated using Weblate (Czech) (vtrefny)
+- Translated using Weblate (Czech) (valmatej)
+- Translated using Weblate (Punjabi) (aalam)
+- misc: Vagrantfile update (vtrefny)
+- ci: Fix Packit actions to bump release number (vtrefny)
+- ci: Set custom release suffix for Packit (vtrefny)
+- spec: Bump release to 99 to be always ahead of the Fedora packages (vtrefny)
+- misc: Add basic filesystem tools to test dependencies (vtrefny)
+- tests: Make sure GUI tests can run without btrfs kernel module (vtrefny)
+- pylint: Ignore attribute defined outside __init__ in setup.py (vtrefny)
+- Remove support for labelling JFS and ReiserFS (vtrefny)
+- Translated using Weblate (Georgian) (temuri.doghonadze)
+- Translated using Weblate (Korean) (simmon)
+- Fix logging for mount point change (vtrefny)
+- Fix logic when checking for dialog response (vtrefny)
+- pylint: Use 'exit' instead of 'do_exit' for pylint.lint.Run (vtrefny)
+- Add a cmdline option to enabled blivet's auto_dev_updates flag (vtrefny)
+- man: Update copyright year (vtrefny)
+- Add cmdline option to force blivet-gui to keep above other apps (vtrefny)
+- Translated using Weblate (Georgian) (temuri.doghonadze)
+- ci: Update GH actions checkout action to v4 (vtrefny)
+- Fix project name in tests/run_tests.py (vtrefny)
+- Translated using Weblate (Russian) (milachew)
+- ci: 'master' branch renamed to 'main' (vtrefny)
+- Fix segfault when trying to reuse an invalid GtkTreeIter (vtrefny)
+- Update translation files (noreply)
+- Translated using Weblate (Kazakh) (baurthefirst)
+- Translated using Weblate (Czech) (vtrefny)
+- Translated using Weblate (Czech) (pavel.borecki)
+
 * Wed Aug 16 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.4.2-1
 - pylint: Update pylintrc (vtrefny)
 - Allow creating biosboot even if not in installer mode (vtrefny)
