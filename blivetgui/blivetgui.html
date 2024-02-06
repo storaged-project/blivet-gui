@@ -6,15 +6,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
 
-    <title>blivetgui package &#8212; blivet-gui 2.4.2 documentation</title>
+    <title>blivetgui package &#8212; blivet-gui 2.5.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/classic.css" />
     <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
     
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/sphinx_highlight.js"></script>
     
@@ -38,7 +35,7 @@
         <li class="right" >
           <a href="../intro.html" title="Introduction to blivet-gui"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">blivet-gui 2.4.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">blivet-gui 2.5.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">blivetgui package</a></li> 
       </ul>
     </div>  
@@ -521,7 +518,7 @@
 <span id="blivetgui-blivet-utils-module"></span><h2>blivetgui.blivet_utils module<a class="headerlink" href="#module-blivetgui.blivet_utils" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="blivetgui.blivet_utils.BlivetUtils">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">blivetgui.blivet_utils.</span></span><span class="sig-name descname"><span class="pre">BlivetUtils</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ignored_disks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclusive_disks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">blivetgui.blivet_utils.</span></span><span class="sig-name descname"><span class="pre">BlivetUtils</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ignored_disks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclusive_disks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivet_utils.BlivetUtils" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class with utils directly working with blivet itselves</p>
 <dl class="py method">
@@ -819,7 +816,7 @@ as parents for newly added devices</p>
 <span id="blivetgui-blivetgui-module"></span><h2>blivetgui.blivetgui module<a class="headerlink" href="#module-blivetgui.blivetgui" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="blivetgui.blivetgui.BlivetGUI">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">blivetgui.blivetgui.</span></span><span class="sig-name descname"><span class="pre">BlivetGUI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclusive_disks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">blivetgui.blivetgui.</span></span><span class="sig-name descname"><span class="pre">BlivetGUI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclusive_disks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_above</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_dev_updates</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#blivetgui.blivetgui.BlivetGUI" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Class representing the GUI part of the application. It creates all the
 Gtk.Widgets used in blivet-gui.</p>
@@ -1841,13 +1838,13 @@ size of devices in visualization fail).</p>
         <li class="right" >
           <a href="../intro.html" title="Introduction to blivet-gui"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">blivet-gui 2.4.2 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">blivet-gui 2.5.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">blivetgui package</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2014,-2022, Red Hat, Inc..
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 5.3.0.
+        &#169; Copyright 2014,-2024, Red Hat, Inc..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
     </div>
   </body>
 </html>
