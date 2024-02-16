@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-16 13:52+0200\n"
+"POT-Creation-Date: 2024-02-06 12:14+0100\n"
 "PO-Revision-Date: 2023-06-30 23:20+0000\n"
 "Last-Translator: yangyangdaji <1504305527@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
@@ -24,118 +24,118 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 4.18.1\n"
 
-#: ../blivetgui/blivetgui.py:289
+#: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
 msgstr "调整设备大小失败："
 
-#: ../blivetgui/blivetgui.py:301
+#: ../blivetgui/blivetgui.py:307
 #, python-brace-format
 msgid "resize {name} {type}"
 msgstr "调整{type} 卷{name} 大小"
 
-#: ../blivetgui/blivetgui.py:320
+#: ../blivetgui/blivetgui.py:326
 msgid "Failed to format the device:"
 msgstr "格式化设备失败："
 
-#: ../blivetgui/blivetgui.py:334
+#: ../blivetgui/blivetgui.py:340
 #, python-brace-format
 msgid "format {name} {type}"
 msgstr "格式化 {name} {type}"
 
-#: ../blivetgui/blivetgui.py:347
+#: ../blivetgui/blivetgui.py:353
 msgid "Failed to edit the LVM2 Volume Group:"
 msgstr "编辑 LVM2 卷组失败："
 
-#: ../blivetgui/blivetgui.py:362
+#: ../blivetgui/blivetgui.py:368
 #, python-brace-format
 msgid "edit {name} {type}"
 msgstr "编辑 {name} {type}"
 
-#: ../blivetgui/blivetgui.py:391
+#: ../blivetgui/blivetgui.py:397
 msgid "Failed to change filesystem label on the device:"
 msgstr "修改设备文件系统标签失败："
 
-#: ../blivetgui/blivetgui.py:396
+#: ../blivetgui/blivetgui.py:402
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
 msgstr "修改 {name} {type} 的文件系统标签"
 
-#: ../blivetgui/blivetgui.py:412
+#: ../blivetgui/blivetgui.py:418
 #, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
 "PVs."
 msgstr "{name} 不完整。无法将新逻辑卷添加到缺少物理卷的卷组中。"
 
-#: ../blivetgui/blivetgui.py:417
+#: ../blivetgui/blivetgui.py:423
 msgid "Not enough free space for a new LVM Volume Group."
 msgstr "没有足够空闲空间用于新 LVM 卷组。"
 
-#: ../blivetgui/blivetgui.py:423
+#: ../blivetgui/blivetgui.py:429
 #, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
 "{label} disklabel."
 msgstr "磁盘 {name} 已达到 {label} 磁盘标签所允许的最大主分区数量。"
 
-#: ../blivetgui/blivetgui.py:433
+#: ../blivetgui/blivetgui.py:439
 msgid "Failed to add disklabel:"
 msgstr "添加磁盘标签失败："
 
-#: ../blivetgui/blivetgui.py:446
+#: ../blivetgui/blivetgui.py:452
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "在 {name} 上创建新磁盘标签"
 
-#: ../blivetgui/blivetgui.py:498
+#: ../blivetgui/blivetgui.py:504
 msgid "Failed to add the device:"
 msgstr "添加设备失败："
 
-#: ../blivetgui/blivetgui.py:513
+#: ../blivetgui/blivetgui.py:519
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr "添加 {size} {type} 设备"
 
-#: ../blivetgui/blivetgui.py:557
+#: ../blivetgui/blivetgui.py:563
 msgid "Failed to delete the device:"
 msgstr "删除设备失败："
 
-#: ../blivetgui/blivetgui.py:572
+#: ../blivetgui/blivetgui.py:578
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr "删除分区 {name}"
 
-#: ../blivetgui/blivetgui.py:614
+#: ../blivetgui/blivetgui.py:619
 msgid "Failed to perform the actions:"
 msgstr "执行操作时失败："
 
-#: ../blivetgui/blivetgui.py:658
+#: ../blivetgui/blivetgui.py:663
 msgid "Confirm scheduled actions"
 msgstr "确认预定的操作"
 
-#: ../blivetgui/blivetgui.py:659
+#: ../blivetgui/blivetgui.py:664
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "您确定要执行预定的操作？"
 
-#: ../blivetgui/blivetgui.py:700
+#: ../blivetgui/blivetgui.py:705
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr "卸载 {mountpoint} 时失败。您确定设备没有在使用吗？"
 
-#: ../blivetgui/blivetgui.py:722
+#: ../blivetgui/blivetgui.py:727
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "解锁失败。您确定密码正确？"
 
-#: ../blivetgui/blivetgui.py:772 ../data/ui/blivet-gui.ui:662
+#: ../blivetgui/blivetgui.py:777 ../data/ui/blivet-gui.ui:662
 msgid "Quit"
 msgstr "退出"
 
-#: ../blivetgui/blivetgui.py:775
+#: ../blivetgui/blivetgui.py:780
 msgid "blivet-gui is already running"
 msgstr "blivet-gui 已在运行"
 
-#: ../blivetgui/blivetgui.py:776
+#: ../blivetgui/blivetgui.py:781
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -143,7 +143,7 @@ msgstr ""
 "已有另一个 blivet-gui 实例正在运行中。\n"
 "只可以同时运行一个 blivet-gui 实例。"
 
-#: ../blivetgui/blivetgui.py:778
+#: ../blivetgui/blivetgui.py:783
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -161,24 +161,24 @@ msgstr ""
 "\n"
 "来强行终止该进程。"
 
-#: ../blivetgui/blivetgui.py:810
+#: ../blivetgui/blivetgui.py:815
 msgid "Failed to init blivet:"
 msgstr "无法启动 blivet："
 
-#: ../blivetgui/blivetgui.py:817
+#: ../blivetgui/blivetgui.py:822
 msgid "Quit blivet-gui"
 msgstr "退出"
 
-#: ../blivetgui/blivetgui.py:819
+#: ../blivetgui/blivetgui.py:824
 msgid "Ignore disk and continue"
 msgstr "忽略磁盘并继续"
 
-#: ../blivetgui/blivetgui.py:822
+#: ../blivetgui/blivetgui.py:827
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "错误：{error}"
 
-#: ../blivetgui/blivetgui.py:823
+#: ../blivetgui/blivetgui.py:828
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -189,19 +189,19 @@ msgstr ""
 "由于损坏或未知的磁盘标签，Blivet-gui 无法使用磁盘<b>{name}</b>。\n"
 "您可以退出或者在无法使用该磁盘的情况下继续。"
 
-#: ../blivetgui/blivetgui.py:859
+#: ../blivetgui/blivetgui.py:864
 msgid "Confirm reload storage"
 msgstr "确认重新载入存储"
 
-#: ../blivetgui/blivetgui.py:860
+#: ../blivetgui/blivetgui.py:865
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "有待处理操作。您确定要继续吗？"
 
-#: ../blivetgui/blivetgui.py:891
+#: ../blivetgui/blivetgui.py:896
 msgid "Are you sure you want to quit?"
 msgstr "您确定要退出吗？"
 
-#: ../blivetgui/blivetgui.py:892
+#: ../blivetgui/blivetgui.py:897
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr "有待处理操作。您确定现在退出 blivet-gui 吗？"
@@ -210,72 +210,72 @@ msgstr "有待处理操作。您确定现在退出 blivet-gui 吗？"
 msgid "free space"
 msgstr "空闲空间"
 
-#: ../blivetgui/blivet_utils.py:667
+#: ../blivetgui/blivet_utils.py:676
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr "目前不支持调整 {type} 设备的大小"
 
-#: ../blivetgui/blivet_utils.py:672
+#: ../blivetgui/blivet_utils.py:681
 msgid "Protected devices cannot be resized"
 msgstr "被保护的设备不能重新调整大小"
 
-#: ../blivetgui/blivet_utils.py:677
+#: ../blivetgui/blivet_utils.py:686
 msgid "Immutable formats cannot be resized"
 msgstr "不可变格式不能调整大小"
 
-#: ../blivetgui/blivet_utils.py:682
+#: ../blivetgui/blivet_utils.py:691
 msgid "Devices with children cannot be resized"
 msgstr "具有子设备的设备不能重新调整大小"
 
-#: ../blivetgui/blivet_utils.py:693
+#: ../blivetgui/blivet_utils.py:702
 msgid "Unformatted devices are not resizable"
 msgstr "未被格式化的设备不能调整大小"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
-#: ../blivetgui/blivet_utils.py:700
+#: ../blivetgui/blivet_utils.py:709
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr "不支持调整 {type} 格式的大小"
 
-#: ../blivetgui/blivet_utils.py:705
+#: ../blivetgui/blivet_utils.py:714
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr "调整 {type} 格式的工具当前不可用。"
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
-#: ../blivetgui/blivet_utils.py:712
+#: ../blivetgui/blivet_utils.py:721
 msgid "Formats scheduled to be created cannot be resized"
 msgstr "已计划将被创建的格式不能调整大小"
 
-#: ../blivetgui/blivet_utils.py:717
+#: ../blivetgui/blivet_utils.py:726
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr "格式 {type} 不支持更新其大小限制信息"
 
-#: ../blivetgui/blivet_utils.py:722
+#: ../blivetgui/blivet_utils.py:731
 msgid "Mounted devices cannot be resized"
 msgstr "已被挂载的设备不支持调整大小"
 
-#: ../blivetgui/blivet_utils.py:727
+#: ../blivetgui/blivet_utils.py:736
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "带有快照的逻辑卷不能调整大小。"
 
-#: ../blivetgui/blivet_utils.py:732
+#: ../blivetgui/blivet_utils.py:741
 msgid "Resizing of LUKS2 devices is currently not supported."
 msgstr "目前不支持调整 LUKS2 设备的大小。"
 
-#: ../blivetgui/blivet_utils.py:744
+#: ../blivetgui/blivet_utils.py:753
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr "更新文件系统大小信息时失败：{error}"
 
-#: ../blivetgui/blivet_utils.py:763
+#: ../blivetgui/blivet_utils.py:772
 msgid "Device is not resizable."
 msgstr "设备不能调整大小。"
 
-#: ../blivetgui/blivet_utils.py:765
+#: ../blivetgui/blivet_utils.py:774
 msgid "Format is not resizable after updating its size limit information."
 msgstr "格式（Format）在更新其大小限制之后不再能调整大小。"
 
@@ -545,7 +545,7 @@ msgstr "名称："
 msgid "Mountpoint:"
 msgstr "挂载点："
 
-#: ../blivetgui/dialogs/add_dialog.py:1014 ../blivetgui/dialogs/helpers.py:141
+#: ../blivetgui/dialogs/add_dialog.py:1014 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" 不是有效的挂载点。"
@@ -865,7 +865,7 @@ msgstr "当前只能一次移除一个上层设备。"
 msgid "Remove?"
 msgstr "移除？"
 
-#: ../blivetgui/dialogs/helpers.py:148
+#: ../blivetgui/dialogs/helpers.py:144
 #, python-brace-format
 msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr "所选挂载点 \"{0}\" 已分配至另一设备。"

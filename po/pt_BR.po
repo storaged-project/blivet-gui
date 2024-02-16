@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-08-16 13:52+0200\n"
+"POT-Creation-Date: 2024-02-06 12:14+0100\n"
 "PO-Revision-Date: 2023-04-07 05:20+0000\n"
 "Last-Translator: Felipe Nogueira <contato.fnog@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
@@ -26,43 +26,43 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 4.15.2\n"
 
-#: ../blivetgui/blivetgui.py:289
+#: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
 msgstr "Falha ao redimensionar o dispositivo:"
 
-#: ../blivetgui/blivetgui.py:301
+#: ../blivetgui/blivetgui.py:307
 #, python-brace-format
 msgid "resize {name} {type}"
 msgstr "Redimensionar {name} {type}"
 
-#: ../blivetgui/blivetgui.py:320
+#: ../blivetgui/blivetgui.py:326
 msgid "Failed to format the device:"
 msgstr "Falha ao formatar o dispositivo:"
 
-#: ../blivetgui/blivetgui.py:334
+#: ../blivetgui/blivetgui.py:340
 #, python-brace-format
 msgid "format {name} {type}"
 msgstr "formatar{name} {type}"
 
-#: ../blivetgui/blivetgui.py:347
+#: ../blivetgui/blivetgui.py:353
 msgid "Failed to edit the LVM2 Volume Group:"
 msgstr "Falha ao editar o Grupo de Volumes LVM2:"
 
-#: ../blivetgui/blivetgui.py:362
+#: ../blivetgui/blivetgui.py:368
 #, python-brace-format
 msgid "edit {name} {type}"
 msgstr "editar{name}{type}"
 
-#: ../blivetgui/blivetgui.py:391
+#: ../blivetgui/blivetgui.py:397
 msgid "Failed to change filesystem label on the device:"
 msgstr "Falha ao alterar o rótulo do sistema de arquivos no dispositivo:"
 
-#: ../blivetgui/blivetgui.py:396
+#: ../blivetgui/blivetgui.py:402
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
 msgstr "alterar rótulo do sistema de arquivos de {name} {type}"
 
-#: ../blivetgui/blivetgui.py:412
+#: ../blivetgui/blivetgui.py:418
 #, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
@@ -71,11 +71,11 @@ msgstr ""
 "{name} não está completo. Não é possível adicionar novos LVs ao VG com PVs "
 "ausentes."
 
-#: ../blivetgui/blivetgui.py:417
+#: ../blivetgui/blivetgui.py:423
 msgid "Not enough free space for a new LVM Volume Group."
 msgstr "Não foi encontrado espaço para o novo volume LVM."
 
-#: ../blivetgui/blivetgui.py:423
+#: ../blivetgui/blivetgui.py:429
 #, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
@@ -84,46 +84,46 @@ msgstr ""
 "O disco {name} já atingiu o número máximo permitido de partições primárias "
 "para o {label} disklabel."
 
-#: ../blivetgui/blivetgui.py:433
+#: ../blivetgui/blivetgui.py:439
 msgid "Failed to add disklabel:"
 msgstr "Falha ao adicionar o disklabel:"
 
-#: ../blivetgui/blivetgui.py:446
+#: ../blivetgui/blivetgui.py:452
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "criar um novo disklabel em {name}"
 
-#: ../blivetgui/blivetgui.py:498
+#: ../blivetgui/blivetgui.py:504
 msgid "Failed to add the device:"
 msgstr "Falha ao adicionar o dispositivo:"
 
-#: ../blivetgui/blivetgui.py:513
+#: ../blivetgui/blivetgui.py:519
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr "adicionar dispositivo {type} de {size}"
 
-#: ../blivetgui/blivetgui.py:557
+#: ../blivetgui/blivetgui.py:563
 msgid "Failed to delete the device:"
 msgstr "Falha ao excluir o dispositivo:"
 
-#: ../blivetgui/blivetgui.py:572
+#: ../blivetgui/blivetgui.py:578
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr "deletar partição{name}"
 
-#: ../blivetgui/blivetgui.py:614
+#: ../blivetgui/blivetgui.py:619
 msgid "Failed to perform the actions:"
 msgstr "Falha ao executar as ações:"
 
-#: ../blivetgui/blivetgui.py:658
+#: ../blivetgui/blivetgui.py:663
 msgid "Confirm scheduled actions"
 msgstr "Confirmar ações agendadas"
 
-#: ../blivetgui/blivetgui.py:659
+#: ../blivetgui/blivetgui.py:664
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Tem certeza de que deseja executar as ações agendadas?"
 
-#: ../blivetgui/blivetgui.py:700
+#: ../blivetgui/blivetgui.py:705
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
@@ -131,19 +131,19 @@ msgstr ""
 "A desmontagem do '{mountpoint}' falhou. Você tem certeza que o dispositivo "
 "não está em uso?"
 
-#: ../blivetgui/blivetgui.py:722
+#: ../blivetgui/blivetgui.py:727
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "Desbloqueamento falhou. Está certo que a senha fornecida está correta?"
 
-#: ../blivetgui/blivetgui.py:772 ../data/ui/blivet-gui.ui:662
+#: ../blivetgui/blivetgui.py:777 ../data/ui/blivet-gui.ui:662
 msgid "Quit"
 msgstr "Sair"
 
-#: ../blivetgui/blivetgui.py:775
+#: ../blivetgui/blivetgui.py:780
 msgid "blivet-gui is already running"
 msgstr "blivet-gui já está em execução"
 
-#: ../blivetgui/blivetgui.py:776
+#: ../blivetgui/blivetgui.py:781
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -151,7 +151,7 @@ msgstr ""
 "Outra instância do blivet-gui já está em execução.\n"
 "Apenas uma instância do blivet-gui pode ser executada ao mesmo tempo."
 
-#: ../blivetgui/blivetgui.py:778
+#: ../blivetgui/blivetgui.py:783
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -169,24 +169,24 @@ msgstr ""
 "\n"
 "comando para forçá-lo a sair."
 
-#: ../blivetgui/blivetgui.py:810
+#: ../blivetgui/blivetgui.py:815
 msgid "Failed to init blivet:"
 msgstr "Falha ao iniciar o blivet:"
 
-#: ../blivetgui/blivetgui.py:817
+#: ../blivetgui/blivetgui.py:822
 msgid "Quit blivet-gui"
 msgstr "Sair blivet-gui"
 
-#: ../blivetgui/blivetgui.py:819
+#: ../blivetgui/blivetgui.py:824
 msgid "Ignore disk and continue"
 msgstr "Ignorar o disco e continuar"
 
-#: ../blivetgui/blivetgui.py:822
+#: ../blivetgui/blivetgui.py:827
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "Erro: {error}"
 
-#: ../blivetgui/blivetgui.py:823
+#: ../blivetgui/blivetgui.py:828
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -198,19 +198,19 @@ msgstr ""
 "corrompido/desconhecido.\n"
 "Você pode sair do blivet-gui agora ou continuar sem poder usar este disco."
 
-#: ../blivetgui/blivetgui.py:859
+#: ../blivetgui/blivetgui.py:864
 msgid "Confirm reload storage"
 msgstr "Confirmar o recarregamento do armazenamento"
 
-#: ../blivetgui/blivetgui.py:860
+#: ../blivetgui/blivetgui.py:865
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "Existem operações pendentes. Você tem certeza que quer continuar?"
 
-#: ../blivetgui/blivetgui.py:891
+#: ../blivetgui/blivetgui.py:896
 msgid "Are you sure you want to quit?"
 msgstr "Você está certo que deseja sair?"
 
-#: ../blivetgui/blivetgui.py:892
+#: ../blivetgui/blivetgui.py:897
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
@@ -221,72 +221,72 @@ msgstr ""
 msgid "free space"
 msgstr "Espaço livre"
 
-#: ../blivetgui/blivet_utils.py:667
+#: ../blivetgui/blivet_utils.py:676
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr "Redimensionamento de dispositivos {type} não é atualmente suportado"
 
-#: ../blivetgui/blivet_utils.py:672
+#: ../blivetgui/blivet_utils.py:681
 msgid "Protected devices cannot be resized"
 msgstr "Dispositivos protegidos não podem ser redimensionados"
 
-#: ../blivetgui/blivet_utils.py:677
+#: ../blivetgui/blivet_utils.py:686
 msgid "Immutable formats cannot be resized"
 msgstr "Formatos imutáveis não podem ser redimensionados"
 
-#: ../blivetgui/blivet_utils.py:682
+#: ../blivetgui/blivet_utils.py:691
 msgid "Devices with children cannot be resized"
 msgstr "Dispositivos com primários não podem ser redimensionados"
 
-#: ../blivetgui/blivet_utils.py:693
+#: ../blivetgui/blivet_utils.py:702
 msgid "Unformatted devices are not resizable"
 msgstr "Dispositivos não formatados não podem ser redimensionados"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
-#: ../blivetgui/blivet_utils.py:700
+#: ../blivetgui/blivet_utils.py:709
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr "Redimensionamento do formato {type} não é atualmente suportado"
 
-#: ../blivetgui/blivet_utils.py:705
+#: ../blivetgui/blivet_utils.py:714
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr "Ferramentas para redimensionar o formato {type} não estão disponíveis."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
-#: ../blivetgui/blivet_utils.py:712
+#: ../blivetgui/blivet_utils.py:721
 msgid "Formats scheduled to be created cannot be resized"
 msgstr "Formatos na fila para serem criados não podem ser redimensionados"
 
-#: ../blivetgui/blivet_utils.py:717
+#: ../blivetgui/blivet_utils.py:726
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr "Formato {type} não suporta atualizar seu limite de espaço"
 
-#: ../blivetgui/blivet_utils.py:722
+#: ../blivetgui/blivet_utils.py:731
 msgid "Mounted devices cannot be resized"
 msgstr "Dispositivos montados não podem ser redimensionados"
 
-#: ../blivetgui/blivet_utils.py:727
+#: ../blivetgui/blivet_utils.py:736
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "Volumes lógicos com snapshots não podem ser redimensionados."
 
-#: ../blivetgui/blivet_utils.py:732
+#: ../blivetgui/blivet_utils.py:741
 msgid "Resizing of LUKS2 devices is currently not supported."
 msgstr "Redimensionamento de dispositivos LUKS2 não é atualmente suportado."
 
-#: ../blivetgui/blivet_utils.py:744
+#: ../blivetgui/blivet_utils.py:753
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr "Falha ao atualizar o tamanho do sistema de arquivos: {error}"
 
-#: ../blivetgui/blivet_utils.py:763
+#: ../blivetgui/blivet_utils.py:772
 msgid "Device is not resizable."
 msgstr "Dispositivo não redimensionável."
 
-#: ../blivetgui/blivet_utils.py:765
+#: ../blivetgui/blivet_utils.py:774
 msgid "Format is not resizable after updating its size limit information."
 msgstr "Formato não é redimensionável após atualizar seu limite de tamanho."
 
@@ -557,7 +557,7 @@ msgstr "Nome:"
 msgid "Mountpoint:"
 msgstr "Ponto de montagem:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1014 ../blivetgui/dialogs/helpers.py:141
+#: ../blivetgui/dialogs/add_dialog.py:1014 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" não é um ponto de montagem válido."
@@ -877,7 +877,7 @@ msgstr "Atualmente é possível remover apenas um primário por vez."
 msgid "Remove?"
 msgstr "Remover?"
 
-#: ../blivetgui/dialogs/helpers.py:148
+#: ../blivetgui/dialogs/helpers.py:144
 #, python-brace-format
 msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr ""
