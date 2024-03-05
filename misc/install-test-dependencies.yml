@@ -101,6 +101,7 @@
   - name: Install pocketlint, blivet and pid using pip (Ubuntu/Debian)
     pip:
       name: ['pocketlint', 'blivet', 'pid']
+      extra_args: --break-system-packages
     when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
   - name: Install runtime and build dependencies (OpenSUSE)
@@ -163,4 +164,5 @@
   - name: Install pocketlint, blivet and pid using pip (openSUSE)
     pip:
       name: ['pocketlint', 'blivet', 'pid']
+      extra_args: --break-system-packages
     when: ansible_os_family == "Suse"
