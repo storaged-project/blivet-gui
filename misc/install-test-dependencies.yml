@@ -72,6 +72,7 @@
       - python3-polib
       - libblockdev-part3
       - btrfs-progs
+      - mdadm
       - dosfstools
       - e2fsprogs
       - xfsprogs
