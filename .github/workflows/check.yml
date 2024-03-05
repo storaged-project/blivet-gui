@@ -12,16 +12,36 @@ on:
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
-
+    name: static-analysis
+    runs-on: ubuntu-22.04
+    env:
+      CI_IMAGE: fedora:latest
+      CI_CONTAINER: blivet-gui-tests
     steps:
-    - uses: actions/checkout@v4
-    - name: Install dependencies
-      run:   |
-         sudo apt-get -qq update
-         sudo apt-get -y -qq install make ansible
-         sudo make install-requires
-    - name: Run checks
-      run: make check
+      - name: Checkout blivet-gui repository
+        uses: actions/checkout@v4
 
+      - name: Install podman
+        run: |
+          sudo apt -qq update
+          sudo apt -y -qq install podman
+
+      - name: Start the container
+        run: |
+          podman run -d -t --name ${{ env.CI_CONTAINER }} --privileged --volume "$(pwd):/app" --workdir "/app" ${{ env.CI_IMAGE }}
+
+      - name: Install ansible in the container
+        run: |
+          podman exec -it ${{ env.CI_CONTAINER }} bash -c "dnf -y install ansible make which"
+
+      - name: Enable our daily builds Copr in the container
+        run: |
+          podman exec -it ${{ env.CI_CONTAINER }} bash -c "dnf -y install dnf-plugins-core && dnf -y copr enable @storage/blivet-daily"
+
+      - name: Install test dependencies in the container
+        run: |
+          podman exec -it ${{ env.CI_CONTAINER }} bash -c "ansible-playbook -i 'localhost,' -c local misc/install-test-dependencies.yml"
+
+      - name: Run static analysis tests in the container
+        run: |
+          podman exec -it ${{ env.CI_CONTAINER }} bash -c "make check"
