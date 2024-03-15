@@ -5,13 +5,14 @@
 # Chris Wehrli <christian.wehrli@gmx.ch>, 2020.
 # Fabian Affolter <mail@fabian-affolter.ch>, 2020.
 # Ettore Atalan <atalanttore@googlemail.com>, 2021, 2022.
+# Bernhard Bloxberg <njg87w434@mailbox.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-06 12:14+0100\n"
-"PO-Revision-Date: 2022-12-06 08:20+0000\n"
-"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
+"PO-Revision-Date: 2024-03-15 20:36+0000\n"
+"Last-Translator: Bernhard Bloxberg <njg87w434@mailbox.org>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/de/>\n"
 "Language: de\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 5.4\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -80,8 +81,9 @@ msgstr ""
 "Partitition für {label} erreicht."
 
 #: ../blivetgui/blivetgui.py:439
+#, fuzzy
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "Disklabel hinzufügen fehlgeschlagen:"
 
 #: ../blivetgui/blivetgui.py:452
 #, python-brace-format
@@ -158,6 +160,14 @@ msgid ""
 "\n"
 "command to force quit it."
 msgstr ""
+"Ist die vorige Instanz von blivet-gui gecrasht, stellensicher, dass der "
+"Prozess <i>blivet-gui-daemon</i> auch beendet wurde.\n"
+"\n"
+"Wenn er noch läuft, benutze den Befehl\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"um das Beenden zu erzwingen."
 
 #: ../blivetgui/blivetgui.py:815
 msgid "Failed to init blivet:"
@@ -177,13 +187,16 @@ msgid "Error: {error}"
 msgstr "Fehler: {error}"
 
 #: ../blivetgui/blivetgui.py:828
-#, python-brace-format
+#, fuzzy, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
 "disklabel.\n"
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
+"Blivet-gui kann den Speicher <b>{name}</b> durch defekte/unbekannte "
+"Disklabels nicht benutzen. Beende blivet-gui oder fahre fort, ohne den "
+"Speicher nutzen zu können."
 
 #: ../blivetgui/blivetgui.py:864
 msgid "Confirm reload storage"
@@ -289,10 +302,7 @@ msgstr ""
 "Größenbegrenzungsinformationen nicht mehr geändert werden."
 
 #: ../blivetgui/exception_handler.py:75
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
@@ -301,10 +311,7 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
@@ -376,10 +383,7 @@ msgstr ""
 " wenn Sie den Fehler melden möchten."
 
 #: ../blivetgui/osinstall.py:221
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Anaconda will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
@@ -416,7 +420,7 @@ msgstr ""
 #: ../blivetgui/communication/client.py:300
 #: ../blivetgui/communication/client.py:317
 msgid "Failed to connect to blivet-gui-daemon"
-msgstr ""
+msgstr "Verbindung zu blivet-gui fehlgeschlagen"
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
@@ -486,7 +490,6 @@ msgstr "LVM2 Logisches Volumen"
 
 #: ../blivetgui/dialogs/add_dialog.py:394
 #: ../blivetgui/dialogs/device_info_dialog.py:82
-#, fuzzy
 msgid "LVM2 ThinPool"
 msgstr "LVM2 ThinPool"
 
@@ -496,11 +499,10 @@ msgstr "LVM2-Schnappschuss"
 
 #: ../blivetgui/dialogs/add_dialog.py:404
 msgid "LVM2 Thin Snaphost"
-msgstr ""
+msgstr "LVM2 Thin Snapshot"
 
 #: ../blivetgui/dialogs/add_dialog.py:407
 #: ../blivetgui/dialogs/device_info_dialog.py:83
-#, fuzzy
 msgid "LVM2 Thin Logical Volume"
 msgstr "LVM2 Thin Logical Volume"
 
