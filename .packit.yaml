@@ -12,6 +12,11 @@ jobs:
     - fedora-all
   trigger: pull_request
 
+- job: tests
+  trigger: pull_request
+  targets:
+  - fedora-latest-stable
+
 - job: copr_build
   trigger: commit
   owner: "@storage"
