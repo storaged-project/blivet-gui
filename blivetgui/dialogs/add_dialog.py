@@ -31,7 +31,7 @@ gi.require_version("Gdk", "3.0")
 from gi.repository import Gtk
 
 from blivet import size
-from blivet.devicelibs import crypto, lvm, stratis
+from blivet.devicelibs import crypto, lvm
 from blivet.formats.fs import BTRFS
 from blivet.formats.stratis import StratisBlockdev
 
@@ -719,10 +719,6 @@ class AddDialog(Gtk.Dialog):
         elif self.selected_type == "lvmthinpool":
             limit = min(self.selected_parent.free_space * POOL_RESERVED, limit)
 
-        if self.selected_type == "stratis filesystem":
-            # stratis filesystem size is always 1 TiB and unrelated to the pool size
-            return stratis.STRATIS_FS_SIZE
-
         # limit from the parents maximum size
         parents_limit = sum(p.max_size for p in self._get_parents())
         limit = min(parents_limit, limit)
@@ -1008,8 +1004,8 @@ class AddDialog(Gtk.Dialog):
             self.hide_widgets(["label", "fs", "advanced", "mdraid", "mountpoint"])
 
         elif device_type == "stratis filesystem":
-            self.show_widgets(["name", "mountpoint"])
-            self.hide_widgets(["label", "fs", "encrypt", "size", "advanced", "mdraid"])
+            self.show_widgets(["name", "mountpoint", "size"])
+            self.hide_widgets(["label", "fs", "encrypt", "advanced", "mdraid"])
 
         # hide "advanced" encryption widgets if encrypt not checked
         self._encryption_chooser.set_advanced_visible(self._encryption_chooser.encrypt)

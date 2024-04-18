@@ -86,14 +86,14 @@ class ListPartitions(object):
                         self._add_to_store(logical, child_iter)
 
         # lvmvg always has some children, at least a free space
-        elif selected_device.type == "lvmvg":
+        elif selected_device.type in ("lvmvg", "stratis pool"):
             childs = self.blivet_gui.client.remote_call("get_children", selected_device)
             _add_chilren(childs, None)
 
         # for btrfs volumes and mdarrays its necessary to add the device itself to the view
         # because these devices don't need to have children (only btrfs volume or only mdarray
         # is a valid, usable device)
-        elif selected_device.type in ("btrfs volume", "stratis pool") or (selected_device.type == "mdarray" and not selected_device.children):
+        elif selected_device.type in ("btrfs volume",) or (selected_device.type == "mdarray" and not selected_device.children):
             parent_iter = self._add_to_store(selected_device)
             childs = self.blivet_gui.client.remote_call("get_children", selected_device)
             _add_chilren(childs, parent_iter)
