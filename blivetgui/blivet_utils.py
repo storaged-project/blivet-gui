@@ -298,7 +298,7 @@ class BlivetUtils(object):
 
         childs = blivet_device.children
 
-        if blivet_device.type == "lvmvg" and blivet_device.free_space > blivet.size.Size(0):
+        if blivet_device.type in ("lvmvg", "stratis pool") and blivet_device.free_space > blivet.size.Size(0):
             childs.append(FreeSpaceDevice(blivet_device.free_space, self.storage.next_id, None, None, [blivet_device]))
 
         return childs
@@ -517,7 +517,7 @@ class BlivetUtils(object):
                                    parents=[blivet_device])
         # Stratis Pool -- size of the filesystems is fixed
         elif blivet_device.type == "stratis pool":
-            return FreeSpaceDevice(free_size=blivet.devicelibs.stratis.STRATIS_FS_SIZE,
+            return FreeSpaceDevice(free_size=blivet_device.free_space,
                                    dev_id=self.storage.next_id,
                                    start=None, end=None,
                                    parents=[blivet_device])
@@ -1377,7 +1377,8 @@ class BlivetUtils(object):
                                              user_input.size_selection.parents[0].parent_device)
 
         new_filesystem = StratisFilesystemDevice(device_name,
-                                                 parents=[i.parent_device for i in user_input.size_selection.parents])
+                                                 parents=[i.parent_device for i in user_input.size_selection.parents],
+                                                 size=user_input.size_selection.total_size)
         new_filesystem.format = blivet.formats.get_format("stratis xfs", mountpoint=user_input.mountpoint)
         actions.append(blivet.deviceaction.ActionCreateDevice(new_filesystem))
         actions.append(blivet.deviceaction.ActionCreateFormat(new_filesystem))
