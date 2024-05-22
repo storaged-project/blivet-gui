@@ -1209,6 +1209,8 @@ class BlivetUtils(object):
                                            parents=[origin_lv.pool],
                                            origin=origin_lv,
                                            seg_type="thin")
+        else:
+            raise ValueError("Creating snapshots is not supported for %s" % user_input.device_type)
 
         actions.append(blivet.deviceaction.ActionCreateDevice(new_snap))
 
