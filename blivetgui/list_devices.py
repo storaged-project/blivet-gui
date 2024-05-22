@@ -125,6 +125,8 @@ class ListDevices(object):
         model, treeiter = selection.get_selected()
         if treeiter and model:
             selected_device = model[treeiter][0].name
+        else:
+            selected_device = None
 
         # reload devices
         # adding new devices into TreeStore causing "changed" signal being
