@@ -562,11 +562,12 @@ class AddDialog(Gtk.Dialog):
 
         device_type = self.selected_type
         num_parents = self._get_number_selected_parents()
+        level = self._raid_chooser.selected_level
 
         if device_type not in self.supported_raids.keys() or num_parents == 1:
             return (False, None)
 
-        elif self._raid_chooser.selected_level.name in ("linear", "single"):
+        elif level and level.name in ("linear", "single"):
             return (False, None)
 
         else:
@@ -863,7 +864,8 @@ class AddDialog(Gtk.Dialog):
             self.advanced.destroy()
 
         if device_type in ("lvm", "lvmvg", "partition", "mdraid"):
-            if device_type == "mdraid" and self._raid_chooser.selected_level.name == "raid1":
+            level = self._raid_chooser.selected_level
+            if device_type == "mdraid" and level and level.name == "raid1":
                 self.advanced = None
                 self.widgets_dict["advanced"] = []
             else:
@@ -1068,7 +1070,9 @@ class AddDialog(Gtk.Dialog):
         encryption_selection = self._encryption_chooser.get_selection()
 
         if device_type in ("btrfs volume", "mdraid", "lvmlv"):
-            raid_level = self._raid_chooser.selected_level.name
+            raid_level = self._raid_chooser.selected_level
+            if raid_level:
+                raid_level = raid_level.name
         else:
             raid_level = None
 
