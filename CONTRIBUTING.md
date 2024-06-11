@@ -50,7 +50,7 @@ PYTHONPATH=. PATH=`pwd`:$PATH blivet-gui
 ### Building blocks of blivet-gui
 
 This is just a short summary of blivet-gui code structure/building blocks.
-See [storaged-project.github.io/blivet-gui](https://storaged-project.github.io/blivet-gui/
+See [storaged-project.github.io/blivet-gui](https://storaged-project.github.io/blivet-gui/)
 for complete API documentation.
 
 #### BlivetUtils
@@ -65,7 +65,7 @@ for more information about blivet and its API.
 
 `BlivetGUI` ([blivetgui.py](blivetgui/blivetgui.py)) is the main class for the GUI.
 There are separate classes for every UI part. These classes create all the necessary
-Gtk widgets (or load them from the Glade files and provide signal handlers and
+Gtk widgets (or load them from the Glade files) and provide signal handlers and
 other helper functions.
 
 **Important GUI objects:**
@@ -76,7 +76,7 @@ other helper functions.
     with device-related actions (add, edit, remove...)
   * `ActionsToolbar` ([actions_toolbar.py](blivetgui/actions_toolbar.py))-- toolbar
     with "global" actions (process or clear actions, main menu)
-  * `ListDevices` ([list_devices.py](blivetgui/list_devices.py)])-- list of "root"
+  * `ListDevices` ([list_devices.py](blivetgui/list_devices.py))-- list of "root"
     devices (disks, volume groups, RAIDs...)
   * `ListPartitions` ([list_partitions.py](blivetgui/list_partitions.py)) -- list
     of "child" devices for selected device
