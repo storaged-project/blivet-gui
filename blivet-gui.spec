@@ -30,7 +30,7 @@ BuildRequires: make
 
 Requires: python3
 Requires: python3-gobject
-Requires: python3-blivet >= 1:3.3.0
+Requires: python3-blivet >= 1:3.8.0
 Requires: gtk3
 Requires: python3-pid
 Requires: libreport
