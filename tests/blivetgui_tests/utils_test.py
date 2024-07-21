@@ -7,6 +7,7 @@ from blivetgui.blivet_utils import BlivetUtils, FreeSpaceDevice
 from blivetgui.i18n import _
 
 from blivet.size import Size
+from blivet.formats.fslib import FSResize
 
 
 class FreeSpaceDeviceTest(unittest.TestCase):
@@ -82,13 +83,22 @@ class BlivetUtilsTest(unittest.TestCase):
         self.assertEqual(res.min_size, Size("1 MiB"))
         self.assertEqual(res.max_size, Size("1 GiB"))
 
-        # mounted devices are not resizable
-        device.format.configure_mock(type="ext4", system_mountpoint="/")
+        # mounted device, format doesn't support online resize: not resizable
+        device.format.configure_mock(type="ext4", system_mountpoint="/", _resize_support=0)
         res = storage.device_resizable(device)
         self.assertFalse(res.resizable)
         self.assertEqual(res.error, _("Mounted devices cannot be resized"))
         self.assertEqual(res.min_size, Size("1 MiB"))
         self.assertEqual(res.max_size, Size("1 GiB"))
+
+        # mounted device, format does support online resize: resizable
+        device.configure_mock(resizable=True, max_size=Size("2 GiB"), min_size=Size("500 MiB"))
+        device.format.configure_mock(type="ext4", system_mountpoint="/", _resize_support=FSResize.ONLINE_GROW)
+        res = storage.device_resizable(device)
+        self.assertTrue(res.resizable)
+        self.assertIsNone(res.error)
+        self.assertEqual(res.min_size, Size("500 MiB"))
+        self.assertEqual(res.max_size, Size("2 GiB"))
 
         # resizable device
         device.configure_mock(resizable=True, max_size=Size("2 GiB"), min_size=Size("500 MiB"))

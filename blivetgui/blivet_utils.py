@@ -168,6 +168,8 @@ class BlivetUtils(object):
         if flags:
             self._set_blivet_flags(flags)
 
+        blivet.flags.flags.allow_online_fs_resize = True
+
         self.blivet_reset()
         self._update_min_sizes_info()
 
@@ -727,7 +729,9 @@ class BlivetUtils(object):
             return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
-        elif hasattr(blivet_device.format, "system_mountpoint") and blivet_device.format.system_mountpoint:
+        elif hasattr(blivet_device.format, "system_mountpoint") and blivet_device.format.system_mountpoint and \
+            not (blivet_device.format._resize_support & blivet.formats.fslib.FSResize.ONLINE_GROW or
+                 blivet_device.format._resize_support & blivet.formats.fslib.FSResize.ONLINE_SHRINK):
             msg = _("Mounted devices cannot be resized")
             return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
