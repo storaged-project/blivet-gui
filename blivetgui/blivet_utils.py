@@ -157,10 +157,6 @@ class BlivetUtils(object):
         set_logging(component="blivet")
         set_logging(component="program")
 
-        # allow creating of ntfs format
-        blivet.formats.fs.NTFS._formattable = True
-        blivet.formats.fs.NTFS._supported = True
-
         # ignore zram devices
         blivet.udev.ignored_device_names.append(r"^zram")
 
