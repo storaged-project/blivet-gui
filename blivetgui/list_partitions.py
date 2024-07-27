@@ -86,14 +86,14 @@ class ListPartitions(object):
                         self._add_to_store(logical, child_iter)
 
         # lvmvg always has some children, at least a free space
-        elif selected_device.type == "lvmvg":
+        elif selected_device.type in ("lvmvg", "stratis pool"):
             childs = self.blivet_gui.client.remote_call("get_children", selected_device)
             _add_chilren(childs, None)
 
         # for btrfs volumes and mdarrays its necessary to add the device itself to the view
         # because these devices don't need to have children (only btrfs volume or only mdarray
         # is a valid, usable device)
-        elif selected_device.type == "btrfs volume" or (selected_device.type == "mdarray" and not selected_device.children):
+        elif selected_device.type in ("btrfs volume",) or (selected_device.type == "mdarray" and not selected_device.children):
             parent_iter = self._add_to_store(selected_device)
             childs = self.blivet_gui.client.remote_call("get_children", selected_device)
             _add_chilren(childs, parent_iter)
@@ -109,16 +109,16 @@ class ListPartitions(object):
 
     def _is_group_device(self, blivet_device):
         # btrfs volume on raw disk
-        if blivet_device.type in ("btrfs volume", "lvmvg"):
+        if blivet_device.type in ("btrfs volume", "lvmvg", "stratis pool"):
             return True
 
-        if blivet_device.format and blivet_device.format.type in ("lvmpv", "btrfs", "mdmember"):
+        if blivet_device.format and blivet_device.format.type in ("lvmpv", "btrfs", "mdmember", "stratis"):
             return (len(blivet_device.children) > 0)
 
         # encrypted group device
         if blivet_device.format and blivet_device.format.type in ("luks", "integrity") and blivet_device.children:
             luks_device = self.blivet_gui.client.remote_call("get_luks_device", blivet_device)
-            if luks_device.format and luks_device.format.type in ("lvmpv", "btrfs", "mdmember"):
+            if luks_device.format and luks_device.format.type in ("lvmpv", "btrfs", "mdmember", "stratis"):
                 return (len(luks_device.children) > 0)
 
         return False
@@ -163,7 +163,7 @@ class ListPartitions(object):
         return device_iter
 
     def _allow_recursive_delete_device(self, device):
-        if device.type not in ("btrfs volume", "mdarray", "lvmvg"):
+        if device.type not in ("btrfs volume", "mdarray", "lvmvg", "stratis pool"):
             return False
 
         def _device_descendants(device):
@@ -223,7 +223,7 @@ class ListPartitions(object):
         if device.type == "partition" and device.is_extended:
             return False
 
-        if device.format.type in ("mdmember", "btrfs"):
+        if device.format.type in ("mdmember", "btrfs", "stratis"):
             return False
 
         return not device.format.status
@@ -269,7 +269,8 @@ class ListPartitions(object):
         if device.protected:
             return False
 
-        if device.type in ("free space", "btrfs volume", "btrfs subvolume", "lvmthinpool"):
+        if device.type in ("free space", "btrfs volume", "btrfs subvolume", "lvmthinpool",
+                           "stratis pool"):
             return True
 
         # empty lvmpv
@@ -328,7 +329,8 @@ class ListPartitions(object):
         if device.format:
             if device.format.type == "luks" and not device.format.status and device.format.exists:
                 self.blivet_gui.activate_device_actions(["decrypt"])
-
+            elif device.format.type == "stratis" and device.format.locked_pool and not device.children:
+                self.blivet_gui.activate_device_actions(["decrypt"])
             elif device.format.mountable and device.format.system_mountpoint:
                 self.blivet_gui.activate_device_actions(["unmount"])
 
