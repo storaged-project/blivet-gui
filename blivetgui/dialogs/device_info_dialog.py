@@ -45,7 +45,7 @@ class DeviceInformationDialog(Gtk.Dialog):
     """ Dialog showing information about selected device
     """
 
-    def __init__(self, parent_window, device):
+    def __init__(self, parent_window, device, client, installer_mode=False):
         """
 
             :param parent_window: parent window
@@ -57,6 +57,8 @@ class DeviceInformationDialog(Gtk.Dialog):
 
         self.parent_window = parent_window
         self.device = device
+        self.client = client
+        self.installer_mode = installer_mode
 
         # Gtk.Dialog
         Gtk.Dialog.__init__(self)
@@ -224,8 +226,20 @@ class DeviceInformationDialog(Gtk.Dialog):
             info += _(" • <i>UUID:</i> {uuid}\n").format(uuid=self.device.format.uuid)
             if hasattr(self.device.format, "label") and self.device.format.label:
                 info += _(" • <i>Label:</i> {label}\n").format(label=self.device.format.label)
-            if hasattr(self.device.format, "system_mountpoint") and self.device.format.system_mountpoint:
-                info += _(" • <i>Mountpoint:</i> {mountpoint}\n").format(mountpoint=self.device.format.system_mountpoint)
+
+            if self.device.format.mountable:
+                if self.installer_mode:
+                    mnt = self.device.format.mountpoint if (self.device.format and self.device.format.mountable) else None
+                else:
+                    is_mounted = bool(self.device.format.system_mountpoint) if (self.device.format and self.device.format.mountable) else False
+                    if is_mounted:
+                        mnts = self.client.remote_call("get_system_mountpoints", self.device)
+                        mnt = "\n     ".join(mnts)
+                    else:
+                        mnt = None
+
+                if mnt:
+                    info += _(" • <i>Mountpoints:</i>\n     {mountpoints}").format(mountpoints=mnt)
 
         else:
             info = _(" • <i>Type:</i> None")
