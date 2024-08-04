@@ -283,7 +283,8 @@ class BlivetGUI(object):
 
         blivet_device = self.list_partitions.selected_partition[0]
 
-        dialog = device_info_dialog.DeviceInformationDialog(self.main_window, blivet_device)
+        dialog = device_info_dialog.DeviceInformationDialog(self.main_window, blivet_device,
+                                                            self.client, self.installer_mode)
         self.run_dialog(dialog)
         dialog.destroy()
 
