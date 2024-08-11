@@ -127,6 +127,18 @@ class ExceptionDialog(object):
         button_quit = builder.get_object("button_quit")
         button_quit.connect("clicked", self._on_quit_button)
 
+        report_label = builder.get_object("bugreport_label")
+        if allow_report:
+            msg = _("If you believe this is a bug, please use the 'Report a bug' button "
+                    "below to report a bug using the\nAutomatic bug reporting tool (ABRT) "
+                    "or open an issue on our "
+                    "<a href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>.")
+        else:
+            msg = _("If you believe this is a bug, please open an issue on our "
+                    "<a href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>.")
+
+        report_label.set_markup("<i>%s</i>" % msg)
+
     def run(self):
         self.dialog.show_all()
 
