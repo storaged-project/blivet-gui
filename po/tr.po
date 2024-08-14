@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Oğuz Ersen <oguzersen@protonmail.com>, 2020, 2021, 2022.
-# Oğuz Ersen <oguz@ersen.moe>, 2022.
+# Oğuz Ersen <oguz@ersen.moe>, 2022, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-06 12:14+0100\n"
-"PO-Revision-Date: 2022-12-08 10:19+0000\n"
+"PO-Revision-Date: 2024-08-14 13:39+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/tr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -545,7 +545,7 @@ msgstr "Etiket:"
 
 #: ../blivetgui/dialogs/add_dialog.py:837
 msgid "Name:"
-msgstr "İsim:"
+msgstr "Ad:"
 
 #: ../blivetgui/dialogs/add_dialog.py:848 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
@@ -563,7 +563,7 @@ msgstr "Lütfen en az iki ana (parent) aygıt seçin."
 #: ../blivetgui/dialogs/add_dialog.py:1035
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
-msgstr "\"{0}\" geçerli bir isim değil."
+msgstr "\"{0}\" geçerli bir ad değil."
 
 #: ../blivetgui/dialogs/add_dialog.py:1041
 #: ../blivetgui/dialogs/edit_dialog.py:232
@@ -762,7 +762,7 @@ msgstr " • <i>Durum:</i> {exist}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:187
 #, python-brace-format
 msgid " • <i>Name:</i> {name}\n"
-msgstr " • <i>İsim:</i> {name}\n"
+msgstr " • <i>Ad:</i> {name}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:188
 #, python-brace-format
