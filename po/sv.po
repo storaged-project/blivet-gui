@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Göran Uddeborg <goeran@uddeborg.se>, 2021, 2022.
-# Luna Jernberg <bittin@reimu.nl>, 2022, 2023.
+# Luna Jernberg <bittin@reimu.nl>, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-11 16:24+0200\n"
-"PO-Revision-Date: 2023-04-18 10:20+0000\n"
+"PO-Revision-Date: 2024-08-15 14:39+0000\n"
 "Last-Translator: Luna Jernberg <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/sv/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -793,12 +793,13 @@ msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>Etikett:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:242
-#, fuzzy, python-brace-format
-#| msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+#, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
-msgstr " • <i>Monteringspunkter:</i> {mountpoint}\n"
+msgstr ""
+" • <i>Monteringspunkter:</i>\n"
+"     {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:245
 msgid " • <i>Type:</i> None"
@@ -891,12 +892,18 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
+"Om du tror att det här är en bugg, använd knappen 'Rapportera ett fel' nedan "
+"för att rapportera ett fel med hjälp av vårat\n"
+"Automatiskt felrapporteringsverktyg (ABRT) eller öppna ett problem på vår <a "
+"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:137
 msgid ""
 "If you believe this is a bug, please open an issue on our <a href=\"https://"
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
+"Om du tror att detta är en bugg, vänligen öppna ett problem på vår <a href="
+"\"https://github.com/storaged-project/blivet-gui/issues\">Github</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"
