@@ -1,15 +1,15 @@
-# Yuri Chornoivan <yurchor@ukr.net>, 2015, 2020, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2015, 2020, 2021, 2022, 2024.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
-# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021, 2022.
-# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020, 2021, 2022.
-# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020, 2021, 2022.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020. #zanata, 2021, 2022.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021, 2022, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020, 2021, 2022, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020, 2021, 2022, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020. #zanata, 2021, 2022, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-11 16:24+0200\n"
-"PO-Revision-Date: 2022-12-06 16:50+0000\n"
+"PO-Revision-Date: 2024-08-15 14:39+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/uk/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.14.2\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -803,12 +803,13 @@ msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>Мітка:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:242
-#, fuzzy, python-brace-format
-#| msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+#, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
-msgstr " • <i>Точка монтування:</i> {mountpoint}\n"
+msgstr ""
+" • <i>Точки монтування:</i>\n"
+"     {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:245
 msgid " • <i>Type:</i> None"
@@ -901,12 +902,20 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
+"Якщо ви вважаєте, що це є результатом вади, будь ласка, натисніть кнопку «"
+"Повідомити про ваду», розташовану нижче, щоб створити звіт\n"
+"щодо вади за допомогою автоматичного інструмента звітування про вади (ABRT) "
+"або створіть запис вади на нашій сторінці <a href=\"https://github.com/"
+"storaged-project/blivet-gui/issues\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:137
 msgid ""
 "If you believe this is a bug, please open an issue on our <a href=\"https://"
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
+"Якщо ви вважаєте, що це є результатом вади, будь ласка, створіть "
+"повідомлення про ваду на нашій сторінц <a href=\"https://github.com/"
+"storaged-project/blivet-gui/issues\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"
