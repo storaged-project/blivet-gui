@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-11 16:24+0200\n"
-"PO-Revision-Date: 2024-02-16 09:35+0000\n"
+"PO-Revision-Date: 2024-08-17 02:38+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.6.2\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -330,7 +330,7 @@ msgstr "레이드"
 
 #: ../blivetgui/list_devices.py:111
 msgid "MDArray"
-msgstr "MDArray"
+msgstr "MD배열"
 
 #: ../blivetgui/list_devices.py:114
 msgid "Btrfs Volumes"
@@ -788,12 +788,13 @@ msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>이름표:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:242
-#, fuzzy, python-brace-format
-#| msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+#, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
-msgstr " • <i>적재점:</i> {mountpoint}\n"
+msgstr ""
+" • <i>적재점:</i>\n"
+"     {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:245
 msgid " • <i>Type:</i> None"
@@ -884,12 +885,19 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
+"만약 해당 부분이 결점이라고 생각되면, 아래의 '결점 보고' 누름 단추를 "
+"사용하여\n"
+"ABRT(자동 결점 보고 도구)를 사용하여 결점을 보고하거나 <a href=\"https"
+"://github.com/storaged-project/blivet-gui/issues\">깃허브(GitHub)</a>에 "
+"문제를 알려주세요."
 
 #: ../blivetgui/dialogs/message_dialogs.py:137
 msgid ""
 "If you believe this is a bug, please open an issue on our <a href=\"https://"
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
+"만약 해당 부분이 결점이라고 생각되면, <a href=\"https://github.com/"
+"storaged-project/blivet-gui/issues\">깃허브(GitHub)</a>에 문제를 알려주세요."
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"
