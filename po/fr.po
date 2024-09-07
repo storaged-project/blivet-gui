@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-11 16:24+0200\n"
-"PO-Revision-Date: 2024-08-23 13:38+0000\n"
+"PO-Revision-Date: 2024-09-05 09:38+0000\n"
 "Last-Translator: Léane GRASSER <leane.grasser@proton.me>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fr/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.7.1\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -54,13 +54,12 @@ msgstr "modifier {name} {type}"
 #: ../blivetgui/blivetgui.py:398
 msgid "Failed to change filesystem label on the device:"
 msgstr ""
-"Échec de la modification de l’étiquette du système de fichier sur le "
-"périphérique :"
+"Échec de la modification du nom du système de fichiers sur le périphérique :"
 
 #: ../blivetgui/blivetgui.py:403
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr "modification de l’étiquette du système de fichiers de {name} {type}"
+msgstr "changer le nom du système de fichiers {name} {type}"
 
 #: ../blivetgui/blivetgui.py:419
 #, python-brace-format
@@ -86,7 +85,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:440
 msgid "Failed to add disklabel:"
-msgstr "Échec de l’ajout de l’étiquette de disque :"
+msgstr "Échec de l’ajout du disklabel :"
 
 #: ../blivetgui/blivetgui.py:453
 #, python-brace-format
@@ -195,10 +194,10 @@ msgid ""
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
-"L’interface blivet ne peut pas utiliser le disque <b>{name}</b> à cause "
-"d’une étiquette de disque corrompue ou inconnue.\n"
-"Vous pouvez soit quitter l’interface, soit continuer sans possibilité "
-"d’utiliser ce disque."
+"Blivet-gui ne peut pas utiliser le disque <b>{name}</b> en raison d'un "
+"disklabel corrompu ou inconnu.\n"
+"Vous pouvez soit quitter blivet-gui, soit continuer sans possibilité d’"
+"utiliser ce disque."
 
 #: ../blivetgui/blivetgui.py:865
 msgid "Confirm reload storage"
@@ -221,7 +220,7 @@ msgstr ""
 
 #: ../blivetgui/blivet_utils.py:78
 msgid "free space"
-msgstr "espace disponible"
+msgstr "espace libre"
 
 #: ../blivetgui/blivet_utils.py:674
 #, python-brace-format
@@ -335,8 +334,8 @@ msgstr "Pas d’action en attente"
 #, python-format
 msgid "%s pending action"
 msgid_plural "%s pending actions"
-msgstr[0] "action en attente %s"
-msgstr[1] "actions en attente %s"
+msgstr[0] "%s action en attente"
+msgstr[1] "%s actions en attente"
 
 #: ../blivetgui/list_devices.py:82
 msgid "Disks"
@@ -566,7 +565,7 @@ msgstr "non formaté"
 
 #: ../blivetgui/dialogs/add_dialog.py:830 ../data/ui/format_dialog.ui:148
 msgid "Label:"
-msgstr "Étiquette :"
+msgstr "Nom :"
 
 #: ../blivetgui/dialogs/add_dialog.py:838
 msgid "Name:"
@@ -594,7 +593,7 @@ msgstr "« {0} » n’est pas un nom valide."
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
-msgstr "« {0} » n’est pas une étiquette valide."
+msgstr "\"{0}\" n’est pas un nom valide."
 
 #. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:37
@@ -668,7 +667,7 @@ msgstr " • <i>Type de segment :</i> {segtype}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:119
 #, python-brace-format
 msgid " • <i>Free space:</i> {free}\n"
-msgstr " • <i>Espace disponible :</i> {free}\n"
+msgstr " • <i>Espace libre :</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:120
 #, python-brace-format
@@ -697,7 +696,7 @@ msgstr " • <i>Nombre de PE :</i> {pecount}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:133
 #, python-brace-format
 msgid " • <i>Free Space:</i> {free}\n"
-msgstr " • <i>Espace disponible :</i> {free}\n"
+msgstr " • <i>Espace libre :</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:134
 #, python-brace-format
@@ -812,7 +811,7 @@ msgstr " • <i>UUID :</i> {uuid}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:228
 #, python-brace-format
 msgid " • <i>Label:</i> {label}\n"
-msgstr " • <i>Étiquette :</i> {label}\n"
+msgstr " • <i>Nom :</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:242
 #, python-brace-format
@@ -853,7 +852,7 @@ msgstr "Ce périphérique ne peut être redimensionné."
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr "« {label} » n’est pas une étiquette valide pour ce système de fichiers"
+msgstr "'{label}' n’est pas un nom valide pour ce système de fichiers"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:518
@@ -1037,17 +1036,17 @@ msgstr "Copyright © Red Hat Inc."
 
 #: ../data/ui/add_disklabel_dialog.ui:11
 msgid "No partition table found on disk"
-msgstr "Aucune table de partition trouvée sur le disque"
+msgstr "Aucune table des partitions trouvée sur le disque"
 
 #: ../data/ui/add_disklabel_dialog.ui:12
 msgid "A partition table is required before partitions can be added."
 msgstr ""
-"Une table de partition est nécessaire avant de pouvoir ajouter des "
+"Une table des partitions est nécessaire avant de pouvoir ajouter des "
 "partitions."
 
 #: ../data/ui/add_disklabel_dialog.ui:52
 msgid "Select new partition table type:"
-msgstr "Sélectionner le type de la nouvelle table de partition :"
+msgstr "Sélectionnez le type de la nouvelle table des partitions :"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "New"
@@ -1082,11 +1081,11 @@ msgstr "Définir le point de montage"
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
 msgid "Set label"
-msgstr "Définir l’étiquette"
+msgstr "Définir le nom"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
 msgid "Set partition table"
-msgstr "Créer une table des partitions"
+msgstr "Définir la table des partitions"
 
 #: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
@@ -1148,7 +1147,7 @@ msgstr "Formater"
 
 #: ../data/ui/blivet-gui.ui:515
 msgid "Label"
-msgstr "Étiquette"
+msgstr "Nom"
 
 #: ../data/ui/blivet-gui.ui:526
 msgid "Mountpoint"
@@ -1212,7 +1211,7 @@ msgstr "Réécriture"
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
-msgstr "étiquette"
+msgstr "nom"
 
 #: ../data/ui/custom_dialog.ui:62
 msgid "Details"
@@ -1283,7 +1282,7 @@ msgstr "Informations :"
 
 #: ../data/ui/label_dialog.ui:7
 msgid "Set filesystem label"
-msgstr "Définir l'étiquette du système de fichiers"
+msgstr "Définir le nom du système de fichiers"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
@@ -1297,7 +1296,7 @@ msgstr "Réétiqueter"
 
 #: ../data/ui/label_dialog.ui:68
 msgid "Enter new label for this filesystem:"
-msgstr "Saisissez la nouvelle étiquette pour ce système de fichiers :"
+msgstr "Saisissez le nouveau nom du système de fichiers :"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
