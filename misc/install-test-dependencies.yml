@@ -12,7 +12,7 @@
 
   tasks:
   - name: Install runtime and build dependencies (Fedora)
-    package: name={{item}} state=installed
+    package: name={{item}} state=present
     with_items:
       - gettext
       - python3-setuptools
@@ -27,7 +27,7 @@
     when: ansible_distribution == "Fedora"
 
   - name: Install test dependencies (Fedora)
-    package: name={{item}} state=installed
+    package: name={{item}} state=present
     with_items:
       - python3-coverage
       - python3-pocketlint
