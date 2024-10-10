@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # feonsu <feonsu@gmail.com>, 2017. #zanata
 # feonsu <feonsu@gmail.com>, 2018. #zanata
-# Ondrej Sulek <feonsu@gmail.com>, 2020, 2021, 2022, 2023.
+# Ondrej Sulek <feonsu@gmail.com>, 2020, 2021, 2022, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-11 16:24+0200\n"
-"PO-Revision-Date: 2023-01-27 14:41+0000\n"
+"PO-Revision-Date: 2024-10-10 15:38+0000\n"
 "Last-Translator: Ondrej Sulek <feonsu@gmail.com>\n"
 "Language-Team: Slovak <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/sk/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 4.15.2\n"
+"X-Generator: Weblate 5.7.2\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -789,12 +789,13 @@ msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>Menovka:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:242
-#, fuzzy, python-brace-format
-#| msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+#, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
-msgstr " • <i>Bod pripojenia:</i> {mountpoint}\n"
+msgstr ""
+" • <i>Body pripojenia:</i>\n"
+"     {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:245
 msgid " • <i>Type:</i> None"
