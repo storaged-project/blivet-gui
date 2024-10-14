@@ -251,7 +251,8 @@ class AddDialogTest(unittest.TestCase):
         uninitialized_disk = kwargs.get("is_uninitialized_disk", False)
 
         return MagicMock(type="free_space", size=size, is_logical=logical, parents=[parent], disk=parent,
-                         is_free_region=free_region, is_empty_disk=empty_disk, is_uninitialized_disk=uninitialized_disk)
+                         is_free_region=free_region, is_empty_disk=empty_disk, is_uninitialized_disk=uninitialized_disk,
+                         min_size=kwargs.get("min_size", Size("1 MiB")))
 
     def _get_parent_device(self, name=None, dtype="disk", size=Size("8 GiB"), ftype="disklabel"):
         if not name:
@@ -261,17 +262,19 @@ class AddDialogTest(unittest.TestCase):
                 name = "fedora"
 
         dev = MagicMock()
-        dev.configure_mock(name=name, type=dtype, size=size,
-                           format=MagicMock(type=ftype,
-                                            sector_size=512,
-                                            parted_disk=MagicMock(maxPartitionLength=4294967295)))
-        if dtype != "disk":
+        dev.configure_mock(name=name, type=dtype, size=size)
+
+        if dtype == "disk":
+            dev.configure_mock(format=MagicMock(type=ftype,
+                               sector_size=512,
+                               parted_disk=MagicMock(maxPartitionLength=4294967295)))
+        else:
             disk = self._get_parent_device()
-            dev.configure_mock(disk=disk, parents=[disk])
+            dev.configure_mock(disk=disk, parents=[disk], format=MagicMock(type=ftype))
         if dtype == "lvmvg":
             pv = MagicMock()
             disk = self._get_parent_device()
-            pv.configure_mock(name="vda1", size=size, format=MagicMock(free=size), disk=disk, parents=[disk])
+            pv.configure_mock(name="vda1", size=size, format=MagicMock(type="lvmpv", free=size), disk=disk, parents=[disk])
             dev.configure_mock(pe_size=Size("4 MiB"), free_space=size, pvs=[pv], parents=[pv],
                                pmspare_size=Size("4 MiB"))
 
@@ -558,6 +561,20 @@ class AddDialogTest(unittest.TestCase):
         self.assertEqual(add_dialog.filesystems_combo.get_active_id(), "biosboot")
         add_dialog.filesystems_combo.set_active_id("ext4")
         self.assertEqual(add_dialog.filesystems_combo.get_active_id(), "ext4")
+
+        # check that biosboot is not available when creating lv (rhbz#2318274)
+        parent_device = self._get_parent_device(dtype="lvmvg", ftype=None)
+        free_device = self._get_free_device(parent=parent_device, min_size=Size("4 MiB"))
+        _filesystems = self.supported_filesystems[:]
+        _filesystems.append(formats.biosboot.BIOSBoot())
+
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
+                               [("free", free_device)], _filesystems,
+                               [])
+        add_dialog.devices_combo.set_active_id("lvmlv")
+
+        ret = add_dialog.filesystems_combo.set_active_id("biosboot")
+        self.assertFalse(ret)
 
     def test_md_type(self):
         parent_device = self._get_parent_device()

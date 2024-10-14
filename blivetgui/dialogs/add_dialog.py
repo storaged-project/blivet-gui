@@ -790,12 +790,19 @@ class AddDialog(Gtk.Dialog):
 
         return filesystems_store, filesystems_combo
 
+    def _allow_format_size(self, fs):
+        # FIXME: also check raid level -- resulting "free space" might be lower because of redundancy
+        if self.selected_free.size < fs._min_size:
+            return False
+        if self.size_area and fs._max_size and self.size_area.min_size > fs._max_size:
+            return False
+        return True
+
     def update_fs_chooser(self):
         self.filesystems_store.clear()
 
         for fs in self.supported_filesystems:
-            # FIXME: also check raid level -- resulting "free space" might be lower because of redundancy
-            if self.selected_free.size > fs._min_size:
+            if self._allow_format_size(fs):
                 self.filesystems_store.append((fs, fs.type, fs.name))
         self.filesystems_store.append((None, "unformatted", _("unformatted")))
 
