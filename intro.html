@@ -1,19 +1,18 @@
-
 <!DOCTYPE html>
 
-<html lang="en">
+<html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Introduction to blivet-gui &#8212; blivet-gui 2.5.0 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/classic.css" />
-    <link rel="stylesheet" type="text/css" href="_static/graphviz.css" />
+    <title>Introduction to blivet-gui &#8212; blivet-gui 2.6.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/classic.css?v=514cf933" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=eafc0fe6" />
     
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/documentation_options.js?v=ae39cb24"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -35,7 +34,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to blivet-gui’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">blivet-gui 2.5.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">blivet-gui 2.6.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Introduction to blivet-gui</a></li> 
       </ul>
     </div>  
@@ -46,17 +45,17 @@
           <div class="body" role="main">
             
   <section id="introduction-to-blivet-gui">
-<h1>Introduction to blivet-gui<a class="headerlink" href="#introduction-to-blivet-gui" title="Permalink to this heading">¶</a></h1>
+<h1>Introduction to blivet-gui<a class="headerlink" href="#introduction-to-blivet-gui" title="Link to this heading">¶</a></h1>
 <section id="building-blocks">
-<h2>Building Blocks<a class="headerlink" href="#building-blocks" title="Permalink to this heading">¶</a></h2>
+<h2>Building Blocks<a class="headerlink" href="#building-blocks" title="Link to this heading">¶</a></h2>
 <section id="blivetutils">
-<h3>BlivetUtils<a class="headerlink" href="#blivetutils" title="Permalink to this heading">¶</a></h3>
+<h3>BlivetUtils<a class="headerlink" href="#blivetutils" title="Link to this heading">¶</a></h3>
 <p><a class="reference internal" href="blivetgui/blivetgui.html#blivetgui.blivet_utils.BlivetUtils" title="blivetgui.blivet_utils.BlivetUtils"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetUtils</span></code></a> class provides higher level API for Blivet library. It creates the
 <code class="xref py py-class docutils literal notranslate"><span class="pre">blivet.Blivet</span></code> object (<code class="xref py py-attr docutils literal notranslate"><span class="pre">storage</span></code>) and all blivet methods are called using this
 class.</p>
 </section>
 <section id="blivetgui">
-<h3>BlivetGUI<a class="headerlink" href="#blivetgui" title="Permalink to this heading">¶</a></h3>
+<h3>BlivetGUI<a class="headerlink" href="#blivetgui" title="Link to this heading">¶</a></h3>
 <p><a class="reference internal" href="blivetgui/blivetgui.html#blivetgui.blivetgui.BlivetGUI" title="blivetgui.blivetgui.BlivetGUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetGUI</span></code></a> is the main class for the GUI. There are separate classes for every UI part. These
 classes create all the necessary Gtk widgets (or loads them from Glade files) and provide signal handlers and other
 helper functions.</p>
@@ -74,7 +73,7 @@ helper functions.</p>
 </dl>
 </section>
 <section id="dialogs">
-<h3>Dialogs<a class="headerlink" href="#dialogs" title="Permalink to this heading">¶</a></h3>
+<h3>Dialogs<a class="headerlink" href="#dialogs" title="Link to this heading">¶</a></h3>
 <dl class="simple">
 <dt>Most of the user interaction is done using dialogs. Some important dialogs include:</dt><dd><ul class="simple">
 <li><p><a class="reference internal" href="blivetgui/blivetgui.dialogs.html#blivetgui.dialogs.add_dialog.AddDialog" title="blivetgui.dialogs.add_dialog.AddDialog"><code class="xref py py-class docutils literal notranslate"><span class="pre">AddDialog</span></code></a> – dialog for adding new devices</p></li>
@@ -88,13 +87,13 @@ helper functions.</p>
 </dl>
 </section>
 <section id="multiprocess-communication">
-<h3>Multiprocess Communication<a class="headerlink" href="#multiprocess-communication" title="Permalink to this heading">¶</a></h3>
+<h3>Multiprocess Communication<a class="headerlink" href="#multiprocess-communication" title="Link to this heading">¶</a></h3>
 <p>Blivet-gui creates two processes – <cite>blivet-gui</cite> for the UI and <cite>blivet-gui-daemon</cite> for working with blivet.</p>
 <p>Two processes are necessary because blivet needs root privileges to work with storage but GUI applications shouldn’t be
 running with root privileges.</p>
 <p>Both processes communicate using a socket file.</p>
 <section id="proxy">
-<h4>Proxy<a class="headerlink" href="#proxy" title="Permalink to this heading">¶</a></h4>
+<h4>Proxy<a class="headerlink" href="#proxy" title="Link to this heading">¶</a></h4>
 <p>Blivet-gui uses <cite>pickle</cite> to send objects between the processes. Unfortunately most blivet objects are not picklable.
 To solve this, server and client parts of blivet-gui communicate using “proxy objects”.
 When <a class="reference internal" href="blivetgui/blivetgui.html#blivetgui.blivetgui.BlivetGUI" title="blivetgui.blivetgui.BlivetGUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetGUI</span></code></a> “asks” for some “information” that isn’t picklable (e.g. using
@@ -113,7 +112,7 @@ the server for values of attributes that <a class="reference internal" href="bli
 to <cite>namedtuple</cite>.</p>
 </section>
 <section id="blivetguiclient">
-<h4>BlivetGUIClient<a class="headerlink" href="#blivetguiclient" title="Permalink to this heading">¶</a></h4>
+<h4>BlivetGUIClient<a class="headerlink" href="#blivetguiclient" title="Link to this heading">¶</a></h4>
 <p><a class="reference internal" href="blivetgui/blivetgui.communication.html#blivetgui.communication.client.BlivetGUIClient" title="blivetgui.communication.client.BlivetGUIClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetGUIClient</span></code></a> provides support for multiprocess communication for the client part of
 the blivet-gui. <a class="reference internal" href="blivetgui/blivetgui.html#blivetgui.blivetgui.BlivetGUI" title="blivetgui.blivetgui.BlivetGUI"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetGUI</span></code></a> has an instance of the <a class="reference internal" href="blivetgui/blivetgui.communication.html#blivetgui.communication.client.BlivetGUIClient" title="blivetgui.communication.client.BlivetGUIClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetGUIClient</span></code></a>
 and uses it to communicate with the <a class="reference internal" href="blivetgui/blivetgui.html#blivetgui.blivet_utils.BlivetUtils" title="blivetgui.blivet_utils.BlivetUtils"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetUtils</span></code></a> via <a class="reference internal" href="blivetgui/blivetgui.communication.html#blivetgui.communication.server.BlivetUtilsServer" title="blivetgui.communication.server.BlivetUtilsServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetUtilsServer</span></code></a>.</p>
@@ -121,7 +120,7 @@ and uses it to communicate with the <a class="reference internal" href="blivetgu
 <a class="reference internal" href="blivetgui/blivetgui.communication.html#blivetgui.communication.client.BlivetGUIClient.remote_call" title="blivetgui.communication.client.BlivetGUIClient.remote_call"><code class="xref py py-meth docutils literal notranslate"><span class="pre">remote_call()</span></code></a> method.</p>
 </section>
 <section id="blivetutilsserver">
-<h4>BlivetUtilsServer<a class="headerlink" href="#blivetutilsserver" title="Permalink to this heading">¶</a></h4>
+<h4>BlivetUtilsServer<a class="headerlink" href="#blivetutilsserver" title="Link to this heading">¶</a></h4>
 <p><a class="reference internal" href="blivetgui/blivetgui.communication.html#blivetgui.communication.server.BlivetUtilsServer" title="blivetgui.communication.server.BlivetUtilsServer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetUtilsServer</span></code></a> provides support for multiprocess communication for the server part
 of the blivet-gui. It’s a synchronous <cite>socketserver</cite>, it has an instance of <a class="reference internal" href="blivetgui/blivetgui.html#blivetgui.blivet_utils.BlivetUtils" title="blivetgui.blivet_utils.BlivetUtils"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetUtils</span></code></a> and
 processes tasks from the <a class="reference internal" href="blivetgui/blivetgui.communication.html#blivetgui.communication.client.BlivetGUIClient" title="blivetgui.communication.client.BlivetGUIClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">BlivetGUIClient</span></code></a>.</p>
@@ -210,13 +209,13 @@ process with root privileges using <cite>pkexec</cite>.</p>
         <li class="right" >
           <a href="index.html" title="Welcome to blivet-gui’s documentation!"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="index.html">blivet-gui 2.5.0 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-0"><a href="index.html">blivet-gui 2.6.0 documentation</a> &#187;</li>
         <li class="nav-item nav-item-this"><a href="">Introduction to blivet-gui</a></li> 
       </ul>
     </div>
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2014,-2024, Red Hat, Inc..
-      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    &#169; Copyright 2014,-2024, Red Hat, Inc..
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.2.6.
     </div>
   </body>
 </html>
