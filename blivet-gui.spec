@@ -1,6 +1,6 @@
 Summary: Tool for data storage configuration
 Name: blivet-gui
-Version: 2.5.0
+Version: 2.6.0
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
 Source1: blivet-gui_event.conf
@@ -74,6 +74,47 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
 
 %changelog
+* Mon Nov 18 2024 Vojtech Trefny <vtrefny@redhat.com> - 2.6.0-1
+- Translated using Weblate (German) (atalanttore)
+- Translated using Weblate (Russian) (igor.gorbounov)
+- Do not allow selecting formats with that won't fit (#2318274) (vtrefny)
+- Translated using Weblate (Slovak) (feonsu)
+- misc: Use 'state: present' instead of 'installed' for packages (vtrefny)
+- Translated using Weblate (Indonesian) (andika)
+- Translated using Weblate (Finnish) (copper_fin)
+- Translated using Weblate (French) (leane.grasser)
+- Translated using Weblate (Polish) (piotrdrag)
+- Translated using Weblate (French) (leane.grasser)
+- Translated using Weblate (Korean) (simmon)
+- Translated using Weblate (Georgian) (temuri.doghonadze)
+- Translated using Weblate (Swedish) (bittin)
+- Translated using Weblate (Turkish) (oguz)
+- Translated using Weblate (Ukrainian) (yurchor)
+- Update translation files (noreply)
+- Translated using Weblate (Turkish) (oguz)
+- ci: Remove priority from Testing farm repositories (vtrefny)
+- Add label explaining bug reporting using ABRT and link to GitHub (vtrefny)
+- Remove Ubuntu version notice from README (vtrefny)
+- Show all mountpoints in device info dialog (vtrefny)
+- Do not set NTFS as supported (vtrefny)
+- spec: Bump required version of blive to 3.8.0 (vtrefny)
+- Add support for filesystem online resize (vtrefny)
+- infra: Add dependabot to automatically update GH actions (vtrefny)
+- CONTRIBUTING: Fix formatting (vtrefny)
+- Guard better against RaidChooser's selected_level being None (awilliam)
+- Fix pylint 'possibly-used-before-assignment' warnings (vtrefny)
+- ci: Add a simple tmt test and run it via packit (vtrefny)
+- Translated using Weblate (German) (njg87w434)
+- ci: Run GH actions tests in a Fedora container (vtrefny)
+- misc: Vagrantfile update (vtrefny)
+- misc: Use --break-system-packages with PIP (vtrefny)
+- misc: Add mdadm to test dependencies on Debian/Ubuntu (vtrefny)
+- misc: Bump required version of libblockdev to 3 (vtrefny)
+- Translated using Weblate (Czech) (pavel.borecki)
+- Update translation files (noreply)
+- Translated using Weblate (Korean) (simmon)
+- misc: Add python3-sphinx to build dependencies (vtrefny)
+
 * Tue Feb 06 2024 Vojtech Trefny <vtrefny@redhat.com> - 2.5.0-1
 - Translated using Weblate (Japanese) (simmon)
 - Translated using Weblate (Georgian) (temuri.doghonadze)

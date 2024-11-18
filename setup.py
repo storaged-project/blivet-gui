@@ -51,7 +51,7 @@ setup(
     name='blivet-gui',
     cmdclass={"sdist": blivet_gui_sdist},
     packages=['blivetgui'],
-    version='2.5.0',
+    version='2.6.0',
     description = 'Tool for data storages configuration',
     author='Vojtech Trefny',
     author_email='vtrefny@redhat.com',
