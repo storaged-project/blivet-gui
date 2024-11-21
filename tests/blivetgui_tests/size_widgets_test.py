@@ -573,6 +573,28 @@ class SizeAreaTest(unittest.TestCase):
         selected_sizes = [r.selected_size for r in ret]
         self.assertListEqual(selected_sizes, [Size(1), Size(2)])
 
+    def test_75_parent_allocation_overprovisioning(self):
+        """ Test allocating size on parents without ParentArea with overprovisioning """
+
+        # -- same size parents
+        parents = [MagicMock(device=self._mock_device(), min_size=Size("1 MiB"), max_size=Size("1 GiB"),
+                             reserved_size=Size(0)),
+                   MagicMock(device=self._mock_device(), min_size=Size("1 MiB"), max_size=Size("1 GiB"),
+                             reserved_size=Size(0))]
+
+        size_area = SizeArea(device_type="lvm", parents=parents,
+                             min_limit=Size(1), max_limit=Size("200 GiB"),
+                             raid_type=None, overprovisioning=True)
+
+        # select maximum (bigger than parents) --> both parents should have max_limit selected
+        size_area.main_chooser.selected_size = Size("200 GiB")
+        ret = size_area.get_selection()
+        self.assertEqual(len(ret.parents), 2)
+        self.assertEqual(ret.parents[0].parent_device, parents[0].device)
+        self.assertEqual(ret.parents[0].selected_size, Size("200 GiB"))
+        self.assertEqual(ret.parents[1].parent_device, parents[1].device)
+        self.assertEqual(ret.parents[1].selected_size, Size("200 GiB"))
+
 
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class ParentAreaTest(unittest.TestCase):
