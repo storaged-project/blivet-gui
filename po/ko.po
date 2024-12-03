@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 16:24+0200\n"
+"POT-Creation-Date: 2024-11-18 10:57+0100\n"
 "PO-Revision-Date: 2024-08-17 02:38+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
@@ -532,38 +532,38 @@ msgstr "MDArray 유형:"
 msgid "Filesystem:"
 msgstr "파일시스템:"
 
-#: ../blivetgui/dialogs/add_dialog.py:800
+#: ../blivetgui/dialogs/add_dialog.py:807
 #: ../blivetgui/dialogs/edit_dialog.py:165
 msgid "unformatted"
 msgstr "형식화 되지 않은"
 
-#: ../blivetgui/dialogs/add_dialog.py:830 ../data/ui/format_dialog.ui:148
+#: ../blivetgui/dialogs/add_dialog.py:837 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr "이름표:"
 
-#: ../blivetgui/dialogs/add_dialog.py:838
+#: ../blivetgui/dialogs/add_dialog.py:845
 msgid "Name:"
 msgstr "이름:"
 
-#: ../blivetgui/dialogs/add_dialog.py:849 ../data/ui/format_dialog.ui:189
+#: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr "적재장소:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1016 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1023 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\"는 유효한 적재점이 아닙니다."
 
-#: ../blivetgui/dialogs/add_dialog.py:1023
+#: ../blivetgui/dialogs/add_dialog.py:1030
 msgid "Please select at least two parent devices."
 msgstr "적어도 2개의 원인 장치를 선택합니다."
 
-#: ../blivetgui/dialogs/add_dialog.py:1037
+#: ../blivetgui/dialogs/add_dialog.py:1044
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" 는 유효한 이름이 아닙니다."
 
-#: ../blivetgui/dialogs/add_dialog.py:1043
+#: ../blivetgui/dialogs/add_dialog.py:1050
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -885,19 +885,19 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
-"만약 해당 부분이 결점이라고 생각되면, 아래의 '결점 보고' 누름 단추를 "
-"사용하여\n"
-"ABRT(자동 결점 보고 도구)를 사용하여 결점을 보고하거나 <a href=\"https"
-"://github.com/storaged-project/blivet-gui/issues\">깃허브(GitHub)</a>에 "
-"문제를 알려주세요."
+"만약 해당 부분이 결점이라고 생각되면, 아래의 '결점 보고' 누름 단추를 사용하"
+"여\n"
+"ABRT(자동 결점 보고 도구)를 사용하여 결점을 보고하거나 <a href=\"https://"
+"github.com/storaged-project/blivet-gui/issues\">깃허브(GitHub)</a>에 문제를 "
+"알려주세요."
 
 #: ../blivetgui/dialogs/message_dialogs.py:137
 msgid ""
 "If you believe this is a bug, please open an issue on our <a href=\"https://"
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
-"만약 해당 부분이 결점이라고 생각되면, <a href=\"https://github.com/"
-"storaged-project/blivet-gui/issues\">깃허브(GitHub)</a>에 문제를 알려주세요."
+"만약 해당 부분이 결점이라고 생각되면, <a href=\"https://github.com/storaged-"
+"project/blivet-gui/issues\">깃허브(GitHub)</a>에 문제를 알려주세요."
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"

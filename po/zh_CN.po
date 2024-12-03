@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 16:24+0200\n"
+"POT-Creation-Date: 2024-11-18 10:57+0100\n"
 "PO-Revision-Date: 2023-06-30 23:20+0000\n"
 "Last-Translator: yangyangdaji <1504305527@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
@@ -528,38 +528,38 @@ msgstr "MD 阵列类型："
 msgid "Filesystem:"
 msgstr "文件系统："
 
-#: ../blivetgui/dialogs/add_dialog.py:800
+#: ../blivetgui/dialogs/add_dialog.py:807
 #: ../blivetgui/dialogs/edit_dialog.py:165
 msgid "unformatted"
 msgstr "未格式化的"
 
-#: ../blivetgui/dialogs/add_dialog.py:830 ../data/ui/format_dialog.ui:148
+#: ../blivetgui/dialogs/add_dialog.py:837 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr "标签："
 
-#: ../blivetgui/dialogs/add_dialog.py:838
+#: ../blivetgui/dialogs/add_dialog.py:845
 msgid "Name:"
 msgstr "名称："
 
-#: ../blivetgui/dialogs/add_dialog.py:849 ../data/ui/format_dialog.ui:189
+#: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr "挂载点："
 
-#: ../blivetgui/dialogs/add_dialog.py:1016 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1023 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" 不是有效的挂载点。"
 
-#: ../blivetgui/dialogs/add_dialog.py:1023
+#: ../blivetgui/dialogs/add_dialog.py:1030
 msgid "Please select at least two parent devices."
 msgstr "请至少选择两个上层设备。"
 
-#: ../blivetgui/dialogs/add_dialog.py:1037
+#: ../blivetgui/dialogs/add_dialog.py:1044
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" 不是有效的名称。"
 
-#: ../blivetgui/dialogs/add_dialog.py:1043
+#: ../blivetgui/dialogs/add_dialog.py:1050
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."

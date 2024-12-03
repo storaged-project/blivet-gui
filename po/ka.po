@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 16:24+0200\n"
+"POT-Creation-Date: 2024-11-18 10:57+0100\n"
 "PO-Revision-Date: 2024-08-15 14:39+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/blivet/"
@@ -540,38 +540,38 @@ msgstr "MDArray-ის ტიპი:"
 msgid "Filesystem:"
 msgstr "ფაილური სისტემა:"
 
-#: ../blivetgui/dialogs/add_dialog.py:800
+#: ../blivetgui/dialogs/add_dialog.py:807
 #: ../blivetgui/dialogs/edit_dialog.py:165
 msgid "unformatted"
 msgstr "დაუფორმატებელი"
 
-#: ../blivetgui/dialogs/add_dialog.py:830 ../data/ui/format_dialog.ui:148
+#: ../blivetgui/dialogs/add_dialog.py:837 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr "ჭდე:"
 
-#: ../blivetgui/dialogs/add_dialog.py:838
+#: ../blivetgui/dialogs/add_dialog.py:845
 msgid "Name:"
 msgstr "სახელი:"
 
-#: ../blivetgui/dialogs/add_dialog.py:849 ../data/ui/format_dialog.ui:189
+#: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr "მიმაგრების წერტილი:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1016 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1023 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" სწორი მიმაგრების წერტილი არაა."
 
-#: ../blivetgui/dialogs/add_dialog.py:1023
+#: ../blivetgui/dialogs/add_dialog.py:1030
 msgid "Please select at least two parent devices."
 msgstr "აირჩიეთ სულ ცოტა ორი მშობელი მოწყობილობა."
 
-#: ../blivetgui/dialogs/add_dialog.py:1037
+#: ../blivetgui/dialogs/add_dialog.py:1044
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" სწორი სახელი არაა."
 
-#: ../blivetgui/dialogs/add_dialog.py:1043
+#: ../blivetgui/dialogs/add_dialog.py:1050
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -905,8 +905,8 @@ msgid ""
 "If you believe this is a bug, please open an issue on our <a href=\"https://"
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
-"თუ გჯერათ, რომ ეს შეცდომაა, გახსენით ბილეთი პრობლემის შესახებ ჩვენს <a href="
-"\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>-ზე."
+"თუ გჯერათ, რომ ეს შეცდომაა, გახსენით ბილეთი პრობლემის შესახებ ჩვენს <a "
+"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>-ზე."
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"

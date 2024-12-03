@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 16:24+0200\n"
+"POT-Creation-Date: 2024-11-18 10:57+0100\n"
 "PO-Revision-Date: 2024-08-24 11:14+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/blivet/"
@@ -569,38 +569,38 @@ msgstr "Typ MDArray:"
 msgid "Filesystem:"
 msgstr "System plików:"
 
-#: ../blivetgui/dialogs/add_dialog.py:800
+#: ../blivetgui/dialogs/add_dialog.py:807
 #: ../blivetgui/dialogs/edit_dialog.py:165
 msgid "unformatted"
 msgstr "niesformatowane"
 
-#: ../blivetgui/dialogs/add_dialog.py:830 ../data/ui/format_dialog.ui:148
+#: ../blivetgui/dialogs/add_dialog.py:837 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr "Etykieta:"
 
-#: ../blivetgui/dialogs/add_dialog.py:838
+#: ../blivetgui/dialogs/add_dialog.py:845
 msgid "Name:"
 msgstr "Nazwa:"
 
-#: ../blivetgui/dialogs/add_dialog.py:849 ../data/ui/format_dialog.ui:189
+#: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr "Punkt montowania:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1016 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1023 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "„{0}” nie jest prawidłowym punktem montowania."
 
-#: ../blivetgui/dialogs/add_dialog.py:1023
+#: ../blivetgui/dialogs/add_dialog.py:1030
 msgid "Please select at least two parent devices."
 msgstr "Proszę wybrać co najmniej dwa urządzenia nadrzędne."
 
-#: ../blivetgui/dialogs/add_dialog.py:1037
+#: ../blivetgui/dialogs/add_dialog.py:1044
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "„{0}” nie jest prawidłową nazwą."
 
-#: ../blivetgui/dialogs/add_dialog.py:1043
+#: ../blivetgui/dialogs/add_dialog.py:1050
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -929,17 +929,17 @@ msgstr ""
 "Jeśli to błąd, proszę kliknąć przycisk „Zgłoś błąd” poniżej, aby zgłosić go "
 "za pomocą narzędzia\n"
 "automatycznego zgłaszania błędów (ABRT) lub otworzyć zgłoszenie w naszym "
-"serwisie <a href=\"https://github.com/storaged-project/blivet-gui/issues\""
-">GitHub</a> (w języku angielskim)."
+"serwisie <a href=\"https://github.com/storaged-project/blivet-gui/"
+"issues\">GitHub</a> (w języku angielskim)."
 
 #: ../blivetgui/dialogs/message_dialogs.py:137
 msgid ""
 "If you believe this is a bug, please open an issue on our <a href=\"https://"
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
-"Jeśli to błąd, proszę otworzyć zgłoszenie w naszym serwisie <a href=\"https"
-"://github.com/storaged-project/blivet-gui/issues\">GitHub</a> (w języku "
-"angielskim)."
+"Jeśli to błąd, proszę otworzyć zgłoszenie w naszym serwisie <a "
+"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a> "
+"(w języku angielskim)."
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"
