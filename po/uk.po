@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 16:24+0200\n"
+"POT-Creation-Date: 2024-11-18 10:57+0100\n"
 "PO-Revision-Date: 2024-08-15 14:39+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
@@ -547,38 +547,38 @@ msgstr "Тип масиву MD:"
 msgid "Filesystem:"
 msgstr "Файлова система:"
 
-#: ../blivetgui/dialogs/add_dialog.py:800
+#: ../blivetgui/dialogs/add_dialog.py:807
 #: ../blivetgui/dialogs/edit_dialog.py:165
 msgid "unformatted"
 msgstr "не форматовано"
 
-#: ../blivetgui/dialogs/add_dialog.py:830 ../data/ui/format_dialog.ui:148
+#: ../blivetgui/dialogs/add_dialog.py:837 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr "Мітка:"
 
-#: ../blivetgui/dialogs/add_dialog.py:838
+#: ../blivetgui/dialogs/add_dialog.py:845
 msgid "Name:"
 msgstr "Назва:"
 
-#: ../blivetgui/dialogs/add_dialog.py:849 ../data/ui/format_dialog.ui:189
+#: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr "Точка монтування:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1016 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1023 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "«{0}» не є коректною точкою монтування."
 
-#: ../blivetgui/dialogs/add_dialog.py:1023
+#: ../blivetgui/dialogs/add_dialog.py:1030
 msgid "Please select at least two parent devices."
 msgstr "Будь ласка, виберіть принаймні два батьківських розділи."
 
-#: ../blivetgui/dialogs/add_dialog.py:1037
+#: ../blivetgui/dialogs/add_dialog.py:1044
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "«{0}» не є коректною назвою."
 
-#: ../blivetgui/dialogs/add_dialog.py:1043
+#: ../blivetgui/dialogs/add_dialog.py:1050
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -902,8 +902,8 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
-"Якщо ви вважаєте, що це є результатом вади, будь ласка, натисніть кнопку «"
-"Повідомити про ваду», розташовану нижче, щоб створити звіт\n"
+"Якщо ви вважаєте, що це є результатом вади, будь ласка, натисніть кнопку "
+"«Повідомити про ваду», розташовану нижче, щоб створити звіт\n"
 "щодо вади за допомогою автоматичного інструмента звітування про вади (ABRT) "
 "або створіть запис вади на нашій сторінці <a href=\"https://github.com/"
 "storaged-project/blivet-gui/issues\">GitHub</a>."
@@ -914,8 +914,8 @@ msgid ""
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
 "Якщо ви вважаєте, що це є результатом вади, будь ласка, створіть "
-"повідомлення про ваду на нашій сторінц <a href=\"https://github.com/"
-"storaged-project/blivet-gui/issues\">GitHub</a>."
+"повідомлення про ваду на нашій сторінц <a href=\"https://github.com/storaged-"
+"project/blivet-gui/issues\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"

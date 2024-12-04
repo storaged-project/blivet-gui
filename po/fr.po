@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-11 16:24+0200\n"
+"POT-Creation-Date: 2024-11-18 10:57+0100\n"
 "PO-Revision-Date: 2024-09-05 09:38+0000\n"
 "Last-Translator: Léane GRASSER <leane.grasser@proton.me>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/blivet/"
@@ -196,8 +196,8 @@ msgid ""
 msgstr ""
 "Blivet-gui ne peut pas utiliser le disque <b>{name}</b> en raison d'un "
 "disklabel corrompu ou inconnu.\n"
-"Vous pouvez soit quitter blivet-gui, soit continuer sans possibilité d’"
-"utiliser ce disque."
+"Vous pouvez soit quitter blivet-gui, soit continuer sans possibilité "
+"d’utiliser ce disque."
 
 #: ../blivetgui/blivetgui.py:865
 msgid "Confirm reload storage"
@@ -558,38 +558,38 @@ msgstr "Type de MDArray :"
 msgid "Filesystem:"
 msgstr "Système de fichiers :"
 
-#: ../blivetgui/dialogs/add_dialog.py:800
+#: ../blivetgui/dialogs/add_dialog.py:807
 #: ../blivetgui/dialogs/edit_dialog.py:165
 msgid "unformatted"
 msgstr "non formaté"
 
-#: ../blivetgui/dialogs/add_dialog.py:830 ../data/ui/format_dialog.ui:148
+#: ../blivetgui/dialogs/add_dialog.py:837 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr "Nom :"
 
-#: ../blivetgui/dialogs/add_dialog.py:838
+#: ../blivetgui/dialogs/add_dialog.py:845
 msgid "Name:"
 msgstr "Nom :"
 
-#: ../blivetgui/dialogs/add_dialog.py:849 ../data/ui/format_dialog.ui:189
+#: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr "Point de montage :"
 
-#: ../blivetgui/dialogs/add_dialog.py:1016 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1023 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "« {0} » n’est pas un point de montage valide."
 
-#: ../blivetgui/dialogs/add_dialog.py:1023
+#: ../blivetgui/dialogs/add_dialog.py:1030
 msgid "Please select at least two parent devices."
 msgstr "Merci de sélectionner au moins deux périphériques parents."
 
-#: ../blivetgui/dialogs/add_dialog.py:1037
+#: ../blivetgui/dialogs/add_dialog.py:1044
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "« {0} » n’est pas un nom valide."
 
-#: ../blivetgui/dialogs/add_dialog.py:1043
+#: ../blivetgui/dialogs/add_dialog.py:1050
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -923,8 +923,8 @@ msgid ""
 "If you believe this is a bug, please open an issue on our <a href=\"https://"
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
-"Si vous pensez qu'il s'agit d'un bug, ouvrez un ticket sur notre <a href="
-"\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+"Si vous pensez qu'il s'agit d'un bug, ouvrez un ticket sur notre <a "
+"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"
