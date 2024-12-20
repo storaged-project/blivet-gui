@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2018. #zanata, 2020, 2022.
-# Ricky Tigg <ricky.tigg@gmail.com>, 2020, 2021, 2022.
+# Ricky Tigg <ricky.tigg@gmail.com>, 2020, 2021, 2022, 2024.
 # Jan Kuparinen <copper_fin@hotmail.com>, 2021, 2022, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-18 10:57+0100\n"
-"PO-Revision-Date: 2024-09-06 19:38+0000\n"
-"Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
+"PO-Revision-Date: 2024-12-20 08:10+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fi/>\n"
 "Language: fi\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.9.1\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -551,12 +551,12 @@ msgstr "Nimi:"
 
 #: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
-msgstr "Liitospiste:"
+msgstr "Liitoskohta:"
 
 #: ../blivetgui/dialogs/add_dialog.py:1023 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
-msgstr "\"{0}\" ei ole kelvollinen liitospiste."
+msgstr "\"{0}\" ei ole kelvollinen liitoskohta."
 
 #: ../blivetgui/dialogs/add_dialog.py:1030
 msgid "Please select at least two parent devices."
@@ -797,7 +797,7 @@ msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
 msgstr ""
-" • <i>Liitospisteet:</i> \n"
+" • <i>Liitoskohdat:</i> \n"
 "    {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:245
@@ -880,7 +880,7 @@ msgstr "Poistetaanko?"
 #: ../blivetgui/dialogs/helpers.py:144
 #, python-brace-format
 msgid "Selected mountpoint \"{0}\" is already set for another device."
-msgstr "Valittu liitospiste \"{0}\" on jo asetettu toiselle laitteelle."
+msgstr "Valittu liitoskohta \"{0}\" on jo asetettu toiselle laitteelle."
 
 #: ../blivetgui/dialogs/message_dialogs.py:132
 msgid ""
@@ -1046,7 +1046,7 @@ msgstr "Muokkaa vanhempia"
 #: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:146
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
-msgstr "Aseta liitospiste"
+msgstr "Aseta liitoskohta"
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
 msgid "Set label"
@@ -1120,7 +1120,7 @@ msgstr "Nimiö"
 
 #: ../data/ui/blivet-gui.ui:526
 msgid "Mountpoint"
-msgstr "Liitospiste"
+msgstr "Liitoskohta"
 
 #: ../data/ui/blivet-gui.ui:550
 msgid "Logical View"
@@ -1277,11 +1277,11 @@ msgstr "Anna tunnuslause avataksesi valitun laitteen lukituksen."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
-msgstr "_Aseta liitospiste"
+msgstr "_Aseta liitoskohta"
 
 #: ../data/ui/mountpoint_dialog.ui:88
 msgid "Enter new mountpoint:"
-msgstr "Anna uusi liitospiste:"
+msgstr "Syötä uusi liitoskohta:"
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
