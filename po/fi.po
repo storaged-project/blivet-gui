@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2018. #zanata, 2020, 2022.
-# Ricky Tigg <ricky.tigg@gmail.com>, 2020, 2021, 2022, 2024.
+# Ricky Tigg <ricky.tigg@gmail.com>, 2020, 2021, 2022, 2024, 2025.
 # Jan Kuparinen <copper_fin@hotmail.com>, 2021, 2022, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-18 10:57+0100\n"
-"PO-Revision-Date: 2024-12-20 08:10+0000\n"
+"PO-Revision-Date: 2025-01-11 05:22+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fi/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.1\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -157,8 +157,9 @@ msgid ""
 "command to force quit it."
 msgstr ""
 "Jos edellinen blivet-gui-istunto kaatui, varmista, että myös <i>blivet-gui-"
-"daemon</i> -prosessi lopetettiin. Jos se on edelleen käynnissä, voit käyttää "
-"sitä\n"
+"daemon</i>\n"
+"-prosessi lopetettiin.\n"
+"Jos se on edelleen käynnissä, voit käyttää sitä\n"
 "\n"
 "<tt>'sudo killall blivet-gui-daemon'</tt>\n"
 "\n"
