@@ -32,7 +32,7 @@ jobs:
 
       - name: Install ansible in the container
         run: |
-          podman exec -it ${{ env.CI_CONTAINER }} bash -c "dnf -y install ansible make which"
+          podman exec -it ${{ env.CI_CONTAINER }} bash -c "dnf -y install ansible make which python3-libdnf5"
 
       - name: Enable our daily builds Copr in the container
         run: |
