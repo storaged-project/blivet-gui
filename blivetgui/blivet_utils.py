@@ -1029,6 +1029,7 @@ class BlivetUtils(object):
                                                  luks_sector_size=user_input.encryption_sector_size,
                                                  device=new_part.path)
             actions.append(blivet.deviceaction.ActionCreateFormat(new_part, part_fmt))
+            new_part.format = part_fmt
 
             luks_dev = LUKSDevice("luks-%s" % new_part.name, size=new_part.size, parents=[new_part])
             actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
@@ -1084,6 +1085,7 @@ class BlivetUtils(object):
                                                      luks_sector_size=user_input.encryption_sector_size,
                                                      device=new_lv.path)
                 actions.append(blivet.deviceaction.ActionCreateFormat(new_lv, luks_fmt))
+                new_lv.format = luks_fmt
 
                 luks_dev = LUKSDevice("luks-%s" % new_lv.name, size=new_lv.size, parents=[new_lv])
                 actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
