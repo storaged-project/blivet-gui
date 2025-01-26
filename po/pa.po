@@ -4,13 +4,13 @@
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # A S Alam <aalam@fedoraproject.org>, 2019. #zanata
 # A S Alam <amanpreet.alam@gmail.com>, 2021.
-# A S Alam <aalam@users.noreply.translate.fedoraproject.org>, 2023.
+# A S Alam <aalam@users.noreply.translate.fedoraproject.org>, 2023, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-18 10:57+0100\n"
-"PO-Revision-Date: 2023-12-28 13:37+0000\n"
+"PO-Revision-Date: 2025-01-26 00:57+0000\n"
 "Last-Translator: A S Alam <aalam@users.noreply.translate.fedoraproject.org>\n"
 "Language-Team: Punjabi <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/pa/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.9.2\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -687,7 +687,7 @@ msgstr " • <i>ਡਾਟਾ ਪੱਧਰ:</i> {level}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:145
 #, python-brace-format
 msgid " • <i>Metadata Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>ਮੇਟਾਡਾਟਾ ਲੈਵਲ:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:150
 #, python-brace-format
@@ -774,12 +774,13 @@ msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>ਲੇਬਲ:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:242
-#, fuzzy, python-brace-format
-#| msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+#, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
-msgstr " • <i>ਮਾਊਂਟ-ਥਾਂ:</i> {mountpoint}\n"
+msgstr ""
+" • <i>ਮਾਊਂਟ-ਪੁਆਇੰਟ:</i>\n"
+"     {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:245
 msgid " • <i>Type:</i> None"
@@ -1128,7 +1129,7 @@ msgstr "ਪਿਛਲੀ ਕਾਰਵਾਈ ਵਾਪਸ ਲਵੋ"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
-msgstr ""
+msgstr "ਇਹ LV ਲਈ ਕੈਸ਼:"
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
