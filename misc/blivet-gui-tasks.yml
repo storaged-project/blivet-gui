@@ -3,35 +3,37 @@
 
 ---
 - name: Install runtime and build dependencies (Fedora)
-  package: name={{item}} state=present
-  with_items:
-    - gettext
-    - python3-setuptools
-    - python3
-    - python3-gobject
-    - gettext
-    - python3-blivet
-    - gtk3
-    - python3-pid
-    - make
-    - python3-sphinx
+  package:
+    state: present
+    name:
+      - gettext
+      - python3-setuptools
+      - python3
+      - python3-gobject
+      - gettext
+      - python3-blivet
+      - gtk3
+      - python3-pid
+      - make
+      - python3-sphinx
   when: ansible_distribution == "Fedora"
 
 - name: Install test dependencies (Fedora)
-  package: name={{item}} state=present
-  with_items:
-    - python3-coverage
-    - python3-pocketlint
-    - python3-pycodestyle
-    - xorg-x11-server-Xvfb
-    - targetcli
-    - gettext
-    - python3-polib
-    - libblockdev-part
-    - btrfs-progs
-    - dosfstools
-    - e2fsprogs
-    - xfsprogs
+  package:
+    state: present
+    name:
+      - python3-coverage
+      - python3-pocketlint
+      - python3-pycodestyle
+      - xorg-x11-server-Xvfb
+      - targetcli
+      - gettext
+      - python3-polib
+      - libblockdev-part
+      - btrfs-progs
+      - dosfstools
+      - e2fsprogs
+      - xfsprogs
   when: ansible_distribution == "Fedora"
 
 - name: Update apt cache (Debian/Ubuntu)
@@ -40,52 +42,55 @@
   when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
 
 - name: Install runtime and build dependencies (Ubuntu/Debian)
-  package: name={{item}} state=present
-  with_items:
-    - debhelper
-    - python3-setuptools
-    - gettext
-    - dh-python
-    - python3-gi-cairo
-    - gir1.2-gtk-3.0
+  package:
+    state: present
+    name:
+      - debhelper
+      - python3-setuptools
+      - gettext
+      - dh-python
+      - python3-gi-cairo
+      - gir1.2-gtk-3.0
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
 - name: Install test dependencies (Ubuntu/Debian)
-  package: name={{item}} state=present
-  with_items:
-    - python3-coverage
-    - python3-pycodestyle
-    - pycodestyle
-    - xvfb
-    - targetcli-fb
-    - python3-pip
-    - gettext
-    - python3-polib
-    - libblockdev-part3
-    - btrfs-progs
-    - mdadm
-    - dosfstools
-    - e2fsprogs
-    - xfsprogs
+  package:
+    state: present
+    name:
+      - python3-coverage
+      - python3-pycodestyle
+      - pycodestyle
+      - xvfb
+      - targetcli-fb
+      - python3-pip
+      - gettext
+      - python3-polib
+      - libblockdev-part3
+      - btrfs-progs
+      - mdadm
+      - dosfstools
+      - e2fsprogs
+      - xfsprogs
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
 - name: Install Blivet dependencies not covered by PyPI (Ubuntu/Debian)
-  package: name={{item}} state=present
-  with_items:
-    - python3-blockdev
-    - python3-bytesize
-    - python3-parted
-    - python3-selinux
-    - gir1.2-blockdev-3.0
-    - libblockdev-lvm3
-    - libblockdev-btrfs3
-    - libblockdev-swap3
-    - libblockdev-loop3
-    - libblockdev-crypto3
-    - libblockdev-mpath3
-    - libblockdev-dm3
-    - libblockdev-mdraid3
-    - libblockdev-fs3
+  package:
+    state: present
+    name:
+      - python3-blockdev
+      - python3-bytesize
+      - python3-parted
+      - python3-selinux
+      - gir1.2-blockdev-3.0
+      - libblockdev-lvm3
+      - libblockdev-btrfs3
+      - libblockdev-swap3
+      - libblockdev-loop3
+      - libblockdev-crypto3
+      - libblockdev-mpath3
+      - libblockdev-dm3
+      - libblockdev-mdraid3
+      - libblockdev-fs3
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
 # pocketlint, blivet and pid is not packaged on Ubuntu/Debian
@@ -96,59 +101,62 @@
   when: ansible_distribution == "Ubuntu" or ansible_distribution == "Debian"
 
 - name: Install runtime and build dependencies (OpenSUSE)
-  package: name={{item}} state=present
-  with_items:
-    - make
-    - appstream-glib
-    - polkit
-    - python3-setuptools
-    - python3-gobject
-    - gettext
-    - libgtk-3-0
-    - typelib-1_0-Gtk-3_0
-    - gobject-introspection
-    - python3-gobject-Gdk
-    - typelib-1_0-Gtk-3_0
+  package:
+    state: present
+    name:
+      - make
+      - appstream-glib
+      - polkit
+      - python3-setuptools
+      - python3-gobject
+      - gettext
+      - libgtk-3-0
+      - typelib-1_0-Gtk-3_0
+      - gobject-introspection
+      - python3-gobject-Gdk
+      - typelib-1_0-Gtk-3_0
   when: ansible_os_family == "Suse"
 
 - name: Install test dependencies (openSUSE)
-  package: name={{item}} state=present
-  with_items:
-    - python3-coverage
-    - python3-pycodestyle
-    - xorg-x11-server-Xvfb
-    - xvfb-run
-    - targetcli-fb
-    - python3-pip
-    - python3-polib
-    - libbd_part2
-    - btrfsprogs
-    - e2fsprogs
-    - xfsprogs
-    - adwaita-icon-theme
+  package:
+    state: present
+    name:
+      - python3-coverage
+      - python3-pycodestyle
+      - xorg-x11-server-Xvfb
+      - xvfb-run
+      - targetcli-fb
+      - python3-pip
+      - python3-polib
+      - libbd_part2
+      - btrfsprogs
+      - e2fsprogs
+      - xfsprogs
+      - adwaita-icon-theme
   when: ansible_os_family == "Suse"
 
 - name: Install Blivet dependencies not covered by PyPI (openSUSE)
-  package: name={{item}} state=present
-  with_items:
-    - python3-libblockdev
-    - typelib-1_0-BlockDev-3_0
-    - python3-libbytesize
-    - python3-parted
-    - python3-pyudev
-    - python3-six
-    - udev
-    - libbd_btrfs3
-    - libbd_crypto3
-    - libbd_dm3
-    - libbd_fs3
-    - libbd_kbd3
-    - libbd_loop3
-    - libbd_lvm3
-    - libbd_mdraid3
-    - libbd_mpath3
-    - libbd_swap3
-    - libbd_utils3
+  package:
+    state: present
+    name:
+      - python3-libblockdev
+      - typelib-1_0-BlockDev-3_0
+      - python3-libbytesize
+      - python3-parted
+      - python3-pyudev
+      - python3-six
+      - udev
+      - libbd_btrfs3
+      - libbd_crypto3
+      - libbd_dm3
+      - libbd_fs3
+      - libbd_kbd3
+      - libbd_loop3
+      - libbd_lvm3
+      - libbd_mdraid3
+      - libbd_mpath3
+      - libbd_swap3
+      - libbd_utils3
   when: ansible_os_family == "Suse"
 
 # pocketlint, blivet and pid is not packaged on openSUSE
