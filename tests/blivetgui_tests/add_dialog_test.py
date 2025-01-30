@@ -291,7 +291,7 @@ class AddDialogTest(unittest.TestCase):
 
         types = sorted([i[1] for i in add_dialog.devices_combo.get_model()])
 
-        self.assertTrue(sorted(["partition", "lvm", "btrfs volume", "mdraid"]) == types)
+        self.assertTrue(sorted(["partition", "lvm", "btrfs volume", "mdraid", "stratis pool"]) == types)
         self.assertTrue(add_dialog.devices_combo.get_sensitive())
 
         # disk with disklabel and not enough free space, no other disks available
@@ -401,6 +401,24 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog._encryption_chooser._encrypt_check.get_visible())
         self.assertIsNotNone(add_dialog.advanced)
         self.assertFalse(add_dialog.md_type_combo.get_visible())
+
+    def test_stratis_pool_widgets(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
+                               [("free", free_device)], self.supported_filesystems, [])
+
+        add_dialog.devices_combo.set_active_id("stratis pool")
+        self.assertEqual(add_dialog.selected_type, "stratis pool")
+
+        self.assertFalse(add_dialog.filesystems_combo.get_visible())
+        self.assertTrue(add_dialog.name_entry.get_visible())
+        self.assertTrue(add_dialog._encryption_chooser._encrypt_check.get_visible())
+        self.assertFalse(add_dialog._raid_chooser.get_visible())
+        self.assertIsNone(add_dialog.advanced)
+        self.assertFalse(add_dialog.md_type_combo.get_visible())
+        self.assertTrue(add_dialog.size_area.get_sensitive())
 
     def test_partition_parents(self):
         parent_device = self._get_parent_device()
@@ -855,6 +873,34 @@ class AddDialogTest(unittest.TestCase):
         self.assertEqual(selection.size_selection.parents[0].parent_device, parent_device)
         self.assertEqual(selection.size_selection.parents[0].selected_size, free_device.size)
         self.assertEqual(selection.raid_level, "single")
+
+    def test_stratis_selection(self):
+        parent_device = self._get_parent_device()
+        free_device = self._get_free_device(parent=parent_device, size=Size("8 GiB"), is_free_region=False,
+                                            is_empty_disk=True)
+
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
+                               [("free", free_device)], self.supported_filesystems, [])
+
+        add_dialog.devices_combo.set_active_id("stratis pool")
+
+        name = "name"
+
+        add_dialog.name_entry.set_text(name)
+
+        selection = add_dialog.get_selection()
+
+        self.assertEqual(selection.device_type, "stratis pool")
+        self.assertEqual(selection.size_selection.total_size, free_device.size)
+        self.assertTrue(selection.filesystem in (None, ""))
+        self.assertEqual(selection.name, name)
+        self.assertTrue(selection.label in (None, ""))
+        self.assertTrue(selection.mountpoint in (None, ""))
+        self.assertFalse(selection.encrypt)
+        self.assertTrue(selection.passphrase in (None, ""))
+        self.assertEqual(selection.size_selection.parents[0].parent_device, parent_device)
+        self.assertEqual(selection.size_selection.parents[0].selected_size, free_device.size)
+        self.assertTrue(selection.raid_level in (None, ""))
 
     def test_parents_max_size_limit(self):
         parent_device1 = self._get_parent_device(size=Size("8 TiB"))
