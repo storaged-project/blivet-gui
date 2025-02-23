@@ -294,7 +294,7 @@ class EncryptionChooser(GUIWidget):
         self._passphrase_entry.connect("changed", self._on_passphrase_changed)
         self._repeat_entry.connect("changed", self._on_passphrase_changed)
         self._combobox_type.connect("changed", self._on_type_changed)
-        self._combobox_type.connect("changed", self._on_ess_changed)
+        self._combobox_ess.connect("changed", self._on_ess_changed)
 
     @property
     def selected_type(self):
