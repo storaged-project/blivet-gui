@@ -153,6 +153,7 @@ class EncryptionChooserTest(unittest.TestCase):
         encrypt_chooser = EncryptionChooser()
 
         encrypt_chooser.encrypt = True
+        encrypt_chooser._is_luks = True
 
         # luks1 -> sector size should be hidden and "0" returned
         encrypt_chooser._combobox_type.set_active(list(crypto.LUKS_VERSIONS.keys()).index("luks1"))
@@ -175,6 +176,23 @@ class EncryptionChooserTest(unittest.TestCase):
         # luks1 -> sector size should be hidden and "0" returned
         encrypt_chooser._combobox_type.set_active(list(crypto.LUKS_VERSIONS.keys()).index("luks1"))
         self.assertFalse(encrypt_chooser._combobox_ess.get_visible())
+
+    def test_encryption_luks_specific(self):
+        # LUKS -> sector size and LUKS version selection should be visible
+        encrypt_chooser = EncryptionChooser()
+        encrypt_chooser._is_luks = True
+        encrypt_chooser.encrypt = True
+
+        self.assertTrue(encrypt_chooser._combobox_ess.get_visible())
+        self.assertTrue(encrypt_chooser._combobox_type.get_visible())
+
+        # Stratis -> sector size and LUKS version selection should be hidden
+        encrypt_chooser = EncryptionChooser()
+        encrypt_chooser._is_luks = False
+        encrypt_chooser.encrypt = True
+
+        self.assertFalse(encrypt_chooser._combobox_ess.get_visible())
+        self.assertFalse(encrypt_chooser._combobox_type.get_visible())
 
 
 if __name__ == "__main__":

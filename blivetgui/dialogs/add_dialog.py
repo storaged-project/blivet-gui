@@ -945,6 +945,15 @@ class AddDialog(Gtk.Dialog):
             self.update_size_area_limits(min_size=self._get_min_size_limit(),
                                          reserved_size=size.Size(0))
 
+    def update_encryption_chooser(self):
+        if self.selected_type == "stratis pool":
+            self._encryption_chooser._is_luks = False
+        else:
+            self._encryption_chooser._is_luks = True
+
+        # hide "advanced" encryption widgets if encrypt not checked
+        self._encryption_chooser.set_advanced_visible(self._encryption_chooser.encrypt)
+
     def on_devices_combo_changed(self, _event):
 
         device_type = self.selected_type
@@ -1007,8 +1016,7 @@ class AddDialog(Gtk.Dialog):
             self.show_widgets(["name", "mountpoint", "size"])
             self.hide_widgets(["label", "fs", "encrypt", "advanced", "mdraid"])
 
-        # hide "advanced" encryption widgets if encrypt not checked
-        self._encryption_chooser.set_advanced_visible(self._encryption_chooser.encrypt)
+        self.update_encryption_chooser()
 
     @property
     def selected_fs(self):

@@ -248,6 +248,7 @@ class EncryptionChooser(GUIWidget):
 
         self.grid = self._builder.get_object("grid")
 
+        self._label_type = self._builder.get_object("label_type")
         self._combobox_type = self._builder.get_object("combobox_type")
         self._label_ess = self._builder.get_object("label_ess")
         self._combobox_ess = self._builder.get_object("combobox_ess")
@@ -260,7 +261,7 @@ class EncryptionChooser(GUIWidget):
                                  self._encrypt_check]
 
         # "advanced" widgets -- visible only when encrypt is checked
-        self._advanced_widgests = [self._builder.get_object("label_type"),
+        self._advanced_widgests = [self._label_type,
                                    self._combobox_type,
                                    self._label_ess,
                                    self._combobox_ess,
@@ -268,6 +269,9 @@ class EncryptionChooser(GUIWidget):
                                    self._passphrase_entry,
                                    self._builder.get_object("label_repeat"),
                                    self._repeat_entry]
+
+        # luks-specific widgets
+        self._is_luks = False
 
         # fill combobox with supported options and select the default one
         etypes = list(supported_encryption_types().keys())
@@ -317,16 +321,28 @@ class EncryptionChooser(GUIWidget):
 
     def _set_ess_visibility(self):
         # sector size is available only with LUKS 2
-        if self.selected_type == "luks2":
+        if self.encrypt and self._is_luks and self.selected_type == "luks2":
             self._label_ess.show()
             self._combobox_ess.show()
         else:
             self._label_ess.hide()
             self._combobox_ess.hide()
 
+    def _set_type_visibility(self):
+        # LUKS type is visible only with LUKS
+        if self.encrypt and self._is_luks:
+            self._label_type.show()
+            self._combobox_type.show()
+        else:
+            self._label_type.hide()
+            self._combobox_type.hide()
+
     def set_advanced_visible(self, visible):
         for widget in self._advanced_widgests:
             widget.set_visible(visible)
+
+        self._set_ess_visibility()
+        self._set_type_visibility()
 
     def set_visible(self, visibility):
         super().set_visible(visibility)
@@ -334,6 +350,7 @@ class EncryptionChooser(GUIWidget):
         # show/hide "advanced" widgets
         self.set_advanced_visible(self.encrypt)
         self._set_ess_visibility()
+        self._set_type_visibility()
 
     def connect(self, signal_name, signal_handler, *args):
         if signal_name == "type-changed":
@@ -373,6 +390,7 @@ class EncryptionChooser(GUIWidget):
         # show/hide "advanced" widgets
         self.set_advanced_visible(self.encrypt)
         self._set_ess_visibility()
+        self._set_type_visibility()
 
         # call the signal handler for the encrypt-toggled event
         for handler in self._encrypt_toggled_handlers:
