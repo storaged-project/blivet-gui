@@ -116,6 +116,12 @@ class ListDevices(object):
                 self.device_list.append([device, icon_group,
                                         str(device.name + "\n<i><small>%s</small></i>" % _("Btrfs Volume"))])
 
+        if gdevices["stratis"]:
+            self.device_list.append([None, None, "<b>%s</b>" % _("Stratis Pools")])
+            for device in gdevices["stratis"]:
+                self.device_list.append([device, icon_group,
+                                        str(device.name + "\n<i><small>%s</small></i>" % _("Stratis Pool"))])
+
     def update_devices_view(self):
         """ Update device view
         """

@@ -81,7 +81,7 @@ class Rectangle(Gtk.RadioButton):
 
     def _get_device_properties(self):
         properties = []
-        if self.device.type in ("lvmvg", "btrfs volume", "mdarray"):
+        if self.device.type in ("lvmvg", "btrfs volume", "mdarray", "stratis pool"):
             properties.append("group")
         if self.device.format and self.device.format.type in ("iso9660", "udf"):
             properties.append("livecd")
