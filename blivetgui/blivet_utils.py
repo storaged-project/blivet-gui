@@ -116,13 +116,13 @@ class FreeSpaceDevice(object):
 
     @property
     def is_empty_disk(self):
-        return len(self.parents) == 1 and self.parents[0].type in ("disk", "nvdimm") and \
+        return len(self.parents) == 1 and self.parents[0].is_disk and \
             not self.parents[0].children and self.parents[0].format.type and \
             self.parents[0].format.type not in ("iso9660",)
 
     @property
     def is_uninitialized_disk(self):
-        return len(self.parents) == 1 and self.parents[0].type in ("disk", "nvdimm") and \
+        return len(self.parents) == 1 and self.parents[0].is_disk and \
             not self.parents[0].children and not self.parents[0].format.type
 
     @property
