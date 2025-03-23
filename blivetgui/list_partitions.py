@@ -265,6 +265,12 @@ class ListPartitions(object):
 
         return device.format.labeling() and device.format.relabels()
 
+    def _allow_rename_device(self, device):
+        if device.protected or device.format.status:
+            return False
+
+        return hasattr(device, "_renamable") and device._renamable
+
     def _allow_add_device(self, device):
         if device.protected:
             return False
@@ -313,6 +319,9 @@ class ListPartitions(object):
 
         if self._allow_relabel_device(device):
             self.blivet_gui.activate_device_actions(["label"])
+
+        if self._allow_rename_device(device):
+            self.blivet_gui.activate_device_actions(["rename"])
 
         if self._allow_add_device(device):
             self.blivet_gui.activate_device_actions(["add"])

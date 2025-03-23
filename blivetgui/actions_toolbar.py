@@ -64,6 +64,7 @@ class DeviceToolbar(BlivetGUIToolbar):
         items = [("add", "clicked", self.blivet_gui.add_device),
                  ("delete", "clicked", self.blivet_gui.delete_selected_partition),
                  ("resize", "activate", self.blivet_gui.resize_device),
+                 ("rename", "activate", self.blivet_gui.rename_device),
                  ("format", "activate", self.blivet_gui.format_device),
                  ("unmount", "clicked", self.blivet_gui.umount_partition),
                  ("decrypt", "clicked", self.blivet_gui.decrypt_device),
