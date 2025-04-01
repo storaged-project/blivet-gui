@@ -10,13 +10,14 @@
 # Emilio Herrera <ehespinosa57@gmail.com>, 2021.
 # Pedro Luis Valades Viera <perikiyoxd@gmail.com>, 2021.
 # Alejandro Alcaide <alex@blueselene.com>, 2022.
+# Javier Francisco <fserrador@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-18 10:57+0100\n"
-"PO-Revision-Date: 2022-06-04 13:18+0000\n"
-"Last-Translator: Alejandro Alcaide <alex@blueselene.com>\n"
+"PO-Revision-Date: 2025-04-01 17:55+0000\n"
+"Last-Translator: Javier Francisco <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/es/>\n"
 "Language: es\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.12.2\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -129,7 +130,7 @@ msgstr "¿Confirma que quiere ejecutar las acciones planificadas?"
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
-"No se pudo desmontar «{mountpoint}». Cerciórese de que el dispositivo no "
+"No se pudo desmontar '{mountpoint}'. Cerciórese de que el dispositivo no "
 "esté en uso."
 
 #: ../blivetgui/blivetgui.py:728
@@ -163,12 +164,13 @@ msgid ""
 "\n"
 "command to force quit it."
 msgstr ""
-"Si falló una ejecución anterior, compruebe que <i>blivet-gui-daemon</i> "
-"también haya finalizado.\n"
-"Si aún está en ejecución, puede utilizar la orden siguiente para forzar su "
-"cierre:\n"
+"Si su instancia anterior de blivet-gui-daemon se estrello, asegúrese que el "
+"proceso de <i>blivet-gui-daemon</i> también fue finalizado.\n"
+"Si aún está en ejecución puede utilizar la instrucción\n"
 "\n"
-"<tt>$ sudo killall blivet-gui-daemon</tt>"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"para forzar a que salga."
 
 #: ../blivetgui/blivetgui.py:816
 msgid "Failed to init blivet:"
@@ -280,7 +282,7 @@ msgstr "No se pueden redimensionar los volúmenes lógicos con instantáneas."
 
 #: ../blivetgui/blivet_utils.py:741
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr "Por ahora no se admite re-dimensionar dispositivos LUKS2."
+msgstr "Por ahora no se admite redimensionar dispositivos LUKS2."
 
 #: ../blivetgui/blivet_utils.py:753
 #, python-brace-format
@@ -300,10 +302,7 @@ msgstr ""
 "de límite de tamaño."
 
 #: ../blivetgui/exception_handler.py:75
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
@@ -312,15 +311,12 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
-"Se produjo un error desconocido. Blivet-gui se cerrará.\n"
+"Se produjo un error desconocido. Blivet-gui será cerrado.\n"
 "{error}"
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:119
@@ -386,15 +382,12 @@ msgstr ""
 " enviarlo, permita que anaconda gestione el proceso."
 
 #: ../blivetgui/osinstall.py:221
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Anaconda will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
-"Se produjo un error desconocido. Anaconda se cerrará.\n"
+"Se produjo un error desconocido. Anaconda será cerrada.\n"
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
@@ -814,12 +807,13 @@ msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>Etiqueta:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:242
-#, fuzzy, python-brace-format
-#| msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+#, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
-msgstr " • <i>Punto de montaje:</i> {mountpoint}\n"
+msgstr ""
+" • <i>Punto de montaje:</i>\n"
+"     {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:245
 msgid " • <i>Type:</i> None"
@@ -863,16 +857,12 @@ msgid "Parent devices:"
 msgstr "Dispositivos primarios:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:565
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
-msgstr "Añadir primario"
+msgstr "Añadir un antecesor"
 
 #: ../blivetgui/dialogs/edit_dialog.py:568
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
-msgstr "Eliminar primario"
+msgstr "Quitar un antecesor"
 
 #: ../blivetgui/dialogs/edit_dialog.py:579
 msgid ""
@@ -887,16 +877,12 @@ msgid "Add?"
 msgstr "¿Añadir?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
-"No se puede quitar ningún\n"
-"volumen físico de este grupo."
+"No hay ningún volumen físico que pueda\n"
+"ser retirado desde este grupo de volumen."
 
 #: ../blivetgui/dialogs/edit_dialog.py:650
 msgid "Currently it is possible to remove only one parent at time."
@@ -918,12 +904,19 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
+"Si cree que esto es un defecto, utilice el botón «Informar un defecto» a "
+"continuación para informar\n"
+"sobre un defecto utilizando la herramienta de informe de defecto automático "
+"(ABRT) o abra un informe en nuestro <a href="
+"\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:137
 msgid ""
 "If you believe this is a bug, please open an issue on our <a href=\"https://"
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
+"Si cree que esto es un defecto, abra un informe en nuestro <a href="
+"\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"
@@ -1086,10 +1079,8 @@ msgid "Unmount"
 msgstr "Desmontar"
 
 #: ../data/ui/blivet-gui.ui:102
-#, fuzzy
-#| msgid "Unlock device"
 msgid "Unlock"
-msgstr "Desbloquea dispositivo"
+msgstr "Desbloquear"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Information"
@@ -1170,16 +1161,12 @@ msgid "About blivet-gui"
 msgstr "Acerca de blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:728
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "No hay acciones pendientes"
+msgstr "Aplicar acciones pendientes"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "Confirmar acciones planificadas"
+msgstr "Vaciar acciones planificadas"
 
 #: ../data/ui/blivet-gui.ui:760
 msgid "Undo last action"
@@ -1281,10 +1268,8 @@ msgid "Information:"
 msgstr "Información:"
 
 #: ../data/ui/label_dialog.ui:7
-#, fuzzy
-#| msgid "Set label"
 msgid "Set filesystem label"
-msgstr "Establecer etiqueta"
+msgstr "Establecer etiqueta del sistema de archivos"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
