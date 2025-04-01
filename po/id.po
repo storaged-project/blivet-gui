@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-18 10:57+0100\n"
+"POT-Creation-Date: 2025-03-23 15:05+0100\n"
 "PO-Revision-Date: 2024-09-06 19:38+0000\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <https://translate.fedoraproject.org/projects/"
@@ -28,34 +28,46 @@ msgstr "Gagal mengubah ukuran perangkat:"
 msgid "resize {name} {type}"
 msgstr "mengubah ukuran {name} {type}"
 
-#: ../blivetgui/blivetgui.py:327
+#: ../blivetgui/blivetgui.py:320
+#, fuzzy
+#| msgid "Failed to resize the device:"
+msgid "Failed to rename the device:"
+msgstr "Gagal mengubah ukuran perangkat:"
+
+#: ../blivetgui/blivetgui.py:332
+#, fuzzy, python-brace-format
+#| msgid "resize {name} {type}"
+msgid "rename {name} {type}"
+msgstr "mengubah ukuran {name} {type}"
+
+#: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
 msgstr "Gagal memformat perangkat:"
 
-#: ../blivetgui/blivetgui.py:341
+#: ../blivetgui/blivetgui.py:365
 #, python-brace-format
 msgid "format {name} {type}"
 msgstr "format {name} {type}"
 
-#: ../blivetgui/blivetgui.py:354
+#: ../blivetgui/blivetgui.py:378
 msgid "Failed to edit the LVM2 Volume Group:"
 msgstr "Gagal mengedit LVM2 VG:"
 
-#: ../blivetgui/blivetgui.py:369
+#: ../blivetgui/blivetgui.py:393
 #, python-brace-format
 msgid "edit {name} {type}"
 msgstr "edit {name} {type}"
 
-#: ../blivetgui/blivetgui.py:398
+#: ../blivetgui/blivetgui.py:422
 msgid "Failed to change filesystem label on the device:"
 msgstr "Gagal mengubah label filesystem pada perangkat:"
 
-#: ../blivetgui/blivetgui.py:403
+#: ../blivetgui/blivetgui.py:427
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
 msgstr "ubah label filesystem {name} {type}"
 
-#: ../blivetgui/blivetgui.py:419
+#: ../blivetgui/blivetgui.py:443
 #, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
@@ -64,11 +76,11 @@ msgstr ""
 "{name} tidak lengkap. Tidak mungkin menambahkan LV baru ke VG jika PV tidak "
 "ada."
 
-#: ../blivetgui/blivetgui.py:424
+#: ../blivetgui/blivetgui.py:448
 msgid "Not enough free space for a new LVM Volume Group."
 msgstr "Tidak cukup ruang untuk LVM VG baru."
 
-#: ../blivetgui/blivetgui.py:430
+#: ../blivetgui/blivetgui.py:454
 #, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
@@ -77,64 +89,64 @@ msgstr ""
 "Disk {name} sudah mencapai jumlah partisi primer maksimum untuk disklabel "
 "{label}."
 
-#: ../blivetgui/blivetgui.py:440
+#: ../blivetgui/blivetgui.py:464
 msgid "Failed to add disklabel:"
 msgstr "Gagal menambahkan disklabel:"
 
-#: ../blivetgui/blivetgui.py:453
+#: ../blivetgui/blivetgui.py:477
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "buat disklabel baru pada {name}"
 
-#: ../blivetgui/blivetgui.py:505
+#: ../blivetgui/blivetgui.py:529
 msgid "Failed to add the device:"
 msgstr "Gagal menambahkan perangkat:"
 
-#: ../blivetgui/blivetgui.py:520
+#: ../blivetgui/blivetgui.py:544
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr "tambah {size} {type} perangkat"
 
-#: ../blivetgui/blivetgui.py:564
+#: ../blivetgui/blivetgui.py:588
 msgid "Failed to delete the device:"
 msgstr "Gagal menghapus perangkat:"
 
-#: ../blivetgui/blivetgui.py:579
+#: ../blivetgui/blivetgui.py:603
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr "hapus partisi {name}"
 
-#: ../blivetgui/blivetgui.py:620
+#: ../blivetgui/blivetgui.py:644
 msgid "Failed to perform the actions:"
 msgstr "Gagal melakukan aksi:"
 
-#: ../blivetgui/blivetgui.py:664
+#: ../blivetgui/blivetgui.py:688
 msgid "Confirm scheduled actions"
 msgstr "Mengonfirmasi tindakan terjadwal"
 
-#: ../blivetgui/blivetgui.py:665
+#: ../blivetgui/blivetgui.py:689
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Yakin ingin melakukan aksi terjadwal?"
 
-#: ../blivetgui/blivetgui.py:706
+#: ../blivetgui/blivetgui.py:730
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr "Melepas kait '{mountpoint}' gagal. Yakin peranti tidak digunakan?"
 
-#: ../blivetgui/blivetgui.py:728
+#: ../blivetgui/blivetgui.py:752
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "Pembukaan kunci gagal. Yakin kata sandi yang diberikan sudah benar?"
 
-#: ../blivetgui/blivetgui.py:778 ../data/ui/blivet-gui.ui:662
+#: ../blivetgui/blivetgui.py:802 ../data/ui/blivet-gui.ui:678
 msgid "Quit"
 msgstr "Keluar"
 
-#: ../blivetgui/blivetgui.py:781
+#: ../blivetgui/blivetgui.py:805
 msgid "blivet-gui is already running"
 msgstr "blivet-gui sudah berjalan"
 
-#: ../blivetgui/blivetgui.py:782
+#: ../blivetgui/blivetgui.py:806
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -142,7 +154,7 @@ msgstr ""
 "Instansi lain dari blivet-gui sudah berjalan.\n"
 "Hanya satu instansi blivet-gui yang dapat berjalan pada saat yang sama."
 
-#: ../blivetgui/blivetgui.py:784
+#: ../blivetgui/blivetgui.py:808
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -160,24 +172,24 @@ msgstr ""
 "\n"
 "untuk memaksanya keluar."
 
-#: ../blivetgui/blivetgui.py:816
+#: ../blivetgui/blivetgui.py:840
 msgid "Failed to init blivet:"
 msgstr "Gagal untuk init blivet:"
 
-#: ../blivetgui/blivetgui.py:823
+#: ../blivetgui/blivetgui.py:847
 msgid "Quit blivet-gui"
 msgstr "Keluar dari blivet-gui"
 
-#: ../blivetgui/blivetgui.py:825
+#: ../blivetgui/blivetgui.py:849
 msgid "Ignore disk and continue"
 msgstr "Abaikan disk dan lanjutkan"
 
-#: ../blivetgui/blivetgui.py:828
+#: ../blivetgui/blivetgui.py:852
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "Galat: {error}"
 
-#: ../blivetgui/blivetgui.py:829
+#: ../blivetgui/blivetgui.py:853
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -190,95 +202,95 @@ msgstr ""
 "Anda dapat keluar dari blivet-gui sekarang atau melanjutkan tanpa bisa "
 "menggunakan disk ini."
 
-#: ../blivetgui/blivetgui.py:865
+#: ../blivetgui/blivetgui.py:889
 msgid "Confirm reload storage"
 msgstr "Konfirmasi muat ulang penyimpanan"
 
-#: ../blivetgui/blivetgui.py:866
+#: ../blivetgui/blivetgui.py:890
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "Ada operasi yang tertunda. Yakin ingin melanjutkan?"
 
-#: ../blivetgui/blivetgui.py:897
+#: ../blivetgui/blivetgui.py:921
 msgid "Are you sure you want to quit?"
 msgstr "Anda yakin ingin keluar?"
 
-#: ../blivetgui/blivetgui.py:898
+#: ../blivetgui/blivetgui.py:922
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
 "Ada operasi yang tertunda. Apakah Anda yakin ingin menghentikan blivet-gui "
 "sekarang?"
 
-#: ../blivetgui/blivet_utils.py:78
+#: ../blivetgui/blivet_utils.py:79
 msgid "free space"
 msgstr "ruang bebas"
 
-#: ../blivetgui/blivet_utils.py:674
+#: ../blivetgui/blivet_utils.py:690
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr "Mengubah ukuran perangkat {type} saat ini tidak didukung"
 
-#: ../blivetgui/blivet_utils.py:679
+#: ../blivetgui/blivet_utils.py:695
 msgid "Protected devices cannot be resized"
 msgstr "Perangkat terproteksi tidak dapat diubah ukurannya"
 
-#: ../blivetgui/blivet_utils.py:684
+#: ../blivetgui/blivet_utils.py:700
 msgid "Immutable formats cannot be resized"
 msgstr "Format immutable tidak bisa diubah ukurannya"
 
-#: ../blivetgui/blivet_utils.py:689
+#: ../blivetgui/blivet_utils.py:705
 msgid "Devices with children cannot be resized"
 msgstr "Perangkat dengan anak tidak dapat diubah ukurannya"
 
-#: ../blivetgui/blivet_utils.py:700
+#: ../blivetgui/blivet_utils.py:716
 msgid "Unformatted devices are not resizable"
 msgstr "Perangkat yang tidak diformat tidak dapat diubah ukurannya"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
-#: ../blivetgui/blivet_utils.py:707
+#: ../blivetgui/blivet_utils.py:723
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr "Mengubah ukuran format {type} saat ini tidak didukung"
 
-#: ../blivetgui/blivet_utils.py:712
+#: ../blivetgui/blivet_utils.py:728
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr "Alat untuk mengubah ukuran format {type} tidak tersedia."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
-#: ../blivetgui/blivet_utils.py:719
+#: ../blivetgui/blivet_utils.py:735
 msgid "Formats scheduled to be created cannot be resized"
 msgstr "Format yang dijadwalkan untuk dibuat tidak dapat diubah ukurannya"
 
-#: ../blivetgui/blivet_utils.py:724
+#: ../blivetgui/blivet_utils.py:740
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr "Format {type} tidak mendukung pembaruan informasi batas ukurannya"
 
-#: ../blivetgui/blivet_utils.py:731
+#: ../blivetgui/blivet_utils.py:747
 msgid "Mounted devices cannot be resized"
 msgstr "Perangkat yang dikait tidak dapat diubah ukurannya"
 
-#: ../blivetgui/blivet_utils.py:736
+#: ../blivetgui/blivet_utils.py:752
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "Volume Logika dengan snapshot tidak dapat diubah ukurannya."
 
-#: ../blivetgui/blivet_utils.py:741
+#: ../blivetgui/blivet_utils.py:757
 msgid "Resizing of LUKS2 devices is currently not supported."
 msgstr "Mengubah ukuran perangkat LUKS2 saat ini tidak didukung."
 
-#: ../blivetgui/blivet_utils.py:753
+#: ../blivetgui/blivet_utils.py:769
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr "Gagal memperbarui info ukuran sistem berkas: {error}"
 
-#: ../blivetgui/blivet_utils.py:772
+#: ../blivetgui/blivet_utils.py:788
 msgid "Device is not resizable."
 msgstr "Perangkat tidak dapat diubah ukurannya."
 
-#: ../blivetgui/blivet_utils.py:774
+#: ../blivetgui/blivet_utils.py:790
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
 "Format tidak dapat diubah ukurannya setelah memperbarui informasi batas "
@@ -303,7 +315,7 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:119
-#: ../blivetgui/list_actions.py:141 ../data/ui/blivet-gui.ui:617
+#: ../blivetgui/list_actions.py:141 ../data/ui/blivet-gui.ui:633
 msgid "No pending actions"
 msgstr "Tidak ada tindakan tertunda"
 
@@ -337,10 +349,18 @@ msgstr "MDArray"
 msgid "Btrfs Volumes"
 msgstr "Volume Btrfs"
 
-#: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:388
+#: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:389
 #: ../blivetgui/dialogs/device_info_dialog.py:87
 msgid "Btrfs Volume"
 msgstr "Volume Btrfs"
+
+#: ../blivetgui/list_devices.py:120
+msgid "Stratis Pools"
+msgstr ""
+
+#: ../blivetgui/list_devices.py:123 ../blivetgui/dialogs/add_dialog.py:392
+msgid "Stratis Pool"
+msgstr ""
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -404,168 +424,175 @@ msgstr ""
 msgid "Failed to connect to blivet-gui-daemon"
 msgstr "Gagal menyambung ke blivet-gui-daemon"
 
-#: ../blivetgui/dialogs/add_dialog.py:67
+#: ../blivetgui/dialogs/add_dialog.py:68
 msgid "Show advanced options"
 msgstr "Tampilkan opsi lanjutan"
 
-#: ../blivetgui/dialogs/add_dialog.py:85
+#: ../blivetgui/dialogs/add_dialog.py:86
 msgid "PE Size:"
 msgstr "Ukuran PE:"
 
-#: ../blivetgui/dialogs/add_dialog.py:109
+#: ../blivetgui/dialogs/add_dialog.py:110
 msgid "Partition type:"
 msgstr "Tipe partisi:"
 
-#: ../blivetgui/dialogs/add_dialog.py:118
+#: ../blivetgui/dialogs/add_dialog.py:119
 msgid "Logical"
 msgstr "Lojik"
 
-#: ../blivetgui/dialogs/add_dialog.py:120
-#: ../blivetgui/dialogs/add_dialog.py:122
-#: ../blivetgui/dialogs/add_dialog.py:124
+#: ../blivetgui/dialogs/add_dialog.py:121
+#: ../blivetgui/dialogs/add_dialog.py:123
+#: ../blivetgui/dialogs/add_dialog.py:125
 msgid "Primary"
 msgstr "Primer"
 
-#: ../blivetgui/dialogs/add_dialog.py:122
+#: ../blivetgui/dialogs/add_dialog.py:123
 msgid "Extended"
 msgstr "Diperluas"
 
-#: ../blivetgui/dialogs/add_dialog.py:149
+#: ../blivetgui/dialogs/add_dialog.py:150
 msgid "Chunk Size:"
 msgstr "Ukuran Potongan:"
 
-#: ../blivetgui/dialogs/add_dialog.py:212
+#: ../blivetgui/dialogs/add_dialog.py:213
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
 msgstr "'{0}' bukan spesifikasi ukuran potongan yang valid."
 
-#: ../blivetgui/dialogs/add_dialog.py:217
+#: ../blivetgui/dialogs/add_dialog.py:218
 msgid "Chunk size must be multiple of 4 KiB."
 msgstr "Ukuran potongan harus kelipatan 4 KiB."
 
-#: ../blivetgui/dialogs/add_dialog.py:273
+#: ../blivetgui/dialogs/add_dialog.py:274
 msgid "Create new device"
 msgstr "Buat perangkat baru"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
-#: ../blivetgui/dialogs/add_dialog.py:382
-#: ../blivetgui/dialogs/add_dialog.py:747
+#: ../blivetgui/dialogs/add_dialog.py:383
+#: ../blivetgui/dialogs/add_dialog.py:767
 #: ../blivetgui/dialogs/device_info_dialog.py:80
 msgid "Partition"
 msgstr "Partisi"
 
-#: ../blivetgui/dialogs/add_dialog.py:385
-#: ../blivetgui/dialogs/add_dialog.py:398
+#: ../blivetgui/dialogs/add_dialog.py:386
+#: ../blivetgui/dialogs/add_dialog.py:402
 #: ../blivetgui/dialogs/device_info_dialog.py:81
 msgid "LVM2 Volume Group"
 msgstr "Grup Volume LVM2"
 
 #. number of free disk regions
-#: ../blivetgui/dialogs/add_dialog.py:391
+#: ../blivetgui/dialogs/add_dialog.py:395
 msgid "Software RAID"
 msgstr "RAID Perangkat Lunak"
 
-#: ../blivetgui/dialogs/add_dialog.py:394
+#: ../blivetgui/dialogs/add_dialog.py:398
 #: ../blivetgui/dialogs/device_info_dialog.py:82
 msgid "LVM2 Logical Volume"
 msgstr "Volume Logis LVM2"
 
-#: ../blivetgui/dialogs/add_dialog.py:394
+#: ../blivetgui/dialogs/add_dialog.py:398
 #: ../blivetgui/dialogs/device_info_dialog.py:84
 msgid "LVM2 ThinPool"
 msgstr "LVM2 ThinPool"
 
-#: ../blivetgui/dialogs/add_dialog.py:401
+#: ../blivetgui/dialogs/add_dialog.py:405
 msgid "LVM2 Snaphost"
 msgstr "LVM2 Snaphost"
 
-#: ../blivetgui/dialogs/add_dialog.py:404
+#: ../blivetgui/dialogs/add_dialog.py:408
 msgid "LVM2 Thin Snaphost"
 msgstr "Thin Snaphost LVM2"
 
-#: ../blivetgui/dialogs/add_dialog.py:407
+#: ../blivetgui/dialogs/add_dialog.py:411
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "LVM2 Thin Logical Volume"
 msgstr "Thin Logical Volume LVM2"
 
-#: ../blivetgui/dialogs/add_dialog.py:410
+#: ../blivetgui/dialogs/add_dialog.py:414
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "Btrfs Subvolume"
 msgstr "Subvolume Btrfs"
 
-#: ../blivetgui/dialogs/add_dialog.py:416
+#: ../blivetgui/dialogs/add_dialog.py:417
+#, fuzzy
+#| msgid "Filesystem:"
+msgid "Stratis Filesystem"
+msgstr "Sistem Berkas:"
+
+#: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
 msgstr "Jenis perangkat:"
 
-#: ../blivetgui/dialogs/add_dialog.py:451
-#: ../blivetgui/dialogs/edit_dialog.py:548
-#: ../blivetgui/dialogs/edit_dialog.py:597
-#: ../blivetgui/dialogs/edit_dialog.py:659 ../data/ui/blivet-gui.ui:469
+#: ../blivetgui/dialogs/add_dialog.py:458
+#: ../blivetgui/dialogs/edit_dialog.py:629
+#: ../blivetgui/dialogs/edit_dialog.py:678
+#: ../blivetgui/dialogs/edit_dialog.py:740 ../data/ui/blivet-gui.ui:485
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
 msgstr "Perangkat"
 
-#: ../blivetgui/dialogs/add_dialog.py:452
-#: ../blivetgui/dialogs/edit_dialog.py:549
-#: ../blivetgui/dialogs/edit_dialog.py:598
-#: ../blivetgui/dialogs/edit_dialog.py:660 ../data/ui/blivet-gui.ui:482
+#: ../blivetgui/dialogs/add_dialog.py:459
+#: ../blivetgui/dialogs/edit_dialog.py:630
+#: ../blivetgui/dialogs/edit_dialog.py:679
+#: ../blivetgui/dialogs/edit_dialog.py:741 ../data/ui/blivet-gui.ui:498
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
 msgstr "Jenis"
 
-#: ../blivetgui/dialogs/add_dialog.py:453
-#: ../blivetgui/dialogs/edit_dialog.py:550
-#: ../blivetgui/dialogs/edit_dialog.py:599
-#: ../blivetgui/dialogs/edit_dialog.py:661 ../data/ui/blivet-gui.ui:504
+#: ../blivetgui/dialogs/add_dialog.py:460
+#: ../blivetgui/dialogs/edit_dialog.py:631
+#: ../blivetgui/dialogs/edit_dialog.py:680
+#: ../blivetgui/dialogs/edit_dialog.py:742 ../data/ui/blivet-gui.ui:520
 msgid "Size"
 msgstr "Ukuran"
 
-#: ../blivetgui/dialogs/add_dialog.py:462
-#: ../blivetgui/dialogs/edit_dialog.py:608
-#: ../blivetgui/dialogs/edit_dialog.py:670 ../data/ui/cache_area.ui:130
+#: ../blivetgui/dialogs/add_dialog.py:469
+#: ../blivetgui/dialogs/edit_dialog.py:689
+#: ../blivetgui/dialogs/edit_dialog.py:751 ../data/ui/cache_area.ui:130
 msgid "Available devices:"
 msgstr "Perangkat yang tersedia:"
 
-#: ../blivetgui/dialogs/add_dialog.py:742
+#: ../blivetgui/dialogs/add_dialog.py:762
 msgid "MDArray type:"
 msgstr "Tipe MDArray:"
 
-#: ../blivetgui/dialogs/add_dialog.py:774
+#: ../blivetgui/dialogs/add_dialog.py:794
 msgid "Filesystem:"
 msgstr "Sistem Berkas:"
 
-#: ../blivetgui/dialogs/add_dialog.py:807
+#: ../blivetgui/dialogs/add_dialog.py:827
 #: ../blivetgui/dialogs/edit_dialog.py:165
 msgid "unformatted"
 msgstr "tidak diformat"
 
-#: ../blivetgui/dialogs/add_dialog.py:837 ../data/ui/format_dialog.ui:148
+#: ../blivetgui/dialogs/add_dialog.py:857 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr "Label:"
 
-#: ../blivetgui/dialogs/add_dialog.py:845
+#: ../blivetgui/dialogs/add_dialog.py:865
 msgid "Name:"
 msgstr "Nama:"
 
-#: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:189
+#: ../blivetgui/dialogs/add_dialog.py:876 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr "Titik kait:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1023 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1059 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" bukan titik kait yang valid."
 
-#: ../blivetgui/dialogs/add_dialog.py:1030
+#: ../blivetgui/dialogs/add_dialog.py:1066
 msgid "Please select at least two parent devices."
 msgstr "Pilihlah minimal dua peranti induk."
 
-#: ../blivetgui/dialogs/add_dialog.py:1044
+#: ../blivetgui/dialogs/add_dialog.py:1080
+#: ../blivetgui/dialogs/edit_dialog.py:469
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" bukanlah nama yang valid."
 
-#: ../blivetgui/dialogs/add_dialog.py:1050
+#: ../blivetgui/dialogs/add_dialog.py:1086
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -830,24 +857,35 @@ msgstr "Peranti ini tak bisa diubah ukurannya."
 msgid "'{label}' is not a valid label for this filesystem"
 msgstr "'{label}' bukan label yang valid untuk sistem berkas ini"
 
+#: ../blivetgui/dialogs/edit_dialog.py:482
+#, python-brace-format
+msgid "Selected device is already named \"{0}\"."
+msgstr ""
+
+#: ../blivetgui/dialogs/edit_dialog.py:488
+#, fuzzy, python-brace-format
+#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+msgid "Selected name \"{0}\" is already in use."
+msgstr "Titik kait yang dipilih \"{0}\" sudah disetel untuk perangkat lain."
+
 #. auto shrink after removing/hiding widgets
-#: ../blivetgui/dialogs/edit_dialog.py:518
+#: ../blivetgui/dialogs/edit_dialog.py:599
 msgid "Edit device"
 msgstr "Sunting perangkat"
 
-#: ../blivetgui/dialogs/edit_dialog.py:558
+#: ../blivetgui/dialogs/edit_dialog.py:639
 msgid "Parent devices:"
 msgstr "Perangkat induk:"
 
-#: ../blivetgui/dialogs/edit_dialog.py:565
+#: ../blivetgui/dialogs/edit_dialog.py:646
 msgid "Add a parent"
 msgstr "Tambah induk"
 
-#: ../blivetgui/dialogs/edit_dialog.py:568
+#: ../blivetgui/dialogs/edit_dialog.py:649
 msgid "Remove a parent"
 msgstr "Hapus induk"
 
-#: ../blivetgui/dialogs/edit_dialog.py:579
+#: ../blivetgui/dialogs/edit_dialog.py:660
 msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
@@ -855,11 +893,11 @@ msgstr ""
 "Saat ini tidak ada volume fisik kosong atau\n"
 "disk dengan ruang bebas yang cukup untuk membuatnya."
 
-#: ../blivetgui/dialogs/edit_dialog.py:596
+#: ../blivetgui/dialogs/edit_dialog.py:677
 msgid "Add?"
 msgstr "Tambah?"
 
-#: ../blivetgui/dialogs/edit_dialog.py:638
+#: ../blivetgui/dialogs/edit_dialog.py:719
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
@@ -867,12 +905,12 @@ msgstr ""
 "Tidak ada volume fisik yang bisa\n"
 "dihapus dari grup volume ini."
 
-#: ../blivetgui/dialogs/edit_dialog.py:650
+#: ../blivetgui/dialogs/edit_dialog.py:731
 msgid "Currently it is possible to remove only one parent at time."
 msgstr ""
 "Saat ini dimungkinkan untuk menghapus hanya satu induk pada suatu saat."
 
-#: ../blivetgui/dialogs/edit_dialog.py:658
+#: ../blivetgui/dialogs/edit_dialog.py:739
 msgid "Remove?"
 msgstr "Hapus?"
 
@@ -932,14 +970,14 @@ msgstr "Tidak ada tindakan yang tertunda."
 msgid "translator-credits"
 msgstr "Andika Triwidada <andika@gmail.com>, 2020"
 
-#: ../blivetgui/dialogs/size_chooser.py:212
+#: ../blivetgui/dialogs/size_chooser.py:216
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
 msgstr ""
 "Ukuran yang saat ini dipilih lebih besar dari batas maksimum untuk seleksi "
 "ini."
 
-#: ../blivetgui/dialogs/size_chooser.py:215
+#: ../blivetgui/dialogs/size_chooser.py:219
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr ""
@@ -947,23 +985,23 @@ msgstr ""
 "ini."
 
 #. fill combobox with supported sector sizes and select the default one
-#: ../blivetgui/dialogs/widgets.py:282
+#: ../blivetgui/dialogs/widgets.py:286
 msgid "Automatic"
 msgstr "Otomatis"
 
-#: ../blivetgui/dialogs/widgets.py:364
+#: ../blivetgui/dialogs/widgets.py:381
 msgid "Passphrase not specified."
 msgstr "Frasa sandi tidak ditentukan."
 
-#: ../blivetgui/dialogs/widgets.py:367
+#: ../blivetgui/dialogs/widgets.py:384
 msgid "Provided passphrases do not match."
 msgstr "Frasa sandi yang disediakan tidak cocok."
 
-#: ../blivetgui/dialogs/widgets.py:397
+#: ../blivetgui/dialogs/widgets.py:415
 msgid "Passphrases match."
 msgstr "Frasa sandi cocok."
 
-#: ../blivetgui/dialogs/widgets.py:400
+#: ../blivetgui/dialogs/widgets.py:418
 msgid "Passphrases don't match."
 msgstr "Frasa sandi tidak cocok."
 
@@ -1031,128 +1069,132 @@ msgstr "Hapus"
 msgid "Edit"
 msgstr "Sunting"
 
-#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
+#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:130
 msgid "Resize"
 msgstr "Ubah Ukuran"
 
+#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
+msgid "Rename"
+msgstr ""
+
 #. Edit format (e.g. delete existing and create a new one) on selected device.
-#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
+#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
 msgctxt "Menu|Edit"
 msgid "Format"
 msgstr "Format"
 
-#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:138
+#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:154
 msgid "Modify parents"
 msgstr "Ubah induk"
 
-#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:146
+#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:162
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
 msgstr "Atur titik kait"
 
-#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
+#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:170
 msgid "Set label"
 msgstr "Atur label"
 
-#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
+#: ../data/ui/blivet-gui.ui:90 ../data/ui/blivet-gui.ui:178
 msgid "Set partition table"
 msgstr "Mengatur tabel partisi"
 
-#: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
+#: ../data/ui/blivet-gui.ui:102 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
 msgstr "Lepas Kait"
 
-#: ../data/ui/blivet-gui.ui:102
+#: ../data/ui/blivet-gui.ui:110
 msgid "Unlock"
 msgstr "Buka kunci"
 
-#: ../data/ui/blivet-gui.ui:110
+#: ../data/ui/blivet-gui.ui:118
 msgid "Information"
 msgstr "Informasi"
 
-#: ../data/ui/blivet-gui.ui:239
+#: ../data/ui/blivet-gui.ui:255
 msgid "blivet-gui"
 msgstr "blivet-gui"
 
-#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
-#: ../data/ui/blivet-gui.ui:827 ../data/ui/blivet-gui.ui:838
-#: ../data/ui/blivet-gui.ui:849
+#: ../data/ui/blivet-gui.ui:290 ../data/ui/blivet-gui.ui:302
+#: ../data/ui/blivet-gui.ui:843 ../data/ui/blivet-gui.ui:854
+#: ../data/ui/blivet-gui.ui:865
 msgid "column"
 msgstr "kolom"
 
-#: ../data/ui/blivet-gui.ui:348
+#: ../data/ui/blivet-gui.ui:364
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
 msgstr "Tambah peranti baru"
 
-#: ../data/ui/blivet-gui.ui:364
+#: ../data/ui/blivet-gui.ui:380
 msgctxt "ActionsToolbar|Delete"
 msgid "Delete selected device"
 msgstr "Hapus perangkat yang dipilih"
 
-#: ../data/ui/blivet-gui.ui:380
+#: ../data/ui/blivet-gui.ui:396
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
 msgstr "Menyunting perangkat yang dipilih"
 
-#: ../data/ui/blivet-gui.ui:406
+#: ../data/ui/blivet-gui.ui:422
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
 msgstr "Melepas kait perangkat yang dipilih"
 
-#: ../data/ui/blivet-gui.ui:421
+#: ../data/ui/blivet-gui.ui:437
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
 msgstr "Buka kunci/buka perangkat yang dipilih"
 
-#: ../data/ui/blivet-gui.ui:436
+#: ../data/ui/blivet-gui.ui:452
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
 msgstr "Menampilkan informasi tentang perangkat yang dipilih"
 
 #. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:493
+#: ../data/ui/blivet-gui.ui:509
 msgctxt "LogicalView|Column"
 msgid "Format"
 msgstr "Format"
 
-#: ../data/ui/blivet-gui.ui:515
+#: ../data/ui/blivet-gui.ui:531
 msgid "Label"
 msgstr "Label"
 
-#: ../data/ui/blivet-gui.ui:526
+#: ../data/ui/blivet-gui.ui:542
 msgid "Mountpoint"
 msgstr "Titik kait"
 
-#: ../data/ui/blivet-gui.ui:550
+#: ../data/ui/blivet-gui.ui:566
 msgid "Logical View"
 msgstr "Tampilan Lojik"
 
-#: ../data/ui/blivet-gui.ui:573
+#: ../data/ui/blivet-gui.ui:589
 msgid "Physical View"
 msgstr "Tampilan Fisik"
 
-#: ../data/ui/blivet-gui.ui:646
+#: ../data/ui/blivet-gui.ui:662
 msgid "Reload Storage"
 msgstr "Muat Ulang Penyimpanan"
 
-#: ../data/ui/blivet-gui.ui:654
+#: ../data/ui/blivet-gui.ui:670
 msgid "Queued Actions"
 msgstr "Aksi Yang Diantrikan"
 
-#: ../data/ui/blivet-gui.ui:676
+#: ../data/ui/blivet-gui.ui:692
 msgid "About blivet-gui"
 msgstr "Tentang blivet-gui"
 
-#: ../data/ui/blivet-gui.ui:728
+#: ../data/ui/blivet-gui.ui:744
 msgid "Apply pending actions"
 msgstr "Terapkan tindakan tertunda"
 
-#: ../data/ui/blivet-gui.ui:744
+#: ../data/ui/blivet-gui.ui:760
 msgid "Clear scheduled actions"
 msgstr "Bersihkan tindakan terjadwal"
 
-#: ../data/ui/blivet-gui.ui:760
+#: ../data/ui/blivet-gui.ui:776
 msgid "Undo last action"
 msgstr "Batalkan aksi terakhir"
 
@@ -1255,7 +1297,8 @@ msgstr "Informasi:"
 msgid "Set filesystem label"
 msgstr "Atur label sistem berkas"
 
-#: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
+#: ../data/ui/label_dialog.ui:22 ../data/ui/rename_dialog.ui:22
+#: ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
 msgstr "Batal"
 
@@ -1296,6 +1339,24 @@ msgstr "Ruang yang tersedia:"
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
 msgstr "Tingkat RAID:"
+
+#: ../data/ui/rename_dialog.ui:7
+#, fuzzy
+#| msgid "Resize device"
+msgid "Rename device"
+msgstr "Ubah ukuran perangkat"
+
+#. Perform selected format change on this device.
+#: ../data/ui/rename_dialog.ui:36
+msgctxt "Dialog|Format"
+msgid "Rename"
+msgstr ""
+
+#: ../data/ui/rename_dialog.ui:68
+#, fuzzy
+#| msgid "Enter new label for this filesystem:"
+msgid "Enter new name for this device:"
+msgstr "Masukkan label baru untuk sistem berkas ini:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"

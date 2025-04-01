@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-18 10:57+0100\n"
+"POT-Creation-Date: 2025-03-23 15:05+0100\n"
 "PO-Revision-Date: 2022-12-25 09:20+0000\n"
 "Last-Translator: Gogo Gogsi <linux.hr@protonmail.com>\n"
 "Language-Team: Croatian <https://translate.fedoraproject.org/projects/blivet/"
@@ -29,45 +29,57 @@ msgstr "Neuspjela promjena veličine uređaja:"
 msgid "resize {name} {type}"
 msgstr "promijeni veličinu {name} {type}"
 
-#: ../blivetgui/blivetgui.py:327
+#: ../blivetgui/blivetgui.py:320
+#, fuzzy
+#| msgid "Failed to resize the device:"
+msgid "Failed to rename the device:"
+msgstr "Neuspjela promjena veličine uređaja:"
+
+#: ../blivetgui/blivetgui.py:332
+#, fuzzy, python-brace-format
+#| msgid "resize {name} {type}"
+msgid "rename {name} {type}"
+msgstr "promijeni veličinu {name} {type}"
+
+#: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
 msgstr "Neuspjelo formatiranje uređaja:"
 
-#: ../blivetgui/blivetgui.py:341
+#: ../blivetgui/blivetgui.py:365
 #, python-brace-format
 msgid "format {name} {type}"
 msgstr "formatiraj {name} {type}"
 
-#: ../blivetgui/blivetgui.py:354
+#: ../blivetgui/blivetgui.py:378
 msgid "Failed to edit the LVM2 Volume Group:"
 msgstr "Neuspjelo uređivanje ULU2 grupe uređaja:"
 
-#: ../blivetgui/blivetgui.py:369
+#: ../blivetgui/blivetgui.py:393
 #, python-brace-format
 msgid "edit {name} {type}"
 msgstr "uredi {name} {type}"
 
-#: ../blivetgui/blivetgui.py:398
+#: ../blivetgui/blivetgui.py:422
 msgid "Failed to change filesystem label on the device:"
 msgstr "Neuspjela promjena oznake datotečnog sustava na uređaju:"
 
-#: ../blivetgui/blivetgui.py:403
+#: ../blivetgui/blivetgui.py:427
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
 msgstr "promijeni oznaku datotečnog sustava {name} {type}"
 
-#: ../blivetgui/blivetgui.py:419
+#: ../blivetgui/blivetgui.py:443
 #, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
 "PVs."
 msgstr "{name} nije potpun. Nemoguće dodavanje LU u GU s FU koji nedostaju."
 
-#: ../blivetgui/blivetgui.py:424
+#: ../blivetgui/blivetgui.py:448
 msgid "Not enough free space for a new LVM Volume Group."
 msgstr "Nedovoljno slobodnog prostora za novu ULU grupu uređaja."
 
-#: ../blivetgui/blivetgui.py:430
+#: ../blivetgui/blivetgui.py:454
 #, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
@@ -76,65 +88,65 @@ msgstr ""
 "Disk {name} već je dostigao najveći dopušteni broj primarnih particija za "
 "{label} oznaku diska."
 
-#: ../blivetgui/blivetgui.py:440
+#: ../blivetgui/blivetgui.py:464
 msgid "Failed to add disklabel:"
 msgstr "Neuspjelo dodavanje oznake diska:"
 
-#: ../blivetgui/blivetgui.py:453
+#: ../blivetgui/blivetgui.py:477
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "stvori novu oznaku diska {name}"
 
-#: ../blivetgui/blivetgui.py:505
+#: ../blivetgui/blivetgui.py:529
 msgid "Failed to add the device:"
 msgstr "Neuspjelo dodavanje uređaja:"
 
-#: ../blivetgui/blivetgui.py:520
+#: ../blivetgui/blivetgui.py:544
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr "dodaj {size} {type} uređaj"
 
-#: ../blivetgui/blivetgui.py:564
+#: ../blivetgui/blivetgui.py:588
 msgid "Failed to delete the device:"
 msgstr "Neuspjelo brisanje uređaja:"
 
-#: ../blivetgui/blivetgui.py:579
+#: ../blivetgui/blivetgui.py:603
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr "obriši particiju {name}"
 
-#: ../blivetgui/blivetgui.py:620
+#: ../blivetgui/blivetgui.py:644
 msgid "Failed to perform the actions:"
 msgstr "Neuspjelo obavljanje radnji:"
 
-#: ../blivetgui/blivetgui.py:664
+#: ../blivetgui/blivetgui.py:688
 msgid "Confirm scheduled actions"
 msgstr "Potvrdi zakazane radnje"
 
-#: ../blivetgui/blivetgui.py:665
+#: ../blivetgui/blivetgui.py:689
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Sigurno želite obaviti zakazane radnje?"
 
-#: ../blivetgui/blivetgui.py:706
+#: ../blivetgui/blivetgui.py:730
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
 "Demontiranje '{mountpoint}' neuspjelo. Ovaj uređaj se sigurno ne koristi?"
 
-#: ../blivetgui/blivetgui.py:728
+#: ../blivetgui/blivetgui.py:752
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "Neuspjelo otključavanje. Sigurno ste upisali valjanu lozinku?"
 
-#: ../blivetgui/blivetgui.py:778 ../data/ui/blivet-gui.ui:662
+#: ../blivetgui/blivetgui.py:802 ../data/ui/blivet-gui.ui:678
 msgid "Quit"
 msgstr "Zatvori"
 
-#: ../blivetgui/blivetgui.py:781
+#: ../blivetgui/blivetgui.py:805
 msgid "blivet-gui is already running"
 msgstr "blivet grafičko sučelje je već pokrenuto"
 
-#: ../blivetgui/blivetgui.py:782
+#: ../blivetgui/blivetgui.py:806
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -142,7 +154,7 @@ msgstr ""
 "Drugi primjerak blivet grafičkog sučelja je pokrenut.\n"
 "Samo jedan primjerak blivet grafičkog sučelja može biti pokrenut istovremeno."
 
-#: ../blivetgui/blivetgui.py:784
+#: ../blivetgui/blivetgui.py:808
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -160,24 +172,24 @@ msgstr ""
 "\n"
 "naredbu za prisilno zatvaranje procesa."
 
-#: ../blivetgui/blivetgui.py:816
+#: ../blivetgui/blivetgui.py:840
 msgid "Failed to init blivet:"
 msgstr "Neuspjelo blivet pokretanje:"
 
-#: ../blivetgui/blivetgui.py:823
+#: ../blivetgui/blivetgui.py:847
 msgid "Quit blivet-gui"
 msgstr "Zatvori blivet grafičko sučelje"
 
-#: ../blivetgui/blivetgui.py:825
+#: ../blivetgui/blivetgui.py:849
 msgid "Ignore disk and continue"
 msgstr "Zanemari disk i nastavi"
 
-#: ../blivetgui/blivetgui.py:828
+#: ../blivetgui/blivetgui.py:852
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "Greška: {error}"
 
-#: ../blivetgui/blivetgui.py:829
+#: ../blivetgui/blivetgui.py:853
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -190,96 +202,96 @@ msgstr ""
 "Možete ili zatvoriti blivet grafičko sučelje odmah ili nastaviti bez "
 "mogućnosti korištenja diska."
 
-#: ../blivetgui/blivetgui.py:865
+#: ../blivetgui/blivetgui.py:889
 msgid "Confirm reload storage"
 msgstr "Potvrdi ponovno učitavanje uređaja pohrane"
 
-#: ../blivetgui/blivetgui.py:866
+#: ../blivetgui/blivetgui.py:890
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "Postoje radnje na čekanju. Sigurno želite nastaviti?"
 
-#: ../blivetgui/blivetgui.py:897
+#: ../blivetgui/blivetgui.py:921
 msgid "Are you sure you want to quit?"
 msgstr "Sigurno želite zatvoriti?"
 
-#: ../blivetgui/blivetgui.py:898
+#: ../blivetgui/blivetgui.py:922
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
 "Postoje radnje na čekanju. Sigurno želite zatvoriti blivet grafičko sučelje "
 "odmah?"
 
-#: ../blivetgui/blivet_utils.py:78
+#: ../blivetgui/blivet_utils.py:79
 msgid "free space"
 msgstr "slobodan prostor"
 
-#: ../blivetgui/blivet_utils.py:674
+#: ../blivetgui/blivet_utils.py:690
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr "Promjena veličine {type} uređaja trenutno nije podržana"
 
-#: ../blivetgui/blivet_utils.py:679
+#: ../blivetgui/blivet_utils.py:695
 msgid "Protected devices cannot be resized"
 msgstr "Zaštićenim uređajima se ne može promijeniti veličina"
 
-#: ../blivetgui/blivet_utils.py:684
+#: ../blivetgui/blivet_utils.py:700
 msgid "Immutable formats cannot be resized"
 msgstr "Nepromjenjivi formati se ne mogu promijeniti"
 
-#: ../blivetgui/blivet_utils.py:689
+#: ../blivetgui/blivet_utils.py:705
 msgid "Devices with children cannot be resized"
 msgstr "Sadržani uređajima se ne može promijeniti veličina"
 
-#: ../blivetgui/blivet_utils.py:700
+#: ../blivetgui/blivet_utils.py:716
 msgid "Unformatted devices are not resizable"
 msgstr "Neformatiranim uređajima se ne može promijeniti veličina"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
-#: ../blivetgui/blivet_utils.py:707
+#: ../blivetgui/blivet_utils.py:723
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr "Promjena veličine {type} formata trenutno nije podržana"
 
-#: ../blivetgui/blivet_utils.py:712
+#: ../blivetgui/blivet_utils.py:728
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr "Alati za promjenu veličine {type} formata nisu dostupni."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
-#: ../blivetgui/blivet_utils.py:719
+#: ../blivetgui/blivet_utils.py:735
 msgid "Formats scheduled to be created cannot be resized"
 msgstr "Formatima zakazanima za stvaranje se ne može promijeniti veličina"
 
-#: ../blivetgui/blivet_utils.py:724
+#: ../blivetgui/blivet_utils.py:740
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
 "Format {type} ne podržava nadopunu svoje informacije ograničenja veličine"
 
-#: ../blivetgui/blivet_utils.py:731
+#: ../blivetgui/blivet_utils.py:747
 msgid "Mounted devices cannot be resized"
 msgstr "Montiranim uređajima se ne može promijeniti veličina"
 
-#: ../blivetgui/blivet_utils.py:736
+#: ../blivetgui/blivet_utils.py:752
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "Logičkim uređajima sa snimkama se ne može promijeniti veličina."
 
-#: ../blivetgui/blivet_utils.py:741
+#: ../blivetgui/blivet_utils.py:757
 msgid "Resizing of LUKS2 devices is currently not supported."
 msgstr "Promjena veličine LUKS2 uređaja trenutno nije podržana."
 
-#: ../blivetgui/blivet_utils.py:753
+#: ../blivetgui/blivet_utils.py:769
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr "Neuspjela nadopuna informacija veličine datotečnog sustava: {error}"
 
-#: ../blivetgui/blivet_utils.py:772
+#: ../blivetgui/blivet_utils.py:788
 msgid "Device is not resizable."
 msgstr "Uređaju se ne može promijeniti veličina."
 
-#: ../blivetgui/blivet_utils.py:774
+#: ../blivetgui/blivet_utils.py:790
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
 "Formatu se ne može promijeniti veličina nakon nadopune informacija "
@@ -304,7 +316,7 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:119
-#: ../blivetgui/list_actions.py:141 ../data/ui/blivet-gui.ui:617
+#: ../blivetgui/list_actions.py:141 ../data/ui/blivet-gui.ui:633
 msgid "No pending actions"
 msgstr "Nema radnji na čekanju"
 
@@ -340,10 +352,18 @@ msgstr "MDArray"
 msgid "Btrfs Volumes"
 msgstr "Btrfs uređaji"
 
-#: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:388
+#: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:389
 #: ../blivetgui/dialogs/device_info_dialog.py:87
 msgid "Btrfs Volume"
 msgstr "Btrfs uređaj"
+
+#: ../blivetgui/list_devices.py:120
+msgid "Stratis Pools"
+msgstr ""
+
+#: ../blivetgui/list_devices.py:123 ../blivetgui/dialogs/add_dialog.py:392
+msgid "Stratis Pool"
+msgstr ""
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -407,171 +427,178 @@ msgid "Failed to connect to blivet-gui-daemon"
 msgstr ""
 "Neuspjelo povezivanje s pozadinskim programom blivet korisničkog sučelja"
 
-#: ../blivetgui/dialogs/add_dialog.py:67
+#: ../blivetgui/dialogs/add_dialog.py:68
 msgid "Show advanced options"
 msgstr "Prikaži napredne mogućnosti"
 
-#: ../blivetgui/dialogs/add_dialog.py:85
+#: ../blivetgui/dialogs/add_dialog.py:86
 msgid "PE Size:"
 msgstr "PE veličina:"
 
-#: ../blivetgui/dialogs/add_dialog.py:109
+#: ../blivetgui/dialogs/add_dialog.py:110
 msgid "Partition type:"
 msgstr "Vrsta particije:"
 
-#: ../blivetgui/dialogs/add_dialog.py:118
+#: ../blivetgui/dialogs/add_dialog.py:119
 msgid "Logical"
 msgstr "Logička"
 
-#: ../blivetgui/dialogs/add_dialog.py:120
-#: ../blivetgui/dialogs/add_dialog.py:122
-#: ../blivetgui/dialogs/add_dialog.py:124
+#: ../blivetgui/dialogs/add_dialog.py:121
+#: ../blivetgui/dialogs/add_dialog.py:123
+#: ../blivetgui/dialogs/add_dialog.py:125
 msgid "Primary"
 msgstr "Primarna"
 
-#: ../blivetgui/dialogs/add_dialog.py:122
+#: ../blivetgui/dialogs/add_dialog.py:123
 msgid "Extended"
 msgstr "Proširena"
 
-#: ../blivetgui/dialogs/add_dialog.py:149
+#: ../blivetgui/dialogs/add_dialog.py:150
 msgid "Chunk Size:"
 msgstr "Veličina bloka:"
 
-#: ../blivetgui/dialogs/add_dialog.py:212
+#: ../blivetgui/dialogs/add_dialog.py:213
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
 msgstr "'{0}' nije valjana veličina bloka."
 
-#: ../blivetgui/dialogs/add_dialog.py:217
+#: ../blivetgui/dialogs/add_dialog.py:218
 msgid "Chunk size must be multiple of 4 KiB."
 msgstr "Veličina bloka mora biti višekratnik 4 KiB."
 
-#: ../blivetgui/dialogs/add_dialog.py:273
+#: ../blivetgui/dialogs/add_dialog.py:274
 msgid "Create new device"
 msgstr "Stvori novi uređaj"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
-#: ../blivetgui/dialogs/add_dialog.py:382
-#: ../blivetgui/dialogs/add_dialog.py:747
+#: ../blivetgui/dialogs/add_dialog.py:383
+#: ../blivetgui/dialogs/add_dialog.py:767
 #: ../blivetgui/dialogs/device_info_dialog.py:80
 msgid "Partition"
 msgstr "Particija"
 
-#: ../blivetgui/dialogs/add_dialog.py:385
-#: ../blivetgui/dialogs/add_dialog.py:398
+#: ../blivetgui/dialogs/add_dialog.py:386
+#: ../blivetgui/dialogs/add_dialog.py:402
 #: ../blivetgui/dialogs/device_info_dialog.py:81
 msgid "LVM2 Volume Group"
 msgstr "ULU2 grupa uređaja"
 
 #. number of free disk regions
-#: ../blivetgui/dialogs/add_dialog.py:391
+#: ../blivetgui/dialogs/add_dialog.py:395
 msgid "Software RAID"
 msgstr "Softverski RAID"
 
-#: ../blivetgui/dialogs/add_dialog.py:394
+#: ../blivetgui/dialogs/add_dialog.py:398
 #: ../blivetgui/dialogs/device_info_dialog.py:82
 msgid "LVM2 Logical Volume"
 msgstr "ULU2 Logički uređaj"
 
-#: ../blivetgui/dialogs/add_dialog.py:394
+#: ../blivetgui/dialogs/add_dialog.py:398
 #: ../blivetgui/dialogs/device_info_dialog.py:84
 #, fuzzy
 msgid "LVM2 ThinPool"
 msgstr "LVM2 ThinPool"
 
-#: ../blivetgui/dialogs/add_dialog.py:401
+#: ../blivetgui/dialogs/add_dialog.py:405
 msgid "LVM2 Snaphost"
 msgstr "Snimka"
 
-#: ../blivetgui/dialogs/add_dialog.py:404
+#: ../blivetgui/dialogs/add_dialog.py:408
 #, fuzzy
 msgid "LVM2 Thin Snaphost"
 msgstr "LVM2 Thin Snaphost"
 
-#: ../blivetgui/dialogs/add_dialog.py:407
+#: ../blivetgui/dialogs/add_dialog.py:411
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 #, fuzzy
 msgid "LVM2 Thin Logical Volume"
 msgstr "LVM2 Thin logički uređaj"
 
-#: ../blivetgui/dialogs/add_dialog.py:410
+#: ../blivetgui/dialogs/add_dialog.py:414
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "Btrfs Subvolume"
 msgstr "Btrfs poduređaj"
 
-#: ../blivetgui/dialogs/add_dialog.py:416
+#: ../blivetgui/dialogs/add_dialog.py:417
+#, fuzzy
+#| msgid "Filesystem:"
+msgid "Stratis Filesystem"
+msgstr "Datotečni sustav:"
+
+#: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
 msgstr "Vrsta uređaja:"
 
-#: ../blivetgui/dialogs/add_dialog.py:451
-#: ../blivetgui/dialogs/edit_dialog.py:548
-#: ../blivetgui/dialogs/edit_dialog.py:597
-#: ../blivetgui/dialogs/edit_dialog.py:659 ../data/ui/blivet-gui.ui:469
+#: ../blivetgui/dialogs/add_dialog.py:458
+#: ../blivetgui/dialogs/edit_dialog.py:629
+#: ../blivetgui/dialogs/edit_dialog.py:678
+#: ../blivetgui/dialogs/edit_dialog.py:740 ../data/ui/blivet-gui.ui:485
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
 msgstr "Uređaj"
 
-#: ../blivetgui/dialogs/add_dialog.py:452
-#: ../blivetgui/dialogs/edit_dialog.py:549
-#: ../blivetgui/dialogs/edit_dialog.py:598
-#: ../blivetgui/dialogs/edit_dialog.py:660 ../data/ui/blivet-gui.ui:482
+#: ../blivetgui/dialogs/add_dialog.py:459
+#: ../blivetgui/dialogs/edit_dialog.py:630
+#: ../blivetgui/dialogs/edit_dialog.py:679
+#: ../blivetgui/dialogs/edit_dialog.py:741 ../data/ui/blivet-gui.ui:498
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
 msgstr "Vrsta"
 
-#: ../blivetgui/dialogs/add_dialog.py:453
-#: ../blivetgui/dialogs/edit_dialog.py:550
-#: ../blivetgui/dialogs/edit_dialog.py:599
-#: ../blivetgui/dialogs/edit_dialog.py:661 ../data/ui/blivet-gui.ui:504
+#: ../blivetgui/dialogs/add_dialog.py:460
+#: ../blivetgui/dialogs/edit_dialog.py:631
+#: ../blivetgui/dialogs/edit_dialog.py:680
+#: ../blivetgui/dialogs/edit_dialog.py:742 ../data/ui/blivet-gui.ui:520
 msgid "Size"
 msgstr "Veličina"
 
-#: ../blivetgui/dialogs/add_dialog.py:462
-#: ../blivetgui/dialogs/edit_dialog.py:608
-#: ../blivetgui/dialogs/edit_dialog.py:670 ../data/ui/cache_area.ui:130
+#: ../blivetgui/dialogs/add_dialog.py:469
+#: ../blivetgui/dialogs/edit_dialog.py:689
+#: ../blivetgui/dialogs/edit_dialog.py:751 ../data/ui/cache_area.ui:130
 msgid "Available devices:"
 msgstr "Dostupni uređaji:"
 
-#: ../blivetgui/dialogs/add_dialog.py:742
+#: ../blivetgui/dialogs/add_dialog.py:762
 msgid "MDArray type:"
 msgstr "MDArray vrsta:"
 
-#: ../blivetgui/dialogs/add_dialog.py:774
+#: ../blivetgui/dialogs/add_dialog.py:794
 msgid "Filesystem:"
 msgstr "Datotečni sustav:"
 
-#: ../blivetgui/dialogs/add_dialog.py:807
+#: ../blivetgui/dialogs/add_dialog.py:827
 #: ../blivetgui/dialogs/edit_dialog.py:165
 msgid "unformatted"
 msgstr "neformatirano"
 
-#: ../blivetgui/dialogs/add_dialog.py:837 ../data/ui/format_dialog.ui:148
+#: ../blivetgui/dialogs/add_dialog.py:857 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr "Oznaka:"
 
-#: ../blivetgui/dialogs/add_dialog.py:845
+#: ../blivetgui/dialogs/add_dialog.py:865
 msgid "Name:"
 msgstr "Naziv:"
 
-#: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:189
+#: ../blivetgui/dialogs/add_dialog.py:876 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr "Točka montiranja:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1023 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1059 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" nije valjana točka montiranja."
 
-#: ../blivetgui/dialogs/add_dialog.py:1030
+#: ../blivetgui/dialogs/add_dialog.py:1066
 msgid "Please select at least two parent devices."
 msgstr "Odaberite najmanje dva nadređena uređaja."
 
-#: ../blivetgui/dialogs/add_dialog.py:1044
+#: ../blivetgui/dialogs/add_dialog.py:1080
+#: ../blivetgui/dialogs/edit_dialog.py:469
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" nije valjani naziv."
 
-#: ../blivetgui/dialogs/add_dialog.py:1050
+#: ../blivetgui/dialogs/add_dialog.py:1086
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -835,24 +862,35 @@ msgstr "Ovom uređaju se ne može promijeniti veličina."
 msgid "'{label}' is not a valid label for this filesystem"
 msgstr "'{label}' nije valjana oznaka ovog datotečnog sustava"
 
+#: ../blivetgui/dialogs/edit_dialog.py:482
+#, python-brace-format
+msgid "Selected device is already named \"{0}\"."
+msgstr ""
+
+#: ../blivetgui/dialogs/edit_dialog.py:488
+#, fuzzy, python-brace-format
+#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+msgid "Selected name \"{0}\" is already in use."
+msgstr "Odabrana točka montiranja \"{0}\" je već postavljena za drugi uređaj."
+
 #. auto shrink after removing/hiding widgets
-#: ../blivetgui/dialogs/edit_dialog.py:518
+#: ../blivetgui/dialogs/edit_dialog.py:599
 msgid "Edit device"
 msgstr "Uredi uređaj"
 
-#: ../blivetgui/dialogs/edit_dialog.py:558
+#: ../blivetgui/dialogs/edit_dialog.py:639
 msgid "Parent devices:"
 msgstr "Nadređeni uređaji:"
 
-#: ../blivetgui/dialogs/edit_dialog.py:565
+#: ../blivetgui/dialogs/edit_dialog.py:646
 msgid "Add a parent"
 msgstr "Dodaj nadređeni"
 
-#: ../blivetgui/dialogs/edit_dialog.py:568
+#: ../blivetgui/dialogs/edit_dialog.py:649
 msgid "Remove a parent"
 msgstr "Ukloni nadređeni"
 
-#: ../blivetgui/dialogs/edit_dialog.py:579
+#: ../blivetgui/dialogs/edit_dialog.py:660
 msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
@@ -860,11 +898,11 @@ msgstr ""
 "Trenutno nema praznih fizičkih uređaja ili diskova\n"
 "s dovoljno slobodno prostora za stvaranje jednoga."
 
-#: ../blivetgui/dialogs/edit_dialog.py:596
+#: ../blivetgui/dialogs/edit_dialog.py:677
 msgid "Add?"
 msgstr "Dodaj?"
 
-#: ../blivetgui/dialogs/edit_dialog.py:638
+#: ../blivetgui/dialogs/edit_dialog.py:719
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
@@ -872,11 +910,11 @@ msgstr ""
 "Trenutno nema fizičkih uređaja koji se\n"
 "mogu ukloniti iz ove grupe uređaja."
 
-#: ../blivetgui/dialogs/edit_dialog.py:650
+#: ../blivetgui/dialogs/edit_dialog.py:731
 msgid "Currently it is possible to remove only one parent at time."
 msgstr "Trenutno je moguće ukloniti samo jedan nadređeni uređaj odjednom."
 
-#: ../blivetgui/dialogs/edit_dialog.py:658
+#: ../blivetgui/dialogs/edit_dialog.py:739
 msgid "Remove?"
 msgstr "Ukloni?"
 
@@ -931,36 +969,36 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  gogo https://launchpad.net/~trebelnik-stefina"
 
-#: ../blivetgui/dialogs/size_chooser.py:212
+#: ../blivetgui/dialogs/size_chooser.py:216
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
 msgstr ""
 "Trenutno odabrana veličina je veća od najvećeg ograničenja za ovaj odabir."
 
-#: ../blivetgui/dialogs/size_chooser.py:215
+#: ../blivetgui/dialogs/size_chooser.py:219
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr ""
 "Trenutno odabrana veličina je manja od najmanjeg ograničenja za ovaj odabir."
 
 #. fill combobox with supported sector sizes and select the default one
-#: ../blivetgui/dialogs/widgets.py:282
+#: ../blivetgui/dialogs/widgets.py:286
 msgid "Automatic"
 msgstr "Automatski"
 
-#: ../blivetgui/dialogs/widgets.py:364
+#: ../blivetgui/dialogs/widgets.py:381
 msgid "Passphrase not specified."
 msgstr "Lozinka nije navedena."
 
-#: ../blivetgui/dialogs/widgets.py:367
+#: ../blivetgui/dialogs/widgets.py:384
 msgid "Provided passphrases do not match."
 msgstr "Navedene lozinke se ne podudaraju."
 
-#: ../blivetgui/dialogs/widgets.py:397
+#: ../blivetgui/dialogs/widgets.py:415
 msgid "Passphrases match."
 msgstr "Lozinke se podudaraju."
 
-#: ../blivetgui/dialogs/widgets.py:400
+#: ../blivetgui/dialogs/widgets.py:418
 msgid "Passphrases don't match."
 msgstr "Lozinke se ne podudaraju."
 
@@ -1028,128 +1066,132 @@ msgstr "Obriši"
 msgid "Edit"
 msgstr "Uredi"
 
-#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:122
+#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:130
 msgid "Resize"
 msgstr "Promijeni veličinu"
 
+#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
+msgid "Rename"
+msgstr ""
+
 #. Edit format (e.g. delete existing and create a new one) on selected device.
-#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:130
+#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
 msgctxt "Menu|Edit"
 msgid "Format"
 msgstr "Formatiraj"
 
-#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:138
+#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:154
 msgid "Modify parents"
 msgstr "Promijeni nadređene uređaje"
 
-#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:146
+#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:162
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
 msgstr "Postavi točku montiranja"
 
-#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:154
+#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:170
 msgid "Set label"
 msgstr "Postavi lozinku"
 
-#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:162
+#: ../data/ui/blivet-gui.ui:90 ../data/ui/blivet-gui.ui:178
 msgid "Set partition table"
 msgstr "Postavi particijsku tablicu"
 
-#: ../data/ui/blivet-gui.ui:94 ../data/ui/unmount_dialog.ui:15
+#: ../data/ui/blivet-gui.ui:102 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
 msgstr "Demontiraj"
 
-#: ../data/ui/blivet-gui.ui:102
+#: ../data/ui/blivet-gui.ui:110
 msgid "Unlock"
 msgstr "Otključaj"
 
-#: ../data/ui/blivet-gui.ui:110
+#: ../data/ui/blivet-gui.ui:118
 msgid "Information"
 msgstr "Informacije"
 
-#: ../data/ui/blivet-gui.ui:239
+#: ../data/ui/blivet-gui.ui:255
 msgid "blivet-gui"
 msgstr "blivet grafičko sučelje"
 
-#: ../data/ui/blivet-gui.ui:274 ../data/ui/blivet-gui.ui:286
-#: ../data/ui/blivet-gui.ui:827 ../data/ui/blivet-gui.ui:838
-#: ../data/ui/blivet-gui.ui:849
+#: ../data/ui/blivet-gui.ui:290 ../data/ui/blivet-gui.ui:302
+#: ../data/ui/blivet-gui.ui:843 ../data/ui/blivet-gui.ui:854
+#: ../data/ui/blivet-gui.ui:865
 msgid "column"
 msgstr "stupac"
 
-#: ../data/ui/blivet-gui.ui:348
+#: ../data/ui/blivet-gui.ui:364
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
 msgstr "Dodaj novi uređaj"
 
-#: ../data/ui/blivet-gui.ui:364
+#: ../data/ui/blivet-gui.ui:380
 msgctxt "ActionsToolbar|Delete"
 msgid "Delete selected device"
 msgstr "Obriši odabrani uređaj"
 
-#: ../data/ui/blivet-gui.ui:380
+#: ../data/ui/blivet-gui.ui:396
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
 msgstr "Uredi odabrani uređaj"
 
-#: ../data/ui/blivet-gui.ui:406
+#: ../data/ui/blivet-gui.ui:422
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
 msgstr "Demontiraj odabrani uređaj"
 
-#: ../data/ui/blivet-gui.ui:421
+#: ../data/ui/blivet-gui.ui:437
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
 msgstr "Otključaj/Otvori odabrani uređaj"
 
-#: ../data/ui/blivet-gui.ui:436
+#: ../data/ui/blivet-gui.ui:452
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
 msgstr "Prikaži informacije odabranog uređaja"
 
 #. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:493
+#: ../data/ui/blivet-gui.ui:509
 msgctxt "LogicalView|Column"
 msgid "Format"
 msgstr "Formatiraj"
 
-#: ../data/ui/blivet-gui.ui:515
+#: ../data/ui/blivet-gui.ui:531
 msgid "Label"
 msgstr "Oznaka"
 
-#: ../data/ui/blivet-gui.ui:526
+#: ../data/ui/blivet-gui.ui:542
 msgid "Mountpoint"
 msgstr "Točka montiranja"
 
-#: ../data/ui/blivet-gui.ui:550
+#: ../data/ui/blivet-gui.ui:566
 msgid "Logical View"
 msgstr "Logički prikaz"
 
-#: ../data/ui/blivet-gui.ui:573
+#: ../data/ui/blivet-gui.ui:589
 msgid "Physical View"
 msgstr "Fizički prikaz"
 
-#: ../data/ui/blivet-gui.ui:646
+#: ../data/ui/blivet-gui.ui:662
 msgid "Reload Storage"
 msgstr "Ponovno učitaj uređaje pohrane"
 
-#: ../data/ui/blivet-gui.ui:654
+#: ../data/ui/blivet-gui.ui:670
 msgid "Queued Actions"
 msgstr "Radnje na čekanju"
 
-#: ../data/ui/blivet-gui.ui:676
+#: ../data/ui/blivet-gui.ui:692
 msgid "About blivet-gui"
 msgstr "O blivet grafičkom sučelju"
 
-#: ../data/ui/blivet-gui.ui:728
+#: ../data/ui/blivet-gui.ui:744
 msgid "Apply pending actions"
 msgstr "Primijeni radnje na čekanju"
 
-#: ../data/ui/blivet-gui.ui:744
+#: ../data/ui/blivet-gui.ui:760
 msgid "Clear scheduled actions"
 msgstr "Ukloni zakazane radnje"
 
-#: ../data/ui/blivet-gui.ui:760
+#: ../data/ui/blivet-gui.ui:776
 msgid "Undo last action"
 msgstr "Poništi posljednju radnju"
 
@@ -1252,7 +1294,8 @@ msgstr "Informacije:"
 msgid "Set filesystem label"
 msgstr "Postavi oznaku datotečnog sustava"
 
-#: ../data/ui/label_dialog.ui:22 ../data/ui/unmount_dialog.ui:36
+#: ../data/ui/label_dialog.ui:22 ../data/ui/rename_dialog.ui:22
+#: ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
 msgstr "Odustani"
 
@@ -1293,6 +1336,24 @@ msgstr "Dostupan prostor:"
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
 msgstr "RAID razina:"
+
+#: ../data/ui/rename_dialog.ui:7
+#, fuzzy
+#| msgid "Resize device"
+msgid "Rename device"
+msgstr "Promijeni veličinu uređaja"
+
+#. Perform selected format change on this device.
+#: ../data/ui/rename_dialog.ui:36
+msgctxt "Dialog|Format"
+msgid "Rename"
+msgstr ""
+
+#: ../data/ui/rename_dialog.ui:68
+#, fuzzy
+#| msgid "Enter new label for this filesystem:"
+msgid "Enter new name for this device:"
+msgstr "Upišite novu oznaku za ovaj datotečni sustav:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
