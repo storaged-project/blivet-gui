@@ -8,13 +8,14 @@
 # Tian Shixiong <tiansworld@gmail.com>, 2020.
 # Charles Lee <lchopn@gmail.com>, 2020, 2021.
 # yangyangdaji <1504305527@qq.com>, 2022, 2023.
+# z z <3397542367@qq.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2023-06-30 23:20+0000\n"
-"Last-Translator: yangyangdaji <1504305527@qq.com>\n"
+"PO-Revision-Date: 2025-04-02 16:40+0000\n"
+"Last-Translator: z z <3397542367@qq.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/zh_CN/>\n"
 "Language: zh_CN\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18.1\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -853,7 +854,7 @@ msgstr "'{label}' 对此文件系统来说不是有效的标签"
 #: ../blivetgui/dialogs/edit_dialog.py:482
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "选定的设备已命名为“{0}”。"
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
 #, fuzzy, python-brace-format
@@ -924,6 +925,9 @@ msgid ""
 "If you believe this is a bug, please open an issue on our <a href=\"https://"
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
+"如果您认为这是一个错误，请在我们的 <a href="
+"\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a> "
+"上打开一个问题。"
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"
@@ -1055,7 +1059,7 @@ msgstr "调整大小"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
 msgid "Rename"
-msgstr ""
+msgstr "重命名"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
@@ -1330,13 +1334,11 @@ msgstr "调整设备大小"
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "重命名"
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "为此文件系统输入新标签："
+msgstr "输入此设备的新名称："
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
