@@ -8,13 +8,15 @@
 # Corentin Maret <cmaret@noadcoco.fr>, 2024.
 # Damien Pou <dampato+linux@ik.me>, 2024.
 # Léane GRASSER <leane.grasser@proton.me>, 2024, 2025.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
 "PO-Revision-Date: 2025-04-02 16:40+0000\n"
-"Last-Translator: Léane GRASSER <leane.grasser@proton.me>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fr/>\n"
 "Language: fr\n"
@@ -381,7 +383,7 @@ msgstr "Pools Stratis"
 
 #: ../blivetgui/list_devices.py:123 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Pool Stratis"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -535,10 +537,8 @@ msgid "Btrfs Subvolume"
 msgstr "Sous-volume Btrfs"
 
 #: ../blivetgui/dialogs/add_dialog.py:417
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "Système de fichiers :"
+msgstr "Système de fichiers Stratis"
 
 #: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
@@ -1100,7 +1100,7 @@ msgstr "Redimensionner"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
 msgid "Rename"
-msgstr ""
+msgstr "Renommer"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
@@ -1375,7 +1375,7 @@ msgstr "Renommer le périphérique"
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "Renommer"
 
 #: ../data/ui/rename_dialog.ui:68
 msgid "Enter new name for this device:"
