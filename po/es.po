@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2025-04-01 17:55+0000\n"
+"PO-Revision-Date: 2025-04-01 21:47+0000\n"
 "Last-Translator: Javier Francisco <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/es/>\n"
@@ -37,16 +37,13 @@ msgid "resize {name} {type}"
 msgstr "redimensionar {name} {type}"
 
 #: ../blivetgui/blivetgui.py:320
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "No se pudo redimensionar el dispositivo:"
+msgstr "No se pudo renombrar el dispositivo:"
 
 #: ../blivetgui/blivetgui.py:332
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "redimensionar {name} {type}"
+msgstr "renombrar {name} {type}"
 
 #: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
@@ -531,10 +528,8 @@ msgid "Btrfs Subvolume"
 msgstr "Subvolumen btrfs"
 
 #: ../blivetgui/dialogs/add_dialog.py:417
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "Sistema de archivos:"
+msgstr "Sistema de archivos Stratis"
 
 #: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
@@ -877,13 +872,12 @@ msgstr "«{label}» no es una etiqueta válida para este sistema de archivos"
 #: ../blivetgui/dialogs/edit_dialog.py:482
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "Dispositivo seleccionado siempre es nombrado «{0}»."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr "El punto de montaje \"{0}\" ya se está usando para otro dispositivo."
+msgstr "Nombre «{0}» seleccionado ya está en uso."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -1091,7 +1085,7 @@ msgstr "Redimensionar"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
 msgid "Rename"
-msgstr ""
+msgstr "Renombrar"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
@@ -1358,22 +1352,18 @@ msgid "RAID level:"
 msgstr "Nivel de RAID:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "Cambiar el tamaño del dispositivo"
+msgstr "Renombrar dispositivo"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "Renombrar"
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "Proporcione la etiqueta nueva de este sistema de archivos:"
+msgstr "Introduzca el nombre nuevo para este dispositivo:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
