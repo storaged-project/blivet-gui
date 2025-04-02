@@ -8,9 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2025-04-02 03:36+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2025-04-02 16:40+0000\n"
+"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ka/>\n"
 "Language: ka\n"
@@ -863,14 +862,12 @@ msgstr "'{label}' ამ ფაილური სისტემისთვი
 #: ../blivetgui/dialogs/edit_dialog.py:482
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "არჩეულ მოწყობილობიას უკვე ჰქვია \"{0}\"."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr ""
-"არჩეული მიმაგრების წერტილი \"{0}\" უკვე დაყენებულია სხვა მოწყობილობისთვის."
+msgstr "არჩეული სახელი \"{0}\" უკვე გამოიყენება."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -1074,7 +1071,7 @@ msgstr "ზომის შეცვლა"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
 msgid "Rename"
-msgstr ""
+msgstr "სახელის გადარქმევა"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
@@ -1340,22 +1337,18 @@ msgid "RAID level:"
 msgstr "RAID-ის დონე:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "მოწყობილობის ზომის შეცვლა"
+msgstr "მოწყობილობის სახელის გადარქმევა"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "სახელის გადარქმევა"
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "ფაილური სისტემის ახალი ჭდე:"
+msgstr "შეიყვანეთ ახალი სახელი ამ მოწყობილობისთვის:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
