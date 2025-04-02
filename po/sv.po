@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Göran Uddeborg <goeran@uddeborg.se>, 2021, 2022.
-# Luna Jernberg <bittin@reimu.nl>, 2022, 2023, 2024.
+# Luna Jernberg <bittin@reimu.nl>, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2024-08-15 14:39+0000\n"
+"PO-Revision-Date: 2025-04-02 16:40+0000\n"
 "Last-Translator: Luna Jernberg <bittin@reimu.nl>\n"
 "Language-Team: Swedish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/sv/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -29,16 +29,13 @@ msgid "resize {name} {type}"
 msgstr "ändra storlek på {name} {type}"
 
 #: ../blivetgui/blivetgui.py:320
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "Misslyckades med att ändra storlek på enheten:"
+msgstr "Misslyckades med att byta namn på enheten:"
 
 #: ../blivetgui/blivetgui.py:332
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "ändra storlek på {name} {type}"
+msgstr "byt namn på {name} {type}"
 
 #: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
@@ -360,7 +357,7 @@ msgstr "Btrfs Volym"
 
 #: ../blivetgui/list_devices.py:120
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Stratis pooler"
 
 #: ../blivetgui/list_devices.py:123 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
@@ -863,14 +860,12 @@ msgstr "'{label}' är inte en giltig etikett för detta filsystem"
 #: ../blivetgui/dialogs/edit_dialog.py:482
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "Den valda enheten heter redan \"{0}\"."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr ""
-"Den valda monteringspunkten \"{0}\" är redan inställd för en annan enhet."
+msgstr "Det valda namnet \"{0}\" används redan."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -1346,10 +1341,8 @@ msgid "RAID level:"
 msgstr "RAID-nivå:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "byt storlek på enhet"
+msgstr "Byt namn på enhet"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
@@ -1358,10 +1351,8 @@ msgid "Rename"
 msgstr ""
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "Ange ny etikett för detta filsystem:"
+msgstr "Ange ett nytt namn för den här enheten:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
