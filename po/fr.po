@@ -7,14 +7,16 @@
 # grimst <grimaitres@gmail.com>, 2023.
 # Corentin Maret <cmaret@noadcoco.fr>, 2024.
 # Damien Pou <dampato+linux@ik.me>, 2024.
-# Léane GRASSER <leane.grasser@proton.me>, 2024.
+# Léane GRASSER <leane.grasser@proton.me>, 2024, 2025.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2024-09-05 09:38+0000\n"
-"Last-Translator: Léane GRASSER <leane.grasser@proton.me>\n"
+"PO-Revision-Date: 2025-04-02 16:40+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fr/>\n"
 "Language: fr\n"
@@ -22,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.7.1\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -34,16 +36,13 @@ msgid "resize {name} {type}"
 msgstr "redimensionnement {name} {type}"
 
 #: ../blivetgui/blivetgui.py:320
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "Échec du redimensionnement du périphérique :"
+msgstr "Échec du renommage du périphérique :"
 
 #: ../blivetgui/blivetgui.py:332
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "redimensionnement {name} {type}"
+msgstr "renommer {name} {type}"
 
 #: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
@@ -380,11 +379,11 @@ msgstr "Volume Btrfs"
 
 #: ../blivetgui/list_devices.py:120
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Pools Stratis"
 
 #: ../blivetgui/list_devices.py:123 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Pool Stratis"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -538,10 +537,8 @@ msgid "Btrfs Subvolume"
 msgstr "Sous-volume Btrfs"
 
 #: ../blivetgui/dialogs/add_dialog.py:417
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "Système de fichiers :"
+msgstr "Système de fichiers Stratis"
 
 #: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
@@ -884,14 +881,12 @@ msgstr "'{label}' n’est pas un nom valide pour ce système de fichiers"
 #: ../blivetgui/dialogs/edit_dialog.py:482
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "Le périphérique sélectionné s'appelle déjà \"{0}\"."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr ""
-"Le point de montage « {0} » est déjà utilisé pour un autre périphérique."
+msgstr "Le nom sélectionné \"{0}\" est déjà utilisé."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -1105,7 +1100,7 @@ msgstr "Redimensionner"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
 msgid "Rename"
-msgstr ""
+msgstr "Renommer"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
@@ -1373,22 +1368,18 @@ msgid "RAID level:"
 msgstr "Niveau de RAID :"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "Redimensionner le périphérique"
+msgstr "Renommer le périphérique"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "Renommer"
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "Saisissez le nouveau nom du système de fichiers :"
+msgstr "Saisissez un nouveau nom pour ce périphérique :"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
