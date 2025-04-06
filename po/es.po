@@ -11,12 +11,13 @@
 # Pedro Luis Valades Viera <perikiyoxd@gmail.com>, 2021.
 # Alejandro Alcaide <alex@blueselene.com>, 2022.
 # Javier Francisco <fserrador@gmail.com>, 2025.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2025-04-01 21:47+0000\n"
+"PO-Revision-Date: 2025-04-06 04:44+0000\n"
 "Last-Translator: Javier Francisco <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/es/>\n"
@@ -350,7 +351,7 @@ msgstr "LVM"
 
 #: ../blivetgui/list_devices.py:105
 msgid "LVM2 VG"
-msgstr "Grupo de volúmenes LVM2"
+msgstr "GV LVM2"
 
 #: ../blivetgui/list_devices.py:108
 msgid "RAID"
@@ -371,11 +372,11 @@ msgstr "Volumen Btrfs"
 
 #: ../blivetgui/list_devices.py:120
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Consorcios Stratis"
 
 #: ../blivetgui/list_devices.py:123 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Consorcio Stratis"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -444,7 +445,7 @@ msgstr "Mostrar las opciones avanzadas"
 
 #: ../blivetgui/dialogs/add_dialog.py:86
 msgid "PE Size:"
-msgstr "Tamaño de la extensión física:"
+msgstr "Tam. ExtFis:"
 
 #: ../blivetgui/dialogs/add_dialog.py:110
 msgid "Partition type:"
@@ -844,7 +845,7 @@ msgstr " • <i>Tipo:</i> Ninguno"
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:258
 msgid "Parents"
-msgstr "Padres"
+msgstr "Antecesores"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:271
 #, python-brace-format
@@ -922,7 +923,7 @@ msgstr "Por ahora solo se puede eliminar un primario cada vez."
 
 #: ../blivetgui/dialogs/edit_dialog.py:739
 msgid "Remove?"
-msgstr "¿Borrar?"
+msgstr "¿Retirar?"
 
 #: ../blivetgui/dialogs/helpers.py:144
 #, python-brace-format
@@ -1405,7 +1406,7 @@ msgstr ""
 "<b>El dispositivo seleccionado actualmente\n"
 "está montado en varios puntos.</b>\n"
 "\n"
-"Seleccione el o los puntos que desmontar:"
+"Seleccione el o los punto(s) que desmontar:"
 
 #~ msgid "Decrypt"
 #~ msgstr "Descifrar"

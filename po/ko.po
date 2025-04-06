@@ -2,14 +2,16 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # simmon <simmon@nplob.com>, 2021, 2022.
-# 김인수 <simmon@nplob.com>, 2022, 2023, 2024.
+# 김인수 <simmon@nplob.com>, 2022, 2023, 2024, 2025.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2024-08-17 02:38+0000\n"
-"Last-Translator: 김인수 <simmon@nplob.com>\n"
+"PO-Revision-Date: 2025-04-06 13:12+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
 "Language: ko\n"
@@ -17,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -29,16 +31,13 @@ msgid "resize {name} {type}"
 msgstr "조정 {name} {type}"
 
 #: ../blivetgui/blivetgui.py:320
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "장치 조정이 실패하였습니다:"
+msgstr "장치 이름 변경에 실패함:"
 
 #: ../blivetgui/blivetgui.py:332
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "조정 {name} {type}"
+msgstr "이름변경 {name} {type}"
 
 #: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
@@ -355,11 +354,11 @@ msgstr "Btrfs 볼륨"
 
 #: ../blivetgui/list_devices.py:120
 msgid "Stratis Pools"
-msgstr ""
+msgstr "스트라티스 풀"
 
 #: ../blivetgui/list_devices.py:123 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
-msgstr ""
+msgstr "스트라티스 풀"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -512,10 +511,8 @@ msgid "Btrfs Subvolume"
 msgstr "Btrfs 하위볼륨"
 
 #: ../blivetgui/dialogs/add_dialog.py:417
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "파일시스템:"
+msgstr "스트라티스 파일 시스템"
 
 #: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
