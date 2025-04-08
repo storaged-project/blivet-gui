@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2025-04-06 13:12+0000\n"
+"PO-Revision-Date: 2025-04-08 10:14+0000\n"
 "Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
 "memory@weblate.org>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
@@ -855,13 +855,12 @@ msgstr "'{label}' 은 이 파일시스템을 위한 유효한 이름표가 아�
 #: ../blivetgui/dialogs/edit_dialog.py:482
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "선택된 장치가 이미 \"{0}\"로 명명되어 있습니다."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr "선택된 적재점\"{0}\"은 이미 다른 장치를 위한 설정입니다."
+msgstr "선택된 이름 \"{0}\"은 이미 사용 중입니다."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -1064,7 +1063,7 @@ msgstr "재크기"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
 msgid "Rename"
-msgstr ""
+msgstr "이름변경"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
@@ -1330,22 +1329,18 @@ msgid "RAID level:"
 msgstr "레이드 수준:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "장치 크기 변경"
+msgstr "장치 이름변경"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "이름변경"
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "이 파일시스템을 위해 새로운 이름표를 입력:"
+msgstr "이 장치를 위해 새로운 이름을 입력:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
