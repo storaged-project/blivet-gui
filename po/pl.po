@@ -10,26 +10,26 @@
 # Jacek Smyda <smyda@posexperts.com.pl>, 1998
 # Leszek Matok <lam@lac.pl>, 2004
 # Pawel Szopinski <pawel@szopinski.co.uk>, 2004
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2015, 2020, 2021, 2022, 2024.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2015, 2020, 2021, 2022, 2024, 2025.
 # Radosław Zawartko <radzaw@radzaw.one.pl>, 2004
 # sonyam <sonyam@tlen.pl>, 2004
 # Stanisław Małolepszy <smalolepszy@aviary.pl>, 2006
 # Tom Berner <tom@lodz.pl>, 2005
 # Tom Berner <tom@man.lodz.pl>, 2004
 # Wojciech Kapusta <wojciech@aviary.pl>, 2006
-# Piotr Drąg <piotrdrag@gmail.com>, 2014, 2020, 2021, 2022, 2024.
-# Piotr Drąg <piotrdrag@gmail.com>, 2013-2014, 2020, 2021, 2022, 2024.
-# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021, 2022, 2024.
+# Piotr Drąg <piotrdrag@gmail.com>, 2014, 2020, 2021, 2022, 2024, 2025.
+# Piotr Drąg <piotrdrag@gmail.com>, 2013-2014, 2020, 2021, 2022, 2024, 2025.
+# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021, 2022, 2024, 2025.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
-# Piotr Drąg <piotrdrag@gmail.com>, 2017. #zanata, 2020, 2021, 2022, 2024.
-# Piotr Drąg <piotrdrag@gmail.com>, 2018. #zanata, 2020, 2021, 2022, 2024.
-# Piotr Drąg <piotrdrag@gmail.com>, 2020. #zanata, 2021, 2022, 2024.
+# Piotr Drąg <piotrdrag@gmail.com>, 2017. #zanata, 2020, 2021, 2022, 2024, 2025.
+# Piotr Drąg <piotrdrag@gmail.com>, 2018. #zanata, 2020, 2021, 2022, 2024, 2025.
+# Piotr Drąg <piotrdrag@gmail.com>, 2020. #zanata, 2021, 2022, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2024-08-24 11:14+0000\n"
+"PO-Revision-Date: 2025-04-10 16:03+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/pl/>\n"
@@ -39,7 +39,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -51,16 +51,13 @@ msgid "resize {name} {type}"
 msgstr "zmień rozmiar {name} typu {type}"
 
 #: ../blivetgui/blivetgui.py:320
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "Zmiana rozmiaru urządzenia się nie powiodła:"
+msgstr "Zmiana nazwy urządzenia się nie powiodła:"
 
 #: ../blivetgui/blivetgui.py:332
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "zmień rozmiar {name} typu {type}"
+msgstr "zmień nazwę {name} typu {type}"
 
 #: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
@@ -391,7 +388,7 @@ msgstr "Wolumin Btrfs"
 
 #: ../blivetgui/list_devices.py:120
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Pule Stratis"
 
 #: ../blivetgui/list_devices.py:123 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
@@ -549,10 +546,8 @@ msgid "Btrfs Subvolume"
 msgstr "Podwolumin Btrfs"
 
 #: ../blivetgui/dialogs/add_dialog.py:417
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "System plików:"
+msgstr "System plików Stratis"
 
 #: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
@@ -897,14 +892,12 @@ msgstr "„{label}” nie jest prawidłową etykietą dla tego systemu plików"
 #: ../blivetgui/dialogs/edit_dialog.py:482
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "Wybrane urządzenie już ma nazwę „{0}”."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr ""
-"Wybrany punkt montowania „{0}” jest już ustawiony dla innego urządzenia."
+msgstr "Wybrana nazwa „{0}” jest już używana."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -1382,10 +1375,8 @@ msgid "RAID level:"
 msgstr "Poziom RAID:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "Zmień rozmiar urządzenia"
+msgstr "Zmiana nazwy urządzenia"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
@@ -1394,14 +1385,12 @@ msgid "Rename"
 msgstr ""
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "Nowa etykieta tego systemu plików:"
+msgstr "Nowa nazwa tego urządzenia:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
-msgstr "Zmień rozmiar urządzenia"
+msgstr "Zmiana rozmiaru urządzenia"
 
 #: ../data/ui/resize_dialog.ui:45
 msgid "_Resize"
