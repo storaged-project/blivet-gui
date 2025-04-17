@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # feonsu <feonsu@gmail.com>, 2017. #zanata
 # feonsu <feonsu@gmail.com>, 2018. #zanata
-# Ondrej Sulek <feonsu@gmail.com>, 2020, 2021, 2022, 2023, 2024.
+# Ondrej Sulek <feonsu@gmail.com>, 2020, 2021, 2022, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2024-10-10 15:38+0000\n"
+"PO-Revision-Date: 2025-04-17 01:20+0000\n"
 "Last-Translator: Ondrej Sulek <feonsu@gmail.com>\n"
 "Language-Team: Slovak <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/sk/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.11\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -30,16 +30,13 @@ msgid "resize {name} {type}"
 msgstr "zmeniť veľkosť {name} {type}"
 
 #: ../blivetgui/blivetgui.py:320
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "Nepodarilo sa zmeniť veľkosť zariadenia:"
+msgstr "Nepodarilo sa premenovať zariadenie:"
 
 #: ../blivetgui/blivetgui.py:332
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "zmeniť veľkosť {name} {type}"
+msgstr "premenovať {name} {type}"
 
 #: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
@@ -513,10 +510,8 @@ msgid "Btrfs Subvolume"
 msgstr "Btrfs pod-zväzok"
 
 #: ../blivetgui/dialogs/add_dialog.py:417
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "Súborový systém:"
+msgstr "Súborový systém Stratis"
 
 #: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
@@ -862,10 +857,9 @@ msgid "Selected device is already named \"{0}\"."
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr "Vybratý bod pripojenia \"{0}\" je už použitý pre iné zariadenie."
+msgstr "Vybratý názov \"{0}\" je už použitý."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -1064,7 +1058,7 @@ msgstr "Zmeniť veľkosť"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
 msgid "Rename"
-msgstr ""
+msgstr "Premenovať"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
@@ -1330,22 +1324,18 @@ msgid "RAID level:"
 msgstr "Úroveň RAID:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "Zmeniť veľkosť zariadenia"
+msgstr "Premenovať zariadenie"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "Premenovať"
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "Zadajte novú menovku pre tento súborový systém:"
+msgstr "Zadajte nový názov pre toto zariadenie:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
