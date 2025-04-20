@@ -12,13 +12,14 @@
 # Alejandro Alcaide <alex@blueselene.com>, 2022.
 # Javier Francisco <fserrador@gmail.com>, 2025.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
+# "Fco. Javier F. Serrador" <fserrador@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2025-04-06 04:44+0000\n"
-"Last-Translator: Javier Francisco <fserrador@gmail.com>\n"
+"PO-Revision-Date: 2025-04-20 18:51+0000\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/es/>\n"
 "Language: es\n"
@@ -26,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.11\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -140,8 +141,8 @@ msgstr "¿Confirma que quiere ejecutar las acciones planificadas?"
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
-"No se pudo desmontar '{mountpoint}'. Cerciórese de que el dispositivo no "
-"esté en uso."
+"No se pudo desmontar '{mountpoint}'. ¿Seguro que el dispositivo no está en "
+"uso?"
 
 #: ../blivetgui/blivetgui.py:752
 msgid "Unlocking failed. Are you sure provided password is correct?"
