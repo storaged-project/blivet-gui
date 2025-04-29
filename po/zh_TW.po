@@ -1,26 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Cheng-Chia Tseng <pswo10680@gmail.com>, 2017. #zanata
+# hsu zangmen <chzang55@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2017-09-11 06:49+0000\n"
-"Last-Translator: Copied by Zanata <copied-by-zanata@zanata.org>\n"
-"Language-Team: Chinese (Taiwan)\n"
+"PO-Revision-Date: 2025-04-29 01:53+0000\n"
+"Last-Translator: hsu zangmen <chzang55@gmail.com>\n"
+"Language-Team: Chinese (Traditional) <https://translate.fedoraproject.org/"
+"projects/blivet/blivet-gui/zh_TW/>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Zanata 4.6.2\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.11\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "調整裝置大小失敗："
 
 #: ../blivetgui/blivetgui.py:308
 #, python-brace-format
@@ -28,20 +29,17 @@ msgid "resize {name} {type}"
 msgstr "調整大小 {name} {type}"
 
 #: ../blivetgui/blivetgui.py:320
-#, fuzzy
-#| msgid "Parent devices:"
 msgid "Failed to rename the device:"
-msgstr "上層裝置："
+msgstr "重新命名裝置失敗："
 
 #: ../blivetgui/blivetgui.py:332
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "調整大小 {name} {type}"
+msgstr "重新命名 {name} {type}"
 
 #: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "格式化裝置失敗："
 
 #: ../blivetgui/blivetgui.py:365
 #, python-brace-format
@@ -50,7 +48,7 @@ msgstr "格式化 {name} {type}"
 
 #: ../blivetgui/blivetgui.py:378
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "編輯 LVM2 Volume Group 失敗："
 
 #: ../blivetgui/blivetgui.py:393
 #, python-brace-format
@@ -59,12 +57,12 @@ msgstr "編輯 {name} {type}"
 
 #: ../blivetgui/blivetgui.py:422
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "變更裝置上的檔案系統標籤失敗："
 
 #: ../blivetgui/blivetgui.py:427
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "變更 {name} {type} 的檔案系統標籤"
 
 #: ../blivetgui/blivetgui.py:443
 #, python-brace-format
@@ -86,7 +84,7 @@ msgstr "{name} 磁碟已經達到 {label} 磁碟標籤其主要分割區的最�
 
 #: ../blivetgui/blivetgui.py:464
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "新增磁碟標籤失敗："
 
 #: ../blivetgui/blivetgui.py:477
 #, python-brace-format
@@ -95,7 +93,7 @@ msgstr "在 {name} 上建立新的磁碟標籤"
 
 #: ../blivetgui/blivetgui.py:529
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "無法新增裝置:"
 
 #: ../blivetgui/blivetgui.py:544
 #, python-brace-format
@@ -104,7 +102,7 @@ msgstr "加入 {size} {type} 裝置"
 
 #: ../blivetgui/blivetgui.py:588
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "刪除裝置失敗："
 
 #: ../blivetgui/blivetgui.py:603
 #, python-brace-format
@@ -124,17 +122,14 @@ msgid "Are you sure you want to perform scheduled actions?"
 msgstr "您確定要執行安排的動作？"
 
 #: ../blivetgui/blivetgui.py:730
-#, fuzzy, python-brace-format
-#| msgid "Unmount failed. Are you sure device is not in use?"
+#, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
-msgstr "卸載失敗。您確定裝置沒有正在使用？"
+msgstr "卸載 '{mountpoint}' 失敗。您確定裝置不在使用中嗎？"
 
 #: ../blivetgui/blivetgui.py:752
-#, fuzzy
-#| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr "裝置解密失敗。您確定提供的密碼正確？"
+msgstr "解鎖失敗。您確定所提供的密碼正確無誤？"
 
 #: ../blivetgui/blivetgui.py:802 ../data/ui/blivet-gui.ui:678
 msgid "Quit"
@@ -216,20 +211,16 @@ msgid "Resizing of {type} devices is currently not supported"
 msgstr ""
 
 #: ../blivetgui/blivet_utils.py:695
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Protected devices cannot be resized"
-msgstr "此裝置無法調整大小。"
+msgstr "受保護的裝置無法調整大小"
 
 #: ../blivetgui/blivet_utils.py:700
 msgid "Immutable formats cannot be resized"
 msgstr ""
 
 #: ../blivetgui/blivet_utils.py:705
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Devices with children cannot be resized"
-msgstr "此裝置無法調整大小。"
+msgstr "此裝置無法調整子分區大小"
 
 #: ../blivetgui/blivet_utils.py:716
 msgid "Unformatted devices are not resizable"
@@ -250,10 +241,8 @@ msgstr ""
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:735
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "此裝置無法調整大小。"
+msgstr "排程建立的格式無法調整大小"
 
 #: ../blivetgui/blivet_utils.py:740
 #, python-brace-format
@@ -261,16 +250,12 @@ msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
 
 #: ../blivetgui/blivet_utils.py:747
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Mounted devices cannot be resized"
-msgstr "此裝置無法調整大小。"
+msgstr "已安裝的裝置無法調整大小"
 
 #: ../blivetgui/blivet_utils.py:752
-#, fuzzy
-#| msgid "Logical Volumes with snapshots couldn't be resized."
 msgid "Logical Volumes with snapshots cannot be resized."
-msgstr "含有快照的邏輯儲區不能調整大小。"
+msgstr "無法調整具有快照的邏輯磁碟區的大小。"
 
 #: ../blivetgui/blivet_utils.py:757
 msgid "Resizing of LUKS2 devices is currently not supported."
@@ -282,8 +267,6 @@ msgid "Failed to update filesystem size info: {error}"
 msgstr ""
 
 #: ../blivetgui/blivet_utils.py:788
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Device is not resizable."
 msgstr "此裝置無法調整大小。"
 
@@ -292,10 +275,7 @@ msgid "Format is not resizable after updating its size limit information."
 msgstr ""
 
 #: ../blivetgui/exception_handler.py:75
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
@@ -304,10 +284,7 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/exception_handler.py:77
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
@@ -344,7 +321,7 @@ msgstr "RAID"
 
 #: ../blivetgui/list_devices.py:111
 msgid "MDArray"
-msgstr "MDArray"
+msgstr "MD 陣列"
 
 #: ../blivetgui/list_devices.py:114
 msgid "Btrfs Volumes"
@@ -381,15 +358,12 @@ msgid ""
 msgstr ""
 
 #: ../blivetgui/osinstall.py:221
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
-"遭遇未知錯誤。Blivet-gui 將終止。\n"
+"遭遇未知錯誤。Anaconda 將終止。\n"
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
@@ -513,10 +487,8 @@ msgid "Btrfs Subvolume"
 msgstr "Btrfs 子儲區"
 
 #: ../blivetgui/dialogs/add_dialog.py:417
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "檔案系統："
+msgstr "Stratis 檔案系統"
 
 #: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
@@ -816,12 +788,13 @@ msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>標籤：</i>{label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:242
-#, fuzzy, python-brace-format
-#| msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+#, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
-msgstr " • <i>掛載點：</i>{mountpoint}\n"
+msgstr ""
+" • <i>掛載點：</i>\n"
+"{mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:245
 msgid " • <i>Type:</i> None"
@@ -861,10 +834,9 @@ msgid "Selected device is already named \"{0}\"."
 msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr "選取的「{0}」掛載點已經設定給另一個裝置。"
+msgstr "選取的名稱「{0}」已被使用。"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -876,14 +848,10 @@ msgid "Parent devices:"
 msgstr "上層裝置："
 
 #: ../blivetgui/dialogs/edit_dialog.py:646
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
 msgstr "加入上層"
 
 #: ../blivetgui/dialogs/edit_dialog.py:649
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
 msgstr "移除上層"
 
@@ -900,20 +868,14 @@ msgid "Add?"
 msgstr "加入？"
 
 #: ../blivetgui/dialogs/edit_dialog.py:719
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
-"沒有實體儲區可以由\n"
-"此儲區群組中移除。"
+"沒有一個實體磁碟區可以\n"
+"從這個磁碟區群中移除。"
 
 #: ../blivetgui/dialogs/edit_dialog.py:731
-#, fuzzy
-#| msgid "Currently is possible to remove only one parent at time."
 msgid "Currently it is possible to remove only one parent at time."
 msgstr "目前僅可以一次移除一個上層。"
 
@@ -967,7 +929,9 @@ msgstr "沒有擱置的動作。"
 #. your name and email address (optional) here. Separate translator names with newlines.
 #: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
-msgstr "Cheng-Chia Tseng <pswo10680@gmail.com>, 2017."
+msgstr ""
+"Cheng-Chia Tseng <pswo10680@gmail.com>, 2017.\n"
+"neko0xff <chzang55@gmail.com>,2025"
 
 #: ../blivetgui/dialogs/size_chooser.py:216
 msgid ""
@@ -1009,16 +973,12 @@ msgid "LiveUSB device"
 msgstr "LiveUSB 裝置"
 
 #: ../blivetgui/visualization/rectangle.py:52
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (locked)"
-msgstr "加密的裝置（關閉）"
+msgstr "加密的裝置（己鎖定）"
 
 #: ../blivetgui/visualization/rectangle.py:53
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (unlocked)"
-msgstr "加密的裝置（關閉）"
+msgstr "加密的裝置（未鎖定）"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Empty device"
@@ -1037,10 +997,8 @@ msgid "Device or format is write protected"
 msgstr "裝置或格式受到防寫保護"
 
 #: ../blivetgui/visualization/rectangle.py:58
-#, fuzzy
-#| msgid "Edit device"
 msgid "Cached device"
-msgstr "編輯裝置"
+msgstr "快取裝置"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1106,11 +1064,8 @@ msgid "Unmount"
 msgstr "卸載"
 
 #: ../data/ui/blivet-gui.ui:110
-#, fuzzy
-#| msgctxt "ActionsToolbar|Decrypt"
-#| msgid "Unlock/Open selected device"
 msgid "Unlock"
-msgstr "解除鎖定/開啟所選裝置"
+msgstr "解鎖"
 
 #: ../data/ui/blivet-gui.ui:118
 msgid "Information"
@@ -1163,10 +1118,8 @@ msgid "Format"
 msgstr "格式"
 
 #: ../data/ui/blivet-gui.ui:531
-#, fuzzy
-#| msgid "Label:"
 msgid "Label"
-msgstr "標籤："
+msgstr "標籤"
 
 #: ../data/ui/blivet-gui.ui:542
 msgid "Mountpoint"
@@ -1193,16 +1146,12 @@ msgid "About blivet-gui"
 msgstr "關於 blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "無擱置動作"
+msgstr "套用待執行的動作"
 
 #: ../data/ui/blivet-gui.ui:760
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "確認安排的動作"
+msgstr "清除排程行動"
 
 #: ../data/ui/blivet-gui.ui:776
 msgid "Undo last action"
@@ -1323,17 +1272,12 @@ msgid "Enter new label for this filesystem:"
 msgstr ""
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
-#, fuzzy
-#| msgctxt "ActionsToolbar|Decrypt"
-#| msgid "Unlock/Open selected device"
 msgid "Unlock device"
-msgstr "解除鎖定/開啟所選裝置"
+msgstr "解鎖裝置"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
-#, fuzzy
-#| msgid "Please enter passphrase to decrypt selected device."
 msgid "Please enter passphrase to unlock selected device."
-msgstr "請輸入密語以解密選取的裝置。"
+msgstr "請輸入密碼以解除鎖定選取的裝置。"
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
@@ -1356,10 +1300,8 @@ msgid "RAID level:"
 msgstr "RAID 等級："
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "調整裝置大小"
+msgstr "重新命名裝置"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
@@ -1397,8 +1339,6 @@ msgstr "大小："
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
-#, fuzzy
-#| msgid "Unmount"
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
 msgstr "卸載"
