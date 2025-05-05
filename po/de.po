@@ -4,14 +4,14 @@
 # Jens Maucher <jensmaucher@gmail.com>, 2020.
 # Chris Wehrli <christian.wehrli@gmx.ch>, 2020.
 # Fabian Affolter <mail@fabian-affolter.ch>, 2020.
-# Ettore Atalan <atalanttore@googlemail.com>, 2021, 2022, 2024.
+# Ettore Atalan <atalanttore@googlemail.com>, 2021, 2022, 2024, 2025.
 # Bernhard Bloxberg <njg87w434@mailbox.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2024-11-09 20:38+0000\n"
+"PO-Revision-Date: 2025-05-05 00:47+0000\n"
 "Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/de/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.11.3\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -32,16 +32,13 @@ msgid "resize {name} {type}"
 msgstr "Grösse anpassen {name} {type}"
 
 #: ../blivetgui/blivetgui.py:320
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "Ändern der Größe des Geräts ist fehlgeschlagen:"
+msgstr "Umbenennung des Geräts fehlgeschlagen:"
 
 #: ../blivetgui/blivetgui.py:332
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "Grösse anpassen {name} {type}"
+msgstr "{name} {type} umbenennen"
 
 #: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
@@ -699,10 +696,11 @@ msgstr " • <i>Belegter Speicherplatz:</i> {used}\n"
 #, python-brace-format
 msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
 msgstr ""
+" • <i>Zwischengespeichert:</i> Ja (Zwischenspeichergröße: {cache_size})\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:126
 msgid " • <i>Cached:</i> No\n"
-msgstr ""
+msgstr " • <i>Zwischengespeichert:</i> Nein\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:131
 #, python-brace-format
@@ -722,7 +720,7 @@ msgstr " • <i>Freier Speicherplatz:</i> {free}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:134
 #, python-brace-format
 msgid " • <i>PE Free:</i> {pefree}\n"
-msgstr ""
+msgstr " • <i>PE Frei:</i> {pefree}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:135
 #, python-brace-format
@@ -878,15 +876,12 @@ msgstr "'{label}' ist keine gültige Bezeichnung für dieses Dateisystem"
 #: ../blivetgui/dialogs/edit_dialog.py:482
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "Ausgewähltes Gerät heißt bereits „{0}“."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr ""
-"Gewählter Einhängepunkt \"{0}\" bereits für einen anderen Datenträger "
-"vergeben."
+msgstr "Ausgewählter Name „{0}“ wird bereits verwendet."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -1059,7 +1054,7 @@ msgstr "Gerät oder Format ist schreibgeschützt"
 
 #: ../blivetgui/visualization/rectangle.py:58
 msgid "Cached device"
-msgstr ""
+msgstr "Zwischengespeichertes Gerät"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1220,7 +1215,7 @@ msgstr "Letzte Aktion rückgängig machen"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
-msgstr ""
+msgstr "Dieses LV zwischenspeichern:"
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
@@ -1362,10 +1357,8 @@ msgid "RAID level:"
 msgstr "RAID-Level:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "Gerätegröße ändern"
+msgstr "Gerät umbenennen"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
@@ -1374,10 +1367,8 @@ msgid "Rename"
 msgstr ""
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "Neue Bezeichnung für dieses Dateisystem eingeben:"
+msgstr "Neuen Namen für dieses Gerät eingeben:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
@@ -1397,7 +1388,7 @@ msgstr "Ausstehende Aktionen"
 
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
-msgstr ""
+msgstr "Layout manuell festlegen"
 
 #: ../data/ui/size_chooser.ui:14
 msgid "Size:"
