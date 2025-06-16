@@ -3,7 +3,11 @@ Name: blivet-gui
 Version: 2.6.0
 Release: 1%{?dist}
 Source0: http://github.com/storaged-project/blivet-gui/releases/download/%{version}/%{name}-%{version}.tar.gz
+
+%if 0%{?fedora}
 Source1: blivet-gui_event.conf
+%endif
+
 License: GPL-2.0-or-later
 BuildArch: noarch
 URL: http://github.com/storaged-project/blivet-gui
@@ -33,7 +37,10 @@ Requires: python3-gobject
 Requires: python3-blivet >= 1:3.8.0
 Requires: gtk3
 Requires: python3-pid
+
+%if 0%{?fedora}
 Requires: libreport
+%endif
 
 %description -n blivet-gui-runtime
 This package provides a blivet-gui runtime for applications that want to use
@@ -51,8 +58,10 @@ make DESTDIR=%{buildroot} install
 desktop-file-validate %{buildroot}/%{_datadir}/applications/blivet-gui.desktop
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/blivet-gui.appdata.xml
 
+%if 0%{?fedora}
 mkdir -p %{buildroot}/%{_sysconfdir}/libreport/events.d/
 install -m644 %{SOURCE1} %{buildroot}/%{_sysconfdir}/libreport/events.d/
+%endif
 
 mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 
@@ -71,7 +80,10 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 %{_bindir}/blivet-gui
 %{_bindir}/blivet-gui-daemon
 %{_localstatedir}/log/blivet-gui
+
+%if 0%{?fedora}
 %{_sysconfdir}/libreport/events.d/blivet-gui_event.conf
+%endif
 
 %changelog
 * Mon Nov 18 2024 Vojtech Trefny <vtrefny@redhat.com> - 2.6.0-1
