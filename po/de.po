@@ -12,9 +12,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2025-05-05 00:47+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2025-06-26 02:53+0000\n"
+"Last-Translator: Ettore Atalan <atalanttore@googlemail.com>\n"
 "Language-Team: German <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/de/>\n"
 "Language: de\n"
@@ -22,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.3\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -198,16 +197,17 @@ msgid "Error: {error}"
 msgstr "Fehler: {error}"
 
 #: ../blivetgui/blivetgui.py:853
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
 "disklabel.\n"
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
-"Blivet-gui kann den Speicher <b>{name}</b> durch defekte/unbekannte "
-"Disklabels nicht benutzen. Beende blivet-gui oder fahre fort, ohne den "
-"Speicher nutzen zu können."
+"Blivet-gui kann die Festplatte <b>{name}</b> wegen einem defekten/"
+"unbekannten Disklabel nicht benutzen.\n"
+"Sie können blivet-gui jetzt beenden oder fortfahren, ohne diese Festplatte "
+"benutzen zu können."
 
 #: ../blivetgui/blivetgui.py:889
 msgid "Confirm reload storage"
