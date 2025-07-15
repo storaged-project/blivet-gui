@@ -6,7 +6,7 @@ import sys
 import tempfile
 import os
 
-from censorship import CensorshipConfig, CensorshipLinter
+from censorship import CensorshipConfig, CensorshipLinter, FalsePositive
 
 
 class BlivetGUILintConfig(CensorshipConfig):
@@ -17,7 +17,7 @@ class BlivetGUILintConfig(CensorshipConfig):
 
         self.pylintrc_path = os.path.join(current_dir, "pylintrc")
 
-        self.false_positives = []
+        self.false_positives = [FalsePositive(r"'blivet.devicefactory' has no 'DEVICE_TYPE_.*' member"),]
 
     def _files(self):
         srcdir = os.environ.get("top_srcdir", os.getcwd())
