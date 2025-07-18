@@ -66,7 +66,7 @@ clean:
 	$(PYTHON) setup.py -q clean --all
 
 install:
-	$(PYTHON) setup.py install --root=$(DESTDIR)
+	$(PYTHON) -m pip install . --root=$(DESTDIR) --verbose --no-deps --no-build-isolation
 	$(MAKE) -C po install
 
 ChangeLog:
@@ -84,14 +84,14 @@ archive:
 	git archive --format=tar --prefix=$(APPNAME)-$(VERSION)/ $(RELEASE_TAG) | tar -xf -
 	cp -r po $(APPNAME)-$(VERSION)
 	cp ChangeLog $(APPNAME)-$(VERSION)/
-	( cd $(APPNAME)-$(VERSION) && python3 setup.py -q sdist --dist-dir .. --mode release )
+	( cd $(APPNAME)-$(VERSION) && $(PYTHON) -m build --sdist --outdir .. --no-isolation  )
 	rm -rf $(APPNAME)-$(VERSION)
 	git checkout -- po/$(APPNAME).pot
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
 
 local:
 	@make -B ChangeLog
-	@python3 setup.py -q sdist --dist-dir . --mode normal
+	$(PYTHON) -m build --sdist --outdir . --no-isolation
 	@echo "The archive is in $(APPNAME)-$(VERSION).tar.gz"
 
 bumpver:
