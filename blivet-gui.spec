@@ -29,7 +29,6 @@ Summary: blivet-gui runtime
 
 BuildRequires: python3-devel
 BuildRequires: gettext >= 0.18.3
-BuildRequires: python3-setuptools
 BuildRequires: make
 
 Requires: python3
@@ -48,6 +47,9 @@ blivet-gui without actually installing the application itself.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 make %{?_smp_mflags}
