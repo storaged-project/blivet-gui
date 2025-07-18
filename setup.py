@@ -1,7 +1,5 @@
 from setuptools import setup
-from setuptools.command.sdist import sdist
 import glob
-import sys
 
 data_files = []
 ui_files = glob.glob('data/ui/*.ui')
@@ -24,32 +22,9 @@ for size in ("16x16", "22x22", "24x24", "32x32", "48x48", "64x64", "256x256"):
     icons = glob.glob('data/icons/hicolor/' + size + '/blivet-gui.png')
     data_files.append(('share/icons/hicolor/' + size + '/apps', icons))
 
-# Extend the sdist command
-class blivet_gui_sdist(sdist):
-    user_options = sdist.user_options + [('mode=', None, "specify mode for sdist; one of 'release', 'normal'"),]
-
-    def initialize_options(self):
-        sdist.initialize_options(self)
-        self.mode = None  # pylint: disable=attribute-defined-outside-init
-
-    def finalize_options(self):
-        sdist.finalize_options(self)
-        if self.mode not in (None, 'release', 'normal'):
-            raise AttributeError('Unknown mode %s' % self.mode)
-
-    def make_release_tree(self, base_dir, files):
-        # Run the parent command first
-        sdist.make_release_tree(self, base_dir, files)
-
-        if self.mode == "release":
-            # Run translation-canary in release mode to remove any bad translations
-            sys.path.append('translation-canary')
-            from translation_canary.translated import testSourceTree # pylint: disable=import-error
-            testSourceTree(base_dir, releaseMode=True)
 
 setup(
     name='blivet-gui',
-    cmdclass={"sdist": blivet_gui_sdist},
     packages=['blivetgui'],
     version='2.6.0',
     description = 'Tool for data storages configuration',
