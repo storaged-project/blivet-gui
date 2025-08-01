@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2025-04-29 01:53+0000\n"
+"PO-Revision-Date: 2025-07-31 21:53+0000\n"
 "Last-Translator: hsu zangmen <chzang55@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/zh_TW/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -111,7 +111,7 @@ msgstr "刪除 {name} 分割區"
 
 #: ../blivetgui/blivetgui.py:644
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "動作執行失敗："
 
 #: ../blivetgui/blivetgui.py:688
 msgid "Confirm scheduled actions"
@@ -137,13 +137,15 @@ msgstr "退出"
 
 #: ../blivetgui/blivetgui.py:805
 msgid "blivet-gui is already running"
-msgstr ""
+msgstr "blivet-gui 已開始執行"
 
 #: ../blivetgui/blivetgui.py:806
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
+"另一個 blivet-gui 的實例正在執行。\n"
+"同一時間只能有一個 blivet-gui 執行。"
 
 #: ../blivetgui/blivetgui.py:808
 msgid ""
@@ -158,7 +160,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:840
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "無法初始化 blivet："
 
 #: ../blivetgui/blivetgui.py:847
 msgid "Quit blivet-gui"
@@ -216,7 +218,7 @@ msgstr "受保護的裝置無法調整大小"
 
 #: ../blivetgui/blivet_utils.py:700
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "不可變更的格式無法調整大小"
 
 #: ../blivetgui/blivet_utils.py:705
 msgid "Devices with children cannot be resized"
@@ -224,7 +226,7 @@ msgstr "此裝置無法調整子分區大小"
 
 #: ../blivetgui/blivet_utils.py:716
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "未格式化的裝置無法調整大小"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
