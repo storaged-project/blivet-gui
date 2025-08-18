@@ -19,7 +19,7 @@ jobs:
       CI_CONTAINER: blivet-gui-tests
     steps:
       - name: Checkout blivet-gui repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Install podman
         run: |
