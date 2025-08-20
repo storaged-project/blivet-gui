@@ -198,7 +198,7 @@ class BlivetUtils(object):
 
         """
 
-        return [device for device in self.storage.disks if device.type != "mdarray"]
+        return [device for device in self.storage.disks]
 
     def get_group_devices(self):
         """ Return list of LVM2 Volume Group devices
