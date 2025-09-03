@@ -17,8 +17,7 @@ INSTALL_NLS_DIR = $(RPM_BUILD_ROOT)/usr/share/locale
 
 # PO catalog handling
 MSGMERGE	= msgmerge -v
-XGETTEXT	= $(TOP)/translation-canary/xgettext_werror.sh --default-domain=$(NLSPACKAGE) \
-		  --add-comments
+XGETTEXT	= LC_MESSAGES=C xgettext --default-domain=$(NLSPACKAGE) --add-comments
 MSGFMT		= msgfmt --statistics --verbose
 
 # What do we need to do
