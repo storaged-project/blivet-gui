@@ -71,20 +71,25 @@ class ListDevices(object):
 
         disks = self.blivet_gui.client.remote_call("get_disks")
 
-        # hide protected and hidden disks in installer mode
-        # (this will hide USB drive with installation image, disks under FW RAID etc.)
         if self.blivet_gui.installer_mode:
-            for disk in disks:
-                if disk.protected or disk.format.hidden:
-                    disks.remove(disk)
+            # hide protected and hidden disks in installer mode
+            # (this will hide USB drive with installation image, disks under FW RAID etc.)
+            filtered_disks = [d for d in disks if not (d.protected or d.format.hidden)]
+        else:
+            # in installer mode we want to show arrays on top of disks as disks to
+            # match the storage spoke behaviour, but outside installer just show
+            # these as arrays
+            filtered_disks = [d for d in disks if d.type != "mdarray"]
 
-        if disks:
+        if filtered_disks:
             self.device_list.append([None, None, "<b>%s</b>" % _("Disks")])
 
-        for disk in disks:
+        for disk in filtered_disks:
             if disk.removable:
                 self.device_list.append([disk, icon_disk_usb, str(disk.name + "\n<i><small>" +
                                                                   str(disk.model) + "</small></i>")])
+            elif disk.type == "mdarray":
+                self.device_list.append([disk, icon_disk, str(disk.name + "\n<i><small>%s</small></i>" % _("MDRAID set"))])
             else:
                 self.device_list.append([disk, icon_disk, str(disk.name + "\n<i><small>" +
                                                               str(disk.model) + "</small></i>")])
@@ -98,15 +103,21 @@ class ListDevices(object):
         icon_theme = Gtk.IconTheme.get_default()  # pylint: disable=no-value-for-parameter
         icon_group = Gtk.IconTheme.load_icon(icon_theme, "folder", 32, 0)
 
+        if self.blivet_gui.installer_mode:
+            # in installer mode RAID devices on top of disks are shown as disks
+            raids = [r for r in gdevices["raid"] if not r.is_disk]
+        else:
+            raids = gdevices["raid"]
+
         if gdevices["lvm"]:
             self.device_list.append([None, None, "<b>%s</b>" % _("LVM")])
             for device in gdevices["lvm"]:
                 self.device_list.append([device, icon_group,
                                         str(device.name + "\n<i><small>%s</small></i>" % _("LVM2 VG"))])
 
-        if gdevices["raid"]:
+        if raids:
             self.device_list.append([None, None, "<b>%s</b>" % _("RAID")])
-            for device in gdevices["raid"]:
+            for device in raids:
                 self.device_list.append([device, icon_group,
                                         str(device.name + "\n<i><small>%s</small></i>" % _("MDArray"))])
 
