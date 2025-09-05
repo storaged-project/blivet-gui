@@ -575,7 +575,7 @@ class BlivetUtils(object):
 
         try:
             if not blivet_device.format_immutable:
-                ac_fmt = blivet.deviceaction.ActionDestroyFormat(blivet_device)
+                ac_fmt = blivet.deviceaction.ActionDestroyFormat(blivet_device, optional=True)
                 self.storage.devicetree.actions.add(ac_fmt)
                 actions.append(ac_fmt)
 
