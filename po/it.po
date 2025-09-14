@@ -10,10 +10,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-23 15:05+0100\n"
+"POT-Creation-Date: 2025-08-20 14:36+0200\n"
 "PO-Revision-Date: 2025-04-17 18:18+0000\n"
-"Last-Translator: Angelo Schirinzi "
-"<odi-3@users.noreply.translate.fedoraproject.org>\n"
+"Last-Translator: Angelo Schirinzi <odi-3@users.noreply.translate."
+"fedoraproject.org>\n"
 "Language-Team: Italian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/it/>\n"
 "Language: it\n"
@@ -338,40 +338,46 @@ msgid_plural "%s pending actions"
 msgstr[0] "%s azione in sospeso"
 msgstr[1] "%s azioni in sospeso"
 
-#: ../blivetgui/list_devices.py:82
+#: ../blivetgui/list_devices.py:85
 msgid "Disks"
 msgstr "Dischi"
 
-#: ../blivetgui/list_devices.py:102
+#: ../blivetgui/list_devices.py:92
+#, fuzzy
+#| msgid "MD RAID Array"
+msgid "MDRAID set"
+msgstr "Array MD RAID"
+
+#: ../blivetgui/list_devices.py:113
 msgid "LVM"
 msgstr "LVM"
 
-#: ../blivetgui/list_devices.py:105
+#: ../blivetgui/list_devices.py:116
 msgid "LVM2 VG"
 msgstr "LVM2 VG"
 
-#: ../blivetgui/list_devices.py:108
+#: ../blivetgui/list_devices.py:119
 msgid "RAID"
 msgstr "RAID"
 
-#: ../blivetgui/list_devices.py:111
+#: ../blivetgui/list_devices.py:122
 msgid "MDArray"
 msgstr "MDArray"
 
-#: ../blivetgui/list_devices.py:114
+#: ../blivetgui/list_devices.py:125
 msgid "Btrfs Volumes"
 msgstr "Volumi Btrfs"
 
-#: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:389
+#: ../blivetgui/list_devices.py:128 ../blivetgui/dialogs/add_dialog.py:389
 #: ../blivetgui/dialogs/device_info_dialog.py:87
 msgid "Btrfs Volume"
 msgstr "Volume Btrfs"
 
-#: ../blivetgui/list_devices.py:120
+#: ../blivetgui/list_devices.py:131
 msgid "Stratis Pools"
 msgstr "Stratis Pools"
 
-#: ../blivetgui/list_devices.py:123 ../blivetgui/dialogs/add_dialog.py:392
+#: ../blivetgui/list_devices.py:134 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
 msgstr "Stratis Pool"
 
