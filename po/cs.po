@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-23 15:05+0100\n"
+"POT-Creation-Date: 2025-08-20 14:36+0200\n"
 "PO-Revision-Date: 2025-06-07 20:33+0000\n"
 "Last-Translator: Jan Kalabza <jan.kalabza@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/blivet/"
@@ -338,40 +338,46 @@ msgstr[0] "%s naplánovaná akce"
 msgstr[1] "%s naplánované akce"
 msgstr[2] "%s naplánovaných akcí"
 
-#: ../blivetgui/list_devices.py:82
+#: ../blivetgui/list_devices.py:85
 msgid "Disks"
 msgstr "Disky"
 
-#: ../blivetgui/list_devices.py:102
+#: ../blivetgui/list_devices.py:92
+#, fuzzy
+#| msgid "MD RAID Array"
+msgid "MDRAID set"
+msgstr "Pole MD RAID"
+
+#: ../blivetgui/list_devices.py:113
 msgid "LVM"
 msgstr "LVM"
 
-#: ../blivetgui/list_devices.py:105
+#: ../blivetgui/list_devices.py:116
 msgid "LVM2 VG"
 msgstr "LVM2 VG"
 
-#: ../blivetgui/list_devices.py:108
+#: ../blivetgui/list_devices.py:119
 msgid "RAID"
 msgstr "RAID"
 
-#: ../blivetgui/list_devices.py:111
+#: ../blivetgui/list_devices.py:122
 msgid "MDArray"
 msgstr "MDArray"
 
-#: ../blivetgui/list_devices.py:114
+#: ../blivetgui/list_devices.py:125
 msgid "Btrfs Volumes"
 msgstr "Btrfs svazky"
 
-#: ../blivetgui/list_devices.py:117 ../blivetgui/dialogs/add_dialog.py:389
+#: ../blivetgui/list_devices.py:128 ../blivetgui/dialogs/add_dialog.py:389
 #: ../blivetgui/dialogs/device_info_dialog.py:87
 msgid "Btrfs Volume"
 msgstr "Btrfs svazek"
 
-#: ../blivetgui/list_devices.py:120
+#: ../blivetgui/list_devices.py:131
 msgid "Stratis Pools"
 msgstr ""
 
-#: ../blivetgui/list_devices.py:123 ../blivetgui/dialogs/add_dialog.py:392
+#: ../blivetgui/list_devices.py:134 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
 msgstr ""
 
