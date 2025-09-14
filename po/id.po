@@ -3,13 +3,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Andika Triwidada <andika@gmail.com>, 2020, 2021, 2022, 2023, 2024.
 # Didik Supriadi <didiksupriadi41@gmail.com>, 2021.
+# data informasi <mh1227330@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-23 15:05+0100\n"
-"PO-Revision-Date: 2024-09-06 19:38+0000\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"PO-Revision-Date: 2025-09-14 05:18+0000\n"
+"Last-Translator: data informasi <mh1227330@gmail.com>\n"
 "Language-Team: Indonesian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/id/>\n"
 "Language: id\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -355,12 +356,14 @@ msgid "Btrfs Volume"
 msgstr "Volume Btrfs"
 
 #: ../blivetgui/list_devices.py:120
+#, fuzzy
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Kumpulan Stratis"
 
 #: ../blivetgui/list_devices.py:123 ../blivetgui/dialogs/add_dialog.py:392
+#, fuzzy
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Kumpulan Stratis"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -858,9 +861,9 @@ msgid "'{label}' is not a valid label for this filesystem"
 msgstr "'{label}' bukan label yang valid untuk sistem berkas ini"
 
 #: ../blivetgui/dialogs/edit_dialog.py:482
-#, python-brace-format
+#, fuzzy, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "Perangkat yang dipilih sudah bernama \"{0}\"."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
 #, fuzzy, python-brace-format
@@ -1074,8 +1077,9 @@ msgid "Resize"
 msgstr "Ubah Ukuran"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
+#, fuzzy
 msgid "Rename"
-msgstr ""
+msgstr "Ubah nama"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
@@ -1348,9 +1352,10 @@ msgstr "Ubah ukuran perangkat"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
+#, fuzzy
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "Ubah Nama"
 
 #: ../data/ui/rename_dialog.ui:68
 #, fuzzy
