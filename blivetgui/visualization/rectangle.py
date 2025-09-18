@@ -29,6 +29,8 @@ from gi.repository import Gtk
 
 from ..i18n import _
 
+import blivet
+
 
 class Rectangle(Gtk.RadioButton):
     """ Rectangle object """
@@ -55,11 +57,18 @@ class Rectangle(Gtk.RadioButton):
                              "snapshot": ("camera-photo-symbolic", _("Snapshot")),
                              "nodisklabel": ("drive-harddisk-symbolic", _("Missing partition table")),
                              "protected": ("action-unavailable-symbolic", _("Device or format is write protected")),
-                             "cached": ("drive-harddisk-solidstate-symbolic", _("Cached device"))}
+                             "cached": ("drive-harddisk-solidstate-symbolic", _("Cached device")),
+                             "incomplete": ("dialog-warning-symbolic", _("Incomplete device"))}
+
+        if self.device.size == blivet.size.Size(0):
+            # TRANSLATORS: size value for device with invalid/unknown size
+            devsize = _("unknown")
+        else:
+            devsize = str(self.device.size)
 
         if label:
             label_device = Gtk.Label(justify=Gtk.Justification.CENTER,
-                                     label="<small>%s\n%s</small>" % (self.device.name, str(self.device.size)),
+                                     label="<small>%s\n%s</small>" % (self.device.name, devsize),
                                      use_markup=True, name="dark")
 
             hbox.pack_start(child=label_device, expand=True, fill=True, padding=0)
@@ -105,5 +114,8 @@ class Rectangle(Gtk.RadioButton):
 
         if self.device.type in ("lvmlv", "lvmthinpool") and self.device.cached:
             properties.append("cached")
+
+        if self.device.type in ("mdarray", "lvmvg") and not self.device.complete:
+            properties.append("incomplete")
 
         return properties

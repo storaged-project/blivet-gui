@@ -22,6 +22,9 @@
 #
 # ---------------------------------------------------------------------------- #
 
+import blivet
+from .i18n import _
+
 
 class ListPartitions(object):
     """ List of children of selected device
@@ -158,7 +161,14 @@ class ListPartitions(object):
         else:
             label = ""
 
-        device_iter = self.partitions_list.append(parent_iter, [device, device.name, devtype, fmt, str(device.size), label, mnt])
+        if device.type == "mdarray" and device.size == blivet.size.Size(0):
+            # broken MD array
+            # TRANSLATORS: size value for device with invalid/unknown size
+            devsize = _("unknown")
+        else:
+            devsize = str(device.size)
+
+        device_iter = self.partitions_list.append(parent_iter, [device, device.name, devtype, fmt, devsize, label, mnt])
 
         return device_iter
 
