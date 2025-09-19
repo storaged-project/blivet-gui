@@ -7,6 +7,7 @@ from blivet.size import Size
 
 from blivetgui.list_partitions import ListPartitions
 from blivetgui.gui_utils import locate_ui_file
+from blivetgui.i18n import _
 
 import os
 
@@ -309,6 +310,20 @@ class ListPartitionsTest(unittest.TestCase):
         self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 4), str(device.size))
         self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 5), 15 * "a" + "...")
         self.assertEqual(self.list_partitions.partitions_list.get_value(child_it, 6), "")
+
+        # broken MD raid -- size should be set to "unknown"
+        fmt = MagicMock(type=None, mountable=False, label=None)
+        fmt.configure_mock(name="Unknown")
+        device = MagicMock(type="mdarray", size=Size(0), format=fmt)
+        device.configure_mock(name="brokenmd")
+
+        it = self.list_partitions._add_to_store(device)
+        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 1), device.name)
+        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 2), "raid")
+        self.assertIsNone(self.list_partitions.partitions_list.get_value(it, 3))
+        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 4), _("unknown"))
+        self.assertEqual(self.list_partitions.partitions_list.get_value(it, 5), "")
+        self.assertIsNone(self.list_partitions.partitions_list.get_value(it, 6))
 
 
 if __name__ == "__main__":
