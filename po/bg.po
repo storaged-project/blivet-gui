@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-20 14:36+0200\n"
+"POT-Creation-Date: 2025-09-18 16:02+0200\n"
 "PO-Revision-Date: 2016-08-19 04:14+0000\n"
 "Last-Translator: Valentin Laskov <laskov@festa.bg>\n"
 "Language-Team: Bulgarian\n"
@@ -358,6 +358,13 @@ msgstr ""
 
 #: ../blivetgui/list_devices.py:134 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
+msgstr ""
+
+#. broken MD array
+#. TRANSLATORS: size value for device with invalid/unknown size
+#: ../blivetgui/list_partitions.py:167
+#: ../blivetgui/visualization/rectangle.py:65
+msgid "unknown"
 msgstr ""
 
 #: ../blivetgui/loading_window.py:48
@@ -992,44 +999,50 @@ msgstr "Фразите съвпадат."
 msgid "Passphrases don't match."
 msgstr "Фразите не съвпадат."
 
-#: ../blivetgui/visualization/rectangle.py:50
+#: ../blivetgui/visualization/rectangle.py:52
 msgid "Group device"
 msgstr ""
 
-#: ../blivetgui/visualization/rectangle.py:51
+#: ../blivetgui/visualization/rectangle.py:53
 msgid "LiveUSB device"
 msgstr ""
 
-#: ../blivetgui/visualization/rectangle.py:52
+#: ../blivetgui/visualization/rectangle.py:54
 #, fuzzy
 #| msgid "Decrypt device"
 msgid "Encrypted device (locked)"
 msgstr "Декриптиране на устройство"
 
-#: ../blivetgui/visualization/rectangle.py:53
+#: ../blivetgui/visualization/rectangle.py:55
 msgid "Encrypted device (unlocked)"
 msgstr ""
 
-#: ../blivetgui/visualization/rectangle.py:54
+#: ../blivetgui/visualization/rectangle.py:56
 msgid "Empty device"
 msgstr ""
 
-#: ../blivetgui/visualization/rectangle.py:55
+#: ../blivetgui/visualization/rectangle.py:57
 msgid "Snapshot"
 msgstr ""
 
-#: ../blivetgui/visualization/rectangle.py:56
+#: ../blivetgui/visualization/rectangle.py:58
 msgid "Missing partition table"
 msgstr ""
 
-#: ../blivetgui/visualization/rectangle.py:57
+#: ../blivetgui/visualization/rectangle.py:59
 msgid "Device or format is write protected"
 msgstr ""
 
-#: ../blivetgui/visualization/rectangle.py:58
+#: ../blivetgui/visualization/rectangle.py:60
 #, fuzzy
 #| msgid "Edit device"
 msgid "Cached device"
+msgstr "Промяна на устройство"
+
+#: ../blivetgui/visualization/rectangle.py:61
+#, fuzzy
+#| msgid "Edit device"
+msgid "Incomplete device"
 msgstr "Промяна на устройство"
 
 #: ../data/ui/about_dialog.ui:11

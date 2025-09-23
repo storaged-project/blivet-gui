@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-20 14:36+0200\n"
+"POT-Creation-Date: 2025-09-18 16:02+0200\n"
 "PO-Revision-Date: 2025-09-14 11:31+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://translate.fedoraproject.org/projects/blivet/"
@@ -368,6 +368,13 @@ msgstr "Stratis pooler"
 #: ../blivetgui/list_devices.py:134 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
 msgstr "Stratis-pool"
+
+#. broken MD array
+#. TRANSLATORS: size value for device with invalid/unknown size
+#: ../blivetgui/list_partitions.py:167
+#: ../blivetgui/visualization/rectangle.py:65
+msgid "unknown"
+msgstr ""
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -1009,41 +1016,47 @@ msgstr "Lösenfraser matchar."
 msgid "Passphrases don't match."
 msgstr "Lösenfraserna stämmer inte överens."
 
-#: ../blivetgui/visualization/rectangle.py:50
+#: ../blivetgui/visualization/rectangle.py:52
 msgid "Group device"
 msgstr "Gruppera enhet"
 
-#: ../blivetgui/visualization/rectangle.py:51
+#: ../blivetgui/visualization/rectangle.py:53
 msgid "LiveUSB device"
 msgstr "LiveUSB enhet"
 
-#: ../blivetgui/visualization/rectangle.py:52
+#: ../blivetgui/visualization/rectangle.py:54
 msgid "Encrypted device (locked)"
 msgstr "Krypterad enhet (låst)"
 
-#: ../blivetgui/visualization/rectangle.py:53
+#: ../blivetgui/visualization/rectangle.py:55
 msgid "Encrypted device (unlocked)"
 msgstr "Krypterad enhet (upplåst)"
 
-#: ../blivetgui/visualization/rectangle.py:54
+#: ../blivetgui/visualization/rectangle.py:56
 msgid "Empty device"
 msgstr "Tom enhet"
 
-#: ../blivetgui/visualization/rectangle.py:55
+#: ../blivetgui/visualization/rectangle.py:57
 msgid "Snapshot"
 msgstr "Ögonblicksbild"
 
-#: ../blivetgui/visualization/rectangle.py:56
+#: ../blivetgui/visualization/rectangle.py:58
 msgid "Missing partition table"
 msgstr "Partitionstabell saknas"
 
-#: ../blivetgui/visualization/rectangle.py:57
+#: ../blivetgui/visualization/rectangle.py:59
 msgid "Device or format is write protected"
 msgstr "Enheten eller formatet är skrivskyddat"
 
-#: ../blivetgui/visualization/rectangle.py:58
+#: ../blivetgui/visualization/rectangle.py:60
 msgid "Cached device"
 msgstr "Cachad enhet"
+
+#: ../blivetgui/visualization/rectangle.py:61
+#, fuzzy
+#| msgid "Empty device"
+msgid "Incomplete device"
+msgstr "Tom enhet"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."

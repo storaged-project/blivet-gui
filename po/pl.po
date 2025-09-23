@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-20 14:36+0200\n"
+"POT-Creation-Date: 2025-09-18 16:02+0200\n"
 "PO-Revision-Date: 2025-09-16 17:21+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/blivet/"
@@ -398,6 +398,13 @@ msgstr "Pule Stratis"
 #: ../blivetgui/list_devices.py:134 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
 msgstr "Pula Stratis"
+
+#. broken MD array
+#. TRANSLATORS: size value for device with invalid/unknown size
+#: ../blivetgui/list_partitions.py:167
+#: ../blivetgui/visualization/rectangle.py:65
+msgid "unknown"
+msgstr ""
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -1044,41 +1051,47 @@ msgstr "Hasła się zgadzają."
 msgid "Passphrases don't match."
 msgstr "Hasła się nie zgadzają."
 
-#: ../blivetgui/visualization/rectangle.py:50
+#: ../blivetgui/visualization/rectangle.py:52
 msgid "Group device"
 msgstr "Urządzenie grupy"
 
-#: ../blivetgui/visualization/rectangle.py:51
+#: ../blivetgui/visualization/rectangle.py:53
 msgid "LiveUSB device"
 msgstr "Urządzenie LiveUSB"
 
-#: ../blivetgui/visualization/rectangle.py:52
+#: ../blivetgui/visualization/rectangle.py:54
 msgid "Encrypted device (locked)"
 msgstr "Zaszyfrowane urządzenie (zablokowane)"
 
-#: ../blivetgui/visualization/rectangle.py:53
+#: ../blivetgui/visualization/rectangle.py:55
 msgid "Encrypted device (unlocked)"
 msgstr "Zaszyfrowane urządzenie (odblokowane)"
 
-#: ../blivetgui/visualization/rectangle.py:54
+#: ../blivetgui/visualization/rectangle.py:56
 msgid "Empty device"
 msgstr "Puste urządzenie"
 
-#: ../blivetgui/visualization/rectangle.py:55
+#: ../blivetgui/visualization/rectangle.py:57
 msgid "Snapshot"
 msgstr "Migawka"
 
-#: ../blivetgui/visualization/rectangle.py:56
+#: ../blivetgui/visualization/rectangle.py:58
 msgid "Missing partition table"
 msgstr "Brak tablicy partycji"
 
-#: ../blivetgui/visualization/rectangle.py:57
+#: ../blivetgui/visualization/rectangle.py:59
 msgid "Device or format is write protected"
 msgstr "Urządzenie lub format jest zabezpieczony przed zapisem"
 
-#: ../blivetgui/visualization/rectangle.py:58
+#: ../blivetgui/visualization/rectangle.py:60
 msgid "Cached device"
 msgstr "Urządzenie w pamięci podręcznej"
+
+#: ../blivetgui/visualization/rectangle.py:61
+#, fuzzy
+#| msgid "Empty device"
+msgid "Incomplete device"
+msgstr "Puste urządzenie"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."

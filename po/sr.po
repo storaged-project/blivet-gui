@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-20 14:36+0200\n"
+"POT-Creation-Date: 2025-09-18 16:02+0200\n"
 "PO-Revision-Date: 2017-09-09 04:34+0000\n"
 "Last-Translator: Marko Kostic <marko.m.kostic@gmail.com>\n"
 "Language-Team: Serbian\n"
@@ -376,6 +376,13 @@ msgstr ""
 
 #: ../blivetgui/list_devices.py:134 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
+msgstr ""
+
+#. broken MD array
+#. TRANSLATORS: size value for device with invalid/unknown size
+#: ../blivetgui/list_partitions.py:167
+#: ../blivetgui/visualization/rectangle.py:65
+msgid "unknown"
 msgstr ""
 
 #: ../blivetgui/loading_window.py:48
@@ -1017,47 +1024,53 @@ msgstr "Лозинке се подударају."
 msgid "Passphrases don't match."
 msgstr "Лозинке се не подударају."
 
-#: ../blivetgui/visualization/rectangle.py:50
+#: ../blivetgui/visualization/rectangle.py:52
 msgid "Group device"
 msgstr "Група уређаја"
 
-#: ../blivetgui/visualization/rectangle.py:51
+#: ../blivetgui/visualization/rectangle.py:53
 msgid "LiveUSB device"
 msgstr "Живи УСБ уређај"
 
-#: ../blivetgui/visualization/rectangle.py:52
+#: ../blivetgui/visualization/rectangle.py:54
 #, fuzzy
 #| msgid "Encrypted device (closed)"
 msgid "Encrypted device (locked)"
 msgstr "Шифрован уређај (затворен)"
 
-#: ../blivetgui/visualization/rectangle.py:53
+#: ../blivetgui/visualization/rectangle.py:55
 #, fuzzy
 #| msgid "Encrypted device (closed)"
 msgid "Encrypted device (unlocked)"
 msgstr "Шифрован уређај (затворен)"
 
-#: ../blivetgui/visualization/rectangle.py:54
+#: ../blivetgui/visualization/rectangle.py:56
 msgid "Empty device"
 msgstr "Празан уређај"
 
-#: ../blivetgui/visualization/rectangle.py:55
+#: ../blivetgui/visualization/rectangle.py:57
 msgid "Snapshot"
 msgstr "Снимак стања"
 
-#: ../blivetgui/visualization/rectangle.py:56
+#: ../blivetgui/visualization/rectangle.py:58
 msgid "Missing partition table"
 msgstr "Недостаје партициона табела"
 
-#: ../blivetgui/visualization/rectangle.py:57
+#: ../blivetgui/visualization/rectangle.py:59
 msgid "Device or format is write protected"
 msgstr "Уређај или формат је само за читање"
 
-#: ../blivetgui/visualization/rectangle.py:58
+#: ../blivetgui/visualization/rectangle.py:60
 #, fuzzy
 #| msgid "Edit device"
 msgid "Cached device"
 msgstr "Уреди уређај"
+
+#: ../blivetgui/visualization/rectangle.py:61
+#, fuzzy
+#| msgid "Empty device"
+msgid "Incomplete device"
+msgstr "Празан уређај"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
