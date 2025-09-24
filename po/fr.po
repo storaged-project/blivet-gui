@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-18 16:02+0200\n"
-"PO-Revision-Date: 2025-09-15 11:58+0000\n"
+"PO-Revision-Date: 2025-09-24 03:04+0000\n"
 "Last-Translator: Léane GRASSER <leane.grasser@proton.me>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fr/>\n"
@@ -393,7 +393,7 @@ msgstr "Pool Stratis"
 #: ../blivetgui/list_partitions.py:167
 #: ../blivetgui/visualization/rectangle.py:65
 msgid "unknown"
-msgstr ""
+msgstr "inconnue"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -1075,10 +1075,8 @@ msgid "Cached device"
 msgstr "Périphérique en cache"
 
 #: ../blivetgui/visualization/rectangle.py:61
-#, fuzzy
-#| msgid "Empty device"
 msgid "Incomplete device"
-msgstr "Périphérique vide"
+msgstr "Périphérique incomplet"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
