@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-18 16:02+0200\n"
-"PO-Revision-Date: 2025-04-20 18:51+0000\n"
+"PO-Revision-Date: 2025-09-24 03:04+0000\n"
 "Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/es/>\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -347,10 +347,8 @@ msgid "Disks"
 msgstr "Discos"
 
 #: ../blivetgui/list_devices.py:92
-#, fuzzy
-#| msgid "MD RAID Array"
 msgid "MDRAID set"
-msgstr "Matriz RAID MD"
+msgstr "Conjunto RAID MD"
 
 #: ../blivetgui/list_devices.py:113
 msgid "LVM"
@@ -390,7 +388,7 @@ msgstr "Consorcio Stratis"
 #: ../blivetgui/list_partitions.py:167
 #: ../blivetgui/visualization/rectangle.py:65
 msgid "unknown"
-msgstr ""
+msgstr "desconocido"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -1067,10 +1065,8 @@ msgid "Cached device"
 msgstr "Dispositivo en caché"
 
 #: ../blivetgui/visualization/rectangle.py:61
-#, fuzzy
-#| msgid "Empty device"
 msgid "Incomplete device"
-msgstr "Dispositivo vacío"
+msgstr "Dispositivo incompleto"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
