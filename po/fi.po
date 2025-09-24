@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-18 16:02+0200\n"
-"PO-Revision-Date: 2025-04-16 02:42+0000\n"
-"Last-Translator: Jiri Grönroos <jiri.gronroos@iki.fi>\n"
+"PO-Revision-Date: 2025-09-24 17:25+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fi/>\n"
 "Language: fi\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -373,7 +373,7 @@ msgstr "Stratis-varanto"
 #: ../blivetgui/list_partitions.py:167
 #: ../blivetgui/visualization/rectangle.py:65
 msgid "unknown"
-msgstr ""
+msgstr "tuntematon"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -1047,10 +1047,8 @@ msgid "Cached device"
 msgstr "Välimuistissa oleva laite"
 
 #: ../blivetgui/visualization/rectangle.py:61
-#, fuzzy
-#| msgid "Empty device"
 msgid "Incomplete device"
-msgstr "Tyhjä laite"
+msgstr "Epätäydellinen laite"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
