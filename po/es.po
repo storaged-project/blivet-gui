@@ -19,8 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-18 16:02+0200\n"
 "PO-Revision-Date: 2025-09-24 03:04+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"Last-Translator: \"Fco. Javier F. Serrador\" <fserrador@gmail.com>\n"
 "Language-Team: Spanish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/es/>\n"
 "Language: es\n"
@@ -348,10 +347,8 @@ msgid "Disks"
 msgstr "Discos"
 
 #: ../blivetgui/list_devices.py:92
-#, fuzzy
-#| msgid "MD RAID Array"
 msgid "MDRAID set"
-msgstr "Matriz RAID MD"
+msgstr "Conjunto RAID MD"
 
 #: ../blivetgui/list_devices.py:113
 msgid "LVM"
@@ -1068,10 +1065,8 @@ msgid "Cached device"
 msgstr "Dispositivo en caché"
 
 #: ../blivetgui/visualization/rectangle.py:61
-#, fuzzy
-#| msgid "Empty device"
 msgid "Incomplete device"
-msgstr "Dispositivo vacío"
+msgstr "Dispositivo incompleto"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
