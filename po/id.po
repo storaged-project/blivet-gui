@@ -4,13 +4,14 @@
 # Andika Triwidada <andika@gmail.com>, 2020, 2021, 2022, 2023, 2024.
 # Didik Supriadi <didiksupriadi41@gmail.com>, 2021.
 # data informasi <mh1227330@gmail.com>, 2025.
+# Arif Budiman <arifpedia@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-18 16:02+0200\n"
-"PO-Revision-Date: 2025-09-14 05:18+0000\n"
-"Last-Translator: data informasi <mh1227330@gmail.com>\n"
+"PO-Revision-Date: 2025-09-24 17:25+0000\n"
+"Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/id/>\n"
 "Language: id\n"
@@ -30,16 +31,13 @@ msgid "resize {name} {type}"
 msgstr "mengubah ukuran {name} {type}"
 
 #: ../blivetgui/blivetgui.py:320
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "Gagal mengubah ukuran perangkat:"
+msgstr "Gagal mengganti nama perangkat:"
 
 #: ../blivetgui/blivetgui.py:332
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "mengubah ukuran {name} {type}"
+msgstr "ubah nama {name} {type}"
 
 #: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
@@ -331,10 +329,8 @@ msgid "Disks"
 msgstr "Disk"
 
 #: ../blivetgui/list_devices.py:92
-#, fuzzy
-#| msgid "MD RAID Array"
 msgid "MDRAID set"
-msgstr "MD RAID Array"
+msgstr "Set MDRAID"
 
 #: ../blivetgui/list_devices.py:113
 msgid "LVM"
@@ -362,21 +358,19 @@ msgid "Btrfs Volume"
 msgstr "Volume Btrfs"
 
 #: ../blivetgui/list_devices.py:131
-#, fuzzy
 msgid "Stratis Pools"
-msgstr "Kumpulan Stratis"
+msgstr "Pools Stratis"
 
 #: ../blivetgui/list_devices.py:134 ../blivetgui/dialogs/add_dialog.py:392
-#, fuzzy
 msgid "Stratis Pool"
-msgstr "Kumpulan Stratis"
+msgstr "Pool Stratis"
 
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
 #: ../blivetgui/list_partitions.py:167
 #: ../blivetgui/visualization/rectangle.py:65
 msgid "unknown"
-msgstr ""
+msgstr "tidak diketahui"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -530,10 +524,8 @@ msgid "Btrfs Subvolume"
 msgstr "Subvolume Btrfs"
 
 #: ../blivetgui/dialogs/add_dialog.py:417
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "Sistem Berkas:"
+msgstr "Sistem Berkas Stratis"
 
 #: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
@@ -874,15 +866,14 @@ msgid "'{label}' is not a valid label for this filesystem"
 msgstr "'{label}' bukan label yang valid untuk sistem berkas ini"
 
 #: ../blivetgui/dialogs/edit_dialog.py:482
-#, fuzzy, python-brace-format
+#, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr "Perangkat yang dipilih sudah bernama \"{0}\"."
+msgstr "Perangkat yang dipilih sudah diberi nama “{0}”."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr "Titik kait yang dipilih \"{0}\" sudah disetel untuk perangkat lain."
+msgstr "Nama yang dipilih “{0}” sudah digunakan."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -1058,10 +1049,8 @@ msgid "Cached device"
 msgstr "Peranti tersinggah"
 
 #: ../blivetgui/visualization/rectangle.py:61
-#, fuzzy
-#| msgid "Empty device"
 msgid "Incomplete device"
-msgstr "Perangkat kosong"
+msgstr "Perangkat yang tidak lengkap"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1096,7 +1085,6 @@ msgid "Resize"
 msgstr "Ubah Ukuran"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
-#, fuzzy
 msgid "Rename"
 msgstr "Ubah nama"
 
@@ -1364,23 +1352,18 @@ msgid "RAID level:"
 msgstr "Tingkat RAID:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "Ubah ukuran perangkat"
+msgstr "Ubah nama perangkat"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
-#, fuzzy
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr "Ubah Nama"
+msgstr "Ubah nama"
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "Masukkan label baru untuk sistem berkas ini:"
+msgstr "Masukkan nama baru untuk perangkat ini:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"

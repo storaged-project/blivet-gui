@@ -1,15 +1,15 @@
-# Yuri Chornoivan <yurchor@ukr.net>, 2015, 2020, 2021, 2022, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2015, 2020, 2021, 2022, 2024, 2025.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
-# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021, 2022, 2024.
-# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020, 2021, 2022, 2024.
-# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020, 2021, 2022, 2024.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020. #zanata, 2021, 2022, 2024.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021, 2022, 2024, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020, 2021, 2022, 2024, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020, 2021, 2022, 2024, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020. #zanata, 2021, 2022, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-18 16:02+0200\n"
-"PO-Revision-Date: 2024-08-15 14:39+0000\n"
+"PO-Revision-Date: 2025-09-24 17:25+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/uk/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -31,16 +31,13 @@ msgid "resize {name} {type}"
 msgstr "змінити розмір {name} {type}"
 
 #: ../blivetgui/blivetgui.py:320
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "Не вдалося змінити розміри пристрою:"
+msgstr "Не вдалося перейменувати пристрій:"
 
 #: ../blivetgui/blivetgui.py:332
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "змінити розмір {name} {type}"
+msgstr "rename {name} {type}"
 
 #: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
@@ -343,10 +340,8 @@ msgid "Disks"
 msgstr "Диски"
 
 #: ../blivetgui/list_devices.py:92
-#, fuzzy
-#| msgid "MD RAID Array"
 msgid "MDRAID set"
-msgstr "RAID-масив MD"
+msgstr "встановлено MDRAID"
 
 #: ../blivetgui/list_devices.py:113
 msgid "LVM"
@@ -375,18 +370,18 @@ msgstr "Том Btrfs"
 
 #: ../blivetgui/list_devices.py:131
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Буфери Stratis"
 
 #: ../blivetgui/list_devices.py:134 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Буфер Stratis"
 
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
 #: ../blivetgui/list_partitions.py:167
 #: ../blivetgui/visualization/rectangle.py:65
 msgid "unknown"
-msgstr ""
+msgstr "невідомий"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -540,10 +535,8 @@ msgid "Btrfs Subvolume"
 msgstr "Підтом Btrfs"
 
 #: ../blivetgui/dialogs/add_dialog.py:417
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "Файлова система:"
+msgstr "Файлова система Stratis"
 
 #: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
@@ -886,13 +879,12 @@ msgstr "«{label}» не є коректною міткою для цієї фа
 #: ../blivetgui/dialogs/edit_dialog.py:482
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "Вибраний пристрій вже має назву «{0}»."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr "Вибрану точку монтування «{0}» вже встановлено для іншого пристрою."
+msgstr "Вибрану назву «{0}» вже використано."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -1067,10 +1059,8 @@ msgid "Cached device"
 msgstr "Кешований пристрій"
 
 #: ../blivetgui/visualization/rectangle.py:61
-#, fuzzy
-#| msgid "Empty device"
 msgid "Incomplete device"
-msgstr "Порожній пристрій"
+msgstr "Неповний пристрій"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1106,7 +1096,7 @@ msgstr "Змінити розмір"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
 msgid "Rename"
-msgstr ""
+msgstr "Перейменувати"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
@@ -1372,22 +1362,18 @@ msgid "RAID level:"
 msgstr "Рівень RAID:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "Змінити розмір пристрою"
+msgstr "Перейменувати пристрій"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "Перейменувати"
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "Введіть нову мітку для цієї файлової системи:"
+msgstr "Введіть нову назву цього пристрою:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
