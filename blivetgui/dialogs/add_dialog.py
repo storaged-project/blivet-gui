@@ -965,8 +965,14 @@ class AddDialog(Gtk.Dialog):
         self.add_size_area()
 
         if device_type == "partition":
-            self.show_widgets(["label", "fs", "encrypt", "mountpoint", "size", "advanced"])
+            self.show_widgets(["label", "fs", "encrypt", "mountpoint", "size"])
             self.hide_widgets(["name", "mdraid"])
+
+            # show advanced widgets (partition type selection) only for msdos partition table
+            if self.selected_parent.format.type == "disklabel" and self.selected_parent.format.label_type == "msdos":
+                self.show_widgets(["advanced"])
+            else:
+                self.hide_widgets(["advanced"])
 
         elif device_type == "lvm":
             self.show_widgets(["encrypt", "name", "size", "advanced"])

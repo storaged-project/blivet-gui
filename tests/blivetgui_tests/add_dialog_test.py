@@ -254,7 +254,7 @@ class AddDialogTest(unittest.TestCase):
                          is_free_region=free_region, is_empty_disk=empty_disk, is_uninitialized_disk=uninitialized_disk,
                          min_size=kwargs.get("min_size", Size("1 MiB")))
 
-    def _get_parent_device(self, name=None, dtype="disk", size=Size("8 GiB"), ftype="disklabel"):
+    def _get_parent_device(self, name=None, dtype="disk", size=Size("8 GiB"), ftype="disklabel", label_type="msdos"):
         if not name:
             if dtype == "disk":
                 name = "vda"
@@ -265,7 +265,7 @@ class AddDialogTest(unittest.TestCase):
         dev.configure_mock(name=name, type=dtype, size=size)
 
         if dtype == "disk":
-            dev.configure_mock(format=MagicMock(type=ftype,
+            dev.configure_mock(format=MagicMock(type=ftype, label_type=label_type,
                                sector_size=512,
                                parted_disk=MagicMock(maxPartitionLength=4294967295)))
         else:
@@ -330,7 +330,8 @@ class AddDialogTest(unittest.TestCase):
         self.assertFalse(add_dialog.devices_combo.get_sensitive())
 
     def test_partition_widgets(self):
-        parent_device = self._get_parent_device()
+        # msdos partition table
+        parent_device = self._get_parent_device(label_type="msdos")
         free_device = self._get_free_device(parent=parent_device)
 
         add_dialog = AddDialog(self.parent_window, parent_device, free_device,
@@ -344,8 +345,22 @@ class AddDialogTest(unittest.TestCase):
         self.assertTrue(add_dialog._encryption_chooser._encrypt_check.get_visible())
         self.assertFalse(add_dialog._raid_chooser.get_visible())
         self.assertIsNotNone(add_dialog.advanced)
+        self.assertTrue(add_dialog.advanced.widgets[0].get_visible())
         self.assertFalse(add_dialog.md_type_combo.get_visible())
         self.assertTrue(add_dialog.size_area.get_sensitive())
+
+        # gpt partition table
+        parent_device = self._get_parent_device(label_type="gpt")
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
+                               [("free", free_device)], self.supported_filesystems, [])
+
+        add_dialog.devices_combo.set_active_id("partition")
+        self.assertEqual(add_dialog.selected_type, "partition")
+
+        self.assertIsNotNone(add_dialog.advanced)
+        self.assertFalse(add_dialog.advanced.widgets[0].get_visible())
 
     def test_lvm_widgets(self):
         parent_device = self._get_parent_device()
