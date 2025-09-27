@@ -10,7 +10,7 @@
 # Vojtěch Trefný <vtrefny@redhat.com>, 2017. #zanata, 2023, 2024.
 # Zdenek <chmelarz@gmail.com>, 2018. #zanata
 # Daniel Rusek <mail@asciiwolf.com>, 2019. #zanata
-# Pavel Borecki <pavel.borecki@gmail.com>, 2021, 2022, 2023, 2024.
+# Pavel Borecki <pavel.borecki@gmail.com>, 2021, 2022, 2023, 2024, 2025.
 # Jan Kalabza <jan.kalabza@gmail.com>, 2023, 2025.
 # Matěj Valášek <valmatej@seznam.cz>, 2023.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
@@ -20,8 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-18 16:02+0200\n"
 "PO-Revision-Date: 2025-09-27 16:54+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/cs/>\n"
 "Language: cs\n"
@@ -345,10 +344,8 @@ msgid "Disks"
 msgstr "Disky"
 
 #: ../blivetgui/list_devices.py:92
-#, fuzzy
-#| msgid "MD RAID Array"
 msgid "MDRAID set"
-msgstr "Pole MD RAID"
+msgstr "MDRAID sada"
 
 #: ../blivetgui/list_devices.py:113
 msgid "LVM"
@@ -377,7 +374,7 @@ msgstr "Btrfs svazek"
 
 #: ../blivetgui/list_devices.py:131
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Stratis fondy"
 
 #: ../blivetgui/list_devices.py:134 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
@@ -388,7 +385,7 @@ msgstr "Stratis fond"
 #: ../blivetgui/list_partitions.py:167
 #: ../blivetgui/visualization/rectangle.py:65
 msgid "unknown"
-msgstr "neznámé"
+msgstr "neznámá"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -1022,7 +1019,7 @@ msgstr "Zadání heslové fráze se shodují."
 
 #: ../blivetgui/dialogs/widgets.py:418
 msgid "Passphrases don't match."
-msgstr "Zadání heslové fráze se neshodují."
+msgstr "Heslové fráze se neshodují."
 
 #: ../blivetgui/visualization/rectangle.py:52
 msgid "Group device"
@@ -1061,10 +1058,8 @@ msgid "Cached device"
 msgstr "Zařízení v mezipaměti"
 
 #: ../blivetgui/visualization/rectangle.py:61
-#, fuzzy
-#| msgid "Empty device"
 msgid "Incomplete device"
-msgstr "Prázdné zařízení"
+msgstr "Neúplné zařízení"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1376,10 +1371,8 @@ msgid "Rename"
 msgstr "Přejmenovat"
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "Zadejte nový štítek pro tento souborový systém:"
+msgstr "Zadejte nový název pro toto zařízení:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
