@@ -978,15 +978,9 @@ class BlivetUtils(object):
             return actions
 
         if fmt_type is not None:
-            if fmt_type == "ntfs":
-                fmt_options = "-f"
-            else:
-                fmt_options = ""
-
             new_fmt = blivet.formats.get_format(fmt_type=user_input.filesystem,
                                                 label=user_input.label,
-                                                mountpoint=user_input.mountpoint,
-                                                create_options=fmt_options)
+                                                mountpoint=user_input.mountpoint)
             return [blivet.deviceaction.ActionCreateFormat(device, new_fmt)]
 
     def _create_btrfs_format(self, user_input, device):
