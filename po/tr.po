@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Oğuz Ersen <oguzersen@protonmail.com>, 2020, 2021, 2022.
-# Oğuz Ersen <oguz@ersen.moe>, 2022, 2024.
+# Oğuz Ersen <oguz@ersen.moe>, 2022, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-18 16:02+0200\n"
-"PO-Revision-Date: 2024-08-15 14:39+0000\n"
+"PO-Revision-Date: 2025-10-04 16:58+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/tr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -29,16 +29,13 @@ msgid "resize {name} {type}"
 msgstr "{name} {type} yeniden boyutlandır"
 
 #: ../blivetgui/blivetgui.py:320
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "Aygıt yeniden boyutlandırılamadı:"
+msgstr "Aygıt yeniden adlandırılamadı:"
 
 #: ../blivetgui/blivetgui.py:332
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "{name} {type} yeniden boyutlandır"
+msgstr "{name} {type} yeniden adlandır"
 
 #: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
@@ -331,10 +328,8 @@ msgid "Disks"
 msgstr "Diskler"
 
 #: ../blivetgui/list_devices.py:92
-#, fuzzy
-#| msgid "MD RAID Array"
 msgid "MDRAID set"
-msgstr "MD RAID Dizisi"
+msgstr "MDRAID dizisi"
 
 #: ../blivetgui/list_devices.py:113
 msgid "LVM"
@@ -363,18 +358,18 @@ msgstr "Btrfs Birimi"
 
 #: ../blivetgui/list_devices.py:131
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Stratis Havuzları"
 
 #: ../blivetgui/list_devices.py:134 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Stratis Havuzu"
 
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
 #: ../blivetgui/list_partitions.py:167
 #: ../blivetgui/visualization/rectangle.py:65
 msgid "unknown"
-msgstr ""
+msgstr "bilinmeyen"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -527,10 +522,8 @@ msgid "Btrfs Subvolume"
 msgstr "Btrfs Alt Birimi"
 
 #: ../blivetgui/dialogs/add_dialog.py:417
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "Dosya sistemi:"
+msgstr "Stratis Dosya Sistemi"
 
 #: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
@@ -873,13 +866,12 @@ msgstr "'{label}' bu dosya sistemi için geçerli bir etiket değil"
 #: ../blivetgui/dialogs/edit_dialog.py:482
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "Seçilen aygıt zaten \"{0}\" olarak adlandırıldı."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr "Seçilen \"{0}\" bağlama noktası başka bir aygıt için zaten ayarlanmış."
+msgstr "Seçilen ad \"{0}\" zaten kullanılıyor."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -1049,10 +1041,8 @@ msgid "Cached device"
 msgstr "Önbelleğe alınan aygıt"
 
 #: ../blivetgui/visualization/rectangle.py:61
-#, fuzzy
-#| msgid "Empty device"
 msgid "Incomplete device"
-msgstr "Boş aygıt"
+msgstr "Tamamlanmamış aygıt"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1089,7 +1079,7 @@ msgstr "Yeniden boyutlandır"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
 msgid "Rename"
-msgstr ""
+msgstr "Yeniden adlandır"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
@@ -1355,22 +1345,18 @@ msgid "RAID level:"
 msgstr "RAID seviyesi:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "Aygıtı yeniden boyutlandır"
+msgstr "Aygıtı yeniden adlandır"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "Yeniden adlandır"
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "Bu dosya sistemi için yeni bir etiket girin:"
+msgstr "Bu aygıt için yeni ad girin:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
