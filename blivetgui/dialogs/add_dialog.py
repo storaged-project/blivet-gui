@@ -402,10 +402,10 @@ class AddDialog(Gtk.Dialog):
             types.append((_("LVM2 Volume Group"), "lvmvg"))
 
         elif self.selected_parent.type == "lvmlv":
-            types.append((_("LVM2 Snaphost"), "lvm snapshot"))
+            types.append((_("LVM2 Snapshot"), "lvm snapshot"))
 
         elif self.selected_parent.type == "lvmthinlv":
-            types.append((_("LVM2 Thin Snaphost"), "lvm thinsnapshot"))
+            types.append((_("LVM2 Thin Snapshot"), "lvm thinsnapshot"))
 
         elif self.selected_parent.type == "lvmthinpool":
             types.append((_("LVM2 Thin Logical Volume"), "lvmthinlv"))
@@ -543,12 +543,12 @@ class AddDialog(Gtk.Dialog):
                                                fdevice.disk.name, "disk region", str(fdevice.size)])
 
         elif self.selected_type in ("lvm snapshot",):
-            # parent for a LVM snaphost is actually the VG, not the selected LV
+            # parent for a LVM snapshot is actually the VG, not the selected LV
             self.parents_store.append([self.selected_parent, self.selected_free, False, False,
                                        self.selected_parent.vg.name, "lvmvg", str(self.selected_free.size)])
 
         elif self.selected_type in ("lvm thinsnapshot",):
-            # parent for an LVM thinsnaphost is actually the pool, not the selected thinLV
+            # parent for an LVM thinsnapshot is actually the pool, not the selected thinLV
             self.parents_store.append([self.selected_parent, self.selected_free, False, False,
                                        self.selected_parent.pool.name, "lvmvg", str(self.selected_free.size)])
 
