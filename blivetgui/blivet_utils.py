@@ -1294,6 +1294,7 @@ class BlivetUtils(object):
                                                  luks_sector_size=user_input.encryption_sector_size,
                                                  device=new_md.path)
             actions.append(blivet.deviceaction.ActionCreateFormat(new_md, luks_fmt))
+            new_md.format = luks_fmt
 
             luks_dev = LUKSDevice("luks-%s" % new_md.name, size=new_md.size, parents=[new_md])
             actions.append(blivet.deviceaction.ActionCreateDevice(luks_dev))
