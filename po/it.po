@@ -4,16 +4,15 @@
 # Luca Ciavatta <luca.ciavatta@gmail.com>, 2016. #zanata
 # Alessio <alciregi@posteo.net>, 2020.
 # Nathan <nathan95@live.it>, 2020.
-# Salvatore Cocuzza <info@salvatorecocuzza.it>, 2024.
+# Salvatore Cocuzza <info@salvatorecocuzza.it>, 2024, 2025.
 # Angelo Schirinzi <odi-3@users.noreply.translate.fedoraproject.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-18 16:02+0200\n"
-"PO-Revision-Date: 2025-04-17 18:18+0000\n"
-"Last-Translator: Angelo Schirinzi <odi-3@users.noreply.translate."
-"fedoraproject.org>\n"
+"PO-Revision-Date: 2025-10-09 17:53+0000\n"
+"Last-Translator: Salvatore Cocuzza <info@salvatorecocuzza.it>\n"
 "Language-Team: Italian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/it/>\n"
 "Language: it\n"
@@ -21,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -343,10 +342,8 @@ msgid "Disks"
 msgstr "Dischi"
 
 #: ../blivetgui/list_devices.py:92
-#, fuzzy
-#| msgid "MD RAID Array"
 msgid "MDRAID set"
-msgstr "Array MD RAID"
+msgstr "MDRAID set"
 
 #: ../blivetgui/list_devices.py:113
 msgid "LVM"
@@ -386,7 +383,7 @@ msgstr "Stratis Pool"
 #: ../blivetgui/list_partitions.py:167
 #: ../blivetgui/visualization/rectangle.py:65
 msgid "unknown"
-msgstr ""
+msgstr "sconosciuto"
 
 #: ../blivetgui/loading_window.py:48
 msgid "Probing storage"
@@ -1065,10 +1062,8 @@ msgid "Cached device"
 msgstr "Dispositivo memorizzato nella cache"
 
 #: ../blivetgui/visualization/rectangle.py:61
-#, fuzzy
-#| msgid "Empty device"
 msgid "Incomplete device"
-msgstr "Dispositivo vuoto"
+msgstr "Dispositivo incompleto"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
