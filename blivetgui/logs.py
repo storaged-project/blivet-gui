@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # logs.py
 # Logging for blivet-gui
 #

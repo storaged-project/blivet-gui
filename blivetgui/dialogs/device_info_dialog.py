@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # device_information_dialog.py
 # Dialog showing information about selected device
 #
@@ -165,7 +164,7 @@ class DeviceInformationDialog(Gtk.Dialog):
         self.grid.attach(child=device_type_label, left=0, top=0, width=2, height=1)
 
         # unknown device type
-        if self.device.type not in self.type_dict.keys():
+        if self.device.type not in self.type_dict:
             info = _("Unknown device {name}").format(name=self.device.name)
 
         else:
@@ -195,7 +194,7 @@ class DeviceInformationDialog(Gtk.Dialog):
         device_info_label.set_yalign(0)
 
         # 'advanced' information about selected device (specific for each device type)
-        if self.device.type in self.type_dict.keys() and self.type_dict[self.device.type][1]:
+        if self.device.type in self.type_dict and self.type_dict[self.device.type][1]:
             adv_info_label = Gtk.Label()
             self.grid.attach(adv_info_label, left=1, top=2, width=1, height=1)
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # list_partitions.py
 # Load and display partitions for selected device
 #
@@ -26,7 +25,7 @@ import blivet
 from .i18n import _
 
 
-class ListPartitions(object):
+class ListPartitions:
     """ List of children of selected device
     """
 

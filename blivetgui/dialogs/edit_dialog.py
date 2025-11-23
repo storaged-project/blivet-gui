@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # edit_dialog.py
 # Gtk.Dialog for editing devices
 #
@@ -38,7 +37,7 @@ from ..config import config
 # ---------------------------------------------------------------------------- #
 
 
-class ResizeDialog(object):
+class ResizeDialog:
 
     def __init__(self, main_window, resize_device, resize_info):
         self.main_window = main_window
@@ -131,7 +130,7 @@ class ResizeDialog(object):
         self.dialog.response(Gtk.ResponseType.ACCEPT)
 
 
-class FormatDialog(object):
+class FormatDialog:
 
     def __init__(self, main_window, edit_device, supported_filesystems,
                  mountpoints=None, installer_mode=False):
@@ -291,7 +290,7 @@ class FormatDialog(object):
         self.dialog.response(Gtk.ResponseType.ACCEPT)
 
 
-class MountpointDialog(object):
+class MountpointDialog:
 
     def __init__(self, main_window, edit_device, mountpoints=None, installer_mode=False):
         self.main_window = main_window
@@ -371,7 +370,7 @@ class MountpointDialog(object):
         self.dialog.response(Gtk.ResponseType.ACCEPT)
 
 
-class LabelDialog(object):
+class LabelDialog:
 
     def __init__(self, main_window, edit_device, installer_mode=False):
         self.main_window = main_window
@@ -432,7 +431,7 @@ class LabelDialog(object):
         self.dialog.response(Gtk.ResponseType.ACCEPT)
 
 
-class RenameDialog(object):
+class RenameDialog:
 
     def __init__(self, main_window, edit_device, names, installer_mode=False):
         self.main_window = main_window
@@ -513,7 +512,7 @@ class RenameDialog(object):
         self.dialog.response(Gtk.ResponseType.ACCEPT)
 
 
-class UnmountDialog(object):
+class UnmountDialog:
 
     def __init__(self, main_window, edit_device, mountpoints, installer_mode=False):
         self.main_window = main_window

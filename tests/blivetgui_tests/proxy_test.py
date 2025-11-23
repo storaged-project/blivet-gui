@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import unittest
 
 from blivetgui.communication.proxy_utils import ProxyID, ProxyDataContainer

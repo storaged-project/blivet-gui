@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # other_dialogs.py
 # misc Gtk.Dialog classes
 #
@@ -36,7 +35,7 @@ from blivet.formats.disklabel import DiskLabel
 # ---------------------------------------------------------------------------- #
 
 
-class AboutDialog(object):
+class AboutDialog:
     """ Standard 'about application' dialog
     """
 
@@ -58,7 +57,7 @@ class AboutDialog(object):
         dialog.destroy()
 
 
-class AddLabelDialog(object):
+class AddLabelDialog:
     """ Dialog window allowing user to add disklabel to disk
     """
 
@@ -100,7 +99,7 @@ class AddLabelDialog(object):
             return None
 
 
-class LuksPassphraseDialog(object):
+class LuksPassphraseDialog:
     """ Dialog window allowing user to enter passphrase to decrypt
     """
 

@@ -44,7 +44,7 @@ picklable_types = (str, int, float, bool, size.Size, BaseException)
 # ---------------------------------------------------------------------------- #
 
 
-class BlivetProxyObject(object):
+class BlivetProxyObject:
     """ Class representing unpicklable objects
     """
 
@@ -63,7 +63,7 @@ class BlivetProxyObject(object):
         return subobject
 
     def __setattr__(self, name, value):
-        if name in self.attrs + tuple(object.__dict__.keys()):
+        if name in self.attrs + tuple(object.__dict__):
             super().__setattr__(name, value)
         else:
             return setattr(self.blivet_object, name, value)
@@ -358,7 +358,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
     def _kwargs_convertTo_objects(self, kwargs):
         kwargs_obj = {}
 
-        for key in kwargs.keys():
+        for key in kwargs:
             kwargs_obj[key] = self._args_convertTo_objects((kwargs[key],))[0]
 
         return kwargs_obj

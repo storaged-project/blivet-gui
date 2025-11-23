@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # osinstall.py
 # blivet-gui code for running in Anaconda installer
 #
@@ -70,7 +69,7 @@ class BlivetUtilsAnaconda(BlivetUtils):
         self._storage = storage
 
 
-class BlivetGUIAnacondaClient(object):
+class BlivetGUIAnacondaClient:
 
     def __init__(self):
         self.utils = BlivetUtilsAnaconda()

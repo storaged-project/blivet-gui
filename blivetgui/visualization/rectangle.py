@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # rectangle.py
 # Gtk.Button modified for device visualization
 #

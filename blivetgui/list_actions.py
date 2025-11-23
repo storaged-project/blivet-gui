@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # list_partitions.py
 # List of actions currently scheduled using blivet-gui
 #
@@ -32,7 +31,7 @@ from .i18n import _, P_
 # ---------------------------------------------------------------------------- #
 
 
-class ListActions(object):
+class ListActions:
     """ List of children of selected device
 
         .. note:: There are two types of 'actions': 'blivet actions' -- simply instances of

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # helpers.py
 # Helper functions for blivet-gui dialogs
 #

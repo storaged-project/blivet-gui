@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # gui_utils.py
 # Utils for GUI
 #

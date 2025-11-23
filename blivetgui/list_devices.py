@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # list_devices.py
 # Load and display root and group devices
 #
@@ -32,7 +31,7 @@ from .i18n import _
 # ---------------------------------------------------------------------------- #
 
 
-class ListDevices(object):
+class ListDevices:
     """ List of parent devices
     """
 

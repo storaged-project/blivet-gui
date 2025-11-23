@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # actions_menu.py
 # Toolbar class
 #
@@ -22,7 +21,7 @@
 # ---------------------------------------------------------------------------- #
 
 
-class ActionsMenu(object):
+class ActionsMenu:
     """ Popup context menu for devices
     """
 
@@ -68,7 +67,7 @@ class ActionsMenu(object):
         """
 
         for item in menu_item_names:
-            if item in self.menu_items.keys():
+            if item in self.menu_items:
                 self.menu_items[item].set_sensitive(True)
 
     def deactivate_menu_items(self, menu_item_names):
@@ -80,7 +79,7 @@ class ActionsMenu(object):
         """
 
         for item in menu_item_names:
-            if item in self.menu_items.keys():
+            if item in self.menu_items:
                 self.menu_items[item].set_sensitive(False)
 
     def deactivate_all(self):

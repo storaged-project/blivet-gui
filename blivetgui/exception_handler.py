@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # exception_handler.py
 # Custom exception handler for blivet-gui
 #
@@ -41,7 +40,7 @@ from .i18n import _
 TRACEBACK = 'Traceback (most recent call last):'
 
 
-class BlivetGUIExceptionHandler(object):
+class BlivetGUIExceptionHandler:
 
     allow_ignore = False
 

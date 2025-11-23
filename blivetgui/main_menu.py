@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # main_menu.py
 # Main menu
 #
@@ -28,7 +27,7 @@ from .dialogs.other_dialogs import AboutDialog
 # ---------------------------------------------------------------------------- #
 
 
-class MainMenu(object):
+class MainMenu:
     """ Main menu for blivet-gui
     """
 

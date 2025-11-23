@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # widgets.py
 # GUI widgets for dialogs (mainly for AddDialog)
 #
@@ -47,7 +46,7 @@ class SignalHandler(ProxyDataContainer):
         super().__init__(method=method, args=args)
 
 
-class GUIWidget(object):
+class GUIWidget:
     """ Helper class for 'composite' widgets for blivet-gui that reads given
         Glade file and implements some useful Gtk.Widget methods
     """
@@ -284,7 +283,7 @@ class EncryptionChooser(GUIWidget):
 
         # fill combobox with supported sector sizes and select the default one
         self.supported_encryption_sector_sizes = {_("Automatic"): 0, "512": 512, "4096": 4096}
-        for ess in self.supported_encryption_sector_sizes.keys():
+        for ess in self.supported_encryption_sector_sizes:
             self._combobox_ess.append_text(ess)
         self._combobox_ess.set_active(0)
         self._set_ess_visibility()

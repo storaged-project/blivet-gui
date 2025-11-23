@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # actions_toolbar.py
 # Toolbar class
 #
@@ -23,7 +22,7 @@
 # ---------------------------------------------------------------------------- #
 
 
-class BlivetGUIToolbar(object):
+class BlivetGUIToolbar:
 
     def __init__(self, blivet_gui):
         self.blivet_gui = blivet_gui
@@ -38,7 +37,7 @@ class BlivetGUIToolbar(object):
         """
 
         for button in button_names:
-            if button in self.buttons.keys():
+            if button in self.buttons:
                 self.buttons[button].set_sensitive(True)
 
     def deactivate_buttons(self, button_names):
@@ -50,7 +49,7 @@ class BlivetGUIToolbar(object):
         """
 
         for button in button_names:
-            if button in self.buttons.keys():
+            if button in self.buttons:
                 self.buttons[button].set_sensitive(False)
 
 
@@ -59,7 +58,7 @@ class DeviceToolbar(BlivetGUIToolbar):
     """
 
     def __init__(self, blivet_gui):
-        super(DeviceToolbar, self).__init__(blivet_gui)
+        super().__init__(blivet_gui)
 
         items = [("add", "clicked", self.blivet_gui.add_device),
                  ("delete", "clicked", self.blivet_gui.delete_selected_partition),
@@ -92,7 +91,7 @@ class DeviceToolbar(BlivetGUIToolbar):
 class ActionsToolbar(BlivetGUIToolbar):
 
     def __init__(self, blivet_gui):
-        super(ActionsToolbar, self).__init__(blivet_gui)
+        super().__init__(blivet_gui)
 
         self.toolbar = self.blivet_gui.builder.get_object("vbox_topbar")
 
