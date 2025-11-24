@@ -36,7 +36,7 @@ from ..i18n import _
 # ---------------------------------------------------------------------------- #
 
 
-class ClientProxyObject(object):
+class ClientProxyObject:
 
     attrs = ("client", "proxy_id")
 
@@ -90,7 +90,7 @@ class ClientProxyObject(object):
             return remote_attr
 
     def __setattr__(self, attr_name, value):
-        if attr_name in self.attrs + tuple(object.__dict__.keys()):
+        if attr_name in self.attrs + tuple(object.__dict__):
             super().__setattr__(attr_name, value)
         else:
             remote_res = self.client.remote_method(self.proxy_id, "__setattr__", (attr_name, value), {})
@@ -101,7 +101,7 @@ class ClientProxyObject(object):
                 return remote_res
 
 
-class BlivetGUIClient(object):
+class BlivetGUIClient:
 
     id_dict = {}
 
@@ -116,7 +116,7 @@ class BlivetGUIClient(object):
         """
 
         if isinstance(answer, ProxyID):
-            if answer.id in self.id_dict.keys():  # we already received this id before and have our proxy object for it
+            if answer.id in self.id_dict:  # we already received this id before and have our proxy object for it
                 return self.id_dict[answer]
             else:
                 self.id_dict[answer] = ClientProxyObject(client=self, proxy_id=answer)  # new id, create new proxy object

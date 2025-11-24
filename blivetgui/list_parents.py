@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # list_parents.py
 # Load and display parents for selected device
 #
@@ -23,7 +22,7 @@
 # ---------------------------------------------------------------------------- #
 
 
-class ListParents(object):
+class ListParents:
     """ List of parents of selected device
     """
 

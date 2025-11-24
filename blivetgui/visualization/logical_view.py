@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # logical_view.py
 # 'Logical' visualization for devices
 #
@@ -37,7 +36,7 @@ RECT_MIN_SIZE = 100
 # ---------------------------------------------------------------------------- #
 
 
-class LogicalView(object):
+class LogicalView:
 
     def __init__(self, blivet_gui):
         self.blivet_gui = blivet_gui

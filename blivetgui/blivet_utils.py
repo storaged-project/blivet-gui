@@ -55,7 +55,7 @@ def lsblk():
     return p.stdout.decode()
 
 
-class FreeSpaceDevice(object):
+class FreeSpaceDevice:
     """ Special class to represent free space on disk (device)
         (blivet doesn't have class/device to represent free space)
     """
@@ -133,7 +133,7 @@ class FreeSpaceDevice(object):
         return "existing " + str(self.size) + " free space"
 
 
-class BlivetUtils(object):
+class BlivetUtils:
     """ Class with utils directly working with blivet itselves
     """
 

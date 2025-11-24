@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # add_dialog.py
 # Gtk.Dialog for adding new device
 #
@@ -56,7 +55,7 @@ POOL_RESERVED = 0.8
 # ---------------------------------------------------------------------------- #
 
 
-class AdvancedOptions(object):
+class AdvancedOptions:
 
     def __init__(self, add_dialog, device_type, parent_device, free_device):
 
@@ -575,7 +574,7 @@ class AddDialog(Gtk.Dialog):
         num_parents = self._get_number_selected_parents()
         level = self._raid_chooser.selected_level
 
-        if device_type not in self.supported_raids.keys() or num_parents == 1:
+        if device_type not in self.supported_raids or num_parents == 1:
             return (False, None)
 
         elif level and level.name in ("linear", "single"):

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # processing_window.py
 # Gtk.Window
 #

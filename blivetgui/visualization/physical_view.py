@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # logical_view.py
 # 'Physical' visualization for devices
 #
@@ -33,7 +32,7 @@ from .rectangle import Rectangle
 # ---------------------------------------------------------------------------- #
 
 
-class PhysicalView(object):
+class PhysicalView:
     def __init__(self, blivet_gui):
         self.blivet_gui = blivet_gui
 

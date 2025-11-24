@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # size_chooser.py
 # Widget allowing to select device size either Gtk.Scale or Gtk.SpinButton
 #
@@ -777,7 +776,7 @@ class SizeChooser(GUIWidget):
         if dev_size < size.Size("2 B"):
             return [size.B]
 
-        for unit in UNITS.keys():
+        for unit in UNITS:
             if size.Size("2 " + unit) <= dev_size:
                 units.append(UNITS[unit])
 

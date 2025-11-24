@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # message_dialogs.py
 # misc Gtk.MessageDialogs
 #
@@ -37,7 +36,7 @@ from ..i18n import _
 # ---------------------------------------------------------------------------- #
 
 
-class WarningDialog(object):
+class WarningDialog:
     """ Basic warning dialog
     """
 
@@ -57,7 +56,7 @@ class WarningDialog(object):
         dialog.destroy()
 
 
-class ErrorDialog(object):
+class ErrorDialog:
     """ Basic error dialog
     """
 
@@ -77,7 +76,7 @@ class ErrorDialog(object):
         dialog.destroy()
 
 
-class InfoDialog(object):
+class InfoDialog:
     """ Basic error dialog
     """
 
@@ -97,7 +96,7 @@ class InfoDialog(object):
         dialog.destroy()
 
 
-class ExceptionDialog(object):
+class ExceptionDialog:
     """ Error dialog with traceback
     """
 
@@ -164,7 +163,7 @@ class ExceptionDialog(object):
         self.dialog.response(DialogResponseType.QUIT)
 
 
-class ConfirmDialog(object):
+class ConfirmDialog:
     """ General confirmation dialog
     """
 
@@ -193,7 +192,7 @@ class ConfirmDialog(object):
         return response == Gtk.ResponseType.OK
 
 
-class ConfirmDeleteDialog(object):
+class ConfirmDeleteDialog:
     """ General confirmation dialog
     """
 
@@ -273,7 +272,7 @@ def show_actions_list(treestore_actions):
     return treeview_actions
 
 
-class ConfirmActionsDialog(object):
+class ConfirmActionsDialog:
     """ Confirm execute actions
     """
 
@@ -312,7 +311,7 @@ class ConfirmActionsDialog(object):
         return response == Gtk.ResponseType.OK
 
 
-class ShowActionsDialog(object):
+class ShowActionsDialog:
     """ Show dialog with scheduled actions
     """
 
@@ -353,7 +352,7 @@ class ShowActionsDialog(object):
         self.dialog.destroy()
 
 
-class CustomDialog(object):
+class CustomDialog:
     """ Message dialog with custom buttons
     """
 

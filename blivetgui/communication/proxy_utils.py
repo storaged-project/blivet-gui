@@ -25,7 +25,7 @@ import functools
 import itertools
 
 
-class ProxyDataContainer(object):
+class ProxyDataContainer:
     """ A picklable container for multiple objects similar to namedtuple
     """
 
@@ -44,7 +44,7 @@ class ProxyDataContainer(object):
         self.kwargs[key] = value
 
     def __getattr__(self, name):
-        if name not in self.kwargs.keys():
+        if name not in self.kwargs:
             raise AttributeError("%s has no attribute %s" % ("ProxyDataContainer", name))
         return self.kwargs.get(name, None)
 
@@ -52,7 +52,7 @@ class ProxyDataContainer(object):
         return "ProxyDataContainer:\n%s" % str(self.kwargs)
 
 
-class ProxyID(object):
+class ProxyID:
     """ A simple picklable object with a unique ID
     """
 

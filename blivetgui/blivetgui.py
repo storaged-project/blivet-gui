@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # list_partitions.py
 # Main blivet-gui class for GUI
 #
@@ -60,7 +59,7 @@ import os
 # ---------------------------------------------------------------------------- #
 
 
-class BlivetGUI(object):
+class BlivetGUI:
     """ Class representing the GUI part of the application. It creates all the
         Gtk.Widgets used in blivet-gui.
     """

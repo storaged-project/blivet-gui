@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # config.py
 # Config for blivet-gui
 #
@@ -32,12 +31,12 @@ class BlivetGUIConfig(dict):
         self["log_dir"] = "/var/log/blivet-gui"
 
     def __getattr__(self, name):
-        if name not in self.keys() and not hasattr(self, name):
+        if name not in self and not hasattr(self, name):
             raise AttributeError("BlivetGUIConfig has no attribute %s" % name)
         return self[name]
 
     def __setattr__(self, name, value):
-        if name not in self.keys() and not hasattr(self, name):
+        if name not in self and not hasattr(self, name):
             raise AttributeError("BlivetGUIConfig has no attribute %s" % name)
         self[name] = value
 

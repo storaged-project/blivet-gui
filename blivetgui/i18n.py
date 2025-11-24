@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # i18n.py
 # I18n utils
 #
