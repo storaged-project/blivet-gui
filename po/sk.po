@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-18 16:02+0200\n"
+"POT-Creation-Date: 2025-10-11 18:31+0200\n"
 "PO-Revision-Date: 2025-09-23 01:48+0000\n"
 "Last-Translator: Ondrej Sulek <feonsu@gmail.com>\n"
 "Language-Team: Slovak <https://translate.fedoraproject.org/projects/blivet/"
@@ -503,11 +503,14 @@ msgid "LVM2 ThinPool"
 msgstr "LVM2 ThinPool"
 
 #: ../blivetgui/dialogs/add_dialog.py:405
-msgid "LVM2 Snaphost"
-msgstr "LVM2 snaphost"
+#: ../blivetgui/dialogs/device_info_dialog.py:83
+msgid "LVM2 Snapshot"
+msgstr "LVM2 snapshot"
 
 #: ../blivetgui/dialogs/add_dialog.py:408
-msgid "LVM2 Thin Snaphost"
+#, fuzzy
+#| msgid "LVM2 Thin Snaphost"
+msgid "LVM2 Thin Snapshot"
 msgstr "LVM2 Thin snaphost"
 
 #: ../blivetgui/dialogs/add_dialog.py:411
@@ -582,22 +585,22 @@ msgstr "Názov:"
 msgid "Mountpoint:"
 msgstr "Bod pripojenia:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1059 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1065 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" nie je platný bod pripojenia."
 
-#: ../blivetgui/dialogs/add_dialog.py:1066
+#: ../blivetgui/dialogs/add_dialog.py:1072
 msgid "Please select at least two parent devices."
 msgstr "Vyberte aspoň dve rodičovské zariadenia."
 
-#: ../blivetgui/dialogs/add_dialog.py:1080
+#: ../blivetgui/dialogs/add_dialog.py:1086
 #: ../blivetgui/dialogs/edit_dialog.py:469
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" nie je platný názov."
 
-#: ../blivetgui/dialogs/add_dialog.py:1086
+#: ../blivetgui/dialogs/add_dialog.py:1092
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -622,10 +625,6 @@ msgstr "rozšírený"
 #, python-brace-format
 msgid "Information about {0}"
 msgstr "Informácie o {0}"
-
-#: ../blivetgui/dialogs/device_info_dialog.py:83
-msgid "LVM2 Snapshot"
-msgstr "LVM2 snapshot"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "LUKS/DM-Crypt Device"
@@ -1402,6 +1401,9 @@ msgstr ""
 "pod viacerými bodmi pripojenia</b>\n"
 "\n"
 "Vyberte bod pripojenia na odpojenie:"
+
+#~ msgid "LVM2 Snaphost"
+#~ msgstr "LVM2 snaphost"
 
 #~ msgid "Decrypt"
 #~ msgstr "Rozšifrovať"

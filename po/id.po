@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-18 16:02+0200\n"
+"POT-Creation-Date: 2025-10-11 18:31+0200\n"
 "PO-Revision-Date: 2025-09-24 17:25+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://translate.fedoraproject.org/projects/"
@@ -506,11 +506,14 @@ msgid "LVM2 ThinPool"
 msgstr "LVM2 ThinPool"
 
 #: ../blivetgui/dialogs/add_dialog.py:405
-msgid "LVM2 Snaphost"
-msgstr "LVM2 Snaphost"
+#: ../blivetgui/dialogs/device_info_dialog.py:83
+msgid "LVM2 Snapshot"
+msgstr "Snapshot LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:408
-msgid "LVM2 Thin Snaphost"
+#, fuzzy
+#| msgid "LVM2 Thin Snaphost"
+msgid "LVM2 Thin Snapshot"
 msgstr "Thin Snaphost LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:411
@@ -585,22 +588,22 @@ msgstr "Nama:"
 msgid "Mountpoint:"
 msgstr "Titik kait:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1059 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1065 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" bukan titik kait yang valid."
 
-#: ../blivetgui/dialogs/add_dialog.py:1066
+#: ../blivetgui/dialogs/add_dialog.py:1072
 msgid "Please select at least two parent devices."
 msgstr "Pilihlah minimal dua peranti induk."
 
-#: ../blivetgui/dialogs/add_dialog.py:1080
+#: ../blivetgui/dialogs/add_dialog.py:1086
 #: ../blivetgui/dialogs/edit_dialog.py:469
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" bukanlah nama yang valid."
 
-#: ../blivetgui/dialogs/add_dialog.py:1086
+#: ../blivetgui/dialogs/add_dialog.py:1092
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -625,10 +628,6 @@ msgstr "diperluas"
 #, python-brace-format
 msgid "Information about {0}"
 msgstr "Informasi tentang {0}"
-
-#: ../blivetgui/dialogs/device_info_dialog.py:83
-msgid "LVM2 Snapshot"
-msgstr "Snapshot LVM2"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "LUKS/DM-Crypt Device"
@@ -1406,6 +1405,9 @@ msgstr ""
 "di beberapa titik kait.</b>\n"
 "\n"
 "Silakan pilih titik kait yang akan dilepas:"
+
+#~ msgid "LVM2 Snaphost"
+#~ msgstr "LVM2 Snaphost"
 
 #~ msgid "Decrypt"
 #~ msgstr "Dekripsi"

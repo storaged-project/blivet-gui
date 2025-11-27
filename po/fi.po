@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-18 16:02+0200\n"
+"POT-Creation-Date: 2025-10-11 18:31+0200\n"
 "PO-Revision-Date: 2025-10-02 15:31+0000\n"
 "Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/blivet/"
@@ -506,11 +506,14 @@ msgid "LVM2 ThinPool"
 msgstr "LVM2-ohut-varanto"
 
 #: ../blivetgui/dialogs/add_dialog.py:405
-msgid "LVM2 Snaphost"
+#: ../blivetgui/dialogs/device_info_dialog.py:83
+msgid "LVM2 Snapshot"
 msgstr "LVM2-tilannevedos"
 
 #: ../blivetgui/dialogs/add_dialog.py:408
-msgid "LVM2 Thin Snaphost"
+#, fuzzy
+#| msgid "LVM2 Thin Snaphost"
+msgid "LVM2 Thin Snapshot"
 msgstr "LVM2-ohut-snaphost"
 
 #: ../blivetgui/dialogs/add_dialog.py:411
@@ -585,22 +588,22 @@ msgstr "Nimi:"
 msgid "Mountpoint:"
 msgstr "Liitoskohta:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1059 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1065 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" ei ole kelvollinen liitoskohta."
 
-#: ../blivetgui/dialogs/add_dialog.py:1066
+#: ../blivetgui/dialogs/add_dialog.py:1072
 msgid "Please select at least two parent devices."
 msgstr "Valitse vähintään kahdet vanhemmat-laitteet."
 
-#: ../blivetgui/dialogs/add_dialog.py:1080
+#: ../blivetgui/dialogs/add_dialog.py:1086
 #: ../blivetgui/dialogs/edit_dialog.py:469
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" ei ole kelvollinen nimi."
 
-#: ../blivetgui/dialogs/add_dialog.py:1086
+#: ../blivetgui/dialogs/add_dialog.py:1092
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -625,10 +628,6 @@ msgstr "laajennettu"
 #, python-brace-format
 msgid "Information about {0}"
 msgstr "Tietoja {0}:sta"
-
-#: ../blivetgui/dialogs/device_info_dialog.py:83
-msgid "LVM2 Snapshot"
-msgstr "LVM2-tilannevedos"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "LUKS/DM-Crypt Device"
@@ -932,8 +931,8 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
-"Jos uskot tämän olevan virhe, käytä alla olevaa 'Ilmoita virheestä' -"
-"painiketta ilmoittaaksesi virheestä käyttäen\n"
+"Jos uskot tämän olevan virhe, käytä alla olevaa 'Ilmoita virheestä' "
+"-painiketta ilmoittaaksesi virheestä käyttäen\n"
 "Automaattista virheraportointityökalua (ABRT) tai avaa ongelmailmoitus <a "
 "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHubissa</"
 "a>."
@@ -943,8 +942,8 @@ msgid ""
 "If you believe this is a bug, please open an issue on our <a href=\"https://"
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
-"Jos uskot tämän olevan virhe, avaa ongelmailmoitus <a href=\"https://github."
-"com/storaged-project/blivet-gui/issues\">GitHubissa</a>."
+"Jos uskot tämän olevan virhe, avaa ongelmailmoitus <a href=\"https://"
+"github.com/storaged-project/blivet-gui/issues\">GitHubissa</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"
@@ -1402,6 +1401,9 @@ msgstr ""
 " useisiin liitoskohtiin.</b>\n"
 "\n"
 "Valitse irrotettavat liitoskohdat:"
+
+#~ msgid "LVM2 Snaphost"
+#~ msgstr "LVM2-tilannevedos"
 
 #~ msgid "Decrypt"
 #~ msgstr "Avaa salaus"

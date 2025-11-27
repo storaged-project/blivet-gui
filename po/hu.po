@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-18 16:02+0200\n"
+"POT-Creation-Date: 2025-10-11 18:31+0200\n"
 "PO-Revision-Date: 2022-08-09 21:19+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
 "Language-Team: Hungarian <https://translate.fedoraproject.org/projects/"
@@ -521,11 +521,14 @@ msgid "LVM2 ThinPool"
 msgstr "LVM2 ThinPool"
 
 #: ../blivetgui/dialogs/add_dialog.py:405
-msgid "LVM2 Snaphost"
-msgstr "LVM2 pillanatkép-tároló"
+#: ../blivetgui/dialogs/device_info_dialog.py:83
+msgid "LVM2 Snapshot"
+msgstr "LVM2 pillanatkép"
 
 #: ../blivetgui/dialogs/add_dialog.py:408
-msgid "LVM2 Thin Snaphost"
+#, fuzzy
+#| msgid "LVM2 Thin Snaphost"
+msgid "LVM2 Thin Snapshot"
 msgstr "LVM2 vékony pillanatkép-tároló"
 
 #: ../blivetgui/dialogs/add_dialog.py:411
@@ -602,22 +605,22 @@ msgstr "Név:"
 msgid "Mountpoint:"
 msgstr "Csatolási pont:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1059 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1065 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "A(z) „{0}” érvénytelen csatolási pont."
 
-#: ../blivetgui/dialogs/add_dialog.py:1066
+#: ../blivetgui/dialogs/add_dialog.py:1072
 msgid "Please select at least two parent devices."
 msgstr "Válasszon legalább két szülő eszközt."
 
-#: ../blivetgui/dialogs/add_dialog.py:1080
+#: ../blivetgui/dialogs/add_dialog.py:1086
 #: ../blivetgui/dialogs/edit_dialog.py:469
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "A(z) „{0}” név érvénytelen."
 
-#: ../blivetgui/dialogs/add_dialog.py:1086
+#: ../blivetgui/dialogs/add_dialog.py:1092
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -642,10 +645,6 @@ msgstr "kiterjesztett"
 #, python-brace-format
 msgid "Information about {0}"
 msgstr "Információ erről: {0}"
-
-#: ../blivetgui/dialogs/device_info_dialog.py:83
-msgid "LVM2 Snapshot"
-msgstr "LVM2 pillanatkép"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "LUKS/DM-Crypt Device"
@@ -1422,6 +1421,9 @@ msgstr ""
 "csatolási ponthoz is rendelt.</b>\n"
 "\n"
 "Válassza ki a leválasztandó csatolási pontokat:"
+
+#~ msgid "LVM2 Snaphost"
+#~ msgstr "LVM2 pillanatkép-tároló"
 
 #~ msgid "Decrypt"
 #~ msgstr "Titkosítás feloldása"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-18 16:02+0200\n"
+"POT-Creation-Date: 2025-10-11 18:31+0200\n"
 "PO-Revision-Date: 2025-09-24 17:25+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://translate.fedoraproject.org/projects/blivet/"
@@ -509,11 +509,14 @@ msgid "LVM2 ThinPool"
 msgstr "LVM2 ThinPool"
 
 #: ../blivetgui/dialogs/add_dialog.py:405
-msgid "LVM2 Snaphost"
-msgstr "LVM2 Snaphost"
+#: ../blivetgui/dialogs/device_info_dialog.py:83
+msgid "LVM2 Snapshot"
+msgstr "LVM2 ögonblicksbild"
 
 #: ../blivetgui/dialogs/add_dialog.py:408
-msgid "LVM2 Thin Snaphost"
+#, fuzzy
+#| msgid "LVM2 Thin Snaphost"
+msgid "LVM2 Thin Snapshot"
 msgstr "LVM2 Thin Snaphost"
 
 #: ../blivetgui/dialogs/add_dialog.py:411
@@ -588,22 +591,22 @@ msgstr "Namn:"
 msgid "Mountpoint:"
 msgstr "Monteringspunkt:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1059 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1065 ../blivetgui/dialogs/helpers.py:137
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" är inte en giltig monteringspunkt."
 
-#: ../blivetgui/dialogs/add_dialog.py:1066
+#: ../blivetgui/dialogs/add_dialog.py:1072
 msgid "Please select at least two parent devices."
 msgstr "Välj åtminstone två föräldraenheter."
 
-#: ../blivetgui/dialogs/add_dialog.py:1080
+#: ../blivetgui/dialogs/add_dialog.py:1086
 #: ../blivetgui/dialogs/edit_dialog.py:469
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" är inte ett giltigt namn."
 
-#: ../blivetgui/dialogs/add_dialog.py:1086
+#: ../blivetgui/dialogs/add_dialog.py:1092
 #: ../blivetgui/dialogs/edit_dialog.py:232
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -628,10 +631,6 @@ msgstr "utökad"
 #, python-brace-format
 msgid "Information about {0}"
 msgstr "Information om {0}"
-
-#: ../blivetgui/dialogs/device_info_dialog.py:83
-msgid "LVM2 Snapshot"
-msgstr "LVM2 ögonblicksbild"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "LUKS/DM-Crypt Device"
@@ -1410,6 +1409,9 @@ msgstr ""
 "på flera monteringspunkter.</b>\n"
 "\n"
 "Välj monteringspunkt(er) att avmontera:"
+
+#~ msgid "LVM2 Snaphost"
+#~ msgstr "LVM2 Snaphost"
 
 #~ msgid "Decrypt"
 #~ msgstr "Avkryptera"
