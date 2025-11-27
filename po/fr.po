@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-11 18:31+0200\n"
-"PO-Revision-Date: 2025-09-24 03:04+0000\n"
+"PO-Revision-Date: 2025-11-27 11:22+0000\n"
 "Last-Translator: Léane GRASSER <leane.grasser@proton.me>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fr/>\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
@@ -204,10 +204,10 @@ msgid ""
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
-"Blivet-gui ne peut pas utiliser le disque <b>{name}</b> en raison d'un "
+"Blivet-gui ne peut pas utiliser le disque <b>{name}</b> en raison d’un "
 "disklabel corrompu ou inconnu.\n"
-"Vous pouvez soit quitter blivet-gui, soit continuer sans possibilité "
-"d’utiliser ce disque."
+"Vous pouvez soit quitter blivet-gui, soit continuer sans possibilité d’"
+"utiliser ce disque."
 
 #: ../blivetgui/blivetgui.py:889
 msgid "Confirm reload storage"
@@ -413,9 +413,9 @@ msgid ""
 msgstr ""
 "{message}\n"
 "{error}\n"
-" Veuillez cliquer le bouton Signaler pour signaler l’erreur et laisser "
-"anaconda \n"
-" gérer processus de signalement si vous le souhaitez."
+" Si vous le souhaitez, cliquez sur le bouton Signaler pour \n"
+" remonter l’erreur et laisser anaconda gérer le processus \n"
+" de signalement."
 
 #: ../blivetgui/osinstall.py:221
 #, python-brace-format
@@ -534,10 +534,8 @@ msgid "LVM2 Snapshot"
 msgstr "Instantané LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:408
-#, fuzzy
-#| msgid "LVM2 Thin Snaphost"
 msgid "LVM2 Thin Snapshot"
-msgstr "Instantané d’allocation fine"
+msgstr "Instantané d’allocation fine LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:411
 #: ../blivetgui/dialogs/device_info_dialog.py:85
@@ -890,7 +888,7 @@ msgstr "'{label}' n’est pas un nom valide pour ce système de fichiers"
 #: ../blivetgui/dialogs/edit_dialog.py:482
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr "Le périphérique sélectionné s'appelle déjà \"{0}\"."
+msgstr "Le périphérique sélectionné s’appelle déjà « {0} »."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
 #, python-brace-format
@@ -955,9 +953,9 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
-"Si vous pensez qu'il s'agit d'un bug, utilisez le bouton 'Signaler un bug' "
+"Si vous pensez qu’il s’agit d’un bug, utilisez le bouton « Signaler un bug » "
 "ci-dessous pour signaler\n"
-"un bug à l'aide de l'outil de signalement automatique de bug (ABRT), ou "
+"un bug à l’aide de l’outil de signalement automatique de bug (ABRT), ou "
 "ouvrez un ticket sur notre\n"
 "<a href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 
@@ -966,8 +964,8 @@ msgid ""
 "If you believe this is a bug, please open an issue on our <a href=\"https://"
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
-"Si vous pensez qu'il s'agit d'un bug, ouvrez un ticket sur notre <a "
-"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+"Si vous pensez qu’il s’agit d’un bug, ouvrez un ticket sur notre <a href="
+"\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"
