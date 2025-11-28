@@ -1,0 +1,12 @@
+language: "en-US"
+early_access: false
+reviews:
+  poem: false
+  sequence_diagrams: false
+  related_issues: false
+  related_prs: false
+  suggested_labels: false
+  suggested_reviewers: false
+  path_filters: ["!po/", "!plans", "!.github", "!.fmf"]
+chat:
+  art: false
