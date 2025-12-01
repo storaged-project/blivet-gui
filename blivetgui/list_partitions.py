@@ -226,7 +226,7 @@ class ListPartitions:
         if device.protected or device.children:
             return False
 
-        if device.type not in ("partition", "lvmlv", "luks/dm-crypt", "mdarray"):
+        if device.type not in ("partition", "lvmlv", "lvmthinlv", "luks/dm-crypt", "mdarray"):
             return False
 
         if device.type == "partition" and device.is_extended:
