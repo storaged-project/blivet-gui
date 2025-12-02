@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-11 18:31+0200\n"
-"PO-Revision-Date: 2025-09-29 09:40+0000\n"
+"PO-Revision-Date: 2025-12-02 06:58+0000\n"
 "Last-Translator: naly zzwd <xeanhort007@gmail.com>\n"
 "Language-Team: Catalan <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ca/>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: ../blivetgui/blivetgui.py:296
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "No s'ha pogut canviar la mida del dispositiu:"
 
 #: ../blivetgui/blivetgui.py:308
 #, python-brace-format
@@ -29,20 +29,17 @@ msgid "resize {name} {type}"
 msgstr "redimensiona {type} {name}"
 
 #: ../blivetgui/blivetgui.py:320
-#, fuzzy
-#| msgid "Parent devices:"
 msgid "Failed to rename the device:"
-msgstr "Dispositius primaris:"
+msgstr "No s'ha pogut canviar el nom del dispositiu:"
 
 #: ../blivetgui/blivetgui.py:332
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "redimensiona {type} {name}"
+msgstr "canviar el nom {type} {name}"
 
 #: ../blivetgui/blivetgui.py:351
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "No s'ha pogut formatar el dispositiu:"
 
 #: ../blivetgui/blivetgui.py:365
 #, python-brace-format
@@ -51,7 +48,7 @@ msgstr "formata {type} {name}"
 
 #: ../blivetgui/blivetgui.py:378
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "No s'ha pogut editar el Grup de Volums LVM2:"
 
 #: ../blivetgui/blivetgui.py:393
 #, python-brace-format
@@ -60,12 +57,12 @@ msgstr "edita {type} {name}"
 
 #: ../blivetgui/blivetgui.py:422
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "No s'ha pogut canviar l'etiqueta del sistema de fitxers al dispositiu:"
 
 #: ../blivetgui/blivetgui.py:427
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "canvia l'etiqueta del sistema de fitxers de {name} {type}"
 
 #: ../blivetgui/blivetgui.py:443
 #, python-brace-format
@@ -91,7 +88,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:464
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "No s'ha pogut afegir l'etiqueta del disc:"
 
 #: ../blivetgui/blivetgui.py:477
 #, python-brace-format
@@ -100,7 +97,7 @@ msgstr "crea una nova etiqueta de disc a {name}"
 
 #: ../blivetgui/blivetgui.py:529
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "No s'ha pogut afegir el dispositiu:"
 
 #: ../blivetgui/blivetgui.py:544
 #, python-brace-format
@@ -109,7 +106,7 @@ msgstr "afegeix un dispositiu {type} de {size}"
 
 #: ../blivetgui/blivetgui.py:588
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "No s'ha pogut suprimir el dispositiu:"
 
 #: ../blivetgui/blivetgui.py:603
 #, python-brace-format
@@ -118,7 +115,7 @@ msgstr "elimina la partició {name}"
 
 #: ../blivetgui/blivetgui.py:644
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "No s'han pogut dur a terme les accions:"
 
 #: ../blivetgui/blivetgui.py:688
 msgid "Confirm scheduled actions"
@@ -129,20 +126,18 @@ msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Esteu segur que voleu realitzar les operacions planificades?"
 
 #: ../blivetgui/blivetgui.py:730
-#, fuzzy, python-brace-format
-#| msgid "Unmount failed. Are you sure device is not in use?"
+#, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
-"Ha fallat el desmuntatge. Esteu segur que aquest dispositiu no està en ús?"
+"No s'ha pogut desmuntar '{mountpoint}'. Esteu segur que el dispositiu no "
+"està en ús?"
 
 #: ../blivetgui/blivetgui.py:752
-#, fuzzy
-#| msgid "Device decryption failed. Are you sure provided password is correct?"
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr ""
-"Ha fallat el desxifratge del dispositiu. Esteu segur que la contrasenya que "
-"heu proporcionat és correcta?"
+"El desbloqueig ha fallat. Esteu segur que la contrasenya proporcionada és "
+"correcta?"
 
 #: ../blivetgui/blivetgui.py:802 ../data/ui/blivet-gui.ui:678
 msgid "Quit"
@@ -170,10 +165,17 @@ msgid ""
 "\n"
 "command to force quit it."
 msgstr ""
+"Si la vostra instància anterior de blivet-gui ha fallat, assegureu-vos que "
+"el procés <i>blivet-gui-daemon</i> també s'hagi finalitzat. \n"
+"Si encara està en funcionament, podeu usar la comanda\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"per forçar que es tanqui."
 
 #: ../blivetgui/blivetgui.py:840
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "No s'ha pogut iniciar blivet:"
 
 #: ../blivetgui/blivetgui.py:847
 msgid "Quit blivet-gui"
@@ -225,89 +227,78 @@ msgstr "espai lliure"
 #: ../blivetgui/blivet_utils.py:690
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
-msgstr ""
+msgstr "Actualment no es permet canviar la mida dels dispositius {type}"
 
 #: ../blivetgui/blivet_utils.py:695
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Protected devices cannot be resized"
-msgstr "No es pot redimensionar aquest dispositiu."
+msgstr "Els dispositius protegits no es poden redimensionar"
 
 #: ../blivetgui/blivet_utils.py:700
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "No es pot canviar la mida dels formats immutables"
 
 #: ../blivetgui/blivet_utils.py:705
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Devices with children cannot be resized"
-msgstr "No es pot redimensionar aquest dispositiu."
+msgstr "Els dispositius amb fills no es poden redimensionar"
 
 #: ../blivetgui/blivet_utils.py:716
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "Els dispositius sense formatar no es poden redimensionar"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
 #: ../blivetgui/blivet_utils.py:723
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
-msgstr ""
+msgstr "Actualment no es permet canviar la mida del format {type}"
 
 #: ../blivetgui/blivet_utils.py:728
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
-msgstr ""
+msgstr "Les eines per canviar la mida del format {type} no estan disponibles."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:735
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "No es pot redimensionar aquest dispositiu."
+msgstr "Els formats planificats per ser creats no es poden canviar de mida"
 
 #: ../blivetgui/blivet_utils.py:740
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
-msgstr ""
+msgstr "El format {type} no admet modificar la informació del límit de mida"
 
 #: ../blivetgui/blivet_utils.py:747
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Mounted devices cannot be resized"
-msgstr "No es pot redimensionar aquest dispositiu."
+msgstr "Els dispositius muntats no es poden redimensionar"
 
 #: ../blivetgui/blivet_utils.py:752
-#, fuzzy
-#| msgid "Logical Volumes with snapshots couldn't be resized."
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "Els volums lògics amb instantànies no poden redimensionar-se."
 
 #: ../blivetgui/blivet_utils.py:757
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr ""
+msgstr "Actualment no es permet canviar la mida dels dispositius LUKS2."
 
 #: ../blivetgui/blivet_utils.py:769
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr ""
+"No s'ha pogut actualitzar la informació de la mida del sistema de fitxers: "
+"{error}"
 
 #: ../blivetgui/blivet_utils.py:788
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Device is not resizable."
-msgstr "No es pot redimensionar aquest dispositiu."
+msgstr "El dispositiu no es pot redimensionar."
 
 #: ../blivetgui/blivet_utils.py:790
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
+"El format no es pot redimensionar després d'actualitzar la informació del "
+"límit de mida."
 
 #: ../blivetgui/exception_handler.py:75
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
@@ -341,8 +332,6 @@ msgid "Disks"
 msgstr "Discs"
 
 #: ../blivetgui/list_devices.py:92
-#, fuzzy
-#| msgid "MD RAID Array"
 msgid "MDRAID set"
 msgstr "Conjunt MDRAID"
 
@@ -352,7 +341,7 @@ msgstr "LVM"
 
 #: ../blivetgui/list_devices.py:116
 msgid "LVM2 VG"
-msgstr "Grup de volums LVM2"
+msgstr "LVM2 VG"
 
 #: ../blivetgui/list_devices.py:119
 msgid "RAID"
@@ -373,11 +362,11 @@ msgstr "Volum Btrfs"
 
 #: ../blivetgui/list_devices.py:131
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Pools Stratis"
 
 #: ../blivetgui/list_devices.py:134 ../blivetgui/dialogs/add_dialog.py:392
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Pool Stratis"
 
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
@@ -402,17 +391,18 @@ msgid ""
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+" Si voleu informar-ne, feu clic al botó Informar per generar l'error i \n"
+" deixar que Anaconda gestioni el procés d'informe."
 
 #: ../blivetgui/osinstall.py:221
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
-"S'ha produït un error desconegut. Es tancarà blivet-gui.\n"
+"S'ha produït un error desconegut. L'Anaconda es tancarà.\n"
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
@@ -515,7 +505,7 @@ msgstr "Volum lògic LVM2"
 #: ../blivetgui/dialogs/add_dialog.py:398
 #: ../blivetgui/dialogs/device_info_dialog.py:84
 msgid "LVM2 ThinPool"
-msgstr "Agrupació disgregada de LVM2"
+msgstr "Agrupació disgregada ThinPool d'LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:405
 #: ../blivetgui/dialogs/device_info_dialog.py:83
@@ -523,15 +513,13 @@ msgid "LVM2 Snapshot"
 msgstr "Instantània LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:408
-#, fuzzy
-#| msgid "LVM2 Thin Snaphost"
 msgid "LVM2 Thin Snapshot"
-msgstr "Instantània disgregada LVM2"
+msgstr "Instantània lleugera d'LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:411
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "LVM2 Thin Logical Volume"
-msgstr "Volum lògic disgregat LVM2"
+msgstr "Volum lògic lleuger d'LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:414
 #: ../blivetgui/dialogs/device_info_dialog.py:88
@@ -539,10 +527,8 @@ msgid "Btrfs Subvolume"
 msgstr "Subvolum Btrfs"
 
 #: ../blivetgui/dialogs/add_dialog.py:417
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "Sistema de fitxers:"
+msgstr "Sistema de fitxers Stratis"
 
 #: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
@@ -653,7 +639,7 @@ msgstr "Matriu RAID MD"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:90
 msgid "DM Integrity Device"
-msgstr ""
+msgstr "Dispositiu d'Integritat DM"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:103
 #: ../blivetgui/dialogs/device_info_dialog.py:225
@@ -838,12 +824,13 @@ msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>Etiqueta:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:242
-#, fuzzy, python-brace-format
-#| msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+#, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
-msgstr " • <i>Punt de muntatge:</i> {mountpoint}\n"
+msgstr ""
+" • <i>Punts de muntatge:</i>\n"
+"     {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:245
 msgid " • <i>Type:</i> None"
@@ -875,20 +862,17 @@ msgstr "No es pot redimensionar aquest dispositiu."
 #: ../blivetgui/dialogs/edit_dialog.py:407
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "'{label}' no és una etiqueta vàlida per a aquest sistema de fitxers"
 
 #: ../blivetgui/dialogs/edit_dialog.py:482
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "El dispositiu seleccionat ja té el nom \"{0}\"."
 
 #: ../blivetgui/dialogs/edit_dialog.py:488
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr ""
-"El punt de muntatge seleccionat \"{0}\" ja ha estat establert per un altre "
-"dispositiu."
+msgstr "El nom seleccionat \"{0}\" ja està en ús."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:599
@@ -900,16 +884,12 @@ msgid "Parent devices:"
 msgstr "Dispositius primaris:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:646
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
 msgstr "Afegeix un primari"
 
 #: ../blivetgui/dialogs/edit_dialog.py:649
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
-msgstr "Elimina el primari"
+msgstr "Elimina un primari"
 
 #: ../blivetgui/dialogs/edit_dialog.py:660
 msgid ""
@@ -924,10 +904,6 @@ msgid "Add?"
 msgstr "Afegir?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:719
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
@@ -936,8 +912,6 @@ msgstr ""
 "d'aquest grup de volums."
 
 #: ../blivetgui/dialogs/edit_dialog.py:731
-#, fuzzy
-#| msgid "Currently is possible to remove only one parent at time."
 msgid "Currently it is possible to remove only one parent at time."
 msgstr "Actualment tan sols es pot treure un primari a la vegada."
 
@@ -959,12 +933,19 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
+"Si creieu que això és un error, utilitzeu el botó 'Informa d'un error' que "
+"hi ha a continuació per informar d'un error mitjançant\n"
+"l'eina d'informació automàtica d'errors (ABRT) o obriu una incidència al "
+"nostre <a href=\"https://github.com/storaged-project/blivet-gui/issues\""
+">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:137
 msgid ""
 "If you believe this is a bug, please open an issue on our <a href=\"https://"
 "github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgstr ""
+"Si creieu que això és un error, obriu una incidència al nostre <a href="
+"\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 msgid "Confirm delete operation"
@@ -978,7 +959,7 @@ msgstr "Esteu segur que voleu eliminar el dispositiu {name}?"
 #: ../blivetgui/dialogs/message_dialogs.py:220
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
-msgstr ""
+msgstr "Els fills de {name} següents també seran eliminats per aquesta acció:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:228
 #, python-brace-format
@@ -1012,7 +993,7 @@ msgstr ""
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:286
 msgid "Automatic"
-msgstr ""
+msgstr "Automàtic"
 
 #: ../blivetgui/dialogs/widgets.py:381
 msgid "Passphrase not specified."
@@ -1032,23 +1013,19 @@ msgstr "Les contrasenyes no coincideixen."
 
 #: ../blivetgui/visualization/rectangle.py:52
 msgid "Group device"
-msgstr ""
+msgstr "Dispositiu de grup"
 
 #: ../blivetgui/visualization/rectangle.py:53
 msgid "LiveUSB device"
 msgstr "Dispositiu LiveUSB"
 
 #: ../blivetgui/visualization/rectangle.py:54
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (locked)"
-msgstr "Dispositiu xifrat (tancat)"
+msgstr "Dispositiu xifrat (bloquejat)"
 
 #: ../blivetgui/visualization/rectangle.py:55
-#, fuzzy
-#| msgid "Encrypted device (closed)"
 msgid "Encrypted device (unlocked)"
-msgstr "Dispositiu xifrat (tancat)"
+msgstr "Dispositiu xifrat (desbloquejat)"
 
 #: ../blivetgui/visualization/rectangle.py:56
 msgid "Empty device"
@@ -1067,10 +1044,8 @@ msgid "Device or format is write protected"
 msgstr "El dispositiu o el format estan protegits contra escriptura"
 
 #: ../blivetgui/visualization/rectangle.py:60
-#, fuzzy
-#| msgid "Edit device"
 msgid "Cached device"
-msgstr "Edita el dispositiu"
+msgstr "Dispositiu a la memòria cau"
 
 #: ../blivetgui/visualization/rectangle.py:61
 msgid "Incomplete device"
@@ -1131,7 +1106,7 @@ msgstr "Estableix el punt de muntatge"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:170
 msgid "Set label"
-msgstr ""
+msgstr "Estableix l'etiqueta"
 
 #: ../data/ui/blivet-gui.ui:90 ../data/ui/blivet-gui.ui:178
 msgid "Set partition table"
@@ -1142,11 +1117,8 @@ msgid "Unmount"
 msgstr "Desmunta"
 
 #: ../data/ui/blivet-gui.ui:110
-#, fuzzy
-#| msgctxt "ActionsToolbar|Decrypt"
-#| msgid "Unlock/Open selected device"
 msgid "Unlock"
-msgstr "Desbloqueja/obre el dispositiu seleccionat"
+msgstr "Desbloqueja"
 
 #: ../data/ui/blivet-gui.ui:118
 msgid "Information"
@@ -1199,10 +1171,8 @@ msgid "Format"
 msgstr "Format"
 
 #: ../data/ui/blivet-gui.ui:531
-#, fuzzy
-#| msgid "Label:"
 msgid "Label"
-msgstr "Etiqueta:"
+msgstr "Etiqueta"
 
 #: ../data/ui/blivet-gui.ui:542
 msgid "Mountpoint"
@@ -1229,24 +1199,20 @@ msgid "About blivet-gui"
 msgstr "Quant a blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "No hi ha cap acció pendent"
+msgstr "Aplica les accions pendents"
 
 #: ../data/ui/blivet-gui.ui:760
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "Confirmació de les accions planificades"
+msgstr "Esborra les accions planificades"
 
 #: ../data/ui/blivet-gui.ui:776
 msgid "Undo last action"
-msgstr ""
+msgstr "_Desfés l'última acció"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
-msgstr ""
+msgstr "Emmagatzema aquest LV a la memòria cau:"
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
@@ -1261,12 +1227,14 @@ msgid "Cache type:"
 msgstr "Tipus de memòria cau:"
 
 #: ../data/ui/cache_area.ui:156
+#, fuzzy
 msgid "Writethrough"
-msgstr ""
+msgstr "Escriptura a través"
 
 #: ../data/ui/cache_area.ui:157
+#, fuzzy
 msgid "Writeback"
-msgstr ""
+msgstr "Reescriptura"
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
@@ -1282,7 +1250,7 @@ msgstr "Xifratge:"
 
 #: ../data/ui/encryption_chooser.ui:33
 msgid "Encryption type:"
-msgstr ""
+msgstr "Tipus de xifratge:"
 
 #: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
 msgid "Passphrase:"
@@ -1294,7 +1262,7 @@ msgstr "Repetiu la contrasenya:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Mida de sector:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
@@ -1341,36 +1309,32 @@ msgstr "Informació:"
 
 #: ../data/ui/label_dialog.ui:7
 msgid "Set filesystem label"
-msgstr ""
+msgstr "Estableix l'etiqueta del sistema de fitxers"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/rename_dialog.ui:22
 #: ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
-msgstr ""
+msgstr "Cancel·la"
 
 #. Perform selected format change on this device.
 #: ../data/ui/label_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "Reetiquetar"
 
 #: ../data/ui/label_dialog.ui:68
 msgid "Enter new label for this filesystem:"
-msgstr ""
+msgstr "Introduïu una nova etiqueta per a aquest sistema de fitxers:"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
-#, fuzzy
-#| msgctxt "ActionsToolbar|Decrypt"
-#| msgid "Unlock/Open selected device"
 msgid "Unlock device"
-msgstr "Desbloqueja/obre el dispositiu seleccionat"
+msgstr "Desbloqueja el dispositiu"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
-#, fuzzy
-#| msgid "Please enter passphrase to decrypt selected device."
 msgid "Please enter passphrase to unlock selected device."
 msgstr ""
-"Si us plau, introduïu la contrasenya per desxifrar el volum seleccionat."
+"Si us plau, introduïu la contrasenya per desbloquejar el dispositiu "
+"seleccionat."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
@@ -1393,10 +1357,8 @@ msgid "RAID level:"
 msgstr "Nivell RAID:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "Redimensiona el dispositiu"
+msgstr "Canvia el nom del dispositiu"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
@@ -1406,7 +1368,7 @@ msgstr ""
 
 #: ../data/ui/rename_dialog.ui:68
 msgid "Enter new name for this device:"
-msgstr ""
+msgstr "Introduïu un nom nou per a aquest dispositiu:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
@@ -1434,8 +1396,6 @@ msgstr "Mida:"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
-#, fuzzy
-#| msgid "Unmount"
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
 msgstr "Desmunta"
@@ -1447,6 +1407,10 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>El dispositiu seleccionat està muntat\n"
+"actualment en diversos punts de muntatge.</b>\n"
+"\n"
+"Seleccioneu el(s) punt(s) de muntatge per desmuntar:"
 
 #~ msgid "LVM2 Snaphost"
 #~ msgstr "Instantània LVM2"
