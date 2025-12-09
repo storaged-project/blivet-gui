@@ -29,7 +29,7 @@ class ProxyDataContainer:
     """ A picklable container for multiple objects similar to namedtuple
     """
 
-    kwargs = None
+    kwargs = {}
 
     def __init__(self, **kwargs):
         self.kwargs = kwargs
