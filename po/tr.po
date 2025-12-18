@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-16 10:32+0100\n"
-"PO-Revision-Date: 2025-11-28 20:39+0000\n"
+"PO-Revision-Date: 2025-12-18 17:33+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/tr/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -921,12 +921,7 @@ msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr "Seçilen \"{0}\" bağlama noktası başka bir aygıt için zaten ayarlanmış."
 
 #: ../blivetgui/dialogs/message_dialogs.py:132
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please use the 'Report a bug' button below "
-#| "to report a bug using the\n"
-#| "Automatic bug reporting tool (ABRT) or open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please use the 'Report a bug' button below to "
 "report a bug using the\n"
@@ -936,20 +931,16 @@ msgstr ""
 "Bunun bir hata olduğunu düşünüyorsanız, lütfen Otomatik hata bildirme "
 "aracını (ABRT) kullanarak\n"
 "bir hata bildirmek için aşağıdaki 'Hata bildir' düğmesini kullanın veya <a "
-"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a> "
-"sayfamızda bir sorun açın."
+"href=\"%s\">GitHub</a> sayfamızda bir sorun açın."
 
 #: ../blivetgui/dialogs/message_dialogs.py:136
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
-"Bunun bir hata olduğunu düşünüyorsanız, lütfen <a href=\"https://github.com/"
-"storaged-project/blivet-gui/issues\">GitHub</a> sayfamızda bir sorun açın."
+"Bunun bir hata olduğunu düşünüyorsanız, lütfen <a href=\"%s\">GitHub</a> "
+"sayfamızda bir sorun açın."
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
