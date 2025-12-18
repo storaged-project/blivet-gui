@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-11 18:31+0200\n"
+"POT-Creation-Date: 2025-12-16 10:32+0100\n"
 "PO-Revision-Date: 2025-11-28 20:39+0000\n"
 "Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
 "Language-Team: Turkish <https://translate.fedoraproject.org/projects/blivet/"
@@ -19,52 +19,52 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.14.3\n"
 
-#: ../blivetgui/blivetgui.py:296
+#: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
 msgstr "Aygıt yeniden boyutlandırılamadı:"
 
-#: ../blivetgui/blivetgui.py:308
+#: ../blivetgui/blivetgui.py:307
 #, python-brace-format
 msgid "resize {name} {type}"
 msgstr "{name} {type} yeniden boyutlandır"
 
-#: ../blivetgui/blivetgui.py:320
+#: ../blivetgui/blivetgui.py:319
 msgid "Failed to rename the device:"
 msgstr "Aygıt yeniden adlandırılamadı:"
 
-#: ../blivetgui/blivetgui.py:332
+#: ../blivetgui/blivetgui.py:331
 #, python-brace-format
 msgid "rename {name} {type}"
 msgstr "{name} {type} yeniden adlandır"
 
-#: ../blivetgui/blivetgui.py:351
+#: ../blivetgui/blivetgui.py:350
 msgid "Failed to format the device:"
 msgstr "Aygıt biçimlendirilemedi:"
 
-#: ../blivetgui/blivetgui.py:365
+#: ../blivetgui/blivetgui.py:364
 #, python-brace-format
 msgid "format {name} {type}"
 msgstr "{name} {type} biçimlendir"
 
-#: ../blivetgui/blivetgui.py:378
+#: ../blivetgui/blivetgui.py:377
 msgid "Failed to edit the LVM2 Volume Group:"
 msgstr "LVM2 Birim Grubu düzenlenemedi:"
 
-#: ../blivetgui/blivetgui.py:393
+#: ../blivetgui/blivetgui.py:392
 #, python-brace-format
 msgid "edit {name} {type}"
 msgstr "{name} {type} düzenle"
 
-#: ../blivetgui/blivetgui.py:422
+#: ../blivetgui/blivetgui.py:421
 msgid "Failed to change filesystem label on the device:"
 msgstr "Aygıt üzerindeki dosya sistemi etiketi değiştirilemedi:"
 
-#: ../blivetgui/blivetgui.py:427
+#: ../blivetgui/blivetgui.py:426
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
 msgstr "{name} {type} üzerindeki dosya sistemi etiketini değiştir"
 
-#: ../blivetgui/blivetgui.py:443
+#: ../blivetgui/blivetgui.py:442
 #, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
@@ -73,11 +73,11 @@ msgstr ""
 "{name} tam değil. Fiziksel birimleri eksik olan birim grubuna yeni bir "
 "mantıksal birim eklenemez."
 
-#: ../blivetgui/blivetgui.py:448
+#: ../blivetgui/blivetgui.py:447
 msgid "Not enough free space for a new LVM Volume Group."
 msgstr "Yeni bir LVM Birim Grubu için yeterli boş alan yok."
 
-#: ../blivetgui/blivetgui.py:454
+#: ../blivetgui/blivetgui.py:453
 #, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
@@ -86,46 +86,46 @@ msgstr ""
 "{name} diski, {label} disk etiketi için izin verilen azami birincil bölüm "
 "sayısına zaten ulaştı."
 
-#: ../blivetgui/blivetgui.py:464
+#: ../blivetgui/blivetgui.py:463
 msgid "Failed to add disklabel:"
 msgstr "Disk etiketi eklenemedi:"
 
-#: ../blivetgui/blivetgui.py:477
+#: ../blivetgui/blivetgui.py:476
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "{name} üzerinde yeni disk etiketi oluştur"
 
-#: ../blivetgui/blivetgui.py:529
+#: ../blivetgui/blivetgui.py:528
 msgid "Failed to add the device:"
 msgstr "Aygıt eklenemedi:"
 
-#: ../blivetgui/blivetgui.py:544
+#: ../blivetgui/blivetgui.py:543
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr "{size} {type} aygıtı ekle"
 
-#: ../blivetgui/blivetgui.py:588
+#: ../blivetgui/blivetgui.py:587
 msgid "Failed to delete the device:"
 msgstr "Aygıt silinemedi:"
 
-#: ../blivetgui/blivetgui.py:603
+#: ../blivetgui/blivetgui.py:602
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr "{name} bölümünü sil"
 
-#: ../blivetgui/blivetgui.py:644
+#: ../blivetgui/blivetgui.py:643
 msgid "Failed to perform the actions:"
 msgstr "İşlemler gerçekleştirilemedi:"
 
-#: ../blivetgui/blivetgui.py:688
+#: ../blivetgui/blivetgui.py:687
 msgid "Confirm scheduled actions"
 msgstr "Zamanlanan işlemleri onayla"
 
-#: ../blivetgui/blivetgui.py:689
+#: ../blivetgui/blivetgui.py:688
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "Zamanlanan işlemleri gerçekleştirmek istediğinizden emin misiniz?"
 
-#: ../blivetgui/blivetgui.py:730
+#: ../blivetgui/blivetgui.py:729
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
@@ -133,19 +133,19 @@ msgstr ""
 "'{mountpoint}' bağlantısı kaldırılamadı. Aygıtın kullanımda olmadığından "
 "emin misiniz?"
 
-#: ../blivetgui/blivetgui.py:752
+#: ../blivetgui/blivetgui.py:751
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "Kilit açılamadı. Parolanın doğru olduğundan emin misiniz?"
 
-#: ../blivetgui/blivetgui.py:802 ../data/ui/blivet-gui.ui:678
+#: ../blivetgui/blivetgui.py:801 ../data/ui/blivet-gui.ui:678
 msgid "Quit"
 msgstr "Çık"
 
-#: ../blivetgui/blivetgui.py:805
+#: ../blivetgui/blivetgui.py:804
 msgid "blivet-gui is already running"
 msgstr "blivet-gui zaten çalışıyor"
 
-#: ../blivetgui/blivetgui.py:806
+#: ../blivetgui/blivetgui.py:805
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -153,7 +153,7 @@ msgstr ""
 "Başka bir blivet-gui örneği zaten çalışıyor.\n"
 "Aynı anda sadece bir tane blivet-gui örneği çalışabilir."
 
-#: ../blivetgui/blivetgui.py:808
+#: ../blivetgui/blivetgui.py:807
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -171,24 +171,24 @@ msgstr ""
 "\n"
 "komutunu kullanabilirsiniz."
 
-#: ../blivetgui/blivetgui.py:840
+#: ../blivetgui/blivetgui.py:839
 msgid "Failed to init blivet:"
 msgstr "Blivet başlatılamadı:"
 
-#: ../blivetgui/blivetgui.py:847
+#: ../blivetgui/blivetgui.py:846
 msgid "Quit blivet-gui"
 msgstr "Blivet-gui'den çık"
 
-#: ../blivetgui/blivetgui.py:849
+#: ../blivetgui/blivetgui.py:848
 msgid "Ignore disk and continue"
 msgstr "Diski yok say ve devam et"
 
-#: ../blivetgui/blivetgui.py:852
+#: ../blivetgui/blivetgui.py:851
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "Hata: {error}"
 
-#: ../blivetgui/blivetgui.py:853
+#: ../blivetgui/blivetgui.py:852
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -200,19 +200,19 @@ msgstr ""
 "diskini kullanamıyor.\n"
 "Şimdi blivet-gui'den çıkabilir veya bu diski kullanmadan devam edebilirsiniz."
 
-#: ../blivetgui/blivetgui.py:889
+#: ../blivetgui/blivetgui.py:888
 msgid "Confirm reload storage"
 msgstr "Depolama bilgilerini yeniden yüklemeyi onayla"
 
-#: ../blivetgui/blivetgui.py:890
+#: ../blivetgui/blivetgui.py:889
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "Bekleyen işlemler var. Devam etmek istediğinizden emin misiniz?"
 
-#: ../blivetgui/blivetgui.py:921
+#: ../blivetgui/blivetgui.py:920
 msgid "Are you sure you want to quit?"
 msgstr "Çıkmak istediğinizden emin misiniz?"
 
-#: ../blivetgui/blivetgui.py:922
+#: ../blivetgui/blivetgui.py:921
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
@@ -293,7 +293,7 @@ msgid "Format is not resizable after updating its size limit information."
 msgstr ""
 "Boyut sınırı bilgileri güncellendikten sonra biçim yeniden boyutlandırılamaz."
 
-#: ../blivetgui/exception_handler.py:75
+#: ../blivetgui/exception_handler.py:74
 #, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
@@ -302,7 +302,7 @@ msgstr ""
 "Bilinmeyen bir hata oluştu.\n"
 "{error}"
 
-#: ../blivetgui/exception_handler.py:77
+#: ../blivetgui/exception_handler.py:76
 #, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
@@ -311,75 +311,75 @@ msgstr ""
 "Bilinmeyen bir hata oluştu. Blivet-gui sonlandırılacak.\n"
 "{error}"
 
-#: ../blivetgui/list_actions.py:70 ../blivetgui/list_actions.py:119
-#: ../blivetgui/list_actions.py:141 ../data/ui/blivet-gui.ui:633
+#: ../blivetgui/list_actions.py:69 ../blivetgui/list_actions.py:118
+#: ../blivetgui/list_actions.py:140 ../data/ui/blivet-gui.ui:633
 msgid "No pending actions"
 msgstr "Bekleyen işlem yok"
 
-#: ../blivetgui/list_actions.py:98 ../blivetgui/list_actions.py:121
+#: ../blivetgui/list_actions.py:97 ../blivetgui/list_actions.py:120
 #, python-format
 msgid "%s pending action"
 msgid_plural "%s pending actions"
 msgstr[0] "%s bekleyen işlem"
 msgstr[1] "%s bekleyen işlem"
 
-#: ../blivetgui/list_devices.py:85
+#: ../blivetgui/list_devices.py:84
 msgid "Disks"
 msgstr "Diskler"
 
-#: ../blivetgui/list_devices.py:92
+#: ../blivetgui/list_devices.py:91
 msgid "MDRAID set"
 msgstr "MDRAID dizisi"
 
-#: ../blivetgui/list_devices.py:113
+#: ../blivetgui/list_devices.py:112
 msgid "LVM"
 msgstr "LVM"
 
-#: ../blivetgui/list_devices.py:116
+#: ../blivetgui/list_devices.py:115
 msgid "LVM2 VG"
 msgstr "LVM2 Birim Grubu"
 
-#: ../blivetgui/list_devices.py:119
+#: ../blivetgui/list_devices.py:118
 msgid "RAID"
 msgstr "RAID"
 
-#: ../blivetgui/list_devices.py:122
+#: ../blivetgui/list_devices.py:121
 msgid "MDArray"
 msgstr "MDArray"
 
-#: ../blivetgui/list_devices.py:125
+#: ../blivetgui/list_devices.py:124
 msgid "Btrfs Volumes"
 msgstr "Btrfs Birimleri"
 
-#: ../blivetgui/list_devices.py:128 ../blivetgui/dialogs/add_dialog.py:389
-#: ../blivetgui/dialogs/device_info_dialog.py:87
+#: ../blivetgui/list_devices.py:127 ../blivetgui/dialogs/add_dialog.py:388
+#: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "Btrfs Volume"
 msgstr "Btrfs Birimi"
 
-#: ../blivetgui/list_devices.py:131
+#: ../blivetgui/list_devices.py:130
 msgid "Stratis Pools"
 msgstr "Stratis Havuzları"
 
-#: ../blivetgui/list_devices.py:134 ../blivetgui/dialogs/add_dialog.py:392
+#: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:391
 msgid "Stratis Pool"
 msgstr "Stratis Havuzu"
 
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
-#: ../blivetgui/list_partitions.py:167
-#: ../blivetgui/visualization/rectangle.py:65
+#: ../blivetgui/list_partitions.py:166
+#: ../blivetgui/visualization/rectangle.py:64
 msgid "unknown"
 msgstr "bilinmeyen"
 
-#: ../blivetgui/loading_window.py:48
+#: ../blivetgui/loading_window.py:47
 msgid "Probing storage"
 msgstr "Depolama aygıtları aranıyor"
 
-#: ../blivetgui/loading_window.py:65
+#: ../blivetgui/loading_window.py:64
 msgid "Scanning storage configuration..."
 msgstr "Depolama yapılandırması taranıyor..."
 
-#: ../blivetgui/osinstall.py:219
+#: ../blivetgui/osinstall.py:218
 #, python-brace-format
 msgid ""
 "{message}\n"
@@ -392,7 +392,7 @@ msgstr ""
 " Hatayı bildirmek ve anaconda'nın raporlama işlemini gerçekleştirmesine\n"
 " izin vermek istiyorsanız lütfen Raporla düğmesine tıklayın."
 
-#: ../blivetgui/osinstall.py:221
+#: ../blivetgui/osinstall.py:220
 #, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
@@ -402,23 +402,23 @@ msgstr ""
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
-#: ../blivetgui/osinstall.py:269
+#: ../blivetgui/osinstall.py:268
 msgid "actions configured by installer"
 msgstr "kurucu tarafından yapılandırılan işlemler"
 
-#: ../blivetgui/processing_window.py:58
+#: ../blivetgui/processing_window.py:57
 msgid "Processing"
 msgstr "İşleniyor"
 
-#: ../blivetgui/processing_window.py:83
+#: ../blivetgui/processing_window.py:82
 msgid "Show actions"
 msgstr "İşlemleri göster"
 
-#: ../blivetgui/processing_window.py:158
+#: ../blivetgui/processing_window.py:157
 msgid "All queued actions have been processed."
 msgstr "Sıraya alınan tüm işlemler gerçekleştirildi."
 
-#: ../blivetgui/processing_window.py:173
+#: ../blivetgui/processing_window.py:172
 #, python-brace-format
 msgid ""
 "<b>Processing action {num} of {total}</b>:\n"
@@ -432,394 +432,394 @@ msgstr ""
 msgid "Failed to connect to blivet-gui-daemon"
 msgstr "Blivet-gui-daemon ile bağlantı kurulamadı"
 
-#: ../blivetgui/dialogs/add_dialog.py:68
+#: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
 msgstr "Gelişmiş seçenekleri göster"
 
-#: ../blivetgui/dialogs/add_dialog.py:86
+#: ../blivetgui/dialogs/add_dialog.py:85
 msgid "PE Size:"
 msgstr "PE Boyutu:"
 
-#: ../blivetgui/dialogs/add_dialog.py:110
+#: ../blivetgui/dialogs/add_dialog.py:109
 msgid "Partition type:"
 msgstr "Bölüm türü:"
 
-#: ../blivetgui/dialogs/add_dialog.py:119
+#: ../blivetgui/dialogs/add_dialog.py:118
 msgid "Logical"
 msgstr "Mantıksal"
 
-#: ../blivetgui/dialogs/add_dialog.py:121
-#: ../blivetgui/dialogs/add_dialog.py:123
-#: ../blivetgui/dialogs/add_dialog.py:125
+#: ../blivetgui/dialogs/add_dialog.py:120
+#: ../blivetgui/dialogs/add_dialog.py:122
+#: ../blivetgui/dialogs/add_dialog.py:124
 msgid "Primary"
 msgstr "Birincil"
 
-#: ../blivetgui/dialogs/add_dialog.py:123
+#: ../blivetgui/dialogs/add_dialog.py:122
 msgid "Extended"
 msgstr "Genişletilmiş"
 
-#: ../blivetgui/dialogs/add_dialog.py:150
+#: ../blivetgui/dialogs/add_dialog.py:149
 msgid "Chunk Size:"
 msgstr "Segment (Chunk) Boyutu:"
 
-#: ../blivetgui/dialogs/add_dialog.py:213
+#: ../blivetgui/dialogs/add_dialog.py:212
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
 msgstr "'{0}' geçerli bir segment boyutu belirtimi değil."
 
-#: ../blivetgui/dialogs/add_dialog.py:218
+#: ../blivetgui/dialogs/add_dialog.py:217
 msgid "Chunk size must be multiple of 4 KiB."
 msgstr "Segment boyutu 4 KiB'nin katı olmalıdır."
 
-#: ../blivetgui/dialogs/add_dialog.py:274
+#: ../blivetgui/dialogs/add_dialog.py:273
 msgid "Create new device"
 msgstr "Yeni aygıt oluştur"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
-#: ../blivetgui/dialogs/add_dialog.py:383
-#: ../blivetgui/dialogs/add_dialog.py:767
-#: ../blivetgui/dialogs/device_info_dialog.py:80
+#: ../blivetgui/dialogs/add_dialog.py:382
+#: ../blivetgui/dialogs/add_dialog.py:766
+#: ../blivetgui/dialogs/device_info_dialog.py:79
 msgid "Partition"
 msgstr "Bölüm"
 
-#: ../blivetgui/dialogs/add_dialog.py:386
-#: ../blivetgui/dialogs/add_dialog.py:402
-#: ../blivetgui/dialogs/device_info_dialog.py:81
+#: ../blivetgui/dialogs/add_dialog.py:385
+#: ../blivetgui/dialogs/add_dialog.py:401
+#: ../blivetgui/dialogs/device_info_dialog.py:80
 msgid "LVM2 Volume Group"
 msgstr "LVM2 Birim Grubu"
 
 #. number of free disk regions
-#: ../blivetgui/dialogs/add_dialog.py:395
+#: ../blivetgui/dialogs/add_dialog.py:394
 msgid "Software RAID"
 msgstr "Yazılımsal RAID"
 
-#: ../blivetgui/dialogs/add_dialog.py:398
-#: ../blivetgui/dialogs/device_info_dialog.py:82
+#: ../blivetgui/dialogs/add_dialog.py:397
+#: ../blivetgui/dialogs/device_info_dialog.py:81
 msgid "LVM2 Logical Volume"
 msgstr "LVM2 Mantıksal Birim"
 
-#: ../blivetgui/dialogs/add_dialog.py:398
-#: ../blivetgui/dialogs/device_info_dialog.py:84
+#: ../blivetgui/dialogs/add_dialog.py:397
+#: ../blivetgui/dialogs/device_info_dialog.py:83
 msgid "LVM2 ThinPool"
 msgstr "LVM2 İnce Havuz (ThinPool)"
 
-#: ../blivetgui/dialogs/add_dialog.py:405
-#: ../blivetgui/dialogs/device_info_dialog.py:83
+#: ../blivetgui/dialogs/add_dialog.py:404
+#: ../blivetgui/dialogs/device_info_dialog.py:82
 msgid "LVM2 Snapshot"
 msgstr "LVM2 Anlık Görüntüsü"
 
-#: ../blivetgui/dialogs/add_dialog.py:408
+#: ../blivetgui/dialogs/add_dialog.py:407
 msgid "LVM2 Thin Snapshot"
 msgstr "LVM2 İnce Anlık Görüntü"
 
-#: ../blivetgui/dialogs/add_dialog.py:411
-#: ../blivetgui/dialogs/device_info_dialog.py:85
+#: ../blivetgui/dialogs/add_dialog.py:410
+#: ../blivetgui/dialogs/device_info_dialog.py:84
 msgid "LVM2 Thin Logical Volume"
 msgstr "LVM2 İnce Mantıksal Birim"
 
-#: ../blivetgui/dialogs/add_dialog.py:414
-#: ../blivetgui/dialogs/device_info_dialog.py:88
+#: ../blivetgui/dialogs/add_dialog.py:413
+#: ../blivetgui/dialogs/device_info_dialog.py:87
 msgid "Btrfs Subvolume"
 msgstr "Btrfs Alt Birimi"
 
-#: ../blivetgui/dialogs/add_dialog.py:417
+#: ../blivetgui/dialogs/add_dialog.py:416
 msgid "Stratis Filesystem"
 msgstr "Stratis Dosya Sistemi"
 
-#: ../blivetgui/dialogs/add_dialog.py:423
+#: ../blivetgui/dialogs/add_dialog.py:422
 msgid "Device type:"
 msgstr "Aygıt türü:"
 
-#: ../blivetgui/dialogs/add_dialog.py:458
-#: ../blivetgui/dialogs/edit_dialog.py:629
-#: ../blivetgui/dialogs/edit_dialog.py:678
-#: ../blivetgui/dialogs/edit_dialog.py:740 ../data/ui/blivet-gui.ui:485
+#: ../blivetgui/dialogs/add_dialog.py:457
+#: ../blivetgui/dialogs/edit_dialog.py:628
+#: ../blivetgui/dialogs/edit_dialog.py:677
+#: ../blivetgui/dialogs/edit_dialog.py:739 ../data/ui/blivet-gui.ui:485
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
 msgstr "Aygıt"
 
-#: ../blivetgui/dialogs/add_dialog.py:459
-#: ../blivetgui/dialogs/edit_dialog.py:630
-#: ../blivetgui/dialogs/edit_dialog.py:679
-#: ../blivetgui/dialogs/edit_dialog.py:741 ../data/ui/blivet-gui.ui:498
+#: ../blivetgui/dialogs/add_dialog.py:458
+#: ../blivetgui/dialogs/edit_dialog.py:629
+#: ../blivetgui/dialogs/edit_dialog.py:678
+#: ../blivetgui/dialogs/edit_dialog.py:740 ../data/ui/blivet-gui.ui:498
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
 msgstr "Tür"
 
-#: ../blivetgui/dialogs/add_dialog.py:460
-#: ../blivetgui/dialogs/edit_dialog.py:631
-#: ../blivetgui/dialogs/edit_dialog.py:680
-#: ../blivetgui/dialogs/edit_dialog.py:742 ../data/ui/blivet-gui.ui:520
+#: ../blivetgui/dialogs/add_dialog.py:459
+#: ../blivetgui/dialogs/edit_dialog.py:630
+#: ../blivetgui/dialogs/edit_dialog.py:679
+#: ../blivetgui/dialogs/edit_dialog.py:741 ../data/ui/blivet-gui.ui:520
 msgid "Size"
 msgstr "Boyut"
 
-#: ../blivetgui/dialogs/add_dialog.py:469
-#: ../blivetgui/dialogs/edit_dialog.py:689
-#: ../blivetgui/dialogs/edit_dialog.py:751 ../data/ui/cache_area.ui:130
+#: ../blivetgui/dialogs/add_dialog.py:468
+#: ../blivetgui/dialogs/edit_dialog.py:688
+#: ../blivetgui/dialogs/edit_dialog.py:750 ../data/ui/cache_area.ui:130
 msgid "Available devices:"
 msgstr "Kullanılabilir aygıtlar:"
 
-#: ../blivetgui/dialogs/add_dialog.py:762
+#: ../blivetgui/dialogs/add_dialog.py:761
 msgid "MDArray type:"
 msgstr "MDArray türü:"
 
-#: ../blivetgui/dialogs/add_dialog.py:794
+#: ../blivetgui/dialogs/add_dialog.py:793
 msgid "Filesystem:"
 msgstr "Dosya sistemi:"
 
-#: ../blivetgui/dialogs/add_dialog.py:827
-#: ../blivetgui/dialogs/edit_dialog.py:165
+#: ../blivetgui/dialogs/add_dialog.py:826
+#: ../blivetgui/dialogs/edit_dialog.py:164
 msgid "unformatted"
 msgstr "biçimlendirilmemiş"
 
-#: ../blivetgui/dialogs/add_dialog.py:857 ../data/ui/format_dialog.ui:148
+#: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr "Etiket:"
 
-#: ../blivetgui/dialogs/add_dialog.py:865
+#: ../blivetgui/dialogs/add_dialog.py:864
 msgid "Name:"
 msgstr "Ad:"
 
-#: ../blivetgui/dialogs/add_dialog.py:876 ../data/ui/format_dialog.ui:189
+#: ../blivetgui/dialogs/add_dialog.py:875 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr "Bağlama noktası:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1065 ../blivetgui/dialogs/helpers.py:137
+#: ../blivetgui/dialogs/add_dialog.py:1064 ../blivetgui/dialogs/helpers.py:136
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" geçerli bir bağlama noktası değil."
 
-#: ../blivetgui/dialogs/add_dialog.py:1072
+#: ../blivetgui/dialogs/add_dialog.py:1071
 msgid "Please select at least two parent devices."
 msgstr "Lütfen en az iki ana (parent) aygıt seçin."
 
-#: ../blivetgui/dialogs/add_dialog.py:1086
-#: ../blivetgui/dialogs/edit_dialog.py:469
+#: ../blivetgui/dialogs/add_dialog.py:1085
+#: ../blivetgui/dialogs/edit_dialog.py:468
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" geçerli bir ad değil."
 
-#: ../blivetgui/dialogs/add_dialog.py:1092
-#: ../blivetgui/dialogs/edit_dialog.py:232
+#: ../blivetgui/dialogs/add_dialog.py:1091
+#: ../blivetgui/dialogs/edit_dialog.py:231
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
 msgstr "\"{0}\" geçerli bir etiket değil."
 
 #. ---------------------------------------------------------------------------- #
-#: ../blivetgui/dialogs/device_info_dialog.py:37
+#: ../blivetgui/dialogs/device_info_dialog.py:36
 msgid "primary"
 msgstr "birincil"
 
 #. pylint: disable=W9902
-#: ../blivetgui/dialogs/device_info_dialog.py:38
+#: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "logical"
 msgstr "mantıksal"
 
 #. pylint: disable=W9902
-#: ../blivetgui/dialogs/device_info_dialog.py:39
+#: ../blivetgui/dialogs/device_info_dialog.py:38
 msgid "extended"
 msgstr "genişletilmiş"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:68
+#: ../blivetgui/dialogs/device_info_dialog.py:67
 #, python-brace-format
 msgid "Information about {0}"
 msgstr "{0} hakkında bilgi"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:86
+#: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "LUKS/DM-Crypt Device"
 msgstr "LUKS/DM-Crypt Aygıtı"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:89
+#: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "MD RAID Array"
 msgstr "MD RAID Dizisi"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:90
+#: ../blivetgui/dialogs/device_info_dialog.py:89
 msgid "DM Integrity Device"
 msgstr "DM Bütünlük Aygıtı"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:103
-#: ../blivetgui/dialogs/device_info_dialog.py:225
+#: ../blivetgui/dialogs/device_info_dialog.py:102
+#: ../blivetgui/dialogs/device_info_dialog.py:224
 #, python-brace-format
 msgid " • <i>Type:</i> {type}\n"
 msgstr " • <i>Tür:</i> {type}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:106
+#: ../blivetgui/dialogs/device_info_dialog.py:105
 #, python-brace-format
 msgid " • <i>Length:</i> {length}\n"
 msgstr " • <i>Uzunluk:</i> {length}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:107
+#: ../blivetgui/dialogs/device_info_dialog.py:106
 #, python-brace-format
 msgid " • <i>Start:</i> {start}\n"
 msgstr " • <i>Başlangıç:</i> {start}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:108
+#: ../blivetgui/dialogs/device_info_dialog.py:107
 #, python-brace-format
 msgid " • <i>End:</i> {end}\n"
 msgstr " • <i>Bitiş:</i> {end}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:115
+#: ../blivetgui/dialogs/device_info_dialog.py:114
 #, python-brace-format
 msgid " • <i>Origin:</i> {origin}\n"
 msgstr " • <i>Kaynak:</i> {origin}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:116
-#: ../blivetgui/dialogs/device_info_dialog.py:118
-#: ../blivetgui/dialogs/device_info_dialog.py:122
+#: ../blivetgui/dialogs/device_info_dialog.py:115
+#: ../blivetgui/dialogs/device_info_dialog.py:117
+#: ../blivetgui/dialogs/device_info_dialog.py:121
 #, python-brace-format
 msgid " • <i>Segment type:</i> {segtype}\n"
 msgstr " • <i>Segment türü:</i> {segtype}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:119
+#: ../blivetgui/dialogs/device_info_dialog.py:118
 #, python-brace-format
 msgid " • <i>Free space:</i> {free}\n"
 msgstr " • <i>Boş alan:</i> {free}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:120
+#: ../blivetgui/dialogs/device_info_dialog.py:119
 #, python-brace-format
 msgid " • <i>Space used:</i> {used}\n"
 msgstr " • <i>Kullanılan alan:</i> {used}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:124
+#: ../blivetgui/dialogs/device_info_dialog.py:123
 #, python-brace-format
 msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
 msgstr " • <i>Önbelleğe alındı:</i> Evet (önbellek boyutu: {cache_size})\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:126
+#: ../blivetgui/dialogs/device_info_dialog.py:125
 msgid " • <i>Cached:</i> No\n"
 msgstr " • <i>Önbelleğe alındı:</i> Hayır\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:131
+#: ../blivetgui/dialogs/device_info_dialog.py:130
 #, python-brace-format
 msgid " • <i>PE Size:</i> {pesize}\n"
 msgstr " • <i>PE Boyutu:</i> {pesize}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:132
+#: ../blivetgui/dialogs/device_info_dialog.py:131
 #, python-brace-format
 msgid " • <i>PE Count:</i> {pecount}\n"
 msgstr " • <i>PE Sayısı:</i> {pecount}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:133
+#: ../blivetgui/dialogs/device_info_dialog.py:132
 #, python-brace-format
 msgid " • <i>Free Space:</i> {free}\n"
 msgstr " • <i>Boş Alan:</i> {free}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:134
+#: ../blivetgui/dialogs/device_info_dialog.py:133
 #, python-brace-format
 msgid " • <i>PE Free:</i> {pefree}\n"
 msgstr " • <i>Boş PE:</i> {pefree}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:135
+#: ../blivetgui/dialogs/device_info_dialog.py:134
 #, python-brace-format
 msgid " • <i>Reserved Space:</i> {res}\n"
 msgstr " • <i>Ayrılmış Alan:</i> {res}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:136
-#: ../blivetgui/dialogs/device_info_dialog.py:155
+#: ../blivetgui/dialogs/device_info_dialog.py:135
+#: ../blivetgui/dialogs/device_info_dialog.py:154
 #, python-brace-format
 msgid " • <i>Complete:</i> {complete}\n"
 msgstr " • <i>Tamamlanan:</i> {complete}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:141
+#: ../blivetgui/dialogs/device_info_dialog.py:140
 #, python-brace-format
 msgid " • <i>Subvol ID:</i> {id}\n"
 msgstr " • <i>Alt birim kimliği:</i> {id}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:144
+#: ../blivetgui/dialogs/device_info_dialog.py:143
 #, python-brace-format
 msgid " • <i>Data Level:</i> {level}\n"
 msgstr " • <i>Veri Seviyesi:</i> {level}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:145
+#: ../blivetgui/dialogs/device_info_dialog.py:144
 #, python-brace-format
 msgid " • <i>Metadata Level:</i> {level}\n"
 msgstr " • <i>Meta Veri Seviyesi:</i> {level}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:150
+#: ../blivetgui/dialogs/device_info_dialog.py:149
 #, python-brace-format
 msgid " • <i>Level:</i> {level}\n"
 msgstr " • <i>Seviye:</i> {level}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:151
+#: ../blivetgui/dialogs/device_info_dialog.py:150
 #, python-brace-format
 msgid " • <i>Devices:</i> {dcount}\n"
 msgstr " • <i>Aygıtlar:</i> {dcount}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:152
+#: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
 msgid " • <i>Spares:</i> {spares}\n"
 msgstr " • <i>Yedekler:</i> {spares}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:153
+#: ../blivetgui/dialogs/device_info_dialog.py:152
 #, python-brace-format
 msgid " • <i>Degraded:</i> {degraded}\n"
 msgstr " • <i>Bozulmuş:</i> {degraded}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:154
+#: ../blivetgui/dialogs/device_info_dialog.py:153
 #, python-brace-format
 msgid " • <i>Metadata Version:</i> {metadata}\n"
 msgstr " • <i>Meta Veri Sürümü:</i> {metadata}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:169
+#: ../blivetgui/dialogs/device_info_dialog.py:168
 #, python-brace-format
 msgid "Unknown device {name}"
 msgstr "Bilinmeyen aygıt {name}"
 
 #. device info header
-#: ../blivetgui/dialogs/device_info_dialog.py:177
+#: ../blivetgui/dialogs/device_info_dialog.py:176
 msgid "Basic information"
 msgstr "Temel bilgiler"
 
 #. 'basic' information about selected device
-#: ../blivetgui/dialogs/device_info_dialog.py:187
-#: ../blivetgui/dialogs/device_info_dialog.py:223
-#: ../blivetgui/dialogs/device_info_dialog.py:270
+#: ../blivetgui/dialogs/device_info_dialog.py:186
+#: ../blivetgui/dialogs/device_info_dialog.py:222
+#: ../blivetgui/dialogs/device_info_dialog.py:269
 msgid "existing"
 msgstr "mevcut"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:187
-#: ../blivetgui/dialogs/device_info_dialog.py:223
-#: ../blivetgui/dialogs/device_info_dialog.py:270
+#: ../blivetgui/dialogs/device_info_dialog.py:186
+#: ../blivetgui/dialogs/device_info_dialog.py:222
+#: ../blivetgui/dialogs/device_info_dialog.py:269
 msgid "non-existing"
 msgstr "mevcut değil"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:188
-#: ../blivetgui/dialogs/device_info_dialog.py:224
+#: ../blivetgui/dialogs/device_info_dialog.py:187
+#: ../blivetgui/dialogs/device_info_dialog.py:223
 #, python-brace-format
 msgid " • <i>Status:</i> {exist}\n"
 msgstr " • <i>Durum:</i> {exist}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:189
+#: ../blivetgui/dialogs/device_info_dialog.py:188
 #, python-brace-format
 msgid " • <i>Name:</i> {name}\n"
 msgstr " • <i>Ad:</i> {name}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:190
+#: ../blivetgui/dialogs/device_info_dialog.py:189
 #, python-brace-format
 msgid " • <i>Path:</i> {path}\n"
 msgstr " • <i>Yol:</i> {path}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:191
+#: ../blivetgui/dialogs/device_info_dialog.py:190
 #, python-brace-format
 msgid " • <i>Size:</i> {size}\n"
 msgstr " • <i>Boyut:</i> {size}\n"
 
 #. device format header
-#: ../blivetgui/dialogs/device_info_dialog.py:212
+#: ../blivetgui/dialogs/device_info_dialog.py:211
 msgid "Device format"
 msgstr "Aygıt biçimi"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:226
+#: ../blivetgui/dialogs/device_info_dialog.py:225
 #, python-brace-format
 msgid " • <i>UUID:</i> {uuid}\n"
 msgstr " • <i>UUID:</i> {uuid}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:228
+#: ../blivetgui/dialogs/device_info_dialog.py:227
 #, python-brace-format
 msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>Etiket:</i> {label}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:242
+#: ../blivetgui/dialogs/device_info_dialog.py:241
 #, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
@@ -828,21 +828,21 @@ msgstr ""
 " • <i>Bağlama noktaları:</i>\n"
 "     {mountpoints}"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:245
+#: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid " • <i>Type:</i> None"
 msgstr " • <i>Tür:</i> Hiçbiri"
 
 #. device parents header
-#: ../blivetgui/dialogs/device_info_dialog.py:258
+#: ../blivetgui/dialogs/device_info_dialog.py:257
 msgid "Parents"
 msgstr "Ana (parent) aygıtlar"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:271
+#: ../blivetgui/dialogs/device_info_dialog.py:270
 #, python-brace-format
 msgid " • {exists} {size} {type} {name}\n"
 msgstr " • {exists} {size} {type} {name}\n"
 
-#: ../blivetgui/dialogs/edit_dialog.py:103
+#: ../blivetgui/dialogs/edit_dialog.py:102
 #, python-brace-format
 msgid ""
 "<b>This device cannot be resized:</b>\n"
@@ -851,43 +851,43 @@ msgstr ""
 "<b>Bu aygıt yeniden boyutlandırılamaz:</b>\n"
 "<i>{0}</i>"
 
-#: ../blivetgui/dialogs/edit_dialog.py:105
+#: ../blivetgui/dialogs/edit_dialog.py:104
 msgid "This device cannot be resized."
 msgstr "Bu aygıt yeniden boyutlandırılamaz."
 
-#: ../blivetgui/dialogs/edit_dialog.py:407
+#: ../blivetgui/dialogs/edit_dialog.py:406
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
 msgstr "'{label}' bu dosya sistemi için geçerli bir etiket değil"
 
-#: ../blivetgui/dialogs/edit_dialog.py:482
+#: ../blivetgui/dialogs/edit_dialog.py:481
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
 msgstr "Seçilen aygıt zaten \"{0}\" olarak adlandırıldı."
 
-#: ../blivetgui/dialogs/edit_dialog.py:488
+#: ../blivetgui/dialogs/edit_dialog.py:487
 #, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
 msgstr "Seçilen ad \"{0}\" zaten kullanılıyor."
 
 #. auto shrink after removing/hiding widgets
-#: ../blivetgui/dialogs/edit_dialog.py:599
+#: ../blivetgui/dialogs/edit_dialog.py:598
 msgid "Edit device"
 msgstr "Aygıtı düzenle"
 
-#: ../blivetgui/dialogs/edit_dialog.py:639
+#: ../blivetgui/dialogs/edit_dialog.py:638
 msgid "Parent devices:"
 msgstr "Ana (parent) aygıtlar:"
 
-#: ../blivetgui/dialogs/edit_dialog.py:646
+#: ../blivetgui/dialogs/edit_dialog.py:645
 msgid "Add a parent"
 msgstr "Ana aygıt ekle"
 
-#: ../blivetgui/dialogs/edit_dialog.py:649
+#: ../blivetgui/dialogs/edit_dialog.py:648
 msgid "Remove a parent"
 msgstr "Ana aygıtı kaldır"
 
-#: ../blivetgui/dialogs/edit_dialog.py:660
+#: ../blivetgui/dialogs/edit_dialog.py:659
 msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
@@ -895,11 +895,11 @@ msgstr ""
 "Şu anda boş fiziksel birim veya bir tane oluşturmak\n"
 "için yeterli boş alana sahip disk yok."
 
-#: ../blivetgui/dialogs/edit_dialog.py:677
+#: ../blivetgui/dialogs/edit_dialog.py:676
 msgid "Add?"
 msgstr "Eklensin mi?"
 
-#: ../blivetgui/dialogs/edit_dialog.py:719
+#: ../blivetgui/dialogs/edit_dialog.py:718
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
@@ -907,25 +907,31 @@ msgstr ""
 "Bu birim grubundan kaldırılabilecek bir\n"
 "fiziksel birim yok."
 
-#: ../blivetgui/dialogs/edit_dialog.py:731
+#: ../blivetgui/dialogs/edit_dialog.py:730
 msgid "Currently it is possible to remove only one parent at time."
 msgstr "Şu anda, bir kerede sadece bir ana (parent) aygıt kaldırılabilir."
 
-#: ../blivetgui/dialogs/edit_dialog.py:739
+#: ../blivetgui/dialogs/edit_dialog.py:738
 msgid "Remove?"
 msgstr "Kaldırılsın mı?"
 
-#: ../blivetgui/dialogs/helpers.py:144
+#: ../blivetgui/dialogs/helpers.py:143
 #, python-brace-format
 msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr "Seçilen \"{0}\" bağlama noktası başka bir aygıt için zaten ayarlanmış."
 
 #: ../blivetgui/dialogs/message_dialogs.py:132
+#, fuzzy, python-format
+#| msgid ""
+#| "If you believe this is a bug, please use the 'Report a bug' button below "
+#| "to report a bug using the\n"
+#| "Automatic bug reporting tool (ABRT) or open an issue on our <a "
+#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgid ""
 "If you believe this is a bug, please use the 'Report a bug' button below to "
 "report a bug using the\n"
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
-"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+"href=\"%s\">GitHub</a>."
 msgstr ""
 "Bunun bir hata olduğunu düşünüyorsanız, lütfen Otomatik hata bildirme "
 "aracını (ABRT) kullanarak\n"
@@ -933,111 +939,115 @@ msgstr ""
 "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a> "
 "sayfamızda bir sorun açın."
 
-#: ../blivetgui/dialogs/message_dialogs.py:137
+#: ../blivetgui/dialogs/message_dialogs.py:136
+#, fuzzy, python-format
+#| msgid ""
+#| "If you believe this is a bug, please open an issue on our <a "
+#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
 msgid ""
-"If you believe this is a bug, please open an issue on our <a href=\"https://"
-"github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+"If you believe this is a bug, please open an issue on our <a "
+"href=\"%s\">GitHub</a>."
 msgstr ""
 "Bunun bir hata olduğunu düşünüyorsanız, lütfen <a href=\"https://github.com/"
 "storaged-project/blivet-gui/issues\">GitHub</a> sayfamızda bir sorun açın."
 
-#: ../blivetgui/dialogs/message_dialogs.py:209
+#: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
 msgstr "Silme işlemini onayla"
 
-#: ../blivetgui/dialogs/message_dialogs.py:210
+#: ../blivetgui/dialogs/message_dialogs.py:209
 #, python-brace-format
 msgid "Are you sure you want delete device {name}?"
 msgstr "{name} aygıtını silmek istediğinizden emin misiniz?"
 
-#: ../blivetgui/dialogs/message_dialogs.py:220
+#: ../blivetgui/dialogs/message_dialogs.py:219
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
 msgstr "{name} aygıtının aşağıdaki alt aygıtları da bu işlemle kaldırılacak:\n"
 
-#: ../blivetgui/dialogs/message_dialogs.py:228
+#: ../blivetgui/dialogs/message_dialogs.py:227
 #, python-brace-format
 msgid "Also delete following parent devices of {name}:"
 msgstr "{name} aygıtının şu ana (parent) aygıtlarını da sil:"
 
-#: ../blivetgui/dialogs/message_dialogs.py:328
+#: ../blivetgui/dialogs/message_dialogs.py:327
 msgid "There are no pending actions."
 msgstr "Bekleyen işlem yok."
 
 #. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
 #. your name and email address (optional) here. Separate translator names with newlines.
-#: ../blivetgui/dialogs/other_dialogs.py:53
+#: ../blivetgui/dialogs/other_dialogs.py:52
 msgid "translator-credits"
 msgstr "Oğuz Ersen <oguz@ersen.moe>"
 
-#: ../blivetgui/dialogs/size_chooser.py:216
+#: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
 msgstr "Seçili olan boyut, bu seçim için izin verilen azami sınırdan büyük."
 
-#: ../blivetgui/dialogs/size_chooser.py:219
+#: ../blivetgui/dialogs/size_chooser.py:218
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
 msgstr "Seçili olan boyut, bu seçim için izin verilen asgari sınırdan küçük."
 
 #. fill combobox with supported sector sizes and select the default one
-#: ../blivetgui/dialogs/widgets.py:286
+#: ../blivetgui/dialogs/widgets.py:285
 msgid "Automatic"
 msgstr "Otomatik"
 
-#: ../blivetgui/dialogs/widgets.py:381
+#: ../blivetgui/dialogs/widgets.py:380
 msgid "Passphrase not specified."
 msgstr "Parola belirtilmedi."
 
-#: ../blivetgui/dialogs/widgets.py:384
+#: ../blivetgui/dialogs/widgets.py:383
 msgid "Provided passphrases do not match."
 msgstr "Sağlanan parolalar eşleşmiyor."
 
-#: ../blivetgui/dialogs/widgets.py:415
+#: ../blivetgui/dialogs/widgets.py:414
 msgid "Passphrases match."
 msgstr "Parolalar eşleşiyor."
 
-#: ../blivetgui/dialogs/widgets.py:418
+#: ../blivetgui/dialogs/widgets.py:417
 msgid "Passphrases don't match."
 msgstr "Parolalar eşleşmiyor."
 
-#: ../blivetgui/visualization/rectangle.py:52
+#: ../blivetgui/visualization/rectangle.py:51
 msgid "Group device"
 msgstr "Grup aygıtı"
 
-#: ../blivetgui/visualization/rectangle.py:53
+#: ../blivetgui/visualization/rectangle.py:52
 msgid "LiveUSB device"
 msgstr "LiveUSB aygıtı"
 
-#: ../blivetgui/visualization/rectangle.py:54
+#: ../blivetgui/visualization/rectangle.py:53
 msgid "Encrypted device (locked)"
 msgstr "Şifrelenmiş aygıt (kilitli)"
 
-#: ../blivetgui/visualization/rectangle.py:55
+#: ../blivetgui/visualization/rectangle.py:54
 msgid "Encrypted device (unlocked)"
 msgstr "Şifrelenmiş aygıt (kilidi açık)"
 
-#: ../blivetgui/visualization/rectangle.py:56
+#: ../blivetgui/visualization/rectangle.py:55
 msgid "Empty device"
 msgstr "Boş aygıt"
 
-#: ../blivetgui/visualization/rectangle.py:57
+#: ../blivetgui/visualization/rectangle.py:56
 msgid "Snapshot"
 msgstr "Anlık görüntü"
 
-#: ../blivetgui/visualization/rectangle.py:58
+#: ../blivetgui/visualization/rectangle.py:57
 msgid "Missing partition table"
 msgstr "Bölümlendirme tablosu yok"
 
-#: ../blivetgui/visualization/rectangle.py:59
+#: ../blivetgui/visualization/rectangle.py:58
 msgid "Device or format is write protected"
 msgstr "Aygıt veya biçim yazmaya karşı korumalı"
 
-#: ../blivetgui/visualization/rectangle.py:60
+#: ../blivetgui/visualization/rectangle.py:59
 msgid "Cached device"
 msgstr "Önbelleğe alınan aygıt"
 
-#: ../blivetgui/visualization/rectangle.py:61
+#: ../blivetgui/visualization/rectangle.py:60
 msgid "Incomplete device"
 msgstr "Tamamlanmamış aygıt"
 
