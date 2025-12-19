@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-16 10:32+0100\n"
-"PO-Revision-Date: 2025-11-27 11:22+0000\n"
+"PO-Revision-Date: 2025-12-19 15:43+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ka/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -929,12 +929,7 @@ msgstr ""
 "არჩეული მიმაგრების წერტილი \"{0}\" უკვე დაყენებულია სხვა მოწყობილობისთვის."
 
 #: ../blivetgui/dialogs/message_dialogs.py:132
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please use the 'Report a bug' button below "
-#| "to report a bug using the\n"
-#| "Automatic bug reporting tool (ABRT) or open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please use the 'Report a bug' button below to "
 "report a bug using the\n"
@@ -944,20 +939,16 @@ msgstr ""
 "თუ გჯერათ, რომ ეს შეცდომაა, გამოიყენეთ ქვემოთ ღილაკი 'ანგარიში შეცდომის "
 "შესახებ', რომ შეცდომის შესახებ\n"
 "ავტომატური შეცდომის შესახებ მიწერის ხელსაწყოს საშუალებით (ABRT) გახსნათ "
-"ბილეთი ჩვენს <a href=\"https://github.com/storaged-project/blivet-gui/"
-"issues\">GitHub</a>-ზე."
+"ბილეთი ჩვენს <a href=\"%s\">GitHub</a>-ზე."
 
 #: ../blivetgui/dialogs/message_dialogs.py:136
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
 "თუ გჯერათ, რომ ეს შეცდომაა, გახსენით ბილეთი პრობლემის შესახებ ჩვენს <a "
-"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>-ზე."
+"href=\"%s\">\">GitHub</a>-ზე."
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
