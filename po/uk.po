@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-16 10:32+0100\n"
-"PO-Revision-Date: 2025-09-24 17:25+0000\n"
+"PO-Revision-Date: 2025-12-19 15:43+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/uk/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -522,8 +522,6 @@ msgid "LVM2 Snapshot"
 msgstr "Знімок LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:407
-#, fuzzy
-#| msgid "LVM2 Thin Snaphost"
 msgid "LVM2 Thin Snapshot"
 msgstr "Тонкий знімок LVM2"
 
@@ -938,36 +936,26 @@ msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr "Вибрану точку монтування «{0}» вже встановлено для іншого пристрою."
 
 #: ../blivetgui/dialogs/message_dialogs.py:132
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please use the 'Report a bug' button below "
-#| "to report a bug using the\n"
-#| "Automatic bug reporting tool (ABRT) or open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please use the 'Report a bug' button below to "
 "report a bug using the\n"
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
-"Якщо ви вважаєте, що це є результатом вади, будь ласка, натисніть кнопку "
-"«Повідомити про ваду», розташовану нижче, щоб створити звіт\n"
+"Якщо ви вважаєте, що це є результатом вади, будь ласка, натисніть кнопку «"
+"Повідомити про ваду», розташовану нижче, щоб створити звіт\n"
 "щодо вади за допомогою автоматичного інструмента звітування про вади (ABRT) "
-"або створіть запис вади на нашій сторінці <a href=\"https://github.com/"
-"storaged-project/blivet-gui/issues\">GitHub</a>."
+"або створіть запис вади на нашій сторінці <a href=\"%s\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:136
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
 "Якщо ви вважаєте, що це є результатом вади, будь ласка, створіть "
-"повідомлення про ваду на нашій сторінц <a href=\"https://github.com/storaged-"
-"project/blivet-gui/issues\">GitHub</a>."
+"повідомлення про ваду на нашій сторінц <a href=\"%s\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
@@ -1029,7 +1017,7 @@ msgstr "Вказані паролі збігаються."
 
 #: ../blivetgui/dialogs/widgets.py:417
 msgid "Passphrases don't match."
-msgstr "Вказані паролі не збігаються."
+msgstr "Паролі не збігаються."
 
 #: ../blivetgui/visualization/rectangle.py:51
 msgid "Group device"
