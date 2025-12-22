@@ -9,9 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-16 10:32+0100\n"
-"PO-Revision-Date: 2025-12-02 06:58+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2025-12-22 08:34+0000\n"
+"Last-Translator: naly zzwd <xeanhort007@gmail.com>\n"
 "Language-Team: Catalan <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ca/>\n"
 "Language: ca\n"
@@ -19,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -929,12 +928,7 @@ msgstr ""
 "dispositiu."
 
 #: ../blivetgui/dialogs/message_dialogs.py:132
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please use the 'Report a bug' button below "
-#| "to report a bug using the\n"
-#| "Automatic bug reporting tool (ABRT) or open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please use the 'Report a bug' button below to "
 "report a bug using the\n"
@@ -944,20 +938,16 @@ msgstr ""
 "Si creieu que això és un error, utilitzeu el botó 'Informa d'un error' que "
 "hi ha a continuació per informar d'un error mitjançant\n"
 "l'eina d'informació automàtica d'errors (ABRT) o obriu una incidència al "
-"nostre <a href=\"https://github.com/storaged-project/blivet-gui/"
-"issues\">GitHub</a>."
+"nostre <a href=\"%s\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:136
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
 "Si creieu que això és un error, obriu una incidència al nostre <a "
-"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+"href=\"%s\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
