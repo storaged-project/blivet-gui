@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-16 10:32+0100\n"
-"PO-Revision-Date: 2025-12-18 13:58+0000\n"
+"PO-Revision-Date: 2025-12-23 15:58+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/cs/>\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -937,12 +937,7 @@ msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr "Zvolený přípojný bod „{0} \" už je používán pro jiné zařízení."
 
 #: ../blivetgui/dialogs/message_dialogs.py:132
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please use the 'Report a bug' button below "
-#| "to report a bug using the\n"
-#| "Automatic bug reporting tool (ABRT) or open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please use the 'Report a bug' button below to "
 "report a bug using the\n"
@@ -952,19 +947,16 @@ msgstr ""
 "Pokud se domníváte, že se jedná o chybu, nahlaste ji pomocí níže uvedeného "
 "tlačítka „Nahlásit chybu“.\n"
 "Automatic bug reporting tool (ABRT) nebo otevřete problém na našem <a "
-"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHubu</a>."
+"href=\"%s\">GitHubu</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:136
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
 "Pokud se domníváte, že se jedná o chybu, otevřete prosím problém na našem <a "
-"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHubu</a>."
+"href=\"%s\">GitHubu</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
