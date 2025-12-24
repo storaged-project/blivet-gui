@@ -707,7 +707,7 @@ class BlivetGUI:
         device = self.list_partitions.selected_partition[0]
 
         if not device.format.mountable or not device.format.system_mountpoint:
-            return ValueError("Selected device is not mounted")
+            raise ValueError("Selected device is not mounted")
 
         all_mountpoints = self.client.remote_call("get_system_mountpoints", device)
         if len(all_mountpoints) > 1:
