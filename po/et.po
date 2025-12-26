@@ -9,8 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-16 10:32+0100\n"
 "PO-Revision-Date: 2025-12-26 17:19+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"Last-Translator: Priit Jõerüüt "
+"<jrtkbfdr@users.noreply.translate.fedoraproject.org>\n"
 "Language-Team: Estonian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/et/>\n"
 "Language: et\n"
@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "Seadme suuruse muutmine ei õnnestunud:"
 
 #: ../blivetgui/blivetgui.py:307
 #, python-brace-format
@@ -127,6 +127,8 @@ msgstr ""
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr ""
+"„{mountpoint}“ haakepunkti lahtihaakimine ei õnnestunud. Kas sa oled kindel, "
+"et seade pole kasutuses?"
 
 #: ../blivetgui/blivetgui.py:751
 msgid "Unlocking failed. Are you sure provided password is correct?"
@@ -134,7 +136,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:801 ../data/ui/blivet-gui.ui:678
 msgid "Quit"
-msgstr ""
+msgstr "Välju"
 
 #: ../blivetgui/blivetgui.py:804
 msgid "blivet-gui is already running"
@@ -167,12 +169,12 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:848
 msgid "Ignore disk and continue"
-msgstr ""
+msgstr "Eira ketast ja jätka"
 
 #: ../blivetgui/blivetgui.py:851
 #, python-brace-format
 msgid "Error: {error}"
-msgstr ""
+msgstr "Viga: {error}"
 
 #: ../blivetgui/blivetgui.py:852
 #, python-brace-format
@@ -193,7 +195,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:920
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "Kas oled kindel, et soovid väljuda?"
 
 #: ../blivetgui/blivetgui.py:921
 msgid ""
@@ -296,12 +298,12 @@ msgstr ""
 #, python-format
 msgid "%s pending action"
 msgid_plural "%s pending actions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s ootel toiming"
+msgstr[1] "%s ootel toimingut"
 
 #: ../blivetgui/list_devices.py:84
 msgid "Disks"
-msgstr ""
+msgstr "Kettad"
 
 #: ../blivetgui/list_devices.py:91
 msgid "MDRAID set"
@@ -309,28 +311,28 @@ msgstr ""
 
 #: ../blivetgui/list_devices.py:112
 msgid "LVM"
-msgstr ""
+msgstr "LVM"
 
 #: ../blivetgui/list_devices.py:115
 msgid "LVM2 VG"
-msgstr ""
+msgstr "LVM2 VG"
 
 #: ../blivetgui/list_devices.py:118
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../blivetgui/list_devices.py:121
 msgid "MDArray"
-msgstr ""
+msgstr "MDArray"
 
 #: ../blivetgui/list_devices.py:124
 msgid "Btrfs Volumes"
-msgstr ""
+msgstr "Btrfs-i köited"
 
 #: ../blivetgui/list_devices.py:127 ../blivetgui/dialogs/add_dialog.py:388
 #: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "Btrfs Volume"
-msgstr ""
+msgstr "Btrfs-i köide"
 
 #: ../blivetgui/list_devices.py:130
 msgid "Stratis Pools"
@@ -345,7 +347,7 @@ msgstr ""
 #: ../blivetgui/list_partitions.py:166
 #: ../blivetgui/visualization/rectangle.py:64
 msgid "unknown"
-msgstr ""
+msgstr "tundmatu"
 
 #: ../blivetgui/loading_window.py:47
 msgid "Probing storage"
@@ -378,7 +380,7 @@ msgstr ""
 
 #: ../blivetgui/processing_window.py:57
 msgid "Processing"
-msgstr ""
+msgstr "Töötlemisel"
 
 #: ../blivetgui/processing_window.py:82
 msgid "Show actions"
@@ -414,17 +416,17 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:118
 msgid "Logical"
-msgstr ""
+msgstr "Loogiline"
 
 #: ../blivetgui/dialogs/add_dialog.py:120
 #: ../blivetgui/dialogs/add_dialog.py:122
 #: ../blivetgui/dialogs/add_dialog.py:124
 msgid "Primary"
-msgstr ""
+msgstr "Primaarne"
 
 #: ../blivetgui/dialogs/add_dialog.py:122
 msgid "Extended"
-msgstr ""
+msgstr "Laiendatud"
 
 #: ../blivetgui/dialogs/add_dialog.py:149
 msgid "Chunk Size:"
@@ -441,20 +443,20 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:273
 msgid "Create new device"
-msgstr ""
+msgstr "Loo uus seade"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:382
 #: ../blivetgui/dialogs/add_dialog.py:766
 #: ../blivetgui/dialogs/device_info_dialog.py:79
 msgid "Partition"
-msgstr ""
+msgstr "Partitsioon"
 
 #: ../blivetgui/dialogs/add_dialog.py:385
 #: ../blivetgui/dialogs/add_dialog.py:401
 #: ../blivetgui/dialogs/device_info_dialog.py:80
 msgid "LVM2 Volume Group"
-msgstr "Köitegrupp"
+msgstr "LVM2-köitegrupp"
 
 #. number of free disk regions
 #: ../blivetgui/dialogs/add_dialog.py:394
@@ -504,7 +506,7 @@ msgstr ""
 #: ../blivetgui/dialogs/edit_dialog.py:739 ../data/ui/blivet-gui.ui:485
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
-msgstr ""
+msgstr "Seade"
 
 #: ../blivetgui/dialogs/add_dialog.py:458
 #: ../blivetgui/dialogs/edit_dialog.py:629
@@ -512,14 +514,14 @@ msgstr ""
 #: ../blivetgui/dialogs/edit_dialog.py:740 ../data/ui/blivet-gui.ui:498
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
-msgstr ""
+msgstr "Tüüp"
 
 #: ../blivetgui/dialogs/add_dialog.py:459
 #: ../blivetgui/dialogs/edit_dialog.py:630
 #: ../blivetgui/dialogs/edit_dialog.py:679
 #: ../blivetgui/dialogs/edit_dialog.py:741 ../data/ui/blivet-gui.ui:520
 msgid "Size"
-msgstr ""
+msgstr "Suurus"
 
 #: ../blivetgui/dialogs/add_dialog.py:468
 #: ../blivetgui/dialogs/edit_dialog.py:688
@@ -533,24 +535,24 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:793
 msgid "Filesystem:"
-msgstr ""
+msgstr "Failisüsteem:"
 
 #: ../blivetgui/dialogs/add_dialog.py:826
 #: ../blivetgui/dialogs/edit_dialog.py:164
 msgid "unformatted"
-msgstr ""
+msgstr "vormindamata"
 
 #: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:148
 msgid "Label:"
-msgstr ""
+msgstr "Silt:"
 
 #: ../blivetgui/dialogs/add_dialog.py:864
 msgid "Name:"
-msgstr ""
+msgstr "Nimi:"
 
 #: ../blivetgui/dialogs/add_dialog.py:875 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
-msgstr ""
+msgstr "Haakepunkt:"
 
 #: ../blivetgui/dialogs/add_dialog.py:1064 ../blivetgui/dialogs/helpers.py:136
 #, python-brace-format
@@ -576,22 +578,22 @@ msgstr ""
 #. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:36
 msgid "primary"
-msgstr ""
+msgstr "primaarne"
 
 #. pylint: disable=W9902
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "logical"
-msgstr ""
+msgstr "loogiline"
 
 #. pylint: disable=W9902
 #: ../blivetgui/dialogs/device_info_dialog.py:38
 msgid "extended"
-msgstr ""
+msgstr "laiendatud"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:67
 #, python-brace-format
 msgid "Information about {0}"
-msgstr ""
+msgstr "Teave: {0}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "LUKS/DM-Crypt Device"
@@ -731,25 +733,25 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:168
 #, python-brace-format
 msgid "Unknown device {name}"
-msgstr ""
+msgstr "Tundmatu seade: {name}"
 
 #. device info header
 #: ../blivetgui/dialogs/device_info_dialog.py:176
 msgid "Basic information"
-msgstr ""
+msgstr "Põhiteave"
 
 #. 'basic' information about selected device
 #: ../blivetgui/dialogs/device_info_dialog.py:186
 #: ../blivetgui/dialogs/device_info_dialog.py:222
 #: ../blivetgui/dialogs/device_info_dialog.py:269
 msgid "existing"
-msgstr ""
+msgstr "olemasolev"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:186
 #: ../blivetgui/dialogs/device_info_dialog.py:222
 #: ../blivetgui/dialogs/device_info_dialog.py:269
 msgid "non-existing"
-msgstr ""
+msgstr "mitteolemasolev"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:187
 #: ../blivetgui/dialogs/device_info_dialog.py:223
@@ -801,7 +803,7 @@ msgstr ""
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:257
 msgid "Parents"
-msgstr ""
+msgstr "Ülemseadmed"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:270
 #, python-brace-format
@@ -837,7 +839,7 @@ msgstr ""
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:598
 msgid "Edit device"
-msgstr ""
+msgstr "Muuda seadet"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
 msgid "Parent devices:"
@@ -859,13 +861,15 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:676
 msgid "Add?"
-msgstr ""
+msgstr "Kas lisame?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:718
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
+"Pole füüsilist köidet, mida võiks\n"
+"sellest köitegrupist eemaldada."
 
 #: ../blivetgui/dialogs/edit_dialog.py:730
 msgid "Currently it is possible to remove only one parent at time."
@@ -873,7 +877,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:738
 msgid "Remove?"
-msgstr ""
+msgstr "Kas eemaldame?"
 
 #: ../blivetgui/dialogs/helpers.py:143
 #, python-brace-format
@@ -942,7 +946,7 @@ msgstr "Automaatne"
 
 #: ../blivetgui/dialogs/widgets.py:380
 msgid "Passphrase not specified."
-msgstr ""
+msgstr "Salafraasid on sisestamata."
 
 #: ../blivetgui/dialogs/widgets.py:383
 msgid "Provided passphrases do not match."
@@ -950,11 +954,11 @@ msgstr ""
 
 #: ../blivetgui/dialogs/widgets.py:414
 msgid "Passphrases match."
-msgstr "Salafraasid peavad klappima"
+msgstr "Salafraasid on samad."
 
 #: ../blivetgui/dialogs/widgets.py:417
 msgid "Passphrases don't match."
-msgstr "Salafraasid peavad klappima"
+msgstr "Salafraasid peavad klappima."
 
 #: ../blivetgui/visualization/rectangle.py:51
 msgid "Group device"
@@ -982,7 +986,7 @@ msgstr ""
 
 #: ../blivetgui/visualization/rectangle.py:57
 msgid "Missing partition table"
-msgstr ""
+msgstr "Partitsioonitabel on puudu"
 
 #: ../blivetgui/visualization/rectangle.py:58
 msgid "Device or format is write protected"
@@ -998,7 +1002,7 @@ msgstr ""
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
-msgstr "Autoriõigus © 2006-2012 Red Hat, Inc."
+msgstr "Autoriõigused © Red Hat Inc."
 
 #: ../data/ui/add_disklabel_dialog.ui:11
 msgid "No partition table found on disk"
@@ -1014,7 +1018,7 @@ msgstr ""
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "New"
-msgstr "_Uus"
+msgstr "Uus"
 
 #: ../data/ui/blivet-gui.ui:23
 msgid "Delete"
@@ -1030,7 +1034,7 @@ msgstr "Muuda suurust"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
 msgid "Rename"
-msgstr "_Muuda nime"
+msgstr "Muuda nime"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
@@ -1057,15 +1061,15 @@ msgstr ""
 
 #: ../data/ui/blivet-gui.ui:102 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
-msgstr "haagi"
+msgstr "Haagi lahti"
 
 #: ../data/ui/blivet-gui.ui:110
 msgid "Unlock"
-msgstr ""
+msgstr "Ava lukustus"
 
 #: ../data/ui/blivet-gui.ui:118
 msgid "Information"
-msgstr ""
+msgstr "Teave"
 
 #: ../data/ui/blivet-gui.ui:255
 msgid "blivet-gui"
@@ -1080,7 +1084,7 @@ msgstr ""
 #: ../data/ui/blivet-gui.ui:364
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
-msgstr "Lisa seade"
+msgstr "Lisa uus seade"
 
 #: ../data/ui/blivet-gui.ui:380
 msgctxt "ActionsToolbar|Delete"
@@ -1095,7 +1099,7 @@ msgstr ""
 #: ../data/ui/blivet-gui.ui:422
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
-msgstr ""
+msgstr "Haagi valitud seade lahti"
 
 #: ../data/ui/blivet-gui.ui:437
 msgctxt "ActionsToolbar|Decrypt"
@@ -1105,7 +1109,7 @@ msgstr ""
 #: ../data/ui/blivet-gui.ui:452
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
-msgstr ""
+msgstr "Näita valitud seadme teavet"
 
 #. Format (filesystem) type of selected device.
 #: ../data/ui/blivet-gui.ui:509
@@ -1115,23 +1119,23 @@ msgstr "Vorminda"
 
 #: ../data/ui/blivet-gui.ui:531
 msgid "Label"
-msgstr "Silt:"
+msgstr "Silt"
 
 #: ../data/ui/blivet-gui.ui:542
 msgid "Mountpoint"
-msgstr ""
+msgstr "Haakepunkt"
 
 #: ../data/ui/blivet-gui.ui:566
 msgid "Logical View"
-msgstr ""
+msgstr "Loogiline vaade"
 
 #: ../data/ui/blivet-gui.ui:589
 msgid "Physical View"
-msgstr ""
+msgstr "Füüsiline vaade"
 
 #: ../data/ui/blivet-gui.ui:662
 msgid "Reload Storage"
-msgstr ""
+msgstr "Laadi andmeruum uuesti"
 
 #: ../data/ui/blivet-gui.ui:670
 msgid "Queued Actions"
@@ -1151,7 +1155,7 @@ msgstr ""
 
 #: ../data/ui/blivet-gui.ui:776
 msgid "Undo last action"
-msgstr "Võta viimane tegev_us tagasi"
+msgstr "Võta viimane tegevus tagasi"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1187,31 +1191,31 @@ msgstr ""
 
 #: ../data/ui/encryption_chooser.ui:21
 msgid "Encrypt:"
-msgstr "Krüpti"
+msgstr "Krüpti:"
 
 #: ../data/ui/encryption_chooser.ui:33
 msgid "Encryption type:"
-msgstr ""
+msgstr "Krüptimise tüüp:"
 
 #: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
 msgid "Passphrase:"
-msgstr "Salafraas"
+msgstr "Salafraas:"
 
 #: ../data/ui/encryption_chooser.ui:57
 msgid "Repeat Passphrase:"
-msgstr ""
+msgstr "Korda salafraasi:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Sektori suurus:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
-msgstr ""
+msgstr "Viga"
 
 #: ../data/ui/exception_dialog.ui:24
 msgid "_Back"
-msgstr "Tagasi"
+msgstr "_Tagasi"
 
 #: ../data/ui/exception_dialog.ui:38
 msgid "_Quit"
@@ -1219,11 +1223,11 @@ msgstr "_Välju"
 
 #: ../data/ui/exception_dialog.ui:52
 msgid "_Report a bug"
-msgstr ""
+msgstr "_Teata veast"
 
 #: ../data/ui/exception_dialog.ui:120
 msgid "Show traceback"
-msgstr ""
+msgstr "Näita tagasijälitust"
 
 #: ../data/ui/format_dialog.ui:17
 msgid "Format device"
@@ -1238,7 +1242,7 @@ msgstr "_Katkesta"
 #: ../data/ui/format_dialog.ui:50
 msgctxt "Dialog|Format"
 msgid "_Format"
-msgstr "Vorminda"
+msgstr "_Vorminda"
 
 #: ../data/ui/format_dialog.ui:98
 msgid "Select new format:"
@@ -1246,7 +1250,7 @@ msgstr ""
 
 #: ../data/ui/info_dialog.ui:12
 msgid "Information:"
-msgstr "Teave"
+msgstr "Teave:"
 
 #: ../data/ui/label_dialog.ui:7
 msgid "Set filesystem label"
@@ -1255,7 +1259,7 @@ msgstr ""
 #: ../data/ui/label_dialog.ui:22 ../data/ui/rename_dialog.ui:22
 #: ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
-msgstr ""
+msgstr "Katkesta"
 
 #. Perform selected format change on this device.
 #: ../data/ui/label_dialog.ui:36
@@ -1303,7 +1307,7 @@ msgstr ""
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr "_Muuda nime"
+msgstr "Muuda nime"
 
 #: ../data/ui/rename_dialog.ui:68
 msgid "Enter new name for this device:"
@@ -1315,7 +1319,7 @@ msgstr ""
 
 #: ../data/ui/resize_dialog.ui:45
 msgid "_Resize"
-msgstr "Muuda suurust"
+msgstr "Muuda _suurust"
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
@@ -1331,13 +1335,13 @@ msgstr ""
 
 #: ../data/ui/size_chooser.ui:14
 msgid "Size:"
-msgstr "Suurus"
+msgstr "Suurus:"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
-msgstr ""
+msgstr "Haagi lahti"
 
 #: ../data/ui/unmount_dialog.ui:87
 msgid ""
@@ -1346,3 +1350,7 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>Valitud seade on hetkel haagitut\n"
+"mitmest haakepunktist.</b>\n"
+"\n"
+"Palun vali lahtihaagitav(ad) haakepunkt(id):"
