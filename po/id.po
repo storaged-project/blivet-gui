@@ -4,13 +4,13 @@
 # Andika Triwidada <andika@gmail.com>, 2020, 2021, 2022, 2023, 2024.
 # Didik Supriadi <didiksupriadi41@gmail.com>, 2021.
 # data informasi <mh1227330@gmail.com>, 2025.
-# Arif Budiman <arifpedia@gmail.com>, 2025.
+# Arif Budiman <arifpedia@gmail.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-16 10:32+0100\n"
-"PO-Revision-Date: 2025-09-24 17:25+0000\n"
+"PO-Revision-Date: 2026-01-01 15:58+0000\n"
 "Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
 "Language-Team: Indonesian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/id/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -511,10 +511,8 @@ msgid "LVM2 Snapshot"
 msgstr "Snapshot LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:407
-#, fuzzy
-#| msgid "LVM2 Thin Snaphost"
 msgid "LVM2 Thin Snapshot"
-msgstr "Thin Snaphost LVM2"
+msgstr "Snapshot Tipis LVM2"
 
 #: ../blivetgui/dialogs/add_dialog.py:410
 #: ../blivetgui/dialogs/device_info_dialog.py:84
@@ -926,36 +924,26 @@ msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr "Titik kait yang dipilih \"{0}\" sudah disetel untuk perangkat lain."
 
 #: ../blivetgui/dialogs/message_dialogs.py:132
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please use the 'Report a bug' button below "
-#| "to report a bug using the\n"
-#| "Automatic bug reporting tool (ABRT) or open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please use the 'Report a bug' button below to "
 "report a bug using the\n"
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
-"Bila Anda yakin bahwa ini suatu bug, harap gunakan tombol 'Laporkan suatu "
-"bug' di bawah untuk melaporkan bug memakai\n"
-"Automatic bug reporting tool (ABRT) atau buka suatu masalah pada <a "
-"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a> "
-"kami."
+"Jika Anda yakin ini adalah bug, silakan gunakan tombol 'Laporkan bug' di "
+"bawah ini untuk melaporkan bug menggunakan\n"
+"Alat pelaporan bug otomatis (ABRT) atau buka issue di <a href=\"%s\">GitHub</"
+"a> kami."
 
 #: ../blivetgui/dialogs/message_dialogs.py:136
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
-"Bila Anda yakin ini adalah suatu bug, harap buka suatu masalah pada <a "
-"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a> "
-"kami."
+"Jika Anda yakin ini adalah bug, silakan buka issue di <a href=\"%s\">GitHub</"
+"a> kami."
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
