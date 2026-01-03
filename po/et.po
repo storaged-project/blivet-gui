@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Priit Jõerüüt <jrtkbfdr@users.noreply.translate.fedoraproject.org>, 2025.
+# Priit Jõerüüt <jrtkbfdr@users.noreply.translate.fedoraproject.org>, 2025, 2026.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-16 10:32+0100\n"
-"PO-Revision-Date: 2025-12-26 17:19+0000\n"
+"PO-Revision-Date: 2026-01-02 20:58+0000\n"
 "Last-Translator: Priit Jõerüüt "
 "<jrtkbfdr@users.noreply.translate.fedoraproject.org>\n"
 "Language-Team: Estonian <https://translate.fedoraproject.org/projects/blivet/"
@@ -94,7 +94,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:528
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "Seadme lisamine ei õnnestunud:"
 
 #: ../blivetgui/blivetgui.py:543
 #, python-brace-format
@@ -561,7 +561,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:1071
 msgid "Please select at least two parent devices."
-msgstr ""
+msgstr "Palun vali vähemalt kaks ülemseadet."
 
 #: ../blivetgui/dialogs/add_dialog.py:1085
 #: ../blivetgui/dialogs/edit_dialog.py:468
@@ -757,37 +757,37 @@ msgstr "mitteolemasolev"
 #: ../blivetgui/dialogs/device_info_dialog.py:223
 #, python-brace-format
 msgid " • <i>Status:</i> {exist}\n"
-msgstr ""
+msgstr " • <i>Olek:</i> {exist}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:188
 #, python-brace-format
 msgid " • <i>Name:</i> {name}\n"
-msgstr ""
+msgstr " • <i>Nimi:</i> {name}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:189
 #, python-brace-format
 msgid " • <i>Path:</i> {path}\n"
-msgstr ""
+msgstr " • <i>Asukoht:</i> {path}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:190
 #, python-brace-format
 msgid " • <i>Size:</i> {size}\n"
-msgstr ""
+msgstr " • <i>Suurus:</i> {size}\n"
 
 #. device format header
 #: ../blivetgui/dialogs/device_info_dialog.py:211
 msgid "Device format"
-msgstr ""
+msgstr "Seadme vorming"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:225
 #, python-brace-format
 msgid " • <i>UUID:</i> {uuid}\n"
-msgstr ""
+msgstr " • <i>UUID:</i> {uuid}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:227
 #, python-brace-format
 msgid " • <i>Label:</i> {label}\n"
-msgstr ""
+msgstr " • <i>Silt:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:241
 #, python-brace-format
@@ -795,10 +795,12 @@ msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
 msgstr ""
+" • <i>Haakepunktid:</i>\n"
+"     {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid " • <i>Type:</i> None"
-msgstr ""
+msgstr " • <i>Tüüp:</i> Puudub"
 
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:257
@@ -808,7 +810,7 @@ msgstr "Ülemseadmed"
 #: ../blivetgui/dialogs/device_info_dialog.py:270
 #, python-brace-format
 msgid " • {exists} {size} {type} {name}\n"
-msgstr ""
+msgstr " • {exists} {size} {type} {name}\n"
 
 #: ../blivetgui/dialogs/edit_dialog.py:102
 #, python-brace-format
@@ -816,25 +818,27 @@ msgid ""
 "<b>This device cannot be resized:</b>\n"
 "<i>{0}</i>"
 msgstr ""
+"<b>Selle seadme suurust ei saa muuta:</b>\n"
+"<i>{0}</i>"
 
 #: ../blivetgui/dialogs/edit_dialog.py:104
 msgid "This device cannot be resized."
-msgstr ""
+msgstr "Selle seadme suurust ei saa muuta."
 
 #: ../blivetgui/dialogs/edit_dialog.py:406
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "„{label}“ pole selle failisüsteemi jaoks korrektne silt"
 
 #: ../blivetgui/dialogs/edit_dialog.py:481
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "Valitud seadme nimi juba on „{0}“."
 
 #: ../blivetgui/dialogs/edit_dialog.py:487
 #, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr ""
+msgstr "Valitud nimi „{0}“ on juba kasutusel."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:598
@@ -843,15 +847,15 @@ msgstr "Muuda seadet"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
 msgid "Parent devices:"
-msgstr ""
+msgstr "Ülemseadmed:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:645
 msgid "Add a parent"
-msgstr ""
+msgstr "Lisa ülemseade"
 
 #: ../blivetgui/dialogs/edit_dialog.py:648
 msgid "Remove a parent"
-msgstr ""
+msgstr "Eemalda ülemseade"
 
 #: ../blivetgui/dialogs/edit_dialog.py:659
 msgid ""
@@ -873,7 +877,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:730
 msgid "Currently it is possible to remove only one parent at time."
-msgstr ""
+msgstr "Hetkel on korraga võimalik eemaldada vaid üks ülemseade."
 
 #: ../blivetgui/dialogs/edit_dialog.py:738
 msgid "Remove?"
@@ -917,7 +921,7 @@ msgstr ""
 #: ../blivetgui/dialogs/message_dialogs.py:227
 #, python-brace-format
 msgid "Also delete following parent devices of {name}:"
-msgstr ""
+msgstr "Samuti kustuta järgnevad „{name}“ ülemseadmed:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:327
 msgid "There are no pending actions."
@@ -970,11 +974,11 @@ msgstr ""
 
 #: ../blivetgui/visualization/rectangle.py:53
 msgid "Encrypted device (locked)"
-msgstr ""
+msgstr "Krüptitud seade (lukus)"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Encrypted device (unlocked)"
-msgstr ""
+msgstr "Krüptitud seade (lukustusest avatud)"
 
 #: ../blivetgui/visualization/rectangle.py:55
 msgid "Empty device"
@@ -1044,7 +1048,7 @@ msgstr "Vorminda"
 
 #: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:154
 msgid "Modify parents"
-msgstr ""
+msgstr "Muuda ülemseadmeid"
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:162
 #: ../data/ui/mountpoint_dialog.ui:7
@@ -1289,7 +1293,7 @@ msgstr ""
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
-msgstr ""
+msgstr "Ülemseadme nimi:"
 
 #: ../data/ui/parent_chooser.ui:80
 msgid "Available space:"
