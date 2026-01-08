@@ -1054,6 +1054,20 @@ class AddDialog(Gtk.Dialog):
 
         return num
 
+    def _is_valid_subvolume_name(self, user_input):
+        if "/" not in user_input.name:
+            return True
+        # when trying to create e.g. /var/log subvolume, /var subvolume must exist
+        parent_name = os.path.dirname(user_input.name)
+        parent_dev = user_input.size_selection.parents[0].parent_device
+        if parent_dev.name == parent_name:
+            # the parent exactly matches the subvolume "prefix"
+            return True
+        if any(s.name == parent_name for s in parent_dev.children):
+            # a sibling matches the subvolume prefix
+            return True
+        return False
+
     def validate_user_input(self):
         """ Validate data input
         """
@@ -1083,6 +1097,13 @@ class AddDialog(Gtk.Dialog):
 
         if user_input.name and not is_name_valid(user_input.device_type, user_input.name):
             msg = _("\"{0}\" is not a valid name.").format(user_input.name)
+            message_dialogs.ErrorDialog(self, msg,
+                                        not self.installer_mode)  # do not show decoration in installer mode
+            return False
+
+        if user_input.device_type == "btrfs subvolume" and user_input.name and not self._is_valid_subvolume_name(user_input):
+            msg = _("\"{0}\" subvolume must be created before creating \"{1}\" subvolume.").format(os.path.dirname(user_input.name),
+                                                                                                   user_input.name)
             message_dialogs.ErrorDialog(self, msg,
                                         not self.installer_mode)  # do not show decoration in installer mode
             return False
