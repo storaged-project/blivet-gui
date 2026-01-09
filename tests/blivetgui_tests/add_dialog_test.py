@@ -275,6 +275,8 @@ class AddDialogTest(unittest.TestCase):
             pv.configure_mock(name="vda1", size=size, format=MagicMock(type="lvmpv", free=size), disk=disk, parents=[disk])
             dev.configure_mock(pe_size=Size("4 MiB"), free_space=size, pvs=[pv], parents=[pv],
                                pmspare_size=Size("4 MiB"))
+        if dtype == "btrfs volume":
+            dev.configure_mock(children=[])
 
         return dev
 
@@ -705,6 +707,39 @@ class AddDialogTest(unittest.TestCase):
         add_dialog.name_entry.set_text(name)
         add_dialog.validate_user_input()
         self.error_dialog.assert_any_call(add_dialog, _("\"{0}\" is not a valid name.").format(name), True)
+        self.error_dialog.reset_mock()
+
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_btrfs_subvolume_name_validity_check(self):
+        parent_device = self._get_parent_device(name="btrfstest", dtype="btrfs volume", ftype="btrfs")
+        free_device = self._get_free_device(parent=parent_device)
+
+        add_dialog = AddDialog(self.parent_window, parent_device, free_device,
+                               [("free", free_device)], self.supported_filesystems, [])
+
+        add_dialog.devices_combo.set_active_id("btrfs subvolume")  # select device type that has a name option
+
+        # valid name
+        name = "aaaaa"
+        add_dialog.name_entry.set_text(name)
+        add_dialog.validate_user_input()
+        self.assertFalse(self.error_dialog.called)
+        self.error_dialog.reset_mock()
+
+        # valid name
+        name = "btrfstest/aaaaa"
+        add_dialog.name_entry.set_text(name)
+        add_dialog.validate_user_input()
+        self.assertFalse(self.error_dialog.called)
+        self.error_dialog.reset_mock()
+
+        # invalid name
+        name = "aaaaa/bbbbb"
+        add_dialog.name_entry.set_text(name)
+        add_dialog.validate_user_input()
+        self.error_dialog.assert_any_call(add_dialog,
+                                          _("\"aaaaa\" subvolume must be created before creating \"{0}\" subvolume.").format(name),
+                                          True)
         self.error_dialog.reset_mock()
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
