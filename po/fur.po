@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-16 10:32+0100\n"
+"POT-Creation-Date: 2026-01-08 16:22+0100\n"
 "PO-Revision-Date: 2023-02-22 21:20+0000\n"
 "Last-Translator: Fabio Tomat <f.t.public@gmail.com>\n"
 "Language-Team: Friulian <https://translate.fedoraproject.org/projects/blivet/"
@@ -592,22 +592,27 @@ msgstr "Non:"
 msgid "Mountpoint:"
 msgstr "Pont di montaç:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1064 ../blivetgui/dialogs/helpers.py:136
+#: ../blivetgui/dialogs/add_dialog.py:1078 ../blivetgui/dialogs/helpers.py:136
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" nol è un valit pont di montaç"
 
-#: ../blivetgui/dialogs/add_dialog.py:1071
+#: ../blivetgui/dialogs/add_dialog.py:1085
 msgid "Please select at least two parent devices."
 msgstr "Selezione almancul doi dispositîfs gjenitôrs."
 
-#: ../blivetgui/dialogs/add_dialog.py:1085
+#: ../blivetgui/dialogs/add_dialog.py:1099
 #: ../blivetgui/dialogs/edit_dialog.py:468
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" nol è un non valit."
 
-#: ../blivetgui/dialogs/add_dialog.py:1091
+#: ../blivetgui/dialogs/add_dialog.py:1105
+#, python-brace-format
+msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."

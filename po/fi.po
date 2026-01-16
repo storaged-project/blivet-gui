@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-16 10:32+0100\n"
+"POT-Creation-Date: 2026-01-08 16:22+0100\n"
 "PO-Revision-Date: 2025-12-30 19:58+0000\n"
 "Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/blivet/"
@@ -586,22 +586,27 @@ msgstr "Nimi:"
 msgid "Mountpoint:"
 msgstr "Liitoskohta:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1064 ../blivetgui/dialogs/helpers.py:136
+#: ../blivetgui/dialogs/add_dialog.py:1078 ../blivetgui/dialogs/helpers.py:136
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" ei ole kelvollinen liitoskohta."
 
-#: ../blivetgui/dialogs/add_dialog.py:1071
+#: ../blivetgui/dialogs/add_dialog.py:1085
 msgid "Please select at least two parent devices."
 msgstr "Valitse vähintään kahdet vanhemmat-laitteet."
 
-#: ../blivetgui/dialogs/add_dialog.py:1085
+#: ../blivetgui/dialogs/add_dialog.py:1099
 #: ../blivetgui/dialogs/edit_dialog.py:468
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" ei ole kelvollinen nimi."
 
-#: ../blivetgui/dialogs/add_dialog.py:1091
+#: ../blivetgui/dialogs/add_dialog.py:1105
+#, python-brace-format
+msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -930,8 +935,8 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
-"Jos uskot tämän olevan virhe, käytä alla olevaa 'Ilmoita virheestä' -"
-"painiketta ilmoittaaksesi virheestä käyttäen\n"
+"Jos uskot tämän olevan virhe, käytä alla olevaa 'Ilmoita virheestä' "
+"-painiketta ilmoittaaksesi virheestä käyttäen\n"
 "Automaattista virheraportointityökalua (ABRT) tai avaa ongelmailmoitus <a "
 "href=\"%s\">GitHubissa</a>."
 
@@ -941,8 +946,8 @@ msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
-"Jos uskot tämän olevan virhe, avaa ongelmailmoitus <a href=\"%s\">"
-"GitHubissa</a>."
+"Jos uskot tämän olevan virhe, avaa ongelmailmoitus <a "
+"href=\"%s\">GitHubissa</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"

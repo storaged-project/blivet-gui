@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-16 10:32+0100\n"
+"POT-Creation-Date: 2026-01-08 16:22+0100\n"
 "PO-Revision-Date: 2022-12-25 09:20+0000\n"
 "Last-Translator: Gogo Gogsi <linux.hr@protonmail.com>\n"
 "Language-Team: Croatian <https://translate.fedoraproject.org/projects/blivet/"
@@ -597,22 +597,27 @@ msgstr "Naziv:"
 msgid "Mountpoint:"
 msgstr "Točka montiranja:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1064 ../blivetgui/dialogs/helpers.py:136
+#: ../blivetgui/dialogs/add_dialog.py:1078 ../blivetgui/dialogs/helpers.py:136
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "\"{0}\" nije valjana točka montiranja."
 
-#: ../blivetgui/dialogs/add_dialog.py:1071
+#: ../blivetgui/dialogs/add_dialog.py:1085
 msgid "Please select at least two parent devices."
 msgstr "Odaberite najmanje dva nadređena uređaja."
 
-#: ../blivetgui/dialogs/add_dialog.py:1085
+#: ../blivetgui/dialogs/add_dialog.py:1099
 #: ../blivetgui/dialogs/edit_dialog.py:468
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "\"{0}\" nije valjani naziv."
 
-#: ../blivetgui/dialogs/add_dialog.py:1091
+#: ../blivetgui/dialogs/add_dialog.py:1105
+#, python-brace-format
+msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
+msgstr ""
+
+#: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
