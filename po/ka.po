@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022, 2023, 2024, 2025.
+# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2022, 2023, 2024, 2025, 2026.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-08 16:22+0100\n"
-"PO-Revision-Date: 2025-12-19 15:43+0000\n"
+"PO-Revision-Date: 2026-01-17 13:58+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ka/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -609,7 +609,7 @@ msgstr "\"{0}\" სწორი სახელი არაა."
 #: ../blivetgui/dialogs/add_dialog.py:1105
 #, python-brace-format
 msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
-msgstr ""
+msgstr "ქვეტომის \"{1}\" შექმნამდე უნდა შექმნათ ქვეტომი \"{0}\"."
 
 #: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
