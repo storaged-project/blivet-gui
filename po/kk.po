@@ -1,13 +1,13 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2017. #zanata, 2020, 2022, 2023.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>, 2017. #zanata, 2020, 2022, 2023, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-08 16:22+0100\n"
-"PO-Revision-Date: 2023-08-26 17:21+0000\n"
+"PO-Revision-Date: 2026-01-19 10:58+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/kk/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -28,16 +28,13 @@ msgid "resize {name} {type}"
 msgstr "өлшемін өзгерту {name} {type}"
 
 #: ../blivetgui/blivetgui.py:319
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "Құрылғы өлшемін өзгерту сәтсіз аяқталды:"
+msgstr "Құрылғының атауын өзгерту сәтсіз аяқталды:"
 
 #: ../blivetgui/blivetgui.py:331
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "өлшемін өзгерту {name} {type}"
+msgstr "{name} {type} атын өзгерту"
 
 #: ../blivetgui/blivetgui.py:350
 msgid "Failed to format the device:"
@@ -198,6 +195,10 @@ msgid ""
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
+"Бұзылған/белгісіз диск белгісіне байланысты Blivet-gui <b>{name}</b> "
+"дискісін пайдалана алмайды.\n"
+"Blivet-gui жұмысын қазір тоқтата аласыз немесе осы дискті пайдаланбай "
+"жалғастыра аласыз."
 
 #: ../blivetgui/blivetgui.py:888
 msgid "Confirm reload storage"
@@ -225,88 +226,77 @@ msgstr "бос орын"
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr ""
+"{type} құрылғыларының өлшемін өзгертуге қазіргі уақытта қолдау көрсетілмейді"
 
 #: ../blivetgui/blivet_utils.py:695
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Protected devices cannot be resized"
-msgstr "Құрылғы өлшемін өзгерту мүмкін емес."
+msgstr "Қорғалған құрылғылардың өлшемін өзгерту мүмкін емес"
 
 #: ../blivetgui/blivet_utils.py:700
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "Өзгермейтін пішімдердің өлшемін өзгерту мүмкін емес"
 
 #: ../blivetgui/blivet_utils.py:705
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Devices with children cannot be resized"
-msgstr "Құрылғы өлшемін өзгерту мүмкін емес."
+msgstr "Ішкі элементтері бар құрылғылардың өлшемін өзгерту мүмкін емес"
 
 #: ../blivetgui/blivet_utils.py:716
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "Пішімделмеген құрылғылардың өлшемін өзгерту мүмкін емес"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
 #: ../blivetgui/blivet_utils.py:723
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
-msgstr ""
+msgstr "{type} пішімінің өлшемін өзгертуге қазіргі уақытта қолдау көрсетілмейді"
 
 #: ../blivetgui/blivet_utils.py:728
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
-msgstr ""
+msgstr "{type} пішімінің өлшемін өзгертуге арналған саймандар қолжетімді емес."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:735
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Formats scheduled to be created cannot be resized"
-msgstr "Құрылғы өлшемін өзгерту мүмкін емес."
+msgstr "Жасалуы жоспарланған пішімдердің өлшемін өзгерту мүмкін емес"
 
 #: ../blivetgui/blivet_utils.py:740
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
-msgstr ""
+msgstr "{type} пішімі өзінің өлшем шегі туралы ақпаратты жаңартуды қолдамайды"
 
 #: ../blivetgui/blivet_utils.py:747
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Mounted devices cannot be resized"
-msgstr "Құрылғы өлшемін өзгерту мүмкін емес."
+msgstr "Тіркелген құрылғылардың өлшемін өзгерту мүмкін емес"
 
 #: ../blivetgui/blivet_utils.py:752
-#, fuzzy
-#| msgid "Logical Volumes with snapshots couldn't be resized."
 msgid "Logical Volumes with snapshots cannot be resized."
-msgstr "Снапшоттары бар логикалық томдар өлшемдерін өзгерту мүмкін емес."
+msgstr "Снапшоттары бар логикалық томдардың өлшемін өзгерту мүмкін емес."
 
 #: ../blivetgui/blivet_utils.py:757
 msgid "Resizing of LUKS2 devices is currently not supported."
 msgstr ""
+"LUKS2 құрылғыларының өлшемін өзгертуге қазіргі уақытта қолдау көрсетілмейді."
 
 #: ../blivetgui/blivet_utils.py:769
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
-msgstr ""
+msgstr "Файлдық жүйе өлшемі туралы ақпаратты жаңарту сәтсіз аяқталды: {error}"
 
 #: ../blivetgui/blivet_utils.py:788
-#, fuzzy
-#| msgid "This device cannot be resized."
 msgid "Device is not resizable."
-msgstr "Құрылғы өлшемін өзгерту мүмкін емес."
+msgstr "Құрылғының өлшемін өзгерту мүмкін емес."
 
 #: ../blivetgui/blivet_utils.py:790
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
+"Өлшем шегі туралы ақпаратты жаңартқаннан кейін пішімнің өлшемін өзгерту "
+"мүмкін емес."
 
 #: ../blivetgui/exception_handler.py:74
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
@@ -315,15 +305,12 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/exception_handler.py:76
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
-"Белгісіз қате орын алды.\n"
+"Белгісіз қате орын алды. Blivet-gui жұмысы тоқтатылады.\n"
 "{error}"
 
 #: ../blivetgui/list_actions.py:69 ../blivetgui/list_actions.py:118
@@ -335,17 +322,15 @@ msgstr "Кезектегі әрекеттер жоқ"
 #, python-format
 msgid "%s pending action"
 msgid_plural "%s pending actions"
-msgstr[0] ""
+msgstr[0] "%s әрекет кезекте"
 
 #: ../blivetgui/list_devices.py:84
 msgid "Disks"
 msgstr "Дисктер"
 
 #: ../blivetgui/list_devices.py:91
-#, fuzzy
-#| msgid "MD RAID Array"
 msgid "MDRAID set"
-msgstr "MD RAID массиві"
+msgstr "MDRAID жиынтығы"
 
 #: ../blivetgui/list_devices.py:112
 msgid "LVM"
@@ -374,18 +359,18 @@ msgstr "Btrfs томы"
 
 #: ../blivetgui/list_devices.py:130
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Stratis пулдары"
 
 #: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:391
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Stratis пулы"
 
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
 #: ../blivetgui/list_partitions.py:166
 #: ../blivetgui/visualization/rectangle.py:64
 msgid "unknown"
-msgstr ""
+msgstr "белгісіз"
 
 #: ../blivetgui/loading_window.py:47
 msgid "Probing storage"
@@ -403,17 +388,20 @@ msgid ""
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+" Егер бұл туралы есеп бергіңіз келсе, қате туралы хабарлау және anaconda-ға "
+"\n"
+" есеп беру процесін өңдеуге мүмкіндік беру үшін \"Хабарлау\" батырмасын "
+"шертіңіз."
 
 #: ../blivetgui/osinstall.py:220
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
-"Белгісіз қате орын алды.\n"
+"Белгісіз қате орын алды. Anaconda жұмысын тоқтатады.\n"
 "{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
@@ -480,7 +468,7 @@ msgstr "Сегмент өлшемі:"
 #: ../blivetgui/dialogs/add_dialog.py:212
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
-msgstr ""
+msgstr "'{0}' - блок өлшемінің жарамды сипаттамасы емес."
 
 #: ../blivetgui/dialogs/add_dialog.py:217
 msgid "Chunk size must be multiple of 4 KiB."
@@ -524,8 +512,6 @@ msgid "LVM2 Snapshot"
 msgstr "LVM2 снапшоты"
 
 #: ../blivetgui/dialogs/add_dialog.py:407
-#, fuzzy
-#| msgid "LVM2 Thin Snaphost"
 msgid "LVM2 Thin Snapshot"
 msgstr "LVM2 жұқа снапшоты"
 
@@ -540,10 +526,8 @@ msgid "Btrfs Subvolume"
 msgstr "Btrfs ішкі томы"
 
 #: ../blivetgui/dialogs/add_dialog.py:416
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "Файлдық жүйе"
+msgstr "Stratis файлдық жүйесі"
 
 #: ../blivetgui/dialogs/add_dialog.py:422
 msgid "Device type:"
@@ -584,7 +568,7 @@ msgstr "MDArray түрі:"
 
 #: ../blivetgui/dialogs/add_dialog.py:793
 msgid "Filesystem:"
-msgstr "Файлдық жүйе"
+msgstr "Файлдық жүйе:"
 
 #: ../blivetgui/dialogs/add_dialog.py:826
 #: ../blivetgui/dialogs/edit_dialog.py:164
@@ -610,7 +594,7 @@ msgstr "\"{0}\" жарамды тіркеу нүктесі емес."
 
 #: ../blivetgui/dialogs/add_dialog.py:1085
 msgid "Please select at least two parent devices."
-msgstr "Кем дегенде екі аталық құрылғыны таңдаңыз:"
+msgstr "Кем дегенде екі аталық құрылғыны таңдаңыз."
 
 #: ../blivetgui/dialogs/add_dialog.py:1099
 #: ../blivetgui/dialogs/edit_dialog.py:468
@@ -621,7 +605,7 @@ msgstr "\"{0}\" жарамды аты емес."
 #: ../blivetgui/dialogs/add_dialog.py:1105
 #, python-brace-format
 msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
-msgstr ""
+msgstr "\"{0}\" ішкі томы \"{1}\" ішкі томын жасамас бұрын жасалуы тиіс."
 
 #: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
@@ -659,7 +643,7 @@ msgstr "MD RAID массиві"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:89
 msgid "DM Integrity Device"
-msgstr ""
+msgstr "DM бүтіндік құрылғысы"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:102
 #: ../blivetgui/dialogs/device_info_dialog.py:224
@@ -707,11 +691,11 @@ msgstr " • <i>Қолданылған орны:</i> {used}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:123
 #, python-brace-format
 msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
-msgstr ""
+msgstr " • <i>Кэштелген:</i> Иә (кэш өлшемі: {cache_size})\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:125
 msgid " • <i>Cached:</i> No\n"
-msgstr ""
+msgstr " • <i>Кэштелген:</i> Жоқ\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:130
 #, python-brace-format
@@ -736,7 +720,7 @@ msgstr " • <i>PE бос:</i> {pefree}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:134
 #, python-brace-format
 msgid " • <i>Reserved Space:</i> {res}\n"
-msgstr ""
+msgstr " • <i>Резервтелген орын:</i> {res}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:135
 #: ../blivetgui/dialogs/device_info_dialog.py:154
@@ -787,12 +771,12 @@ msgstr " • <i>Метадеректер нұсқасы:</i> {metadata}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:168
 #, python-brace-format
 msgid "Unknown device {name}"
-msgstr ""
+msgstr "Белгісіз құрылғы {name}"
 
 #. device info header
 #: ../blivetgui/dialogs/device_info_dialog.py:176
 msgid "Basic information"
-msgstr ""
+msgstr "Негізгі ақпарат"
 
 #. 'basic' information about selected device
 #: ../blivetgui/dialogs/device_info_dialog.py:186
@@ -831,7 +815,7 @@ msgstr " • <i>Өлшемі:</i> {size}\n"
 #. device format header
 #: ../blivetgui/dialogs/device_info_dialog.py:211
 msgid "Device format"
-msgstr ""
+msgstr "Құрылғы пішімі"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:225
 #, python-brace-format
@@ -844,12 +828,13 @@ msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>Белгісі:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:241
-#, fuzzy, python-brace-format
-#| msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+#, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
-msgstr " • <i>Тіркелу нүктесі:</i> {mountpoint}\n"
+msgstr ""
+" • <i>Тіркеу нүктелері:</i>\n"
+"     {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid " • <i>Type:</i> None"
@@ -858,7 +843,7 @@ msgstr " • <i>Түрі:</i> Ешнәрсе"
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:257
 msgid "Parents"
-msgstr ""
+msgstr "Аталықтар"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:270
 #, python-brace-format
@@ -881,18 +866,17 @@ msgstr "Құрылғы өлшемін өзгерту мүмкін емес."
 #: ../blivetgui/dialogs/edit_dialog.py:406
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "'{label}' бұл файлдық жүйе үшін жарамды белгі емес"
 
 #: ../blivetgui/dialogs/edit_dialog.py:481
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "Таңдалған құрылғының аты қазірдің өзінде \"{0}\"."
 
 #: ../blivetgui/dialogs/edit_dialog.py:487
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr "Таңдалған \"{0}\" тіркеу нүктесі басқа құрылғы үшін қолданылып тұр."
+msgstr "Таңдалған \"{0}\" аты қазірдің өзінде қолданыста."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:598
@@ -904,16 +888,12 @@ msgid "Parent devices:"
 msgstr "Аталық құрылғылар:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:645
-#, fuzzy
-#| msgid "Add parent"
 msgid "Add a parent"
-msgstr "Аталық құрылғыны қосу"
+msgstr "Аталықты қосу"
 
 #: ../blivetgui/dialogs/edit_dialog.py:648
-#, fuzzy
-#| msgid "Remove parent"
 msgid "Remove a parent"
-msgstr "Аталық құрылғыны өшіру"
+msgstr "Аталықты өшіру"
 
 #: ../blivetgui/dialogs/edit_dialog.py:659
 msgid ""
@@ -925,29 +905,23 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:676
 msgid "Add?"
-msgstr ""
+msgstr "Қосу керек пе?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:718
-#, fuzzy
-#| msgid ""
-#| "There is no physical volume that could be\n"
-#| "removed from this volume group."
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
 "Бұл томдар тобынан өшіруге болатын\n"
-"физикалық томдар жоқ."
+"физикалық том жоқ."
 
 #: ../blivetgui/dialogs/edit_dialog.py:730
-#, fuzzy
-#| msgid "Currently is possible to remove only one parent at time."
 msgid "Currently it is possible to remove only one parent at time."
-msgstr "Ағымдағы уақытта аталық құрылғыларды тек бір-бірден өшіруге болады."
+msgstr "Қазіргі уақытта бір уақытта тек бір аталықты өшіруге болады."
 
 #: ../blivetgui/dialogs/edit_dialog.py:738
 msgid "Remove?"
-msgstr ""
+msgstr "Өшіру керек пе?"
 
 #: ../blivetgui/dialogs/helpers.py:143
 #, python-brace-format
@@ -962,6 +936,11 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
+"Егер бұл қате деп есептесеңіз, қате туралы есепті автоматты түрде хабарлау "
+"сайманы (ABRT)\n"
+"арқылы жіберу үшін төмендегі \"Қате туралы хабарлау\" батырмасын қолданыңыз "
+"немесе\n"
+"біздің <a href=\"%s\">GitHub</a> бетінде мәселе ашыңыз."
 
 #: ../blivetgui/dialogs/message_dialogs.py:136
 #, python-format
@@ -969,6 +948,8 @@ msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
+"Егер сіз бұны қате деп санасаңыз, біздің <a href=\"%s\">GitHub</a> бетінде "
+"мәселені ашыңыз."
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
@@ -982,12 +963,12 @@ msgstr "{name} құрылғысын өшіруді шынымен қалайсы
 #: ../blivetgui/dialogs/message_dialogs.py:219
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
-msgstr ""
+msgstr "Бұл әрекет {name} нысанының келесі туындыларын да өшіреді:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:227
 #, python-brace-format
 msgid "Also delete following parent devices of {name}:"
-msgstr ""
+msgstr "Сондай-ақ {name} нысанының келесі аталық құрылғыларын өшіру:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:327
 msgid "There are no pending actions."
@@ -1002,17 +983,17 @@ msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
-msgstr ""
+msgstr "Ағымдағы таңдалған өлшем осы таңдау үшін максималды шектен үлкен."
 
 #: ../blivetgui/dialogs/size_chooser.py:218
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
-msgstr ""
+msgstr "Ағымдағы таңдалған өлшем осы таңдау үшін минималды шектен кіші."
 
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:285
 msgid "Automatic"
-msgstr ""
+msgstr "Автоматты түрде"
 
 #: ../blivetgui/dialogs/widgets.py:380
 msgid "Passphrase not specified."
@@ -1032,53 +1013,47 @@ msgstr "Кілттік фразалар өзара сәйкес келмейді
 
 #: ../blivetgui/visualization/rectangle.py:51
 msgid "Group device"
-msgstr ""
+msgstr "Топтық құрылғы"
 
 #: ../blivetgui/visualization/rectangle.py:52
 msgid "LiveUSB device"
-msgstr ""
+msgstr "LiveUSB құрылғысы"
 
 #: ../blivetgui/visualization/rectangle.py:53
-#, fuzzy
-#| msgid "Decrypt device"
 msgid "Encrypted device (locked)"
-msgstr "Құрылғыны дешифрлеу"
+msgstr "Шифрленген құрылғы (құлыпталған)"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Encrypted device (unlocked)"
-msgstr ""
+msgstr "Шифрленген құрылғы (құлыпталмаған)"
 
 #: ../blivetgui/visualization/rectangle.py:55
 msgid "Empty device"
-msgstr ""
+msgstr "Бос құрылғы"
 
 #: ../blivetgui/visualization/rectangle.py:56
 msgid "Snapshot"
-msgstr ""
+msgstr "Снвпшот"
 
 #: ../blivetgui/visualization/rectangle.py:57
 msgid "Missing partition table"
-msgstr ""
+msgstr "Бөлімдер кестесі жоқ"
 
 #: ../blivetgui/visualization/rectangle.py:58
 msgid "Device or format is write protected"
-msgstr ""
+msgstr "Құрылғы немесе пішім жазудан қорғалған"
 
 #: ../blivetgui/visualization/rectangle.py:59
-#, fuzzy
-#| msgid "Edit device"
 msgid "Cached device"
-msgstr "Құрылғыны түзету"
+msgstr "Кэштелген құрылғы"
 
 #: ../blivetgui/visualization/rectangle.py:60
-#, fuzzy
-#| msgid "Edit device"
 msgid "Incomplete device"
-msgstr "Құрылғыны түзету"
+msgstr "Толық емес құрылғы"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
-msgstr ""
+msgstr "Авторлық құқық © Red Hat Inc."
 
 #: ../data/ui/add_disklabel_dialog.ui:11
 msgid "No partition table found on disk"
@@ -1106,26 +1081,26 @@ msgstr "Түзету"
 
 #: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:130
 msgid "Resize"
-msgstr ""
+msgstr "Өлшемін өзгерту"
 
 #: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
 msgid "Rename"
-msgstr ""
+msgstr "Атын өзгерту"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
 msgctxt "Menu|Edit"
 msgid "Format"
-msgstr ""
+msgstr "Пішім"
 
 #: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:154
 msgid "Modify parents"
-msgstr ""
+msgstr "Аталықтарын өзгерту"
 
 #: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:162
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
-msgstr ""
+msgstr "Тіркеу нүктесін орнату"
 
 #: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:170
 msgid "Set label"
@@ -1180,24 +1155,22 @@ msgstr "Таңдалған құрылғыны тіркеуден босату"
 #: ../data/ui/blivet-gui.ui:437
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
-msgstr ""
+msgstr "Таңдалған құрылғыны құлыптан босату/ашу"
 
 #: ../data/ui/blivet-gui.ui:452
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
-msgstr ""
+msgstr "Таңдалған құрылғы туралы ақпаратты көрсету"
 
 #. Format (filesystem) type of selected device.
 #: ../data/ui/blivet-gui.ui:509
 msgctxt "LogicalView|Column"
 msgid "Format"
-msgstr ""
+msgstr "Пішім"
 
 #: ../data/ui/blivet-gui.ui:531
-#, fuzzy
-#| msgid "Label:"
 msgid "Label"
-msgstr "Белгі:"
+msgstr "Белгі"
 
 #: ../data/ui/blivet-gui.ui:542
 msgid "Mountpoint"
@@ -1224,16 +1197,12 @@ msgid "About blivet-gui"
 msgstr "blivet-gui туралы"
 
 #: ../data/ui/blivet-gui.ui:744
-#, fuzzy
-#| msgid "No pending actions"
 msgid "Apply pending actions"
-msgstr "Кезектегі әрекеттер жоқ"
+msgstr "Күтілудегі әрекеттерді іске асыру"
 
 #: ../data/ui/blivet-gui.ui:760
-#, fuzzy
-#| msgid "Confirm scheduled actions"
 msgid "Clear scheduled actions"
-msgstr "Жоспарланған әрекеттерді растаңыз"
+msgstr "Жоспарланған әрекеттерді тазалау"
 
 #: ../data/ui/blivet-gui.ui:776
 msgid "Undo last action"
@@ -1257,11 +1226,11 @@ msgstr "Кэш түрі:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
-msgstr ""
+msgstr "Тікелей жазу"
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
-msgstr ""
+msgstr "Кері жазу"
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
@@ -1269,7 +1238,7 @@ msgstr "белгі"
 
 #: ../data/ui/custom_dialog.ui:62
 msgid "Details"
-msgstr ""
+msgstr "Мәліметтер"
 
 #: ../data/ui/encryption_chooser.ui:21
 msgid "Encrypt:"
@@ -1277,7 +1246,7 @@ msgstr "Шифрлеу:"
 
 #: ../data/ui/encryption_chooser.ui:33
 msgid "Encryption type:"
-msgstr ""
+msgstr "Шифрлеу түрі:"
 
 #: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
 msgid "Passphrase:"
@@ -1289,7 +1258,7 @@ msgstr "Кілттік фразаны қайталау:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Сектор өлшемі:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
@@ -1297,115 +1266,111 @@ msgstr "Қате"
 
 #: ../data/ui/exception_dialog.ui:24
 msgid "_Back"
-msgstr ""
+msgstr "_Артқа"
 
 #: ../data/ui/exception_dialog.ui:38
 msgid "_Quit"
-msgstr ""
+msgstr "_Шығу"
 
 #: ../data/ui/exception_dialog.ui:52
 msgid "_Report a bug"
-msgstr ""
+msgstr "Қате туралы _хабарлау"
 
 #: ../data/ui/exception_dialog.ui:120
 msgid "Show traceback"
-msgstr ""
+msgstr "Трейсбекті көрсету"
 
 #: ../data/ui/format_dialog.ui:17
 msgid "Format device"
-msgstr ""
+msgstr "Құрылғыны пішімдеу"
 
 #: ../data/ui/format_dialog.ui:35 ../data/ui/mountpoint_dialog.ui:29
 #: ../data/ui/resize_dialog.ui:30
 msgid "_Cancel"
-msgstr ""
+msgstr "_Бас тарту"
 
 #. Perform selected format change on this device.
 #: ../data/ui/format_dialog.ui:50
 msgctxt "Dialog|Format"
 msgid "_Format"
-msgstr ""
+msgstr "_Пішімдеу"
 
 #: ../data/ui/format_dialog.ui:98
 msgid "Select new format:"
-msgstr ""
+msgstr "Жаңа пішімді таңдаңыз:"
 
 #: ../data/ui/info_dialog.ui:12
 msgid "Information:"
-msgstr ""
+msgstr "Ақпарат:"
 
 #: ../data/ui/label_dialog.ui:7
 msgid "Set filesystem label"
-msgstr ""
+msgstr "Файлдық жүйе белгісін орнату"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/rename_dialog.ui:22
 #: ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
-msgstr ""
+msgstr "Бас тарту"
 
 #. Perform selected format change on this device.
 #: ../data/ui/label_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "Белгіні өзгерту"
 
 #: ../data/ui/label_dialog.ui:68
 msgid "Enter new label for this filesystem:"
-msgstr ""
+msgstr "Бұл файлдық жүйе үшін жаңа белгіні енгізіңіз:"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
-msgstr ""
+msgstr "Құрылғыны құлыптаудан босату"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
-#, fuzzy
-#| msgid "Please enter passphrase to decrypt selected device."
 msgid "Please enter passphrase to unlock selected device."
-msgstr "Таңдалған құрылғыны дешифрлеу үшін кілттік фразаны енгізіңіз."
+msgstr "Таңдалған құрылғыны құлыптаудан босату үшін құпия сөзді енгізіңіз."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
-msgstr ""
+msgstr "Тіркеу нүктесін _орнату"
 
 #: ../data/ui/mountpoint_dialog.ui:88
 msgid "Enter new mountpoint:"
-msgstr ""
+msgstr "Жаңа тіркеу нүктесін енгізіңіз:"
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
-msgstr ""
+msgstr "Аталық объект атауы:"
 
 #: ../data/ui/parent_chooser.ui:80
 msgid "Available space:"
-msgstr ""
+msgstr "Қолжетімді орын:"
 
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
-msgstr ""
+msgstr "RAID деңгейі:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Edit device"
 msgid "Rename device"
-msgstr "Құрылғыны түзету"
+msgstr "Құрылғы атын өзгерту"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "Атын өзгерту"
 
 #: ../data/ui/rename_dialog.ui:68
 msgid "Enter new name for this device:"
-msgstr ""
+msgstr "Бұл құрылғы үшін жаңа атауды енгізіңіз:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
-msgstr ""
+msgstr "Құрылғы өлшемін өзгерту"
 
 #: ../data/ui/resize_dialog.ui:45
 msgid "_Resize"
-msgstr ""
+msgstr "Ө_лшемін өзгерту"
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
@@ -1413,20 +1378,18 @@ msgstr "blivet-gui жөнелту үшін root привилегиялары к�
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
-msgstr ""
+msgstr "Күтудегі әрекеттер"
 
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
-msgstr ""
+msgstr "Жайманы қолмен көрсету"
 
 #: ../data/ui/size_chooser.ui:14
 msgid "Size:"
-msgstr ""
+msgstr "Өлшемі:"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
-#, fuzzy
-#| msgid "Unmount"
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
 msgstr "Тіркеуден босату"
@@ -1438,6 +1401,10 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>Таңдалған құрылғы қазіргі уақытта бірнеше тіркеу\n"
+"нүктелеріне тіркелген.</b>\n"
+"\n"
+"Босату үшін тіркеу нүкте(лер)сін таңдаңыз:"
 
 #~ msgid "LVM2 Snaphost"
 #~ msgstr "LVM2 снапшоты"
