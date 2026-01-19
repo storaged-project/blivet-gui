@@ -4,13 +4,13 @@
 # Göran Uddeborg <goeran@uddeborg.se>, 2021, 2022.
 # Luna Jernberg <bittin@reimu.nl>, 2022, 2023, 2024, 2025.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
-# Luna Jernberg <droidbittin@gmail.com>, 2025.
+# Luna Jernberg <droidbittin@gmail.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-08 16:22+0100\n"
-"PO-Revision-Date: 2025-12-19 15:43+0000\n"
+"PO-Revision-Date: 2026-01-19 10:58+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/sv/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -496,7 +496,7 @@ msgstr "LVM2 Volymgrupp"
 #. number of free disk regions
 #: ../blivetgui/dialogs/add_dialog.py:394
 msgid "Software RAID"
-msgstr "mjukvaru-RAID"
+msgstr "Mjukvaru-RAID"
 
 #: ../blivetgui/dialogs/add_dialog.py:397
 #: ../blivetgui/dialogs/device_info_dialog.py:81
@@ -607,7 +607,7 @@ msgstr "\"{0}\" är inte ett giltigt namn."
 #: ../blivetgui/dialogs/add_dialog.py:1105
 #, python-brace-format
 msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
-msgstr ""
+msgstr "\"{0}\" subvolym måste skapas innan skapandet av \"{1}\" subvolym."
 
 #: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
