@@ -3,16 +3,18 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Luca Ciavatta <luca.ciavatta@gmail.com>, 2016. #zanata
 # Alessio <alciregi@posteo.net>, 2020.
-# Nathan <nathan95@live.it>, 2020, 2025.
+# Nathan <nathan95@live.it>, 2020, 2025, 2026.
 # Salvatore Cocuzza <info@salvatorecocuzza.it>, 2024, 2025.
 # Angelo Schirinzi <odi-3@users.noreply.translate.fedoraproject.org>, 2025.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-08 16:22+0100\n"
-"PO-Revision-Date: 2025-12-16 10:58+0000\n"
-"Last-Translator: Nathan <nathan95@live.it>\n"
+"PO-Revision-Date: 2026-01-23 13:58+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Italian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/it/>\n"
 "Language: it\n"
@@ -20,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -105,7 +107,7 @@ msgstr "Impossibile aggiungere il dispositivo:"
 #: ../blivetgui/blivetgui.py:543
 #, python-brace-format
 msgid "add {size} {type} device"
-msgstr "aggiungi dispositivo {size} {type} "
+msgstr "aggiungi dispositivo {size}{type}"
 
 #: ../blivetgui/blivetgui.py:587
 msgid "Failed to delete the device:"
@@ -391,7 +393,7 @@ msgstr "Verifica dello storage"
 
 #: ../blivetgui/loading_window.py:64
 msgid "Scanning storage configuration..."
-msgstr "Controllo della configurazione dello storage"
+msgstr "Controllo della configurazione dello storage..."
 
 #: ../blivetgui/osinstall.py:218
 #, python-brace-format
@@ -539,7 +541,7 @@ msgstr "Subvolume Btrfs"
 
 #: ../blivetgui/dialogs/add_dialog.py:416
 msgid "Stratis Filesystem"
-msgstr "Stratis Filesystem"
+msgstr "Livelli del file system"
 
 #: ../blivetgui/dialogs/add_dialog.py:422
 msgid "Device type:"
@@ -618,6 +620,8 @@ msgstr "\"{0}\" non è un nome valido."
 #, python-brace-format
 msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
 msgstr ""
+"Il sottovolume \"{0}\" deve essere creato prima di creare il sottovolume \""
+"{1}\"."
 
 #: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
@@ -693,7 +697,7 @@ msgstr " • <i>Segmento:</i> {segtype}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:118
 #, python-brace-format
 msgid " • <i>Free space:</i> {free}\n"
-msgstr " • <i>Spazio libero:</i> {free}\n"
+msgstr " • <i>Spazio libero:</i>{free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:119
 #, python-brace-format
@@ -745,7 +749,7 @@ msgstr " • <i>Completato:</i> {complete}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:140
 #, python-brace-format
 msgid " • <i>Subvol ID:</i> {id}\n"
-msgstr " • <i>Subvol ID:</i> {id}\n"
+msgstr " • <i>Subvol ID:</i>{id}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:143
 #, python-brace-format
@@ -770,7 +774,7 @@ msgstr " • <i>Dispositivi:</i> {dcount}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
 msgid " • <i>Spares:</i> {spares}\n"
-msgstr " • <i>Spares:</i> {spares}\n"
+msgstr " • <i>Spares:</i>{spares}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:152
 #, python-brace-format
@@ -914,8 +918,8 @@ msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
 msgstr ""
-"Volumi fisici vuoti insufficienti oppure spazio insufficiente sui dischi per "
-"crearne uno."
+"Volumi fisici vuoti insufficienti oppure\n"
+"spazio insufficiente sui dischi per crearne uno."
 
 #: ../blivetgui/dialogs/edit_dialog.py:676
 msgid "Add?"
@@ -943,35 +947,25 @@ msgid "Selected mountpoint \"{0}\" is already set for another device."
 msgstr "Il punto di mount \"{0}\" è già impostato per un altro dispositivo."
 
 #: ../blivetgui/dialogs/message_dialogs.py:132
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please use the 'Report a bug' button below "
-#| "to report a bug using the\n"
-#| "Automatic bug reporting tool (ABRT) or open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please use the 'Report a bug' button below to "
 "report a bug using the\n"
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
-"Se ritieni che si tratti di un bug, utilizza il pulsante \"Segnala un bug\" "
-"qui sotto per segnalare un bug utilizzando il\n"
-"Strumento di segnalazione automatica dei bug (ABRT) o apri un problema sul "
-"nostro <a href=\"https://github.com/storaged-project/blivet-gui/"
-"issues\">GitHub</a>."
+"Se ritieni che si tratti di un bug, utilizza il pulsante 'Segnala un bug' "
+"qui sotto per segnalare un bug utilizzando lo strumento Automatic bug "
+"reporting tool (ABRT) o apri un issue sul nostro <a href=\"%s\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:136
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
 "Se ritieni che si tratti di un bug, apri un problema sul nostro <a "
-"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+"href=\"%s\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
