@@ -1561,6 +1561,25 @@ class BlivetUtils:
         except AttributeError:
             return "Unknown"
 
+    def check_auto_dev_updates_warning(self):
+        """ Check if there are unmounted btrfs devices with potentially missing
+            information due to auto_dev_updates being disabled
+
+            :returns: whether the warning should be shown
+            :rtype: bool
+        """
+
+        if blivet.flags.flags.auto_dev_updates:
+            return False
+
+        for volume in self.storage.btrfs_volumes:
+            # if either the volume or any of its subvolumes is mounted, we were able to get all
+            # the information even without the flag
+            if not (volume.format.status or any(sub.format.status for sub in volume.subvolumes)):
+                return True
+
+        return False
+
     def create_disk_label(self, blivet_device, label_type):
         """ Create disklabel
 

@@ -92,6 +92,9 @@ class SystemInformationDialog(Gtk.Dialog):
         self._add_version_info()
         self._add_startup_options()
 
+        if self.blivet_gui.auto_dev_updates_warning:
+            self._add_auto_dev_updates_warning()
+
         # Show dialog
         self.show_all()
         self.run()
@@ -172,6 +175,32 @@ class SystemInformationDialog(Gtk.Dialog):
                            _("Yes") if auto_updates else _("No"),
                            _("Whether gathering all information about devices is enabled, even if it requires potentially dangerous operations like mounting or a filesystem check"))
 
+        self.current_row += 1
+
+    def _add_auto_dev_updates_warning(self):
+        """ Add warning about unmounted btrfs devices with missing information
+        """
+
+        self.current_row += 1
+
+        warning_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+
+        warning_icon = Gtk.Image.new_from_icon_name("dialog-warning-symbolic", Gtk.IconSize.LARGE_TOOLBAR)
+        warning_box.pack_start(warning_icon, expand=False, fill=False, padding=0)
+
+        warning_label = Gtk.Label()
+        warning_label.set_markup(_("<b>Warning:</b> Some information about Btrfs devices might be "
+                                   "missing because there are unmounted Btrfs devices on the system. "
+                                   "Gathering information about these devices requires mounting them "
+                                   "which is not enabled by default.\n"
+                                   "To enable this, start blivet-gui with the "
+                                   "<tt>--auto-dev-updates</tt> option."))
+        warning_label.set_line_wrap(True)
+        warning_label.set_max_width_chars(60)
+        warning_label.set_xalign(0)
+        warning_box.pack_start(warning_label, expand=True, fill=True, padding=0)
+
+        self.grid.attach(warning_box, left=0, top=self.current_row, width=2, height=1)
         self.current_row += 1
 
 
