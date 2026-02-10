@@ -686,6 +686,14 @@
       </object>
     </child>
     <child>
+      <object class="GtkMenuItem" id="menuitem_system_info">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">System Information</property>
+        <property name="use-underline">True</property>
+      </object>
+    </child>
+    <child>
       <object class="GtkMenuItem" id="menuitem_about">
         <property name="visible">True</property>
         <property name="can-focus">False</property>

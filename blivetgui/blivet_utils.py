@@ -1551,6 +1551,16 @@ class BlivetUtils:
         return blivet.mounts.mounts_cache.get_mountpoints(blivet_device.path,
                                                           getattr(blivet_device.format, "subvolspec", None))
 
+    def get_blivet_version(self):
+        """ Get blivet library version
+            :returns: blivet version string
+            :rtype: str
+        """
+        try:
+            return blivet.__version__
+        except AttributeError:
+            return "Unknown"
+
     def create_disk_label(self, blivet_device, label_type):
         """ Create disklabel
 

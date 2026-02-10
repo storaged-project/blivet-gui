@@ -22,7 +22,7 @@
 # ---------------------------------------------------------------------------- #
 
 from . import __version__
-from .dialogs.other_dialogs import AboutDialog
+from .dialogs.other_dialogs import AboutDialog, SystemInformationDialog
 
 # ---------------------------------------------------------------------------- #
 
@@ -44,8 +44,17 @@ class MainMenu:
         menuitem_quit = self.blivet_gui.builder.get_object("menuitem_quit")
         menuitem_quit.connect("activate", self.blivet_gui.quit)
 
+        menuitem_system_info = self.blivet_gui.builder.get_object("menuitem_system_info")
+        menuitem_system_info.connect("activate", self.on_system_info_item)
+
         menuitem_about = self.blivet_gui.builder.get_object("menuitem_about")
         menuitem_about.connect("activate", self.on_about_item)
+
+    def on_system_info_item(self, *_args):
+        """ Onselect action for 'System Information'
+        """
+
+        SystemInformationDialog(self.blivet_gui.main_window, self.blivet_gui)
 
     def on_about_item(self, *_args):
         """ Onselect action for 'About'
