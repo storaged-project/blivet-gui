@@ -34,11 +34,12 @@ import blivet
 class Rectangle(Gtk.RadioButton):
     """ Rectangle object """
 
-    def __init__(self, rtype, group, width, height, device, label=True):
+    def __init__(self, rtype, group, width, height, device, blivet_gui, label=True):
         self.width = width
         self.height = height
 
         self.device = device
+        self.blivet_gui = blivet_gui
 
         Gtk.RadioButton.__init__(self, group=group, width_request=width, height_request=height)
 
@@ -57,7 +58,8 @@ class Rectangle(Gtk.RadioButton):
                              "nodisklabel": ("drive-harddisk-symbolic", _("Missing partition table")),
                              "protected": ("action-unavailable-symbolic", _("Device or format is write protected")),
                              "cached": ("drive-harddisk-solidstate-symbolic", _("Cached device")),
-                             "incomplete": ("dialog-warning-symbolic", _("Incomplete device"))}
+                             "incomplete": ("dialog-warning-symbolic", _("Incomplete device")),
+                             "nobtrfsinformation": ("dialog-question-symbolic", _("Missing subvolume information"))}
 
         if self.device.size == blivet.size.Size(0):
             # TRANSLATORS: size value for device with invalid/unknown size
@@ -116,5 +118,9 @@ class Rectangle(Gtk.RadioButton):
 
         if self.device.type in ("mdarray", "lvmvg") and not self.device.complete:
             properties.append("incomplete")
+
+        if self.device.type == "btrfs volume" and self.blivet_gui.auto_dev_updates_warning and \
+           not self.device.format.status and not any(sub.format.status for sub in self.device.subvolumes):
+            properties.append("nobtrfsinformation")
 
         return properties

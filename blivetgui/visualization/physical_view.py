@@ -184,7 +184,7 @@ class PhysicalView:
         # no labels for 'invalid rectangles' in physical view
         label = not rtype.startswith("child-invalid-")
 
-        rect = Rectangle(rtype, None, width, height, device, label)
+        rect = Rectangle(rtype, None, width, height, device, self.blivet_gui, label)
         rect.connect("button-press-event", self._on_button_press)
         self.rectangles.append(rect)
 
