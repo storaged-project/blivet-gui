@@ -220,7 +220,7 @@ class LogicalView:
     def _new_rectangle(self, device, rtype="", width=-1, height=-1):
         button_group = self.rectangles[0] if self.rectangles else None
 
-        rect = Rectangle(rtype, button_group, width, height, device)
+        rect = Rectangle(rtype, button_group, width, height, device, self.blivet_gui)
         rect.connect("toggled", self._on_rectangle_toggle)
         rect.connect("button-release-event", self._on_button_release)
         rect.connect("button-press-event", self._on_button_press)

@@ -117,6 +117,9 @@ class BlivetGUI:
         # BlivetUtils
         self.blivet_init()
 
+        # check for unmounted btrfs devices warning
+        self.auto_dev_updates_warning = self.client.remote_call("check_auto_dev_updates_warning")
+
         # Atexit
         atexit.register(self.client.quit)
 
