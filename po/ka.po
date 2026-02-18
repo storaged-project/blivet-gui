@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-08 16:22+0100\n"
+"POT-Creation-Date: 2026-02-10 09:43+0100\n"
 "PO-Revision-Date: 2026-01-17 13:58+0000\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/blivet/"
@@ -980,9 +980,76 @@ msgstr "რიგში ქმედებები ჯერ კიდევა
 
 #. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
 #. your name and email address (optional) here. Separate translator names with newlines.
-#: ../blivetgui/dialogs/other_dialogs.py:52
+#: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
 msgstr "თემური დოღონაძე"
+
+#: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:692
+#, fuzzy
+#| msgid "Information"
+msgid "System Information"
+msgstr "ინფორმაცია"
+
+#: ../blivetgui/dialogs/other_dialogs.py:141
+#, fuzzy
+#| msgid "Information"
+msgid "Version Information"
+msgstr "ინფორმაცია"
+
+#. blivet-gui version
+#: ../blivetgui/dialogs/other_dialogs.py:144 ../data/ui/blivet-gui.ui:255
+msgid "blivet-gui"
+msgstr "blivet-gui"
+
+#. pylint: disable=broad-except
+#: ../blivetgui/dialogs/other_dialogs.py:149
+#: ../blivetgui/dialogs/other_dialogs.py:151
+#, fuzzy
+#| msgid "blivet-gui"
+msgid "blivet"
+msgstr "blivet-gui"
+
+#: ../blivetgui/dialogs/other_dialogs.py:151
+#, fuzzy
+#| msgid "unknown"
+msgid "Unknown"
+msgstr "უცნობი"
+
+#: ../blivetgui/dialogs/other_dialogs.py:158
+msgid "Startup Options"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:164
+msgid "None (all disks)"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:165
+msgid "Exclusive disks"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:167
+msgid "Selection of disks blivet-gui is allowed to operate with"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:171
+#, fuzzy
+#| msgid "Basic information"
+msgid "Advanced device information"
+msgstr "Ძირითადი ინფორმაცია"
+
+#: ../blivetgui/dialogs/other_dialogs.py:172
+msgid "Yes"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:172
+msgid "No"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:173
+msgid ""
+"Whether gathering all information about devices is enabled, even if it "
+"requires potentially dangerous operations like mounting or a filesystem check"
+msgstr ""
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1126,13 +1193,9 @@ msgstr "განბლოკვა"
 msgid "Information"
 msgstr "ინფორმაცია"
 
-#: ../data/ui/blivet-gui.ui:255
-msgid "blivet-gui"
-msgstr "blivet-gui"
-
 #: ../data/ui/blivet-gui.ui:290 ../data/ui/blivet-gui.ui:302
-#: ../data/ui/blivet-gui.ui:843 ../data/ui/blivet-gui.ui:854
-#: ../data/ui/blivet-gui.ui:865
+#: ../data/ui/blivet-gui.ui:851 ../data/ui/blivet-gui.ui:862
+#: ../data/ui/blivet-gui.ui:873
 msgid "column"
 msgstr "სვეტი"
 
@@ -1196,19 +1259,19 @@ msgstr "საცავის თავიდან ჩატვირთვა"
 msgid "Queued Actions"
 msgstr "რიგში მყოფი ქმედებები"
 
-#: ../data/ui/blivet-gui.ui:692
+#: ../data/ui/blivet-gui.ui:700
 msgid "About blivet-gui"
 msgstr "Blivet-gui-ის შესახებ"
 
-#: ../data/ui/blivet-gui.ui:744
+#: ../data/ui/blivet-gui.ui:752
 msgid "Apply pending actions"
 msgstr "დარჩენილი ქმედებების გადატარება"
 
-#: ../data/ui/blivet-gui.ui:760
+#: ../data/ui/blivet-gui.ui:768
 msgid "Clear scheduled actions"
 msgstr "დაგეგმილი ქმედებების გასუფთავება"
 
-#: ../data/ui/blivet-gui.ui:776
+#: ../data/ui/blivet-gui.ui:784
 msgid "Undo last action"
 msgstr "ბოლო ბრძანების გაუქმება"
 

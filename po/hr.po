@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-08 16:22+0100\n"
+"POT-Creation-Date: 2026-02-10 09:43+0100\n"
 "PO-Revision-Date: 2022-12-25 09:20+0000\n"
 "Last-Translator: Gogo Gogsi <linux.hr@protonmail.com>\n"
 "Language-Team: Croatian <https://translate.fedoraproject.org/projects/blivet/"
@@ -980,11 +980,76 @@ msgstr "Nema radnji na čekanju."
 
 #. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
 #. your name and email address (optional) here. Separate translator names with newlines.
-#: ../blivetgui/dialogs/other_dialogs.py:52
+#: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  gogo https://launchpad.net/~trebelnik-stefina"
+
+#: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:692
+#, fuzzy
+#| msgid "Information"
+msgid "System Information"
+msgstr "Informacije"
+
+#: ../blivetgui/dialogs/other_dialogs.py:141
+#, fuzzy
+#| msgid "Information"
+msgid "Version Information"
+msgstr "Informacije"
+
+#. blivet-gui version
+#: ../blivetgui/dialogs/other_dialogs.py:144 ../data/ui/blivet-gui.ui:255
+msgid "blivet-gui"
+msgstr "blivet grafičko sučelje"
+
+#. pylint: disable=broad-except
+#: ../blivetgui/dialogs/other_dialogs.py:149
+#: ../blivetgui/dialogs/other_dialogs.py:151
+#, fuzzy
+#| msgid "blivet-gui"
+msgid "blivet"
+msgstr "blivet grafičko sučelje"
+
+#: ../blivetgui/dialogs/other_dialogs.py:151
+msgid "Unknown"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:158
+msgid "Startup Options"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:164
+msgid "None (all disks)"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:165
+msgid "Exclusive disks"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:167
+msgid "Selection of disks blivet-gui is allowed to operate with"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:171
+#, fuzzy
+#| msgid "Basic information"
+msgid "Advanced device information"
+msgstr "Osnovne informacije"
+
+#: ../blivetgui/dialogs/other_dialogs.py:172
+msgid "Yes"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:172
+msgid "No"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:173
+msgid ""
+"Whether gathering all information about devices is enabled, even if it "
+"requires potentially dangerous operations like mounting or a filesystem check"
+msgstr ""
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1132,13 +1197,9 @@ msgstr "Otključaj"
 msgid "Information"
 msgstr "Informacije"
 
-#: ../data/ui/blivet-gui.ui:255
-msgid "blivet-gui"
-msgstr "blivet grafičko sučelje"
-
 #: ../data/ui/blivet-gui.ui:290 ../data/ui/blivet-gui.ui:302
-#: ../data/ui/blivet-gui.ui:843 ../data/ui/blivet-gui.ui:854
-#: ../data/ui/blivet-gui.ui:865
+#: ../data/ui/blivet-gui.ui:851 ../data/ui/blivet-gui.ui:862
+#: ../data/ui/blivet-gui.ui:873
 msgid "column"
 msgstr "stupac"
 
@@ -1202,19 +1263,19 @@ msgstr "Ponovno učitaj uređaje pohrane"
 msgid "Queued Actions"
 msgstr "Radnje na čekanju"
 
-#: ../data/ui/blivet-gui.ui:692
+#: ../data/ui/blivet-gui.ui:700
 msgid "About blivet-gui"
 msgstr "O blivet grafičkom sučelju"
 
-#: ../data/ui/blivet-gui.ui:744
+#: ../data/ui/blivet-gui.ui:752
 msgid "Apply pending actions"
 msgstr "Primijeni radnje na čekanju"
 
-#: ../data/ui/blivet-gui.ui:760
+#: ../data/ui/blivet-gui.ui:768
 msgid "Clear scheduled actions"
 msgstr "Ukloni zakazane radnje"
 
-#: ../data/ui/blivet-gui.ui:776
+#: ../data/ui/blivet-gui.ui:784
 msgid "Undo last action"
 msgstr "Poništi posljednju radnju"
 

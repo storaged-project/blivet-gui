@@ -17,7 +17,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-08 16:22+0100\n"
+"POT-Creation-Date: 2026-02-10 09:43+0100\n"
 "PO-Revision-Date: 2025-12-04 08:53+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
@@ -994,9 +994,76 @@ msgstr "Não há ações pendentes."
 
 #. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
 #. your name and email address (optional) here. Separate translator names with newlines.
-#: ../blivetgui/dialogs/other_dialogs.py:52
+#: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
 msgstr "tradutor-créditos"
+
+#: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:692
+#, fuzzy
+#| msgid "Information"
+msgid "System Information"
+msgstr "Informações"
+
+#: ../blivetgui/dialogs/other_dialogs.py:141
+#, fuzzy
+#| msgid "Information"
+msgid "Version Information"
+msgstr "Informações"
+
+#. blivet-gui version
+#: ../blivetgui/dialogs/other_dialogs.py:144 ../data/ui/blivet-gui.ui:255
+msgid "blivet-gui"
+msgstr "blivet-gui"
+
+#. pylint: disable=broad-except
+#: ../blivetgui/dialogs/other_dialogs.py:149
+#: ../blivetgui/dialogs/other_dialogs.py:151
+#, fuzzy
+#| msgid "blivet-gui"
+msgid "blivet"
+msgstr "blivet-gui"
+
+#: ../blivetgui/dialogs/other_dialogs.py:151
+#, fuzzy
+#| msgid "unknown"
+msgid "Unknown"
+msgstr "desconhecido"
+
+#: ../blivetgui/dialogs/other_dialogs.py:158
+msgid "Startup Options"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:164
+msgid "None (all disks)"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:165
+msgid "Exclusive disks"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:167
+msgid "Selection of disks blivet-gui is allowed to operate with"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:171
+#, fuzzy
+#| msgid "Basic information"
+msgid "Advanced device information"
+msgstr "Informação básica"
+
+#: ../blivetgui/dialogs/other_dialogs.py:172
+msgid "Yes"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:172
+msgid "No"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:173
+msgid ""
+"Whether gathering all information about devices is enabled, even if it "
+"requires potentially dangerous operations like mounting or a filesystem check"
+msgstr ""
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1145,13 +1212,9 @@ msgstr "Desbloquear"
 msgid "Information"
 msgstr "Informações"
 
-#: ../data/ui/blivet-gui.ui:255
-msgid "blivet-gui"
-msgstr "blivet-gui"
-
 #: ../data/ui/blivet-gui.ui:290 ../data/ui/blivet-gui.ui:302
-#: ../data/ui/blivet-gui.ui:843 ../data/ui/blivet-gui.ui:854
-#: ../data/ui/blivet-gui.ui:865
+#: ../data/ui/blivet-gui.ui:851 ../data/ui/blivet-gui.ui:862
+#: ../data/ui/blivet-gui.ui:873
 msgid "column"
 msgstr "coluna"
 
@@ -1215,19 +1278,19 @@ msgstr "Recarregar Armazenamento"
 msgid "Queued Actions"
 msgstr "Ações em fila"
 
-#: ../data/ui/blivet-gui.ui:692
+#: ../data/ui/blivet-gui.ui:700
 msgid "About blivet-gui"
 msgstr "Sobre blivet-gui"
 
-#: ../data/ui/blivet-gui.ui:744
+#: ../data/ui/blivet-gui.ui:752
 msgid "Apply pending actions"
 msgstr "Aplicar ações pendentes"
 
-#: ../data/ui/blivet-gui.ui:760
+#: ../data/ui/blivet-gui.ui:768
 msgid "Clear scheduled actions"
 msgstr "Limpar ações agendadas"
 
-#: ../data/ui/blivet-gui.ui:776
+#: ../data/ui/blivet-gui.ui:784
 msgid "Undo last action"
 msgstr "Desfazer última ação"
 
