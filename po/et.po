@@ -9,8 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-08 16:22+0100\n"
 "PO-Revision-Date: 2026-02-18 12:58+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"Last-Translator: Priit Jõerüüt "
+"<jrtkbfdr@users.noreply.translate.fedoraproject.org>\n"
 "Language-Team: Estonian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/et/>\n"
 "Language: et\n"
@@ -165,7 +165,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:846
 msgid "Quit blivet-gui"
-msgstr ""
+msgstr "Sulge blivet-gui"
 
 #: ../blivetgui/blivetgui.py:848
 msgid "Ignore disk and continue"
@@ -204,7 +204,7 @@ msgstr ""
 
 #: ../blivetgui/blivet_utils.py:79
 msgid "free space"
-msgstr ""
+msgstr "vaba andmeruum"
 
 #: ../blivetgui/blivet_utils.py:690
 #, python-brace-format
@@ -340,7 +340,7 @@ msgstr ""
 
 #: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:391
 msgid "Stratis Pool"
-msgstr "Käivita andmeruumikogum"
+msgstr "Stratise andmeruumikogum"
 
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
@@ -490,7 +490,7 @@ msgstr ""
 #: ../blivetgui/dialogs/add_dialog.py:413
 #: ../blivetgui/dialogs/device_info_dialog.py:87
 msgid "Btrfs Subvolume"
-msgstr "Btrfs-i köide"
+msgstr "Btrfs-i alamköide"
 
 #: ../blivetgui/dialogs/add_dialog.py:416
 msgid "Stratis Filesystem"
@@ -667,7 +667,7 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:130
 #, python-brace-format
 msgid " • <i>PE Size:</i> {pesize}\n"
-msgstr " • <i>Suurus:</i> {size}\n"
+msgstr " • <i>PE suurus:</i> {pesize}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:131
 #, python-brace-format
@@ -1082,13 +1082,13 @@ msgstr "Teave"
 
 #: ../data/ui/blivet-gui.ui:255
 msgid "blivet-gui"
-msgstr ""
+msgstr "blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:290 ../data/ui/blivet-gui.ui:302
 #: ../data/ui/blivet-gui.ui:843 ../data/ui/blivet-gui.ui:854
 #: ../data/ui/blivet-gui.ui:865
 msgid "column"
-msgstr ""
+msgstr "veerg"
 
 #: ../data/ui/blivet-gui.ui:364
 msgctxt "ActionsToolbar|Add"
@@ -1192,7 +1192,7 @@ msgstr ""
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
-msgstr ""
+msgstr "silt"
 
 #: ../data/ui/custom_dialog.ui:62
 msgid "Details"
@@ -1274,7 +1274,7 @@ msgstr "Katkesta"
 #: ../data/ui/label_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "Muuda silti"
 
 #: ../data/ui/label_dialog.ui:68
 msgid "Enter new label for this filesystem:"
