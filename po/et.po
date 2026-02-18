@@ -2,15 +2,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Priit Jõerüüt <jrtkbfdr@users.noreply.translate.fedoraproject.org>, 2025, 2026.
-# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-08 16:22+0100\n"
-"PO-Revision-Date: 2026-01-02 20:58+0000\n"
-"Last-Translator: Priit Jõerüüt "
-"<jrtkbfdr@users.noreply.translate.fedoraproject.org>\n"
+"PO-Revision-Date: 2026-02-18 12:58+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Estonian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/et/>\n"
 "Language: et\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -340,7 +340,7 @@ msgstr ""
 
 #: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:391
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Käivita andmeruumikogum"
 
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
@@ -490,7 +490,7 @@ msgstr ""
 #: ../blivetgui/dialogs/add_dialog.py:413
 #: ../blivetgui/dialogs/device_info_dialog.py:87
 msgid "Btrfs Subvolume"
-msgstr ""
+msgstr "Btrfs-i köide"
 
 #: ../blivetgui/dialogs/add_dialog.py:416
 msgid "Stratis Filesystem"
@@ -667,7 +667,7 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:130
 #, python-brace-format
 msgid " • <i>PE Size:</i> {pesize}\n"
-msgstr ""
+msgstr " • <i>Suurus:</i> {size}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:131
 #, python-brace-format
@@ -991,7 +991,7 @@ msgstr ""
 
 #: ../blivetgui/visualization/rectangle.py:56
 msgid "Snapshot"
-msgstr ""
+msgstr "Hetktõmmis"
 
 #: ../blivetgui/visualization/rectangle.py:57
 msgid "Missing partition table"
@@ -1196,7 +1196,7 @@ msgstr ""
 
 #: ../data/ui/custom_dialog.ui:62
 msgid "Details"
-msgstr ""
+msgstr "Üksikasjad"
 
 #: ../data/ui/encryption_chooser.ui:21
 msgid "Encrypt:"
