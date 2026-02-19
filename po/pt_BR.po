@@ -11,14 +11,14 @@
 # Maíra Canal <mairacanal@riseup.net>, 2022.
 # Felipe Nogueira <contato.fnog@gmail.com>, 2023.
 # "Geraldo S. Simião Kutz" <geraldo.simiao.kutz@gmail.com>, 2024.
-# Rafael Fontenelle <rafaelff@gnome.org>, 2025.
+# Rafael Fontenelle <rafaelff@gnome.org>, 2025, 2026.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-10 09:43+0100\n"
-"PO-Revision-Date: 2025-12-04 08:53+0000\n"
+"PO-Revision-Date: 2026-02-19 16:58+0000\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/pt_BR/>\n"
@@ -27,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.16\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -611,7 +611,7 @@ msgstr "\"{0}\" não é um nome válido."
 #: ../blivetgui/dialogs/add_dialog.py:1105
 #, python-brace-format
 msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
-msgstr ""
+msgstr "O subvolume \"{0}\" deve ser criado antes de criar o subvolume \"{1}\"."
 
 #: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
@@ -937,12 +937,7 @@ msgstr ""
 "dispositivo."
 
 #: ../blivetgui/dialogs/message_dialogs.py:132
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please use the 'Report a bug' button below "
-#| "to report a bug using the\n"
-#| "Automatic bug reporting tool (ABRT) or open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please use the 'Report a bug' button below to "
 "report a bug using the\n"
@@ -952,20 +947,16 @@ msgstr ""
 "Se você acredita que isso é um bug, use o botão \"Reportar um bug\" abaixo "
 "para relatar um bug usando a\n"
 "ferramenta de relatório automático de bugs (ABRT) ou abra um problema em "
-"nosso<a href=\"https://github.com/storaged-project/blivet-gui/"
-"issues\">GitHub</a>."
+"nosso <a href=\"%s\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:136
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
-"Se você acredita que isso é um bug, abra um problema em nosso <a "
-"href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+"Se você acredita que isso é um bug, abra um problema em nosso <a href=\"%s\">"
+"GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
@@ -999,16 +990,12 @@ msgid "translator-credits"
 msgstr "tradutor-créditos"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:692
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "Informações"
+msgstr "Informações do sistema"
 
 #: ../blivetgui/dialogs/other_dialogs.py:141
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "Informações"
+msgstr "Informações da versão"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:144 ../data/ui/blivet-gui.ui:255
@@ -1018,38 +1005,32 @@ msgstr "blivet-gui"
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:149
 #: ../blivetgui/dialogs/other_dialogs.py:151
-#, fuzzy
-#| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:151
-#, fuzzy
-#| msgid "unknown"
 msgid "Unknown"
-msgstr "desconhecido"
+msgstr "Desconhecido"
 
 #: ../blivetgui/dialogs/other_dialogs.py:158
 msgid "Startup Options"
-msgstr ""
+msgstr "Opções de inicialização"
 
 #: ../blivetgui/dialogs/other_dialogs.py:164
 msgid "None (all disks)"
-msgstr ""
+msgstr "Nenhum (todos os discos)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:165
 msgid "Exclusive disks"
-msgstr ""
+msgstr "Discos exclusivos"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "A seleção de discos com os quais blivet-gui é permitido operar"
 
 #: ../blivetgui/dialogs/other_dialogs.py:171
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "Informação básica"
+msgstr "Informações de dispositivo avançada"
 
 #: ../blivetgui/dialogs/other_dialogs.py:172
 msgid "Yes"
@@ -1057,13 +1038,16 @@ msgstr ""
 
 #: ../blivetgui/dialogs/other_dialogs.py:172
 msgid "No"
-msgstr ""
+msgstr "Não"
 
 #: ../blivetgui/dialogs/other_dialogs.py:173
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
 msgstr ""
+"Se a coleta de todas as informações sobre os dispositivos está habilitada, "
+"mesmo que isso exija operações potencialmente perigosas, como montagem ou "
+"verificação do sistema de arquivos"
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
