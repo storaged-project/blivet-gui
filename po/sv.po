@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-10 09:43+0100\n"
 "PO-Revision-Date: 2026-02-19 16:58+0000\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/sv/>\n"
 "Language: sv\n"
@@ -1021,11 +1021,11 @@ msgstr "Ingen (alla diskar)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:165
 msgid "Exclusive disks"
-msgstr ""
+msgstr "Uteslutande diskar"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "Val av diskar som blivet-gui tillåts fungera med"
 
 #: ../blivetgui/dialogs/other_dialogs.py:171
 msgid "Advanced device information"
