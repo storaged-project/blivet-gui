@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-10 09:43+0100\n"
-"PO-Revision-Date: 2026-01-19 10:58+0000\n"
+"PO-Revision-Date: 2026-02-19 16:58+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/kk/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -982,16 +982,12 @@ msgid "translator-credits"
 msgstr "Baurzhan Muftakhidinov <baurthefirst@gmail.com>"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:692
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "Ақпараты"
+msgstr "Жүйелік ақпарат"
 
 #: ../blivetgui/dialogs/other_dialogs.py:141
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "Ақпараты"
+msgstr "Нұсқа ақпараты"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:144 ../data/ui/blivet-gui.ui:255
@@ -1001,52 +997,49 @@ msgstr "blivet-gui"
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:149
 #: ../blivetgui/dialogs/other_dialogs.py:151
-#, fuzzy
-#| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:151
-#, fuzzy
-#| msgid "unknown"
 msgid "Unknown"
-msgstr "белгісіз"
+msgstr "Белгісіз"
 
 #: ../blivetgui/dialogs/other_dialogs.py:158
 msgid "Startup Options"
-msgstr ""
+msgstr "Іске қосылу баптаулары"
 
 #: ../blivetgui/dialogs/other_dialogs.py:164
 msgid "None (all disks)"
-msgstr ""
+msgstr "Ешнәрсе (барлық дисктер)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:165
 msgid "Exclusive disks"
-msgstr ""
+msgstr "Эксклюзивті дисктер"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "blivet-gui әрекет жасауға рұқсат етілген дисктердің таңдауы"
 
 #: ../blivetgui/dialogs/other_dialogs.py:171
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "Негізгі ақпарат"
+msgstr "Кеңейтілген құрылғы ақпараты"
 
 #: ../blivetgui/dialogs/other_dialogs.py:172
 msgid "Yes"
-msgstr ""
+msgstr "Иә"
 
 #: ../blivetgui/dialogs/other_dialogs.py:172
 msgid "No"
-msgstr ""
+msgstr "Жоқ"
 
 #: ../blivetgui/dialogs/other_dialogs.py:173
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
 msgstr ""
+"Құрылғыларды тіркеу немесе файлдық жүйені тексеру сияқты ықтимал қауіпті "
+"операцияларды талап етсе де, құрылғылар туралы барлық ақпаратты жинау іске "
+"қосылған ба"
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
