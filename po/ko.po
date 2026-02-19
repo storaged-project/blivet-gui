@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # simmon <simmon@nplob.com>, 2021, 2022.
 # 김인수 <simmon@nplob.com>, 2022, 2023, 2024, 2025, 2026.
-# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-10 09:43+0100\n"
-"PO-Revision-Date: 2026-01-17 13:58+0000\n"
-"Last-Translator: 김인수 <simmon@nplob.com>\n"
+"PO-Revision-Date: 2026-02-19 16:58+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
 "Language: ko\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -976,10 +977,8 @@ msgid "translator-credits"
 msgstr "김인수 <simmon@nplob.com>"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:692
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "정보"
+msgstr "시스템 정보"
 
 #: ../blivetgui/dialogs/other_dialogs.py:141
 #, fuzzy
@@ -1030,7 +1029,7 @@ msgstr "기본 정보"
 
 #: ../blivetgui/dialogs/other_dialogs.py:172
 msgid "Yes"
-msgstr ""
+msgstr "예"
 
 #: ../blivetgui/dialogs/other_dialogs.py:172
 msgid "No"
