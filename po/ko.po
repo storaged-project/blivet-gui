@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # simmon <simmon@nplob.com>, 2021, 2022.
 # 김인수 <simmon@nplob.com>, 2022, 2023, 2024, 2025, 2026.
-# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-10 09:43+0100\n"
-"PO-Revision-Date: 2026-01-17 13:58+0000\n"
+"PO-Revision-Date: 2026-02-19 16:58+0000\n"
 "Last-Translator: 김인수 <simmon@nplob.com>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -976,16 +976,12 @@ msgid "translator-credits"
 msgstr "김인수 <simmon@nplob.com>"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:692
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "정보"
+msgstr "시스템 정보"
 
 #: ../blivetgui/dialogs/other_dialogs.py:141
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "정보"
+msgstr "버전 정보"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:144 ../data/ui/blivet-gui.ui:255
@@ -995,52 +991,48 @@ msgstr "blivet-gui"
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:149
 #: ../blivetgui/dialogs/other_dialogs.py:151
-#, fuzzy
-#| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:151
-#, fuzzy
-#| msgid "unknown"
 msgid "Unknown"
 msgstr "알 수 없음"
 
 #: ../blivetgui/dialogs/other_dialogs.py:158
 msgid "Startup Options"
-msgstr ""
+msgstr "스타트업 옵션"
 
 #: ../blivetgui/dialogs/other_dialogs.py:164
 msgid "None (all disks)"
-msgstr ""
+msgstr "없음 (모든 디스크)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:165
 msgid "Exclusive disks"
-msgstr ""
+msgstr "전용 디스크"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "blivet-gui 디스크 선택은 다음 동작에서 허용됩니다"
 
 #: ../blivetgui/dialogs/other_dialogs.py:171
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "기본 정보"
+msgstr "고급 장치 정보"
 
 #: ../blivetgui/dialogs/other_dialogs.py:172
 msgid "Yes"
-msgstr ""
+msgstr "예"
 
 #: ../blivetgui/dialogs/other_dialogs.py:172
 msgid "No"
-msgstr ""
+msgstr "아니오"
 
 #: ../blivetgui/dialogs/other_dialogs.py:173
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
 msgstr ""
+"장치에 대한 모든 정보를 수집하는 것이 허용되는지에 대한 여부, 심지어 "
+"적재되거나 파일시스템 점검과 같이 잠재적인 위험한 동작일지라도"
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""

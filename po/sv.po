@@ -5,12 +5,13 @@
 # Luna Jernberg <bittin@reimu.nl>, 2022, 2023, 2024, 2025.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
 # Luna Jernberg <droidbittin@gmail.com>, 2025, 2026.
+# Daniel Nylander <po@danielnylander.se>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-10 09:43+0100\n"
-"PO-Revision-Date: 2026-01-19 10:58+0000\n"
+"PO-Revision-Date: 2026-02-19 16:58+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/sv/>\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #: ../blivetgui/blivetgui.py:295
 msgid "Failed to resize the device:"
@@ -988,16 +989,12 @@ msgstr ""
 "Luna Jernberg"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:692
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "Information"
+msgstr "Systeminformation"
 
 #: ../blivetgui/dialogs/other_dialogs.py:141
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "Information"
+msgstr "Versionsinformation"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:144 ../data/ui/blivet-gui.ui:255
@@ -1007,52 +1004,48 @@ msgstr "blivet-gui"
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:149
 #: ../blivetgui/dialogs/other_dialogs.py:151
-#, fuzzy
-#| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:151
-#, fuzzy
-#| msgid "unknown"
 msgid "Unknown"
-msgstr "okänd"
+msgstr "Okänd"
 
 #: ../blivetgui/dialogs/other_dialogs.py:158
 msgid "Startup Options"
-msgstr ""
+msgstr "Uppstartsalternativ"
 
 #: ../blivetgui/dialogs/other_dialogs.py:164
 msgid "None (all disks)"
-msgstr ""
+msgstr "Ingen (alla diskar)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:165
 msgid "Exclusive disks"
-msgstr ""
+msgstr "Uteslutande diskar"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "Val av diskar som blivet-gui tillåts fungera med"
 
 #: ../blivetgui/dialogs/other_dialogs.py:171
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "Grundläggande information"
+msgstr "Avancerad enhetsinformation"
 
 #: ../blivetgui/dialogs/other_dialogs.py:172
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: ../blivetgui/dialogs/other_dialogs.py:172
 msgid "No"
-msgstr ""
+msgstr "Nej"
 
 #: ../blivetgui/dialogs/other_dialogs.py:173
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
 msgstr ""
+"Huruvida insamling av all information om enheter är aktiverad, även om det "
+"kräver potentiellt farliga åtgärder som montering eller filsystemskontroll"
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
