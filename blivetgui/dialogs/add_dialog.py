@@ -483,7 +483,7 @@ class AddDialog(Gtk.Dialog):
 
         if keep_selection and selected:
             try:
-                self._raid_chooser = selected
+                self._raid_chooser.selected_level = selected
             except ValueError:
                 pass
             else:
