@@ -25,7 +25,7 @@
 class BlivetGUIConfig(dict):
 
     def __init__(self, *args, **kwargs):
-        super().__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self["default_fstype"] = "ext4"
         self["log_dir"] = "/var/log/blivet-gui"

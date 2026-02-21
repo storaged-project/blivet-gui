@@ -95,9 +95,9 @@ def main():
         sys.exit(0)
 
     else:
-        p = Popen("pkexec blivet-gui-daemon %d" % os.geteuid(),  # pylint: disable=subprocess-popen-preexec-fn
-                  stdout=PIPE, shell=True, preexec_fn=daemon_preexec)
-        output = p.stdout.readline()
+        p = Popen(["pkexec", "blivet-gui-daemon", str(os.geteuid())],  # pylint: disable=subprocess-popen-preexec-fn
+                  stdout=PIPE, preexec_fn=daemon_preexec)
+        output = p.stdout.readline().decode().strip()
 
         # we expect exactly one parameter
         if len(output.split()) != 1:

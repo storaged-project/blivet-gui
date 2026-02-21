@@ -1,4 +1,4 @@
-# list_partitions.py
+# list_actions.py
 # List of actions currently scheduled using blivet-gui
 #
 # Copyright (C) 2014  Red Hat, Inc.
@@ -60,7 +60,7 @@ class ListActions:
         # list of blivet actions
         self.history = []
 
-        # number af scheduled actions
+        # number of scheduled actions
         self.actions = 0
         self.actions_list = self.blivet_gui.builder.get_object("treestore_actions")
         self.actions_view = self.blivet_gui.builder.get_object("treeview_actions")

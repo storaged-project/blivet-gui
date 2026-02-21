@@ -65,7 +65,7 @@ class BlivetUtilsServerTest(unittest.TestCase):
     def test_convert_args(self):
         # 'normal' arguments
         args = ["abcdef", 1, 1.01, True, None]
-        converted_args = BlivetUtilsServer._args_convertTo_objects(MagicMock(), args)
+        converted_args = BlivetUtilsServer._args_convert_to_objects(MagicMock(), args)
         self.assertEqual(converted_args, args)
 
         # ProxyID arguments
@@ -78,7 +78,7 @@ class BlivetUtilsServerTest(unittest.TestCase):
         arg2_obj = MagicMock(blivet_object=MagicMock())
         test_dict[arg2.id] = arg2_obj
 
-        converted_args = BlivetUtilsServer._args_convertTo_objects(MagicMock(object_dict=test_dict), [arg1, arg2])
+        converted_args = BlivetUtilsServer._args_convert_to_objects(MagicMock(object_dict=test_dict), [arg1, arg2])
         self.assertEqual(converted_args, [arg1_obj.blivet_object, arg2_obj.blivet_object])
 
         # ProxyDataContainer as an argument
@@ -89,7 +89,7 @@ class BlivetUtilsServerTest(unittest.TestCase):
         test_dict[arg3.id] = arg3_obj
 
         args = [ProxyDataContainer(data1="abcdef", data2=1, data3=arg3)]
-        converted_args = BlivetUtilsServer._args_convertTo_objects(MagicMock(object_dict=test_dict), args)
+        converted_args = BlivetUtilsServer._args_convert_to_objects(MagicMock(object_dict=test_dict), args)
         self.assertEqual(converted_args[0]["data1"], "abcdef")
         self.assertEqual(converted_args[0]["data2"], 1)
         self.assertEqual(converted_args[0]["data3"], arg3_obj.blivet_object)
@@ -106,8 +106,8 @@ class BlivetUtilsServerTest(unittest.TestCase):
 
         kwargs = {"a": 1, "b": arg1, "c": arg2}
         server_mock = MagicMock(object_dict=test_dict,
-                                _args_convertTo_objects=lambda args: BlivetUtilsServer._args_convertTo_objects(MagicMock(object_dict=test_dict), args))
-        converted_kwargs = BlivetUtilsServer._kwargs_convertTo_objects(server_mock, kwargs)
+                                _args_convert_to_objects=lambda args: BlivetUtilsServer._args_convert_to_objects(MagicMock(object_dict=test_dict), args))
+        converted_kwargs = BlivetUtilsServer._kwargs_convert_to_objects(server_mock, kwargs)
         self.assertEqual(converted_kwargs, {"a": 1, "b": arg1_obj.blivet_object, "c": arg2_obj.blivet_object})
 
 

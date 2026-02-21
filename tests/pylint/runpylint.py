@@ -18,7 +18,6 @@ class BlivetGUILintConfig(CensorshipConfig):
         self.pylintrc_path = os.path.join(current_dir, "pylintrc")
 
         self.false_positives = [FalsePositive(r"'blivet.devicefactory' has no 'DEVICE_TYPE_.*' member"),
-                                FalsePositive(r"Class 'EventType' has no '_2BUTTON_PRESS' member"),
                                 FalsePositive(r"BlivetUtilsPartitionsTest.setUpClass: No value for argument 'self' in function call"),]
 
     def _files(self):

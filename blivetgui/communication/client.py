@@ -107,29 +107,35 @@ class BlivetGUIClient:
 
     def __init__(self, server_socket):
         self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-        self.sock.connect(server_socket)
+        try:
+            self.sock.connect(server_socket)
+        except OSError:
+            self.sock.close()
+            raise
         self.mutex = Lock()
 
-    def _answer_convertTo_object(self, answer):
+    def _answer_convert_to_object(self, answer):
         """ All data sent from server to BlivetGUI must be either built-in types (int, str...) or
             ClientProxyObject, never ProxyID
         """
 
         if isinstance(answer, ProxyID):
             if answer.id in self.id_dict:  # we already received this id before and have our proxy object for it
-                return self.id_dict[answer]
+                return self.id_dict[answer.id]
             else:
-                self.id_dict[answer] = ClientProxyObject(client=self, proxy_id=answer)  # new id, create new proxy object
-                return self.id_dict[answer]  # and return it
+                self.id_dict[answer.id] = ClientProxyObject(client=self, proxy_id=answer)  # new id, create new proxy object
+                return self.id_dict[answer.id]  # and return it
         elif isinstance(answer, (list, tuple)):
             new_answer = []
             for item in answer:
-                new_answer.append(self._answer_convertTo_object(item))
+                new_answer.append(self._answer_convert_to_object(item))
+            if isinstance(answer, tuple):
+                return tuple(new_answer)
             return new_answer
         else:
             return answer
 
-    def _args_convertTo_id(self, args):
+    def _args_convert_to_id(self, args):
         """ All args sent from client to server must be either built-in types (int, str...) or
             ProxyID (or ProxyDataContainer), never ClientProxyObject
         """
@@ -141,18 +147,18 @@ class BlivetGUIClient:
                 arg_id = ProxyDataContainer()
                 for item in arg:
                     if isinstance(arg[item], ProxyDataContainer):
-                        arg_id[item] = self._args_convertTo_id([arg[item]])[0]
+                        arg_id[item] = self._args_convert_to_id([arg[item]])[0]
                     elif isinstance(arg[item], ClientProxyObject):
                         arg_id[item] = arg[item].proxy_id
                     elif isinstance(arg[item], (list, tuple)):
-                        arg_id[item] = self._args_convertTo_id(arg[item])
+                        arg_id[item] = self._args_convert_to_id(arg[item])
                     else:
                         arg_id[item] = arg[item]
                 args_id.append(arg_id)
             elif isinstance(arg, ClientProxyObject):
                 args_id.append(arg.proxy_id)
             elif isinstance(arg, (list, tuple)):
-                args_id.append(self._args_convertTo_id(arg))
+                args_id.append(self._args_convert_to_id(arg))
             else:
                 args_id.append(arg)
 
@@ -162,13 +168,13 @@ class BlivetGUIClient:
         """ Call a method on server
         """
 
-        pickled_data = pickle.dumps(("call", method, self._args_convertTo_id(args)))
+        pickled_data = pickle.dumps(("call", method, self._args_convert_to_id(args)))
 
         with self.mutex:
             self._send(pickled_data)
             answer = pickle.loads(self._recv_msg())
 
-        ret = self._answer_convertTo_object(answer)
+        ret = self._answer_convert_to_object(answer)
 
         if not ret.success:  # pylint: disable=maybe-no-member
             raise type(ret.exception)(str(ret.exception) + "\n" + ret.traceback)  # pylint: disable=maybe-no-member
@@ -186,7 +192,7 @@ class BlivetGUIClient:
             self._send(pickled_data)
             answer = pickle.loads(self._recv_msg())
 
-        return self._answer_convertTo_object(answer)
+        return self._answer_convert_to_object(answer)
 
     def remote_method(self, proxy_id, method_name, args, kwargs):
         """ Call remotely a method on proxy_id object
@@ -198,7 +204,7 @@ class BlivetGUIClient:
             self._send(pickled_data)
             answer = pickle.loads(self._recv_msg())
 
-        return self._answer_convertTo_object(answer)
+        return self._answer_convert_to_object(answer)
 
     def remote_next(self, proxy_id):
         """ Ask for a next member of iterable proxy_id object
@@ -210,7 +216,7 @@ class BlivetGUIClient:
             self._send(pickled_data)
             answer = pickle.loads(self._recv_msg())
 
-        return self._answer_convertTo_object(answer)
+        return self._answer_convert_to_object(answer)
 
     def remote_key(self, proxy_id, key):
         """ Ask for a member of iterable proxy_id object
@@ -222,7 +228,7 @@ class BlivetGUIClient:
             self._send(pickled_data)
             answer = pickle.loads(self._recv_msg())
 
-        return self._answer_convertTo_object(answer)
+        return self._answer_convert_to_object(answer)
 
     def remote_control(self, command, *args):
         """ Send a control command to server
@@ -234,7 +240,7 @@ class BlivetGUIClient:
             self._send(pickled_data)
             answer = pickle.loads(self._recv_msg())
 
-        return self._answer_convertTo_object(answer)
+        return self._answer_convert_to_object(answer)
 
     def remote_do_it(self, show_progress_clbk):
 
@@ -244,7 +250,7 @@ class BlivetGUIClient:
             self._send(pickled_data)
             answer = pickle.loads(self._recv_msg())
 
-            ret = self._answer_convertTo_object(answer)
+            ret = self._answer_convert_to_object(answer)
 
             while True:
                 if ret[0]:  # pylint: disable=maybe-no-member
@@ -253,7 +259,7 @@ class BlivetGUIClient:
                 show_progress_clbk(ret[1])
 
                 answer = pickle.loads(self._recv_msg())
-                ret = self._answer_convertTo_object(answer)
+                ret = self._answer_convert_to_object(answer)
 
         return ret[1]
 
@@ -270,16 +276,23 @@ class BlivetGUIClient:
     def _recv_msg(self):
         """ Receive a message from server
 
-            ..note.: first for bites represents message length
+            ..note.: first four bytes represents message length
         """
         raw_msglen = self._recv_data(4)
 
         if not raw_msglen:
-            return None
+            msg = _("Failed to connect to blivet-gui-daemon")
+            raise ServerConnectionError(msg)
 
         msglen = struct.unpack(">I", raw_msglen)[0]
 
-        return self._recv_data(msglen)
+        data = self._recv_data(msglen)
+
+        if not data:
+            msg = _("Failed to connect to blivet-gui-daemon")
+            raise ServerConnectionError(msg)
+
+        return data
 
     def _recv_data(self, length):
         """ Receive 'length' of data from client

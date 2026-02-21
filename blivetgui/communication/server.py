@@ -75,11 +75,7 @@ class BlivetProxyObject:
 
     def __getitem__(self, key):
         try:
-            if isinstance(self.blivet_object[key], picklable_types):
-                return self.blivet_object[key]
-
-            else:
-                return self.blivet_object[key]
+            return self.blivet_object[key]
 
         except IndexError as e:
             return e
@@ -98,7 +94,6 @@ class BlivetProxyObject:
 
 class BlivetUtilsServer(socketserver.BaseRequestHandler):
     blivet_utils = None
-    proxy_objects = []
     object_dict = {}
 
     def handle(self):
@@ -139,7 +134,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
     def _recv_msg(self):
         """ Receive a message from client
 
-            ..note.: first for bites represents message length
+            ..note.: first four bytes represents message length
         """
 
         raw_msglen = self._recv_data(4)
@@ -207,17 +202,27 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
 
         return pickled_answer
 
+    def _get_proxy_object(self, proxy_id):
+        """ Look up a proxy object by its ProxyID, raising KeyError with
+            a descriptive message if not found.
+        """
+        try:
+            return self.object_dict[proxy_id.id]
+        except KeyError:
+            raise KeyError("Unknown proxy object with id %s" % proxy_id.id)
+
     def _get_param(self, data):
         """ Get param of a object
         """
 
-        proxy_object = self.object_dict[data[1].id]
+        proxy_object = self._get_proxy_object(data[1])
         param_name = data[2]
 
         try:
             answer = getattr(proxy_object, param_name)
         except AttributeError:
-            answer = AttributeError("%s has no attribute %s" % (proxy_object.blivet_object.name, param_name))
+            obj_name = getattr(proxy_object.blivet_object, "name", repr(proxy_object.blivet_object))
+            answer = AttributeError("%s has no attribute %s" % (obj_name, param_name))
         except Exception as e:  # pylint: disable=broad-except
             answer = e
 
@@ -229,7 +234,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
         """ Get next member of iterable object
         """
 
-        proxy_object = self.object_dict[data[1].id]
+        proxy_object = self._get_proxy_object(data[1])
 
         try:
             answer = proxy_object.__next__()
@@ -245,7 +250,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
         """ Get member of iterable object
         """
 
-        proxy_object = self.object_dict[data[1].id]
+        proxy_object = self._get_proxy_object(data[1])
         key = data[2]
 
         answer = proxy_object[key]
@@ -264,7 +269,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
             answer = ProxyDataContainer(success=False, reason=ServerInitResponse.RUNNING)
 
         else:
-            args = self._args_convertTo_objects(data[1])
+            args = self._args_convert_to_objects(data[1])
 
             try:
                 self.blivet_utils = BlivetUtils(*args)
@@ -286,10 +291,10 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
         """ Call blivet method
         """
 
-        proxy_object = self.object_dict[data[1].id]
+        proxy_object = self._get_proxy_object(data[1])
         param_name = data[2]
-        args = self._args_convertTo_objects(data[3])
-        kwargs = self._kwargs_convertTo_objects(data[4])
+        args = self._args_convert_to_objects(data[3])
+        kwargs = self._kwargs_convert_to_objects(data[4])
 
         method = getattr(proxy_object, param_name)
 
@@ -306,7 +311,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
         """ Call a method from BlivetUtils
         """
 
-        args = self._args_convertTo_objects(data[2])
+        args = self._args_convert_to_objects(data[2])
 
         if data[1] == "blivet_do_it":
             answer = self.blivet_utils.blivet_do_it(self._progress_report_hook)
@@ -327,7 +332,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
         pickled_msg = self._pickle_answer((False, message))
         self._send(pickled_msg)
 
-    def _args_convertTo_objects(self, args):
+    def _args_convert_to_objects(self, args):
         """ All args sent from client to server are either built-in types (int, str...) or
             ProxyID (or ProxyDataContainer), we need to "convert" them to blivet Objects
         """
@@ -338,28 +343,28 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
             if isinstance(arg, ProxyDataContainer):
                 for item in arg:
                     if isinstance(arg[item], ProxyDataContainer):
-                        arg[item] = self._args_convertTo_objects([arg[item]])[0]
+                        arg[item] = self._args_convert_to_objects([arg[item]])[0]
                     if isinstance(arg[item], ProxyID):
                         arg[item] = self.object_dict[arg[item].id].blivet_object
                     elif isinstance(arg[item], (list, tuple)):
-                        arg[item] = self._args_convertTo_objects(arg[item])
+                        arg[item] = self._args_convert_to_objects(arg[item])
                 args_obj.append(arg)
             elif isinstance(arg, ProxyID):
                 args_obj.append(self.object_dict[arg.id].blivet_object)
 
             elif isinstance(arg, (list, tuple)):
-                args_obj.append(self._args_convertTo_objects(arg))
+                args_obj.append(self._args_convert_to_objects(arg))
 
             else:
                 args_obj.append(arg)
 
         return args_obj
 
-    def _kwargs_convertTo_objects(self, kwargs):
+    def _kwargs_convert_to_objects(self, kwargs):
         kwargs_obj = {}
 
         for key in kwargs:
-            kwargs_obj[key] = self._args_convertTo_objects((kwargs[key],))[0]
+            kwargs_obj[key] = self._args_convert_to_objects((kwargs[key],))[0]
 
         return kwargs_obj
 

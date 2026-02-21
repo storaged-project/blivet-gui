@@ -371,7 +371,7 @@ class ListPartitions:
             self.blivet_gui.deactivate_all_actions()
             self.activate_action_buttons(model[treeiter])
             self.selected_partition = model[treeiter]
-            self.blivet_gui.logical_view.select_rectanlge(device=self.selected_partition[0])
+            self.blivet_gui.logical_view.select_rectangle(device=self.selected_partition[0])
 
         else:
             self.blivet_gui.deactivate_all_actions()

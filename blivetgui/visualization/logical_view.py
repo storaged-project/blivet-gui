@@ -66,7 +66,7 @@ class LogicalView:
 
         self._visualization_loop(rect_widths, root_iter, self.hbox)
 
-        self.select_rectanlge(devices_list[root_iter][0])
+        self.select_rectangle(devices_list[root_iter][0])
         self.hbox.show_all()
 
     def _clear(self):
@@ -197,7 +197,7 @@ class LogicalView:
         # still some space remaining, probably because of rounding
         # just add it to the first device in dict
         if allocated_width < available_width:
-            width_dict[list(width_dict.keys())[0]] += (allocated_width - available_width)
+            width_dict[list(width_dict.keys())[0]] += (available_width - allocated_width)
 
     def _get_total_device_size(self, treeiter=None):
         """ Return size (in bytes) of all devices on current level
@@ -241,7 +241,7 @@ class LogicalView:
         else:
             return "inner"
 
-    def select_rectanlge(self, device):
+    def select_rectangle(self, device):
         for rect in self.rectangles:
             if rect.device == device:
                 rect.set_active(True)
