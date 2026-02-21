@@ -260,14 +260,14 @@ class EncryptionChooser(GUIWidget):
                                  self._encrypt_check]
 
         # "advanced" widgets -- visible only when encrypt is checked
-        self._advanced_widgests = [self._label_type,
-                                   self._combobox_type,
-                                   self._label_ess,
-                                   self._combobox_ess,
-                                   self._builder.get_object("label_passphrase"),
-                                   self._passphrase_entry,
-                                   self._builder.get_object("label_repeat"),
-                                   self._repeat_entry]
+        self._advanced_widgets = [self._label_type,
+                                  self._combobox_type,
+                                  self._label_ess,
+                                  self._combobox_ess,
+                                  self._builder.get_object("label_passphrase"),
+                                  self._passphrase_entry,
+                                  self._builder.get_object("label_repeat"),
+                                  self._repeat_entry]
 
         # luks-specific widgets
         self._is_luks = False
@@ -337,7 +337,7 @@ class EncryptionChooser(GUIWidget):
             self._combobox_type.hide()
 
     def set_advanced_visible(self, visible):
-        for widget in self._advanced_widgests:
+        for widget in self._advanced_widgets:
             widget.set_visible(visible)
 
         self._set_ess_visibility()
