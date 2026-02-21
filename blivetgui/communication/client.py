@@ -107,7 +107,11 @@ class BlivetGUIClient:
 
     def __init__(self, server_socket):
         self.sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
-        self.sock.connect(server_socket)
+        try:
+            self.sock.connect(server_socket)
+        except OSError:
+            self.sock.close()
+            raise
         self.mutex = Lock()
 
     def _answer_convertTo_object(self, answer):
