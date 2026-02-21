@@ -649,7 +649,7 @@ class BlivetGUI:
                 self._reraise_exception(error, traceback, message, dialog_window=dialog)  # pylint: disable=raising-bad-type
 
         def show_progress(message):
-            dialog.progress_msg(message)
+            GLib.idle_add(dialog.progress_msg, message)
 
         def do_it():
             """ Run blivet.doIt()
