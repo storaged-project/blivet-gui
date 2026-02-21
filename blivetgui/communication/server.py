@@ -75,11 +75,7 @@ class BlivetProxyObject:
 
     def __getitem__(self, key):
         try:
-            if isinstance(self.blivet_object[key], picklable_types):
-                return self.blivet_object[key]
-
-            else:
-                return self.blivet_object[key]
+            return self.blivet_object[key]
 
         except IndexError as e:
             return e
