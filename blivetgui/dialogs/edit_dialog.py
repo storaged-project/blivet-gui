@@ -466,7 +466,7 @@ class RenameDialog:
     def _validate_user_input(self, name):
         if not is_name_valid(self.edit_device.type, name):
             msg = _("\"{0}\" is not a valid name.").format(name)
-            message_dialogs.ErrorDialog(self, msg,
+            message_dialogs.ErrorDialog(self.dialog, msg,
                                         not self.installer_mode)  # do not show decoration in installer mode
             return False
 
