@@ -74,6 +74,8 @@ class LoadingWindow(Gtk.Dialog):
         self.show_all()
 
     def stop(self):
+        self.pulse = False
+        GLib.source_remove(self.timeout_id)
         self.destroy()
 
     def start(self):
