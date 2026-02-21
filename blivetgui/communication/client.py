@@ -272,16 +272,23 @@ class BlivetGUIClient:
     def _recv_msg(self):
         """ Receive a message from server
 
-            ..note.: first for bites represents message length
+            ..note.: first four bytes represents message length
         """
         raw_msglen = self._recv_data(4)
 
         if not raw_msglen:
-            return None
+            msg = _("Failed to connect to blivet-gui-daemon")
+            raise ServerConnectionError(msg)
 
         msglen = struct.unpack(">I", raw_msglen)[0]
 
-        return self._recv_data(msglen)
+        data = self._recv_data(msglen)
+
+        if not data:
+            msg = _("Failed to connect to blivet-gui-daemon")
+            raise ServerConnectionError(msg)
+
+        return data
 
     def _recv_data(self, length):
         """ Receive 'length' of data from client
