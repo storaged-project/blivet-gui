@@ -134,7 +134,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
     def _recv_msg(self):
         """ Receive a message from client
 
-            ..note.: first for bites represents message length
+            ..note.: first four bytes represents message length
         """
 
         raw_msglen = self._recv_data(4)
