@@ -730,7 +730,7 @@ class BlivetGUI:
                 device.format.unmount(mountpoint=mountpoint)
             except FSError:
                 msg = _("Unmount of '{mountpoint}' failed. Are you sure the device is "
-                        "not in use?".format(mountpoint=mountpoint))
+                        "not in use?").format(mountpoint=mountpoint)
                 self.show_error_dialog(msg)
 
         self._handle_user_change()
