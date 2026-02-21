@@ -66,7 +66,7 @@ class LogicalView:
 
         self._visualization_loop(rect_widths, root_iter, self.hbox)
 
-        self.select_rectanlge(devices_list[root_iter][0])
+        self.select_rectangle(devices_list[root_iter][0])
         self.hbox.show_all()
 
     def _clear(self):
@@ -241,7 +241,7 @@ class LogicalView:
         else:
             return "inner"
 
-    def select_rectanlge(self, device):
+    def select_rectangle(self, device):
         for rect in self.rectangles:
             if rect.device == device:
                 rect.set_active(True)
