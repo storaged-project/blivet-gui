@@ -56,16 +56,18 @@ def remove_temp_files(files, folders=None):
     """ Remove temporary files and folders
     """
 
-    try:
-        for file_name in files:
+    for file_name in files:
+        try:
             os.unlink(file_name)
+        except OSError:
+            pass
 
-        if folders:
-            for folder_name in folders:
+    if folders:
+        for folder_name in folders:
+            try:
                 os.rmdir(folder_name)
-
-    except OSError:
-        pass
+            except OSError:
+                pass
 
 
 def create_sock_file():
