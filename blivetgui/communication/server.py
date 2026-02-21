@@ -269,7 +269,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
             answer = ProxyDataContainer(success=False, reason=ServerInitResponse.RUNNING)
 
         else:
-            args = self._args_convertTo_objects(data[1])
+            args = self._args_convert_to_objects(data[1])
 
             try:
                 self.blivet_utils = BlivetUtils(*args)
@@ -293,8 +293,8 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
 
         proxy_object = self._get_proxy_object(data[1])
         param_name = data[2]
-        args = self._args_convertTo_objects(data[3])
-        kwargs = self._kwargs_convertTo_objects(data[4])
+        args = self._args_convert_to_objects(data[3])
+        kwargs = self._kwargs_convert_to_objects(data[4])
 
         method = getattr(proxy_object, param_name)
 
@@ -311,7 +311,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
         """ Call a method from BlivetUtils
         """
 
-        args = self._args_convertTo_objects(data[2])
+        args = self._args_convert_to_objects(data[2])
 
         if data[1] == "blivet_do_it":
             answer = self.blivet_utils.blivet_do_it(self._progress_report_hook)
@@ -332,7 +332,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
         pickled_msg = self._pickle_answer((False, message))
         self._send(pickled_msg)
 
-    def _args_convertTo_objects(self, args):
+    def _args_convert_to_objects(self, args):
         """ All args sent from client to server are either built-in types (int, str...) or
             ProxyID (or ProxyDataContainer), we need to "convert" them to blivet Objects
         """
@@ -343,28 +343,28 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
             if isinstance(arg, ProxyDataContainer):
                 for item in arg:
                     if isinstance(arg[item], ProxyDataContainer):
-                        arg[item] = self._args_convertTo_objects([arg[item]])[0]
+                        arg[item] = self._args_convert_to_objects([arg[item]])[0]
                     if isinstance(arg[item], ProxyID):
                         arg[item] = self.object_dict[arg[item].id].blivet_object
                     elif isinstance(arg[item], (list, tuple)):
-                        arg[item] = self._args_convertTo_objects(arg[item])
+                        arg[item] = self._args_convert_to_objects(arg[item])
                 args_obj.append(arg)
             elif isinstance(arg, ProxyID):
                 args_obj.append(self.object_dict[arg.id].blivet_object)
 
             elif isinstance(arg, (list, tuple)):
-                args_obj.append(self._args_convertTo_objects(arg))
+                args_obj.append(self._args_convert_to_objects(arg))
 
             else:
                 args_obj.append(arg)
 
         return args_obj
 
-    def _kwargs_convertTo_objects(self, kwargs):
+    def _kwargs_convert_to_objects(self, kwargs):
         kwargs_obj = {}
 
         for key in kwargs:
-            kwargs_obj[key] = self._args_convertTo_objects((kwargs[key],))[0]
+            kwargs_obj[key] = self._args_convert_to_objects((kwargs[key],))[0]
 
         return kwargs_obj
 
