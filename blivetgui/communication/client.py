@@ -125,6 +125,8 @@ class BlivetGUIClient:
             new_answer = []
             for item in answer:
                 new_answer.append(self._answer_convertTo_object(item))
+            if isinstance(answer, tuple):
+                return tuple(new_answer)
             return new_answer
         else:
             return answer
