@@ -94,7 +94,6 @@ class BlivetProxyObject:
 
 class BlivetUtilsServer(socketserver.BaseRequestHandler):
     blivet_utils = None
-    proxy_objects = []
     object_dict = {}
 
     def handle(self):
