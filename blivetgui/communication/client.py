@@ -117,10 +117,10 @@ class BlivetGUIClient:
 
         if isinstance(answer, ProxyID):
             if answer.id in self.id_dict:  # we already received this id before and have our proxy object for it
-                return self.id_dict[answer]
+                return self.id_dict[answer.id]
             else:
-                self.id_dict[answer] = ClientProxyObject(client=self, proxy_id=answer)  # new id, create new proxy object
-                return self.id_dict[answer]  # and return it
+                self.id_dict[answer.id] = ClientProxyObject(client=self, proxy_id=answer)  # new id, create new proxy object
+                return self.id_dict[answer.id]  # and return it
         elif isinstance(answer, (list, tuple)):
             new_answer = []
             for item in answer:
