@@ -341,6 +341,9 @@ class ListPartitions:
         if self._allow_set_partition_table(device):
             self.blivet_gui.activate_device_actions(["partitiontable"])
 
+        if device.type in ("lvmvg", "btrfs volume", "mdarray", "stratis pool"):
+            self.blivet_gui.activate_device_actions(["open"])
+
         if device.type == "lvmvg":
             self.blivet_gui.activate_device_actions(["parents"])
 

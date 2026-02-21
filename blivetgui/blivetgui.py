@@ -268,6 +268,10 @@ class BlivetGUI:
     def _raise_exception(self, exception, traceback):
         raise exception.with_traceback(traceback)
 
+    def open_group_device(self, _widget=None):
+        """ Open selected group device (navigate into it) """
+        self.switch_device_view(self.list_partitions.selected_partition[0])
+
     def switch_device_view(self, device):
         if not (device.is_disk or device.type in ("lvmvg", "btrfs volume", "mdarray", "stratis pool")):
             raise ValueError
