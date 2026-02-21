@@ -213,7 +213,8 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
         try:
             answer = getattr(proxy_object, param_name)
         except AttributeError:
-            answer = AttributeError("%s has no attribute %s" % (proxy_object.blivet_object.name, param_name))
+            obj_name = getattr(proxy_object.blivet_object, "name", repr(proxy_object.blivet_object))
+            answer = AttributeError("%s has no attribute %s" % (obj_name, param_name))
         except Exception as e:  # pylint: disable=broad-except
             answer = e
 
