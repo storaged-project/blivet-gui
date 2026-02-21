@@ -3,7 +3,7 @@
 # A comma-separated list of package or module names from where C extensions may
 # be loaded. Extensions are loading into the active Python interpreter and may
 # run arbitrary code.
-extension-pkg-whitelist=
+extension-pkg-allow-list=
 
 # Add files or directories to the blacklist. They should be base names, not
 # paths.
@@ -303,7 +303,7 @@ ignored-classes=Popen
 # (useful for modules/projects where namespaces are manipulated during runtime
 # and thus existing member attributes cannot be deduced by static analysis. It
 # supports qualified module names, as well as Unix pattern matching.
-ignored-modules=
+ignored-modules=gi.repository,gi.repository.*
 
 
 [VARIABLES]
