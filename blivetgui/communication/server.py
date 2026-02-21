@@ -202,11 +202,20 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
 
         return pickled_answer
 
+    def _get_proxy_object(self, proxy_id):
+        """ Look up a proxy object by its ProxyID, raising KeyError with
+            a descriptive message if not found.
+        """
+        try:
+            return self.object_dict[proxy_id.id]
+        except KeyError:
+            raise KeyError("Unknown proxy object with id %s" % proxy_id.id)
+
     def _get_param(self, data):
         """ Get param of a object
         """
 
-        proxy_object = self.object_dict[data[1].id]
+        proxy_object = self._get_proxy_object(data[1])
         param_name = data[2]
 
         try:
@@ -225,7 +234,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
         """ Get next member of iterable object
         """
 
-        proxy_object = self.object_dict[data[1].id]
+        proxy_object = self._get_proxy_object(data[1])
 
         try:
             answer = proxy_object.__next__()
@@ -241,7 +250,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
         """ Get member of iterable object
         """
 
-        proxy_object = self.object_dict[data[1].id]
+        proxy_object = self._get_proxy_object(data[1])
         key = data[2]
 
         answer = proxy_object[key]
@@ -282,7 +291,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
         """ Call blivet method
         """
 
-        proxy_object = self.object_dict[data[1].id]
+        proxy_object = self._get_proxy_object(data[1])
         param_name = data[2]
         args = self._args_convertTo_objects(data[3])
         kwargs = self._kwargs_convertTo_objects(data[4])
