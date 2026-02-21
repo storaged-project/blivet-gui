@@ -66,7 +66,7 @@ class FreeSpaceDevice:
         :param free_size: size of free space
         :type free_size: blivet.size.Size
         :param start: start block
-        :type end: int
+        :type start: int
         :param end: end block
         :type end: int
         :param parents: list of parent devices
