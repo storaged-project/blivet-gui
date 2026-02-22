@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-10 09:43+0100\n"
+"POT-Creation-Date: 2026-02-21 16:55+0100\n"
 "PO-Revision-Date: 2025-07-31 21:53+0000\n"
 "Last-Translator: hsu zangmen <chzang55@gmail.com>\n"
 "Language-Team: Chinese (Traditional) <https://translate.fedoraproject.org/"
@@ -19,127 +19,127 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.12.2\n"
 
-#: ../blivetgui/blivetgui.py:295
+#: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
 msgstr "調整裝置大小失敗："
 
-#: ../blivetgui/blivetgui.py:307
+#: ../blivetgui/blivetgui.py:314
 #, python-brace-format
 msgid "resize {name} {type}"
 msgstr "調整大小 {name} {type}"
 
-#: ../blivetgui/blivetgui.py:319
+#: ../blivetgui/blivetgui.py:326
 msgid "Failed to rename the device:"
 msgstr "重新命名裝置失敗："
 
-#: ../blivetgui/blivetgui.py:331
+#: ../blivetgui/blivetgui.py:338
 #, python-brace-format
 msgid "rename {name} {type}"
 msgstr "重新命名 {name} {type}"
 
-#: ../blivetgui/blivetgui.py:350
+#: ../blivetgui/blivetgui.py:357
 msgid "Failed to format the device:"
 msgstr "格式化裝置失敗："
 
-#: ../blivetgui/blivetgui.py:364
+#: ../blivetgui/blivetgui.py:371
 #, python-brace-format
 msgid "format {name} {type}"
 msgstr "格式化 {name} {type}"
 
-#: ../blivetgui/blivetgui.py:377
+#: ../blivetgui/blivetgui.py:384
 msgid "Failed to edit the LVM2 Volume Group:"
 msgstr "編輯 LVM2 Volume Group 失敗："
 
-#: ../blivetgui/blivetgui.py:392
+#: ../blivetgui/blivetgui.py:399
 #, python-brace-format
 msgid "edit {name} {type}"
 msgstr "編輯 {name} {type}"
 
-#: ../blivetgui/blivetgui.py:421
+#: ../blivetgui/blivetgui.py:428
 msgid "Failed to change filesystem label on the device:"
 msgstr "變更裝置上的檔案系統標籤失敗："
 
-#: ../blivetgui/blivetgui.py:426
+#: ../blivetgui/blivetgui.py:433
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
 msgstr "變更 {name} {type} 的檔案系統標籤"
 
-#: ../blivetgui/blivetgui.py:442
+#: ../blivetgui/blivetgui.py:449
 #, python-brace-format
 msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
 "PVs."
 msgstr "{name} 不完整。無法新增 LV 到缺失 PV 的 VG 中。"
 
-#: ../blivetgui/blivetgui.py:447
+#: ../blivetgui/blivetgui.py:454
 msgid "Not enough free space for a new LVM Volume Group."
 msgstr "新 LVM 儲區群組沒有足夠的可用空間。"
 
-#: ../blivetgui/blivetgui.py:453
+#: ../blivetgui/blivetgui.py:460
 #, python-brace-format
 msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
 "{label} disklabel."
 msgstr "{name} 磁碟已經達到 {label} 磁碟標籤其主要分割區的最大上限數。"
 
-#: ../blivetgui/blivetgui.py:463
+#: ../blivetgui/blivetgui.py:470
 msgid "Failed to add disklabel:"
 msgstr "新增磁碟標籤失敗："
 
-#: ../blivetgui/blivetgui.py:476
+#: ../blivetgui/blivetgui.py:483
 #, python-brace-format
 msgid "create new disklabel on {name}"
 msgstr "在 {name} 上建立新的磁碟標籤"
 
-#: ../blivetgui/blivetgui.py:528
+#: ../blivetgui/blivetgui.py:535
 msgid "Failed to add the device:"
 msgstr "無法新增裝置:"
 
-#: ../blivetgui/blivetgui.py:543
+#: ../blivetgui/blivetgui.py:550
 #, python-brace-format
 msgid "add {size} {type} device"
 msgstr "加入 {size} {type} 裝置"
 
-#: ../blivetgui/blivetgui.py:587
+#: ../blivetgui/blivetgui.py:594
 msgid "Failed to delete the device:"
 msgstr "刪除裝置失敗："
 
-#: ../blivetgui/blivetgui.py:602
+#: ../blivetgui/blivetgui.py:609
 #, python-brace-format
 msgid "delete partition {name}"
 msgstr "刪除 {name} 分割區"
 
-#: ../blivetgui/blivetgui.py:643
+#: ../blivetgui/blivetgui.py:650
 msgid "Failed to perform the actions:"
 msgstr "動作執行失敗："
 
-#: ../blivetgui/blivetgui.py:687
+#: ../blivetgui/blivetgui.py:694
 msgid "Confirm scheduled actions"
 msgstr "確認安排的動作"
 
-#: ../blivetgui/blivetgui.py:688
+#: ../blivetgui/blivetgui.py:695
 msgid "Are you sure you want to perform scheduled actions?"
 msgstr "您確定要執行安排的動作？"
 
-#: ../blivetgui/blivetgui.py:729
+#: ../blivetgui/blivetgui.py:736
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr "卸載 '{mountpoint}' 失敗。您確定裝置不在使用中嗎？"
 
-#: ../blivetgui/blivetgui.py:751
+#: ../blivetgui/blivetgui.py:758
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "解鎖失敗。您確定所提供的密碼正確無誤？"
 
-#: ../blivetgui/blivetgui.py:801 ../data/ui/blivet-gui.ui:678
+#: ../blivetgui/blivetgui.py:808 ../data/ui/blivet-gui.ui:692
 msgid "Quit"
 msgstr "退出"
 
-#: ../blivetgui/blivetgui.py:804
+#: ../blivetgui/blivetgui.py:811
 msgid "blivet-gui is already running"
 msgstr "blivet-gui 已開始執行"
 
-#: ../blivetgui/blivetgui.py:805
+#: ../blivetgui/blivetgui.py:812
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -147,7 +147,7 @@ msgstr ""
 "另一個 blivet-gui 的實例正在執行。\n"
 "同一時間只能有一個 blivet-gui 執行。"
 
-#: ../blivetgui/blivetgui.py:807
+#: ../blivetgui/blivetgui.py:814
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -158,24 +158,24 @@ msgid ""
 "command to force quit it."
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:839
+#: ../blivetgui/blivetgui.py:846
 msgid "Failed to init blivet:"
 msgstr "無法初始化 blivet："
 
-#: ../blivetgui/blivetgui.py:846
+#: ../blivetgui/blivetgui.py:853
 msgid "Quit blivet-gui"
 msgstr "退出 blivet-gui"
 
-#: ../blivetgui/blivetgui.py:848
+#: ../blivetgui/blivetgui.py:855
 msgid "Ignore disk and continue"
 msgstr "忽略磁碟並繼續"
 
-#: ../blivetgui/blivetgui.py:851
+#: ../blivetgui/blivetgui.py:858
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "錯誤：{error}"
 
-#: ../blivetgui/blivetgui.py:852
+#: ../blivetgui/blivetgui.py:859
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -186,19 +186,19 @@ msgstr ""
 "Blivet-gui 無法使用 <b>{name}</b> 磁碟，可能因為磁碟標籤受損/未知。\n"
 "您現在可以退出 blivet-gui，或是在無法使用此磁碟的情況下繼續。"
 
-#: ../blivetgui/blivetgui.py:888
+#: ../blivetgui/blivetgui.py:895
 msgid "Confirm reload storage"
 msgstr "確認重載儲存裝置"
 
-#: ../blivetgui/blivetgui.py:889
+#: ../blivetgui/blivetgui.py:896
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "還有擱置的作業。您確定要繼續？"
 
-#: ../blivetgui/blivetgui.py:920
+#: ../blivetgui/blivetgui.py:927
 msgid "Are you sure you want to quit?"
 msgstr "您確定要退出？"
 
-#: ../blivetgui/blivetgui.py:921
+#: ../blivetgui/blivetgui.py:928
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr "還有擱置的作業。您確定要現在退出 blivet-gui？"
@@ -295,7 +295,7 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/list_actions.py:69 ../blivetgui/list_actions.py:118
-#: ../blivetgui/list_actions.py:140 ../data/ui/blivet-gui.ui:633
+#: ../blivetgui/list_actions.py:140 ../data/ui/blivet-gui.ui:647
 msgid "No pending actions"
 msgstr "無擱置動作"
 
@@ -351,7 +351,7 @@ msgstr ""
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
 #: ../blivetgui/list_partitions.py:166
-#: ../blivetgui/visualization/rectangle.py:64
+#: ../blivetgui/visualization/rectangle.py:66
 msgid "unknown"
 msgstr ""
 
@@ -407,8 +407,10 @@ msgstr ""
 "<b>正再處理動作 {num} / {total}</b>：\n"
 "<i>{action}</i>"
 
-#: ../blivetgui/communication/client.py:300
-#: ../blivetgui/communication/client.py:317
+#: ../blivetgui/communication/client.py:284
+#: ../blivetgui/communication/client.py:292
+#: ../blivetgui/communication/client.py:313
+#: ../blivetgui/communication/client.py:330
 msgid "Failed to connect to blivet-gui-daemon"
 msgstr "無法連接 blivet-gui-daemon"
 
@@ -515,7 +517,7 @@ msgstr "裝置類型："
 #: ../blivetgui/dialogs/add_dialog.py:457
 #: ../blivetgui/dialogs/edit_dialog.py:628
 #: ../blivetgui/dialogs/edit_dialog.py:677
-#: ../blivetgui/dialogs/edit_dialog.py:739 ../data/ui/blivet-gui.ui:485
+#: ../blivetgui/dialogs/edit_dialog.py:739 ../data/ui/blivet-gui.ui:499
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
 msgstr "裝置"
@@ -523,7 +525,7 @@ msgstr "裝置"
 #: ../blivetgui/dialogs/add_dialog.py:458
 #: ../blivetgui/dialogs/edit_dialog.py:629
 #: ../blivetgui/dialogs/edit_dialog.py:678
-#: ../blivetgui/dialogs/edit_dialog.py:740 ../data/ui/blivet-gui.ui:498
+#: ../blivetgui/dialogs/edit_dialog.py:740 ../data/ui/blivet-gui.ui:512
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
 msgstr "類型"
@@ -531,7 +533,7 @@ msgstr "類型"
 #: ../blivetgui/dialogs/add_dialog.py:459
 #: ../blivetgui/dialogs/edit_dialog.py:630
 #: ../blivetgui/dialogs/edit_dialog.py:679
-#: ../blivetgui/dialogs/edit_dialog.py:741 ../data/ui/blivet-gui.ui:520
+#: ../blivetgui/dialogs/edit_dialog.py:741 ../data/ui/blivet-gui.ui:534
 msgid "Size"
 msgstr "大小"
 
@@ -954,69 +956,78 @@ msgstr ""
 "Cheng-Chia Tseng <pswo10680@gmail.com>, 2017.\n"
 "neko0xff <chzang55@gmail.com>,2025"
 
-#: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:692
+#: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:706
 #, fuzzy
 #| msgid "Information"
 msgid "System Information"
 msgstr "資訊"
 
-#: ../blivetgui/dialogs/other_dialogs.py:141
+#: ../blivetgui/dialogs/other_dialogs.py:144
 #, fuzzy
 #| msgid "Information"
 msgid "Version Information"
 msgstr "資訊"
 
 #. blivet-gui version
-#: ../blivetgui/dialogs/other_dialogs.py:144 ../data/ui/blivet-gui.ui:255
+#: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:269
 msgid "blivet-gui"
 msgstr "blivet-gui"
 
 #. pylint: disable=broad-except
-#: ../blivetgui/dialogs/other_dialogs.py:149
-#: ../blivetgui/dialogs/other_dialogs.py:151
+#: ../blivetgui/dialogs/other_dialogs.py:152
+#: ../blivetgui/dialogs/other_dialogs.py:154
 #, fuzzy
 #| msgid "blivet-gui"
 msgid "blivet"
 msgstr "blivet-gui"
 
-#: ../blivetgui/dialogs/other_dialogs.py:151
+#: ../blivetgui/dialogs/other_dialogs.py:154
 msgid "Unknown"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:158
+#: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:164
+#: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "None (all disks)"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:165
+#: ../blivetgui/dialogs/other_dialogs.py:168
 msgid "Exclusive disks"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:167
+#: ../blivetgui/dialogs/other_dialogs.py:170
 msgid "Selection of disks blivet-gui is allowed to operate with"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:171
+#: ../blivetgui/dialogs/other_dialogs.py:174
 #, fuzzy
 #| msgid "Basic information"
 msgid "Advanced device information"
 msgstr "基本資訊"
 
-#: ../blivetgui/dialogs/other_dialogs.py:172
+#: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:172
+#: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "No"
 msgstr ""
 
-#: ../blivetgui/dialogs/other_dialogs.py:173
+#: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
+msgstr ""
+
+#: ../blivetgui/dialogs/other_dialogs.py:192
+msgid ""
+"<b>Warning:</b> Some information about Btrfs devices might be missing "
+"because there are unmounted Btrfs devices on the system. Gathering "
+"information about these devices requires mounting them which is not enabled "
+"by default.\n"
+"To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
 
 #: ../blivetgui/dialogs/size_chooser.py:215
@@ -1050,47 +1061,101 @@ msgstr "密語相符。"
 msgid "Passphrases don't match."
 msgstr "密語不符。"
 
-#: ../blivetgui/visualization/rectangle.py:51
+#: ../blivetgui/visualization/rectangle.py:52
 msgid "Group device"
 msgstr "群組裝置"
 
-#: ../blivetgui/visualization/rectangle.py:52
+#: ../blivetgui/visualization/rectangle.py:53
 msgid "LiveUSB device"
 msgstr "LiveUSB 裝置"
 
-#: ../blivetgui/visualization/rectangle.py:53
+#: ../blivetgui/visualization/rectangle.py:54
 msgid "Encrypted device (locked)"
 msgstr "加密的裝置（己鎖定）"
 
-#: ../blivetgui/visualization/rectangle.py:54
+#: ../blivetgui/visualization/rectangle.py:55
 msgid "Encrypted device (unlocked)"
 msgstr "加密的裝置（未鎖定）"
 
-#: ../blivetgui/visualization/rectangle.py:55
+#: ../blivetgui/visualization/rectangle.py:56
 msgid "Empty device"
 msgstr "空白裝置"
 
-#: ../blivetgui/visualization/rectangle.py:56
+#: ../blivetgui/visualization/rectangle.py:57
 msgid "Snapshot"
 msgstr "快照"
 
-#: ../blivetgui/visualization/rectangle.py:57
+#: ../blivetgui/visualization/rectangle.py:58
 msgid "Missing partition table"
 msgstr "遺失分割表"
 
-#: ../blivetgui/visualization/rectangle.py:58
+#: ../blivetgui/visualization/rectangle.py:59
 msgid "Device or format is write protected"
 msgstr "裝置或格式受到防寫保護"
 
-#: ../blivetgui/visualization/rectangle.py:59
+#: ../blivetgui/visualization/rectangle.py:60
 msgid "Cached device"
 msgstr "快取裝置"
 
-#: ../blivetgui/visualization/rectangle.py:60
+#: ../blivetgui/visualization/rectangle.py:61
 #, fuzzy
 #| msgid "Empty device"
 msgid "Incomplete device"
 msgstr "空白裝置"
+
+#: ../blivetgui/visualization/rectangle.py:62
+#, fuzzy
+#| msgid "Basic information"
+msgid "Missing subvolume information"
+msgstr "基本資訊"
+
+#: ../blivetgui/visualization/rectangle.py:104
+msgid "LVM2 Volume Group — double-click to view Logical Volumes"
+msgstr ""
+
+#: ../blivetgui/visualization/rectangle.py:105
+msgid "Btrfs Volume — double-click to view subvolumes"
+msgstr ""
+
+#: ../blivetgui/visualization/rectangle.py:106
+msgid "RAID Array — double-click to view contents"
+msgstr ""
+
+#: ../blivetgui/visualization/rectangle.py:107
+msgid "Stratis Pool — double-click to view filesystems"
+msgstr ""
+
+#. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
+#: ../blivetgui/visualization/rectangle.py:117
+#, fuzzy, python-brace-format
+#| msgid "LVM2 Logical Volume"
+msgid "{count} logical volume"
+msgid_plural "{count} logical volumes"
+msgstr[0] "LVM2 邏輯儲區"
+
+#. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
+#: ../blivetgui/visualization/rectangle.py:120
+#, fuzzy, python-brace-format
+#| msgid "Btrfs Subvolume"
+msgid "{count} subvolume"
+msgid_plural "{count} subvolumes"
+msgstr[0] "Btrfs 子儲區"
+
+#. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
+#: ../blivetgui/visualization/rectangle.py:123
+#, fuzzy, python-brace-format
+#| msgid "Partition"
+msgid "{count} partition"
+msgid_plural "{count} partitions"
+msgstr[0] "分割區"
+
+#. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
+#: ../blivetgui/visualization/rectangle.py:126
+#, fuzzy, python-brace-format
+#| msgid "Filesystem:"
+msgid "{count} filesystem"
+msgid_plural "{count} filesystems"
+msgstr[0] "檔案系統："
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1109,139 +1174,143 @@ msgid "Select new partition table type:"
 msgstr "選取新分割表類型："
 
 #: ../data/ui/blivet-gui.ui:14
+msgid "Open"
+msgstr ""
+
+#: ../data/ui/blivet-gui.ui:28
 msgid "New"
 msgstr "新增"
 
-#: ../data/ui/blivet-gui.ui:23
+#: ../data/ui/blivet-gui.ui:37
 msgid "Delete"
 msgstr "刪除"
 
-#: ../data/ui/blivet-gui.ui:32
+#: ../data/ui/blivet-gui.ui:46
 msgid "Edit"
 msgstr "編輯"
 
-#: ../data/ui/blivet-gui.ui:42 ../data/ui/blivet-gui.ui:130
+#: ../data/ui/blivet-gui.ui:56 ../data/ui/blivet-gui.ui:144
 msgid "Resize"
 msgstr "調整大小"
 
-#: ../data/ui/blivet-gui.ui:50 ../data/ui/blivet-gui.ui:138
+#: ../data/ui/blivet-gui.ui:64 ../data/ui/blivet-gui.ui:152
 msgid "Rename"
 msgstr ""
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
-#: ../data/ui/blivet-gui.ui:58 ../data/ui/blivet-gui.ui:146
+#: ../data/ui/blivet-gui.ui:72 ../data/ui/blivet-gui.ui:160
 msgctxt "Menu|Edit"
 msgid "Format"
 msgstr "格式化"
 
-#: ../data/ui/blivet-gui.ui:66 ../data/ui/blivet-gui.ui:154
+#: ../data/ui/blivet-gui.ui:80 ../data/ui/blivet-gui.ui:168
 msgid "Modify parents"
 msgstr "修改上層"
 
-#: ../data/ui/blivet-gui.ui:74 ../data/ui/blivet-gui.ui:162
+#: ../data/ui/blivet-gui.ui:88 ../data/ui/blivet-gui.ui:176
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
 msgstr "設定掛載點"
 
-#: ../data/ui/blivet-gui.ui:82 ../data/ui/blivet-gui.ui:170
+#: ../data/ui/blivet-gui.ui:96 ../data/ui/blivet-gui.ui:184
 msgid "Set label"
 msgstr ""
 
-#: ../data/ui/blivet-gui.ui:90 ../data/ui/blivet-gui.ui:178
+#: ../data/ui/blivet-gui.ui:104 ../data/ui/blivet-gui.ui:192
 msgid "Set partition table"
 msgstr ""
 
-#: ../data/ui/blivet-gui.ui:102 ../data/ui/unmount_dialog.ui:15
+#: ../data/ui/blivet-gui.ui:116 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
 msgstr "卸載"
 
-#: ../data/ui/blivet-gui.ui:110
+#: ../data/ui/blivet-gui.ui:124
 msgid "Unlock"
 msgstr "解鎖"
 
-#: ../data/ui/blivet-gui.ui:118
+#: ../data/ui/blivet-gui.ui:132
 msgid "Information"
 msgstr "資訊"
 
-#: ../data/ui/blivet-gui.ui:290 ../data/ui/blivet-gui.ui:302
-#: ../data/ui/blivet-gui.ui:851 ../data/ui/blivet-gui.ui:862
-#: ../data/ui/blivet-gui.ui:873
+#: ../data/ui/blivet-gui.ui:304 ../data/ui/blivet-gui.ui:316
+#: ../data/ui/blivet-gui.ui:865 ../data/ui/blivet-gui.ui:876
+#: ../data/ui/blivet-gui.ui:887
 msgid "column"
 msgstr "欄"
 
-#: ../data/ui/blivet-gui.ui:364
+#: ../data/ui/blivet-gui.ui:378
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
 msgstr "加入新裝置"
 
-#: ../data/ui/blivet-gui.ui:380
+#: ../data/ui/blivet-gui.ui:394
 msgctxt "ActionsToolbar|Delete"
 msgid "Delete selected device"
 msgstr "刪除所選的裝置"
 
-#: ../data/ui/blivet-gui.ui:396
+#: ../data/ui/blivet-gui.ui:410
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
 msgstr "編輯所選裝置"
 
-#: ../data/ui/blivet-gui.ui:422
+#: ../data/ui/blivet-gui.ui:436
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
 msgstr "卸載所選裝置"
 
-#: ../data/ui/blivet-gui.ui:437
+#: ../data/ui/blivet-gui.ui:451
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
 msgstr "解除鎖定/開啟所選裝置"
 
-#: ../data/ui/blivet-gui.ui:452
+#: ../data/ui/blivet-gui.ui:466
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
 msgstr "顯示選取裝置的資訊"
 
 #. Format (filesystem) type of selected device.
-#: ../data/ui/blivet-gui.ui:509
+#: ../data/ui/blivet-gui.ui:523
 msgctxt "LogicalView|Column"
 msgid "Format"
 msgstr "格式"
 
-#: ../data/ui/blivet-gui.ui:531
+#: ../data/ui/blivet-gui.ui:545
 msgid "Label"
 msgstr "標籤"
 
-#: ../data/ui/blivet-gui.ui:542
+#: ../data/ui/blivet-gui.ui:556
 msgid "Mountpoint"
 msgstr "掛載點"
 
-#: ../data/ui/blivet-gui.ui:566
+#: ../data/ui/blivet-gui.ui:580
 msgid "Logical View"
 msgstr "邏輯檢視"
 
-#: ../data/ui/blivet-gui.ui:589
+#: ../data/ui/blivet-gui.ui:603
 msgid "Physical View"
 msgstr "實體檢視"
 
-#: ../data/ui/blivet-gui.ui:662
+#: ../data/ui/blivet-gui.ui:676
 msgid "Reload Storage"
 msgstr "重載儲存裝置"
 
-#: ../data/ui/blivet-gui.ui:670
+#: ../data/ui/blivet-gui.ui:684
 msgid "Queued Actions"
 msgstr "佇列的動作"
 
-#: ../data/ui/blivet-gui.ui:700
+#: ../data/ui/blivet-gui.ui:714
 msgid "About blivet-gui"
 msgstr "關於 blivet-gui"
 
-#: ../data/ui/blivet-gui.ui:752
+#: ../data/ui/blivet-gui.ui:766
 msgid "Apply pending actions"
 msgstr "套用待執行的動作"
 
-#: ../data/ui/blivet-gui.ui:768
+#: ../data/ui/blivet-gui.ui:782
 msgid "Clear scheduled actions"
 msgstr "清除排程行動"
 
-#: ../data/ui/blivet-gui.ui:784
+#: ../data/ui/blivet-gui.ui:798
 msgid "Undo last action"
 msgstr ""
 
