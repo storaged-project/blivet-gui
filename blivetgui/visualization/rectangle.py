@@ -23,8 +23,9 @@
 
 import gi
 gi.require_version("Gtk", "3.0")
+gi.require_version("Gdk", "3.0")
 
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 from ..i18n import _, P_
 
@@ -82,6 +83,23 @@ class Rectangle(Gtk.RadioButton):
 
             icons = self._add_device_icons()
             hbox.pack_start(child=icons, expand=False, fill=False, padding=0)
+
+        if self.device.type in ("lvmvg", "btrfs volume", "mdarray", "stratis pool"):
+            self.connect("enter-notify-event", self._on_enter_set_cursor)
+            self.connect("leave-notify-event", self._on_leave_reset_cursor)
+            self.connect("unrealize", self._on_leave_reset_cursor)
+
+    def _on_enter_set_cursor(self, widget, _event):
+        display = widget.get_display()
+        cursor = Gdk.Cursor.new_from_name(display, "pointer")
+        window = widget.get_window()
+        if window:
+            window.set_cursor(cursor)
+
+    def _on_leave_reset_cursor(self, widget, _event=None):
+        window = widget.get_window()
+        if window:
+            window.set_cursor(None)
 
     def _add_device_icons(self):
         device_properties = self._get_device_properties()
