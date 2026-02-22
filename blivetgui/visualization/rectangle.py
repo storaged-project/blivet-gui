@@ -26,7 +26,7 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
-from ..i18n import _
+from ..i18n import _, P_
 
 import blivet
 
@@ -68,8 +68,14 @@ class Rectangle(Gtk.RadioButton):
             devsize = str(self.device.size)
 
         if label:
+            child_count_str = self._get_child_count_label()
+            if child_count_str:
+                label_text = "%s \n<small><i>(%s)</i></small>\n%s" % (self.device.name, child_count_str, devsize)
+            else:
+                label_text = "%s\n%s" % (self.device.name, devsize)
+
             label_device = Gtk.Label(justify=Gtk.Justification.CENTER,
-                                     label="<small>%s\n%s</small>" % (self.device.name, devsize),
+                                     label="<small>%s</small>" % label_text,
                                      use_markup=True, name="dark")
 
             hbox.pack_start(child=label_device, expand=True, fill=True, padding=0)
@@ -83,11 +89,40 @@ class Rectangle(Gtk.RadioButton):
         icon_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, homogeneous=False, spacing=4)
         for prop in device_properties:
             icon = Gtk.Image.new_from_icon_name(self.device_icons[prop][0], Gtk.IconSize.MENU)
-            icon.set_tooltip_text(self.device_icons[prop][1])
+            if prop == "group":
+                icon.set_tooltip_text(self._get_group_tooltip())
+            else:
+                icon.set_tooltip_text(self.device_icons[prop][1])
             icon.set_opacity(0.85)
             icon_box.pack_end(child=icon, expand=False, fill=False, padding=0)
 
         return icon_box
+
+    def _get_group_tooltip(self):
+        # TRANSLATORS: tooltip for group device icon with double-click hint
+        group_tooltips = {
+            "lvmvg": _("LVM2 Volume Group — double-click to view Logical Volumes"),
+            "btrfs volume": _("Btrfs Volume — double-click to view subvolumes"),
+            "mdarray": _("RAID Array — double-click to view contents"),
+            "stratis pool": _("Stratis Pool — double-click to view filesystems"),
+        }
+        return group_tooltips.get(self.device.type, self.device_icons["group"][1])
+
+    def _get_child_count_label(self):
+        count = len(self.device.children)
+        if self.device.type == "lvmvg":
+            # TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
+            return P_("{count} logical volume", "{count} logical volumes", count).format(count=count)
+        elif self.device.type == "btrfs volume":
+            # TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
+            return P_("{count} subvolume", "{count} subvolumes", count).format(count=count)
+        elif self.device.type == "mdarray" and self.device.format.type == "disklabel":
+            # TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
+            return P_("{count} partition", "{count} partitions", count).format(count=count)
+        elif self.device.type == "stratis pool":
+            # TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
+            return P_("{count} filesystem", "{count} filesystems", count).format(count=count)
+        return None
 
     def _get_device_properties(self):
         properties = []
