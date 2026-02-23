@@ -2,14 +2,14 @@
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2017. #zanata
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2018. #zanata
-# naly zzwd <xeanhort007@gmail.com>, 2025.
+# naly zzwd <xeanhort007@gmail.com>, 2025, 2026.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2025-12-22 08:34+0000\n"
+"PO-Revision-Date: 2026-02-23 10:58+0000\n"
 "Last-Translator: naly zzwd <xeanhort007@gmail.com>\n"
 "Language-Team: Catalan <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ca/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -609,7 +609,7 @@ msgstr "\"{0}\" no és un nom vàlid."
 #: ../blivetgui/dialogs/add_dialog.py:1105
 #, python-brace-format
 msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
-msgstr ""
+msgstr "Cal crear el subvolum \"{0}\" abans de crear el subvolum \"{1}\"."
 
 #: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
@@ -987,16 +987,12 @@ msgid "translator-credits"
 msgstr "Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:706
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "Informació"
+msgstr "Informació del Sistema"
 
 #: ../blivetgui/dialogs/other_dialogs.py:144
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "Informació"
+msgstr "Informació de la Versió"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:269
@@ -1006,52 +1002,49 @@ msgstr "blivet-gui"
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:152
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "unknown"
 msgid "Unknown"
-msgstr "desconegut"
+msgstr "Desconegut"
 
 #: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
-msgstr ""
+msgstr "Opcions d'Inici"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "None (all disks)"
-msgstr ""
+msgstr "Cap (tots els discs)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:168
 msgid "Exclusive disks"
-msgstr ""
+msgstr "Discs exclusius"
 
 #: ../blivetgui/dialogs/other_dialogs.py:170
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "Selecció de discs amb els quals blivet-gui pot operar"
 
 #: ../blivetgui/dialogs/other_dialogs.py:174
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "Informació bàsica"
+msgstr "Informació avançada del dispositiu"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
-msgstr ""
+msgstr "Sí"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
 msgstr ""
+"Si la recopilació de tota la informació sobre els dispositius està "
+"habilitada, fins i tot si requereix operacions potencialment perilloses com "
+"ara el muntatge o una comprovació del sistema de fitxers"
 
 #: ../blivetgui/dialogs/other_dialogs.py:192
 msgid ""
@@ -1061,6 +1054,11 @@ msgid ""
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
+"<b>Avís:</b> Pot ser que falti informació sobre els dispositius Btrfs perquè "
+"hi ha dispositius Btrfs desmuntats al sistema. La recopilació d'informació "
+"sobre aquests dispositius requereix muntar-los, cosa que no està habilitada "
+"per defecte.\n"
+"Per habilitar-ho, inicieu blivet-gui amb l'opció <tt>--auto-dev-updates</tt>."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1138,62 +1136,56 @@ msgid "Incomplete device"
 msgstr "Dispositiu incomplet"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "Informació bàsica"
+msgstr "Falta informació del subvolum"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
-msgstr ""
+msgstr "Grup de Volums LVM2 — feu doble clic per veure els Volums Lògics"
 
 #: ../blivetgui/visualization/rectangle.py:105
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Volum Btrfs — feu doble clic per veure els subvolums"
 
 #: ../blivetgui/visualization/rectangle.py:106
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "Matriu RAID — feu doble clic per veure el contingut"
 
 #: ../blivetgui/visualization/rectangle.py:107
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Stratis Pool — feu doble clic per veure els sistemes de fitxers"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:117
-#, fuzzy, python-brace-format
-#| msgid "LVM2 Logical Volume"
+#, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] "Volum lògic LVM2"
-msgstr[1] "Volum lògic LVM2"
+msgstr[0] "{count} volum lògic"
+msgstr[1] "{count} volums lògics"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
-#, fuzzy, python-brace-format
-#| msgid "Btrfs Subvolume"
+#, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] "Subvolum Btrfs"
-msgstr[1] "Subvolum Btrfs"
+msgstr[0] "{count} subvolum"
+msgstr[1] "{count} subvolums"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:123
-#, fuzzy, python-brace-format
-#| msgid "Partition"
+#, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] "Partició"
-msgstr[1] "Partició"
+msgstr[0] "{count} partició"
+msgstr[1] "{count} particions"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
-#, fuzzy, python-brace-format
-#| msgid "Set filesystem label"
+#, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] "Estableix l'etiqueta del sistema de fitxers"
-msgstr[1] "Estableix l'etiqueta del sistema de fitxers"
+msgstr[0] "{count} sistema de fitxers"
+msgstr[1] "{count} sistemes de fitxers"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1215,7 +1207,7 @@ msgstr "Seleccioneu el tipus de la nova taula de particions:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "Obre"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"
