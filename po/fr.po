@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2026-02-19 16:58+0000\n"
+"PO-Revision-Date: 2026-02-23 10:58+0000\n"
 "Last-Translator: Léane GRASSER <leane.grasser@proton.me>\n"
 "Language-Team: French <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fr/>\n"
@@ -1079,6 +1079,13 @@ msgid ""
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
+"<b>Attention :</b> certaines informations concernant les périphériques Btrfs "
+"pourraient être manquantes en raison de la présence de périphériques Btrfs "
+"non montés sur le système. La récupération d'informations sur ces "
+"périphériques nécessite de les monter, et leur montage est désactivé par "
+"défaut.\n"
+"Pour l'activer, démarrez blivet-gui avec l'option <tt>--auto-dev-updates</tt>"
+"."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1156,62 +1163,56 @@ msgid "Incomplete device"
 msgstr "Périphérique incomplet"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "Informations de base"
+msgstr "Informations sur les sous-volumes manquantes"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
-msgstr ""
+msgstr "Groupe de volumes LVM2 – double-clic pour voir les volumes logiques"
 
 #: ../blivetgui/visualization/rectangle.py:105
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Volume Btrfs – double-clic pour voir les sous-volumes"
 
 #: ../blivetgui/visualization/rectangle.py:106
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "Matrice RAID – double-clic pour voir le contenu"
 
 #: ../blivetgui/visualization/rectangle.py:107
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Pool Stratis – double-clic pour voir les systèmes de fichiers"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:117
-#, fuzzy, python-brace-format
-#| msgid "LVM2 Logical Volume"
+#, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] "Volume logique LVM2"
-msgstr[1] "Volume logique LVM2"
+msgstr[0] "{count} volume logique"
+msgstr[1] "{count} volumes logiques"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
-#, fuzzy, python-brace-format
-#| msgid "Btrfs Subvolume"
+#, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] "Sous-volume Btrfs"
-msgstr[1] "Sous-volume Btrfs"
+msgstr[0] "{count} sous-volume"
+msgstr[1] "{count} sous-volumes"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:123
-#, fuzzy, python-brace-format
-#| msgid "Partition"
+#, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] "Partition"
-msgstr[1] "Partition"
+msgstr[0] "{count} partition"
+msgstr[1] "{count} partitions"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
-#, fuzzy, python-brace-format
-#| msgid "Set filesystem label"
+#, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] "Définir le nom du système de fichiers"
-msgstr[1] "Définir le nom du système de fichiers"
+msgstr[0] "{count} système de fichiers"
+msgstr[1] "{count} systèmes de fichiers"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
