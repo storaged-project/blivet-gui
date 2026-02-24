@@ -1,15 +1,15 @@
-# Yuri Chornoivan <yurchor@ukr.net>, 2015, 2020, 2021, 2022, 2024, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2015, 2020, 2021, 2022, 2024, 2025, 2026.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
-# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021, 2022, 2024, 2025.
-# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020, 2021, 2022, 2024, 2025.
-# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020, 2021, 2022, 2024, 2025.
-# Yuri Chornoivan <yurchor@ukr.net>, 2020. #zanata, 2021, 2022, 2024, 2025.
+# Yuri Chornoivan <yurchor@ukr.net>, 2016. #zanata, 2020, 2021, 2022, 2024, 2025, 2026.
+# Yuri Chornoivan <yurchor@ukr.net>, 2017. #zanata, 2020, 2021, 2022, 2024, 2025, 2026.
+# Yuri Chornoivan <yurchor@ukr.net>, 2018. #zanata, 2020, 2021, 2022, 2024, 2025, 2026.
+# Yuri Chornoivan <yurchor@ukr.net>, 2020. #zanata, 2021, 2022, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2025-12-19 15:43+0000\n"
+"PO-Revision-Date: 2026-02-23 10:58+0000\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/uk/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -617,7 +617,7 @@ msgstr "«{0}» не є коректною назвою."
 #: ../blivetgui/dialogs/add_dialog.py:1105
 #, python-brace-format
 msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
-msgstr ""
+msgstr "Підтом «{0}» має бути створено до створення підтому «{1}»."
 
 #: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
@@ -996,16 +996,12 @@ msgid "translator-credits"
 msgstr "Юрій Чорноіван <yurchor@ukr.net>"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:706
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "Інформація"
+msgstr "Відомості щодо системи"
 
 #: ../blivetgui/dialogs/other_dialogs.py:144
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "Інформація"
+msgstr "Відомості щодо версії"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:269
@@ -1015,52 +1011,49 @@ msgstr "blivet-gui"
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:152
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "unknown"
 msgid "Unknown"
-msgstr "невідомий"
+msgstr "Невідомий"
 
 #: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
-msgstr ""
+msgstr "Параметри запуску"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "None (all disks)"
-msgstr ""
+msgstr "Немає (усі диски)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:168
 msgid "Exclusive disks"
-msgstr ""
+msgstr "Виключні диски"
 
 #: ../blivetgui/dialogs/other_dialogs.py:170
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "Вибір дисків, з якими може працювати blivet-gui"
 
 #: ../blivetgui/dialogs/other_dialogs.py:174
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "Базові дані"
+msgstr "Додаткові відомості щодо пристроїв"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
-msgstr ""
+msgstr "Так"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "No"
-msgstr ""
+msgstr "Ні"
 
 #: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
 msgstr ""
+"Визначає, чи уможливлено збирання усіх відомостей щодо пристроїв, навіть "
+"якщо це вимагає потенційно небезпечних дій, зокрема монтування або перевірки "
+"файлової системи"
 
 #: ../blivetgui/dialogs/other_dialogs.py:192
 msgid ""
@@ -1070,6 +1063,11 @@ msgid ""
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
+"<b>Попередження:</b> деякі відомості щодо пристроїв Btrfs можуть бути "
+"недоступними через те, що у системі є незмонтовані пристрої Btrfs. Збирання "
+"відомостей щодо цих пристроїв потребує монтування, яке типово вимкнено.\n"
+"Щоб увімкнути монтування, запустіть blivet-gui з параметром <tt>--auto-dev-"
+"updates</tt>."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1143,66 +1141,60 @@ msgid "Incomplete device"
 msgstr "Неповний пристрій"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "Базові дані"
+msgstr "Немає даних щодо підтомів"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
-msgstr ""
+msgstr "Група томів LVM2 — двічі клацніть, щоб переглянути логічні томи"
 
 #: ../blivetgui/visualization/rectangle.py:105
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Том Btrfs — двічі клацніть, щоб переглянути підтоми"
 
 #: ../blivetgui/visualization/rectangle.py:106
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "Масив RAID — двічі клацінть, щоб переглянути вміст"
 
 #: ../blivetgui/visualization/rectangle.py:107
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Буфер Stratis — двічі клацніть, щоб переглянути файлові системи"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:117
-#, fuzzy, python-brace-format
-#| msgid "LVM2 Logical Volume"
+#, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] "Логічний том LVM"
-msgstr[1] "Логічний том LVM"
-msgstr[2] "Логічний том LVM"
+msgstr[0] "{count} логічний том"
+msgstr[1] "{count} логічні томи"
+msgstr[2] "{count} логічних томів"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
-#, fuzzy, python-brace-format
-#| msgid "Btrfs Subvolume"
+#, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] "Підтом Btrfs"
-msgstr[1] "Підтом Btrfs"
-msgstr[2] "Підтом Btrfs"
+msgstr[0] "{count} підтом"
+msgstr[1] "{count} підтоми"
+msgstr[2] "{count} підтомів"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:123
-#, fuzzy, python-brace-format
-#| msgid "Partition"
+#, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] "Розділ диска"
-msgstr[1] "Розділ диска"
-msgstr[2] "Розділ диска"
+msgstr[0] "{count} розділ"
+msgstr[1] "{count} розділи"
+msgstr[2] "{count} розділів"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
-#, fuzzy, python-brace-format
-#| msgid "Set filesystem label"
+#, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] "Встановити мітку файлової системи"
-msgstr[1] "Встановити мітку файлової системи"
-msgstr[2] "Встановити мітку файлової системи"
+msgstr[0] "{count} файлова система"
+msgstr[1] "{count} файлові системи"
+msgstr[2] "{count} файлових систем"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1222,7 +1214,7 @@ msgstr "Виберіть тип нової таблиці розділів:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "Відкрити"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"

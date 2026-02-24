@@ -18,9 +18,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2026-02-19 16:58+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-02-23 10:58+0000\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -649,7 +648,7 @@ msgstr "Dispositivo LUKS/DM-Crypt"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "MD RAID Array"
-msgstr "Matriz MD RAID"
+msgstr "Arranjo MD RAID"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:89
 msgid "DM Integrity Device"
@@ -1061,6 +1060,12 @@ msgid ""
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
+"<b>Aviso:</b> Algumas informações sobre dispositivos Btrfs podem estar "
+"faltando porque existem dispositivos Btrfs desmontados no sistema. A coleta "
+"de informações sobre esses dispositivos requer a montagem deles, que não "
+"está habilitada por padrão.\n"
+"Para habilitar isso, inicie o blivet-gui com a opção <tt>--auto-dev-updates</"
+"tt>."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1138,62 +1143,58 @@ msgid "Incomplete device"
 msgstr "dispositivo incompleto"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "Informação básica"
+msgstr "Faltando informações sobre subvolumes"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
 msgstr ""
+"Grupo de Volumes LVM2 — clique duas vezes para visualizar os Volumes Lógicos"
 
 #: ../blivetgui/visualization/rectangle.py:105
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Volume Btrfs — clique duas vezes para visualizar os subvolumes"
 
 #: ../blivetgui/visualization/rectangle.py:106
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "Arranjo de RAID — clique duas vezes para visualizar o conteúdo"
 
 #: ../blivetgui/visualization/rectangle.py:107
 msgid "Stratis Pool — double-click to view filesystems"
 msgstr ""
+"Stratis Pool — clique duas vezes para visualizar os sistemas de arquivos"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:117
-#, fuzzy, python-brace-format
-#| msgid "LVM2 Logical Volume"
+#, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] "LVM2 Volume Lógico"
-msgstr[1] "LVM2 Volume Lógico"
+msgstr[0] "{count} volume lógico"
+msgstr[1] "{count} volumes lógicos"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
-#, fuzzy, python-brace-format
-#| msgid "Btrfs Subvolume"
+#, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] "Subvolume Btrfs"
-msgstr[1] "Subvolume Btrfs"
+msgstr[0] "{count} subvolume"
+msgstr[1] "{count} subvolumes"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:123
-#, fuzzy, python-brace-format
-#| msgid "Partition"
+#, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] "Partição"
-msgstr[1] "Partição"
+msgstr[0] "{count} partição"
+msgstr[1] "{count} partições"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
-#, fuzzy, python-brace-format
-#| msgid "Set filesystem label"
+#, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] "Definir o rótulo do sistema de arquivos"
-msgstr[1] "Definir o rótulo do sistema de arquivos"
+msgstr[0] "{count} sistema de arquivos"
+msgstr[1] "{count} sistemas de arquivos"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1214,7 +1215,7 @@ msgstr "Selecione novo tipo de tabela de partição:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "Abrir"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"

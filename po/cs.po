@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2026-02-22 09:58+0000\n"
+"PO-Revision-Date: 2026-02-23 10:58+0000\n"
 "Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
 "memory@weblate.org>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/blivet/"
@@ -1064,6 +1064,12 @@ msgid ""
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
+"<b>Varování:</b> Může se stát, že některé informace o Btrfs zařízeních mohou "
+"chybět, protože v systému jsou nepřipojená Btrfs zařízení. Shromáždění "
+"informací o těchto zařízeních vyžaduje je připojit, což není ve výchozím "
+"stavu zapnuto.\n"
+"Pokud toto chcete zapnout, spusťte blivet-gui s volbou <tt>--auto-dev-"
+"updates</tt>."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1139,66 +1145,60 @@ msgid "Incomplete device"
 msgstr "Neúplné zařízení"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "Základní informace"
+msgstr "Chybějící informace o dílčích svazcích"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
-msgstr ""
+msgstr "LVM2 skupina svazků – dvojklikem zobrazíte logické svazky"
 
 #: ../blivetgui/visualization/rectangle.py:105
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Btrfs svazek – dvojklikem zobrazíte dílčí svazky"
 
 #: ../blivetgui/visualization/rectangle.py:106
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "RAID pole – dvojklikem zobrazíte obsah"
 
 #: ../blivetgui/visualization/rectangle.py:107
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Stratis fond – dvojklikem zobrazíte souborové systémy"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:117
-#, fuzzy, python-brace-format
-#| msgid "LVM2 Logical Volume"
+#, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] "LVM2 logický oddíl"
-msgstr[1] "LVM2 logický oddíl"
-msgstr[2] "LVM2 logický oddíl"
+msgstr[0] "{count} logický svazek"
+msgstr[1] "{count} logických svazků"
+msgstr[2] "{count} logický svazek"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
-#, fuzzy, python-brace-format
-#| msgid "Btrfs Subvolume"
+#, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] "Btrfs dílčí svazek"
-msgstr[1] "Btrfs dílčí svazek"
-msgstr[2] "Btrfs dílčí svazek"
+msgstr[0] "{count} dílčí svazek"
+msgstr[1] "{count} dílčí svazky"
+msgstr[2] "{count} dílčích svazků"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:123
-#, fuzzy, python-brace-format
-#| msgid "Partition"
+#, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] "Oddíl"
-msgstr[1] "Oddíl"
-msgstr[2] "Oddíl"
+msgstr[0] "{count} oddíl"
+msgstr[1] "{count} oddíly"
+msgstr[2] "{count} oddílů"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
-#, fuzzy, python-brace-format
-#| msgid "Set filesystem label"
+#, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] "Nastavit štítek souborového systému"
-msgstr[1] "Nastavit štítek souborového systému"
-msgstr[2] "Nastavit štítek souborového systému"
+msgstr[0] "{count} souborový systém"
+msgstr[1] "{count} souborové systémy"
+msgstr[2] "{count} souborových systémů"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1218,7 +1218,7 @@ msgstr "Vyberte typ pro novou tabulku oddílů:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "Otevřít"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"

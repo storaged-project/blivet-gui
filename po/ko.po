@@ -9,8 +9,9 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2026-02-19 16:58+0000\n"
-"Last-Translator: 김인수 <simmon@nplob.com>\n"
+"PO-Revision-Date: 2026-02-23 10:58+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Korean <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ko/>\n"
 "Language: ko\n"
@@ -1044,6 +1045,11 @@ msgid ""
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
+"<b>경고:</b> Btrfs 장치에 대한 여러 정보는 시스템에서 적재되지 않은 Btrfs "
+"장치 때문에 누락되었을지 모릅니다. 이들 장치에 대한 정보 수집하기는 적재된 "
+"장치가 필요하지만, 기본적으로 활성화되지 않았습니다. \n"
+"이를 활성화하려면, <tt>--auto-dev-updates</tt> 옵션을 갖는 blivet-gui를 "
+"시작하세요."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1117,58 +1123,52 @@ msgid "Incomplete device"
 msgstr "불안전한 장치"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "기본 정보"
+msgstr "누락된 하위볼륨 정보"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
-msgstr ""
+msgstr "LVM2 볼륨 그룹 — 논리 볼륨을 보려면 연속 2번 누르세요"
 
 #: ../blivetgui/visualization/rectangle.py:105
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Btrfs 볼륨 — 하위볼륨을 보려면 연속 2번 누르세요"
 
 #: ../blivetgui/visualization/rectangle.py:106
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "RAID 배열 — 내용을 보려면 연속 2번 누르세요"
 
 #: ../blivetgui/visualization/rectangle.py:107
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Stratis 풀 - 파일시스템을 보려면 2번을 누르세요"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:117
-#, fuzzy, python-brace-format
-#| msgid "LVM2 Logical Volume"
+#, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] "LVM2 로지컬 볼륨"
+msgstr[0] "{count} 논리 볼륨"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
-#, fuzzy, python-brace-format
-#| msgid "Btrfs Subvolume"
+#, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] "Btrfs 하위볼륨"
+msgstr[0] "{count} 하위볼륨"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:123
-#, fuzzy, python-brace-format
-#| msgid "Partition"
+#, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] "파티션"
+msgstr[0] "{count} 파티션"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
-#, fuzzy, python-brace-format
-#| msgid "Set filesystem label"
+#, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] "파일 시스템 이름표 설정"
+msgstr[0] "{count} 파일시스템"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1188,7 +1188,7 @@ msgstr "신규 파티션 테이블 유형을 선택합니다:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "열기"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"
