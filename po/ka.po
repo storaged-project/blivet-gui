@@ -8,8 +8,9 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2026-02-19 16:58+0000\n"
-"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
+"PO-Revision-Date: 2026-02-25 02:58+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Georgian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ka/>\n"
 "Language: ka\n"
@@ -1054,6 +1055,11 @@ msgid ""
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
+"<b>გაფრთხილება:</b> ინფორმაციის ნაწილი Btrfs-ის მოწყობილობიდან შეიძლება, აქ "
+"არ იყოს, რადგან სისტემაში მოხსნილი Btrfs-ის მოწყობილობები არსებობს. ამ "
+"მოწყობილობებზე ინფორმაციის მოგროვებისთვის მათი მიმაგრებაა საჭირო, რაც "
+"ნაგულისხმევად ჩართული არაა.\n"
+"ჩასართავად გაუშვით blivet-gui პარამეტრით <tt>--auto-devl-updates</tt>."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1127,62 +1133,56 @@ msgid "Incomplete device"
 msgstr "დაუსრულებელი მოწყობილობა"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "Ძირითადი ინფორმაცია"
+msgstr "ნაკლული ქვეტომის ინფორმაცია"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
-msgstr ""
+msgstr "LVM2-ის ტომების ჯგუფი — ორმაგი წკაპი ლოგიკური ტომების დასათვალიერებლად"
 
 #: ../blivetgui/visualization/rectangle.py:105
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Btrfs-ის ტომი — ორმაგი წკაპი ქვეტომების სანახავად"
 
 #: ../blivetgui/visualization/rectangle.py:106
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "RAID მასივი — ორმაგი წკაპი შემცველობის სანახავად"
 
 #: ../blivetgui/visualization/rectangle.py:107
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Stratis-ის პული — ორმაგი წკაპი ფაილური სისტემების სანახავად"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:117
-#, fuzzy, python-brace-format
-#| msgid "LVM2 Logical Volume"
+#, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] "LVM2 ლოგიკური ტომი"
-msgstr[1] "LVM2 ლოგიკური ტომი"
+msgstr[0] "{count} ლოგიკური ტომი"
+msgstr[1] "{count} ლოგიკური ტომი"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
-#, fuzzy, python-brace-format
-#| msgid "Btrfs Subvolume"
+#, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] "Btrfs ქვეტომი"
-msgstr[1] "Btrfs ქვეტომი"
+msgstr[0] "{count} ქვეტომი"
+msgstr[1] "{count} ქვეტომი"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:123
-#, fuzzy, python-brace-format
-#| msgid "Partition"
+#, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] "დანაყოფი"
-msgstr[1] "დანაყოფი"
+msgstr[0] "{count} დანაყოფი"
+msgstr[1] "{count} დანაყოფი"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
-#, fuzzy, python-brace-format
-#| msgid "Set filesystem label"
+#, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] "ფაილური სისტემის ჭდე"
-msgstr[1] "ფაილური სისტემის ჭდე"
+msgstr[0] "{count} ფაილური სისტემა"
+msgstr[1] "{count} ფაილური სისტემა"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1202,7 +1202,7 @@ msgstr "აირჩიეთ დანაყოფების ახალი 
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "გახსნა"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"
