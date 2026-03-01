@@ -1,0 +1,23 @@
+Source: blivet-gui
+Maintainer: Vojtech Trefny <vtrefny@redhat.com>
+Section: misc
+Priority: optional
+Standards-Version: 4.4.0
+Homepage: https://github.com/storaged-project/blivet-gui
+Build-Depends: debhelper (>= 11),
+               python3-all-dev,
+               python3-setuptools,
+               gettext,
+               dh-python
+
+Package: blivet-gui
+Architecture: all
+Depends: ${python3:Depends},
+         ${misc:Depends},
+         python3-blivet,
+         python3-pid,
+         adwaita-icon-theme,
+         python3-gi-cairo,
+         gir1.2-gtk-3.0,
+Description: GUI tool for storage configuration using blivet library.
+  blivet-gui is a graphical tool for storage configuration using blivet library

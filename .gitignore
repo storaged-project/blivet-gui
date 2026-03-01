@@ -18,7 +18,10 @@ _build
 main.py
 
 blivet-gui*.tar.gz
+blivet_gui*.tar.gz
 blivet-gui*.tar.bz2
+
+deb-build/
 
 doc/_build
 doc/blivetgui

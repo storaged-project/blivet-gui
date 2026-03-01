@@ -120,6 +120,9 @@ rpm: local
 	rpmbuild -bb --nodeps $(APPNAME).spec --define "_sourcedir `pwd`"
 	rm -f $(APPNAME)-$(VERSION).tar.gz
 
+deb:
+	scripts/build_deb.sh
+
 ci: check test
 
-.PHONY: check pep8 pylint clean install tag archive local
+.PHONY: check pep8 pylint clean install tag archive local deb
