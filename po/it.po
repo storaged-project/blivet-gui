@@ -4,7 +4,7 @@
 # Luca Ciavatta <luca.ciavatta@gmail.com>, 2016. #zanata
 # Alessio <alciregi@posteo.net>, 2020.
 # Nathan <nathan95@live.it>, 2020, 2025, 2026.
-# Salvatore Cocuzza <info@salvatorecocuzza.it>, 2024, 2025.
+# Salvatore Cocuzza <info@salvatorecocuzza.it>, 2024, 2025, 2026.
 # Angelo Schirinzi <odi-3@users.noreply.translate.fedoraproject.org>, 2025.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
 msgid ""
@@ -12,9 +12,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2026-01-23 13:58+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-03-06 20:58+0000\n"
+"Last-Translator: Salvatore Cocuzza <info@salvatorecocuzza.it>\n"
 "Language-Team: Italian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/it/>\n"
 "Language: it\n"
@@ -22,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -999,16 +998,12 @@ msgid "translator-credits"
 msgstr "Luca Ciavatta"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:706
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "Informazioni"
+msgstr "Informazioni sul sistema"
 
 #: ../blivetgui/dialogs/other_dialogs.py:144
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "Informazioni"
+msgstr "Informazioni sulla versione"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:269
@@ -1021,49 +1016,48 @@ msgstr "blivet-gui"
 #, fuzzy
 #| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "unknown"
 msgid "Unknown"
-msgstr "sconosciuto"
+msgstr "Sconosciuto"
 
 #: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
-msgstr ""
+msgstr "Opzioni di avvio"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "None (all disks)"
-msgstr ""
+msgstr "Nessuno (tutti i dischi)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:168
 msgid "Exclusive disks"
-msgstr ""
+msgstr "Dischi esclusivi"
 
 #: ../blivetgui/dialogs/other_dialogs.py:170
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "Selezione dei dischi con cui blivet-gui può operare"
 
 #: ../blivetgui/dialogs/other_dialogs.py:174
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "Informazioni di base"
+msgstr "Informazioni avanzate sul dispositivo"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
-msgstr ""
+msgstr "Sì"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
 msgstr ""
+"Se è abilitata la raccolta di tutte le informazioni sui dispositivi, anche "
+"se richiede operazioni potenzialmente pericolose come il montaggio o un "
+"controllo del file system"
 
 #: ../blivetgui/dialogs/other_dialogs.py:192
 msgid ""
@@ -1073,6 +1067,12 @@ msgid ""
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
+"<b>Attenzione:</b> Alcune informazioni sui dispositivi Btrfs potrebbero "
+"mancare perché sul sistema sono presenti dispositivi Btrfs non montati. La "
+"raccolta di informazioni su questi dispositivi richiede il loro montaggio, "
+"che non è abilitato di default.\n"
+"Per abilitare questa funzionalità, avvia blivet-gui con l'opzione <tt>--auto-"
+"dev-updates</tt>."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1150,35 +1150,33 @@ msgid "Incomplete device"
 msgstr "Dispositivo incompleto"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "Informazioni di base"
+msgstr "Informazioni mancanti sul sottovolume"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
 msgstr ""
+"Gruppo di volumi LVM2 - fare doppio clic per visualizzare i volumi logici"
 
 #: ../blivetgui/visualization/rectangle.py:105
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Volume Btrfs — fare doppio clic per visualizzare i sottovolumi"
 
 #: ../blivetgui/visualization/rectangle.py:106
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "Array RAID — fare doppio clic per visualizzare il contenuto"
 
 #: ../blivetgui/visualization/rectangle.py:107
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Stratis Pool — fare doppio clic per visualizzare i file system"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:117
-#, fuzzy, python-brace-format
-#| msgid "LVM2 Logical Volume"
+#, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] "Volume Logico LVM2"
-msgstr[1] "Volume Logico LVM2"
+msgstr[0] "{count} volume logico"
+msgstr[1] "{count} volumi logici"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
