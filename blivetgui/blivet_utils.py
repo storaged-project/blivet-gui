@@ -483,8 +483,14 @@ class BlivetUtils:
         elif blivet_device.type == "loop":
             return blivet_device.parents[0]
 
-        else:
+        elif hasattr(blivet_device, "disk"):
             return blivet_device.disk
+
+        elif blivet_device.parents:
+            return self._get_root_device(blivet_device.parents[0])
+
+        else:
+            return blivet_device
 
     def get_free_device(self, blivet_device):
         """ Get FreeSpaceDevice object for selected device (e.g. VG) """
