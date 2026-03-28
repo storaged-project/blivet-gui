@@ -306,7 +306,10 @@ class BlivetUtils:
             raise TypeError("device %s is not a disk" % blivet_device.name)
 
         if blivet_device.is_disk and not blivet_device.format.type:
-            if blivet_device.format.name != "Unknown":
+            if blivet_device.children:
+                # disk without format but with children (e.g. dm-linear devices)
+                return ProxyDataContainer(partitions=list(blivet_device.children), extended=None, logicals=None)
+            elif blivet_device.format.name != "Unknown":
                 # disk with unsupported format
                 return ProxyDataContainer(partitions=[blivet_device], extended=None, logicals=None)
             else:
