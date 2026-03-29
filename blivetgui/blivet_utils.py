@@ -306,7 +306,10 @@ class BlivetUtils:
             raise TypeError("device %s is not a disk" % blivet_device.name)
 
         if blivet_device.is_disk and not blivet_device.format.type:
-            if blivet_device.format.name != "Unknown":
+            if blivet_device.children:
+                # disk without format but with children (e.g. dm-linear devices)
+                return ProxyDataContainer(partitions=list(blivet_device.children), extended=None, logicals=None)
+            elif blivet_device.format.name != "Unknown":
                 # disk with unsupported format
                 return ProxyDataContainer(partitions=[blivet_device], extended=None, logicals=None)
             else:
@@ -483,8 +486,14 @@ class BlivetUtils:
         elif blivet_device.type == "loop":
             return blivet_device.parents[0]
 
-        else:
+        elif hasattr(blivet_device, "disk"):
             return blivet_device.disk
+
+        elif blivet_device.parents:
+            return self._get_root_device(blivet_device.parents[0])
+
+        else:
+            return blivet_device
 
     def get_free_device(self, blivet_device):
         """ Get FreeSpaceDevice object for selected device (e.g. VG) """
