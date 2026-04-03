@@ -9,13 +9,14 @@
 # Charles Lee <lchopn@gmail.com>, 2020, 2021.
 # yangyangdaji <1504305527@qq.com>, 2022, 2023.
 # z z <3397542367@qq.com>, 2025.
+# 耗子 <haozi@loli.email>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2025-04-02 16:40+0000\n"
-"Last-Translator: z z <3397542367@qq.com>\n"
+"PO-Revision-Date: 2026-04-02 23:59+0000\n"
+"Last-Translator: 耗子 <haozi@loli.email>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/zh_CN/>\n"
 "Language: zh_CN\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -35,16 +36,13 @@ msgid "resize {name} {type}"
 msgstr "调整{type} 卷{name} 大小"
 
 #: ../blivetgui/blivetgui.py:326
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "调整设备大小失败："
+msgstr "重命名设备失败："
 
 #: ../blivetgui/blivetgui.py:338
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "调整{type} 卷{name} 大小"
+msgstr "重命名 {name} {type}"
 
 #: ../blivetgui/blivetgui.py:357
 msgid "Failed to format the device:"
@@ -326,10 +324,8 @@ msgid "Disks"
 msgstr "磁盘"
 
 #: ../blivetgui/list_devices.py:91
-#, fuzzy
-#| msgid "MD RAID Array"
 msgid "MDRAID set"
-msgstr "MD RAID 阵列"
+msgstr "MDRAID 集"
 
 #: ../blivetgui/list_devices.py:112
 msgid "LVM"
@@ -358,18 +354,18 @@ msgstr "Btrfs 卷"
 
 #: ../blivetgui/list_devices.py:130
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Stratis 池"
 
 #: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:391
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Stratis 池"
 
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
 #: ../blivetgui/list_partitions.py:166
 #: ../blivetgui/visualization/rectangle.py:66
 msgid "unknown"
-msgstr ""
+msgstr "未知"
 
 #: ../blivetgui/loading_window.py:47
 msgid "Probing storage"
@@ -511,10 +507,8 @@ msgid "LVM2 Snapshot"
 msgstr "LVM2 快照"
 
 #: ../blivetgui/dialogs/add_dialog.py:407
-#, fuzzy
-#| msgid "LVM2 Thin Snaphost"
 msgid "LVM2 Thin Snapshot"
-msgstr "LVM2 瘦快照"
+msgstr "LVM2 精简快照"
 
 #: ../blivetgui/dialogs/add_dialog.py:410
 #: ../blivetgui/dialogs/device_info_dialog.py:84
@@ -527,10 +521,8 @@ msgid "Btrfs Subvolume"
 msgstr "Btrfs 子卷"
 
 #: ../blivetgui/dialogs/add_dialog.py:416
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "文件系统："
+msgstr "Stratis 文件系统"
 
 #: ../blivetgui/dialogs/add_dialog.py:422
 msgid "Device type:"
@@ -608,7 +600,7 @@ msgstr "\"{0}\" 不是有效的名称。"
 #: ../blivetgui/dialogs/add_dialog.py:1105
 #, python-brace-format
 msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
-msgstr ""
+msgstr "必须先创建 “{0}” 子卷，然后才能创建 “{1}” 子卷。"
 
 #: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
@@ -831,12 +823,13 @@ msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>标签：</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:241
-#, fuzzy, python-brace-format
-#| msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+#, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
-msgstr " • <i>挂载点：</i> {mountpoint}\n"
+msgstr ""
+" • <i>挂载点：</i>\n"
+"     {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid " • <i>Type:</i> None"
@@ -876,10 +869,9 @@ msgid "Selected device is already named \"{0}\"."
 msgstr "选定的设备已命名为“{0}”。"
 
 #: ../blivetgui/dialogs/edit_dialog.py:487
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr "所选挂载点 \"{0}\" 已分配至另一设备。"
+msgstr "所选名称 “{0}” 已被使用。"
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:598
@@ -939,18 +931,15 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
+"如果您认为这是一个缺陷，请使用下方的“报告缺陷”按钮通过自动缺陷报告工具（ABRT"
+"）报告，或在我们的 GitHub 上创建 issue。"
 
 #: ../blivetgui/dialogs/message_dialogs.py:136
-#, fuzzy, python-format
-#| msgid ""
-#| "If you believe this is a bug, please open an issue on our <a "
-#| "href=\"https://github.com/storaged-project/blivet-gui/issues\">GitHub</a>."
+#, python-format
 msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
-msgstr ""
-"如果您认为这是一个错误，请在我们的 <a href=\"https://github.com/storaged-"
-"project/blivet-gui/issues\">GitHub</a> 上打开一个问题。"
+msgstr "如果您认为这是一个缺陷，请在我们的 <a href=\"%s\">GitHub</a> 上创建 issue。"
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
@@ -982,16 +971,12 @@ msgid "translator-credits"
 msgstr "翻译人员致谢"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:706
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "信息"
+msgstr "系统信息"
 
 #: ../blivetgui/dialogs/other_dialogs.py:144
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "信息"
+msgstr "版本信息"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:269
@@ -1001,50 +986,46 @@ msgstr "blivet-gui"
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:152
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
 msgid "Unknown"
-msgstr ""
+msgstr "未知"
 
 #: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
-msgstr ""
+msgstr "启动选项"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "None (all disks)"
-msgstr ""
+msgstr "无（所有磁盘）"
 
 #: ../blivetgui/dialogs/other_dialogs.py:168
 msgid "Exclusive disks"
-msgstr ""
+msgstr "专属磁盘"
 
 #: ../blivetgui/dialogs/other_dialogs.py:170
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "blivet-gui 允许操作的磁盘选择"
 
 #: ../blivetgui/dialogs/other_dialogs.py:174
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "基本信息"
+msgstr "高级设备信息"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
-msgstr ""
+msgstr "是否启用收集设备的所有信息，即使这需要可能危险的操作（如挂载或文件系统检查）"
 
 #: ../blivetgui/dialogs/other_dialogs.py:192
 msgid ""
@@ -1053,7 +1034,7 @@ msgid ""
 "information about these devices requires mounting them which is not enabled "
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
-msgstr ""
+msgstr "<b>警告：</b>由于系统上存在未挂载的 Btrfs 设备，部分 Btrfs 设备信息可能缺失。"
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1123,64 +1104,56 @@ msgid "Cached device"
 msgstr "已缓存的设备"
 
 #: ../blivetgui/visualization/rectangle.py:61
-#, fuzzy
-#| msgid "Empty device"
 msgid "Incomplete device"
-msgstr "空设备"
+msgstr "不完整的设备"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "基本信息"
+msgstr "缺少子卷信息"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
-msgstr ""
+msgstr "LVM2 卷组 — 双击查看逻辑卷"
 
 #: ../blivetgui/visualization/rectangle.py:105
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Btrfs 卷 — 双击查看子卷"
 
 #: ../blivetgui/visualization/rectangle.py:106
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "RAID 阵列 — 双击查看内容"
 
 #: ../blivetgui/visualization/rectangle.py:107
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Stratis 池 — 双击查看文件系统"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:117
-#, fuzzy, python-brace-format
-#| msgid "LVM2 Logical Volume"
+#, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] "LVM2 逻辑卷"
+msgstr[0] "{count} 个逻辑卷"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
-#, fuzzy, python-brace-format
-#| msgid "Btrfs Subvolume"
+#, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] "Btrfs 子卷"
+msgstr[0] "{count} 个子卷"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:123
-#, fuzzy, python-brace-format
-#| msgid "Partition"
+#, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] "分区"
+msgstr[0] "{count} 个分区"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
-#, fuzzy, python-brace-format
-#| msgid "Set filesystem label"
+#, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] "设置文件系统标签"
+msgstr[0] "{count} 个文件系统"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1200,7 +1173,7 @@ msgstr "选择新分区表类型："
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "打开"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"
@@ -1482,10 +1455,8 @@ msgid "RAID level:"
 msgstr "RAID 级别："
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "调整设备大小"
+msgstr "重命名设备"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
