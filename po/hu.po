@@ -3,13 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Meskó Balázs <meskobalazs@gmail.com>, 2018. #zanata
 # Bendegúz Gyönki <gyonkibendeguz@gmail.com>, 2020.
-# Balázs Meskó <meskobalazs@mailbox.org>, 2020, 2021, 2022.
+# Balázs Meskó <meskobalazs@mailbox.org>, 2020, 2021, 2022, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2022-08-09 21:19+0000\n"
+"PO-Revision-Date: 2026-04-04 11:58+0000\n"
 "Last-Translator: Balázs Meskó <meskobalazs@mailbox.org>\n"
 "Language-Team: Hungarian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/hu/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.13\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -30,20 +30,17 @@ msgid "resize {name} {type}"
 msgstr "{name} {type} átméretezése"
 
 #: ../blivetgui/blivetgui.py:326
-#, fuzzy
-#| msgid "Failed to resize the device:"
 msgid "Failed to rename the device:"
-msgstr "Az eszköz átméretezése nem sikerült:"
+msgstr "Nem sikerült az eszköz átméretezése:"
 
 #: ../blivetgui/blivetgui.py:338
-#, fuzzy, python-brace-format
-#| msgid "resize {name} {type}"
+#, python-brace-format
 msgid "rename {name} {type}"
-msgstr "{name} {type} átméretezése"
+msgstr "{name} {type} átnevezése"
 
 #: ../blivetgui/blivetgui.py:357
 msgid "Failed to format the device:"
-msgstr "Az eszköz formázása nem sikerült:"
+msgstr "Nem sikerült az eszköz formázása:"
 
 #: ../blivetgui/blivetgui.py:371
 #, python-brace-format
@@ -52,7 +49,7 @@ msgstr "{name} {type} formázása"
 
 #: ../blivetgui/blivetgui.py:384
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr "LVM2 kötetcsoport szerkesztése sikertelen:"
+msgstr "Nem sikerült az LVM2 kötetcsoport szerkesztése:"
 
 #: ../blivetgui/blivetgui.py:399
 #, python-brace-format
@@ -88,11 +85,11 @@ msgid ""
 "{label} disklabel."
 msgstr ""
 "A(z) {name} lemez elérte a maximálisan megengedett elsődleges partíciók "
-"számát a {label} lemezcímkén."
+"számát a(z) {label} lemezcímkéhez."
 
 #: ../blivetgui/blivetgui.py:470
 msgid "Failed to add disklabel:"
-msgstr "A lemezcímke hozzáadása sikertelen:"
+msgstr "Nem sikerült a lemezcímke hozzáadása:"
 
 #: ../blivetgui/blivetgui.py:483
 #, python-brace-format
@@ -101,7 +98,7 @@ msgstr "új lemezcímke létrehozása ezen: {name}"
 
 #: ../blivetgui/blivetgui.py:535
 msgid "Failed to add the device:"
-msgstr "Az eszköz hozzáadása sikertelen:"
+msgstr "Nem sikerült az eszköz hozzáadása:"
 
 #: ../blivetgui/blivetgui.py:550
 #, python-brace-format
@@ -110,7 +107,7 @@ msgstr "{size} {type} eszköz hozzáadása"
 
 #: ../blivetgui/blivetgui.py:594
 msgid "Failed to delete the device:"
-msgstr "Az eszköz törlése sikertelen:"
+msgstr "Nem sikerült az eszköz törlése:"
 
 #: ../blivetgui/blivetgui.py:609
 #, python-brace-format
@@ -119,7 +116,7 @@ msgstr "{name} partíció törlése"
 
 #: ../blivetgui/blivetgui.py:650
 msgid "Failed to perform the actions:"
-msgstr "A műveletek végrehajtása sikertelen:"
+msgstr "Nem sikerült a műveletek végrehajtása:"
 
 #: ../blivetgui/blivetgui.py:694
 msgid "Confirm scheduled actions"
@@ -156,7 +153,7 @@ msgid ""
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
 "A blivet-gui egy másik példánya már fut.\n"
-"A blivet-guinak egyszerre csak egy példánya futhat."
+"Egyszerre csak egy blivet-gui példány futhat."
 
 #: ../blivetgui/blivetgui.py:814
 msgid ""
@@ -170,15 +167,15 @@ msgid ""
 msgstr ""
 "Ha a blivet-gui előző példánya összeomlott, akkor győződjön meg róla, hogy a "
 "<i>blivet-gui-daemon</i> folyamat is véget ért.\n"
-"Ha még mindig fut, akkor a megszakításához a\n"
+"Ha még mindig fut, akkor használja a\n"
 "\n"
 "<tt>$ sudo killall blivet-gui-daemon</tt>\n"
 "\n"
-"parancsot használhatja."
+"parancsot a kényszerített bezárásához."
 
 #: ../blivetgui/blivetgui.py:846
 msgid "Failed to init blivet:"
-msgstr "A blivet előkészítése sikertelen:"
+msgstr "Nem sikerült a blivet előkészítése:"
 
 #: ../blivetgui/blivetgui.py:853
 msgid "Quit blivet-gui"
@@ -288,7 +285,7 @@ msgstr "A LUKS-eszközök átméretezése jelenleg nem támogatott."
 #: ../blivetgui/blivet_utils.py:769
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
-msgstr "A fájlrendszerméret-információk frissítése sikertelen: {error}"
+msgstr "Nem sikerült a fájlrendszerméret-információk frissítése: {error}"
 
 #: ../blivetgui/blivet_utils.py:788
 msgid "Device is not resizable."
@@ -300,10 +297,7 @@ msgstr ""
 "A formázás a méretkorlát-információk frissítése után nem méretezhető át."
 
 #: ../blivetgui/exception_handler.py:74
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred.\n"
 "{error}"
@@ -312,10 +306,7 @@ msgstr ""
 "{error}"
 
 #: ../blivetgui/exception_handler.py:76
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Blivet-gui will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
@@ -340,8 +331,6 @@ msgid "Disks"
 msgstr "Lemezek"
 
 #: ../blivetgui/list_devices.py:91
-#, fuzzy
-#| msgid "MD RAID Array"
 msgid "MDRAID set"
 msgstr "MD RAID-tömb"
 
@@ -372,26 +361,26 @@ msgstr "Btrfs kötet"
 
 #: ../blivetgui/list_devices.py:130
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Stratis tárolók"
 
 #: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:391
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Stratis tároló"
 
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
 #: ../blivetgui/list_partitions.py:166
 #: ../blivetgui/visualization/rectangle.py:66
 msgid "unknown"
-msgstr ""
+msgstr "ismeretlen"
 
 #: ../blivetgui/loading_window.py:47
 msgid "Probing storage"
-msgstr "Tárolók pásztázása"
+msgstr "Tárolók átvizsgálása"
 
 #: ../blivetgui/loading_window.py:64
 msgid "Scanning storage configuration..."
-msgstr "Tároló-összeállítás pásztázása…"
+msgstr "Tároló-összeállítás átvizsgálása…"
 
 #: ../blivetgui/osinstall.py:218
 #, python-brace-format
@@ -407,10 +396,7 @@ msgstr ""
 " anaconda kezelni fogja a jelentési folyamatot."
 
 #: ../blivetgui/osinstall.py:220
-#, fuzzy, python-brace-format
-#| msgid ""
-#| "Unknown error occured. Anaconda will be terminated.\n"
-#| "{error}"
+#, python-brace-format
 msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
@@ -449,7 +435,7 @@ msgstr ""
 #: ../blivetgui/communication/client.py:313
 #: ../blivetgui/communication/client.py:330
 msgid "Failed to connect to blivet-gui-daemon"
-msgstr "nem sikerült csatlakozni a blivet-gui-daemonhoz"
+msgstr "Nem sikerült csatlakozni a blivet-gui-daemonhoz"
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
@@ -461,7 +447,7 @@ msgstr "PE méret:"
 
 #: ../blivetgui/dialogs/add_dialog.py:109
 msgid "Partition type:"
-msgstr "Partíció típus:"
+msgstr "Partíció típusa:"
 
 #: ../blivetgui/dialogs/add_dialog.py:118
 msgid "Logical"
@@ -488,7 +474,7 @@ msgstr "A(z) „{0}” érvénytelen darabméret-megadás."
 
 #: ../blivetgui/dialogs/add_dialog.py:217
 msgid "Chunk size must be multiple of 4 KiB."
-msgstr "A darabméret 4 KiB többszöröse kell legyen."
+msgstr "A darabméretnek 4 KiB többszörösének kell lennie."
 
 #: ../blivetgui/dialogs/add_dialog.py:273
 msgid "Create new device"
@@ -528,8 +514,6 @@ msgid "LVM2 Snapshot"
 msgstr "LVM2 pillanatkép"
 
 #: ../blivetgui/dialogs/add_dialog.py:407
-#, fuzzy
-#| msgid "LVM2 Thin Snaphost"
 msgid "LVM2 Thin Snapshot"
 msgstr "LVM2 vékony pillanatkép-tároló"
 
@@ -544,14 +528,12 @@ msgid "Btrfs Subvolume"
 msgstr "Btrfs alkötet"
 
 #: ../blivetgui/dialogs/add_dialog.py:416
-#, fuzzy
-#| msgid "Filesystem:"
 msgid "Stratis Filesystem"
-msgstr "Fájlrendszer:"
+msgstr "Stratis fájlrendszer"
 
 #: ../blivetgui/dialogs/add_dialog.py:422
 msgid "Device type:"
-msgstr "Eszköz típus:"
+msgstr "Eszköz típusa:"
 
 #: ../blivetgui/dialogs/add_dialog.py:457
 #: ../blivetgui/dialogs/edit_dialog.py:628
@@ -584,7 +566,7 @@ msgstr "Elérhető eszközök:"
 
 #: ../blivetgui/dialogs/add_dialog.py:761
 msgid "MDArray type:"
-msgstr "MDArray típus:"
+msgstr "MDArray típusa:"
 
 #: ../blivetgui/dialogs/add_dialog.py:793
 msgid "Filesystem:"
@@ -614,7 +596,7 @@ msgstr "A(z) „{0}” érvénytelen csatolási pont."
 
 #: ../blivetgui/dialogs/add_dialog.py:1085
 msgid "Please select at least two parent devices."
-msgstr "Válasszon legalább két szülő eszközt."
+msgstr "Válasszon legalább két szülőeszközt."
 
 #: ../blivetgui/dialogs/add_dialog.py:1099
 #: ../blivetgui/dialogs/edit_dialog.py:468
@@ -625,13 +607,13 @@ msgstr "A(z) „{0}” név érvénytelen."
 #: ../blivetgui/dialogs/add_dialog.py:1105
 #, python-brace-format
 msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
-msgstr ""
+msgstr "A(z) „{0}” alkötetet a(z) „{1}” alkötet előtt kell létrehozni."
 
 #: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
-msgstr "A „{0}” érvénytelen címke."
+msgstr "A(z) „{0}” érvénytelen címke."
 
 #. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:36
@@ -679,7 +661,7 @@ msgstr " • <i>Hossz:</i> {length}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:106
 #, python-brace-format
 msgid " • <i>Start:</i> {start}\n"
-msgstr " • <i>Indítás:</i> {start}\n"
+msgstr " • <i>Kezdet:</i> {start}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:107
 #, python-brace-format
@@ -696,7 +678,7 @@ msgstr " • <i>Eredet:</i> {origin}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:121
 #, python-brace-format
 msgid " • <i>Segment type:</i> {segtype}\n"
-msgstr " • <i>Szegmens típus:</i> {segtype}\n"
+msgstr " • <i>Szegmenstípus:</i> {segtype}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:118
 #, python-brace-format
@@ -720,7 +702,7 @@ msgstr " • <i>Gyorsítótárazva:</i> Nem\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:130
 #, python-brace-format
 msgid " • <i>PE Size:</i> {pesize}\n"
-msgstr " • <i>PE méret:</i> {pesize}\n"
+msgstr " • <i>PE mérete:</i> {pesize}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:131
 #, python-brace-format
@@ -761,7 +743,7 @@ msgstr " • <i>Adatszint:</i> {level}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:144
 #, python-brace-format
 msgid " • <i>Metadata Level:</i> {level}\n"
-msgstr " • <i>Metaadat szint:</i> {level}\n"
+msgstr " • <i>Metaadatszint:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:149
 #, python-brace-format
@@ -786,7 +768,7 @@ msgstr " • <i>Degradált:</i> {degraded}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:153
 #, python-brace-format
 msgid " • <i>Metadata Version:</i> {metadata}\n"
-msgstr " • <i>Metaadat verzió:</i> {metadata}\n"
+msgstr " • <i>Metaadatverzió:</i> {metadata}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:168
 #, python-brace-format
@@ -796,7 +778,7 @@ msgstr "{name} ismeretlen eszköz"
 #. device info header
 #: ../blivetgui/dialogs/device_info_dialog.py:176
 msgid "Basic information"
-msgstr "Alapvető információ"
+msgstr "Alapvető információk"
 
 #. 'basic' information about selected device
 #: ../blivetgui/dialogs/device_info_dialog.py:186
@@ -848,12 +830,13 @@ msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>Címke:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:241
-#, fuzzy, python-brace-format
-#| msgid " • <i>Mountpoint:</i> {mountpoint}\n"
+#, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
-msgstr " • <i>Csatolási pont:</i> {mountpoint}\n"
+msgstr ""
+" • <i>Csatolási pontok:</i>\n"
+"      {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid " • <i>Type:</i> None"
@@ -890,14 +873,12 @@ msgstr "A(z) „{label}” címke érvénytelen ennél a fájlrendszernél"
 #: ../blivetgui/dialogs/edit_dialog.py:481
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "A kiválasztott eszköznek már ez a neve: „{0}”."
 
 #: ../blivetgui/dialogs/edit_dialog.py:487
-#, fuzzy, python-brace-format
-#| msgid "Selected mountpoint \"{0}\" is already set for another device."
+#, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr ""
-"A kiválasztott „{0}” csatolási pont már be van állítva egy másik eszköznél."
+msgstr "A kiválasztott „{0}” név már használatban van."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:598
@@ -906,7 +887,7 @@ msgstr "Eszköz szerkesztése"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
 msgid "Parent devices:"
-msgstr "Szülő eszközök:"
+msgstr "Szülőeszközök:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:645
 msgid "Add a parent"
@@ -958,6 +939,10 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
+"Ha azt gondolja, hogy ez hiba, akkor használja a leni „Hiba jelentése” "
+"gombot, hogy bejelentse az\n"
+"Automatikus hibajelentési eszközzel (ABRT), vagy jegyet nyisson a <a "
+"href=\"%s\">GitHubon</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:136
 #, python-format
@@ -965,6 +950,8 @@ msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
+"Ha azt gondolja, hogy ez hiba, akkor nyisson egy jegyet a <a href=\"%s\">"
+"GitHubunkon</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
@@ -985,7 +972,7 @@ msgstr ""
 #: ../blivetgui/dialogs/message_dialogs.py:227
 #, python-brace-format
 msgid "Also delete following parent devices of {name}:"
-msgstr "Törli a(z) {name} következő szülő eszközeit:"
+msgstr "Törli a(z) {name} következő szülőeszközeit:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:327
 msgid "There are no pending actions."
@@ -995,19 +982,15 @@ msgstr "Nincs függőben lévő művelet."
 #. your name and email address (optional) here. Separate translator names with newlines.
 #: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
-msgstr "Meskó Balázs <mesko.balazs@fsf.hu>, 2018,2020."
+msgstr "Meskó Balázs <mesko.balazs@fsf.hu>, 2018, 2020, 2026."
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:706
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "Információ"
+msgstr "Rendszerinformációk"
 
 #: ../blivetgui/dialogs/other_dialogs.py:144
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "Információ"
+msgstr "Verzióinformációk"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:269
@@ -1017,50 +1000,49 @@ msgstr "blivet-gui"
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:152
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
 msgid "Unknown"
-msgstr ""
+msgstr "Ismeretlen"
 
 #: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
-msgstr ""
+msgstr "Indítási kapcsolók"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "None (all disks)"
-msgstr ""
+msgstr "Egyik sem (összes lemez)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:168
 msgid "Exclusive disks"
-msgstr ""
+msgstr "Kizárólagos lemezek"
 
 #: ../blivetgui/dialogs/other_dialogs.py:170
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "Lemezek kiválasztása, melyen a blivet-gui dolgozhat"
 
 #: ../blivetgui/dialogs/other_dialogs.py:174
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "Alapvető információ"
+msgstr "Speciális eszközinformációk"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
-msgstr ""
+msgstr "Igen"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "No"
-msgstr ""
+msgstr "Nem"
 
 #: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
 msgstr ""
+"Engedélyezve van-e az összes információ összegyűjtése az eszközökről, még "
+"akkor is, ha ez esetleg veszélyes műveletet igényel, például csatolást vagy "
+"fájlrendszer-ellenőrzést"
 
 #: ../blivetgui/dialogs/other_dialogs.py:192
 msgid ""
@@ -1070,6 +1052,12 @@ msgid ""
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
+"<b>Figyelmezetés:</b> A Btrfs eszközök egyes információi hiányozhatnak, mert "
+"nem csatolt Btrs eszközök vannak a rendszerben. Az ezekről történő "
+"információgyűjtés csatolást igényel, de ez alapértelmezetten nincs "
+"bekapcsolva.\n"
+"A bekapcsolásához a <tt>--auto-dev-updates</tt> kapcsolóval indítsa el a "
+"blivet-gui programot."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1090,23 +1078,23 @@ msgstr "Automatikus"
 
 #: ../blivetgui/dialogs/widgets.py:380
 msgid "Passphrase not specified."
-msgstr "Nem adott meg jelszót."
+msgstr "Nem adott meg jelmondatot."
 
 #: ../blivetgui/dialogs/widgets.py:383
 msgid "Provided passphrases do not match."
-msgstr "A megadott jelszavak nem egyeznek."
+msgstr "A megadott jelmondatok nem egyeznek."
 
 #: ../blivetgui/dialogs/widgets.py:414
 msgid "Passphrases match."
-msgstr "A jelszavak megegyeznek."
+msgstr "A jelmondatok megegyeznek."
 
 #: ../blivetgui/dialogs/widgets.py:417
 msgid "Passphrases don't match."
-msgstr "A jelszavak nem egyeznek."
+msgstr "A jelmondatok nem egyeznek."
 
 #: ../blivetgui/visualization/rectangle.py:52
 msgid "Group device"
-msgstr "Csoport eszköz"
+msgstr "Csoporteszköz"
 
 #: ../blivetgui/visualization/rectangle.py:53
 msgid "LiveUSB device"
@@ -1134,75 +1122,67 @@ msgstr "Hiányzó partíciós tábla"
 
 #: ../blivetgui/visualization/rectangle.py:59
 msgid "Device or format is write protected"
-msgstr "Az eszköz vagy formátum írásvédett"
+msgstr "Az eszköz vagy a formátum írásvédett"
 
 #: ../blivetgui/visualization/rectangle.py:60
 msgid "Cached device"
 msgstr "Gyorsítótárazott eszköz"
 
 #: ../blivetgui/visualization/rectangle.py:61
-#, fuzzy
-#| msgid "Empty device"
 msgid "Incomplete device"
-msgstr "Üres eszköz"
+msgstr "Hiányos eszköz"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "Alapvető információ"
+msgstr "Hiányzó alkötet-információk"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
-msgstr ""
+msgstr "LVM2 kötetcsoport – dupla kattintás a logika kötetek megtekintéséhez"
 
 #: ../blivetgui/visualization/rectangle.py:105
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Btrfs kötet – dupla kattintás az alkötetek megtekintéséhez"
 
 #: ../blivetgui/visualization/rectangle.py:106
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "RAID kötet – dupla kattintás a tartalom megtekintéséhez"
 
 #: ../blivetgui/visualization/rectangle.py:107
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Stratis tároló – dupla kattintás a fájlrendszerek megtekintéséhez"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:117
-#, fuzzy, python-brace-format
-#| msgid "LVM2 Logical Volume"
+#, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] "LVM2 logikai kötet"
-msgstr[1] "LVM2 logikai kötet"
+msgstr[0] "{count} logikai kötet"
+msgstr[1] "{count} logikai kötet"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
-#, fuzzy, python-brace-format
-#| msgid "Btrfs Subvolume"
+#, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] "Btrfs alkötet"
-msgstr[1] "Btrfs alkötet"
+msgstr[0] "{count} alkötet"
+msgstr[1] "{count} alkötet"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:123
-#, fuzzy, python-brace-format
-#| msgid "Partition"
+#, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] "Partíció"
-msgstr[1] "Partíció"
+msgstr[0] "{count} partíció"
+msgstr[1] "{count} partíció"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
-#, fuzzy, python-brace-format
-#| msgid "Set filesystem label"
+#, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] "Fájlrendszercímke beállítása"
-msgstr[1] "Fájlrendszercímke beállítása"
+msgstr[0] "{count} fájlrendszer"
+msgstr[1] "{count} fájlrendszer"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1222,7 +1202,7 @@ msgstr "Válassza ki az új partíciós tábla típusát:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "Megnyitás"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"
@@ -1242,7 +1222,7 @@ msgstr "Átméretezés"
 
 #: ../data/ui/blivet-gui.ui:64 ../data/ui/blivet-gui.ui:152
 msgid "Rename"
-msgstr ""
+msgstr "Átnevezés"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:72 ../data/ui/blivet-gui.ui:160
@@ -1257,7 +1237,7 @@ msgstr "Szülők módosítása"
 #: ../data/ui/blivet-gui.ui:88 ../data/ui/blivet-gui.ui:176
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
-msgstr "Csatolási pont megadása"
+msgstr "Csatolási pont beállítása"
 
 #: ../data/ui/blivet-gui.ui:96 ../data/ui/blivet-gui.ui:184
 msgid "Set label"
@@ -1363,7 +1343,7 @@ msgstr "Legutóbbi művelet visszavonása"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
-msgstr "Ezen LV gyorsítótárazása:"
+msgstr "Ezen logikai kötet gyorsítótárazása:"
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
@@ -1375,7 +1355,7 @@ msgstr "Lemezen"
 
 #: ../data/ui/cache_area.ui:142
 msgid "Cache type:"
-msgstr "Gyorsítótár típus:"
+msgstr "Gyorsítótár típusa:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
@@ -1485,7 +1465,7 @@ msgstr "Adja meg a jelszót a kiválasztott eszköz feloldásához."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
-msgstr "Csatolás pont _megadása"
+msgstr "Csatolás pont _beállítása"
 
 #: ../data/ui/mountpoint_dialog.ui:88
 msgid "Enter new mountpoint:"
@@ -1504,22 +1484,18 @@ msgid "RAID level:"
 msgstr "RAID szint:"
 
 #: ../data/ui/rename_dialog.ui:7
-#, fuzzy
-#| msgid "Resize device"
 msgid "Rename device"
-msgstr "Eszköz átméretezése"
+msgstr "Eszköz átnevezése"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "Átnevezés"
 
 #: ../data/ui/rename_dialog.ui:68
-#, fuzzy
-#| msgid "Enter new label for this filesystem:"
 msgid "Enter new name for this device:"
-msgstr "Adja meg a fájlrendszer új címkéjét:"
+msgstr "Adja meg az eszköz új nevét:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
