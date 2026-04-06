@@ -24,6 +24,10 @@ class FormatDialogTest(unittest.TestCase):
         cls.parent_window = Gtk.Window()
         cls.supported_filesystems = supported_filesystems()
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.parent_window.destroy()
+
     def test_basic(self):
 
         dev = MagicMock(size=Size("1 GiB"), format=MagicMock(mountpoint=None))
@@ -108,6 +112,10 @@ class MountpointDialogTest(unittest.TestCase):
 
         cls.parent_window = Gtk.Window()
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.parent_window.destroy()
+
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_installer(self):
         dev = MagicMock(size=Size("1 GiB"), format=MagicMock(mountable=True, mountpoint="/var"))
@@ -184,6 +192,10 @@ class LabelDialogTest(unittest.TestCase):
 
         cls.parent_window = Gtk.Window()
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.parent_window.destroy()
+
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_basic(self):
         fmt = MagicMock()
@@ -244,6 +256,10 @@ class UnmountDialogTest(unittest.TestCase):
         from gi.repository import Gtk
 
         cls.parent_window = Gtk.Window()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.parent_window.destroy()
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_basic(self):
@@ -317,6 +333,10 @@ class ResizeDialogTest(unittest.TestCase):
 
         cls.parent_window = Gtk.Window()
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.parent_window.destroy()
+
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_basic(self):
         fmt = MagicMock()
@@ -388,6 +408,10 @@ class RenameDialogTest(unittest.TestCase):
 
         cls.parent_window = Gtk.Window()
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.parent_window.destroy()
+
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_basic(self):
         vg = MagicMock()
@@ -445,6 +469,10 @@ class LVMEditDialogTest(unittest.TestCase):
         from gi.repository import Gtk
 
         cls.parent_window = Gtk.Window()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.parent_window.destroy()
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_no_free_space_for_add(self):
