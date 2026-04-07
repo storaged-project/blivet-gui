@@ -240,6 +240,10 @@ class AddDialogTest(unittest.TestCase):
         cls.parent_window = Gtk.Window()
         cls.supported_filesystems = supported_filesystems()
 
+    @classmethod
+    def tearDownClass(cls):
+        cls.parent_window.destroy()
+
     def _get_free_device(self, size=Size("8 GiB"), logical=False, parent=None, **kwargs):
         if not parent:
             parent = self._get_parent_device(name="vda", dtype="disk", size=size)
