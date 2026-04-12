@@ -10,27 +10,27 @@
 # Jacek Smyda <smyda@posexperts.com.pl>, 1998
 # Leszek Matok <lam@lac.pl>, 2004
 # Pawel Szopinski <pawel@szopinski.co.uk>, 2004
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2015, 2020, 2021, 2022, 2024, 2025.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2015, 2020, 2021, 2022, 2024, 2025, 2026.
 # Radosław Zawartko <radzaw@radzaw.one.pl>, 2004
 # sonyam <sonyam@tlen.pl>, 2004
 # Stanisław Małolepszy <smalolepszy@aviary.pl>, 2006
 # Tom Berner <tom@lodz.pl>, 2005
 # Tom Berner <tom@man.lodz.pl>, 2004
 # Wojciech Kapusta <wojciech@aviary.pl>, 2006
-# Piotr Drąg <piotrdrag@gmail.com>, 2014, 2020, 2021, 2022, 2024, 2025.
-# Piotr Drąg <piotrdrag@gmail.com>, 2013-2014, 2020, 2021, 2022, 2024, 2025.
-# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021, 2022, 2024, 2025.
+# Piotr Drąg <piotrdrag@gmail.com>, 2014, 2020, 2021, 2022, 2024, 2025, 2026.
+# Piotr Drąg <piotrdrag@gmail.com>, 2013-2014, 2020, 2021, 2022, 2024, 2025, 2026.
+# Piotr Drąg <piotrdrag@gmail.com>, 2016. #zanata, 2020, 2021, 2022, 2024, 2025, 2026.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
-# Piotr Drąg <piotrdrag@gmail.com>, 2017. #zanata, 2020, 2021, 2022, 2024, 2025.
-# Piotr Drąg <piotrdrag@gmail.com>, 2018. #zanata, 2020, 2021, 2022, 2024, 2025.
-# Piotr Drąg <piotrdrag@gmail.com>, 2020. #zanata, 2021, 2022, 2024, 2025.
-# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
+# Piotr Drąg <piotrdrag@gmail.com>, 2017. #zanata, 2020, 2021, 2022, 2024, 2025, 2026.
+# Piotr Drąg <piotrdrag@gmail.com>, 2018. #zanata, 2020, 2021, 2022, 2024, 2025, 2026.
+# Piotr Drąg <piotrdrag@gmail.com>, 2020. #zanata, 2021, 2022, 2024, 2025, 2026.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2025-12-22 15:26+0000\n"
+"PO-Revision-Date: 2026-04-12 12:44+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/pl/>\n"
@@ -40,7 +40,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -641,6 +641,7 @@ msgstr "„{0}” nie jest prawidłową nazwą."
 #, python-brace-format
 msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
 msgstr ""
+"Podwolumin „{0}” musi zostać utworzony przed utworzeniem podwoluminu „{1}”."
 
 #: ../blivetgui/dialogs/add_dialog.py:1112
 #: ../blivetgui/dialogs/edit_dialog.py:231
@@ -1018,19 +1019,15 @@ msgstr "Brak oczekujących działań."
 #. your name and email address (optional) here. Separate translator names with newlines.
 #: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
-msgstr "Piotr Drąg <piotrdrag@gmail.com>, 2014-2025"
+msgstr "Piotr Drąg <piotrdrag@gmail.com>, 2014-2026"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:706
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "Informacje"
+msgstr "Informacje o systemie"
 
 #: ../blivetgui/dialogs/other_dialogs.py:144
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "Informacje"
+msgstr "Informacje o wersji"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:269
@@ -1040,52 +1037,49 @@ msgstr "blivet-gui"
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:152
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "unknown"
 msgid "Unknown"
-msgstr "nieznany"
+msgstr "Nieznana"
 
 #: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
-msgstr ""
+msgstr "Opcje uruchamiania"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "None (all disks)"
-msgstr ""
+msgstr "Brak (wszystkie dyski)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:168
 msgid "Exclusive disks"
-msgstr ""
+msgstr "Wyłączne dyski"
 
 #: ../blivetgui/dialogs/other_dialogs.py:170
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "Wybór dysków, na których program blivet-gui może działać"
 
 #: ../blivetgui/dialogs/other_dialogs.py:174
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "Podstawowe informacje"
+msgstr "Zaawansowane informacje o urządzeniu"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
-msgstr ""
+msgstr "Tak"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "No"
-msgstr ""
+msgstr "Nie"
 
 #: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
 msgstr ""
+"Czy zbieranie wszystkich informacji o urządzeniach jest włączone, nawet "
+"jeśli wymaga to potencjalnie niebezpiecznych działań, takich jak "
+"zamontowanie lub sprawdzenie systemu plików"
 
 #: ../blivetgui/dialogs/other_dialogs.py:192
 msgid ""
@@ -1095,6 +1089,12 @@ msgid ""
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
+"<b>Ostrzeżenie:</b> część informacji o urządzeniach Btrfs może być "
+"niedostępna, ponieważ w komputerze są niezamontowane urządzenia Btrfs. "
+"Zebranie informacji o tych urządzeniach wymaga ich zamontowania, co nie jest "
+"domyślnie włączone.\n"
+"Aby to włączyć, należy uruchomić program blivet-gui za pomocą opcji <tt>--"
+"auto-dev-updates</tt>."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1172,66 +1172,60 @@ msgid "Incomplete device"
 msgstr "Niepełne urządzenie"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "Podstawowe informacje"
+msgstr "Brak informacji o podwoluminie"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
-msgstr ""
+msgstr "Grupa woluminów LVM2 — podwójne kliknięcie wyświetli woluminy logiczne"
 
 #: ../blivetgui/visualization/rectangle.py:105
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Wolumin Btrfs — podwójne kliknięcie wyświetli podwoluminy"
 
 #: ../blivetgui/visualization/rectangle.py:106
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "Macierz RAID — podwójne kliknięcie wyświetli zawartość"
 
 #: ../blivetgui/visualization/rectangle.py:107
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Pula Stratis — podwójne kliknięcie wyświetli systemy plików"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:117
-#, fuzzy, python-brace-format
-#| msgid "LVM2 Logical Volume"
+#, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] "Wolumin logiczny LVM2"
-msgstr[1] "Wolumin logiczny LVM2"
-msgstr[2] "Wolumin logiczny LVM2"
+msgstr[0] "{count} wolumin logiczny"
+msgstr[1] "{count} woluminy logiczne"
+msgstr[2] "{count} woluminów logicznych"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
-#, fuzzy, python-brace-format
-#| msgid "Btrfs Subvolume"
+#, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] "Podwolumin Btrfs"
-msgstr[1] "Podwolumin Btrfs"
-msgstr[2] "Podwolumin Btrfs"
+msgstr[0] "{count} podwolumin"
+msgstr[1] "{count} podwoluminy"
+msgstr[2] "{count} podwoluminów"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:123
-#, fuzzy, python-brace-format
-#| msgid "Partition"
+#, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] "Partycja"
-msgstr[1] "Partycja"
-msgstr[2] "Partycja"
+msgstr[0] "{count} partycja"
+msgstr[1] "{count} partycje"
+msgstr[2] "{count} partycji"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
-#, fuzzy, python-brace-format
-#| msgid "Set filesystem label"
+#, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] "Ustawienie etykiety systemu plików"
-msgstr[1] "Ustawienie etykiety systemu plików"
-msgstr[2] "Ustawienie etykiety systemu plików"
+msgstr[0] "{count} system plików"
+msgstr[1] "{count} systemy plików"
+msgstr[2] "{count} systemów plików"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1251,7 +1245,7 @@ msgstr "Wybór typu nowej tablicy partycji:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "Otwórz"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"
