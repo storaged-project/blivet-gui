@@ -3,15 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Vojtěch Trefný <vtrefny@redhat.com>, 2016. #zanata
 # Jiri Grönroos <jiri.gronroos@iki.fi>, 2018. #zanata, 2020, 2022, 2025.
-# Ricky Tigg <ricky.tigg@gmail.com>, 2020, 2021, 2022, 2024, 2025.
+# Ricky Tigg <ricky.tigg@gmail.com>, 2020, 2021, 2022, 2024, 2025, 2026.
 # Jan Kuparinen <copper_fin@hotmail.com>, 2021, 2022, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2026-01-21 07:58+0000\n"
-"Last-Translator: Jan Kuparinen <copper_fin@hotmail.com>\n"
+"PO-Revision-Date: 2026-04-16 07:49+0000\n"
+"Last-Translator: Ricky Tigg <ricky.tigg@gmail.com>\n"
 "Language-Team: Finnish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/fi/>\n"
 "Language: fi\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.17\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -169,7 +169,7 @@ msgstr ""
 "daemon</i>-prosessi lopetettiin.\n"
 "Jos se on edelleen käynnissä, voit käyttää sitä\n"
 "\n"
-"<tt>'sudo killall blivet-gui-daemon'</tt>\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
 "\n"
 "käske pakottaen lopettamaan se."
 
@@ -981,16 +981,12 @@ msgid "translator-credits"
 msgstr "Jiri Grönroos"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:706
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "Tietoja"
+msgstr "Järjestelmätiedot"
 
 #: ../blivetgui/dialogs/other_dialogs.py:144
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "Tietoja"
+msgstr "Versiotiedot"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:269
@@ -1000,52 +996,49 @@ msgstr "blivet-gui"
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:152
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "unknown"
 msgid "Unknown"
-msgstr "tuntematon"
+msgstr "Tuntematon"
 
 #: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
-msgstr ""
+msgstr "Käynnistysvaihtoehdot"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "None (all disks)"
-msgstr ""
+msgstr "Ei mitään (kaikki levyt)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:168
 msgid "Exclusive disks"
-msgstr ""
+msgstr "Ainutlaatuiset levyt"
 
 #: ../blivetgui/dialogs/other_dialogs.py:170
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "Levyjen valinta, joiden kanssa blivet-gui on sallittu toimimaan"
 
 #: ../blivetgui/dialogs/other_dialogs.py:174
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "Perustiedot"
+msgstr "Edistyneet laitetiedot"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
-msgstr ""
+msgstr "Kyllä"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "No"
-msgstr ""
+msgstr "Ei"
 
 #: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
 msgstr ""
+"Onko kaikkien laitteiden tietojen kerääminen käytössä, vaikka se "
+"edellyttäisi mahdollisesti vaarallisia toimintoja, kuten liittämistä tai "
+"tiedostojärjestelmän tarkistusta"
 
 #: ../blivetgui/dialogs/other_dialogs.py:192
 msgid ""
@@ -1055,6 +1048,12 @@ msgid ""
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
+"<b>Varoitus:</b> Jotkin Btrfs-laitteita koskevat tiedot saattavat puuttua, "
+"koska järjestelmässä on irrotettuja Btrfs-laitteita. Näiden laitteiden "
+"tietojen kerääminen edellyttää niiden liittämistä, mikä ei ole "
+"oletusarvoisesti käytössä.\n"
+"Ota tämä käyttöön käynnistämällä blivet-gui valitsimella <tt>--auto-dev-"
+"updates</tt>."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1130,62 +1129,56 @@ msgid "Incomplete device"
 msgstr "Epätäydellinen laite"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "Perustiedot"
+msgstr "Puuttuva alitaltiotieto"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
-msgstr ""
+msgstr "LVM2-taltioryhmä – kaksoisnapsauta nähdäksesi loogiset taltiot"
 
 #: ../blivetgui/visualization/rectangle.py:105
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Btrfs-taltio — kaksoisnapsauta nähdäksesi alitaltiot"
 
 #: ../blivetgui/visualization/rectangle.py:106
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "RAID-taulukko — kaksoisnapsauta nähdäksesi sisällön"
 
 #: ../blivetgui/visualization/rectangle.py:107
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Stratis-pool — kaksoisnapsauta nähdäksesi tiedostojärjestelmät"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:117
-#, fuzzy, python-brace-format
-#| msgid "LVM2 Logical Volume"
+#, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] "LVM2 looginen taltio"
-msgstr[1] "LVM2 looginen taltio"
+msgstr[0] "{count} looginen taltio"
+msgstr[1] "{count} loogista taltiota"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
-#, fuzzy, python-brace-format
-#| msgid "Btrfs Subvolume"
+#, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] "Btrfs-alataltio"
-msgstr[1] "Btrfs-alataltio"
+msgstr[0] "{count} alataltio"
+msgstr[1] "{count} alataltiota"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:123
-#, fuzzy, python-brace-format
-#| msgid "Partition"
+#, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] "Osio"
-msgstr[1] "Osio"
+msgstr[0] "{count} osio"
+msgstr[1] "{count} osiota"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
-#, fuzzy, python-brace-format
-#| msgid "Set filesystem label"
+#, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] "Aseta tiedostojärjestelmän nimiö"
-msgstr[1] "Aseta tiedostojärjestelmän nimiö"
+msgstr[0] "{count} tiedostojärjestelmä"
+msgstr[1] "{count} tiedostojärjestelmää"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1205,7 +1198,7 @@ msgstr "Valitse uusi osiotaulukon tyyppi:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "Avaa"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"
