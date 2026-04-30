@@ -294,12 +294,12 @@ class BlivetUtils:
         if not blivet_device:
             return []
 
-        childs = blivet_device.children
+        children = list(blivet_device.children)
 
         if blivet_device.type in ("lvmvg", "stratis pool") and blivet_device.free_space > blivet.size.Size(0):
-            childs.append(FreeSpaceDevice(blivet_device.free_space, self.storage.next_id, None, None, [blivet_device]))
+            children.append(FreeSpaceDevice(blivet_device.free_space, self.storage.next_id, None, None, [blivet_device]))
 
-        return childs
+        return children
 
     def get_disk_children(self, blivet_device):
         if not blivet_device.is_disk:
@@ -746,7 +746,7 @@ class BlivetUtils:
                                       max_size=blivet_device.size)
 
         elif blivet_device.format.type and not hasattr(blivet_device.format, "update_size_info"):
-            msg = _("Format {type} doesn't support updating its size limit information").format(format_type=blivet_device.format.type)
+            msg = _("Format {type} doesn't support updating its size limit information").format(type=blivet_device.format.type)
             return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
@@ -829,7 +829,7 @@ class BlivetUtils:
                        user_input=user_input)
 
         if not user_input.resize or user_input.size == device.size:
-            return ProxyDataContainer(success=True, actions=None, message=None, exception=None, traceback=None)
+            return ProxyDataContainer(success=True, actions=[], message=None, exception=None, traceback=None)
 
         resize_actions = []
 
@@ -991,6 +991,8 @@ class BlivetUtils:
                                                 label=user_input.label,
                                                 mountpoint=user_input.mountpoint)
             return [blivet.deviceaction.ActionCreateFormat(device, new_fmt)]
+
+        return []
 
     def _create_btrfs_format(self, user_input, device):
         actions = []
@@ -1612,8 +1614,12 @@ class BlivetUtils:
                                               label_type=label_type)
         actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_label))
 
-        for ac in actions:
-            self.storage.devicetree.actions.add(ac)
+        try:
+            for ac in actions:
+                self.storage.devicetree.actions.add(ac)
+        except Exception as e:  # pylint: disable=broad-except
+            return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
+                                      traceback=traceback.format_exc())
 
         return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
@@ -1691,8 +1697,7 @@ class BlivetUtils:
         log_utils_call(log=self.log, message=log_msg,
                        user_input={"actions": actions})
 
-        actions.reverse()
-        for action in actions:
+        for action in reversed(actions):
             if action in self.storage.devicetree.actions:
                 # XXX: it's possible that something (like anaconda running
                 # actions.prune() without telling me) already removed this action
