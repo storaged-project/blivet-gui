@@ -746,7 +746,7 @@ class BlivetUtils:
                                       max_size=blivet_device.size)
 
         elif blivet_device.format.type and not hasattr(blivet_device.format, "update_size_info"):
-            msg = _("Format {type} doesn't support updating its size limit information").format(format_type=blivet_device.format.type)
+            msg = _("Format {type} doesn't support updating its size limit information").format(type=blivet_device.format.type)
             return ProxyDataContainer(resizable=False, error=msg, min_size=blivet.size.Size("1 MiB"),
                                       max_size=blivet_device.size)
 
