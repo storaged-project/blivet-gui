@@ -294,12 +294,12 @@ class BlivetUtils:
         if not blivet_device:
             return []
 
-        childs = blivet_device.children
+        children = list(blivet_device.children)
 
         if blivet_device.type in ("lvmvg", "stratis pool") and blivet_device.free_space > blivet.size.Size(0):
-            childs.append(FreeSpaceDevice(blivet_device.free_space, self.storage.next_id, None, None, [blivet_device]))
+            children.append(FreeSpaceDevice(blivet_device.free_space, self.storage.next_id, None, None, [blivet_device]))
 
-        return childs
+        return children
 
     def get_disk_children(self, blivet_device):
         if not blivet_device.is_disk:
