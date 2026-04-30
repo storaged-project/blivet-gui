@@ -829,7 +829,7 @@ class BlivetUtils:
                        user_input=user_input)
 
         if not user_input.resize or user_input.size == device.size:
-            return ProxyDataContainer(success=True, actions=None, message=None, exception=None, traceback=None)
+            return ProxyDataContainer(success=True, actions=[], message=None, exception=None, traceback=None)
 
         resize_actions = []
 
