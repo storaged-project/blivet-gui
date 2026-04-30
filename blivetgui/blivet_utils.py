@@ -992,6 +992,8 @@ class BlivetUtils:
                                                 mountpoint=user_input.mountpoint)
             return [blivet.deviceaction.ActionCreateFormat(device, new_fmt)]
 
+        return []
+
     def _create_btrfs_format(self, user_input, device):
         actions = []
 
