@@ -1691,8 +1691,7 @@ class BlivetUtils:
         log_utils_call(log=self.log, message=log_msg,
                        user_input={"actions": actions})
 
-        actions.reverse()
-        for action in actions:
+        for action in reversed(actions):
             if action in self.storage.devicetree.actions:
                 # XXX: it's possible that something (like anaconda running
                 # actions.prune() without telling me) already removed this action
