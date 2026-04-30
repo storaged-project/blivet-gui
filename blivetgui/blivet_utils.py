@@ -1614,8 +1614,12 @@ class BlivetUtils:
                                               label_type=label_type)
         actions.append(blivet.deviceaction.ActionCreateFormat(blivet_device, new_label))
 
-        for ac in actions:
-            self.storage.devicetree.actions.add(ac)
+        try:
+            for ac in actions:
+                self.storage.devicetree.actions.add(ac)
+        except Exception as e:  # pylint: disable=broad-except
+            return ProxyDataContainer(success=False, actions=None, message=None, exception=e,
+                                      traceback=traceback.format_exc())
 
         return ProxyDataContainer(success=True, actions=actions, message=None, exception=None, traceback=None)
 
