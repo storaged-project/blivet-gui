@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2026-02-18 12:58+0000\n"
-"Last-Translator: Priit Jõerüüt "
-"<jrtkbfdr@users.noreply.translate.fedoraproject.org>\n"
+"PO-Revision-Date: 2026-05-07 06:24+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Estonian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/et/>\n"
 "Language: et\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -31,7 +31,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:326
 msgid "Failed to rename the device:"
-msgstr ""
+msgstr "Seadme suuruse muutmine ei õnnestunud:"
 
 #: ../blivetgui/blivetgui.py:338
 #, python-brace-format
@@ -40,7 +40,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:357
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "Seadme lisamine ei õnnestunud:"
 
 #: ../blivetgui/blivetgui.py:371
 #, python-brace-format
@@ -103,7 +103,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:594
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "Seadme lisamine ei õnnestunud:"
 
 #: ../blivetgui/blivetgui.py:609
 #, python-brace-format
@@ -336,7 +336,7 @@ msgstr "Btrfs-i köide"
 
 #: ../blivetgui/list_devices.py:130
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Stratise andmeruumikogum"
 
 #: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:391
 msgid "Stratis Pool"
@@ -406,7 +406,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
-msgstr ""
+msgstr "Täiendavad valikud"
 
 #: ../blivetgui/dialogs/add_dialog.py:85
 msgid "PE Size:"
@@ -463,12 +463,12 @@ msgstr "LVM2-köitegrupp"
 #. number of free disk regions
 #: ../blivetgui/dialogs/add_dialog.py:394
 msgid "Software RAID"
-msgstr ""
+msgstr "tarkvaraline RAID"
 
 #: ../blivetgui/dialogs/add_dialog.py:397
 #: ../blivetgui/dialogs/device_info_dialog.py:81
 msgid "LVM2 Logical Volume"
-msgstr ""
+msgstr "LVM2 loogiline köide"
 
 #: ../blivetgui/dialogs/add_dialog.py:397
 #: ../blivetgui/dialogs/device_info_dialog.py:83
@@ -500,7 +500,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:422
 msgid "Device type:"
-msgstr ""
+msgstr "Seadme tüüp:"
 
 #: ../blivetgui/dialogs/add_dialog.py:457
 #: ../blivetgui/dialogs/edit_dialog.py:628
@@ -995,11 +995,11 @@ msgstr "Põhiteave"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
-msgstr ""
+msgstr "Jah"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "No"
-msgstr ""
+msgstr "Ei"
 
 #: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
@@ -1037,7 +1037,7 @@ msgstr "Salafraasid on sisestamata."
 
 #: ../blivetgui/dialogs/widgets.py:383
 msgid "Provided passphrases do not match."
-msgstr ""
+msgstr "Salafraasid ei klapi omavahel"
 
 #: ../blivetgui/dialogs/widgets.py:414
 msgid "Passphrases match."
@@ -1162,7 +1162,7 @@ msgstr ""
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "Avatud"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"
@@ -1205,7 +1205,7 @@ msgstr ""
 
 #: ../data/ui/blivet-gui.ui:104 ../data/ui/blivet-gui.ui:192
 msgid "Set partition table"
-msgstr ""
+msgstr "partitsioonitabel"
 
 #: ../data/ui/blivet-gui.ui:116 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
@@ -1307,7 +1307,7 @@ msgstr ""
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
-msgstr ""
+msgstr "Vaba andmeruum"
 
 #: ../data/ui/cache_area.ui:109
 msgid "On disk"
@@ -1459,7 +1459,7 @@ msgstr ""
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
-msgstr ""
+msgstr "muuda seadme suurust"
 
 #: ../data/ui/resize_dialog.ui:45
 msgid "_Resize"
