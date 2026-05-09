@@ -2,24 +2,27 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
+# Martin Srebotnjak <miles@filmsi.net>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-05-08 06:59+0000\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
+"Language-Team: Slovenian <https://translate.fedoraproject.org/projects/"
+"blivet/blivet-gui/sl/>\n"
 "Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3;\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "Velikosti naprave ni bilo možno spremeniti:"
 
 #: ../blivetgui/blivetgui.py:314
 #, python-brace-format
@@ -28,7 +31,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:326
 msgid "Failed to rename the device:"
-msgstr ""
+msgstr "Naprave ni bilo možno preimenovati:"
 
 #: ../blivetgui/blivetgui.py:338
 #, python-brace-format
@@ -37,7 +40,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:357
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "Formatiranje naprave je spodletelo:"
 
 #: ../blivetgui/blivetgui.py:371
 #, python-brace-format
@@ -131,7 +134,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:808 ../data/ui/blivet-gui.ui:692
 msgid "Quit"
-msgstr ""
+msgstr "Izhod"
 
 #: ../blivetgui/blivetgui.py:811
 msgid "blivet-gui is already running"
@@ -160,16 +163,16 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:853
 msgid "Quit blivet-gui"
-msgstr ""
+msgstr "Končaj program blivet-gui"
 
 #: ../blivetgui/blivetgui.py:855
 msgid "Ignore disk and continue"
-msgstr ""
+msgstr "Prezri disk in nadaljuj"
 
 #: ../blivetgui/blivetgui.py:858
 #, python-brace-format
 msgid "Error: {error}"
-msgstr ""
+msgstr "Napaka: {error}"
 
 #: ../blivetgui/blivetgui.py:859
 #, python-brace-format
@@ -190,7 +193,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:927
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "Ali ste prepričani, da želite zapreti program?"
 
 #: ../blivetgui/blivetgui.py:928
 msgid ""
@@ -287,7 +290,7 @@ msgstr ""
 #: ../blivetgui/list_actions.py:69 ../blivetgui/list_actions.py:118
 #: ../blivetgui/list_actions.py:140 ../data/ui/blivet-gui.ui:647
 msgid "No pending actions"
-msgstr ""
+msgstr "Ni dejanj na čakanju"
 
 #: ../blivetgui/list_actions.py:97 ../blivetgui/list_actions.py:120
 #, python-format
@@ -298,7 +301,7 @@ msgstr[1] ""
 
 #: ../blivetgui/list_devices.py:84
 msgid "Disks"
-msgstr ""
+msgstr "Diski"
 
 #: ../blivetgui/list_devices.py:91
 msgid "MDRAID set"
@@ -306,15 +309,15 @@ msgstr ""
 
 #: ../blivetgui/list_devices.py:112
 msgid "LVM"
-msgstr ""
+msgstr "LVM"
 
 #: ../blivetgui/list_devices.py:115
 msgid "LVM2 VG"
-msgstr ""
+msgstr "LVM2 VG"
 
 #: ../blivetgui/list_devices.py:118
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../blivetgui/list_devices.py:121
 msgid "MDArray"
@@ -342,7 +345,7 @@ msgstr ""
 #: ../blivetgui/list_partitions.py:166
 #: ../blivetgui/visualization/rectangle.py:66
 msgid "unknown"
-msgstr ""
+msgstr "neznano"
 
 #: ../blivetgui/loading_window.py:47
 msgid "Probing storage"
@@ -375,11 +378,11 @@ msgstr ""
 
 #: ../blivetgui/processing_window.py:57
 msgid "Processing"
-msgstr ""
+msgstr "V obdelavi"
 
 #: ../blivetgui/processing_window.py:82
 msgid "Show actions"
-msgstr ""
+msgstr "Pokaži dejanja"
 
 #: ../blivetgui/processing_window.py:157
 msgid "All queued actions have been processed."
@@ -401,19 +404,19 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
-msgstr ""
+msgstr "Pokaži napredne možnosti"
 
 #: ../blivetgui/dialogs/add_dialog.py:85
 msgid "PE Size:"
-msgstr ""
+msgstr "Velikost PE:"
 
 #: ../blivetgui/dialogs/add_dialog.py:109
 msgid "Partition type:"
-msgstr ""
+msgstr "Vrsta razdelka:"
 
 #: ../blivetgui/dialogs/add_dialog.py:118
 msgid "Logical"
-msgstr ""
+msgstr "Logični razdelek"
 
 #: ../blivetgui/dialogs/add_dialog.py:120
 #: ../blivetgui/dialogs/add_dialog.py:122
@@ -423,7 +426,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:122
 msgid "Extended"
-msgstr ""
+msgstr "Razširjeni razdelek"
 
 #: ../blivetgui/dialogs/add_dialog.py:149
 msgid "Chunk Size:"
@@ -440,14 +443,14 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:273
 msgid "Create new device"
-msgstr ""
+msgstr "Ustvari novo napravo"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:382
 #: ../blivetgui/dialogs/add_dialog.py:766
 #: ../blivetgui/dialogs/device_info_dialog.py:79
 msgid "Partition"
-msgstr ""
+msgstr "Razdelek"
 
 #: ../blivetgui/dialogs/add_dialog.py:385
 #: ../blivetgui/dialogs/add_dialog.py:401
@@ -458,7 +461,7 @@ msgstr ""
 #. number of free disk regions
 #: ../blivetgui/dialogs/add_dialog.py:394
 msgid "Software RAID"
-msgstr ""
+msgstr "Programski RAID"
 
 #: ../blivetgui/dialogs/add_dialog.py:397
 #: ../blivetgui/dialogs/device_info_dialog.py:81
@@ -491,11 +494,11 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:416
 msgid "Stratis Filesystem"
-msgstr ""
+msgstr "Datotečni sistem Stratis"
 
 #: ../blivetgui/dialogs/add_dialog.py:422
 msgid "Device type:"
-msgstr ""
+msgstr "Vrsta naprave:"
 
 #: ../blivetgui/dialogs/add_dialog.py:457
 #: ../blivetgui/dialogs/edit_dialog.py:628
@@ -503,7 +506,7 @@ msgstr ""
 #: ../blivetgui/dialogs/edit_dialog.py:739 ../data/ui/blivet-gui.ui:499
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
-msgstr ""
+msgstr "Naprava"
 
 #: ../blivetgui/dialogs/add_dialog.py:458
 #: ../blivetgui/dialogs/edit_dialog.py:629
@@ -511,60 +514,60 @@ msgstr ""
 #: ../blivetgui/dialogs/edit_dialog.py:740 ../data/ui/blivet-gui.ui:512
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
-msgstr ""
+msgstr "Vrsta"
 
 #: ../blivetgui/dialogs/add_dialog.py:459
 #: ../blivetgui/dialogs/edit_dialog.py:630
 #: ../blivetgui/dialogs/edit_dialog.py:679
 #: ../blivetgui/dialogs/edit_dialog.py:741 ../data/ui/blivet-gui.ui:534
 msgid "Size"
-msgstr ""
+msgstr "Velikost"
 
 #: ../blivetgui/dialogs/add_dialog.py:468
 #: ../blivetgui/dialogs/edit_dialog.py:688
 #: ../blivetgui/dialogs/edit_dialog.py:750 ../data/ui/cache_area.ui:130
 msgid "Available devices:"
-msgstr ""
+msgstr "Razpoložljive naprave:"
 
 #: ../blivetgui/dialogs/add_dialog.py:761
 msgid "MDArray type:"
-msgstr ""
+msgstr "Vrsta MDArray:"
 
 #: ../blivetgui/dialogs/add_dialog.py:793
 msgid "Filesystem:"
-msgstr ""
+msgstr "Datotečni sistem:"
 
 #: ../blivetgui/dialogs/add_dialog.py:826
 #: ../blivetgui/dialogs/edit_dialog.py:164
 msgid "unformatted"
-msgstr ""
+msgstr "neformatirano"
 
 #: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:148
 msgid "Label:"
-msgstr ""
+msgstr "Oznaka:"
 
 #: ../blivetgui/dialogs/add_dialog.py:864
 msgid "Name:"
-msgstr ""
+msgstr "Ime:"
 
 #: ../blivetgui/dialogs/add_dialog.py:875 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
-msgstr ""
+msgstr "Točka priklopa:"
 
 #: ../blivetgui/dialogs/add_dialog.py:1078 ../blivetgui/dialogs/helpers.py:136
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
-msgstr ""
+msgstr "»{0}« ni veljavna točka priklopa."
 
 #: ../blivetgui/dialogs/add_dialog.py:1085
 msgid "Please select at least two parent devices."
-msgstr ""
+msgstr "Izberite najmanj dve nadrejeni napravi."
 
 #: ../blivetgui/dialogs/add_dialog.py:1099
 #: ../blivetgui/dialogs/edit_dialog.py:468
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
-msgstr ""
+msgstr "»{0}« ni veljavno ime."
 
 #: ../blivetgui/dialogs/add_dialog.py:1105
 #, python-brace-format
@@ -575,7 +578,7 @@ msgstr ""
 #: ../blivetgui/dialogs/edit_dialog.py:231
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
-msgstr ""
+msgstr "»{0}« ni veljavna oznaka."
 
 #. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:36
@@ -595,7 +598,7 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:67
 #, python-brace-format
 msgid "Information about {0}"
-msgstr ""
+msgstr "Podatki o {0}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "LUKS/DM-Crypt Device"
@@ -613,27 +616,27 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:224
 #, python-brace-format
 msgid " • <i>Type:</i> {type}\n"
-msgstr ""
+msgstr " • <i>Vrsta:</i> {type}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:105
 #, python-brace-format
 msgid " • <i>Length:</i> {length}\n"
-msgstr ""
+msgstr " • <i>Dolžina:</i> {length}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:106
 #, python-brace-format
 msgid " • <i>Start:</i> {start}\n"
-msgstr ""
+msgstr " • <i>Začetek:</i> {start}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:107
 #, python-brace-format
 msgid " • <i>End:</i> {end}\n"
-msgstr ""
+msgstr " • <i>Konec:</i> {end}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:114
 #, python-brace-format
 msgid " • <i>Origin:</i> {origin}\n"
-msgstr ""
+msgstr " • <i>Izvor:</i> {origin}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:115
 #: ../blivetgui/dialogs/device_info_dialog.py:117
@@ -645,7 +648,7 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:118
 #, python-brace-format
 msgid " • <i>Free space:</i> {free}\n"
-msgstr ""
+msgstr " • <i>Nezaseden prostor:</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:119
 #, python-brace-format
@@ -684,13 +687,13 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:134
 #, python-brace-format
 msgid " • <i>Reserved Space:</i> {res}\n"
-msgstr ""
+msgstr " • <i>Rezerviran prostor:</i> {res}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:135
 #: ../blivetgui/dialogs/device_info_dialog.py:154
 #, python-brace-format
 msgid " • <i>Complete:</i> {complete}\n"
-msgstr ""
+msgstr " • <i>Dokončano:</i> {complete}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:140
 #, python-brace-format
@@ -715,7 +718,7 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:150
 #, python-brace-format
 msgid " • <i>Devices:</i> {dcount}\n"
-msgstr ""
+msgstr " • <i>Naprave:</i> {dcount}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
@@ -735,12 +738,12 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:168
 #, python-brace-format
 msgid "Unknown device {name}"
-msgstr ""
+msgstr "Neznana naprava {name}"
 
 #. device info header
 #: ../blivetgui/dialogs/device_info_dialog.py:176
 msgid "Basic information"
-msgstr ""
+msgstr "Osnovni podatki"
 
 #. 'basic' information about selected device
 #: ../blivetgui/dialogs/device_info_dialog.py:186
@@ -759,22 +762,22 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:223
 #, python-brace-format
 msgid " • <i>Status:</i> {exist}\n"
-msgstr ""
+msgstr " • <i>Stanje:</i> {exist}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:188
 #, python-brace-format
 msgid " • <i>Name:</i> {name}\n"
-msgstr ""
+msgstr " • <i>Ime:</i> {name}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:189
 #, python-brace-format
 msgid " • <i>Path:</i> {path}\n"
-msgstr ""
+msgstr " • <i>Pot:</i> {path}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:190
 #, python-brace-format
 msgid " • <i>Size:</i> {size}\n"
-msgstr ""
+msgstr " • <i>Velikost:</i> {size}\n"
 
 #. device format header
 #: ../blivetgui/dialogs/device_info_dialog.py:211
@@ -784,12 +787,12 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:225
 #, python-brace-format
 msgid " • <i>UUID:</i> {uuid}\n"
-msgstr ""
+msgstr " • <i>UUID:</i> {uuid}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:227
 #, python-brace-format
 msgid " • <i>Label:</i> {label}\n"
-msgstr ""
+msgstr " • <i>Oznaka:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:241
 #, python-brace-format
@@ -797,15 +800,17 @@ msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
 msgstr ""
+" • <i>Točke priklopa:</i>\n"
+"     {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:244
 msgid " • <i>Type:</i> None"
-msgstr ""
+msgstr " • <i>Vrsta:</i> None"
 
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:257
 msgid "Parents"
-msgstr ""
+msgstr "Nadrejeni"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:270
 #, python-brace-format
@@ -831,29 +836,29 @@ msgstr ""
 #: ../blivetgui/dialogs/edit_dialog.py:481
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "Izbrana naprava je že imenovana »{0}«."
 
 #: ../blivetgui/dialogs/edit_dialog.py:487
 #, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr ""
+msgstr "Izbrano ime »{0}« je že uporabljeno."
 
 #. auto shrink after removing/hiding widgets
 #: ../blivetgui/dialogs/edit_dialog.py:598
 msgid "Edit device"
-msgstr ""
+msgstr "Uredi napravo"
 
 #: ../blivetgui/dialogs/edit_dialog.py:638
 msgid "Parent devices:"
-msgstr ""
+msgstr "Nadrejene naprave:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:645
 msgid "Add a parent"
-msgstr ""
+msgstr "Dodaj nadrejeno"
 
 #: ../blivetgui/dialogs/edit_dialog.py:648
 msgid "Remove a parent"
-msgstr ""
+msgstr "Odstrani nadrejeno"
 
 #: ../blivetgui/dialogs/edit_dialog.py:659
 msgid ""
@@ -863,7 +868,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:676
 msgid "Add?"
-msgstr ""
+msgstr "Ali želite dodati?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:718
 msgid ""
@@ -877,7 +882,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/edit_dialog.py:738
 msgid "Remove?"
-msgstr ""
+msgstr "Ali želite odstraniti?"
 
 #: ../blivetgui/dialogs/helpers.py:143
 #, python-brace-format
@@ -907,7 +912,7 @@ msgstr ""
 #: ../blivetgui/dialogs/message_dialogs.py:209
 #, python-brace-format
 msgid "Are you sure you want delete device {name}?"
-msgstr ""
+msgstr "Ali ste prepričani, da želite izbrisati napravo {name}?"
 
 #: ../blivetgui/dialogs/message_dialogs.py:219
 #, python-brace-format
@@ -917,25 +922,25 @@ msgstr ""
 #: ../blivetgui/dialogs/message_dialogs.py:227
 #, python-brace-format
 msgid "Also delete following parent devices of {name}:"
-msgstr ""
+msgstr "Prav tako izbriši naslednje nadrejene naprave {name}:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:327
 msgid "There are no pending actions."
-msgstr ""
+msgstr "Ni dejanj na čakanju."
 
 #. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
 #. your name and email address (optional) here. Separate translator names with newlines.
 #: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
-msgstr ""
+msgstr "Martin Srebotnjak <miles@filmsi.net>"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:706
 msgid "System Information"
-msgstr ""
+msgstr "Informacije o sistemu"
 
 #: ../blivetgui/dialogs/other_dialogs.py:144
 msgid "Version Information"
-msgstr ""
+msgstr "Podatki o različici"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:269
@@ -950,7 +955,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
 msgid "Unknown"
-msgstr ""
+msgstr "Neznano"
 
 #: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
@@ -958,7 +963,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "None (all disks)"
-msgstr ""
+msgstr "Brez (vsi diski)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:168
 msgid "Exclusive disks"
@@ -966,7 +971,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/other_dialogs.py:170
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "Izbor diskov, s katerimi sme blivet-gui delovati"
 
 #: ../blivetgui/dialogs/other_dialogs.py:174
 msgid "Advanced device information"
@@ -974,11 +979,11 @@ msgstr ""
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
-msgstr ""
+msgstr "Da"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
@@ -1008,23 +1013,23 @@ msgstr ""
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:285
 msgid "Automatic"
-msgstr ""
+msgstr "Samodejno"
 
 #: ../blivetgui/dialogs/widgets.py:380
 msgid "Passphrase not specified."
-msgstr ""
+msgstr "Šifrirno geslo ni določeno."
 
 #: ../blivetgui/dialogs/widgets.py:383
 msgid "Provided passphrases do not match."
-msgstr ""
+msgstr "Podani šifrirni gesli se ne ujemata."
 
 #: ../blivetgui/dialogs/widgets.py:414
 msgid "Passphrases match."
-msgstr ""
+msgstr "Šifrirni gesli se ne ujemata."
 
 #: ../blivetgui/dialogs/widgets.py:417
 msgid "Passphrases don't match."
-msgstr ""
+msgstr "Šifrirni gesli se ne ujemata."
 
 #: ../blivetgui/visualization/rectangle.py:52
 msgid "Group device"
@@ -1032,7 +1037,7 @@ msgstr ""
 
 #: ../blivetgui/visualization/rectangle.py:53
 msgid "LiveUSB device"
-msgstr ""
+msgstr "Naprava LiveUSB"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Encrypted device (locked)"
@@ -1044,11 +1049,11 @@ msgstr ""
 
 #: ../blivetgui/visualization/rectangle.py:56
 msgid "Empty device"
-msgstr ""
+msgstr "Prazna naprava"
 
 #: ../blivetgui/visualization/rectangle.py:57
 msgid "Snapshot"
-msgstr ""
+msgstr "Posnetek"
 
 #: ../blivetgui/visualization/rectangle.py:58
 msgid "Missing partition table"
@@ -1111,60 +1116,60 @@ msgstr[3] ""
 #, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{count} razdelkov"
+msgstr[1] "{count} razdelek"
+msgstr[2] "{count} razdelka"
+msgstr[3] "{count} razdelki"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
 #, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "{count} datotečnih sistemov"
+msgstr[1] "{count} datotečni sistem"
+msgstr[2] "{count} datotečna sistema"
+msgstr[3] "{count} datotečni sistemi"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
-msgstr ""
+msgstr "Avtorske pravice © Red Hat, Inc."
 
 #: ../data/ui/add_disklabel_dialog.ui:11
 msgid "No partition table found on disk"
-msgstr ""
+msgstr "Na disku ni možno najti razpredelnice razdelkov"
 
 #: ../data/ui/add_disklabel_dialog.ui:12
 msgid "A partition table is required before partitions can be added."
-msgstr ""
+msgstr "Pred dodajanjem razdelkov mora biti ustvarjena razpredelnica razdelkov."
 
 #: ../data/ui/add_disklabel_dialog.ui:52
 msgid "Select new partition table type:"
-msgstr ""
+msgstr "Izbor vrste razpredelnice razdelkov:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "Odpri"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"
-msgstr ""
+msgstr "Novo"
 
 #: ../data/ui/blivet-gui.ui:37
 msgid "Delete"
-msgstr ""
+msgstr "Izbriši"
 
 #: ../data/ui/blivet-gui.ui:46
 msgid "Edit"
-msgstr ""
+msgstr "Uredi"
 
 #: ../data/ui/blivet-gui.ui:56 ../data/ui/blivet-gui.ui:144
 msgid "Resize"
-msgstr ""
+msgstr "Spremeni velikost"
 
 #: ../data/ui/blivet-gui.ui:64 ../data/ui/blivet-gui.ui:152
 msgid "Rename"
-msgstr ""
+msgstr "Preimenuj"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:72 ../data/ui/blivet-gui.ui:160
@@ -1174,63 +1179,63 @@ msgstr ""
 
 #: ../data/ui/blivet-gui.ui:80 ../data/ui/blivet-gui.ui:168
 msgid "Modify parents"
-msgstr ""
+msgstr "Spremeni nadrejene"
 
 #: ../data/ui/blivet-gui.ui:88 ../data/ui/blivet-gui.ui:176
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
-msgstr ""
+msgstr "Nastavi točko priklopa"
 
 #: ../data/ui/blivet-gui.ui:96 ../data/ui/blivet-gui.ui:184
 msgid "Set label"
-msgstr ""
+msgstr "Nastavi oznako"
 
 #: ../data/ui/blivet-gui.ui:104 ../data/ui/blivet-gui.ui:192
 msgid "Set partition table"
-msgstr ""
+msgstr "Nastavi razpredelnico razdelkov"
 
 #: ../data/ui/blivet-gui.ui:116 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
-msgstr ""
+msgstr "Odklopi"
 
 #: ../data/ui/blivet-gui.ui:124
 msgid "Unlock"
-msgstr ""
+msgstr "Odkleni"
 
 #: ../data/ui/blivet-gui.ui:132
 msgid "Information"
-msgstr ""
+msgstr "Podrobnosti"
 
 #: ../data/ui/blivet-gui.ui:304 ../data/ui/blivet-gui.ui:316
 #: ../data/ui/blivet-gui.ui:865 ../data/ui/blivet-gui.ui:876
 #: ../data/ui/blivet-gui.ui:887
 msgid "column"
-msgstr ""
+msgstr "stolpec"
 
 #: ../data/ui/blivet-gui.ui:378
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
-msgstr ""
+msgstr "Dodaj novo napravo"
 
 #: ../data/ui/blivet-gui.ui:394
 msgctxt "ActionsToolbar|Delete"
 msgid "Delete selected device"
-msgstr ""
+msgstr "Izbriši izbrano napravo"
 
 #: ../data/ui/blivet-gui.ui:410
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
-msgstr ""
+msgstr "Uredi izbrano napravo"
 
 #: ../data/ui/blivet-gui.ui:436
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
-msgstr ""
+msgstr "Odklopi izbrano napravo"
 
 #: ../data/ui/blivet-gui.ui:451
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
-msgstr ""
+msgstr "Odkleni/Odpri izbrano napravo"
 
 #: ../data/ui/blivet-gui.ui:466
 msgctxt "ActionsToolbar|Info"
@@ -1245,19 +1250,19 @@ msgstr ""
 
 #: ../data/ui/blivet-gui.ui:545
 msgid "Label"
-msgstr ""
+msgstr "Oznaka"
 
 #: ../data/ui/blivet-gui.ui:556
 msgid "Mountpoint"
-msgstr ""
+msgstr "Točka priklopa"
 
 #: ../data/ui/blivet-gui.ui:580
 msgid "Logical View"
-msgstr ""
+msgstr "Logični pogled"
 
 #: ../data/ui/blivet-gui.ui:603
 msgid "Physical View"
-msgstr ""
+msgstr "Fizični pogled"
 
 #: ../data/ui/blivet-gui.ui:676
 msgid "Reload Storage"
@@ -1281,7 +1286,7 @@ msgstr ""
 
 #: ../data/ui/blivet-gui.ui:798
 msgid "Undo last action"
-msgstr ""
+msgstr "Razveljavi zadnje dejanje"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
@@ -1289,15 +1294,15 @@ msgstr ""
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
-msgstr ""
+msgstr "Nezaseden prostor"
 
 #: ../data/ui/cache_area.ui:109
 msgid "On disk"
-msgstr ""
+msgstr "Na disku"
 
 #: ../data/ui/cache_area.ui:142
 msgid "Cache type:"
-msgstr ""
+msgstr "Vrsta predpomnilnika:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
@@ -1309,47 +1314,47 @@ msgstr ""
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
-msgstr ""
+msgstr "oznaka"
 
 #: ../data/ui/custom_dialog.ui:62
 msgid "Details"
-msgstr ""
+msgstr "Podrobnosti"
 
 #: ../data/ui/encryption_chooser.ui:21
 msgid "Encrypt:"
-msgstr ""
+msgstr "Šifriraj:"
 
 #: ../data/ui/encryption_chooser.ui:33
 msgid "Encryption type:"
-msgstr ""
+msgstr "Vrsta šifriranja:"
 
 #: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
 msgid "Passphrase:"
-msgstr ""
+msgstr "Šifrirno geslo:"
 
 #: ../data/ui/encryption_chooser.ui:57
 msgid "Repeat Passphrase:"
-msgstr ""
+msgstr "Ponovi šifrirno geslo:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Velikost sektorja:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
-msgstr ""
+msgstr "Napaka"
 
 #: ../data/ui/exception_dialog.ui:24
 msgid "_Back"
-msgstr ""
+msgstr "_Nazaj"
 
 #: ../data/ui/exception_dialog.ui:38
 msgid "_Quit"
-msgstr ""
+msgstr "_Izhod"
 
 #: ../data/ui/exception_dialog.ui:52
 msgid "_Report a bug"
-msgstr ""
+msgstr "Pošlji poročilo o _hrošču"
 
 #: ../data/ui/exception_dialog.ui:120
 msgid "Show traceback"
@@ -1357,12 +1362,12 @@ msgstr ""
 
 #: ../data/ui/format_dialog.ui:17
 msgid "Format device"
-msgstr ""
+msgstr "Formatiraj napravo"
 
 #: ../data/ui/format_dialog.ui:35 ../data/ui/mountpoint_dialog.ui:29
 #: ../data/ui/resize_dialog.ui:30
 msgid "_Cancel"
-msgstr ""
+msgstr "Pre_kliči"
 
 #. Perform selected format change on this device.
 #: ../data/ui/format_dialog.ui:50
@@ -1376,7 +1381,7 @@ msgstr ""
 
 #: ../data/ui/info_dialog.ui:12
 msgid "Information:"
-msgstr ""
+msgstr "Podrobnosti:"
 
 #: ../data/ui/label_dialog.ui:7
 msgid "Set filesystem label"
@@ -1385,13 +1390,13 @@ msgstr ""
 #: ../data/ui/label_dialog.ui:22 ../data/ui/rename_dialog.ui:22
 #: ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
-msgstr ""
+msgstr "Prekliči"
 
 #. Perform selected format change on this device.
 #: ../data/ui/label_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "Ponovno označi"
 
 #: ../data/ui/label_dialog.ui:68
 msgid "Enter new label for this filesystem:"
@@ -1399,75 +1404,75 @@ msgstr ""
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
-msgstr ""
+msgstr "Odkleni napravo"
 
 #: ../data/ui/luks_passphrase_dialog.ui:12
 msgid "Please enter passphrase to unlock selected device."
-msgstr ""
+msgstr "Vnesite šifrirno frazo za odklepanje izbrane naprave."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
-msgstr ""
+msgstr "_Nastavi točko priklopa"
 
 #: ../data/ui/mountpoint_dialog.ui:88
 msgid "Enter new mountpoint:"
-msgstr ""
+msgstr "Vnesite novo točko priklopa:"
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
-msgstr ""
+msgstr "Ime nadrejenega:"
 
 #: ../data/ui/parent_chooser.ui:80
 msgid "Available space:"
-msgstr ""
+msgstr "Razpoložljiv prostor:"
 
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
-msgstr ""
+msgstr "Raven RAID-a:"
 
 #: ../data/ui/rename_dialog.ui:7
 msgid "Rename device"
-msgstr ""
+msgstr "Preimenuj napravo"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "Preimenuj"
 
 #: ../data/ui/rename_dialog.ui:68
 msgid "Enter new name for this device:"
-msgstr ""
+msgstr "Vnesite novo ime za to napravo:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
-msgstr ""
+msgstr "Spremeni velikost naprave"
 
 #: ../data/ui/resize_dialog.ui:45
 msgid "_Resize"
-msgstr ""
+msgstr "_Spremeni velikost"
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
-msgstr ""
+msgstr "Za zagon programa blivet-gui so zahtevana skrbniška dovoljenja."
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
-msgstr ""
+msgstr "Dejanja na čakanju"
 
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
-msgstr ""
+msgstr "Ročno določite postavitev"
 
 #: ../data/ui/size_chooser.ui:14
 msgid "Size:"
-msgstr ""
+msgstr "Velikost:"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
-msgstr ""
+msgstr "Odklopi"
 
 #: ../data/ui/unmount_dialog.ui:87
 msgid ""
