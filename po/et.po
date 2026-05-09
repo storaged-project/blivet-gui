@@ -9,8 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
 "PO-Revision-Date: 2026-05-07 06:24+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"Last-Translator: Priit Jõerüüt "
+"<jrtkbfdr@users.noreply.translate.fedoraproject.org>\n"
 "Language-Team: Estonian <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/et/>\n"
 "Language: et\n"
@@ -31,7 +31,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:326
 msgid "Failed to rename the device:"
-msgstr "Seadme suuruse muutmine ei õnnestunud:"
+msgstr "Seadme nime muutmine ei õnnestunud:"
 
 #: ../blivetgui/blivetgui.py:338
 #, python-brace-format
@@ -40,7 +40,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:357
 msgid "Failed to format the device:"
-msgstr "Seadme lisamine ei õnnestunud:"
+msgstr "Seadme vormindamine ei õnnestunud:"
 
 #: ../blivetgui/blivetgui.py:371
 #, python-brace-format
@@ -49,7 +49,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:384
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "LVM2 köitegrupi muutmine ei õnnestunud:"
 
 #: ../blivetgui/blivetgui.py:399
 #, python-brace-format
@@ -74,7 +74,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:454
 msgid "Not enough free space for a new LVM Volume Group."
-msgstr ""
+msgstr "Uue LVM-i köitegrupi jaoks pole piisavalt andmeruumi."
 
 #: ../blivetgui/blivetgui.py:460
 #, python-brace-format
@@ -103,7 +103,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:594
 msgid "Failed to delete the device:"
-msgstr "Seadme lisamine ei õnnestunud:"
+msgstr "Seadme kustutamine ei õnnestunud:"
 
 #: ../blivetgui/blivetgui.py:609
 #, python-brace-format
@@ -336,7 +336,7 @@ msgstr "Btrfs-i köide"
 
 #: ../blivetgui/list_devices.py:130
 msgid "Stratis Pools"
-msgstr "Stratise andmeruumikogum"
+msgstr "Stratise andmeruumikogumid"
 
 #: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:391
 msgid "Stratis Pool"
@@ -406,7 +406,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:67
 msgid "Show advanced options"
-msgstr "Täiendavad valikud"
+msgstr "Näita täiendavaid valikuid"
 
 #: ../blivetgui/dialogs/add_dialog.py:85
 msgid "PE Size:"
@@ -463,7 +463,7 @@ msgstr "LVM2-köitegrupp"
 #. number of free disk regions
 #: ../blivetgui/dialogs/add_dialog.py:394
 msgid "Software RAID"
-msgstr "tarkvaraline RAID"
+msgstr "Tarkvaraline RAID"
 
 #: ../blivetgui/dialogs/add_dialog.py:397
 #: ../blivetgui/dialogs/device_info_dialog.py:81
@@ -941,16 +941,12 @@ msgid "translator-credits"
 msgstr "Priit Jõerüüt 2025"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:706
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "Teave"
+msgstr "Süsteemi teave"
 
 #: ../blivetgui/dialogs/other_dialogs.py:144
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "Teave"
+msgstr "Versiooniteave"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:269
@@ -960,16 +956,12 @@ msgstr "blivet-gui"
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:152
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "unknown"
 msgid "Unknown"
-msgstr "tundmatu"
+msgstr "Tundmatu"
 
 #: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
@@ -988,10 +980,8 @@ msgid "Selection of disks blivet-gui is allowed to operate with"
 msgstr ""
 
 #: ../blivetgui/dialogs/other_dialogs.py:174
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "Põhiteave"
+msgstr "Seadme täiendav teave"
 
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
@@ -1037,7 +1027,7 @@ msgstr "Salafraasid on sisestamata."
 
 #: ../blivetgui/dialogs/widgets.py:383
 msgid "Provided passphrases do not match."
-msgstr "Salafraasid ei klapi omavahel"
+msgstr "Salafraasid ei klapi omavahel."
 
 #: ../blivetgui/dialogs/widgets.py:414
 msgid "Passphrases match."
@@ -1088,10 +1078,8 @@ msgid "Incomplete device"
 msgstr ""
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "Põhiteave"
+msgstr "Alamköite teave on puudu"
 
 #: ../blivetgui/visualization/rectangle.py:104
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
@@ -1114,35 +1102,32 @@ msgstr ""
 #, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "{count} loogiline köide"
+msgstr[1] "{count} loogilist köidet"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:120
-#, fuzzy, python-brace-format
-#| msgid "Btrfs Subvolume"
+#, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] "Btrfs-i alamköide"
-msgstr[1] "Btrfs-i alamköide"
+msgstr[0] "{count} alamköide"
+msgstr[1] "{count} alamköidet"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:123
-#, fuzzy, python-brace-format
-#| msgid "Partition"
+#, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] "Partitsioon"
-msgstr[1] "Partitsioon"
+msgstr[0] "{count} partitsioon"
+msgstr[1] "{count} partitsiooni"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:126
-#, fuzzy, python-brace-format
-#| msgid "Filesystem:"
+#, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] "Failisüsteem:"
-msgstr[1] "Failisüsteem:"
+msgstr[0] "{count} failisüsteem"
+msgstr[1] "{count} failisüsteemi"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
@@ -1162,7 +1147,7 @@ msgstr ""
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr "Avatud"
+msgstr "Ava"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"
@@ -1205,7 +1190,7 @@ msgstr ""
 
 #: ../data/ui/blivet-gui.ui:104 ../data/ui/blivet-gui.ui:192
 msgid "Set partition table"
-msgstr "partitsioonitabel"
+msgstr "Määratle partitsioonitabel"
 
 #: ../data/ui/blivet-gui.ui:116 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
@@ -1459,7 +1444,7 @@ msgstr ""
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
-msgstr "muuda seadme suurust"
+msgstr "Muuda seadme suurust"
 
 #: ../data/ui/resize_dialog.ui:45
 msgid "_Resize"
