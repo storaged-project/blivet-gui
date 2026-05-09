@@ -1,0 +1,1515 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# Bone NI <bounkirdni@gmail.com>, 2026.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-21 16:55+0100\n"
+"PO-Revision-Date: 2026-05-07 06:24+0000\n"
+"Last-Translator: Bone NI <bounkirdni@gmail.com>\n"
+"Language-Team: Lao <https://translate.fedoraproject.org/projects/blivet/"
+"blivet-gui/lo/>\n"
+"Language: lo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.17.1\n"
+
+#: ../blivetgui/blivetgui.py:302
+msgid "Failed to resize the device:"
+msgstr "ປັບຂະໜາດອຸປະກອນບໍ່ສຳເລັດ:"
+
+#: ../blivetgui/blivetgui.py:314
+#, python-brace-format
+msgid "resize {name} {type}"
+msgstr "ປັບຂະໜາດ {name} {type}"
+
+#: ../blivetgui/blivetgui.py:326
+msgid "Failed to rename the device:"
+msgstr "ປ່ຽນຊື່ອຸປະກອນບໍ່ສຳເລັດ:"
+
+#: ../blivetgui/blivetgui.py:338
+#, python-brace-format
+msgid "rename {name} {type}"
+msgstr "ປ່ຽນຊື່ {name} {type}"
+
+#: ../blivetgui/blivetgui.py:357
+msgid "Failed to format the device:"
+msgstr "ຟໍແມັດອຸປະກອນບໍ່ສຳເລັດ:"
+
+#: ../blivetgui/blivetgui.py:371
+#, python-brace-format
+msgid "format {name} {type}"
+msgstr "ຟໍແມັດ {name} {type}"
+
+#: ../blivetgui/blivetgui.py:384
+msgid "Failed to edit the LVM2 Volume Group:"
+msgstr "ແກ້ໄຂກຸ່ມບໍລິມາດ LVM2 ບໍ່ສຳເລັດ:"
+
+#: ../blivetgui/blivetgui.py:399
+#, python-brace-format
+msgid "edit {name} {type}"
+msgstr "ແກ້ໄຂ {name} {type}"
+
+#: ../blivetgui/blivetgui.py:428
+msgid "Failed to change filesystem label on the device:"
+msgstr "ປ່ຽນປ້າຍຊື່ລະບົບໄຟລ໌ໃນອຸປະກອນບໍ່ສຳເລັດ:"
+
+#: ../blivetgui/blivetgui.py:433
+#, python-brace-format
+msgid "change filesystem label of {name} {type}"
+msgstr "ປ່ຽນປ້າຍຊື່ລະບົບໄຟລ໌ຂອງ {name} {type}"
+
+#: ../blivetgui/blivetgui.py:449
+#, python-brace-format
+msgid ""
+"{name} is not complete. It is not possible to add new LVs to VG with missing "
+"PVs."
+msgstr "{name} ບໍ່ສົມບູນ. ບໍ່ສາມາດເພີ່ມ LV ໃໝ່ໃສ່ VG ທີ່ຂາດ PV ໄດ້."
+
+#: ../blivetgui/blivetgui.py:454
+msgid "Not enough free space for a new LVM Volume Group."
+msgstr "ເນື້ອທີ່ຫວ່າງບໍ່ພໍສຳລັບການສ້າງກຸ່ມບໍລິມາດ LVM ໃໝ່."
+
+#: ../blivetgui/blivetgui.py:460
+#, python-brace-format
+msgid ""
+"Disk {name} already reached maximum allowed number of primary partitions for "
+"{label} disklabel."
+msgstr ""
+"ດິສກ໌ {name} ມີຈຳນວນພາທິຊັນຫຼັກ (primary) ເຖິງຂີດຈຳກັດສູງສຸດສຳລັບປ້າຍຊື່ດິສກ໌ {label} ແລ້ວ."
+
+#: ../blivetgui/blivetgui.py:470
+msgid "Failed to add disklabel:"
+msgstr "ເພີ່ມປ້າຍຊື່ດິສກ໌ບໍ່ສຳເລັດ:"
+
+#: ../blivetgui/blivetgui.py:483
+#, python-brace-format
+msgid "create new disklabel on {name}"
+msgstr "ສ້າງປ້າຍຊື່ດິສກ໌ໃໝ່ໃນ {name}"
+
+#: ../blivetgui/blivetgui.py:535
+msgid "Failed to add the device:"
+msgstr "ເພີ່ມອຸປະກອນບໍ່ສຳເລັດ:"
+
+#: ../blivetgui/blivetgui.py:550
+#, python-brace-format
+msgid "add {size} {type} device"
+msgstr "ເພີ່ມອຸປະກອນ {type} ຂະໜາດ {size}"
+
+#: ../blivetgui/blivetgui.py:594
+msgid "Failed to delete the device:"
+msgstr "ລຶບອຸປະກອນບໍ່ສຳເລັດ:"
+
+#: ../blivetgui/blivetgui.py:609
+#, python-brace-format
+msgid "delete partition {name}"
+msgstr "ລຶບພາທິຊັນ {name}"
+
+#: ../blivetgui/blivetgui.py:650
+msgid "Failed to perform the actions:"
+msgstr "ດຳເນີນການບໍ່ສຳເລັດ:"
+
+#: ../blivetgui/blivetgui.py:694
+msgid "Confirm scheduled actions"
+msgstr "ຢືນຢັນການດຳເນີນການທີ່ກຳນົດໄວ້"
+
+#: ../blivetgui/blivetgui.py:695
+msgid "Are you sure you want to perform scheduled actions?"
+msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການດຳເນີນການຕາມທີ່ກຳນົດໄວ້?"
+
+#: ../blivetgui/blivetgui.py:736
+#, python-brace-format
+msgid ""
+"Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
+msgstr ""
+"ຍົກເລີກການເຊື່ອມຕໍ່ '{mountpoint}' ບໍ່ສຳເລັດ. ແນ່ໃຈບໍ່ວ່າອຸປະກອນບໍ່ໄດ້ຖືກໃຊ້ງານຢູ່?"
+
+#: ../blivetgui/blivetgui.py:758
+msgid "Unlocking failed. Are you sure provided password is correct?"
+msgstr "ປົດລັອກບໍ່ສຳເລັດ. ແນ່ໃຈບໍ່ວ່າລະຫັດຜ່ານທີ່ປ້ອນນັ້ນຖືກຕ້ອງ?"
+
+#: ../blivetgui/blivetgui.py:808 ../data/ui/blivet-gui.ui:692
+msgid "Quit"
+msgstr "ອອກ"
+
+#: ../blivetgui/blivetgui.py:811
+msgid "blivet-gui is already running"
+msgstr "blivet-gui ກຳລັງເຮັດວຽກຢູ່ແລ້ວ"
+
+#: ../blivetgui/blivetgui.py:812
+msgid ""
+"Another instance of blivet-gui is already running.\n"
+"Only one instance of blivet-gui can run at the same time."
+msgstr ""
+"ມີ blivet-gui ອີກອັນໜຶ່ງກຳລັງເຮັດວຽກຢູ່.\n"
+"ສາມາດເປີດໃຊ້ blivet-gui ໄດ້ພຽງອັນດຽວໃນເວລາດຽວກັນ."
+
+#: ../blivetgui/blivetgui.py:814
+msgid ""
+"If your previous instance of blivet-gui crashed, please make sure that the "
+"<i>blivet-gui-daemon</i> process was terminated too.\n"
+"If it is still running you can use\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"command to force quit it."
+msgstr ""
+"ຖ້າ blivet-gui ກ່ອນໜ້ານີ້ຂັດຂ້ອງ, ກະລຸນາກວດສອບໃຫ້ແນ່ໃຈວ່າໂປຣເຊສ <i>blivet-gui-daemon</"
+"i> ຖືກປິດໄປແລ້ວຄືກັນ.\n"
+"ຖ້າມັນຍັງເຮັດວຽກຢູ່ ທ່ານສາມາດໃຊ້ຄຳສັ່ງ\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"ເພື່ອບັງຄັບໃຫ້ມັນປິດອອກ."
+
+#: ../blivetgui/blivetgui.py:846
+msgid "Failed to init blivet:"
+msgstr "ເລີ່ມຕົ້ນ blivet ບໍ່ສຳເລັດ:"
+
+#: ../blivetgui/blivetgui.py:853
+msgid "Quit blivet-gui"
+msgstr "ອອກຈາກ blivet-gui"
+
+#: ../blivetgui/blivetgui.py:855
+msgid "Ignore disk and continue"
+msgstr "ຂ້າມດິສກ໌ນີ້ ແລະ ດຳເນີນການຕໍ່"
+
+#: ../blivetgui/blivetgui.py:858
+#, python-brace-format
+msgid "Error: {error}"
+msgstr "ຂໍ້ຜິດພາດ: {error}"
+
+#: ../blivetgui/blivetgui.py:859
+#, python-brace-format
+msgid ""
+"Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
+"disklabel.\n"
+"You can either quit blivet-gui now or continue without being able to use "
+"this disk."
+msgstr ""
+"Blivet-gui ບໍ່ສາມາດໃຊ້ດິສກ໌ <b>{name}</b> ໄດ້ ເນື່ອງຈາກປ້າຍຊື່ດິສກ໌ເສຍຫາຍ ຫຼື ບໍ່ຮູ້ຈັກ.\n"
+"ທ່ານສາມາດອອກຈາກ blivet-gui ດຽວນີ້ ຫຼື ດຳເນີນການຕໍ່ໂດຍບໍ່ສາມາດໃຊ້ດິສກ໌ນີ້ໄດ້."
+
+#: ../blivetgui/blivetgui.py:895
+msgid "Confirm reload storage"
+msgstr "ຢືນຢັນການໂຫຼດຂໍ້ມູນບ່ອນເກັບຂໍ້ມູນໃໝ່"
+
+#: ../blivetgui/blivetgui.py:896
+msgid "There are pending operations. Are you sure you want to continue?"
+msgstr "ຍັງມີການດຳເນີນການທີ່ຄ້າງຢູ່. ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການດຳເນີນການຕໍ່?"
+
+#: ../blivetgui/blivetgui.py:927
+msgid "Are you sure you want to quit?"
+msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການອອກ?"
+
+#: ../blivetgui/blivetgui.py:928
+msgid ""
+"There are pending operations. Are you sure you want to quit blivet-gui now?"
+msgstr ""
+"ຍັງມີການດຳເນີນການທີ່ຄ້າງຢູ່. ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການອອກຈາກ blivet-gui ດຽວນີ້?"
+
+#: ../blivetgui/blivet_utils.py:79
+msgid "free space"
+msgstr "ເນື້ອທີ່ຫວ່າງ"
+
+#: ../blivetgui/blivet_utils.py:690
+#, python-brace-format
+msgid "Resizing of {type} devices is currently not supported"
+msgstr "ການປັບຂະໜາດອຸປະກອນ {type} ຍັງບໍ່ຮອງຮັບໃນເວລານີ້"
+
+#: ../blivetgui/blivet_utils.py:695
+msgid "Protected devices cannot be resized"
+msgstr "ອຸປະກອນທີ່ຖືກປ້ອງກັນໄວ້ບໍ່ສາມາດປັບຂະໜາດໄດ້"
+
+#: ../blivetgui/blivet_utils.py:700
+msgid "Immutable formats cannot be resized"
+msgstr "ຟໍແມັດທີ່ປ່ຽນແປງບໍ່ໄດ້ ບໍ່ສາມາດປັບຂະໜາດໄດ້"
+
+#: ../blivetgui/blivet_utils.py:705
+msgid "Devices with children cannot be resized"
+msgstr "ອຸປະກອນທີ່ມີອຸປະກອນຍ່ອຍພ່ວງຢູ່ ບໍ່ສາມາດປັບຂະໜາດໄດ້"
+
+#: ../blivetgui/blivet_utils.py:716
+msgid "Unformatted devices are not resizable"
+msgstr "ອຸປະກອນທີ່ຍັງບໍ່ທັນຟໍແມັດ ບໍ່ສາມາດປັບຂະໜາດໄດ້"
+
+#. unfortunately we can't use format._resizable here because blivet uses it to both mark
+#. formats as not resizable and force users to call update_size_info on resizable formats
+#: ../blivetgui/blivet_utils.py:723
+#, python-brace-format
+msgid "Resizing of {type} format is currently not supported"
+msgstr "ການປັບຂະໜາດຟໍແມັດ {type} ຍັງບໍ່ຮອງຮັບໃນເວລານີ້"
+
+#: ../blivetgui/blivet_utils.py:728
+#, python-brace-format
+msgid "Tools for resizing format {type} are not available."
+msgstr "ບໍ່ມີເຄື່ອງມືສຳລັບປັບຂະໜາດຟໍແມັດ {type}."
+
+#. TODO: we could support this by simply changing formats target size but we'd need
+#. a workaround for the missing action
+#: ../blivetgui/blivet_utils.py:735
+msgid "Formats scheduled to be created cannot be resized"
+msgstr "ຟໍແມັດທີ່ກຳນົດຈະສ້າງໃໝ່ ບໍ່ສາມາດປັບຂະໜາດໄດ້"
+
+#: ../blivetgui/blivet_utils.py:740
+#, python-brace-format
+msgid "Format {type} doesn't support updating its size limit information"
+msgstr "ຟໍແມັດ {type} ບໍ່ຮອງຮັບການອັບເດດຂໍ້ມູນຂີດຈຳກັດຂະໜາດ"
+
+#: ../blivetgui/blivet_utils.py:747
+msgid "Mounted devices cannot be resized"
+msgstr "ອຸປະກອນທີ່ເຊື່ອມຕໍ່ (mount) ຢູ່ ບໍ່ສາມາດປັບຂະໜາດໄດ້"
+
+#: ../blivetgui/blivet_utils.py:752
+msgid "Logical Volumes with snapshots cannot be resized."
+msgstr "ບໍລິມາດໂລຈິກ (Logical Volumes) ທີ່ມີສະແນັບຊັອດ ບໍ່ສາມາດປັບຂະໜາດໄດ້."
+
+#: ../blivetgui/blivet_utils.py:757
+msgid "Resizing of LUKS2 devices is currently not supported."
+msgstr "ການປັບຂະໜາດອຸປະກອນ LUKS2 ຍັງບໍ່ຮອງຮັບໃນເວລານີ້."
+
+#: ../blivetgui/blivet_utils.py:769
+#, python-brace-format
+msgid "Failed to update filesystem size info: {error}"
+msgstr "ອັບເດດຂໍ້ມູນຂະໜາດລະບົບໄຟລ໌ບໍ່ສຳເລັດ: {error}"
+
+#: ../blivetgui/blivet_utils.py:788
+msgid "Device is not resizable."
+msgstr "ອຸປະກອນບໍ່ສາມາດປັບຂະໜາດໄດ້."
+
+#: ../blivetgui/blivet_utils.py:790
+msgid "Format is not resizable after updating its size limit information."
+msgstr "ຟໍແມັດບໍ່ສາມາດປັບຂະໜາດໄດ້ ຫຼັງຈາກອັບເດດຂໍ້ມູນຂີດຈຳກັດຂະໜາດ."
+
+#: ../blivetgui/exception_handler.py:74
+#, python-brace-format
+msgid ""
+"Unknown error occurred.\n"
+"{error}"
+msgstr ""
+"ເກີດຂໍ້ຜິດພາດທີ່ບໍ່ຮູ້ຈັກ.\n"
+"{error}"
+
+#: ../blivetgui/exception_handler.py:76
+#, python-brace-format
+msgid ""
+"Unknown error occurred. Blivet-gui will be terminated.\n"
+"{error}"
+msgstr ""
+"ເກີດຂໍ້ຜິດພາດທີ່ບໍ່ຮູ້ຈັກ. Blivet-gui ຈະຖືກປິດລົງ.\n"
+"{error}"
+
+#: ../blivetgui/list_actions.py:69 ../blivetgui/list_actions.py:118
+#: ../blivetgui/list_actions.py:140 ../data/ui/blivet-gui.ui:647
+msgid "No pending actions"
+msgstr "ບໍ່ມີການດຳເນີນການທີ່ຄ້າງຢູ່"
+
+#: ../blivetgui/list_actions.py:97 ../blivetgui/list_actions.py:120
+#, python-format
+msgid "%s pending action"
+msgid_plural "%s pending actions"
+msgstr[0] "ມີ %s ການດຳເນີນການທີ່ຄ້າງຢູ່"
+
+#: ../blivetgui/list_devices.py:84
+msgid "Disks"
+msgstr "ດິສກ໌"
+
+#: ../blivetgui/list_devices.py:91
+msgid "MDRAID set"
+msgstr "ຊຸດ MDRAID"
+
+#: ../blivetgui/list_devices.py:112
+msgid "LVM"
+msgstr "LVM"
+
+#: ../blivetgui/list_devices.py:115
+msgid "LVM2 VG"
+msgstr "LVM2 VG"
+
+#: ../blivetgui/list_devices.py:118
+msgid "RAID"
+msgstr "RAID"
+
+#: ../blivetgui/list_devices.py:121
+msgid "MDArray"
+msgstr "MDArray"
+
+#: ../blivetgui/list_devices.py:124
+msgid "Btrfs Volumes"
+msgstr "ບໍລິມາດ Btrfs"
+
+#: ../blivetgui/list_devices.py:127 ../blivetgui/dialogs/add_dialog.py:388
+#: ../blivetgui/dialogs/device_info_dialog.py:86
+msgid "Btrfs Volume"
+msgstr "ບໍລິມາດ Btrfs"
+
+#: ../blivetgui/list_devices.py:130
+msgid "Stratis Pools"
+msgstr "ພູລ Stratis"
+
+#: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:391
+msgid "Stratis Pool"
+msgstr "ພູລ Stratis"
+
+#. broken MD array
+#. TRANSLATORS: size value for device with invalid/unknown size
+#: ../blivetgui/list_partitions.py:166
+#: ../blivetgui/visualization/rectangle.py:66
+msgid "unknown"
+msgstr "ບໍ່ຮູ້ຈັກ"
+
+#: ../blivetgui/loading_window.py:47
+msgid "Probing storage"
+msgstr "ກຳລັງກວດສອບບ່ອນເກັບຂໍ້ມູນ"
+
+#: ../blivetgui/loading_window.py:64
+msgid "Scanning storage configuration..."
+msgstr "ກຳລັງສະແກນການຕັ້ງຄ່າບ່ອນເກັບຂໍ້ມູນ..."
+
+#: ../blivetgui/osinstall.py:218
+#, python-brace-format
+msgid ""
+"{message}\n"
+"{error}\n"
+" Please click Report button to raise the error and let anaconda \n"
+" to handle the report process if you want to report this."
+msgstr ""
+"{message}\n"
+"{error}\n"
+" ກະລຸນາຄລິກປຸ່ມ ລາຍງານ ເພື່ອແຈ້ງຂໍ້ຜິດພາດ ແລະ ໃຫ້ anaconda \n"
+" ຈັດການຂັ້ນຕອນການລາຍງານ ຫາກທ່ານຕ້ອງການລາຍງານເລື່ອງນີ້."
+
+#: ../blivetgui/osinstall.py:220
+#, python-brace-format
+msgid ""
+"Unknown error occurred. Anaconda will be terminated.\n"
+"{error}"
+msgstr ""
+"ເກີດຂໍ້ຜິດພາດທີ່ບໍ່ຮູ້ຈັກ. Anaconda ຈະຖືກປິດລົງ.\n"
+"{error}"
+
+#. add a new 'placeholder' action for all currently registered blivet actions
+#: ../blivetgui/osinstall.py:268
+msgid "actions configured by installer"
+msgstr "ການດຳເນີນການທີ່ຖືກຕັ້ງຄ່າໂດຍຕົວຕິດຕັ້ງ"
+
+#: ../blivetgui/processing_window.py:57
+msgid "Processing"
+msgstr "ກຳລັງປະມວນຜົນ"
+
+#: ../blivetgui/processing_window.py:82
+msgid "Show actions"
+msgstr "ສະແດງການດຳເນີນການ"
+
+#: ../blivetgui/processing_window.py:157
+msgid "All queued actions have been processed."
+msgstr "ການດຳເນີນການທັງໝົດໃນຄິວຖືກປະມວນຜົນແລ້ວ."
+
+#: ../blivetgui/processing_window.py:172
+#, python-brace-format
+msgid ""
+"<b>Processing action {num} of {total}</b>:\n"
+"<i>{action}</i>"
+msgstr ""
+"<b>ກຳລັງປະມວນຜົນ {num} ຈາກ {total}</b>:\n"
+"<i>{action}</i>"
+
+#: ../blivetgui/communication/client.py:284
+#: ../blivetgui/communication/client.py:292
+#: ../blivetgui/communication/client.py:313
+#: ../blivetgui/communication/client.py:330
+msgid "Failed to connect to blivet-gui-daemon"
+msgstr "ເຊື່ອມຕໍ່ກັບ blivet-gui-daemon ບໍ່ສຳເລັດ"
+
+#: ../blivetgui/dialogs/add_dialog.py:67
+msgid "Show advanced options"
+msgstr "ສະແດງຕົວເລືອກຂັ້ນສູງ"
+
+#: ../blivetgui/dialogs/add_dialog.py:85
+msgid "PE Size:"
+msgstr "ຂະໜາດ PE:"
+
+#: ../blivetgui/dialogs/add_dialog.py:109
+msgid "Partition type:"
+msgstr "ປະເພດພາທິຊັນ:"
+
+#: ../blivetgui/dialogs/add_dialog.py:118
+msgid "Logical"
+msgstr "Logical"
+
+#: ../blivetgui/dialogs/add_dialog.py:120
+#: ../blivetgui/dialogs/add_dialog.py:122
+#: ../blivetgui/dialogs/add_dialog.py:124
+msgid "Primary"
+msgstr "Primary"
+
+#: ../blivetgui/dialogs/add_dialog.py:122
+msgid "Extended"
+msgstr "Extended"
+
+#: ../blivetgui/dialogs/add_dialog.py:149
+msgid "Chunk Size:"
+msgstr "ຂະໜາດ Chunk:"
+
+#: ../blivetgui/dialogs/add_dialog.py:212
+#, python-brace-format
+msgid "'{0}' is not a valid chunk size specification."
+msgstr "'{0}' ບໍ່ແມ່ນຄ່າຂະໜາດ chunk ທີ່ຖືກຕ້ອງ."
+
+#: ../blivetgui/dialogs/add_dialog.py:217
+msgid "Chunk size must be multiple of 4 KiB."
+msgstr "ຂະໜາດ Chunk ຕ້ອງເປັນຈຳນວນເທົ່າຂອງ 4 KiB."
+
+#: ../blivetgui/dialogs/add_dialog.py:273
+msgid "Create new device"
+msgstr "ສ້າງອຸປະກອນໃໝ່"
+
+#. dictionary with 'human-readable' device names and methods providing detailed information
+#: ../blivetgui/dialogs/add_dialog.py:382
+#: ../blivetgui/dialogs/add_dialog.py:766
+#: ../blivetgui/dialogs/device_info_dialog.py:79
+msgid "Partition"
+msgstr "ພາທິຊັນ"
+
+#: ../blivetgui/dialogs/add_dialog.py:385
+#: ../blivetgui/dialogs/add_dialog.py:401
+#: ../blivetgui/dialogs/device_info_dialog.py:80
+msgid "LVM2 Volume Group"
+msgstr "ກຸ່ມບໍລິມາດ LVM2"
+
+#. number of free disk regions
+#: ../blivetgui/dialogs/add_dialog.py:394
+msgid "Software RAID"
+msgstr "Software RAID"
+
+#: ../blivetgui/dialogs/add_dialog.py:397
+#: ../blivetgui/dialogs/device_info_dialog.py:81
+msgid "LVM2 Logical Volume"
+msgstr "ບໍລິມາດໂລຈິກ LVM2"
+
+#: ../blivetgui/dialogs/add_dialog.py:397
+#: ../blivetgui/dialogs/device_info_dialog.py:83
+msgid "LVM2 ThinPool"
+msgstr "LVM2 ThinPool"
+
+#: ../blivetgui/dialogs/add_dialog.py:404
+#: ../blivetgui/dialogs/device_info_dialog.py:82
+msgid "LVM2 Snapshot"
+msgstr "LVM2 Snapshot"
+
+#: ../blivetgui/dialogs/add_dialog.py:407
+msgid "LVM2 Thin Snapshot"
+msgstr "LVM2 Thin Snapshot"
+
+#: ../blivetgui/dialogs/add_dialog.py:410
+#: ../blivetgui/dialogs/device_info_dialog.py:84
+msgid "LVM2 Thin Logical Volume"
+msgstr "ບໍລິມາດໂລຈິກ LVM2 ແບບ Thin"
+
+#: ../blivetgui/dialogs/add_dialog.py:413
+#: ../blivetgui/dialogs/device_info_dialog.py:87
+msgid "Btrfs Subvolume"
+msgstr "Btrfs Subvolume"
+
+#: ../blivetgui/dialogs/add_dialog.py:416
+msgid "Stratis Filesystem"
+msgstr "ລະບົບໄຟລ໌ Stratis"
+
+#: ../blivetgui/dialogs/add_dialog.py:422
+msgid "Device type:"
+msgstr "ປະເພດອຸປະກອນ:"
+
+#: ../blivetgui/dialogs/add_dialog.py:457
+#: ../blivetgui/dialogs/edit_dialog.py:628
+#: ../blivetgui/dialogs/edit_dialog.py:677
+#: ../blivetgui/dialogs/edit_dialog.py:739 ../data/ui/blivet-gui.ui:499
+#: ../data/ui/cache_area.ui:76
+msgid "Device"
+msgstr "ອຸປະກອນ"
+
+#: ../blivetgui/dialogs/add_dialog.py:458
+#: ../blivetgui/dialogs/edit_dialog.py:629
+#: ../blivetgui/dialogs/edit_dialog.py:678
+#: ../blivetgui/dialogs/edit_dialog.py:740 ../data/ui/blivet-gui.ui:512
+#: ../data/ui/cache_area.ui:87
+msgid "Type"
+msgstr "ປະເພດ"
+
+#: ../blivetgui/dialogs/add_dialog.py:459
+#: ../blivetgui/dialogs/edit_dialog.py:630
+#: ../blivetgui/dialogs/edit_dialog.py:679
+#: ../blivetgui/dialogs/edit_dialog.py:741 ../data/ui/blivet-gui.ui:534
+msgid "Size"
+msgstr "ຂະໜາດ"
+
+#: ../blivetgui/dialogs/add_dialog.py:468
+#: ../blivetgui/dialogs/edit_dialog.py:688
+#: ../blivetgui/dialogs/edit_dialog.py:750 ../data/ui/cache_area.ui:130
+msgid "Available devices:"
+msgstr "ອຸປະກອນທີ່ມີໃຫ້ໃຊ້:"
+
+#: ../blivetgui/dialogs/add_dialog.py:761
+msgid "MDArray type:"
+msgstr "ປະເພດ MDArray:"
+
+#: ../blivetgui/dialogs/add_dialog.py:793
+msgid "Filesystem:"
+msgstr "ລະບົບໄຟລ໌:"
+
+#: ../blivetgui/dialogs/add_dialog.py:826
+#: ../blivetgui/dialogs/edit_dialog.py:164
+msgid "unformatted"
+msgstr "ຍັງບໍ່ໄດ້ຟໍແມັດ"
+
+#: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:148
+msgid "Label:"
+msgstr "ປ້າຍຊື່:"
+
+#: ../blivetgui/dialogs/add_dialog.py:864
+msgid "Name:"
+msgstr "ຊື່:"
+
+#: ../blivetgui/dialogs/add_dialog.py:875 ../data/ui/format_dialog.ui:189
+msgid "Mountpoint:"
+msgstr "ຈຸດເຊື່ອມຕໍ່:"
+
+#: ../blivetgui/dialogs/add_dialog.py:1078 ../blivetgui/dialogs/helpers.py:136
+#, python-brace-format
+msgid "\"{0}\" is not a valid mountpoint."
+msgstr "\"{0}\" ບໍ່ແມ່ນຈຸດເຊື່ອມຕໍ່ທີ່ຖືກຕ້ອງ."
+
+#: ../blivetgui/dialogs/add_dialog.py:1085
+msgid "Please select at least two parent devices."
+msgstr "ກະລຸນາເລືອກອຸປະກອນຫຼັກຢ່າງໜ້ອຍສອງອັນ."
+
+#: ../blivetgui/dialogs/add_dialog.py:1099
+#: ../blivetgui/dialogs/edit_dialog.py:468
+#, python-brace-format
+msgid "\"{0}\" is not a valid name."
+msgstr "\"{0}\" ບໍ່ແມ່ນຊື່ທີ່ຖືກຕ້ອງ."
+
+#: ../blivetgui/dialogs/add_dialog.py:1105
+#, python-brace-format
+msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
+msgstr "ຕ້ອງສ້າງ subvolume \"{0}\" ກ່ອນທີ່ຈະສ້າງ subvolume \"{1}\"."
+
+#: ../blivetgui/dialogs/add_dialog.py:1112
+#: ../blivetgui/dialogs/edit_dialog.py:231
+#, python-brace-format
+msgid "\"{0}\" is not a valid label."
+msgstr "\"{0}\" ບໍ່ແມ່ນປ້າຍຊື່ທີ່ຖືກຕ້ອງ."
+
+#. ---------------------------------------------------------------------------- #
+#: ../blivetgui/dialogs/device_info_dialog.py:36
+msgid "primary"
+msgstr "primary"
+
+#. pylint: disable=W9902
+#: ../blivetgui/dialogs/device_info_dialog.py:37
+msgid "logical"
+msgstr "logical"
+
+#. pylint: disable=W9902
+#: ../blivetgui/dialogs/device_info_dialog.py:38
+msgid "extended"
+msgstr "extended"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:67
+#, python-brace-format
+msgid "Information about {0}"
+msgstr "ຂໍ້ມູນກ່ຽວກັບ {0}"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:85
+msgid "LUKS/DM-Crypt Device"
+msgstr "ອຸປະກອນ LUKS/DM-Crypt"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:88
+msgid "MD RAID Array"
+msgstr "MD RAID Array"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:89
+msgid "DM Integrity Device"
+msgstr "ອຸປະກອນ DM Integrity"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:102
+#: ../blivetgui/dialogs/device_info_dialog.py:224
+#, python-brace-format
+msgid " • <i>Type:</i> {type}\n"
+msgstr " • <i>ປະເພດ:</i> {type}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:105
+#, python-brace-format
+msgid " • <i>Length:</i> {length}\n"
+msgstr " • <i>ຄວາມຍາວ:</i> {length}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:106
+#, python-brace-format
+msgid " • <i>Start:</i> {start}\n"
+msgstr " • <i>ເລີ່ມຕົ້ນ:</i> {start}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:107
+#, python-brace-format
+msgid " • <i>End:</i> {end}\n"
+msgstr " • <i>ສິ້ນສຸດ:</i> {end}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:114
+#, python-brace-format
+msgid " • <i>Origin:</i> {origin}\n"
+msgstr " • <i>ຕົ້ນກຳເນີດ:</i> {origin}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:115
+#: ../blivetgui/dialogs/device_info_dialog.py:117
+#: ../blivetgui/dialogs/device_info_dialog.py:121
+#, python-brace-format
+msgid " • <i>Segment type:</i> {segtype}\n"
+msgstr " • <i>ປະເພດເຊັກເມັ້ນ:</i> {segtype}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:118
+#, python-brace-format
+msgid " • <i>Free space:</i> {free}\n"
+msgstr " • <i>ເນື້ອທີ່ຫວ່າງ:</i> {free}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:119
+#, python-brace-format
+msgid " • <i>Space used:</i> {used}\n"
+msgstr " • <i>ເນື້ອທີ່ທີ່ໃຊ້ໄປ:</i> {used}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:123
+#, python-brace-format
+msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
+msgstr " • <i>ມີແຄຊ (Cached):</i> ແມ່ນ (ຂະໜາດແຄຊ: {cache_size})\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:125
+msgid " • <i>Cached:</i> No\n"
+msgstr " • <i>ມີແຄຊ (Cached):</i> ບໍ່\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:130
+#, python-brace-format
+msgid " • <i>PE Size:</i> {pesize}\n"
+msgstr " • <i>ຂະໜາດ PE:</i> {pesize}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:131
+#, python-brace-format
+msgid " • <i>PE Count:</i> {pecount}\n"
+msgstr " • <i>ຈຳນວນ PE:</i> {pecount}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:132
+#, python-brace-format
+msgid " • <i>Free Space:</i> {free}\n"
+msgstr " • <i>ເນື້ອທີ່ຫວ່າງ:</i> {free}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:133
+#, python-brace-format
+msgid " • <i>PE Free:</i> {pefree}\n"
+msgstr " • <i>PE ທີ່ຫວ່າງ:</i> {pefree}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:134
+#, python-brace-format
+msgid " • <i>Reserved Space:</i> {res}\n"
+msgstr " • <i>ເນື້ອທີ່ທີ່ຈອງໄວ້:</i> {res}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:135
+#: ../blivetgui/dialogs/device_info_dialog.py:154
+#, python-brace-format
+msgid " • <i>Complete:</i> {complete}\n"
+msgstr " • <i>ສົມບູນ:</i> {complete}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:140
+#, python-brace-format
+msgid " • <i>Subvol ID:</i> {id}\n"
+msgstr " • <i>ID Subvol:</i> {id}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:143
+#, python-brace-format
+msgid " • <i>Data Level:</i> {level}\n"
+msgstr " • <i>ລະດັບຂໍ້ມູນ:</i> {level}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:144
+#, python-brace-format
+msgid " • <i>Metadata Level:</i> {level}\n"
+msgstr " • <i>ລະດັບ Metadata:</i> {level}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:149
+#, python-brace-format
+msgid " • <i>Level:</i> {level}\n"
+msgstr " • <i>ລະດັບ:</i> {level}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:150
+#, python-brace-format
+msgid " • <i>Devices:</i> {dcount}\n"
+msgstr " • <i>ອຸປະກອນ:</i> {dcount}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:151
+#, python-brace-format
+msgid " • <i>Spares:</i> {spares}\n"
+msgstr " • <i>ອຸປະກອນສຳຮອງ:</i> {spares}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:152
+#, python-brace-format
+msgid " • <i>Degraded:</i> {degraded}\n"
+msgstr " • <i>ເສື່ອມສະພາບ:</i> {degraded}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:153
+#, python-brace-format
+msgid " • <i>Metadata Version:</i> {metadata}\n"
+msgstr " • <i>ເວີຊັນ Metadata:</i> {metadata}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:168
+#, python-brace-format
+msgid "Unknown device {name}"
+msgstr "ບໍ່ຮູ້ຈັກອຸປະກອນ {name}"
+
+#. device info header
+#: ../blivetgui/dialogs/device_info_dialog.py:176
+msgid "Basic information"
+msgstr "ຂໍ້ມູນເບື້ອງຕົ້ນ"
+
+#. 'basic' information about selected device
+#: ../blivetgui/dialogs/device_info_dialog.py:186
+#: ../blivetgui/dialogs/device_info_dialog.py:222
+#: ../blivetgui/dialogs/device_info_dialog.py:269
+msgid "existing"
+msgstr "ມີຢູ່ແລ້ວ"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:186
+#: ../blivetgui/dialogs/device_info_dialog.py:222
+#: ../blivetgui/dialogs/device_info_dialog.py:269
+msgid "non-existing"
+msgstr "ບໍ່ມີຢູ່"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:187
+#: ../blivetgui/dialogs/device_info_dialog.py:223
+#, python-brace-format
+msgid " • <i>Status:</i> {exist}\n"
+msgstr " • <i>ສະຖານະ:</i> {exist}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:188
+#, python-brace-format
+msgid " • <i>Name:</i> {name}\n"
+msgstr " • <i>ຊື່:</i> {name}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:189
+#, python-brace-format
+msgid " • <i>Path:</i> {path}\n"
+msgstr " • <i>ທີ່ຢູ່ (Path):</i> {path}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:190
+#, python-brace-format
+msgid " • <i>Size:</i> {size}\n"
+msgstr " • <i>ຂະໜາດ:</i> {size}\n"
+
+#. device format header
+#: ../blivetgui/dialogs/device_info_dialog.py:211
+msgid "Device format"
+msgstr "ຟໍແມັດອຸປະກອນ"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:225
+#, python-brace-format
+msgid " • <i>UUID:</i> {uuid}\n"
+msgstr " • <i>UUID:</i> {uuid}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:227
+#, python-brace-format
+msgid " • <i>Label:</i> {label}\n"
+msgstr " • <i>ປ້າຍຊື່:</i> {label}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:241
+#, python-brace-format
+msgid ""
+" • <i>Mountpoints:</i>\n"
+"     {mountpoints}"
+msgstr ""
+" • <i>ຈຸດເຊື່ອມຕໍ່:</i>\n"
+"     {mountpoints}"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:244
+msgid " • <i>Type:</i> None"
+msgstr " • <i>ປະເພດ:</i> ບໍ່ມີ"
+
+#. device parents header
+#: ../blivetgui/dialogs/device_info_dialog.py:257
+msgid "Parents"
+msgstr "ອຸປະກອນຫຼັກ (Parents)"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:270
+#, python-brace-format
+msgid " • {exists} {size} {type} {name}\n"
+msgstr " • {exists} {size} {type} {name}\n"
+
+#: ../blivetgui/dialogs/edit_dialog.py:102
+#, python-brace-format
+msgid ""
+"<b>This device cannot be resized:</b>\n"
+"<i>{0}</i>"
+msgstr ""
+"<b>ອຸປະກອນນີ້ບໍ່ສາມາດປັບຂະໜາດໄດ້:</b>\n"
+"<i>{0}</i>"
+
+#: ../blivetgui/dialogs/edit_dialog.py:104
+msgid "This device cannot be resized."
+msgstr "ອຸປະກອນນີ້ບໍ່ສາມາດປັບຂະໜາດໄດ້."
+
+#: ../blivetgui/dialogs/edit_dialog.py:406
+#, python-brace-format
+msgid "'{label}' is not a valid label for this filesystem"
+msgstr "'{label}' ບໍ່ແມ່ນປ້າຍຊື່ທີ່ຖືກຕ້ອງສຳລັບລະບົບໄຟລ໌ນີ້"
+
+#: ../blivetgui/dialogs/edit_dialog.py:481
+#, python-brace-format
+msgid "Selected device is already named \"{0}\"."
+msgstr "ອຸປະກອນທີ່ເລືອກມີຊື່ວ່າ \"{0}\" ຢູ່ແລ້ວ."
+
+#: ../blivetgui/dialogs/edit_dialog.py:487
+#, python-brace-format
+msgid "Selected name \"{0}\" is already in use."
+msgstr "ຊື່ \"{0}\" ທີ່ເລືອກຖືກໃຊ້ງານຢູ່ແລ້ວ."
+
+#. auto shrink after removing/hiding widgets
+#: ../blivetgui/dialogs/edit_dialog.py:598
+msgid "Edit device"
+msgstr "ແກ້ໄຂອຸປະກອນ"
+
+#: ../blivetgui/dialogs/edit_dialog.py:638
+msgid "Parent devices:"
+msgstr "ອຸປະກອນຫຼັກ (Parent devices):"
+
+#: ../blivetgui/dialogs/edit_dialog.py:645
+msgid "Add a parent"
+msgstr "ເພີ່ມອຸປະກອນຫຼັກ"
+
+#: ../blivetgui/dialogs/edit_dialog.py:648
+msgid "Remove a parent"
+msgstr "ລຶບອຸປະກອນຫຼັກ"
+
+#: ../blivetgui/dialogs/edit_dialog.py:659
+msgid ""
+"There are currently no empty physical volumes or\n"
+"disks with enough free space to create one."
+msgstr ""
+"ໃນເວລານີ້ບໍ່ມີບໍລິມາດຟີຊິກທີ່ຫວ່າງ ຫຼື\n"
+"ດິສກ໌ທີ່ມີເນື້ອທີ່ຫວ່າງພໍທີ່ຈະສ້າງໄດ້."
+
+#: ../blivetgui/dialogs/edit_dialog.py:676
+msgid "Add?"
+msgstr "ເພີ່ມ?"
+
+#: ../blivetgui/dialogs/edit_dialog.py:718
+msgid ""
+"There isn't a physical volume that could be\n"
+"removed from this volume group."
+msgstr ""
+"ບໍ່ມີບໍລິມາດຟີຊິກທີ່ສາມາດ\n"
+"ລຶບອອກຈາກກຸ່ມບໍລິມາດນີ້ໄດ້."
+
+#: ../blivetgui/dialogs/edit_dialog.py:730
+msgid "Currently it is possible to remove only one parent at time."
+msgstr "ໃນເວລານີ້ສາມາດລຶບອຸປະກອນຫຼັກໄດ້ພຽງເທື່ອລະອັນເທົ່ານັ້ນ."
+
+#: ../blivetgui/dialogs/edit_dialog.py:738
+msgid "Remove?"
+msgstr "ລຶບອອກ?"
+
+#: ../blivetgui/dialogs/helpers.py:143
+#, python-brace-format
+msgid "Selected mountpoint \"{0}\" is already set for another device."
+msgstr "ຈຸດເຊື່ອມຕໍ່ \"{0}\" ທີ່ເລືອກຖືກຕັ້ງໄວ້ໃຫ້ອຸປະກອນອື່ນແລ້ວ."
+
+#: ../blivetgui/dialogs/message_dialogs.py:132
+#, python-format
+msgid ""
+"If you believe this is a bug, please use the 'Report a bug' button below to "
+"report a bug using the\n"
+"Automatic bug reporting tool (ABRT) or open an issue on our <a "
+"href=\"%s\">GitHub</a>."
+msgstr ""
+"ຫາກທ່ານຄິດວ່ານີ້ແມ່ນຂໍ້ຜິດພາດ (bug), ກະລຸນາໃຊ້ປຸ່ມ 'ລາຍງານຂໍ້ຜິດພາດ' ລຸ່ມນີ້ເພື່ອລາຍງານໂດຍໃຊ້\n"
+"ເຄື່ອງມືລາຍງານຂໍ້ຜິດພາດອັດຕະໂນມັດ (ABRT) ຫຼື ແຈ້ງບັນຫາໃນ <a href=\"%s\">GitHub</a> ຂອງພວກ"
+"ເຮົາ."
+
+#: ../blivetgui/dialogs/message_dialogs.py:136
+#, python-format
+msgid ""
+"If you believe this is a bug, please open an issue on our <a "
+"href=\"%s\">GitHub</a>."
+msgstr ""
+"ຫາກທ່ານຄິດວ່ານີ້ແມ່ນຂໍ້ຜິດພາດ (bug), ກະລຸນາແຈ້ງບັນຫາໃນ <a href=\"%s\">GitHub</a> ຂອງພວກເຮົ"
+"າ."
+
+#: ../blivetgui/dialogs/message_dialogs.py:208
+msgid "Confirm delete operation"
+msgstr "ຢືນຢັນການລຶບ"
+
+#: ../blivetgui/dialogs/message_dialogs.py:209
+#, python-brace-format
+msgid "Are you sure you want delete device {name}?"
+msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລຶບອຸປະກອນ {name}?"
+
+#: ../blivetgui/dialogs/message_dialogs.py:219
+#, python-brace-format
+msgid "Following children of {name} will be also removed by this action:\n"
+msgstr "ອຸປະກອນຍ່ອຍຂອງ {name} ຕໍ່ໄປນີ້ຈະຖືກລຶບອອກໄປນຳ:\n"
+
+#: ../blivetgui/dialogs/message_dialogs.py:227
+#, python-brace-format
+msgid "Also delete following parent devices of {name}:"
+msgstr "ລຶບອຸປະກອນຫຼັກຂອງ {name} ຕໍ່ໄປນີ້ໄປນຳ:"
+
+#: ../blivetgui/dialogs/message_dialogs.py:327
+msgid "There are no pending actions."
+msgstr "ບໍ່ມີການດຳເນີນການທີ່ຄ້າງຢູ່."
+
+#. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
+#. your name and email address (optional) here. Separate translator names with newlines.
+#: ../blivetgui/dialogs/other_dialogs.py:53
+msgid "translator-credits"
+msgstr "ສຸລິສັກ ພັນທະວົງ"
+
+#: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:706
+msgid "System Information"
+msgstr "ຂໍ້ມູນລະບົບ"
+
+#: ../blivetgui/dialogs/other_dialogs.py:144
+msgid "Version Information"
+msgstr "ຂໍ້ມູນເວີຊັນ"
+
+#. blivet-gui version
+#: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:269
+msgid "blivet-gui"
+msgstr "blivet-gui"
+
+#. pylint: disable=broad-except
+#: ../blivetgui/dialogs/other_dialogs.py:152
+#: ../blivetgui/dialogs/other_dialogs.py:154
+msgid "blivet"
+msgstr "blivet"
+
+#: ../blivetgui/dialogs/other_dialogs.py:154
+msgid "Unknown"
+msgstr "ບໍ່ຮູ້ຈັກ"
+
+#: ../blivetgui/dialogs/other_dialogs.py:161
+msgid "Startup Options"
+msgstr "ຕົວເລືອກການເລີ່ມຕົ້ນ"
+
+#: ../blivetgui/dialogs/other_dialogs.py:167
+msgid "None (all disks)"
+msgstr "ບໍ່ມີ (ດິສກ໌ທັງໝົດ)"
+
+#: ../blivetgui/dialogs/other_dialogs.py:168
+msgid "Exclusive disks"
+msgstr "ດິສກ໌ສະເພາະ"
+
+#: ../blivetgui/dialogs/other_dialogs.py:170
+msgid "Selection of disks blivet-gui is allowed to operate with"
+msgstr "ການເລືອກດິສກ໌ທີ່ blivet-gui ໄດ້ຮັບອະນຸຍາດໃຫ້ຈັດການ"
+
+#: ../blivetgui/dialogs/other_dialogs.py:174
+msgid "Advanced device information"
+msgstr "ຂໍ້ມູນອຸປະກອນຂັ້ນສູງ"
+
+#: ../blivetgui/dialogs/other_dialogs.py:175
+msgid "Yes"
+msgstr "ແມ່ນ"
+
+#: ../blivetgui/dialogs/other_dialogs.py:175
+msgid "No"
+msgstr "ບໍ່"
+
+#: ../blivetgui/dialogs/other_dialogs.py:176
+msgid ""
+"Whether gathering all information about devices is enabled, even if it "
+"requires potentially dangerous operations like mounting or a filesystem check"
+msgstr ""
+"ເປີດໃຊ້ການຮວບຮວມຂໍ້ມູນທັງໝົດກ່ຽວກັບອຸປະກອນຫຼືບໍ່, ເຖິງແມ່ນວ່າຈະຕ້ອງດຳເນີນການທີ່ອາດມີຄວາມສ່ຽງ ເຊັ່ນ ການ"
+"ເຊື່ອມຕໍ່ ຫຼື ການກວດສອບລະບົບໄຟລ໌"
+
+#: ../blivetgui/dialogs/other_dialogs.py:192
+msgid ""
+"<b>Warning:</b> Some information about Btrfs devices might be missing "
+"because there are unmounted Btrfs devices on the system. Gathering "
+"information about these devices requires mounting them which is not enabled "
+"by default.\n"
+"To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
+msgstr ""
+"<b>ຄຳເຕືອນ:</b> ຂໍ້ມູນບາງຢ່າງກ່ຽວກັບອຸປະກອນ Btrfs ອາດຈະຂາດຫາຍໄປ ເພາະມີອຸປະກອນ Btrfs ທີ່ບໍ່ໄ"
+"ດ້ເຊື່ອມຕໍ່ຢູ່ໃນລະບົບ. ການຮວບຮວມຂໍ້ມູນເຫຼົ່ານີ້ຕ້ອງມີການເຊື່ອມຕໍ່ພວກມັນກ່ອນ ເຊິ່ງບໍ່ໄດ້ເປີດໃຊ້ໄວ້ເປັນຄ່າເລີ່ມຕົ້"
+"ນ.\n"
+"ເພື່ອເປີດໃຊ້ງານ, ໃຫ້ເລີ່ມ blivet-gui ດ້ວຍຕົວເລືອກ <tt>--auto-dev-updates</tt>."
+
+#: ../blivetgui/dialogs/size_chooser.py:215
+msgid ""
+"Currently selected size is greater than maximum limit for this selection."
+msgstr "ຂະໜາດທີ່ເລືອກໃນເວລານີ້ໃຫຍ່ກວ່າຂີດຈຳກັດສູງສຸດ."
+
+#: ../blivetgui/dialogs/size_chooser.py:218
+msgid ""
+"Currently selected size is smaller than minimum limit for this selection."
+msgstr "ຂະໜາດທີ່ເລືອກໃນເວລານີ້ໜ້ອຍກວ່າຂີດຈຳກັດຕ່ຳສຸດ."
+
+#. fill combobox with supported sector sizes and select the default one
+#: ../blivetgui/dialogs/widgets.py:285
+msgid "Automatic"
+msgstr "ອັດຕະໂນມັດ"
+
+#: ../blivetgui/dialogs/widgets.py:380
+msgid "Passphrase not specified."
+msgstr "ບໍ່ໄດ້ລະບຸລະຫັດຜ່ານ."
+
+#: ../blivetgui/dialogs/widgets.py:383
+msgid "Provided passphrases do not match."
+msgstr "ລະຫັດຜ່ານທີ່ປ້ອນບໍ່ຕົງກັນ."
+
+#: ../blivetgui/dialogs/widgets.py:414
+msgid "Passphrases match."
+msgstr "ລະຫັດຜ່ານຕົງກັນ."
+
+#: ../blivetgui/dialogs/widgets.py:417
+msgid "Passphrases don't match."
+msgstr "ລະຫັດຜ່ານບໍ່ຕົງກັນ."
+
+#: ../blivetgui/visualization/rectangle.py:52
+msgid "Group device"
+msgstr "ອຸປະກອນກຸ່ມ"
+
+#: ../blivetgui/visualization/rectangle.py:53
+msgid "LiveUSB device"
+msgstr "ອຸປະກອນ LiveUSB"
+
+#: ../blivetgui/visualization/rectangle.py:54
+msgid "Encrypted device (locked)"
+msgstr "ອຸປະກອນທີ່ເຂົ້າລະຫັດ (ລັອກຢູ່)"
+
+#: ../blivetgui/visualization/rectangle.py:55
+msgid "Encrypted device (unlocked)"
+msgstr "ອຸປະກອນທີ່ເຂົ້າລະຫັດ (ປົດລັອກແລ້ວ)"
+
+#: ../blivetgui/visualization/rectangle.py:56
+msgid "Empty device"
+msgstr "ອຸປະກອນຫວ່າງ"
+
+#: ../blivetgui/visualization/rectangle.py:57
+msgid "Snapshot"
+msgstr "ສະແນັບຊັອດ"
+
+#: ../blivetgui/visualization/rectangle.py:58
+msgid "Missing partition table"
+msgstr "ຂາດຕາຕະລາງພາທິຊັນ"
+
+#: ../blivetgui/visualization/rectangle.py:59
+msgid "Device or format is write protected"
+msgstr "ອຸປະກອນ ຫຼື ຟໍແມັດ ຖືກປ້ອງກັນການຂຽນ"
+
+#: ../blivetgui/visualization/rectangle.py:60
+msgid "Cached device"
+msgstr "ອຸປະກອນທີ່ມີແຄຊ"
+
+#: ../blivetgui/visualization/rectangle.py:61
+msgid "Incomplete device"
+msgstr "ອຸປະກອນບໍ່ສົມບູນ"
+
+#: ../blivetgui/visualization/rectangle.py:62
+msgid "Missing subvolume information"
+msgstr "ຂາດຂໍ້ມູນ subvolume"
+
+#: ../blivetgui/visualization/rectangle.py:104
+msgid "LVM2 Volume Group — double-click to view Logical Volumes"
+msgstr "ກຸ່ມບໍລິມາດ LVM2 — ຄລິກສອງບາດເພື່ອເບິ່ງບໍລິມາດໂລຈິກ"
+
+#: ../blivetgui/visualization/rectangle.py:105
+msgid "Btrfs Volume — double-click to view subvolumes"
+msgstr "ບໍລິມາດ Btrfs — ຄລິກສອງບາດເພື່ອເບິ່ງ subvolumes"
+
+#: ../blivetgui/visualization/rectangle.py:106
+msgid "RAID Array — double-click to view contents"
+msgstr "RAID Array — ຄລິກສອງບາດເພື່ອເບິ່ງເນື້ອໃນ"
+
+#: ../blivetgui/visualization/rectangle.py:107
+msgid "Stratis Pool — double-click to view filesystems"
+msgstr "ພູລ Stratis — ຄລິກສອງບາດເພື່ອເບິ່ງລະບົບໄຟລ໌"
+
+#. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
+#: ../blivetgui/visualization/rectangle.py:117
+#, python-brace-format
+msgid "{count} logical volume"
+msgid_plural "{count} logical volumes"
+msgstr[0] "{count} ບໍລິມາດໂລຈິກ"
+
+#. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
+#: ../blivetgui/visualization/rectangle.py:120
+#, python-brace-format
+msgid "{count} subvolume"
+msgid_plural "{count} subvolumes"
+msgstr[0] "{count} subvolume"
+
+#. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
+#: ../blivetgui/visualization/rectangle.py:123
+#, python-brace-format
+msgid "{count} partition"
+msgid_plural "{count} partitions"
+msgstr[0] "{count} ພາທິຊັນ"
+
+#. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
+#: ../blivetgui/visualization/rectangle.py:126
+#, python-brace-format
+msgid "{count} filesystem"
+msgid_plural "{count} filesystems"
+msgstr[0] "{count} ລະບົບໄຟລ໌"
+
+#: ../data/ui/about_dialog.ui:11
+msgid "Copyright © Red Hat Inc."
+msgstr "ສະຫງວນລິຂະສິດ © Red Hat Inc."
+
+#: ../data/ui/add_disklabel_dialog.ui:11
+msgid "No partition table found on disk"
+msgstr "ບໍ່ພົບຕາຕະລາງພາທິຊັນໃນດິສກ໌"
+
+#: ../data/ui/add_disklabel_dialog.ui:12
+msgid "A partition table is required before partitions can be added."
+msgstr "ຕ້ອງມີຕາຕະລາງພາທິຊັນກ່ອນທີ່ຈະສາມາດເພີ່ມພາທິຊັນໄດ້."
+
+#: ../data/ui/add_disklabel_dialog.ui:52
+msgid "Select new partition table type:"
+msgstr "ເລືອກປະເພດຕາຕະລາງພາທິຊັນໃໝ່:"
+
+#: ../data/ui/blivet-gui.ui:14
+msgid "Open"
+msgstr "ເປີດ"
+
+#: ../data/ui/blivet-gui.ui:28
+msgid "New"
+msgstr "ໃໝ່"
+
+#: ../data/ui/blivet-gui.ui:37
+msgid "Delete"
+msgstr "ລຶບ"
+
+#: ../data/ui/blivet-gui.ui:46
+msgid "Edit"
+msgstr "ແກ້ໄຂ"
+
+#: ../data/ui/blivet-gui.ui:56 ../data/ui/blivet-gui.ui:144
+msgid "Resize"
+msgstr "ປັບຂະໜາດ"
+
+#: ../data/ui/blivet-gui.ui:64 ../data/ui/blivet-gui.ui:152
+msgid "Rename"
+msgstr "ປ່ຽນຊື່"
+
+#. Edit format (e.g. delete existing and create a new one) on selected device.
+#: ../data/ui/blivet-gui.ui:72 ../data/ui/blivet-gui.ui:160
+msgctxt "Menu|Edit"
+msgid "Format"
+msgstr "ຟໍແມັດ"
+
+#: ../data/ui/blivet-gui.ui:80 ../data/ui/blivet-gui.ui:168
+msgid "Modify parents"
+msgstr "ແກ້ໄຂອຸປະກອນຫຼັກ"
+
+#: ../data/ui/blivet-gui.ui:88 ../data/ui/blivet-gui.ui:176
+#: ../data/ui/mountpoint_dialog.ui:7
+msgid "Set mountpoint"
+msgstr "ຕັ້ງຈຸດເຊື່ອມຕໍ່"
+
+#: ../data/ui/blivet-gui.ui:96 ../data/ui/blivet-gui.ui:184
+msgid "Set label"
+msgstr "ຕັ້ງປ້າຍຊື່"
+
+#: ../data/ui/blivet-gui.ui:104 ../data/ui/blivet-gui.ui:192
+msgid "Set partition table"
+msgstr "ຕັ້ງຕາຕະລາງພາທິຊັນ"
+
+#: ../data/ui/blivet-gui.ui:116 ../data/ui/unmount_dialog.ui:15
+msgid "Unmount"
+msgstr "ຍົກເລີກການເຊື່ອມຕໍ່"
+
+#: ../data/ui/blivet-gui.ui:124
+msgid "Unlock"
+msgstr "ປົດລັອກ"
+
+#: ../data/ui/blivet-gui.ui:132
+msgid "Information"
+msgstr "ຂໍ້ມູນ"
+
+#: ../data/ui/blivet-gui.ui:304 ../data/ui/blivet-gui.ui:316
+#: ../data/ui/blivet-gui.ui:865 ../data/ui/blivet-gui.ui:876
+#: ../data/ui/blivet-gui.ui:887
+msgid "column"
+msgstr "ຖັນ"
+
+#: ../data/ui/blivet-gui.ui:378
+msgctxt "ActionsToolbar|Add"
+msgid "Add new device"
+msgstr "ເພີ່ມອຸປະກອນໃໝ່"
+
+#: ../data/ui/blivet-gui.ui:394
+msgctxt "ActionsToolbar|Delete"
+msgid "Delete selected device"
+msgstr "ລຶບອຸປະກອນທີ່ເລືອກ"
+
+#: ../data/ui/blivet-gui.ui:410
+msgctxt "ActionsToolbar|Edit"
+msgid "Edit selected device"
+msgstr "ແກ້ໄຂອຸປະກອນທີ່ເລືອກ"
+
+#: ../data/ui/blivet-gui.ui:436
+msgctxt "ActionsToolbar|Unmount"
+msgid "Unmount selected device"
+msgstr "ຍົກເລີກການເຊື່ອມຕໍ່ອຸປະກອນທີ່ເລືອກ"
+
+#: ../data/ui/blivet-gui.ui:451
+msgctxt "ActionsToolbar|Decrypt"
+msgid "Unlock/Open selected device"
+msgstr "ປົດລັອກ/ເປີດ ອຸປະກອນທີ່ເລືອກ"
+
+#: ../data/ui/blivet-gui.ui:466
+msgctxt "ActionsToolbar|Info"
+msgid "Display information about selected device"
+msgstr "ສະແດງຂໍ້ມູນກ່ຽວກັບອຸປະກອນທີ່ເລືອກ"
+
+#. Format (filesystem) type of selected device.
+#: ../data/ui/blivet-gui.ui:523
+msgctxt "LogicalView|Column"
+msgid "Format"
+msgstr "ຟໍແມັດ"
+
+#: ../data/ui/blivet-gui.ui:545
+msgid "Label"
+msgstr "ປ້າຍຊື່"
+
+#: ../data/ui/blivet-gui.ui:556
+msgid "Mountpoint"
+msgstr "ຈຸດເຊື່ອມຕໍ່"
+
+#: ../data/ui/blivet-gui.ui:580
+msgid "Logical View"
+msgstr "ມຸມເບິ່ງແບບໂລຈິກ"
+
+#: ../data/ui/blivet-gui.ui:603
+msgid "Physical View"
+msgstr "ມຸມເບິ່ງທາງກາຍະພາບ"
+
+#: ../data/ui/blivet-gui.ui:676
+msgid "Reload Storage"
+msgstr "ໂຫຼດຂໍ້ມູນບ່ອນເກັບຂໍ້ມູນໃໝ່"
+
+#: ../data/ui/blivet-gui.ui:684
+msgid "Queued Actions"
+msgstr "ການດຳເນີນການໃນຄິວ"
+
+#: ../data/ui/blivet-gui.ui:714
+msgid "About blivet-gui"
+msgstr "ກ່ຽວກັບ blivet-gui"
+
+#: ../data/ui/blivet-gui.ui:766
+msgid "Apply pending actions"
+msgstr "ນຳໃຊ້ການດຳເນີນການທີ່ຄ້າງຢູ່"
+
+#: ../data/ui/blivet-gui.ui:782
+msgid "Clear scheduled actions"
+msgstr "ລ້າງການດຳເນີນການທີ່ກຳນົດໄວ້"
+
+#: ../data/ui/blivet-gui.ui:798
+msgid "Undo last action"
+msgstr "ຍ້ອນກັບການດຳເນີນການຫຼ້າສຸດ"
+
+#: ../data/ui/cache_area.ui:31
+msgid "Cache this LV:"
+msgstr "ເຮັດແຄຊໃຫ້ LV ນີ້:"
+
+#: ../data/ui/cache_area.ui:98
+msgid "Free space"
+msgstr "ເນື້ອທີ່ຫວ່າງ"
+
+#: ../data/ui/cache_area.ui:109
+msgid "On disk"
+msgstr "ໃນດິສກ໌"
+
+#: ../data/ui/cache_area.ui:142
+msgid "Cache type:"
+msgstr "ປະເພດແຄຊ:"
+
+#: ../data/ui/cache_area.ui:156
+msgid "Writethrough"
+msgstr "Writethrough"
+
+#: ../data/ui/cache_area.ui:157
+msgid "Writeback"
+msgstr "Writeback"
+
+#: ../data/ui/custom_dialog.ui:55
+msgid "label"
+msgstr "ປ້າຍຊື່"
+
+#: ../data/ui/custom_dialog.ui:62
+msgid "Details"
+msgstr "ລາຍລະອຽດ"
+
+#: ../data/ui/encryption_chooser.ui:21
+msgid "Encrypt:"
+msgstr "ເຂົ້າລະຫັດ:"
+
+#: ../data/ui/encryption_chooser.ui:33
+msgid "Encryption type:"
+msgstr "ປະເພດການເຂົ້າລະຫັດ:"
+
+#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
+msgid "Passphrase:"
+msgstr "ລະຫັດຜ່ານ:"
+
+#: ../data/ui/encryption_chooser.ui:57
+msgid "Repeat Passphrase:"
+msgstr "ປ້ອນລະຫັດຜ່ານຄືນ:"
+
+#: ../data/ui/encryption_chooser.ui:118
+msgid "Sector size:"
+msgstr "ຂະໜາດເຊັກເຕີ:"
+
+#: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
+msgid "Error"
+msgstr "ຂໍ້ຜິດພາດ"
+
+#: ../data/ui/exception_dialog.ui:24
+msgid "_Back"
+msgstr "_ກັບຄືນ"
+
+#: ../data/ui/exception_dialog.ui:38
+msgid "_Quit"
+msgstr "_ອອກ"
+
+#: ../data/ui/exception_dialog.ui:52
+msgid "_Report a bug"
+msgstr "_ລາຍງານຂໍ້ຜິດພາດ"
+
+#: ../data/ui/exception_dialog.ui:120
+msgid "Show traceback"
+msgstr "ສະແດງ traceback"
+
+#: ../data/ui/format_dialog.ui:17
+msgid "Format device"
+msgstr "ຟໍແມັດອຸປະກອນ"
+
+#: ../data/ui/format_dialog.ui:35 ../data/ui/mountpoint_dialog.ui:29
+#: ../data/ui/resize_dialog.ui:30
+msgid "_Cancel"
+msgstr "_ຍົກເລີກ"
+
+#. Perform selected format change on this device.
+#: ../data/ui/format_dialog.ui:50
+msgctxt "Dialog|Format"
+msgid "_Format"
+msgstr "_ຟໍແມັດ"
+
+#: ../data/ui/format_dialog.ui:98
+msgid "Select new format:"
+msgstr "ເລືອກຟໍແມັດໃໝ່:"
+
+#: ../data/ui/info_dialog.ui:12
+msgid "Information:"
+msgstr "ຂໍ້ມູນ:"
+
+#: ../data/ui/label_dialog.ui:7
+msgid "Set filesystem label"
+msgstr "ຕັ້ງປ້າຍຊື່ລະບົບໄຟລ໌"
+
+#: ../data/ui/label_dialog.ui:22 ../data/ui/rename_dialog.ui:22
+#: ../data/ui/unmount_dialog.ui:36
+msgid "Cancel"
+msgstr "ຍົກເລີກ"
+
+#. Perform selected format change on this device.
+#: ../data/ui/label_dialog.ui:36
+msgctxt "Dialog|Format"
+msgid "Relabel"
+msgstr "ປ່ຽນປ້າຍຊື່ໃໝ່"
+
+#: ../data/ui/label_dialog.ui:68
+msgid "Enter new label for this filesystem:"
+msgstr "ປ້ອນປ້າຍຊື່ໃໝ່ສຳລັບລະບົບໄຟລ໌ນີ້:"
+
+#: ../data/ui/luks_passphrase_dialog.ui:11
+msgid "Unlock device"
+msgstr "ປົດລັອກອຸປະກອນ"
+
+#: ../data/ui/luks_passphrase_dialog.ui:12
+msgid "Please enter passphrase to unlock selected device."
+msgstr "ກະລຸນາປ້ອນລະຫັດຜ່ານເພື່ອປົດລັອກອຸປະກອນທີ່ເລືອກ."
+
+#: ../data/ui/mountpoint_dialog.ui:44
+msgid "_Set mountpoint"
+msgstr "_ຕັ້ງຈຸດເຊື່ອມຕໍ່"
+
+#: ../data/ui/mountpoint_dialog.ui:88
+msgid "Enter new mountpoint:"
+msgstr "ປ້ອນຈຸດເຊື່ອມຕໍ່ໃໝ່:"
+
+#: ../data/ui/parent_chooser.ui:37
+msgid "Parent name:"
+msgstr "ຊື່ອຸປະກອນຫຼັກ:"
+
+#: ../data/ui/parent_chooser.ui:80
+msgid "Available space:"
+msgstr "ເນື້ອທີ່ທີ່ມີໃຫ້ໃຊ້:"
+
+#: ../data/ui/raid_chooser.ui:21
+msgid "RAID level:"
+msgstr "ລະດັບ RAID:"
+
+#: ../data/ui/rename_dialog.ui:7
+msgid "Rename device"
+msgstr "ປ່ຽນຊື່ອຸປະກອນ"
+
+#. Perform selected format change on this device.
+#: ../data/ui/rename_dialog.ui:36
+msgctxt "Dialog|Format"
+msgid "Rename"
+msgstr "ປ່ຽນຊື່"
+
+#: ../data/ui/rename_dialog.ui:68
+msgid "Enter new name for this device:"
+msgstr "ປ້ອນຊື່ໃໝ່ສຳລັບອຸປະກອນນີ້:"
+
+#: ../data/ui/resize_dialog.ui:7
+msgid "Resize device"
+msgstr "ປັບຂະໜາດອຸປະກອນ"
+
+#: ../data/ui/resize_dialog.ui:45
+msgid "_Resize"
+msgstr "_ປັບຂະໜາດ"
+
+#: ../data/ui/root_check_window.ui:24
+msgid "Root privileges are required for running blivet-gui."
+msgstr "ຕ້ອງມີສິດ Root ເພື່ອເປີດໃຊ້ blivet-gui."
+
+#: ../data/ui/show_actions_dialog.ui:13
+msgid "Pending actions"
+msgstr "ການດຳເນີນການທີ່ຄ້າງຢູ່"
+
+#: ../data/ui/size_area.ui:23
+msgid "Manually specify layout"
+msgstr "ກຳນົດຜັງ (layout) ດ້ວຍຕົນເອງ"
+
+#: ../data/ui/size_chooser.ui:14
+msgid "Size:"
+msgstr "ຂະໜາດ:"
+
+#. Confirmation dialog button for unmounting selected mountpoints.
+#: ../data/ui/unmount_dialog.ui:50
+msgctxt "Dialog|Unmount"
+msgid "Unmount"
+msgstr "ຍົກເລີກການເຊື່ອມຕໍ່"
+
+#: ../data/ui/unmount_dialog.ui:87
+msgid ""
+"<b>Selected device is currently mounted\n"
+"at multiple mountpoints.</b>\n"
+"\n"
+"Please select mountpoint(s) to unmount:"
+msgstr ""
+"<b>ອຸປະກອນທີ່ເລືອກຖືກເຊື່ອມຕໍ່ໄວ້\n"
+"ໃນຫຼາຍຈຸດເຊື່ອມຕໍ່.</b>\n"
+"\n"
+"ກະລຸນາເລືອກຈຸດເຊື່ອມຕໍ່ທີ່ຕ້ອງການຍົກເລີກ:"
