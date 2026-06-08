@@ -234,16 +234,19 @@ class ListPartitionsTest(unittest.TestCase):
 
     def test_allow_rename(self):
         # do not allow to rename a protected devices
-        device = MagicMock(type="lvmlv", protected=True, _renamable=True)
+        device = MagicMock(type="lvmlv", protected=True, _renamable=True,
+                           format=MagicMock(status=False))
         self.assertFalse(self.list_partitions._allow_rename_device(device))
 
         # non-renamable device
-        device = MagicMock(type="lvmlv", protected=False, _renamable=False)
+        device = MagicMock(type="lvmlv", protected=False, _renamable=False,
+                           format=MagicMock(status=False))
         self.assertFalse(self.list_partitions._allow_rename_device(device))
 
         # renamable device
-        device = MagicMock(type="lvmlv", protected=False, _renamable=True)
-        self.assertFalse(self.list_partitions._allow_rename_device(device))
+        device = MagicMock(type="lvmlv", protected=False, _renamable=True,
+                           format=MagicMock(status=False))
+        self.assertTrue(self.list_partitions._allow_rename_device(device))
 
     def test_add_to_store(self):
 
