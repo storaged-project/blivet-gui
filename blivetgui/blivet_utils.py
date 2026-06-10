@@ -254,6 +254,8 @@ class BlivetUtils:
         # encrypted group device -> get the luks device instead
         if blivet_device.format.type in ("luks", "integrity"):
             blivet_device = self.get_luks_device(blivet_device)
+            if blivet_device is None:
+                return None
 
         if not blivet_device.format or blivet_device.format.type not in ("lvmpv", "btrfs", "mdmember", "luks", "stratis"):
             return None
