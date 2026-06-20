@@ -345,7 +345,7 @@ class ListPartitions:
             self.blivet_gui.activate_device_actions(["open"])
 
         if device.type == "lvmvg":
-            self.blivet_gui.activate_device_actions(["parents"])
+            self.blivet_gui.activate_device_actions(["add_parent", "remove_parent"])
 
         if device.format:
             if device.format.type == "luks" and not device.format.status and device.format.exists:

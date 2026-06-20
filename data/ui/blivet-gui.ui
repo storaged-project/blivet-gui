@@ -74,10 +74,18 @@
               </object>
             </child>
             <child>
-              <object class="GtkMenuItem" id="menuitem_parents">
+              <object class="GtkMenuItem" id="menuitem_add_parent">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Modify parents</property>
+                <property name="label" translatable="yes">Add parent</property>
+                <property name="use-underline">True</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkMenuItem" id="menuitem_remove_parent">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="label" translatable="yes">Remove parent</property>
                 <property name="use-underline">True</property>
               </object>
             </child>
@@ -162,10 +170,18 @@
       </object>
     </child>
     <child>
-      <object class="GtkMenuItem" id="button_parents">
+      <object class="GtkMenuItem" id="button_add_parent">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="label" translatable="yes">Modify parents</property>
+        <property name="label" translatable="yes">Add parent</property>
+        <property name="use-underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="button_remove_parent">
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="label" translatable="yes">Remove parent</property>
         <property name="use-underline">True</property>
       </object>
     </child>

@@ -573,8 +573,8 @@ class UnmountDialog:
         self.dialog.response(Gtk.ResponseType.ACCEPT)
 
 
-class LVMEditDialog(Gtk.Dialog):
-    """ Dialog window allowing user to edit lvmvg
+class LVMAddDialog(Gtk.Dialog):
+    """ Dialog window allowing user to add parents to a VG
     """
 
     def __init__(self, parent_window, edited_device, free_info):
@@ -584,6 +584,8 @@ class LVMEditDialog(Gtk.Dialog):
             :type parent_window: Gtk.Window
             :param edited_device: device selected to edit
             :type edited_device: class blivet.Device
+            :param free_info: available free PVs and disk regions
+            :type free_info: list of tuples
 
         """
 
@@ -594,12 +596,10 @@ class LVMEditDialog(Gtk.Dialog):
         Gtk.Dialog.__init__(self)
 
         self.set_transient_for(self.parent_window)
-        self.set_resizable(False)  # auto shrink after removing/hiding widgets
-        self.set_title(_("Edit device"))
+        self.set_resizable(False)
+        self.set_title(_("Add parent device"))
         self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
                          Gtk.STOCK_OK, Gtk.ResponseType.OK)
-
-        self.widgets_dict = {}
 
         self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
         self.grid.set_border_width(10)
@@ -607,15 +607,12 @@ class LVMEditDialog(Gtk.Dialog):
         box = self.get_content_area()
         box.add(self.grid)
 
-        self.add_parent_list()
-        self.button_add, self.button_remove = self.add_toggle_buttons()
+        self._add_parent_list()
+        self.add_store = self._add_available_parents()
 
         self.show_all()
 
-        self.add_store = self.add_parents()
-        self.remove_store = self.remove_parents()
-
-    def add_parent_list(self):
+    def _add_parent_list(self):
 
         parents_store = Gtk.ListStore(str, str, str)
 
@@ -640,171 +637,189 @@ class LVMEditDialog(Gtk.Dialog):
         self.grid.attach(label_list, 0, 1, 1, 1)
         self.grid.attach(parents_view, 1, 1, 3, 3)
 
-    def add_toggle_buttons(self):
-
-        button_add = Gtk.ToggleButton(label=_("Add a parent"))
-        self.grid.attach(button_add, 0, 4, 1, 1)
-
-        button_remove = Gtk.ToggleButton(label=_("Remove a parent"))
-        self.grid.attach(button_remove, 1, 4, 1, 1)
-
-        button_add.connect("toggled", self.on_button_toggled, "add", button_remove)
-        button_remove.connect("toggled", self.on_button_toggled, "remove", button_add)
-
-        return button_add, button_remove
-
-    def add_parents(self):
+    def _add_available_parents(self):
 
         if len(self.free_info) == 0:
             label_none = Gtk.Label(label=_("There are currently no empty physical volumes or\n"
                                            "disks with enough free space to create one."))
             self.grid.attach(label_none, 0, 5, 4, 1)
 
-            self.widgets_dict["add"] = [label_none]
-
             return None
 
-        else:
-            parents_store = Gtk.ListStore(object, object, bool, str, str, str)
-            parents_view = Gtk.TreeView(model=parents_store)
+        parents_store = Gtk.ListStore(object, object, bool, str, str, str)
+        parents_view = Gtk.TreeView(model=parents_store)
 
-            renderer_toggle = Gtk.CellRendererToggle()
-            renderer_toggle.connect("toggled", self.on_cell_toggled, parents_store)
+        renderer_toggle = Gtk.CellRendererToggle()
+        renderer_toggle.connect("toggled", self._on_cell_toggled, parents_store)
 
-            renderer_text = Gtk.CellRendererText()
+        renderer_text = Gtk.CellRendererText()
 
-            column_toggle = Gtk.TreeViewColumn(_("Add?"), renderer_toggle, active=2)
-            column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=3)
-            column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=4)
-            column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=5)
+        column_toggle = Gtk.TreeViewColumn(_("Add?"), renderer_toggle, active=2)
+        column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=3)
+        column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=4)
+        column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=5)
 
-            parents_view.append_column(column_toggle)
-            parents_view.append_column(column_name)
-            parents_view.append_column(column_type)
-            parents_view.append_column(column_size)
+        parents_view.append_column(column_toggle)
+        parents_view.append_column(column_name)
+        parents_view.append_column(column_type)
+        parents_view.append_column(column_size)
 
-            parents_view.set_headers_visible(True)
+        parents_view.set_headers_visible(True)
 
-            label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
+        label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
 
-            self.grid.attach(label_list, 0, 5, 1, 1)
-            self.grid.attach(parents_view, 1, 5, 4, 3)
+        self.grid.attach(label_list, 0, 5, 1, 1)
+        self.grid.attach(parents_view, 1, 5, 4, 3)
 
-            for ftype, free in self.free_info:
-                if ftype == "lvmpv":
-                    pv = free.parents[0]
-                    parents_store.append([pv, free, False, pv.name, "lvmpv", str(free.size)])
-                else:
-                    disk = free.parents[0]
-                    parents_store.append([disk, free, False, disk.name, "free region", str(free.size)])
+        for ftype, free in self.free_info:
+            if ftype == "lvmpv":
+                pv = free.parents[0]
+                parents_store.append([pv, free, False, pv.name, "lvmpv", str(free.size)])
+            else:
+                disk = free.parents[0]
+                parents_store.append([disk, free, False, disk.name, "free region", str(free.size)])
 
-            self.widgets_dict["add"] = [label_list, parents_view]
+        return parents_store
 
-            return parents_store
-
-    def on_cell_toggled(self, _toggle, path, store):
+    def _on_cell_toggled(self, _toggle, path, store):
         store[path][2] = not store[path][2]
 
-    def on_cell_radio_toggled(self, _toggle, path, store):
-        for row in store:
-            row[2] = (row.path == Gtk.TreePath(path))
+    def get_selection(self):
 
-    def remove_parents(self):
+        parents_list = []
 
-        # get removable pvs
-        removable_pvs = [pv for pv in self.edited_device.pvs if (pv.size // self.edited_device.pe_size) <= self.edited_device.free_extents]
+        if self.add_store:
+            for row in self.add_store:
+                if row[2] and row[0].type == "partition":
+                    parents_list.append(row[0])
+
+                if row[2] and row[0].type == "disk":
+                    parents_list.append(row[1])
+
+        return ProxyDataContainer(edit_device=self.edited_device,
+                                  action_type="add",
+                                  parents_list=parents_list)
+
+
+class LVMRemoveDialog(Gtk.Dialog):
+    """ Dialog window allowing user to remove parents from a VG
+    """
+
+    def __init__(self, parent_window, edited_device):
+        """
+
+            :param parent_window: parent window
+            :type parent_window: Gtk.Window
+            :param edited_device: device selected to edit
+            :type edited_device: class blivet.Device
+
+        """
+
+        self.edited_device = edited_device
+        self.parent_window = parent_window
+
+        Gtk.Dialog.__init__(self)
+
+        self.set_transient_for(self.parent_window)
+        self.set_resizable(False)
+        self.set_title(_("Remove parent device"))
+        self.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+                         Gtk.STOCK_OK, Gtk.ResponseType.OK)
+
+        self.grid = Gtk.Grid(column_homogeneous=False, row_spacing=10, column_spacing=5)
+        self.grid.set_border_width(10)
+
+        box = self.get_content_area()
+        box.add(self.grid)
+
+        self._add_parent_list()
+        self.remove_store = self._add_removable_parents()
+
+        self.show_all()
+
+    def _add_parent_list(self):
+
+        parents_store = Gtk.ListStore(str, str, str)
+
+        for parent in self.edited_device.parents:
+            parents_store.append([parent.name, "lvmpv", str(parent.size)])
+
+        parents_view = Gtk.TreeView(model=parents_store)
+        renderer_text = Gtk.CellRendererText()
+
+        column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=0)
+        column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=1)
+        column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=2)
+
+        parents_view.append_column(column_name)
+        parents_view.append_column(column_type)
+        parents_view.append_column(column_size)
+
+        parents_view.set_headers_visible(True)
+
+        label_list = Gtk.Label(label=_("Parent devices:"), xalign=1)
+
+        self.grid.attach(label_list, 0, 1, 1, 1)
+        self.grid.attach(parents_view, 1, 1, 3, 3)
+
+    def _add_removable_parents(self):
+
+        removable_pvs = [pv for pv in self.edited_device.pvs
+                         if (pv.size // self.edited_device.pe_size) <= self.edited_device.free_extents]
 
         if len(removable_pvs) == 0:
             label_none = Gtk.Label(label=_("There isn't a physical volume that could be\n"
                                            "removed from this volume group."))
             self.grid.attach(label_none, 0, 5, 4, 1)
 
-            self.widgets_dict["remove"] = [label_none]
-
             return None
 
-        else:
-            parents_store = Gtk.ListStore(object, object, bool, str, str, str)
-            parents_view = Gtk.TreeView(model=parents_store)
+        parents_store = Gtk.ListStore(object, object, bool, str, str, str)
+        parents_view = Gtk.TreeView(model=parents_store)
 
-            parents_view.set_tooltip_text(_("Currently it is possible to remove only one parent at time."))
+        parents_view.set_tooltip_text(_("Currently it is possible to remove only one parent at time."))
 
-            renderer_radio = Gtk.CellRendererToggle()
-            renderer_radio.connect("toggled", self.on_cell_radio_toggled, parents_store)
-            renderer_radio.set_radio(True)
+        renderer_radio = Gtk.CellRendererToggle()
+        renderer_radio.connect("toggled", self._on_cell_radio_toggled, parents_store)
+        renderer_radio.set_radio(True)
 
-            renderer_text = Gtk.CellRendererText()
+        renderer_text = Gtk.CellRendererText()
 
-            column_radio = Gtk.TreeViewColumn(_("Remove?"), renderer_radio, active=2)
-            column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=3)
-            column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=4)
-            column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=5)
+        column_radio = Gtk.TreeViewColumn(_("Remove?"), renderer_radio, active=2)
+        column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=3)
+        column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=4)
+        column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=5)
 
-            parents_view.append_column(column_radio)
-            parents_view.append_column(column_name)
-            parents_view.append_column(column_type)
-            parents_view.append_column(column_size)
+        parents_view.append_column(column_radio)
+        parents_view.append_column(column_name)
+        parents_view.append_column(column_type)
+        parents_view.append_column(column_size)
 
-            parents_view.set_headers_visible(True)
+        parents_view.set_headers_visible(True)
 
-            label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
+        label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
 
-            self.grid.attach(label_list, 0, 5, 1, 1)
-            self.grid.attach(parents_view, 1, 5, 4, 3)
+        self.grid.attach(label_list, 0, 5, 1, 1)
+        self.grid.attach(parents_view, 1, 5, 4, 3)
 
-            for pv in removable_pvs:
-                parents_store.append([pv, None, False, pv.name, "lvmpv", str(pv.size)])
+        for pv in removable_pvs:
+            parents_store.append([pv, None, False, pv.name, "lvmpv", str(pv.size)])
 
-            self.widgets_dict["remove"] = [label_list, parents_view]
+        return parents_store
 
-            return parents_store
-
-    def on_button_toggled(self, clicked_button, button_type, other_button):
-
-        if clicked_button.get_active():
-            other_button.set_active(False)
-            self.show_widgets([button_type])
-
-        else:
-            self.hide_widgets([button_type])
-
-    def show_widgets(self, widget_types):
-
-        for widget_type in widget_types:
-            for widget in self.widgets_dict[widget_type]:
-                widget.show()
-
-    def hide_widgets(self, widget_types):
-
-        for widget_type in widget_types:
-            for widget in self.widgets_dict[widget_type]:
-                widget.hide()
+    def _on_cell_radio_toggled(self, _toggle, path, store):
+        for row in store:
+            row[2] = (row.path == Gtk.TreePath(path))
 
     def get_selection(self):
 
         parents_list = []
 
-        if self.button_add.get_active():
-            action_type = "add"
-
-            if self.add_store:
-                for row in self.add_store:
-                    if row[2] and row[0].type == "partition":
-                        parents_list.append(row[0])
-
-                    if row[2] and row[0].type == "disk":
-                        parents_list.append(row[1])
-
-        elif self.button_remove.get_active():
-            action_type = "remove"
-            if self.remove_store:
-                for row in self.remove_store:
-                    if row[2]:
-                        parents_list.append(row[0])
-
-        else:
-            action_type = None
+        if self.remove_store:
+            for row in self.remove_store:
+                if row[2]:
+                    parents_list.append(row[0])
 
         return ProxyDataContainer(edit_device=self.edited_device,
-                                  action_type=action_type,
+                                  action_type="remove",
                                   parents_list=parents_list)
