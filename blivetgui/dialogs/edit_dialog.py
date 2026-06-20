@@ -607,35 +607,9 @@ class LVMAddDialog(Gtk.Dialog):
         box = self.get_content_area()
         box.add(self.grid)
 
-        self._add_parent_list()
         self.add_store = self._add_available_parents()
 
         self.show_all()
-
-    def _add_parent_list(self):
-
-        parents_store = Gtk.ListStore(str, str, str)
-
-        for parent in self.edited_device.parents:
-            parents_store.append([parent.name, "lvmpv", str(parent.size)])
-
-        parents_view = Gtk.TreeView(model=parents_store)
-        renderer_text = Gtk.CellRendererText()
-
-        column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=0)
-        column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=1)
-        column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=2)
-
-        parents_view.append_column(column_name)
-        parents_view.append_column(column_type)
-        parents_view.append_column(column_size)
-
-        parents_view.set_headers_visible(True)
-
-        label_list = Gtk.Label(label=_("Parent devices:"), xalign=1)
-
-        self.grid.attach(label_list, 0, 1, 1, 1)
-        self.grid.attach(parents_view, 1, 1, 3, 3)
 
     def _add_available_parents(self):
 
@@ -666,10 +640,11 @@ class LVMAddDialog(Gtk.Dialog):
 
         parents_view.set_headers_visible(True)
 
-        label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
+        label_list = Gtk.Label(label=_("Select devices to be added to {name}:").format(name=self.edited_device.name),
+                               xalign=0)
 
-        self.grid.attach(label_list, 0, 5, 1, 1)
-        self.grid.attach(parents_view, 1, 5, 4, 3)
+        self.grid.attach(label_list, 0, 5, 5, 1)
+        self.grid.attach(parents_view, 0, 6, 5, 3)
 
         for ftype, free in self.free_info:
             if ftype == "lvmpv":
@@ -732,35 +707,9 @@ class LVMRemoveDialog(Gtk.Dialog):
         box = self.get_content_area()
         box.add(self.grid)
 
-        self._add_parent_list()
         self.remove_store = self._add_removable_parents()
 
         self.show_all()
-
-    def _add_parent_list(self):
-
-        parents_store = Gtk.ListStore(str, str, str)
-
-        for parent in self.edited_device.parents:
-            parents_store.append([parent.name, "lvmpv", str(parent.size)])
-
-        parents_view = Gtk.TreeView(model=parents_store)
-        renderer_text = Gtk.CellRendererText()
-
-        column_name = Gtk.TreeViewColumn(_("Device"), renderer_text, text=0)
-        column_type = Gtk.TreeViewColumn(_("Type"), renderer_text, text=1)
-        column_size = Gtk.TreeViewColumn(_("Size"), renderer_text, text=2)
-
-        parents_view.append_column(column_name)
-        parents_view.append_column(column_type)
-        parents_view.append_column(column_size)
-
-        parents_view.set_headers_visible(True)
-
-        label_list = Gtk.Label(label=_("Parent devices:"), xalign=1)
-
-        self.grid.attach(label_list, 0, 1, 1, 1)
-        self.grid.attach(parents_view, 1, 1, 3, 3)
 
     def _add_removable_parents(self):
 
@@ -797,10 +746,11 @@ class LVMRemoveDialog(Gtk.Dialog):
 
         parents_view.set_headers_visible(True)
 
-        label_list = Gtk.Label(label=_("Available devices:"), xalign=1)
+        label_list = Gtk.Label(label=_("Select a device to be removed from {name}:").format(name=self.edited_device.name),
+                               xalign=0)
 
-        self.grid.attach(label_list, 0, 5, 1, 1)
-        self.grid.attach(parents_view, 1, 5, 4, 3)
+        self.grid.attach(label_list, 0, 5, 5, 1)
+        self.grid.attach(parents_view, 0, 6, 5, 3)
 
         for pv in removable_pvs:
             parents_store.append([pv, None, False, pv.name, "lvmpv", str(pv.size)])
