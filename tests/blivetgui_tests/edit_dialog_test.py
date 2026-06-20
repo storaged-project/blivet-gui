@@ -556,6 +556,54 @@ class LVMAddDialogTest(unittest.TestCase):
         self.assertEqual(len(selection.parents_list), 1)
         self.assertEqual(selection.parents_list[0].name, "pv2")
 
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_get_selection_disk_free_region(self):
+        """Test get_selection with a disk free region selected"""
+
+        pv1 = MagicMock()
+        pv1.configure_mock(name="pv1", size=Size("1 GiB"))
+        vg = MagicMock()
+        vg.configure_mock(name="testvg", parents=[pv1], pvs=[pv1], free_extents=100, pe_size=Size("4 MiB"))
+
+        disk = MagicMock()
+        disk.configure_mock(name="sda", type="disk")
+        free_region = MagicMock()
+        free_region.configure_mock(parents=[disk], size=Size("5 GiB"))
+        free_info = [("disk", free_region)]
+
+        dialog = LVMAddDialog(self.parent_window, vg, free_info=free_info)
+
+        dialog.add_store[0][2] = True
+
+        selection = dialog.get_selection()
+        self.assertEqual(selection.action_type, "add")
+        self.assertEqual(len(selection.parents_list), 1)
+        self.assertIs(selection.parents_list[0], free_region)
+
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_get_selection_lvmpv_on_disk(self):
+        """Test get_selection with an lvmpv backed by a disk"""
+
+        pv1 = MagicMock()
+        pv1.configure_mock(name="pv1", size=Size("1 GiB"))
+        vg = MagicMock()
+        vg.configure_mock(name="testvg", parents=[pv1], pvs=[pv1], free_extents=100, pe_size=Size("4 MiB"))
+
+        disk_pv = MagicMock()
+        disk_pv.configure_mock(name="sdb", type="disk", size=Size("10 GiB"))
+        free_region = MagicMock()
+        free_region.configure_mock(parents=[disk_pv], size=Size("10 GiB"))
+        free_info = [("lvmpv", free_region)]
+
+        dialog = LVMAddDialog(self.parent_window, vg, free_info=free_info)
+
+        dialog.add_store[0][2] = True
+
+        selection = dialog.get_selection()
+        self.assertEqual(selection.action_type, "add")
+        self.assertEqual(len(selection.parents_list), 1)
+        self.assertIs(selection.parents_list[0], disk_pv)
+
 
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
 class LVMRemoveDialogTest(unittest.TestCase):

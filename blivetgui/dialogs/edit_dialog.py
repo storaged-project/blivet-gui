@@ -665,10 +665,10 @@ class LVMAddDialog(Gtk.Dialog):
 
         if self.add_store:
             for row in self.add_store:
-                if row[2] and row[0].type == "partition":
+                if row[2] and row[4] == "lvmpv":
                     parents_list.append(row[0])
 
-                if row[2] and row[0].type == "disk":
+                if row[2] and row[4] == "free region":
                     parents_list.append(row[1])
 
         return ProxyDataContainer(edit_device=self.edited_device,
