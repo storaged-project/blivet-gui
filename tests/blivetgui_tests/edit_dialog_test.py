@@ -4,7 +4,7 @@ from unittest.mock import MagicMock, Mock, patch
 
 from blivet.size import Size
 
-from blivetgui.dialogs.edit_dialog import FormatDialog, MountpointDialog, LabelDialog, UnmountDialog, ResizeDialog, LVMEditDialog, RenameDialog
+from blivetgui.dialogs.edit_dialog import FormatDialog, MountpointDialog, LabelDialog, UnmountDialog, ResizeDialog, LVMAddDialog, LVMRemoveDialog, RenameDialog
 from blivetgui.i18n import _
 
 from .add_dialog_test import supported_filesystems
@@ -458,7 +458,7 @@ class RenameDialogTest(unittest.TestCase):
 
 
 @unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
-class LVMEditDialogTest(unittest.TestCase):
+class LVMAddDialogTest(unittest.TestCase):
 
     error_dialog = MagicMock()
 
@@ -475,62 +475,39 @@ class LVMEditDialogTest(unittest.TestCase):
         cls.parent_window.destroy()
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
-    def test_no_free_space_for_add(self):
-        """Test LVMEditDialog when there's no free space to add parents"""
+    def test_no_free_space(self):
+        """Test LVMAddDialog when there's no free space to add parents"""
 
-        # create mock VG with existing PVs (configure mock attributes properly)
         pv1 = MagicMock()
         pv1.configure_mock(name="pv1", size=Size("1 GiB"))
         vg = MagicMock()
         vg.configure_mock(name="testvg", parents=[pv1], pvs=[pv1], free_extents=0, pe_size=Size("4 MiB"))
 
-        dialog = LVMEditDialog(self.parent_window, vg, free_info=[])
+        dialog = LVMAddDialog(self.parent_window, vg, free_info=[])
 
-        # should show "no empty physical volumes" message
         self.assertIsNone(dialog.add_store)
-        self.assertIn("add", dialog.widgets_dict)
-        self.assertEqual(len(dialog.widgets_dict["add"]), 1)
-
-    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
-    def test_no_removable_pvs(self):
-        """Test LVMEditDialog when there are no removable PVs"""
-
-        # create mock VG where all PVs are in use
-        pv1 = MagicMock()
-        pv1.configure_mock(name="pv1", size=Size("1 GiB"))
-        vg = MagicMock()
-        vg.configure_mock(name="testvg", parents=[pv1], pvs=[pv1], free_extents=0, pe_size=Size("4 MiB"))
-
-        dialog = LVMEditDialog(self.parent_window, vg, free_info=[])
-
-        # should show "no removable PVs" message
-        self.assertIsNone(dialog.remove_store)
-        self.assertIn("remove", dialog.widgets_dict)
-        self.assertEqual(len(dialog.widgets_dict["remove"]), 1)
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_add_parents_available(self):
-        """Test LVMEditDialog with available devices to add"""
+        """Test LVMAddDialog with available devices to add"""
 
         pv1 = MagicMock()
         pv1.configure_mock(name="pv1", size=Size("1 GiB"))
         vg = MagicMock()
         vg.configure_mock(name="testvg", parents=[pv1], pvs=[pv1], free_extents=100, pe_size=Size("4 MiB"))
 
-        # mock available free space
         new_pv = MagicMock()
         new_pv.configure_mock(name="pv2", type="partition")
         free_region = MagicMock()
         free_region.configure_mock(parents=[new_pv], size=Size("1 GiB"))
         free_info = [("lvmpv", free_region)]
 
-        dialog = LVMEditDialog(self.parent_window, vg, free_info=free_info)
+        dialog = LVMAddDialog(self.parent_window, vg, free_info=free_info)
 
-        # should have add_store with one row
         self.assertIsNotNone(dialog.add_store)
         self.assertEqual(len(dialog.add_store), 1)
-        self.assertEqual(dialog.add_store[0][3], "pv2")  # device name
-        self.assertFalse(dialog.add_store[0][2])  # initially not selected
+        self.assertEqual(dialog.add_store[0][3], "pv2")
+        self.assertFalse(dialog.add_store[0][2])
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_add_disk_free_region(self):
@@ -541,54 +518,23 @@ class LVMEditDialogTest(unittest.TestCase):
         vg = MagicMock()
         vg.configure_mock(name="testvg", parents=[pv1], pvs=[pv1], free_extents=100, pe_size=Size("4 MiB"))
 
-        # mock free region on a disk
         disk = MagicMock()
         disk.configure_mock(name="sda", type="disk")
         free_region = MagicMock()
         free_region.configure_mock(parents=[disk], size=Size("5 GiB"))
         free_info = [("disk", free_region)]
 
-        dialog = LVMEditDialog(self.parent_window, vg, free_info=free_info)
+        dialog = LVMAddDialog(self.parent_window, vg, free_info=free_info)
 
-        # should have add_store with disk free region
         self.assertIsNotNone(dialog.add_store)
         self.assertEqual(len(dialog.add_store), 1)
-        self.assertEqual(dialog.add_store[0][3], "sda")  # disk name
-        self.assertEqual(dialog.add_store[0][4], "free region")  # type
-
-    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
-    def test_toggle_buttons(self):
-        """Test add/remove toggle buttons in LVMEditDialog"""
-
-        pv1 = MagicMock()
-        pv1.configure_mock(name="pv1", size=Size("1 GiB"))
-        pv2 = MagicMock()
-        pv2.configure_mock(name="pv2", size=Size("1 GiB"))
-        vg = MagicMock()
-        vg.configure_mock(name="testvg", parents=[pv1, pv2], pvs=[pv1, pv2],
-                          free_extents=260, pe_size=Size("4 MiB"))
-
-        new_pv = MagicMock()
-        new_pv.configure_mock(name="pv3", type="partition")
-        free_region = MagicMock()
-        free_region.configure_mock(parents=[new_pv], size=Size("1 GiB"))
-        free_info = [("lvmpv", free_region)]
-
-        dialog = LVMEditDialog(self.parent_window, vg, free_info=free_info)
-
-        # toggle add button
-        dialog.button_add.set_active(True)
-        self.assertTrue(dialog.button_add.get_active())
-        self.assertFalse(dialog.button_remove.get_active())
-
-        # toggle remove button
-        dialog.button_remove.set_active(True)
-        self.assertTrue(dialog.button_remove.get_active())
-        self.assertFalse(dialog.button_add.get_active())
+        self.assertEqual(dialog.add_store[0][3], "sda")
+        self.assertEqual(dialog.add_store[0][4], "free region")
 
     @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
     def test_get_selection(self):
-        # adding
+        """Test get_selection returns correct add selection"""
+
         pv1 = MagicMock()
         pv1.configure_mock(name="pv1", size=Size("1 GiB"))
         vg = MagicMock()
@@ -600,11 +546,9 @@ class LVMEditDialogTest(unittest.TestCase):
         free_region.configure_mock(parents=[pv2], size=Size("1 GiB"))
         free_info = [("lvmpv", free_region)]
 
-        dialog = LVMEditDialog(self.parent_window, vg, free_info=free_info)
+        dialog = LVMAddDialog(self.parent_window, vg, free_info=free_info)
 
-        # activate add button and select a device
-        dialog.button_add.set_active(True)
-        dialog.add_store[0][2] = True  # select first device
+        dialog.add_store[0][2] = True
 
         selection = dialog.get_selection()
         self.assertEqual(selection.edit_device, vg)
@@ -612,15 +556,117 @@ class LVMEditDialogTest(unittest.TestCase):
         self.assertEqual(len(selection.parents_list), 1)
         self.assertEqual(selection.parents_list[0].name, "pv2")
 
-        # removing
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_get_selection_disk_free_region(self):
+        """Test get_selection with a disk free region selected"""
+
+        pv1 = MagicMock()
+        pv1.configure_mock(name="pv1", size=Size("1 GiB"))
+        vg = MagicMock()
+        vg.configure_mock(name="testvg", parents=[pv1], pvs=[pv1], free_extents=100, pe_size=Size("4 MiB"))
+
+        disk = MagicMock()
+        disk.configure_mock(name="sda", type="disk")
+        free_region = MagicMock()
+        free_region.configure_mock(parents=[disk], size=Size("5 GiB"))
+        free_info = [("disk", free_region)]
+
+        dialog = LVMAddDialog(self.parent_window, vg, free_info=free_info)
+
+        dialog.add_store[0][2] = True
+
+        selection = dialog.get_selection()
+        self.assertEqual(selection.action_type, "add")
+        self.assertEqual(len(selection.parents_list), 1)
+        self.assertIs(selection.parents_list[0], free_region)
+
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_get_selection_lvmpv_on_disk(self):
+        """Test get_selection with an lvmpv backed by a disk"""
+
+        pv1 = MagicMock()
+        pv1.configure_mock(name="pv1", size=Size("1 GiB"))
+        vg = MagicMock()
+        vg.configure_mock(name="testvg", parents=[pv1], pvs=[pv1], free_extents=100, pe_size=Size("4 MiB"))
+
+        disk_pv = MagicMock()
+        disk_pv.configure_mock(name="sdb", type="disk", size=Size("10 GiB"))
+        free_region = MagicMock()
+        free_region.configure_mock(parents=[disk_pv], size=Size("10 GiB"))
+        free_info = [("lvmpv", free_region)]
+
+        dialog = LVMAddDialog(self.parent_window, vg, free_info=free_info)
+
+        dialog.add_store[0][2] = True
+
+        selection = dialog.get_selection()
+        self.assertEqual(selection.action_type, "add")
+        self.assertEqual(len(selection.parents_list), 1)
+        self.assertIs(selection.parents_list[0], disk_pv)
+
+
+@unittest.skipUnless("DISPLAY" in os.environ.keys(), "requires X server")
+class LVMRemoveDialogTest(unittest.TestCase):
+
+    error_dialog = MagicMock()
+
+    @classmethod
+    def setUpClass(cls):
+        import gi
+        gi.require_version("Gtk", "3.0")
+        from gi.repository import Gtk
+
+        cls.parent_window = Gtk.Window()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.parent_window.destroy()
+
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_no_removable_pvs(self):
+        """Test LVMRemoveDialog when there are no removable PVs"""
+
+        pv1 = MagicMock()
+        pv1.configure_mock(name="pv1", size=Size("1 GiB"))
+        vg = MagicMock()
+        vg.configure_mock(name="testvg", parents=[pv1], pvs=[pv1], free_extents=0, pe_size=Size("4 MiB"))
+
+        dialog = LVMRemoveDialog(self.parent_window, vg)
+
+        self.assertIsNone(dialog.remove_store)
+
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_removable_pvs_available(self):
+        """Test LVMRemoveDialog with removable PVs"""
+
+        pv1 = MagicMock()
+        pv1.configure_mock(name="pv1", size=Size("1 GiB"))
+        pv2 = MagicMock()
+        pv2.configure_mock(name="pv2", size=Size("1 GiB"))
+        vg = MagicMock()
         vg.configure_mock(name="testvg", parents=[pv1, pv2], pvs=[pv1, pv2],
                           free_extents=260, pe_size=Size("4 MiB"))
 
-        dialog = LVMEditDialog(self.parent_window, vg, free_info=[])
+        dialog = LVMRemoveDialog(self.parent_window, vg)
 
-        # activate remove button and select a device
-        dialog.button_remove.set_active(True)
-        dialog.remove_store[0][2] = True  # select first device
+        self.assertIsNotNone(dialog.remove_store)
+        self.assertEqual(len(dialog.remove_store), 2)
+
+    @patch("blivetgui.dialogs.message_dialogs.ErrorDialog", error_dialog)
+    def test_get_selection(self):
+        """Test get_selection returns correct remove selection"""
+
+        pv1 = MagicMock()
+        pv1.configure_mock(name="pv1", size=Size("1 GiB"))
+        pv2 = MagicMock()
+        pv2.configure_mock(name="pv2", size=Size("1 GiB"))
+        vg = MagicMock()
+        vg.configure_mock(name="testvg", parents=[pv1, pv2], pvs=[pv1, pv2],
+                          free_extents=260, pe_size=Size("4 MiB"))
+
+        dialog = LVMRemoveDialog(self.parent_window, vg)
+
+        dialog.remove_store[0][2] = True
 
         selection = dialog.get_selection()
         self.assertEqual(selection.edit_device, vg)

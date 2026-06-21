@@ -68,7 +68,8 @@ class DeviceToolbar(BlivetGUIToolbar):
                  ("unmount", "clicked", self.blivet_gui.umount_partition),
                  ("decrypt", "clicked", self.blivet_gui.decrypt_device),
                  ("info", "clicked", self.blivet_gui.device_information),
-                 ("parents", "activate", self.blivet_gui.edit_lvmvg),
+                 ("add_parent", "activate", self.blivet_gui.add_lvmvg_parent),
+                 ("remove_parent", "activate", self.blivet_gui.remove_lvmvg_parent),
                  ("mountpoint", "activate", self.blivet_gui.set_mountpoint),
                  ("label", "activate", self.blivet_gui.edit_label),
                  ("partitiontable", "activate", self.blivet_gui.set_partition_table)]

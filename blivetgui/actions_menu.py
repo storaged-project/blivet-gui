@@ -48,7 +48,8 @@ class ActionsMenu:
                  ("unmount", self.blivet_gui.umount_partition),
                  ("decrypt", self.blivet_gui.decrypt_device),
                  ("info", self.blivet_gui.device_information),
-                 ("parents", self.blivet_gui.edit_lvmvg),
+                 ("add_parent", self.blivet_gui.add_lvmvg_parent),
+                 ("remove_parent", self.blivet_gui.remove_lvmvg_parent),
                  ("mountpoint", self.blivet_gui.set_mountpoint),
                  ("partitiontable", self.blivet_gui.set_partition_table)]
 

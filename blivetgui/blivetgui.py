@@ -374,13 +374,43 @@ class BlivetGUI:
                 self._handle_user_change()
                 self.update_partitions_view()
 
-    def edit_lvmvg(self, _widget=None):
-        """ Edit selected lvmvg
+    def add_lvmvg_parent(self, _widget=None):
+        """ Add a parent (PV) to the selected VG
         """
 
         device = self.list_partitions.selected_partition[0]
-        dialog = edit_dialog.LVMEditDialog(self.main_window, device,
-                                           self.client.remote_call("get_free_info"))
+        dialog = edit_dialog.LVMAddDialog(self.main_window, device,
+                                          self.client.remote_call("get_free_info"))
+        message = _("Failed to edit the LVM2 Volume Group:")
+        response = self.run_dialog(dialog)
+
+        if response == Gtk.ResponseType.OK:
+            user_input = dialog.get_selection()
+            result = self.client.remote_call("edit_lvmvg_device", user_input)
+
+            if not result.success:
+                if not result.exception:
+                    self.show_error_dialog(result.message)
+                else:
+                    self._reraise_exception(result.exception, result.traceback, message,
+                                            dialog_window=dialog)
+            else:
+                if result.actions:
+                    action_str = _("edit {name} {type}").format(name=device.name, type=device.type)
+                    self.list_actions.append("edit", action_str, result.actions)
+
+            self._handle_user_change()
+            self.update_partitions_view()
+
+        dialog.destroy()
+        return
+
+    def remove_lvmvg_parent(self, _widget=None):
+        """ Remove a parent (PV) from the selected VG
+        """
+
+        device = self.list_partitions.selected_partition[0]
+        dialog = edit_dialog.LVMRemoveDialog(self.main_window, device)
         message = _("Failed to edit the LVM2 Volume Group:")
         response = self.run_dialog(dialog)
 
