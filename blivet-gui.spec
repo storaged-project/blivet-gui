@@ -1146,7 +1146,7 @@ mkdir -p %{buildroot}/%{_localstatedir}/log/blivet-gui
 - Fix visualisation for extended partitions with single child (vtrefny)
 - Fix parent visualization for encrypted LVMs (vtrefny)
 - Allow adding new VG to an empty LVMPV (vtrefny)
-- Remove obsolete definiton of locate_ui_file method (vtrefny)
+- Remove obsolete definition of locate_ui_file method (vtrefny)
 - Do not allow displaying device info for raw format devices (vtrefny)
 - Remove old visualization files (vtrefny)
 - Display context menu for logical view visualization (vtrefny)
