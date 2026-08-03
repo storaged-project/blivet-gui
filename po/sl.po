@@ -10,7 +10,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
 "PO-Revision-Date: 2026-08-03 17:17+0000\n"
-"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Slovenian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/sl/>\n"
 "Language: sl\n"
@@ -350,7 +351,7 @@ msgstr "neznano"
 
 #: ../blivetgui/loading_window.py:47
 msgid "Probing storage"
-msgstr ""
+msgstr "Preizkušanje shrambe"
 
 #: ../blivetgui/loading_window.py:64
 msgid "Scanning storage configuration..."
