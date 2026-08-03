@@ -9,9 +9,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2026-07-22 13:17+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-08-03 17:17+0000\n"
+"Last-Translator: Martin Srebotnjak <miles@filmsi.net>\n"
 "Language-Team: Slovenian <https://translate.fedoraproject.org/projects/"
 "blivet/blivet-gui/sl/>\n"
 "Language: sl\n"
@@ -60,7 +59,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:428
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "Neuspela sprememba oznake datotečnega sistema na napravi:"
 
 #: ../blivetgui/blivetgui.py:433
 #, python-brace-format
@@ -355,7 +354,7 @@ msgstr ""
 
 #: ../blivetgui/loading_window.py:64
 msgid "Scanning storage configuration..."
-msgstr ""
+msgstr "Preiskovanje prilagoditve hrambe ..."
 
 #: ../blivetgui/osinstall.py:218
 #, python-brace-format
@@ -725,7 +724,7 @@ msgstr " • <i>Naprave:</i> {dcount}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
 msgid " • <i>Spares:</i> {spares}\n"
-msgstr ""
+msgstr " • <i>Rezerve:</i> {spares}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:152
 #, python-brace-format
@@ -752,7 +751,7 @@ msgstr "Osnovni podatki"
 #: ../blivetgui/dialogs/device_info_dialog.py:222
 #: ../blivetgui/dialogs/device_info_dialog.py:269
 msgid "existing"
-msgstr ""
+msgstr "obstoječe"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:186
 #: ../blivetgui/dialogs/device_info_dialog.py:222
@@ -947,13 +946,13 @@ msgstr "Podatki o različici"
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:269
 msgid "blivet-gui"
-msgstr ""
+msgstr "blivet-gui"
 
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:152
 #: ../blivetgui/dialogs/other_dialogs.py:154
 msgid "blivet"
-msgstr ""
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
 msgid "Unknown"
@@ -961,7 +960,7 @@ msgstr "Neznano"
 
 #: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
-msgstr ""
+msgstr "Možnosti zagona"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "None (all disks)"
@@ -1027,7 +1026,7 @@ msgstr "Podani šifrirni gesli se ne ujemata."
 
 #: ../blivetgui/dialogs/widgets.py:414
 msgid "Passphrases match."
-msgstr "Šifrirni gesli se ne ujemata."
+msgstr "Šifrirni gesli se ujemata."
 
 #: ../blivetgui/dialogs/widgets.py:417
 msgid "Passphrases don't match."
@@ -1043,11 +1042,11 @@ msgstr "Naprava LiveUSB"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "Encrypted device (locked)"
-msgstr ""
+msgstr "Šifrirana naprava (zaklenjena)"
 
 #: ../blivetgui/visualization/rectangle.py:55
 msgid "Encrypted device (unlocked)"
-msgstr ""
+msgstr "Šifrirana naprava (odklenjena)"
 
 #: ../blivetgui/visualization/rectangle.py:56
 msgid "Empty device"
@@ -1276,11 +1275,11 @@ msgstr ""
 
 #: ../data/ui/blivet-gui.ui:714
 msgid "About blivet-gui"
-msgstr ""
+msgstr "O programu blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:766
 msgid "Apply pending actions"
-msgstr ""
+msgstr "Uveljavi dejanja na čakanju"
 
 #: ../data/ui/blivet-gui.ui:782
 msgid "Clear scheduled actions"
