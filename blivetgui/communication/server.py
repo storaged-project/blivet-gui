@@ -27,6 +27,7 @@ from blivet.errors import DiskLabelScanError, CorruptGPTError
 import traceback
 import inspect
 
+import io
 import struct
 
 import socketserver
@@ -40,6 +41,26 @@ from ..blivet_utils import BlivetUtils
 # ---------------------------------------------------------------------------- #
 
 picklable_types = (str, int, float, bool, size.Size, BaseException)
+
+_ALLOWED_UNPICKLE_CLASSES = {
+    ("blivetgui.communication.proxy_utils", "ProxyID"),
+    ("blivetgui.communication.proxy_utils", "ProxyDataContainer"),
+    ("blivet.size", "Size"),
+}
+
+
+class _RestrictedUnpickler(pickle.Unpickler):
+    def find_class(self, module, name):
+        if (module, name) in _ALLOWED_UNPICKLE_CLASSES:
+            return super().find_class(module, name)
+        raise pickle.UnpicklingError(
+            "Refused to unpickle %s.%s" % (module, name)
+        )
+
+
+def safe_pickle_loads(data):
+    return _RestrictedUnpickler(io.BytesIO(data)).load()
+
 
 # ---------------------------------------------------------------------------- #
 
@@ -107,7 +128,7 @@ class BlivetUtilsServer(socketserver.BaseRequestHandler):
                 self.server.quit = True  # pylint: disable=no-member
                 break
 
-            unpickled_msg = pickle.loads(msg)
+            unpickled_msg = safe_pickle_loads(msg)
 
             if unpickled_msg[0] == "quit":
                 self.server.quit = True  # pylint: disable=no-member
