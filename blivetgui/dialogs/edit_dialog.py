@@ -494,16 +494,16 @@ class RenameDialog:
     def run(self):
         response = self.dialog.run()
 
-        if response == Gtk.ResponseType.REJECT:
-            self.dialog.destroy()
-            return ProxyDataContainer(edit_device=self.edit_device, rename=False, name=None)
-        else:
+        if response == Gtk.ResponseType.ACCEPT:
             new_name = self.entry_rename.get_text()
             if not self._validate_user_input(new_name):
                 return self.run()
             else:
                 self.dialog.destroy()
                 return ProxyDataContainer(edit_device=self.edit_device, rename=True, name=new_name)
+        else:
+            self.dialog.destroy()
+            return ProxyDataContainer(edit_device=self.edit_device, rename=False, name=None)
 
     def _on_cancel_button(self, _button):
         self.dialog.response(Gtk.ResponseType.REJECT)
