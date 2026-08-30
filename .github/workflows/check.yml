@@ -16,7 +16,7 @@ on:
 jobs:
   build:
     name: static-analysis
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     env:
       CI_IMAGE: fedora:latest
       CI_CONTAINER: blivet-gui-tests
