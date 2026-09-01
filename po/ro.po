@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-21 16:55+0100\n"
-"PO-Revision-Date: 2026-06-23 02:10+0000\n"
+"PO-Revision-Date: 2026-09-01 01:18+0000\n"
 "Last-Translator: Fedora Weblate user 1831 "
 "<atony076@users.noreply.translate.fedoraproject.org>\n"
 "Language-Team: Romanian <https://translate.fedoraproject.org/projects/blivet/"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.6.1\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -50,7 +50,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:384
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "Nu s-a putut edita grupul de volume LVM2:"
 
 #: ../blivetgui/blivetgui.py:399
 #, python-brace-format
@@ -60,6 +60,7 @@ msgstr ""
 #: ../blivetgui/blivetgui.py:428
 msgid "Failed to change filesystem label on the device:"
 msgstr ""
+"Nu s-a reușit modificarea etichetei sistemului de fișiere pe dispozitiv:"
 
 #: ../blivetgui/blivetgui.py:433
 #, python-brace-format
@@ -75,7 +76,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:454
 msgid "Not enough free space for a new LVM Volume Group."
-msgstr ""
+msgstr "Nu există suficient spațiu liber pentru un nou grup de volume LVM."
 
 #: ../blivetgui/blivetgui.py:460
 #, python-brace-format
@@ -86,7 +87,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:470
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "Nu s-a reușit adăugarea etichetei de disc:"
 
 #: ../blivetgui/blivetgui.py:483
 #, python-brace-format
@@ -95,7 +96,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:535
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "Nu s-a putut adăuga dispozitivul:"
 
 #: ../blivetgui/blivetgui.py:550
 #, python-brace-format
@@ -113,15 +114,15 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:650
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "Nu s-au putut efectua următoarele acțiuni:"
 
 #: ../blivetgui/blivetgui.py:694
 msgid "Confirm scheduled actions"
-msgstr ""
+msgstr "Confirmă acțiunile programate"
 
 #: ../blivetgui/blivetgui.py:695
 msgid "Are you sure you want to perform scheduled actions?"
-msgstr ""
+msgstr "Ești sigur că vrei să execuți acțiunile programate?"
 
 #: ../blivetgui/blivetgui.py:736
 #, python-brace-format
@@ -131,11 +132,11 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:758
 msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr ""
+msgstr "Deblocarea a eșuat. Sunteți sigur că parola introdusă este corectă?"
 
 #: ../blivetgui/blivetgui.py:808 ../data/ui/blivet-gui.ui:692
 msgid "Quit"
-msgstr ""
+msgstr "Renunță"
 
 #: ../blivetgui/blivetgui.py:811
 msgid "blivet-gui is already running"
@@ -160,7 +161,7 @@ msgstr ""
 
 #: ../blivetgui/blivetgui.py:846
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "Nu s-a putut inițializa blivet:"
 
 #: ../blivetgui/blivetgui.py:853
 msgid "Quit blivet-gui"
