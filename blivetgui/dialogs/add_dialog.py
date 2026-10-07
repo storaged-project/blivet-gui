@@ -31,6 +31,7 @@ from gi.repository import Gtk
 
 from blivet import size
 from blivet.devicelibs import crypto, lvm
+from blivet.devices import StratisFilesystemDevice
 from blivet.formats.fs import BTRFS
 from blivet.formats.stratis import StratisBlockdev
 
@@ -625,6 +626,8 @@ class AddDialog(Gtk.Dialog):
             min_size = BTRFS._min_size
         elif device_type == "stratis pool":
             min_size = StratisBlockdev._min_size
+        elif device_type == "stratis filesystem":
+            min_size = StratisFilesystemDevice._min_size
         else:
             min_size = size.Size("1 MiB")
 
