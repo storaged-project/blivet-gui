@@ -34,6 +34,10 @@ utils-test:
 	@echo "*** Running Utils tests ***"
 	PYTHONPATH=.:tests/ $(PYTHON) tests/run_tests.py blivetutils_tests
 
+run-with-test-disks:
+	@echo "*** Running blivet-gui with testing disks ***"
+	misc/run-with-test-disks.sh
+
 pylint:
 	@echo "*** Running pylint ***"
 	PYTHONPATH=. tests/pylint/runpylint.py
@@ -127,4 +131,4 @@ deb:
 
 ci: check test
 
-.PHONY: check pep8 pylint clean install tag archive local deb
+.PHONY: check pep8 pylint clean install tag archive local deb run-with-test-disks

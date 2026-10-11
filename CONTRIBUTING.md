@@ -15,6 +15,17 @@ PYTHONPATH=. PATH=`pwd`:$PATH blivet-gui
 (You still need to install blivet-gui dependencies to be able to run it. See
 [README.md](README.md) for more information.)
 
+To run blivet-gui for manual testing without risking your real storage, use
+
+```
+make run-with-test-disks
+```
+
+This creates four fake SCSI disks using `targetcli` (the same configuration the
+"utils" tests use), starts blivet-gui on these disks only and removes them again
+when blivet-gui exits. It needs `sudo` to create the disks, but blivet-gui
+itself is started as the current (non-root) user.
+
 #### Running the tests
 
   * `sudo make test`

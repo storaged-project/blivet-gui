@@ -33,7 +33,7 @@
       "dev": "/var/tmp/blivetgui_test_disk4",
       "name": "blivetgui_test_disk4",
       "plugin": "fileio",
-      "size": 524288000,
+      "size": 2147483648,
       "write_back": true,
       "wwn": "65541bbc-0ffc-42cb-b639-6ce91a818511"
     },
@@ -69,7 +69,7 @@
       "dev": "/var/tmp/blivetgui_test_disk3",
       "name": "blivetgui_test_disk3",
       "plugin": "fileio",
-      "size": 524288000,
+      "size": 2147483648,
       "write_back": true,
       "wwn": "5282611e-2e74-4019-8ca5-d8ceb09dfa15"
     },
@@ -105,7 +105,7 @@
       "dev": "/var/tmp/blivetgui_test_disk2",
       "name": "blivetgui_test_disk2",
       "plugin": "fileio",
-      "size": 524288000,
+      "size": 2147483648,
       "write_back": true,
       "wwn": "dd927109-b9e7-462c-b95a-ae7878623713"
     },
@@ -141,7 +141,7 @@
       "dev": "/var/tmp/blivetgui_test_disk1",
       "name": "blivetgui_test_disk1",
       "plugin": "fileio",
-      "size": 524288000,
+      "size": 2147483648,
       "write_back": true,
       "wwn": "0604a813-ce79-45fa-a9ff-eaf82188594e"
     }
