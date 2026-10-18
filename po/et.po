@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-25 16:29+0200\n"
-"PO-Revision-Date: 2026-05-07 06:24+0000\n"
+"PO-Revision-Date: 2026-10-18 07:18+0000\n"
 "Last-Translator: Priit Jõerüüt "
 "<jrtkbfdr@users.noreply.translate.fedoraproject.org>\n"
 "Language-Team: Estonian <https://translate.fedoraproject.org/projects/blivet/"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.10.1\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -843,11 +843,8 @@ msgid "Selected name \"{0}\" is already in use."
 msgstr "Valitud nimi „{0}“ on juba kasutusel."
 
 #: ../blivetgui/dialogs/edit_dialog.py:600
-#, fuzzy
-#| msgctxt "ActionsToolbar|Add"
-#| msgid "Add new device"
 msgid "Add parent device"
-msgstr "Lisa uus seade"
+msgstr "Lisa ülemseade"
 
 #: ../blivetgui/dialogs/edit_dialog.py:617
 msgid ""
@@ -860,14 +857,11 @@ msgid "Add?"
 msgstr "Kas lisame?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:643
-#, fuzzy, python-brace-format
-#| msgid "Selected device is already named \"{0}\"."
+#, python-brace-format
 msgid "Select devices to be added to {name}:"
-msgstr "Valitud seadme nimi juba on „{0}“."
+msgstr "Vali seadmed, mis kuuluvad lisamisele asukohta „{name}“:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:700
-#, fuzzy
-#| msgid "Remove a parent"
 msgid "Remove parent device"
 msgstr "Eemalda ülemseade"
 
@@ -934,13 +928,13 @@ msgstr "Samuti kustuta järgnevad „{name}“ ülemseadmed:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:327
 msgid "There are no pending actions."
-msgstr ""
+msgstr "Ootel toiminguid pole."
 
 #. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
 #. your name and email address (optional) here. Separate translator names with newlines.
 #: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
-msgstr "Priit Jõerüüt 2025"
+msgstr "Priit Jõerüüt 2025-2026"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:722
 msgid "System Information"
@@ -1045,7 +1039,7 @@ msgstr ""
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "LiveUSB device"
-msgstr ""
+msgstr "LiveUSB-seade"
 
 #: ../blivetgui/visualization/rectangle.py:55
 msgid "Encrypted device (locked)"
@@ -1057,7 +1051,7 @@ msgstr "Krüptitud seade (lukustusest avatud)"
 
 #: ../blivetgui/visualization/rectangle.py:57
 msgid "Empty device"
-msgstr ""
+msgstr "Tühi seade"
 
 #: ../blivetgui/visualization/rectangle.py:58
 msgid "Snapshot"
@@ -1085,19 +1079,19 @@ msgstr "Alamköite teave on puudu"
 
 #: ../blivetgui/visualization/rectangle.py:122
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
-msgstr ""
+msgstr "LVM2 köitegrupp - topeltklõpsa loogiliste köidete vaatamiseks"
 
 #: ../blivetgui/visualization/rectangle.py:123
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Btrfs köide - topeltklõpsa alamköidete vaatamiseks"
 
 #: ../blivetgui/visualization/rectangle.py:124
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "RAID-massiiv - topeltklõpsa sisu vaatamiseks"
 
 #: ../blivetgui/visualization/rectangle.py:125
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Stratise kogum - topeltklõpsa failisüsteemide vaatamiseks"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:133
@@ -1145,7 +1139,7 @@ msgstr ""
 
 #: ../data/ui/add_disklabel_dialog.ui:52
 msgid "Select new partition table type:"
-msgstr ""
+msgstr "Vali partitsioonitabeli uus tüüp:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
@@ -1178,25 +1172,21 @@ msgid "Format"
 msgstr "Vorminda"
 
 #: ../data/ui/blivet-gui.ui:80 ../data/ui/blivet-gui.ui:176
-#, fuzzy
-#| msgid "Add a parent"
 msgid "Add parent"
 msgstr "Lisa ülemseade"
 
 #: ../data/ui/blivet-gui.ui:88 ../data/ui/blivet-gui.ui:184
-#, fuzzy
-#| msgid "Remove a parent"
 msgid "Remove parent"
 msgstr "Eemalda ülemseade"
 
 #: ../data/ui/blivet-gui.ui:96 ../data/ui/blivet-gui.ui:192
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
-msgstr ""
+msgstr "Määratle haakepunkt"
 
 #: ../data/ui/blivet-gui.ui:104 ../data/ui/blivet-gui.ui:200
 msgid "Set label"
-msgstr ""
+msgstr "Määratle silt"
 
 #: ../data/ui/blivet-gui.ui:112 ../data/ui/blivet-gui.ui:208
 msgid "Set partition table"
@@ -1228,12 +1218,12 @@ msgstr "Lisa uus seade"
 #: ../data/ui/blivet-gui.ui:410
 msgctxt "ActionsToolbar|Delete"
 msgid "Delete selected device"
-msgstr ""
+msgstr "Kustuta valitud seade"
 
 #: ../data/ui/blivet-gui.ui:426
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
-msgstr ""
+msgstr "Muuda valitud seadet"
 
 #: ../data/ui/blivet-gui.ui:452
 msgctxt "ActionsToolbar|Unmount"
@@ -1243,7 +1233,7 @@ msgstr "Haagi valitud seade lahti"
 #: ../data/ui/blivet-gui.ui:467
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
-msgstr ""
+msgstr "Ava valitud seadme lukustus või ava seade"
 
 #: ../data/ui/blivet-gui.ui:482
 msgctxt "ActionsToolbar|Info"
@@ -1278,19 +1268,19 @@ msgstr "Laadi andmeruum uuesti"
 
 #: ../data/ui/blivet-gui.ui:700
 msgid "Queued Actions"
-msgstr ""
+msgstr "Tööde järjekorda lisatud tegevused"
 
 #: ../data/ui/blivet-gui.ui:730
 msgid "About blivet-gui"
-msgstr ""
+msgstr "Rakenduse teave: blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:782
 msgid "Apply pending actions"
-msgstr ""
+msgstr "Rakenda ootel tegevused"
 
 #: ../data/ui/blivet-gui.ui:798
 msgid "Clear scheduled actions"
-msgstr ""
+msgstr "Eemalda ajastatud tegevused"
 
 #: ../data/ui/blivet-gui.ui:814
 msgid "Undo last action"
@@ -1298,7 +1288,7 @@ msgstr "Võta viimane tegevus tagasi"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
-msgstr ""
+msgstr "Puhverda see loogiline köide:"
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
@@ -1306,11 +1296,11 @@ msgstr "Vaba andmeruum"
 
 #: ../data/ui/cache_area.ui:109
 msgid "On disk"
-msgstr ""
+msgstr "Kettal"
 
 #: ../data/ui/cache_area.ui:142
 msgid "Cache type:"
-msgstr ""
+msgstr "Puhvri tüüp:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
