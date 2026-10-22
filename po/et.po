@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-08-25 16:29+0200\n"
-"PO-Revision-Date: 2026-10-21 23:06+0000\n"
+"PO-Revision-Date: 2026-10-22 23:18+0000\n"
 "Last-Translator: Priit Jõerüüt "
 "<jrtkbfdr@users.noreply.translate.fedoraproject.org>\n"
 "Language-Team: Estonian <https://translate.fedoraproject.org/projects/blivet/"
@@ -201,6 +201,8 @@ msgstr "Kas oled kindel, et soovid väljuda?"
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
+"Sul on mõned ootel toimingud. Kas oled kindel, et tahad blivet-gui nüüd "
+"sulgeda?"
 
 #: ../blivetgui/blivet_utils.py:79
 msgid "free space"
@@ -292,7 +294,7 @@ msgstr ""
 #: ../blivetgui/list_actions.py:69 ../blivetgui/list_actions.py:118
 #: ../blivetgui/list_actions.py:140 ../data/ui/blivet-gui.ui:663
 msgid "No pending actions"
-msgstr ""
+msgstr "Ootel toiminguid pole"
 
 #: ../blivetgui/list_actions.py:97 ../blivetgui/list_actions.py:120
 #, python-format
@@ -414,7 +416,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:109
 msgid "Partition type:"
-msgstr ""
+msgstr "Partitsiooni tüüp:"
 
 #: ../blivetgui/dialogs/add_dialog.py:118
 msgid "Logical"
@@ -478,7 +480,7 @@ msgstr ""
 #: ../blivetgui/dialogs/add_dialog.py:404
 #: ../blivetgui/dialogs/device_info_dialog.py:82
 msgid "LVM2 Snapshot"
-msgstr ""
+msgstr "LVM2 hetktõmmis"
 
 #: ../blivetgui/dialogs/add_dialog.py:407
 msgid "LVM2 Thin Snapshot"
@@ -487,7 +489,7 @@ msgstr ""
 #: ../blivetgui/dialogs/add_dialog.py:410
 #: ../blivetgui/dialogs/device_info_dialog.py:84
 msgid "LVM2 Thin Logical Volume"
-msgstr ""
+msgstr "LVM2 õhuke loogiline köide"
 
 #: ../blivetgui/dialogs/add_dialog.py:413
 #: ../blivetgui/dialogs/device_info_dialog.py:87
@@ -528,7 +530,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/add_dialog.py:761
 msgid "MDArray type:"
-msgstr ""
+msgstr "MDArray tüüp:"
 
 #: ../blivetgui/dialogs/add_dialog.py:793
 msgid "Filesystem:"
@@ -599,11 +601,11 @@ msgstr "Teave: {0}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "LUKS/DM-Crypt Device"
-msgstr ""
+msgstr "LUKS/DM-Crypt seade"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "MD RAID Array"
-msgstr ""
+msgstr "MD RAID massiv"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:89
 msgid "DM Integrity Device"
@@ -613,53 +615,53 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:224
 #, python-brace-format
 msgid " • <i>Type:</i> {type}\n"
-msgstr ""
+msgstr " • <i>Tüüp:</i> {type}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:105
 #, python-brace-format
 msgid " • <i>Length:</i> {length}\n"
-msgstr ""
+msgstr " • <i>Pikkus:</i> {length}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:106
 #, python-brace-format
 msgid " • <i>Start:</i> {start}\n"
-msgstr ""
+msgstr " • <i>Algus:</i> {start}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:107
 #, python-brace-format
 msgid " • <i>End:</i> {end}\n"
-msgstr ""
+msgstr " • <i>Lõpp:</i> {end}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:114
 #, python-brace-format
 msgid " • <i>Origin:</i> {origin}\n"
-msgstr ""
+msgstr " • <i>Algupära:</i> {origin}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:115
 #: ../blivetgui/dialogs/device_info_dialog.py:117
 #: ../blivetgui/dialogs/device_info_dialog.py:121
 #, python-brace-format
 msgid " • <i>Segment type:</i> {segtype}\n"
-msgstr ""
+msgstr " • <i>Segmendi tüüp:</i> {segtype}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:118
 #, python-brace-format
 msgid " • <i>Free space:</i> {free}\n"
-msgstr ""
+msgstr " • <i>Vaba andmeruum:</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:119
 #, python-brace-format
 msgid " • <i>Space used:</i> {used}\n"
-msgstr ""
+msgstr " • <i>Kasutusel andmeruum:</i> {used}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:123
 #, python-brace-format
 msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
-msgstr ""
+msgstr " • <i>Puhverdatud:</i> Jah (puhvri maht: {cache_size})\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:125
 msgid " • <i>Cached:</i> No\n"
-msgstr ""
+msgstr " • <i>Puhverdatud:</i> No\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:130
 #, python-brace-format
@@ -674,7 +676,7 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:132
 #, python-brace-format
 msgid " • <i>Free Space:</i> {free}\n"
-msgstr ""
+msgstr " • <i>Vaba andemeruum:</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:133
 #, python-brace-format
@@ -695,42 +697,42 @@ msgstr ""
 #: ../blivetgui/dialogs/device_info_dialog.py:140
 #, python-brace-format
 msgid " • <i>Subvol ID:</i> {id}\n"
-msgstr ""
+msgstr " • <i>Alamköite tunnus:</i> {id}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:143
 #, python-brace-format
 msgid " • <i>Data Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>Andmetase:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:144
 #, python-brace-format
 msgid " • <i>Metadata Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>Metateabe tase:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:149
 #, python-brace-format
 msgid " • <i>Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>Tase:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:150
 #, python-brace-format
 msgid " • <i>Devices:</i> {dcount}\n"
-msgstr ""
+msgstr " • <i>Seadmed:</i> {dcount}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
 msgid " • <i>Spares:</i> {spares}\n"
-msgstr ""
+msgstr " • <i>Tagavaraks:</i> {spares}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:152
 #, python-brace-format
 msgid " • <i>Degraded:</i> {degraded}\n"
-msgstr ""
+msgstr " • <i>Kehvas olekus:</i> {degraded}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:153
 #, python-brace-format
 msgid " • <i>Metadata Version:</i> {metadata}\n"
-msgstr ""
+msgstr " • <i>Metateabe versioon:</i> {metadata}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:168
 #, python-brace-format
@@ -1244,7 +1246,7 @@ msgstr "Näita valitud seadme teavet"
 #: ../data/ui/blivet-gui.ui:539
 msgctxt "LogicalView|Column"
 msgid "Format"
-msgstr "Vorminda"
+msgstr "Vormindus"
 
 #: ../data/ui/blivet-gui.ui:561
 msgid "Label"
@@ -1456,7 +1458,7 @@ msgstr ""
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
-msgstr ""
+msgstr "Ootel toimingud"
 
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
