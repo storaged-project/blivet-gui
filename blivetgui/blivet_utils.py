@@ -23,9 +23,12 @@
 
 import blivet
 
+from blivet import arch
 from blivet.devices import PartitionDevice, LUKSDevice, LVMVolumeGroupDevice, BTRFSVolumeDevice, BTRFSSubVolumeDevice, MDRaidArrayDevice
 from blivet.devices import StratisFilesystemDevice, StratisPoolDevice
+from blivet.flags import flags as blivet_flags
 from blivet.formats import DeviceFormat
+from blivet.formats import fs as blivet_fs
 from blivet.size import Size
 
 from blivet.devicelibs.crypto import LUKS_METADATA_SIZE
@@ -1540,6 +1543,33 @@ class BlivetUtils:
 
         return self.storage.names
 
+    @staticmethod
+    def _fs_supported_for_creation(obj):
+        """Check if a filesystem can be created.
+
+        Unlike ``FS.supported``, this ignores utilities needed only for
+        other operations (resize, relabel or getting filesystem info), but
+        keeps type, architecture, flag and kernel module checks.
+        """
+        if not obj.formattable:
+            return False
+
+        # GFS2 uses flags.gfs2 instead of the _supported attribute.
+        if isinstance(obj, blivet_fs.GFS2):
+            return blivet_flags.gfs2
+
+        # Static support plus the kernel module check done in FS.__init__.
+        if not obj._supported:
+            return False
+
+        # These classes add architecture checks in their supported property.
+        if isinstance(obj, blivet_fs.EFIFS) and not arch.is_efi():
+            return False
+        if isinstance(obj, blivet_fs.MacEFIFS) and not (arch.is_efi() and arch.is_mactel()):
+            return False
+
+        return True
+
     def get_supported_filesystems(self):
         _fs_types = []
 
@@ -1548,10 +1578,15 @@ class BlivetUtils:
         for cls in blivet.formats.device_formats.values():
             obj = cls()
 
-            supported_fs = (obj.type not in ("tmpfs",) and
-                            obj.supported and obj.formattable and
-                            (isinstance(obj, blivet.formats.fs.FS) or
-                             obj.type in additional_fs))
+            if obj.type == "tmpfs":
+                continue
+
+            if isinstance(obj, blivet_fs.FS):
+                supported_fs = self._fs_supported_for_creation(obj)
+            else:
+                supported_fs = (obj.formattable and obj.supported and
+                                obj.type in additional_fs)
+
             if supported_fs:
                 _fs_types.append(obj)
 
