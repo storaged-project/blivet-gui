@@ -1,9 +1,10 @@
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import MagicMock, PropertyMock, patch
 
 from blivetgui.blivet_utils import BlivetUtils, FreeSpaceDevice
 from blivetgui.i18n import _
 
+from blivet import formats
 from blivet.size import Size
 from blivet.formats.fslib import FSResize
 
@@ -135,6 +136,38 @@ class BlivetUtilsTest(unittest.TestCase):
         self.assertEqual(res.error, _("Resizing of LUKS2 devices is currently not supported."))
         self.assertEqual(res.min_size, Size("1 MiB"))
         self.assertEqual(res.max_size, Size("1 GiB"))
+
+    def test_fs_supported_for_creation(self):
+        # Missing resize/label/info utilities must not prevent creating a filesystem.
+        ext4 = formats.get_format("ext4")
+        with patch.object(type(ext4), "formattable", new_callable=PropertyMock, return_value=True), \
+             patch.object(type(ext4), "utils_available", new_callable=PropertyMock, return_value=False):
+            self.assertFalse(ext4.supported)
+            self.assertTrue(BlivetUtils._fs_supported_for_creation(ext4))
+
+        # Formats that are not supported by blivet must stay unavailable.
+        for fs_type in ("hfs+", "stratis xfs"):
+            fmt = formats.get_format(fs_type)
+            with patch.object(type(fmt), "formattable", new_callable=PropertyMock, return_value=True):
+                self.assertFalse(BlivetUtils._fs_supported_for_creation(fmt))
+
+        # Architecture-specific filesystems must keep their architecture checks.
+        efi = formats.get_format("efi")
+        with patch.object(type(efi), "formattable", new_callable=PropertyMock, return_value=True), \
+             patch("blivetgui.blivet_utils.arch.is_efi", return_value=False):
+            self.assertFalse(BlivetUtils._fs_supported_for_creation(efi))
+
+        macefi = formats.get_format("macefi")
+        with patch.object(type(macefi), "formattable", new_callable=PropertyMock, return_value=True), \
+             patch("blivetgui.blivet_utils.arch.is_efi", return_value=True), \
+             patch("blivetgui.blivet_utils.arch.is_mactel", return_value=False):
+            self.assertFalse(BlivetUtils._fs_supported_for_creation(macefi))
+
+        # GFS2 follows flags.gfs2 instead of the _supported attribute.
+        gfs2 = formats.get_format("gfs2")
+        with patch.object(type(gfs2), "formattable", new_callable=PropertyMock, return_value=True), \
+             patch("blivetgui.blivet_utils.blivet_flags.gfs2", False):
+            self.assertFalse(BlivetUtils._fs_supported_for_creation(gfs2))
 
 
 if __name__ == "__main__":
