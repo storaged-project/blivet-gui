@@ -86,7 +86,9 @@ class DeviceInformationDialog(Gtk.Dialog):
                           "btrfs volume": (_("Btrfs Volume"), self._get_btrfs_info),
                           "btrfs subvolume": (_("Btrfs Subvolume"), self._get_btrfs_info),
                           "mdarray": (_("MD RAID Array"), self._get_mdarray_info),
-                          "integrity/dm-crypt": (_("DM Integrity Device"), None)}
+                          "integrity/dm-crypt": (_("DM Integrity Device"), None),
+                          "stratis pool": (_("Stratis Pool"), self._get_stratis_pool_info),
+                          "stratis filesystem": (_("Stratis Filesystem"), self._get_stratis_filesystem_info)}
 
         # Fill dialog with information
         self.add_device_info()
@@ -155,6 +157,20 @@ class DeviceInformationDialog(Gtk.Dialog):
 
         return info
 
+    def _get_stratis_pool_info(self):
+        info = _(" • <i>Encrypted:</i> {encrypted}\n").format(encrypted=_("Yes") if self.device.encrypted else _("No"))
+        info += _(" • <i>Overprovisioning:</i> {overprovisioning}\n").format(overprovisioning=_("Yes") if self.device.overprovisioning else _("No"))
+        info += _(" • <i>Free Space:</i> {free}\n").format(free=str(self.device.free_space))
+        info += _(" • <i>Filesystem Limit:</i> {limit}\n").format(limit=self.device.fs_limit)
+
+        return info
+
+    def _get_stratis_filesystem_info(self):
+        info = _(" • <i>Pool:</i> {pool}\n").format(pool=self.device.pool.name)
+        info += _(" • <i>Used Size:</i> {used}\n").format(used=str(self.device.used_size))
+
+        return info
+
     def add_device_info(self):
         """ Display information about the device
         """
@@ -206,6 +222,11 @@ class DeviceInformationDialog(Gtk.Dialog):
     def add_format_info(self):
         """ Display information about format of the device
         """
+
+        if self.device.type == "stratis filesystem":
+            # no format information for stratis filesystems; all information
+            # about the filesystem is part of the stratis filesystem info
+            return
 
         # device format header
         info_type_label = Gtk.Label(label="<i>%s</i>" % _("Device format"), use_markup=True)
