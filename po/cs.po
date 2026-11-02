@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 16:29+0200\n"
+"POT-Creation-Date: 2026-10-27 17:15+0100\n"
 "PO-Revision-Date: 2026-10-13 08:18+0000\n"
 "Last-Translator: Pavel Borecki <pavel.borecki@gmail.com>\n"
 "Language-Team: Czech <https://translate.fedoraproject.org/projects/blivet/"
@@ -231,78 +231,78 @@ msgid ""
 msgstr ""
 "Jsou naplánovány operace. Jste si jisti, že chcete blivet-gui nyní ukončit?"
 
-#: ../blivetgui/blivet_utils.py:79
+#: ../blivetgui/blivet_utils.py:82
 msgid "free space"
 msgstr "volné místo"
 
-#: ../blivetgui/blivet_utils.py:701
+#: ../blivetgui/blivet_utils.py:704
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
 msgstr "Změna velikost {type} zařízení zatím není podporována"
 
-#: ../blivetgui/blivet_utils.py:706
+#: ../blivetgui/blivet_utils.py:709
 msgid "Protected devices cannot be resized"
 msgstr "Velikost chráněných zařízení nemůže být změněna"
 
-#: ../blivetgui/blivet_utils.py:711
+#: ../blivetgui/blivet_utils.py:714
 msgid "Immutable formats cannot be resized"
 msgstr "Velikost neměnných formátů nemůže být změněna"
 
-#: ../blivetgui/blivet_utils.py:716
+#: ../blivetgui/blivet_utils.py:719
 msgid "Devices with children cannot be resized"
 msgstr "Velikost zařízení, která mají jim podřízená, nemůže být změněna"
 
-#: ../blivetgui/blivet_utils.py:727
+#: ../blivetgui/blivet_utils.py:730
 msgid "Unformatted devices are not resizable"
 msgstr "Velikost nenaformátovaných zařízení nemůže být změněna"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
-#: ../blivetgui/blivet_utils.py:734
+#: ../blivetgui/blivet_utils.py:737
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
 msgstr "Změna velikosti formátu {type} zatím není podporována"
 
-#: ../blivetgui/blivet_utils.py:739
+#: ../blivetgui/blivet_utils.py:742
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
 msgstr "Nástroje pro změnu velikosti formátu {type} nejsou nainstalované."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
-#: ../blivetgui/blivet_utils.py:746
+#: ../blivetgui/blivet_utils.py:749
 msgid "Formats scheduled to be created cannot be resized"
 msgstr "Tam, kde je naplánováno formátování, není možné měnit velikost"
 
-#: ../blivetgui/blivet_utils.py:751
+#: ../blivetgui/blivet_utils.py:754
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr "Formát {type} nepodporuje aktualizaci informace o limitu velikosti"
 
-#: ../blivetgui/blivet_utils.py:758
+#: ../blivetgui/blivet_utils.py:761
 msgid "Mounted devices cannot be resized"
 msgstr "Velikost připojených zařízení nemůže být změněna"
 
-#: ../blivetgui/blivet_utils.py:763
+#: ../blivetgui/blivet_utils.py:766
 msgid "Logical Volumes with snapshots cannot be resized."
 msgstr "U logických svazků se zachycenými stavy nelze měnit velikost."
 
-#: ../blivetgui/blivet_utils.py:768
+#: ../blivetgui/blivet_utils.py:771
 msgid "Resizing of LUKS2 devices is currently not supported."
 msgstr "Změna velikost LUKS2 zařízení zatím není podporována."
 
-#: ../blivetgui/blivet_utils.py:780
+#: ../blivetgui/blivet_utils.py:783
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
 msgstr ""
 "Nepodařilo se zaktualizovat informaci o velikosti souborového systému: "
 "{error}"
 
-#: ../blivetgui/blivet_utils.py:799
+#: ../blivetgui/blivet_utils.py:802
 msgid "Device is not resizable."
 msgstr "U tohoto zařízení není možné měnit velikost."
 
-#: ../blivetgui/blivet_utils.py:801
+#: ../blivetgui/blivet_utils.py:804
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
 "Poté, co je aktualizována informace o limitu velikosti formátu, není možné "
@@ -367,7 +367,7 @@ msgstr "MDArray"
 msgid "Btrfs Volumes"
 msgstr "Btrfs svazky"
 
-#: ../blivetgui/list_devices.py:127 ../blivetgui/dialogs/add_dialog.py:388
+#: ../blivetgui/list_devices.py:127 ../blivetgui/dialogs/add_dialog.py:389
 #: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "Btrfs Volume"
 msgstr "Btrfs svazek"
@@ -376,7 +376,8 @@ msgstr "Btrfs svazek"
 msgid "Stratis Pools"
 msgstr "Stratis fondy"
 
-#: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:391
+#: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:392
+#: ../blivetgui/dialogs/device_info_dialog.py:90
 msgid "Stratis Pool"
 msgstr "Stratis fond"
 
@@ -450,175 +451,176 @@ msgstr ""
 msgid "Failed to connect to blivet-gui-daemon"
 msgstr "Nepodařilo se připojit k blivet-gui-daemon"
 
-#: ../blivetgui/dialogs/add_dialog.py:67
+#: ../blivetgui/dialogs/add_dialog.py:68
 msgid "Show advanced options"
 msgstr "Zobrazit pokročilé možnosti"
 
-#: ../blivetgui/dialogs/add_dialog.py:85
+#: ../blivetgui/dialogs/add_dialog.py:86
 msgid "PE Size:"
 msgstr "Velikost PE:"
 
-#: ../blivetgui/dialogs/add_dialog.py:109
+#: ../blivetgui/dialogs/add_dialog.py:110
 msgid "Partition type:"
 msgstr "Typ oddílu:"
 
-#: ../blivetgui/dialogs/add_dialog.py:118
+#: ../blivetgui/dialogs/add_dialog.py:119
 msgid "Logical"
 msgstr "Logický"
 
-#: ../blivetgui/dialogs/add_dialog.py:120
-#: ../blivetgui/dialogs/add_dialog.py:122
-#: ../blivetgui/dialogs/add_dialog.py:124
+#: ../blivetgui/dialogs/add_dialog.py:121
+#: ../blivetgui/dialogs/add_dialog.py:123
+#: ../blivetgui/dialogs/add_dialog.py:125
 msgid "Primary"
 msgstr "Primární"
 
-#: ../blivetgui/dialogs/add_dialog.py:122
+#: ../blivetgui/dialogs/add_dialog.py:123
 msgid "Extended"
 msgstr "Rozšířený"
 
-#: ../blivetgui/dialogs/add_dialog.py:149
+#: ../blivetgui/dialogs/add_dialog.py:150
 msgid "Chunk Size:"
 msgstr "Velikost shluku:"
 
-#: ../blivetgui/dialogs/add_dialog.py:212
+#: ../blivetgui/dialogs/add_dialog.py:213
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
 msgstr "„{0}“ není platná velikost shluku."
 
-#: ../blivetgui/dialogs/add_dialog.py:217
+#: ../blivetgui/dialogs/add_dialog.py:218
 msgid "Chunk size must be multiple of 4 KiB."
 msgstr "Je třeba, aby velikost shluku byla násobkem 4 KiB."
 
-#: ../blivetgui/dialogs/add_dialog.py:273
+#: ../blivetgui/dialogs/add_dialog.py:274
 msgid "Create new device"
 msgstr "Vytvořit nové zařízení"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
-#: ../blivetgui/dialogs/add_dialog.py:382
-#: ../blivetgui/dialogs/add_dialog.py:766
+#: ../blivetgui/dialogs/add_dialog.py:383
+#: ../blivetgui/dialogs/add_dialog.py:769
 #: ../blivetgui/dialogs/device_info_dialog.py:79
 msgid "Partition"
 msgstr "Oddíl"
 
-#: ../blivetgui/dialogs/add_dialog.py:385
-#: ../blivetgui/dialogs/add_dialog.py:401
+#: ../blivetgui/dialogs/add_dialog.py:386
+#: ../blivetgui/dialogs/add_dialog.py:402
 #: ../blivetgui/dialogs/device_info_dialog.py:80
 msgid "LVM2 Volume Group"
 msgstr "LVM2 svazek"
 
 #. number of free disk regions
-#: ../blivetgui/dialogs/add_dialog.py:394
+#: ../blivetgui/dialogs/add_dialog.py:395
 msgid "Software RAID"
 msgstr "Softwarový RAID"
 
-#: ../blivetgui/dialogs/add_dialog.py:397
+#: ../blivetgui/dialogs/add_dialog.py:398
 #: ../blivetgui/dialogs/device_info_dialog.py:81
 msgid "LVM2 Logical Volume"
 msgstr "LVM2 logický oddíl"
 
-#: ../blivetgui/dialogs/add_dialog.py:397
+#: ../blivetgui/dialogs/add_dialog.py:398
 #: ../blivetgui/dialogs/device_info_dialog.py:83
 msgid "LVM2 ThinPool"
 msgstr "LVM2 ThinPool"
 
-#: ../blivetgui/dialogs/add_dialog.py:404
+#: ../blivetgui/dialogs/add_dialog.py:405
 #: ../blivetgui/dialogs/device_info_dialog.py:82
 msgid "LVM2 Snapshot"
 msgstr "LVM2 zachycený stav"
 
-#: ../blivetgui/dialogs/add_dialog.py:407
+#: ../blivetgui/dialogs/add_dialog.py:408
 msgid "LVM2 Thin Snapshot"
 msgstr "LVM2 Thin zachycený stav"
 
-#: ../blivetgui/dialogs/add_dialog.py:410
+#: ../blivetgui/dialogs/add_dialog.py:411
 #: ../blivetgui/dialogs/device_info_dialog.py:84
 msgid "LVM2 Thin Logical Volume"
 msgstr "LVM2 Thin logický svazek"
 
-#: ../blivetgui/dialogs/add_dialog.py:413
+#: ../blivetgui/dialogs/add_dialog.py:414
 #: ../blivetgui/dialogs/device_info_dialog.py:87
 msgid "Btrfs Subvolume"
 msgstr "Btrfs dílčí svazek"
 
-#: ../blivetgui/dialogs/add_dialog.py:416
+#: ../blivetgui/dialogs/add_dialog.py:417
+#: ../blivetgui/dialogs/device_info_dialog.py:91
 msgid "Stratis Filesystem"
 msgstr "Souborový systém Stratis"
 
-#: ../blivetgui/dialogs/add_dialog.py:422
+#: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
 msgstr "Typ zařízení:"
 
-#: ../blivetgui/dialogs/add_dialog.py:457
+#: ../blivetgui/dialogs/add_dialog.py:458
 #: ../blivetgui/dialogs/edit_dialog.py:632
 #: ../blivetgui/dialogs/edit_dialog.py:738 ../data/ui/blivet-gui.ui:515
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
 msgstr "Zařízení"
 
-#: ../blivetgui/dialogs/add_dialog.py:458
+#: ../blivetgui/dialogs/add_dialog.py:459
 #: ../blivetgui/dialogs/edit_dialog.py:633
 #: ../blivetgui/dialogs/edit_dialog.py:739 ../data/ui/blivet-gui.ui:528
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
 msgstr "Typ"
 
-#: ../blivetgui/dialogs/add_dialog.py:459
+#: ../blivetgui/dialogs/add_dialog.py:460
 #: ../blivetgui/dialogs/edit_dialog.py:634
 #: ../blivetgui/dialogs/edit_dialog.py:740 ../data/ui/blivet-gui.ui:550
 msgid "Size"
 msgstr "Velikost"
 
-#: ../blivetgui/dialogs/add_dialog.py:468 ../data/ui/cache_area.ui:130
+#: ../blivetgui/dialogs/add_dialog.py:469 ../data/ui/cache_area.ui:130
 msgid "Available devices:"
 msgstr "Dostupná zařízení:"
 
-#: ../blivetgui/dialogs/add_dialog.py:761
+#: ../blivetgui/dialogs/add_dialog.py:764
 msgid "MDArray type:"
 msgstr "MDArray typ:"
 
-#: ../blivetgui/dialogs/add_dialog.py:793
+#: ../blivetgui/dialogs/add_dialog.py:796
 msgid "Filesystem:"
 msgstr "Souborový systém:"
 
-#: ../blivetgui/dialogs/add_dialog.py:826
+#: ../blivetgui/dialogs/add_dialog.py:829
 #: ../blivetgui/dialogs/edit_dialog.py:164
 msgid "unformatted"
 msgstr "nezformátováno"
 
-#: ../blivetgui/dialogs/add_dialog.py:856 ../data/ui/format_dialog.ui:148
+#: ../blivetgui/dialogs/add_dialog.py:859 ../data/ui/format_dialog.ui:148
 msgid "Label:"
 msgstr "Štítek:"
 
-#: ../blivetgui/dialogs/add_dialog.py:864
+#: ../blivetgui/dialogs/add_dialog.py:867
 msgid "Name:"
 msgstr "Název:"
 
-#: ../blivetgui/dialogs/add_dialog.py:875 ../data/ui/format_dialog.ui:189
+#: ../blivetgui/dialogs/add_dialog.py:878 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
 msgstr "Přípojný bod:"
 
-#: ../blivetgui/dialogs/add_dialog.py:1078 ../blivetgui/dialogs/helpers.py:136
+#: ../blivetgui/dialogs/add_dialog.py:1081 ../blivetgui/dialogs/helpers.py:136
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
 msgstr "„{0}“ není platný přípojný bod."
 
-#: ../blivetgui/dialogs/add_dialog.py:1085
+#: ../blivetgui/dialogs/add_dialog.py:1088
 msgid "Please select at least two parent devices."
 msgstr "Prosím vyberte alespoň dvě zařízení jako nadřazené."
 
-#: ../blivetgui/dialogs/add_dialog.py:1099
+#: ../blivetgui/dialogs/add_dialog.py:1102
 #: ../blivetgui/dialogs/edit_dialog.py:468
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
 msgstr "„{0}“ není platný název."
 
-#: ../blivetgui/dialogs/add_dialog.py:1105
+#: ../blivetgui/dialogs/add_dialog.py:1108
 #, python-brace-format
 msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
 msgstr ""
 "Před vytvářením dílčího svazku „{1}“ je třeba vytvořit dílčí svazek „{0}“."
 
-#: ../blivetgui/dialogs/add_dialog.py:1112
+#: ../blivetgui/dialogs/add_dialog.py:1115
 #: ../blivetgui/dialogs/edit_dialog.py:231
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
@@ -656,189 +658,232 @@ msgstr "Pole MD RAID"
 msgid "DM Integrity Device"
 msgstr "DM zařízení integrity"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:102
-#: ../blivetgui/dialogs/device_info_dialog.py:224
+#: ../blivetgui/dialogs/device_info_dialog.py:104
+#: ../blivetgui/dialogs/device_info_dialog.py:245
 #, python-brace-format
 msgid " • <i>Type:</i> {type}\n"
 msgstr " • <i>Typ:</i> {type}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:105
+#: ../blivetgui/dialogs/device_info_dialog.py:107
 #, python-brace-format
 msgid " • <i>Length:</i> {length}\n"
 msgstr " • <i>Délka:</i> {length}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:106
+#: ../blivetgui/dialogs/device_info_dialog.py:108
 #, python-brace-format
 msgid " • <i>Start:</i> {start}\n"
 msgstr " • <i>Začátek:</i> {start}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:107
+#: ../blivetgui/dialogs/device_info_dialog.py:109
 #, python-brace-format
 msgid " • <i>End:</i> {end}\n"
 msgstr " • <i>Konec:</i> {end}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:114
+#: ../blivetgui/dialogs/device_info_dialog.py:116
 #, python-brace-format
 msgid " • <i>Origin:</i> {origin}\n"
 msgstr " • <i>Původ:</i> {origin}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:115
 #: ../blivetgui/dialogs/device_info_dialog.py:117
-#: ../blivetgui/dialogs/device_info_dialog.py:121
+#: ../blivetgui/dialogs/device_info_dialog.py:119
+#: ../blivetgui/dialogs/device_info_dialog.py:123
 #, python-brace-format
 msgid " • <i>Segment type:</i> {segtype}\n"
 msgstr " • <i>Typ segmentu:</i> {segtype}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:118
+#: ../blivetgui/dialogs/device_info_dialog.py:120
 #, python-brace-format
 msgid " • <i>Free space:</i> {free}\n"
 msgstr " • <i>Volné místo:</i> {free}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:119
+#: ../blivetgui/dialogs/device_info_dialog.py:121
 #, python-brace-format
 msgid " • <i>Space used:</i> {used}\n"
 msgstr " • <i>Využitý prostor:</i> {used}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:123
+#: ../blivetgui/dialogs/device_info_dialog.py:125
 #, python-brace-format
 msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
 msgstr " • <i>V mezipaměti:</i> Ano (velikost mezipaměti: {cache_size})\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:125
+#: ../blivetgui/dialogs/device_info_dialog.py:127
 msgid " • <i>Cached:</i> No\n"
 msgstr " • <i>V mezipaměti:</i> Ne\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:130
+#: ../blivetgui/dialogs/device_info_dialog.py:132
 #, python-brace-format
 msgid " • <i>PE Size:</i> {pesize}\n"
 msgstr " • <i>Velikost PE:</i> {pesize}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:131
+#: ../blivetgui/dialogs/device_info_dialog.py:133
 #, python-brace-format
 msgid " • <i>PE Count:</i> {pecount}\n"
 msgstr " • <i>Počet PE:</i> {pecount}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:132
+#: ../blivetgui/dialogs/device_info_dialog.py:134
+#: ../blivetgui/dialogs/device_info_dialog.py:163
 #, python-brace-format
 msgid " • <i>Free Space:</i> {free}\n"
 msgstr " • <i>Volné místo:</i> {free}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:133
+#: ../blivetgui/dialogs/device_info_dialog.py:135
 #, python-brace-format
 msgid " • <i>PE Free:</i> {pefree}\n"
 msgstr " • <i>Volné PE:</i> {pefree}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:134
+#: ../blivetgui/dialogs/device_info_dialog.py:136
 #, python-brace-format
 msgid " • <i>Reserved Space:</i> {res}\n"
 msgstr " • <i>Rezervované místo:</i> {res}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:135
-#: ../blivetgui/dialogs/device_info_dialog.py:154
+#: ../blivetgui/dialogs/device_info_dialog.py:137
+#: ../blivetgui/dialogs/device_info_dialog.py:156
 #, python-brace-format
 msgid " • <i>Complete:</i> {complete}\n"
 msgstr " • <i>Kompletní:</i> {complete}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:140
+#: ../blivetgui/dialogs/device_info_dialog.py:142
 #, python-brace-format
 msgid " • <i>Subvol ID:</i> {id}\n"
 msgstr " • <i>Identif. dílčího svazku:</i> {id}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:143
+#: ../blivetgui/dialogs/device_info_dialog.py:145
 #, python-brace-format
 msgid " • <i>Data Level:</i> {level}\n"
 msgstr " • <i>Úroveň dat:</i> {level}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:144
+#: ../blivetgui/dialogs/device_info_dialog.py:146
 #, python-brace-format
 msgid " • <i>Metadata Level:</i> {level}\n"
 msgstr " • <i>Úroveň metadat:</i> {level}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:149
+#: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
 msgid " • <i>Level:</i> {level}\n"
 msgstr " • <i>Úroveň:</i> {level}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:150
+#: ../blivetgui/dialogs/device_info_dialog.py:152
 #, python-brace-format
 msgid " • <i>Devices:</i> {dcount}\n"
 msgstr " • <i>Zařízení:</i> {dcount}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:151
+#: ../blivetgui/dialogs/device_info_dialog.py:153
 #, python-brace-format
 msgid " • <i>Spares:</i> {spares}\n"
 msgstr " • <i>Rezervní:</i> {spares}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:152
+#: ../blivetgui/dialogs/device_info_dialog.py:154
 #, python-brace-format
 msgid " • <i>Degraded:</i> {degraded}\n"
 msgstr " • <i>Degradován:</i> {degraded}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:153
+#: ../blivetgui/dialogs/device_info_dialog.py:155
 #, python-brace-format
 msgid " • <i>Metadata Version:</i> {metadata}\n"
 msgstr " • <i>Verze metadat:</i> {metadata}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:168
+#: ../blivetgui/dialogs/device_info_dialog.py:161
+#, fuzzy, python-brace-format
+#| msgid " • <i>End:</i> {end}\n"
+msgid " • <i>Encrypted:</i> {encrypted}\n"
+msgstr " • <i>Konec:</i> {end}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:161
+#: ../blivetgui/dialogs/device_info_dialog.py:162
+#: ../blivetgui/dialogs/other_dialogs.py:175
+msgid "Yes"
+msgstr "Ano"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:161
+#: ../blivetgui/dialogs/device_info_dialog.py:162
+#: ../blivetgui/dialogs/other_dialogs.py:175
+msgid "No"
+msgstr "Ne"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:162
+#, fuzzy, python-brace-format
+#| msgid " • <i>Origin:</i> {origin}\n"
+msgid " • <i>Overprovisioning:</i> {overprovisioning}\n"
+msgstr " • <i>Původ:</i> {origin}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:164
+#, fuzzy, python-brace-format
+#| msgid " • <i>Complete:</i> {complete}\n"
+msgid " • <i>Filesystem Limit:</i> {limit}\n"
+msgstr " • <i>Kompletní:</i> {complete}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:169
+#, fuzzy, python-brace-format
+#| msgid " • <i>Path:</i> {path}\n"
+msgid " • <i>Pool:</i> {pool}\n"
+msgstr " • <i>Popis umístění:</i> {path}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:170
+#, fuzzy, python-brace-format
+#| msgid " • <i>Size:</i> {size}\n"
+msgid " • <i>Used Size:</i> {used}\n"
+msgstr " • <i>Velikost:</i> {size}\n"
+
+#: ../blivetgui/dialogs/device_info_dialog.py:184
 #, python-brace-format
 msgid "Unknown device {name}"
 msgstr "Neznámé zařízení {name}"
 
 #. device info header
-#: ../blivetgui/dialogs/device_info_dialog.py:176
+#: ../blivetgui/dialogs/device_info_dialog.py:192
 msgid "Basic information"
 msgstr "Základní informace"
 
 #. 'basic' information about selected device
-#: ../blivetgui/dialogs/device_info_dialog.py:186
-#: ../blivetgui/dialogs/device_info_dialog.py:222
-#: ../blivetgui/dialogs/device_info_dialog.py:269
+#: ../blivetgui/dialogs/device_info_dialog.py:202
+#: ../blivetgui/dialogs/device_info_dialog.py:243
+#: ../blivetgui/dialogs/device_info_dialog.py:290
 msgid "existing"
 msgstr "existující"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:186
-#: ../blivetgui/dialogs/device_info_dialog.py:222
-#: ../blivetgui/dialogs/device_info_dialog.py:269
+#: ../blivetgui/dialogs/device_info_dialog.py:202
+#: ../blivetgui/dialogs/device_info_dialog.py:243
+#: ../blivetgui/dialogs/device_info_dialog.py:290
 msgid "non-existing"
 msgstr "neexistující"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:187
-#: ../blivetgui/dialogs/device_info_dialog.py:223
+#: ../blivetgui/dialogs/device_info_dialog.py:203
+#: ../blivetgui/dialogs/device_info_dialog.py:244
 #, python-brace-format
 msgid " • <i>Status:</i> {exist}\n"
 msgstr " • <i>Stav:</i> {exist}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:188
+#: ../blivetgui/dialogs/device_info_dialog.py:204
 #, python-brace-format
 msgid " • <i>Name:</i> {name}\n"
 msgstr " • <i>Název:</i> {name}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:189
+#: ../blivetgui/dialogs/device_info_dialog.py:205
 #, python-brace-format
 msgid " • <i>Path:</i> {path}\n"
 msgstr " • <i>Popis umístění:</i> {path}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:190
+#: ../blivetgui/dialogs/device_info_dialog.py:206
 #, python-brace-format
 msgid " • <i>Size:</i> {size}\n"
 msgstr " • <i>Velikost:</i> {size}\n"
 
 #. device format header
-#: ../blivetgui/dialogs/device_info_dialog.py:211
+#: ../blivetgui/dialogs/device_info_dialog.py:232
 msgid "Device format"
 msgstr "Formát zařízení"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:225
+#: ../blivetgui/dialogs/device_info_dialog.py:246
 #, python-brace-format
 msgid " • <i>UUID:</i> {uuid}\n"
 msgstr " • <i>UUID:</i> {uuid}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:227
+#: ../blivetgui/dialogs/device_info_dialog.py:248
 #, python-brace-format
 msgid " • <i>Label:</i> {label}\n"
 msgstr " • <i>Štítek:</i> {label}\n"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:241
+#: ../blivetgui/dialogs/device_info_dialog.py:262
 #, python-brace-format
 msgid ""
 " • <i>Mountpoints:</i>\n"
@@ -847,16 +892,16 @@ msgstr ""
 " • <i>Přípojný bod:</i> \n"
 "     {mountpoint}"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:244
+#: ../blivetgui/dialogs/device_info_dialog.py:265
 msgid " • <i>Type:</i> None"
 msgstr " • <i>Typ:</i> žádný"
 
 #. device parents header
-#: ../blivetgui/dialogs/device_info_dialog.py:257
+#: ../blivetgui/dialogs/device_info_dialog.py:278
 msgid "Parents"
 msgstr "Nadřazené"
 
-#: ../blivetgui/dialogs/device_info_dialog.py:270
+#: ../blivetgui/dialogs/device_info_dialog.py:291
 #, python-brace-format
 msgid " • {exists} {size} {type} {name}\n"
 msgstr " • {exists} {size} {type} {name}\n"
@@ -1033,14 +1078,6 @@ msgstr "Výběr disků se kterými bude blivet-gui dovoleno operovat"
 #: ../blivetgui/dialogs/other_dialogs.py:174
 msgid "Advanced device information"
 msgstr "Pokročilé informace o zařízení"
-
-#: ../blivetgui/dialogs/other_dialogs.py:175
-msgid "Yes"
-msgstr "Ano"
-
-#: ../blivetgui/dialogs/other_dialogs.py:175
-msgid "No"
-msgstr "Ne"
 
 #: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
