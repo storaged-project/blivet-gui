@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-27 17:15+0100\n"
-"PO-Revision-Date: 2026-10-13 08:18+0000\n"
+"PO-Revision-Date: 2026-11-04 03:18+0000\n"
 "Last-Translator: Luna Jernberg <droidbittin@gmail.com>\n"
 "Language-Team: Swedish <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/sv/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.10.1\n"
+"X-Generator: Weblate 2026.11\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -772,10 +772,9 @@ msgid " • <i>Metadata Version:</i> {metadata}\n"
 msgstr " • <i>Metadataversion:</i> {metadata}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:161
-#, fuzzy, python-brace-format
-#| msgid " • <i>End:</i> {end}\n"
+#, python-brace-format
 msgid " • <i>Encrypted:</i> {encrypted}\n"
-msgstr " • <i>Slut:</i> {end}\n"
+msgstr " • <i>Krypterad:</i> {encrypted}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:161
 #: ../blivetgui/dialogs/device_info_dialog.py:162
@@ -790,28 +789,24 @@ msgid "No"
 msgstr "Nej"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:162
-#, fuzzy, python-brace-format
-#| msgid " • <i>Origin:</i> {origin}\n"
+#, python-brace-format
 msgid " • <i>Overprovisioning:</i> {overprovisioning}\n"
-msgstr " • <i>Ursprung:</i> {origin}\n"
+msgstr " • <i>Överprovisionering:</i> {overprovisioning}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:164
-#, fuzzy, python-brace-format
-#| msgid " • <i>Complete:</i> {complete}\n"
+#, python-brace-format
 msgid " • <i>Filesystem Limit:</i> {limit}\n"
-msgstr " • <i>Fullständiga:</i> {complete}\n"
+msgstr " • <i>Filsystemgräns:</i> {limit}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:169
-#, fuzzy, python-brace-format
-#| msgid " • <i>Path:</i> {path}\n"
+#, python-brace-format
 msgid " • <i>Pool:</i> {pool}\n"
-msgstr " • <i>Sökväg:</i> {path}\n"
+msgstr " • <i>Pool:</i> {pool}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:170
-#, fuzzy, python-brace-format
-#| msgid " • <i>Size:</i> {size}\n"
+#, python-brace-format
 msgid " • <i>Used Size:</i> {used}\n"
-msgstr " • <i>Storlek:</i> {size}\n"
+msgstr " • <i>Använd storlek:</i> {used}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:184
 #, python-brace-format
