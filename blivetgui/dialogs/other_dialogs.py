@@ -250,11 +250,13 @@ class LuksPassphraseDialog:
     """ Dialog window allowing user to enter passphrase to decrypt
     """
 
-    def __init__(self, parent_window):
+    def __init__(self, parent_window, device_name):
         """
 
             :param parent_window: parent window
             :type parent_window: Gtk.Window
+            :param device_name: name of the device to unlock
+            :type device_name: str
 
         """
 
@@ -264,6 +266,9 @@ class LuksPassphraseDialog:
         self.dialog = builder.get_object("dialog")
 
         self.dialog.set_transient_for(parent_window)
+
+        msg = _("Please enter passphrase to unlock %s.") % device_name
+        self.dialog.format_secondary_text(msg)
 
         self.entry_passphrase = builder.get_object("entry_passphrase")
         self.dialog.show_all()

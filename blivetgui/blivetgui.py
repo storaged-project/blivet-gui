@@ -777,7 +777,9 @@ class BlivetGUI:
             :type widget: Gtk.Widget()
         """
 
-        dialog = other_dialogs.LuksPassphraseDialog(self.main_window)
+        device = self.list_partitions.selected_partition[0]
+
+        dialog = other_dialogs.LuksPassphraseDialog(self.main_window, device.name)
 
         response = self.run_dialog(dialog)
 
