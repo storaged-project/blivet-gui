@@ -9,7 +9,6 @@
     <property name="message_type">other</property>
     <property name="buttons">ok-cancel</property>
     <property name="text" translatable="yes">Unlock device</property>
-    <property name="secondary_text" translatable="yes">Please enter passphrase to unlock selected device.</property>
     <child type="titlebar">
       <placeholder/>
     </child>
