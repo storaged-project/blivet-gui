@@ -24,11 +24,14 @@ Requires: libblockdev-loop
 Requires: libblockdev-fs
 Requires: libblockdev-dm
 Requires: libblockdev-crypto
-Requires: libblockdev-btrfs
 Requires: libblockdev-lvm-dbus
 Requires: libblockdev-mpath
 Requires: libblockdev-nvme
 Requires: libblockdev-part
+
+%if ! 0%{?rhel}
+Requires: libblockdev-btrfs
+%endif
 
 %description
 Graphical (GTK) tool for manipulation and configuration of data storage
