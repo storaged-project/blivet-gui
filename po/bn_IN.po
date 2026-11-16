@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 17:15+0100\n"
+"POT-Creation-Date: 2026-11-08 20:12+0100\n"
 "PO-Revision-Date: 2022-05-12 02:24+0000\n"
 "Last-Translator: Anirban Mitra <mitra_anirban@yahoo.co.in>\n"
 "Language-Team: Bengali (India) <https://translate.fedoraproject.org/projects/"
@@ -133,19 +133,19 @@ msgid ""
 msgstr ""
 "'{mountpoint}}' এর আনমাউন্ট ব্যর্থ। আপনি কি নিশ্চিত যে ডিভাইসটি ব্যবহার হচ্ছে না?"
 
-#: ../blivetgui/blivetgui.py:788
+#: ../blivetgui/blivetgui.py:790
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "ডিভাইস ডিক্রিপশন ব্যর্থ হয়েছে। আপনি কি নিশ্চিতভাবে প্রদত্ত পাসওয়ার্ডটি সঠিক?"
 
-#: ../blivetgui/blivetgui.py:838 ../data/ui/blivet-gui.ui:708
+#: ../blivetgui/blivetgui.py:840 ../data/ui/blivet-gui.ui:708
 msgid "Quit"
 msgstr "প্রস্থান"
 
-#: ../blivetgui/blivetgui.py:841
+#: ../blivetgui/blivetgui.py:843
 msgid "blivet-gui is already running"
 msgstr "ব্লিভেট-গুই ইতিমধ্যে চলছে"
 
-#: ../blivetgui/blivetgui.py:842
+#: ../blivetgui/blivetgui.py:844
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -153,7 +153,7 @@ msgstr ""
 "আরেকটি ব্লিভেট-গুই ইতিমধ্যে চলছে ।\n"
 " একসাথে একটিই ব্লিভেট-গুই চলতে পারে ।"
 
-#: ../blivetgui/blivetgui.py:844
+#: ../blivetgui/blivetgui.py:846
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -173,24 +173,24 @@ msgstr ""
 "\n"
 "এবং ওইটিকে বন্ধ হতে বাধ্য করুন।"
 
-#: ../blivetgui/blivetgui.py:876
+#: ../blivetgui/blivetgui.py:878
 msgid "Failed to init blivet:"
 msgstr "ব্লিভেট চালু করতে ব্যর্থ:"
 
-#: ../blivetgui/blivetgui.py:883
+#: ../blivetgui/blivetgui.py:885
 msgid "Quit blivet-gui"
 msgstr "ব্লিভেট-গুই থেকে বেরিয়ে যান"
 
-#: ../blivetgui/blivetgui.py:885
+#: ../blivetgui/blivetgui.py:887
 msgid "Ignore disk and continue"
 msgstr "ডিস্কটি উপেক্ষা করুন ও চালিয়ে যান"
 
-#: ../blivetgui/blivetgui.py:888
+#: ../blivetgui/blivetgui.py:890
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "ভুল: {error}"
 
-#: ../blivetgui/blivetgui.py:889
+#: ../blivetgui/blivetgui.py:891
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -204,19 +204,19 @@ msgstr ""
 "আপনি হয় ব্লিভেট-গুই থেকে বেরিয়ে যেতে পারেন অথবা এই ডিস্কটি ব্যবহার না করতে পেরে "
 "চালিয়ে যেতে পারেন ।"
 
-#: ../blivetgui/blivetgui.py:925
+#: ../blivetgui/blivetgui.py:927
 msgid "Confirm reload storage"
 msgstr "স্টোরেজ আবার লোড করা নিশ্চিত করুন"
 
-#: ../blivetgui/blivetgui.py:926
+#: ../blivetgui/blivetgui.py:928
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:957
+#: ../blivetgui/blivetgui.py:959
 msgid "Are you sure you want to quit?"
 msgstr ""
 
-#: ../blivetgui/blivetgui.py:958
+#: ../blivetgui/blivetgui.py:960
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
@@ -1076,6 +1076,11 @@ msgid ""
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
 
+#: ../blivetgui/dialogs/other_dialogs.py:270
+#, python-format
+msgid "Please enter passphrase to unlock %s."
+msgstr ""
+
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
@@ -1403,7 +1408,7 @@ msgstr ""
 msgid "Encryption type:"
 msgstr ""
 
-#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
+#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:51
 msgid "Passphrase:"
 msgstr ""
 
@@ -1481,10 +1486,6 @@ msgstr ""
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
-msgstr ""
-
-#: ../data/ui/luks_passphrase_dialog.ui:12
-msgid "Please enter passphrase to unlock selected device."
 msgstr ""
 
 #: ../data/ui/mountpoint_dialog.ui:44

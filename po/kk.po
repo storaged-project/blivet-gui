@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 17:15+0100\n"
+"POT-Creation-Date: 2026-11-08 20:12+0100\n"
 "PO-Revision-Date: 2026-11-04 03:18+0000\n"
 "Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
 "Language-Team: Kazakh <https://translate.fedoraproject.org/projects/blivet/"
@@ -132,19 +132,19 @@ msgstr ""
 "\"{mountpoint}\" тіркеуден босату сәтсіз аяқталды. Құрылғыңыз қолдануда емес "
 "болып тұрғанына сенімдісіз бе?"
 
-#: ../blivetgui/blivetgui.py:788
+#: ../blivetgui/blivetgui.py:790
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "Құлыптаудан босату сәтсіз аяқталды. Көрсетілген пароль дұрыс па?"
 
-#: ../blivetgui/blivetgui.py:838 ../data/ui/blivet-gui.ui:708
+#: ../blivetgui/blivetgui.py:840 ../data/ui/blivet-gui.ui:708
 msgid "Quit"
 msgstr "Шығу"
 
-#: ../blivetgui/blivetgui.py:841
+#: ../blivetgui/blivetgui.py:843
 msgid "blivet-gui is already running"
 msgstr "blivet-gui орындалып тұр"
 
-#: ../blivetgui/blivetgui.py:842
+#: ../blivetgui/blivetgui.py:844
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -152,7 +152,7 @@ msgstr ""
 "Басқа blivet-gui данасы қазір жұмыс істеп тұр.\n"
 "Бір уақытта blivet-gui бір ғана данасы іске қосыла алады."
 
-#: ../blivetgui/blivetgui.py:844
+#: ../blivetgui/blivetgui.py:846
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -170,24 +170,24 @@ msgstr ""
 "\n"
 "командасын пайдалануға болады."
 
-#: ../blivetgui/blivetgui.py:876
+#: ../blivetgui/blivetgui.py:878
 msgid "Failed to init blivet:"
 msgstr "blivet іске қосу сәтсіз аяқталды:"
 
-#: ../blivetgui/blivetgui.py:883
+#: ../blivetgui/blivetgui.py:885
 msgid "Quit blivet-gui"
 msgstr "blivet-gui ішінен шығу"
 
-#: ../blivetgui/blivetgui.py:885
+#: ../blivetgui/blivetgui.py:887
 msgid "Ignore disk and continue"
 msgstr "Дискті елемеу және жалғастыру"
 
-#: ../blivetgui/blivetgui.py:888
+#: ../blivetgui/blivetgui.py:890
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "Қате: {error}"
 
-#: ../blivetgui/blivetgui.py:889
+#: ../blivetgui/blivetgui.py:891
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -200,19 +200,19 @@ msgstr ""
 "Blivet-gui жұмысын қазір тоқтата аласыз немесе осы дискті пайдаланбай "
 "жалғастыра аласыз."
 
-#: ../blivetgui/blivetgui.py:925
+#: ../blivetgui/blivetgui.py:927
 msgid "Confirm reload storage"
 msgstr "Сақтау құрылғыларын қайта жүктеуді растау"
 
-#: ../blivetgui/blivetgui.py:926
+#: ../blivetgui/blivetgui.py:928
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "Кезектегі әрекеттер бар. Жалғастыруды қалайсыз ба?"
 
-#: ../blivetgui/blivetgui.py:957
+#: ../blivetgui/blivetgui.py:959
 msgid "Are you sure you want to quit?"
 msgstr "Шығуды қалайсыз ба?"
 
-#: ../blivetgui/blivetgui.py:958
+#: ../blivetgui/blivetgui.py:960
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
@@ -1086,6 +1086,12 @@ msgstr ""
 "Бұны іске қосу үшін blivet-gui-ді <tt>--auto-dev-updates</tt> опциясымен "
 "іске қосыңыз."
 
+#: ../blivetgui/dialogs/other_dialogs.py:270
+#, fuzzy, python-format
+#| msgid "Please enter passphrase to unlock selected device."
+msgid "Please enter passphrase to unlock %s."
+msgstr "Таңдалған құрылғыны құлыптаудан босату үшін құпия сөзді енгізіңіз."
+
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
@@ -1406,7 +1412,7 @@ msgstr "Шифрлеу:"
 msgid "Encryption type:"
 msgstr "Шифрлеу түрі:"
 
-#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
+#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:51
 msgid "Passphrase:"
 msgstr "Кілттік фраза:"
 
@@ -1483,10 +1489,6 @@ msgstr "Бұл файлдық жүйе үшін жаңа белгіні енгі
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
 msgstr "Құрылғыны құлыптаудан босату"
-
-#: ../data/ui/luks_passphrase_dialog.ui:12
-msgid "Please enter passphrase to unlock selected device."
-msgstr "Таңдалған құрылғыны құлыптаудан босату үшін құпия сөзді енгізіңіз."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
