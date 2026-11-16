@@ -3,15 +3,16 @@
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2017. #zanata
 # Robert Antoni Buj Gelonch <rbuj@fedoraproject.org>, 2018. #zanata
 # naly zzwd <xeanhort007@gmail.com>, 2025, 2026.
-# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2025, 2026.
 # David Medina <dmedinacpnl@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 17:15+0100\n"
-"PO-Revision-Date: 2026-05-09 10:59+0000\n"
-"Last-Translator: David Medina <dmedinacpnl@gmail.com>\n"
+"POT-Creation-Date: 2026-11-08 20:12+0100\n"
+"PO-Revision-Date: 2026-11-16 17:18+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Catalan <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ca/>\n"
 "Language: ca\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.11.2\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -135,21 +136,21 @@ msgstr ""
 "No s'ha pogut desmuntar '{mountpoint}'. Esteu segur que el dispositiu no "
 "està en ús?"
 
-#: ../blivetgui/blivetgui.py:788
+#: ../blivetgui/blivetgui.py:790
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr ""
 "El desbloqueig ha fallat. Esteu segur que la contrasenya proporcionada és "
 "correcta?"
 
-#: ../blivetgui/blivetgui.py:838 ../data/ui/blivet-gui.ui:708
+#: ../blivetgui/blivetgui.py:840 ../data/ui/blivet-gui.ui:708
 msgid "Quit"
 msgstr "Surt"
 
-#: ../blivetgui/blivetgui.py:841
+#: ../blivetgui/blivetgui.py:843
 msgid "blivet-gui is already running"
 msgstr "ja s'està executant blivet-gui"
 
-#: ../blivetgui/blivetgui.py:842
+#: ../blivetgui/blivetgui.py:844
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -157,7 +158,7 @@ msgstr ""
 "Ja s'està executant una altra instància de blivet-gui.\n"
 "Només es pot executar una instància de blivet-gui alhora."
 
-#: ../blivetgui/blivetgui.py:844
+#: ../blivetgui/blivetgui.py:846
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -175,24 +176,24 @@ msgstr ""
 "\n"
 "per forçar que es tanqui."
 
-#: ../blivetgui/blivetgui.py:876
+#: ../blivetgui/blivetgui.py:878
 msgid "Failed to init blivet:"
 msgstr "No s'ha pogut iniciar blivet:"
 
-#: ../blivetgui/blivetgui.py:883
+#: ../blivetgui/blivetgui.py:885
 msgid "Quit blivet-gui"
 msgstr "Surt de blivet-gui"
 
-#: ../blivetgui/blivetgui.py:885
+#: ../blivetgui/blivetgui.py:887
 msgid "Ignore disk and continue"
 msgstr "Ignora el disc i continua"
 
-#: ../blivetgui/blivetgui.py:888
+#: ../blivetgui/blivetgui.py:890
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "Error: {error}"
 
-#: ../blivetgui/blivetgui.py:889
+#: ../blivetgui/blivetgui.py:891
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -204,19 +205,19 @@ msgstr ""
 "disc malmesa o desconeguda.\n"
 "Podeu sortir ara de blivet-gui o continuar sense poder utilitzar aquest disc."
 
-#: ../blivetgui/blivetgui.py:925
+#: ../blivetgui/blivetgui.py:927
 msgid "Confirm reload storage"
 msgstr "Confirmació per tornar a carregar l'emmagatzematge"
 
-#: ../blivetgui/blivetgui.py:926
+#: ../blivetgui/blivetgui.py:928
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "Encara hi ha operacions pendents. Esteu segur que voleu continuar?"
 
-#: ../blivetgui/blivetgui.py:957
+#: ../blivetgui/blivetgui.py:959
 msgid "Are you sure you want to quit?"
 msgstr "Esteu segur que voleu sortir?"
 
-#: ../blivetgui/blivetgui.py:958
+#: ../blivetgui/blivetgui.py:960
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
@@ -707,7 +708,7 @@ msgstr " • <i>Mida de l'extensió fisca:</i> {pesize}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:133
 #, python-brace-format
 msgid " • <i>PE Count:</i> {pecount}\n"
-msgstr " • <i>Nombre d´extensions físiques</i> {pecount}\n"
+msgstr " • <i>Recompte de PE:</i> {pecount}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:134
 #: ../blivetgui/dialogs/device_info_dialog.py:163
@@ -772,10 +773,9 @@ msgid " • <i>Metadata Version:</i> {metadata}\n"
 msgstr " • <i>Versió de les metadades:</i> {metadata}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:161
-#, fuzzy, python-brace-format
-#| msgid " • <i>End:</i> {end}\n"
+#, python-brace-format
 msgid " • <i>Encrypted:</i> {encrypted}\n"
-msgstr " • <i>Final:</i> {end}\n"
+msgstr " • <i>Encriptat:</i> {encrypted}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:161
 #: ../blivetgui/dialogs/device_info_dialog.py:162
@@ -790,28 +790,24 @@ msgid "No"
 msgstr "No"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:162
-#, fuzzy, python-brace-format
-#| msgid " • <i>Origin:</i> {origin}\n"
+#, python-brace-format
 msgid " • <i>Overprovisioning:</i> {overprovisioning}\n"
-msgstr " • <i>Origen:</i> {origin}\n"
+msgstr " • <i>Sobredimensionament:</i> {overprovisioning}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:164
-#, fuzzy, python-brace-format
-#| msgid " • <i>Complete:</i> {complete}\n"
+#, python-brace-format
 msgid " • <i>Filesystem Limit:</i> {limit}\n"
-msgstr " • <i>Complet:</i> {complete}\n"
+msgstr " • <i>Límit del sistema de fitxers:</i> {limit}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:169
-#, fuzzy, python-brace-format
-#| msgid " • <i>Path:</i> {path}\n"
+#, python-brace-format
 msgid " • <i>Pool:</i> {pool}\n"
-msgstr " • <i>Camí:</i> {path}\n"
+msgstr " • <i>Agrupació:</i> {pool}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:170
-#, fuzzy, python-brace-format
-#| msgid " • <i>Size:</i> {size}\n"
+#, python-brace-format
 msgid " • <i>Used Size:</i> {used}\n"
-msgstr " • <i>Mida:</i> {size}\n"
+msgstr " • <i>Mida usada:</i> {used}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:184
 #, python-brace-format
@@ -924,11 +920,8 @@ msgid "Selected name \"{0}\" is already in use."
 msgstr "El nom seleccionat \"{0}\" ja està en ús."
 
 #: ../blivetgui/dialogs/edit_dialog.py:600
-#, fuzzy
-#| msgctxt "ActionsToolbar|Add"
-#| msgid "Add new device"
 msgid "Add parent device"
-msgstr "Afegeix un dispositiu nou"
+msgstr "Afegeix dispositiu principal"
 
 #: ../blivetgui/dialogs/edit_dialog.py:617
 msgid ""
@@ -943,16 +936,13 @@ msgid "Add?"
 msgstr "Afegir?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:643
-#, fuzzy, python-brace-format
-#| msgid "Selected device is already named \"{0}\"."
+#, python-brace-format
 msgid "Select devices to be added to {name}:"
-msgstr "El dispositiu seleccionat ja té el nom \"{0}\"."
+msgstr "Seleccioneu els dispositius que s'afegiran a {name}:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:700
-#, fuzzy
-#| msgid "Remove a parent"
 msgid "Remove parent device"
-msgstr "Elimina un primari"
+msgstr "Suprimeix el dispositiu principal"
 
 #: ../blivetgui/dialogs/edit_dialog.py:720
 msgid ""
@@ -973,7 +963,7 @@ msgstr "Suprimir?"
 #: ../blivetgui/dialogs/edit_dialog.py:749
 #, python-brace-format
 msgid "Select a device to be removed from {name}:"
-msgstr ""
+msgstr "Seleccioneu un dispositiu per suprimir-lo de {name}:"
 
 #: ../blivetgui/dialogs/helpers.py:143
 #, python-brace-format
@@ -1099,6 +1089,14 @@ msgstr ""
 "sobre aquests dispositius requereix muntar-los, cosa que no està habilitada "
 "per defecte.\n"
 "Per habilitar-ho, inicieu blivet-gui amb l'opció <tt>--auto-dev-updates</tt>."
+
+#: ../blivetgui/dialogs/other_dialogs.py:270
+#, fuzzy, python-format
+#| msgid "Please enter passphrase to unlock selected device."
+msgid "Please enter passphrase to unlock %s."
+msgstr ""
+"Si us plau, introduïu la contrasenya per desbloquejar el dispositiu "
+"seleccionat."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
@@ -1276,16 +1274,12 @@ msgid "Format"
 msgstr "Formata"
 
 #: ../data/ui/blivet-gui.ui:80 ../data/ui/blivet-gui.ui:176
-#, fuzzy
-#| msgid "Add a parent"
 msgid "Add parent"
 msgstr "Afegeix un primari"
 
 #: ../data/ui/blivet-gui.ui:88 ../data/ui/blivet-gui.ui:184
-#, fuzzy
-#| msgid "Remove a parent"
 msgid "Remove parent"
-msgstr "Elimina un primari"
+msgstr "Suprimeix el primari"
 
 #: ../data/ui/blivet-gui.ui:96 ../data/ui/blivet-gui.ui:192
 #: ../data/ui/mountpoint_dialog.ui:7
@@ -1434,7 +1428,7 @@ msgstr "Xifratge:"
 msgid "Encryption type:"
 msgstr "Tipus de xifratge:"
 
-#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
+#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:51
 msgid "Passphrase:"
 msgstr "Contrasenya:"
 
@@ -1511,12 +1505,6 @@ msgstr "Introduïu una nova etiqueta per a aquest sistema de fitxers:"
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
 msgstr "Desbloqueja el dispositiu"
-
-#: ../data/ui/luks_passphrase_dialog.ui:12
-msgid "Please enter passphrase to unlock selected device."
-msgstr ""
-"Si us plau, introduïu la contrasenya per desbloquejar el dispositiu "
-"seleccionat."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"

@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 17:15+0100\n"
+"POT-Creation-Date: 2026-11-08 20:12+0100\n"
 "PO-Revision-Date: 2026-10-12 06:18+0000\n"
 "Last-Translator: Kung Kun <kun17.kung317@silomails.com>\n"
 "Language-Team: Chinese (Simplified) <https://translate.fedoraproject.org/"
@@ -136,19 +136,19 @@ msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr "卸载 {mountpoint} 时失败。您确定设备没有在使用吗？"
 
-#: ../blivetgui/blivetgui.py:788
+#: ../blivetgui/blivetgui.py:790
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "解锁失败。您确定密码正确？"
 
-#: ../blivetgui/blivetgui.py:838 ../data/ui/blivet-gui.ui:708
+#: ../blivetgui/blivetgui.py:840 ../data/ui/blivet-gui.ui:708
 msgid "Quit"
 msgstr "退出"
 
-#: ../blivetgui/blivetgui.py:841
+#: ../blivetgui/blivetgui.py:843
 msgid "blivet-gui is already running"
 msgstr "blivet-gui 已在运行"
 
-#: ../blivetgui/blivetgui.py:842
+#: ../blivetgui/blivetgui.py:844
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -156,7 +156,7 @@ msgstr ""
 "已有另一个 blivet-gui 实例正在运行中。\n"
 "只可以同时运行一个 blivet-gui 实例。"
 
-#: ../blivetgui/blivetgui.py:844
+#: ../blivetgui/blivetgui.py:846
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -174,24 +174,24 @@ msgstr ""
 "\n"
 "来强行终止该进程。"
 
-#: ../blivetgui/blivetgui.py:876
+#: ../blivetgui/blivetgui.py:878
 msgid "Failed to init blivet:"
 msgstr "无法启动 blivet："
 
-#: ../blivetgui/blivetgui.py:883
+#: ../blivetgui/blivetgui.py:885
 msgid "Quit blivet-gui"
 msgstr "退出"
 
-#: ../blivetgui/blivetgui.py:885
+#: ../blivetgui/blivetgui.py:887
 msgid "Ignore disk and continue"
 msgstr "忽略磁盘并继续"
 
-#: ../blivetgui/blivetgui.py:888
+#: ../blivetgui/blivetgui.py:890
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "错误：{error}"
 
-#: ../blivetgui/blivetgui.py:889
+#: ../blivetgui/blivetgui.py:891
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -202,19 +202,19 @@ msgstr ""
 "由于损坏或未知的磁盘标签，Blivet-gui 无法使用磁盘 <b>{name}</b> 。\n"
 "您可以退出或者在无法使用该磁盘的情况下继续。"
 
-#: ../blivetgui/blivetgui.py:925
+#: ../blivetgui/blivetgui.py:927
 msgid "Confirm reload storage"
 msgstr "确认重新载入存储"
 
-#: ../blivetgui/blivetgui.py:926
+#: ../blivetgui/blivetgui.py:928
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "有待处理操作。您确定要继续吗？"
 
-#: ../blivetgui/blivetgui.py:957
+#: ../blivetgui/blivetgui.py:959
 msgid "Are you sure you want to quit?"
 msgstr "您确定要退出吗？"
 
-#: ../blivetgui/blivetgui.py:958
+#: ../blivetgui/blivetgui.py:960
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr "有待处理操作。您确定现在退出 blivet-gui 吗？"
@@ -1084,6 +1084,12 @@ msgstr ""
 "失。获取这些设备的信息需要对其进行挂载，而该操作默认未启用。\n"
 "如需启用此功能，请使用 <tt>--auto-dev-updates</tt> 选项启动 blivet-gui。"
 
+#: ../blivetgui/dialogs/other_dialogs.py:270
+#, fuzzy, python-format
+#| msgid "Please enter passphrase to unlock selected device."
+msgid "Please enter passphrase to unlock %s."
+msgstr "请输入口令来解锁所选设备。"
+
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
@@ -1408,7 +1414,7 @@ msgstr "加密："
 msgid "Encryption type:"
 msgstr "加密类型："
 
-#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
+#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:51
 msgid "Passphrase:"
 msgstr "口令："
 
@@ -1485,10 +1491,6 @@ msgstr "为此文件系统输入新标签："
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
 msgstr "解锁设备"
-
-#: ../data/ui/luks_passphrase_dialog.ui:12
-msgid "Please enter passphrase to unlock selected device."
-msgstr "请输入口令来解锁所选设备。"
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"

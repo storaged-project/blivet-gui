@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 17:15+0100\n"
+"POT-Creation-Date: 2026-11-08 20:12+0100\n"
 "PO-Revision-Date: 2026-04-12 12:44+0000\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <https://translate.fedoraproject.org/projects/blivet/"
@@ -160,19 +160,19 @@ msgstr ""
 
 # translation auto-copied from project blivet-gui, version master, document
 # blivet-gui, author raven
-#: ../blivetgui/blivetgui.py:788
+#: ../blivetgui/blivetgui.py:790
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "Odblokowanie się nie powiodło. Na pewno podane hasło jest poprawne?"
 
-#: ../blivetgui/blivetgui.py:838 ../data/ui/blivet-gui.ui:708
+#: ../blivetgui/blivetgui.py:840 ../data/ui/blivet-gui.ui:708
 msgid "Quit"
 msgstr "Zakończ"
 
-#: ../blivetgui/blivetgui.py:841
+#: ../blivetgui/blivetgui.py:843
 msgid "blivet-gui is already running"
 msgstr "Program blivet-gui jest już uruchomiony"
 
-#: ../blivetgui/blivetgui.py:842
+#: ../blivetgui/blivetgui.py:844
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -181,7 +181,7 @@ msgstr ""
 "Tylko jedno wystąpienie programu blivet-gui może być uruchomione w tym samym "
 "czasie."
 
-#: ../blivetgui/blivetgui.py:844
+#: ../blivetgui/blivetgui.py:846
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -199,24 +199,24 @@ msgstr ""
 "\n"
 "do wymuszenia jego zakończenia."
 
-#: ../blivetgui/blivetgui.py:876
+#: ../blivetgui/blivetgui.py:878
 msgid "Failed to init blivet:"
 msgstr "Zainicjowanie blivet się nie powiodło:"
 
-#: ../blivetgui/blivetgui.py:883
+#: ../blivetgui/blivetgui.py:885
 msgid "Quit blivet-gui"
 msgstr "Zakończ program blivet-gui"
 
-#: ../blivetgui/blivetgui.py:885
+#: ../blivetgui/blivetgui.py:887
 msgid "Ignore disk and continue"
 msgstr "Zignoruj dysk i kontynuuj"
 
-#: ../blivetgui/blivetgui.py:888
+#: ../blivetgui/blivetgui.py:890
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "Błąd: {error}"
 
-#: ../blivetgui/blivetgui.py:889
+#: ../blivetgui/blivetgui.py:891
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -229,19 +229,19 @@ msgstr ""
 "Można zakończyć program blivet-gui lub kontynuować bez możliwości użycia "
 "tego dysku."
 
-#: ../blivetgui/blivetgui.py:925
+#: ../blivetgui/blivetgui.py:927
 msgid "Confirm reload storage"
 msgstr "Potwierdzenie ponownego wczytania urządzeń do przechowywania danych"
 
-#: ../blivetgui/blivetgui.py:926
+#: ../blivetgui/blivetgui.py:928
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "Istnieją oczekujące działania. Na pewno kontynuować?"
 
-#: ../blivetgui/blivetgui.py:957
+#: ../blivetgui/blivetgui.py:959
 msgid "Are you sure you want to quit?"
 msgstr "Na pewno zakończyć działanie?"
 
-#: ../blivetgui/blivetgui.py:958
+#: ../blivetgui/blivetgui.py:960
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr ""
@@ -1135,6 +1135,12 @@ msgstr ""
 "Aby to włączyć, należy uruchomić program blivet-gui za pomocą opcji <tt>--"
 "auto-dev-updates</tt>."
 
+#: ../blivetgui/dialogs/other_dialogs.py:270
+#, fuzzy, python-format
+#| msgid "Please enter passphrase to unlock selected device."
+msgid "Please enter passphrase to unlock %s."
+msgstr "Proszę podać hasło, aby odblokować wybrane urządzenie."
+
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
@@ -1471,7 +1477,7 @@ msgstr "Szyfrowanie:"
 msgid "Encryption type:"
 msgstr "Typ szyfrowania:"
 
-#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
+#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:51
 msgid "Passphrase:"
 msgstr "Hasło:"
 
@@ -1548,10 +1554,6 @@ msgstr "Nowa etykieta tego systemu plików:"
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
 msgstr "Odblokuj urządzenie"
-
-#: ../data/ui/luks_passphrase_dialog.ui:12
-msgid "Please enter passphrase to unlock selected device."
-msgstr "Proszę podać hasło, aby odblokować wybrane urządzenie."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"

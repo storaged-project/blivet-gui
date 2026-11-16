@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 17:15+0100\n"
+"POT-Creation-Date: 2026-11-08 20:12+0100\n"
 "PO-Revision-Date: 2026-05-07 06:24+0000\n"
 "Last-Translator: Bone NI <bounkirdni@gmail.com>\n"
 "Language-Team: Lao <https://translate.fedoraproject.org/projects/blivet/"
@@ -127,19 +127,19 @@ msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
 msgstr "ຍົກເລີກການເຊື່ອມຕໍ່ '{mountpoint}' ບໍ່ສຳເລັດ. ແນ່ໃຈບໍ່ວ່າອຸປະກອນບໍ່ໄດ້ຖືກໃຊ້ງານຢູ່?"
 
-#: ../blivetgui/blivetgui.py:788
+#: ../blivetgui/blivetgui.py:790
 msgid "Unlocking failed. Are you sure provided password is correct?"
 msgstr "ປົດລັອກບໍ່ສຳເລັດ. ແນ່ໃຈບໍ່ວ່າລະຫັດຜ່ານທີ່ປ້ອນນັ້ນຖືກຕ້ອງ?"
 
-#: ../blivetgui/blivetgui.py:838 ../data/ui/blivet-gui.ui:708
+#: ../blivetgui/blivetgui.py:840 ../data/ui/blivet-gui.ui:708
 msgid "Quit"
 msgstr "ອອກ"
 
-#: ../blivetgui/blivetgui.py:841
+#: ../blivetgui/blivetgui.py:843
 msgid "blivet-gui is already running"
 msgstr "blivet-gui ກຳລັງເຮັດວຽກຢູ່ແລ້ວ"
 
-#: ../blivetgui/blivetgui.py:842
+#: ../blivetgui/blivetgui.py:844
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
@@ -147,7 +147,7 @@ msgstr ""
 "ມີ blivet-gui ອີກອັນໜຶ່ງກຳລັງເຮັດວຽກຢູ່.\n"
 "ສາມາດເປີດໃຊ້ blivet-gui ໄດ້ພຽງອັນດຽວໃນເວລາດຽວກັນ."
 
-#: ../blivetgui/blivetgui.py:844
+#: ../blivetgui/blivetgui.py:846
 msgid ""
 "If your previous instance of blivet-gui crashed, please make sure that the "
 "<i>blivet-gui-daemon</i> process was terminated too.\n"
@@ -165,24 +165,24 @@ msgstr ""
 "\n"
 "ເພື່ອບັງຄັບໃຫ້ມັນປິດອອກ."
 
-#: ../blivetgui/blivetgui.py:876
+#: ../blivetgui/blivetgui.py:878
 msgid "Failed to init blivet:"
 msgstr "ເລີ່ມຕົ້ນ blivet ບໍ່ສຳເລັດ:"
 
-#: ../blivetgui/blivetgui.py:883
+#: ../blivetgui/blivetgui.py:885
 msgid "Quit blivet-gui"
 msgstr "ອອກຈາກ blivet-gui"
 
-#: ../blivetgui/blivetgui.py:885
+#: ../blivetgui/blivetgui.py:887
 msgid "Ignore disk and continue"
 msgstr "ຂ້າມດິສກ໌ນີ້ ແລະ ດຳເນີນການຕໍ່"
 
-#: ../blivetgui/blivetgui.py:888
+#: ../blivetgui/blivetgui.py:890
 #, python-brace-format
 msgid "Error: {error}"
 msgstr "ຂໍ້ຜິດພາດ: {error}"
 
-#: ../blivetgui/blivetgui.py:889
+#: ../blivetgui/blivetgui.py:891
 #, python-brace-format
 msgid ""
 "Blivet-gui can't use the <b>{name}</b> disk due to a corrupted/unknown "
@@ -193,19 +193,19 @@ msgstr ""
 "Blivet-gui ບໍ່ສາມາດໃຊ້ດິສກ໌ <b>{name}</b> ໄດ້ ເນື່ອງຈາກປ້າຍຊື່ດິສກ໌ເສຍຫາຍ ຫຼື ບໍ່ຮູ້ຈັກ.\n"
 "ທ່ານສາມາດອອກຈາກ blivet-gui ດຽວນີ້ ຫຼື ດຳເນີນການຕໍ່ໂດຍບໍ່ສາມາດໃຊ້ດິສກ໌ນີ້ໄດ້."
 
-#: ../blivetgui/blivetgui.py:925
+#: ../blivetgui/blivetgui.py:927
 msgid "Confirm reload storage"
 msgstr "ຢືນຢັນການໂຫຼດຂໍ້ມູນບ່ອນເກັບຂໍ້ມູນໃໝ່"
 
-#: ../blivetgui/blivetgui.py:926
+#: ../blivetgui/blivetgui.py:928
 msgid "There are pending operations. Are you sure you want to continue?"
 msgstr "ຍັງມີການດຳເນີນການທີ່ຄ້າງຢູ່. ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການດຳເນີນການຕໍ່?"
 
-#: ../blivetgui/blivetgui.py:957
+#: ../blivetgui/blivetgui.py:959
 msgid "Are you sure you want to quit?"
 msgstr "ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການອອກ?"
 
-#: ../blivetgui/blivetgui.py:958
+#: ../blivetgui/blivetgui.py:960
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
 msgstr "ຍັງມີການດຳເນີນການທີ່ຄ້າງຢູ່. ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການອອກຈາກ blivet-gui ດຽວນີ້?"
@@ -1077,6 +1077,12 @@ msgstr ""
 "ເຊິ່ງບໍ່ໄດ້ເປີດໃຊ້ໄວ້ເປັນຄ່າເລີ່ມຕົ້ນ.\n"
 "ເພື່ອເປີດໃຊ້ງານ, ໃຫ້ເລີ່ມ blivet-gui ດ້ວຍຕົວເລືອກ <tt>--auto-dev-updates</tt>."
 
+#: ../blivetgui/dialogs/other_dialogs.py:270
+#, fuzzy, python-format
+#| msgid "Please enter passphrase to unlock selected device."
+msgid "Please enter passphrase to unlock %s."
+msgstr "ກະລຸນາປ້ອນລະຫັດຜ່ານເພື່ອປົດລັອກອຸປະກອນທີ່ເລືອກ."
+
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
@@ -1401,7 +1407,7 @@ msgstr "ເຂົ້າລະຫັດ:"
 msgid "Encryption type:"
 msgstr "ປະເພດການເຂົ້າລະຫັດ:"
 
-#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:52
+#: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:51
 msgid "Passphrase:"
 msgstr "ລະຫັດຜ່ານ:"
 
@@ -1478,10 +1484,6 @@ msgstr "ປ້ອນປ້າຍຊື່ໃໝ່ສຳລັບລະບົບ
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
 msgstr "ປົດລັອກອຸປະກອນ"
-
-#: ../data/ui/luks_passphrase_dialog.ui:12
-msgid "Please enter passphrase to unlock selected device."
-msgstr "ກະລຸນາປ້ອນລະຫັດຜ່ານເພື່ອປົດລັອກອຸປະກອນທີ່ເລືອກ."
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
