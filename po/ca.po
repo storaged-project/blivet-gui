@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-27 17:15+0100\n"
-"PO-Revision-Date: 2026-05-09 10:59+0000\n"
+"PO-Revision-Date: 2026-11-16 17:18+0000\n"
 "Last-Translator: David Medina <dmedinacpnl@gmail.com>\n"
 "Language-Team: Catalan <https://translate.fedoraproject.org/projects/blivet/"
 "blivet-gui/ca/>\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.11.2\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
@@ -707,7 +707,7 @@ msgstr " • <i>Mida de l'extensió fisca:</i> {pesize}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:133
 #, python-brace-format
 msgid " • <i>PE Count:</i> {pecount}\n"
-msgstr " • <i>Nombre d´extensions físiques</i> {pecount}\n"
+msgstr " • <i>Recompte de PE:</i> {pecount}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:134
 #: ../blivetgui/dialogs/device_info_dialog.py:163
@@ -772,10 +772,9 @@ msgid " • <i>Metadata Version:</i> {metadata}\n"
 msgstr " • <i>Versió de les metadades:</i> {metadata}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:161
-#, fuzzy, python-brace-format
-#| msgid " • <i>End:</i> {end}\n"
+#, python-brace-format
 msgid " • <i>Encrypted:</i> {encrypted}\n"
-msgstr " • <i>Final:</i> {end}\n"
+msgstr " • <i>Encriptat:</i> {encrypted}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:161
 #: ../blivetgui/dialogs/device_info_dialog.py:162
@@ -790,28 +789,24 @@ msgid "No"
 msgstr "No"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:162
-#, fuzzy, python-brace-format
-#| msgid " • <i>Origin:</i> {origin}\n"
+#, python-brace-format
 msgid " • <i>Overprovisioning:</i> {overprovisioning}\n"
-msgstr " • <i>Origen:</i> {origin}\n"
+msgstr " • <i>Sobredimensionament:</i> {overprovisioning}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:164
-#, fuzzy, python-brace-format
-#| msgid " • <i>Complete:</i> {complete}\n"
+#, python-brace-format
 msgid " • <i>Filesystem Limit:</i> {limit}\n"
-msgstr " • <i>Complet:</i> {complete}\n"
+msgstr " • <i>Límit del sistema de fitxers:</i> {limit}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:169
-#, fuzzy, python-brace-format
-#| msgid " • <i>Path:</i> {path}\n"
+#, python-brace-format
 msgid " • <i>Pool:</i> {pool}\n"
-msgstr " • <i>Camí:</i> {path}\n"
+msgstr " • <i>Agrupació:</i> {pool}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:170
-#, fuzzy, python-brace-format
-#| msgid " • <i>Size:</i> {size}\n"
+#, python-brace-format
 msgid " • <i>Used Size:</i> {used}\n"
-msgstr " • <i>Mida:</i> {size}\n"
+msgstr " • <i>Mida usada:</i> {used}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:184
 #, python-brace-format
@@ -924,11 +919,8 @@ msgid "Selected name \"{0}\" is already in use."
 msgstr "El nom seleccionat \"{0}\" ja està en ús."
 
 #: ../blivetgui/dialogs/edit_dialog.py:600
-#, fuzzy
-#| msgctxt "ActionsToolbar|Add"
-#| msgid "Add new device"
 msgid "Add parent device"
-msgstr "Afegeix un dispositiu nou"
+msgstr "Afegeix dispositiu principal"
 
 #: ../blivetgui/dialogs/edit_dialog.py:617
 msgid ""
@@ -943,16 +935,13 @@ msgid "Add?"
 msgstr "Afegir?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:643
-#, fuzzy, python-brace-format
-#| msgid "Selected device is already named \"{0}\"."
+#, python-brace-format
 msgid "Select devices to be added to {name}:"
-msgstr "El dispositiu seleccionat ja té el nom \"{0}\"."
+msgstr "Seleccioneu els dispositius que s'afegiran a {name}:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:700
-#, fuzzy
-#| msgid "Remove a parent"
 msgid "Remove parent device"
-msgstr "Elimina un primari"
+msgstr "Suprimeix el dispositiu principal"
 
 #: ../blivetgui/dialogs/edit_dialog.py:720
 msgid ""
@@ -973,7 +962,7 @@ msgstr "Suprimir?"
 #: ../blivetgui/dialogs/edit_dialog.py:749
 #, python-brace-format
 msgid "Select a device to be removed from {name}:"
-msgstr ""
+msgstr "Seleccioneu un dispositiu per suprimir-lo de {name}:"
 
 #: ../blivetgui/dialogs/helpers.py:143
 #, python-brace-format
@@ -1282,10 +1271,8 @@ msgid "Add parent"
 msgstr "Afegeix un primari"
 
 #: ../data/ui/blivet-gui.ui:88 ../data/ui/blivet-gui.ui:184
-#, fuzzy
-#| msgid "Remove a parent"
 msgid "Remove parent"
-msgstr "Elimina un primari"
+msgstr "Suprimeix el primari"
 
 #: ../data/ui/blivet-gui.ui:96 ../data/ui/blivet-gui.ui:192
 #: ../data/ui/mountpoint_dialog.ui:7
