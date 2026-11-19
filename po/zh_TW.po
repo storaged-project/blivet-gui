@@ -3,13 +3,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Cheng-Chia Tseng <pswo10680@gmail.com>, 2017. #zanata
 # hsu zangmen <chzang55@gmail.com>, 2025, 2026.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-08 20:12+0100\n"
 "PO-Revision-Date: 2026-11-19 10:18+0000\n"
-"Last-Translator: hsu zangmen <chzang55@gmail.com>\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Chinese (Traditional) <https://translate.fedoraproject.org/"
 "projects/blivet/blivet-gui/zh_TW/>\n"
 "Language: zh_TW\n"
@@ -349,19 +351,19 @@ msgstr "Btrfs 儲區"
 
 #: ../blivetgui/list_devices.py:130
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Stratis 集池"
 
 #: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:392
 #: ../blivetgui/dialogs/device_info_dialog.py:90
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Stratis 集池"
 
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
 #: ../blivetgui/list_partitions.py:166
 #: ../blivetgui/visualization/rectangle.py:67
 msgid "unknown"
-msgstr ""
+msgstr "未知"
 
 #: ../blivetgui/loading_window.py:47
 msgid "Probing storage"
@@ -767,13 +769,13 @@ msgstr " • <i>已加密：</i> {encrypted}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:162
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:161
 #: ../blivetgui/dialogs/device_info_dialog.py:162
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:162
 #, python-brace-format
@@ -1038,7 +1040,7 @@ msgstr "blivet-gui"
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
 msgid "Unknown"
-msgstr ""
+msgstr "未知"
 
 #: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
@@ -1228,7 +1230,7 @@ msgstr "選取新分割表類型："
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "打開"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"
@@ -1248,7 +1250,7 @@ msgstr "調整大小"
 
 #: ../data/ui/blivet-gui.ui:64 ../data/ui/blivet-gui.ui:160
 msgid "Rename"
-msgstr ""
+msgstr "重新命名"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:72 ../data/ui/blivet-gui.ui:168
@@ -1521,7 +1523,7 @@ msgstr "重新命名裝置"
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "重新命名"
 
 #: ../data/ui/rename_dialog.ui:68
 msgid "Enter new name for this device:"
