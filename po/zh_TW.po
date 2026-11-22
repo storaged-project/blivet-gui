@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-08 20:12+0100\n"
-"PO-Revision-Date: 2026-11-19 10:18+0000\n"
+"PO-Revision-Date: 2026-11-21 05:18+0000\n"
 "Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
 "memory@weblate.org>\n"
 "Language-Team: Chinese (Traditional) <https://translate.fedoraproject.org/"
@@ -319,10 +319,8 @@ msgid "Disks"
 msgstr "磁碟"
 
 #: ../blivetgui/list_devices.py:91
-#, fuzzy
-#| msgid "MD RAID Array"
 msgid "MDRAID set"
-msgstr "MD RAID 陣列"
+msgstr "MDRAID 陣列"
 
 #: ../blivetgui/list_devices.py:112
 msgid "LVM"
@@ -505,10 +503,8 @@ msgid "LVM2 Snapshot"
 msgstr "LVM2 快照"
 
 #: ../blivetgui/dialogs/add_dialog.py:408
-#, fuzzy
-#| msgid "LVM2 Thin Snaphost"
 msgid "LVM2 Thin Snapshot"
-msgstr "LVM2 緊縮快照主機"
+msgstr "LVM2 精簡快照"
 
 #: ../blivetgui/dialogs/add_dialog.py:411
 #: ../blivetgui/dialogs/device_info_dialog.py:84
@@ -682,11 +678,11 @@ msgstr " • <i>已用空間：</i>{used}\n"
 #: ../blivetgui/dialogs/device_info_dialog.py:125
 #, python-brace-format
 msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
-msgstr " • <i>已快取：</i>有（快取大小：{cache_size}）\n"
+msgstr " • <i>已快取：</i> 是（快取大小：{cache_size}）\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:127
 msgid " • <i>Cached:</i> No\n"
-msgstr " • <i>已快取：</i>無\n"
+msgstr " • <i>快取：</i> 無\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:132
 #, python-brace-format
@@ -867,7 +863,7 @@ msgstr ""
 
 #: ../blivetgui/dialogs/device_info_dialog.py:265
 msgid " • <i>Type:</i> None"
-msgstr " • <i>類型：</i>無"
+msgstr " • <i>類型：</i> 無"
 
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:278
@@ -908,11 +904,8 @@ msgid "Selected name \"{0}\" is already in use."
 msgstr "選取的名稱「{0}」已被使用。"
 
 #: ../blivetgui/dialogs/edit_dialog.py:600
-#, fuzzy
-#| msgctxt "ActionsToolbar|Add"
-#| msgid "Add new device"
 msgid "Add parent device"
-msgstr "加入新裝置"
+msgstr "新增上層裝置"
 
 #: ../blivetgui/dialogs/edit_dialog.py:617
 msgid ""
@@ -932,10 +925,8 @@ msgid "Select devices to be added to {name}:"
 msgstr "請選擇要新增至 {name} 的裝置："
 
 #: ../blivetgui/dialogs/edit_dialog.py:700
-#, fuzzy
-#| msgid "Remove a parent"
 msgid "Remove parent device"
-msgstr "移除上層"
+msgstr "移除上層裝置"
 
 #: ../blivetgui/dialogs/edit_dialog.py:720
 msgid ""
@@ -1014,16 +1005,12 @@ msgstr ""
 "neko0xff <chzang55@gmail.com>,2025"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:722
-#, fuzzy
-#| msgid "Information"
 msgid "System Information"
-msgstr "資訊"
+msgstr "系統資訊"
 
 #: ../blivetgui/dialogs/other_dialogs.py:144
-#, fuzzy
-#| msgid "Information"
 msgid "Version Information"
-msgstr "資訊"
+msgstr "版本資訊"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:285
@@ -1033,10 +1020,8 @@ msgstr "blivet-gui"
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:152
 #: ../blivetgui/dialogs/other_dialogs.py:154
-#, fuzzy
-#| msgid "blivet-gui"
 msgid "blivet"
-msgstr "blivet-gui"
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
 msgid "Unknown"
@@ -1059,10 +1044,8 @@ msgid "Selection of disks blivet-gui is allowed to operate with"
 msgstr "可讓 blivet-gui 運作的磁碟選取"
 
 #: ../blivetgui/dialogs/other_dialogs.py:174
-#, fuzzy
-#| msgid "Basic information"
 msgid "Advanced device information"
-msgstr "基本資訊"
+msgstr "進階裝置資訊"
 
 #: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
@@ -1157,16 +1140,12 @@ msgid "Cached device"
 msgstr "快取裝置"
 
 #: ../blivetgui/visualization/rectangle.py:62
-#, fuzzy
-#| msgid "Empty device"
 msgid "Incomplete device"
-msgstr "空白裝置"
+msgstr "裝置不完整"
 
 #: ../blivetgui/visualization/rectangle.py:63
-#, fuzzy
-#| msgid "Basic information"
 msgid "Missing subvolume information"
-msgstr "基本資訊"
+msgstr "缺少子卷資訊"
 
 #: ../blivetgui/visualization/rectangle.py:122
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
@@ -1259,14 +1238,10 @@ msgid "Format"
 msgstr "格式化"
 
 #: ../data/ui/blivet-gui.ui:80 ../data/ui/blivet-gui.ui:176
-#, fuzzy
-#| msgid "Add a parent"
 msgid "Add parent"
 msgstr "加入上層"
 
 #: ../data/ui/blivet-gui.ui:88 ../data/ui/blivet-gui.ui:184
-#, fuzzy
-#| msgid "Remove a parent"
 msgid "Remove parent"
 msgstr "移除上層"
 
