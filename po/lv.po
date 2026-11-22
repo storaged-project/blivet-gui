@@ -2,65 +2,68 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
+# Rihards Prieditis <rprieditis@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-11-08 20:12+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-11-22 10:18+0000\n"
+"Last-Translator: Rihards Prieditis <rprieditis@gmail.com>\n"
+"Language-Team: Latvian <https://translate.fedoraproject.org/projects/blivet/"
+"blivet-gui/lv/>\n"
 "Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= "
 "19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\n"
+"X-Generator: Weblate 2026.11.2\n"
 
 #: ../blivetgui/blivetgui.py:302
 msgid "Failed to resize the device:"
-msgstr ""
+msgstr "Neizdevās mainīt ierīces izmēru:"
 
 #: ../blivetgui/blivetgui.py:314
 #, python-brace-format
 msgid "resize {name} {type}"
-msgstr ""
+msgstr "mainīt izmēru: {name} {type}"
 
 #: ../blivetgui/blivetgui.py:326
 msgid "Failed to rename the device:"
-msgstr ""
+msgstr "Neizdevās pārdēvēt ierīci:"
 
 #: ../blivetgui/blivetgui.py:338
 #, python-brace-format
 msgid "rename {name} {type}"
-msgstr ""
+msgstr "pārdēvēt: {name} {type}"
 
 #: ../blivetgui/blivetgui.py:357
 msgid "Failed to format the device:"
-msgstr ""
+msgstr "Neizdevās formatēt ierīci:"
 
 #: ../blivetgui/blivetgui.py:371
 #, python-brace-format
 msgid "format {name} {type}"
-msgstr ""
+msgstr "formatēt: {name} {type}"
 
 #: ../blivetgui/blivetgui.py:384 ../blivetgui/blivetgui.py:414
 msgid "Failed to edit the LVM2 Volume Group:"
-msgstr ""
+msgstr "Neizdevās rediģēt LVM2 sējumu grupu:"
 
 #: ../blivetgui/blivetgui.py:399 ../blivetgui/blivetgui.py:429
 #, python-brace-format
 msgid "edit {name} {type}"
-msgstr ""
+msgstr "rediģēt: {name} {type}"
 
 #: ../blivetgui/blivetgui.py:458
 msgid "Failed to change filesystem label on the device:"
-msgstr ""
+msgstr "Neizdevās mainīt ierīces failu sistēmas etiķeti:"
 
 #: ../blivetgui/blivetgui.py:463
 #, python-brace-format
 msgid "change filesystem label of {name} {type}"
-msgstr ""
+msgstr "mainīt failu sistēmas etiķeti: {name} {type}"
 
 #: ../blivetgui/blivetgui.py:479
 #, python-brace-format
@@ -68,10 +71,12 @@ msgid ""
 "{name} is not complete. It is not possible to add new LVs to VG with missing "
 "PVs."
 msgstr ""
+"{name} nav pilnīga. Sējumu grupai ar trūkstošiem fiziskajiem sējumiem nevar "
+"pievienot jaunus loģiskos sējumus."
 
 #: ../blivetgui/blivetgui.py:484
 msgid "Not enough free space for a new LVM Volume Group."
-msgstr ""
+msgstr "Jaunai LVM sējumu grupai nepietiek brīvas vietas."
 
 #: ../blivetgui/blivetgui.py:490
 #, python-brace-format
@@ -79,69 +84,73 @@ msgid ""
 "Disk {name} already reached maximum allowed number of primary partitions for "
 "{label} disklabel."
 msgstr ""
+"Disks {name} jau ir sasniedzis {label} diska etiķetei maksimāli atļauto "
+"primāro nodalījumu skaitu."
 
 #: ../blivetgui/blivetgui.py:500
 msgid "Failed to add disklabel:"
-msgstr ""
+msgstr "Neizdevās pievienot diska etiķeti:"
 
 #: ../blivetgui/blivetgui.py:513
 #, python-brace-format
 msgid "create new disklabel on {name}"
-msgstr ""
+msgstr "izveidot jaunu diska etiķeti diskā {name}"
 
 #: ../blivetgui/blivetgui.py:565
 msgid "Failed to add the device:"
-msgstr ""
+msgstr "Neizdevās pievienot ierīci:"
 
 #: ../blivetgui/blivetgui.py:580
 #, python-brace-format
 msgid "add {size} {type} device"
-msgstr ""
+msgstr "pievienot ierīci: {size} {type}"
 
 #: ../blivetgui/blivetgui.py:624
 msgid "Failed to delete the device:"
-msgstr ""
+msgstr "Neizdevās izdzēst ierīci:"
 
 #: ../blivetgui/blivetgui.py:639
 #, python-brace-format
 msgid "delete partition {name}"
-msgstr ""
+msgstr "dzēst nodalījumu {name}"
 
 #: ../blivetgui/blivetgui.py:680
 msgid "Failed to perform the actions:"
-msgstr ""
+msgstr "Neizdevās izpildīt darbības:"
 
 #: ../blivetgui/blivetgui.py:724
 msgid "Confirm scheduled actions"
-msgstr ""
+msgstr "Apstiprināt ieplānotās darbības"
 
 #: ../blivetgui/blivetgui.py:725
 msgid "Are you sure you want to perform scheduled actions?"
-msgstr ""
+msgstr "Vai tiešām vēlaties izpildīt ieplānotās darbības?"
 
 #: ../blivetgui/blivetgui.py:766
 #, python-brace-format
 msgid ""
 "Unmount of '{mountpoint}' failed. Are you sure the device is not in use?"
-msgstr ""
+msgstr "Neizdevās atmontēt „{mountpoint}”. Vai ierīce tiešām netiek lietota?"
 
 #: ../blivetgui/blivetgui.py:790
 msgid "Unlocking failed. Are you sure provided password is correct?"
-msgstr ""
+msgstr "Atbloķēšana neizdevās. Vai ievadītā parole ir pareiza?"
 
 #: ../blivetgui/blivetgui.py:840 ../data/ui/blivet-gui.ui:708
 msgid "Quit"
-msgstr ""
+msgstr "Iziet"
 
 #: ../blivetgui/blivetgui.py:843
 msgid "blivet-gui is already running"
-msgstr ""
+msgstr "blivet-gui jau darbojas"
 
 #: ../blivetgui/blivetgui.py:844
 msgid ""
 "Another instance of blivet-gui is already running.\n"
 "Only one instance of blivet-gui can run at the same time."
 msgstr ""
+"Jau darbojas cita blivet-gui instance.\n"
+"Vienlaikus var darboties tikai viena blivet-gui instance."
 
 #: ../blivetgui/blivetgui.py:846
 msgid ""
@@ -153,23 +162,30 @@ msgid ""
 "\n"
 "command to force quit it."
 msgstr ""
+"Ja iepriekšējā blivet-gui instance avarēja, lūdzu, pārliecinieties, ka arī "
+"process <i>blivet-gui-daemon</i> ir beidzis darbu.\n"
+"Ja tas joprojām darbojas, to var piespiedu kārtā apturēt ar komandu\n"
+"\n"
+"<tt>$ sudo killall blivet-gui-daemon</tt>\n"
+"\n"
+"."
 
 #: ../blivetgui/blivetgui.py:878
 msgid "Failed to init blivet:"
-msgstr ""
+msgstr "Neizdevās inicializēt blivet:"
 
 #: ../blivetgui/blivetgui.py:885
 msgid "Quit blivet-gui"
-msgstr ""
+msgstr "Iziet no blivet-gui"
 
 #: ../blivetgui/blivetgui.py:887
 msgid "Ignore disk and continue"
-msgstr ""
+msgstr "Ignorēt disku un turpināt"
 
 #: ../blivetgui/blivetgui.py:890
 #, python-brace-format
 msgid "Error: {error}"
-msgstr ""
+msgstr "Kļūda: {error}"
 
 #: ../blivetgui/blivetgui.py:891
 #, python-brace-format
@@ -179,96 +195,102 @@ msgid ""
 "You can either quit blivet-gui now or continue without being able to use "
 "this disk."
 msgstr ""
+"Blivet-gui nevar izmantot disku <b>{name}</b>, jo tā diska etiķete ir bojāta/"
+"nezināma.\n"
+"Varat tagad iziet no blivet-gui vai turpināt bez iespējas izmantot šo disku."
 
 #: ../blivetgui/blivetgui.py:927
 msgid "Confirm reload storage"
-msgstr ""
+msgstr "Apstiprināt krātuves pārlādēšanu"
 
 #: ../blivetgui/blivetgui.py:928
 msgid "There are pending operations. Are you sure you want to continue?"
-msgstr ""
+msgstr "Ir gaidošas darbības. Vai tiešām vēlaties turpināt?"
 
 #: ../blivetgui/blivetgui.py:959
 msgid "Are you sure you want to quit?"
-msgstr ""
+msgstr "Vai tiešām vēlaties iziet?"
 
 #: ../blivetgui/blivetgui.py:960
 msgid ""
 "There are pending operations. Are you sure you want to quit blivet-gui now?"
-msgstr ""
+msgstr "Ir gaidošas darbības. Vai tiešām vēlaties tagad iziet no blivet-gui?"
 
 #: ../blivetgui/blivet_utils.py:82
 msgid "free space"
-msgstr ""
+msgstr "brīvā vieta"
 
 #: ../blivetgui/blivet_utils.py:704
 #, python-brace-format
 msgid "Resizing of {type} devices is currently not supported"
-msgstr ""
+msgstr "{type} ierīču izmēra maiņa pašlaik netiek atbalstīta"
 
 #: ../blivetgui/blivet_utils.py:709
 msgid "Protected devices cannot be resized"
-msgstr ""
+msgstr "Aizsargātām ierīcēm izmēru mainīt nevar"
 
 #: ../blivetgui/blivet_utils.py:714
 msgid "Immutable formats cannot be resized"
-msgstr ""
+msgstr "Nemaināmiem formātiem izmēru mainīt nevar"
 
 #: ../blivetgui/blivet_utils.py:719
 msgid "Devices with children cannot be resized"
-msgstr ""
+msgstr "Ierīcēm ar pēctečiem izmēru mainīt nevar"
 
 #: ../blivetgui/blivet_utils.py:730
 msgid "Unformatted devices are not resizable"
-msgstr ""
+msgstr "Neformatētām ierīcēm izmēru mainīt nevar"
 
 #. unfortunately we can't use format._resizable here because blivet uses it to both mark
 #. formats as not resizable and force users to call update_size_info on resizable formats
 #: ../blivetgui/blivet_utils.py:737
 #, python-brace-format
 msgid "Resizing of {type} format is currently not supported"
-msgstr ""
+msgstr "{type} formāta izmēra maiņa pašlaik netiek atbalstīta"
 
 #: ../blivetgui/blivet_utils.py:742
 #, python-brace-format
 msgid "Tools for resizing format {type} are not available."
-msgstr ""
+msgstr "Rīki {type} formāta izmēra maiņai nav pieejami."
 
 #. TODO: we could support this by simply changing formats target size but we'd need
 #. a workaround for the missing action
 #: ../blivetgui/blivet_utils.py:749
 msgid "Formats scheduled to be created cannot be resized"
-msgstr ""
+msgstr "Formātiem, kuru izveide ir ieplānota, izmēru mainīt nevar"
 
 #: ../blivetgui/blivet_utils.py:754
 #, python-brace-format
 msgid "Format {type} doesn't support updating its size limit information"
 msgstr ""
+"Formāts {type} neatbalsta izmēra ierobežojumu informācijas atjaunināšanu"
 
 #: ../blivetgui/blivet_utils.py:761
 msgid "Mounted devices cannot be resized"
-msgstr ""
+msgstr "Montētām ierīcēm izmēru mainīt nevar"
 
 #: ../blivetgui/blivet_utils.py:766
 msgid "Logical Volumes with snapshots cannot be resized."
-msgstr ""
+msgstr "Loģiskajiem sējumiem ar momentuzņēmumiem izmēru mainīt nevar."
 
 #: ../blivetgui/blivet_utils.py:771
 msgid "Resizing of LUKS2 devices is currently not supported."
-msgstr ""
+msgstr "LUKS2 ierīču izmēra maiņa pašlaik netiek atbalstīta."
 
 #: ../blivetgui/blivet_utils.py:783
 #, python-brace-format
 msgid "Failed to update filesystem size info: {error}"
-msgstr ""
+msgstr "Neizdevās atjaunināt failu sistēmas izmēra informāciju: {error}"
 
 #: ../blivetgui/blivet_utils.py:802
 msgid "Device is not resizable."
-msgstr ""
+msgstr "Ierīces izmēru mainīt nevar."
 
 #: ../blivetgui/blivet_utils.py:804
 msgid "Format is not resizable after updating its size limit information."
 msgstr ""
+"Pēc izmēra ierobežojumu informācijas atjaunināšanas formāta izmēru mainīt "
+"nevar."
 
 #: ../blivetgui/exception_handler.py:74
 #, python-brace-format
@@ -276,6 +298,8 @@ msgid ""
 "Unknown error occurred.\n"
 "{error}"
 msgstr ""
+"Radās nezināma kļūda.\n"
+"{error}"
 
 #: ../blivetgui/exception_handler.py:76
 #, python-brace-format
@@ -283,75 +307,78 @@ msgid ""
 "Unknown error occurred. Blivet-gui will be terminated.\n"
 "{error}"
 msgstr ""
+"Radās nezināma kļūda. Blivet-gui tiks apturēts.\n"
+"{error}"
 
 #: ../blivetgui/list_actions.py:69 ../blivetgui/list_actions.py:118
 #: ../blivetgui/list_actions.py:140 ../data/ui/blivet-gui.ui:663
 msgid "No pending actions"
-msgstr ""
+msgstr "Nav gaidošu darbību"
 
 #: ../blivetgui/list_actions.py:97 ../blivetgui/list_actions.py:120
 #, python-format
 msgid "%s pending action"
 msgid_plural "%s pending actions"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s gaidošu darbību"
+msgstr[1] "%s gaidoša darbība"
+msgstr[2] "%s gaidošas darbības"
 
 #: ../blivetgui/list_devices.py:84
 msgid "Disks"
-msgstr ""
+msgstr "Diski"
 
 #: ../blivetgui/list_devices.py:91
 msgid "MDRAID set"
-msgstr ""
+msgstr "MDRAID kopa"
 
 #: ../blivetgui/list_devices.py:112
 msgid "LVM"
-msgstr ""
+msgstr "LVM"
 
 #: ../blivetgui/list_devices.py:115
 msgid "LVM2 VG"
-msgstr ""
+msgstr "LVM2 sējumu grupa"
 
 #: ../blivetgui/list_devices.py:118
 msgid "RAID"
-msgstr ""
+msgstr "RAID"
 
 #: ../blivetgui/list_devices.py:121
 msgid "MDArray"
-msgstr ""
+msgstr "MD masīvs"
 
 #: ../blivetgui/list_devices.py:124
 msgid "Btrfs Volumes"
-msgstr ""
+msgstr "Btrfs sējumi"
 
 #: ../blivetgui/list_devices.py:127 ../blivetgui/dialogs/add_dialog.py:389
 #: ../blivetgui/dialogs/device_info_dialog.py:86
 msgid "Btrfs Volume"
-msgstr ""
+msgstr "Btrfs sējums"
 
 #: ../blivetgui/list_devices.py:130
 msgid "Stratis Pools"
-msgstr ""
+msgstr "Stratis pūli"
 
 #: ../blivetgui/list_devices.py:133 ../blivetgui/dialogs/add_dialog.py:392
 #: ../blivetgui/dialogs/device_info_dialog.py:90
 msgid "Stratis Pool"
-msgstr ""
+msgstr "Stratis pūls"
 
 #. broken MD array
 #. TRANSLATORS: size value for device with invalid/unknown size
 #: ../blivetgui/list_partitions.py:166
 #: ../blivetgui/visualization/rectangle.py:67
 msgid "unknown"
-msgstr ""
+msgstr "nezināms"
 
 #: ../blivetgui/loading_window.py:47
 msgid "Probing storage"
-msgstr ""
+msgstr "Pārbauda krātuvi"
 
 #: ../blivetgui/loading_window.py:64
 msgid "Scanning storage configuration..."
-msgstr ""
+msgstr "Skenē krātuves konfigurāciju..."
 
 #: ../blivetgui/osinstall.py:218
 #, python-brace-format
@@ -361,6 +388,10 @@ msgid ""
 " Please click Report button to raise the error and let anaconda \n"
 " to handle the report process if you want to report this."
 msgstr ""
+"{message}\n"
+"{error}\n"
+" Ja vēlaties par to ziņot, noklikšķiniet uz pogas „Ziņot”, lai\n"
+" kļūdu nodotu anaconda ziņošanas procesam."
 
 #: ../blivetgui/osinstall.py:220
 #, python-brace-format
@@ -368,23 +399,25 @@ msgid ""
 "Unknown error occurred. Anaconda will be terminated.\n"
 "{error}"
 msgstr ""
+"Radās nezināma kļūda. Anaconda tiks apturēta.\n"
+"{error}"
 
 #. add a new 'placeholder' action for all currently registered blivet actions
 #: ../blivetgui/osinstall.py:268
 msgid "actions configured by installer"
-msgstr ""
+msgstr "instalētāja konfigurētās darbības"
 
 #: ../blivetgui/processing_window.py:57
 msgid "Processing"
-msgstr ""
+msgstr "Apstrāde"
 
 #: ../blivetgui/processing_window.py:82
 msgid "Show actions"
-msgstr ""
+msgstr "Rādīt darbības"
 
 #: ../blivetgui/processing_window.py:157
 msgid "All queued actions have been processed."
-msgstr ""
+msgstr "Visas rindā esošās darbības ir apstrādātas."
 
 #: ../blivetgui/processing_window.py:172
 #, python-brace-format
@@ -392,439 +425,441 @@ msgid ""
 "<b>Processing action {num} of {total}</b>:\n"
 "<i>{action}</i>"
 msgstr ""
+"<b>Apstrādā darbību {num} no {total}</b>:\n"
+"<i>{action}</i>"
 
 #: ../blivetgui/communication/client.py:284
 #: ../blivetgui/communication/client.py:292
 #: ../blivetgui/communication/client.py:313
 #: ../blivetgui/communication/client.py:330
 msgid "Failed to connect to blivet-gui-daemon"
-msgstr ""
+msgstr "Neizdevās savienoties ar blivet-gui-daemon"
 
 #: ../blivetgui/dialogs/add_dialog.py:68
 msgid "Show advanced options"
-msgstr ""
+msgstr "Rādīt papildu opcijas"
 
 #: ../blivetgui/dialogs/add_dialog.py:86
 msgid "PE Size:"
-msgstr ""
+msgstr "PE izmērs:"
 
 #: ../blivetgui/dialogs/add_dialog.py:110
 msgid "Partition type:"
-msgstr ""
+msgstr "Nodalījuma tips:"
 
 #: ../blivetgui/dialogs/add_dialog.py:119
 msgid "Logical"
-msgstr ""
+msgstr "Loģisks"
 
 #: ../blivetgui/dialogs/add_dialog.py:121
 #: ../blivetgui/dialogs/add_dialog.py:123
 #: ../blivetgui/dialogs/add_dialog.py:125
 msgid "Primary"
-msgstr ""
+msgstr "Primārs"
 
 #: ../blivetgui/dialogs/add_dialog.py:123
 msgid "Extended"
-msgstr ""
+msgstr "Paplašināts"
 
 #: ../blivetgui/dialogs/add_dialog.py:150
 msgid "Chunk Size:"
-msgstr ""
+msgstr "Gabala izmērs:"
 
 #: ../blivetgui/dialogs/add_dialog.py:213
 #, python-brace-format
 msgid "'{0}' is not a valid chunk size specification."
-msgstr ""
+msgstr "„{0}” nav derīga gabala izmēra norāde."
 
 #: ../blivetgui/dialogs/add_dialog.py:218
 msgid "Chunk size must be multiple of 4 KiB."
-msgstr ""
+msgstr "Gabala izmēram jābūt 4 KiB daudzkārtnim."
 
 #: ../blivetgui/dialogs/add_dialog.py:274
 msgid "Create new device"
-msgstr ""
+msgstr "Izveidot jaunu ierīci"
 
 #. dictionary with 'human-readable' device names and methods providing detailed information
 #: ../blivetgui/dialogs/add_dialog.py:383
 #: ../blivetgui/dialogs/add_dialog.py:769
 #: ../blivetgui/dialogs/device_info_dialog.py:79
 msgid "Partition"
-msgstr ""
+msgstr "Nodalījums"
 
 #: ../blivetgui/dialogs/add_dialog.py:386
 #: ../blivetgui/dialogs/add_dialog.py:402
 #: ../blivetgui/dialogs/device_info_dialog.py:80
 msgid "LVM2 Volume Group"
-msgstr ""
+msgstr "LVM2 sējumu grupa"
 
 #. number of free disk regions
 #: ../blivetgui/dialogs/add_dialog.py:395
 msgid "Software RAID"
-msgstr ""
+msgstr "Programmatūras RAID"
 
 #: ../blivetgui/dialogs/add_dialog.py:398
 #: ../blivetgui/dialogs/device_info_dialog.py:81
 msgid "LVM2 Logical Volume"
-msgstr ""
+msgstr "LVM2 loģiskais sējums"
 
 #: ../blivetgui/dialogs/add_dialog.py:398
 #: ../blivetgui/dialogs/device_info_dialog.py:83
 msgid "LVM2 ThinPool"
-msgstr ""
+msgstr "LVM2 plānais pūls"
 
 #: ../blivetgui/dialogs/add_dialog.py:405
 #: ../blivetgui/dialogs/device_info_dialog.py:82
 msgid "LVM2 Snapshot"
-msgstr ""
+msgstr "LVM2 momentuzņēmums"
 
 #: ../blivetgui/dialogs/add_dialog.py:408
 msgid "LVM2 Thin Snapshot"
-msgstr ""
+msgstr "LVM2 plānais momentuzņēmums"
 
 #: ../blivetgui/dialogs/add_dialog.py:411
 #: ../blivetgui/dialogs/device_info_dialog.py:84
 msgid "LVM2 Thin Logical Volume"
-msgstr ""
+msgstr "LVM2 plānais loģiskais sējums"
 
 #: ../blivetgui/dialogs/add_dialog.py:414
 #: ../blivetgui/dialogs/device_info_dialog.py:87
 msgid "Btrfs Subvolume"
-msgstr ""
+msgstr "Btrfs apakšsējums"
 
 #: ../blivetgui/dialogs/add_dialog.py:417
 #: ../blivetgui/dialogs/device_info_dialog.py:91
 msgid "Stratis Filesystem"
-msgstr ""
+msgstr "Stratis failu sistēma"
 
 #: ../blivetgui/dialogs/add_dialog.py:423
 msgid "Device type:"
-msgstr ""
+msgstr "Ierīces tips:"
 
 #: ../blivetgui/dialogs/add_dialog.py:458
 #: ../blivetgui/dialogs/edit_dialog.py:632
 #: ../blivetgui/dialogs/edit_dialog.py:738 ../data/ui/blivet-gui.ui:515
 #: ../data/ui/cache_area.ui:76
 msgid "Device"
-msgstr ""
+msgstr "Ierīce"
 
 #: ../blivetgui/dialogs/add_dialog.py:459
 #: ../blivetgui/dialogs/edit_dialog.py:633
 #: ../blivetgui/dialogs/edit_dialog.py:739 ../data/ui/blivet-gui.ui:528
 #: ../data/ui/cache_area.ui:87
 msgid "Type"
-msgstr ""
+msgstr "Tips"
 
 #: ../blivetgui/dialogs/add_dialog.py:460
 #: ../blivetgui/dialogs/edit_dialog.py:634
 #: ../blivetgui/dialogs/edit_dialog.py:740 ../data/ui/blivet-gui.ui:550
 msgid "Size"
-msgstr ""
+msgstr "Izmērs"
 
 #: ../blivetgui/dialogs/add_dialog.py:469 ../data/ui/cache_area.ui:130
 msgid "Available devices:"
-msgstr ""
+msgstr "Pieejamās ierīces:"
 
 #: ../blivetgui/dialogs/add_dialog.py:764
 msgid "MDArray type:"
-msgstr ""
+msgstr "MD masīva tips:"
 
 #: ../blivetgui/dialogs/add_dialog.py:796
 msgid "Filesystem:"
-msgstr ""
+msgstr "Failu sistēma:"
 
 #: ../blivetgui/dialogs/add_dialog.py:829
 #: ../blivetgui/dialogs/edit_dialog.py:164
 msgid "unformatted"
-msgstr ""
+msgstr "neformatēts"
 
 #: ../blivetgui/dialogs/add_dialog.py:859 ../data/ui/format_dialog.ui:148
 msgid "Label:"
-msgstr ""
+msgstr "Etiķete:"
 
 #: ../blivetgui/dialogs/add_dialog.py:867
 msgid "Name:"
-msgstr ""
+msgstr "Nosaukums:"
 
 #: ../blivetgui/dialogs/add_dialog.py:878 ../data/ui/format_dialog.ui:189
 msgid "Mountpoint:"
-msgstr ""
+msgstr "Montēšanas punkts:"
 
 #: ../blivetgui/dialogs/add_dialog.py:1081 ../blivetgui/dialogs/helpers.py:136
 #, python-brace-format
 msgid "\"{0}\" is not a valid mountpoint."
-msgstr ""
+msgstr "„{0}” nav derīgs montēšanas punkts."
 
 #: ../blivetgui/dialogs/add_dialog.py:1088
 msgid "Please select at least two parent devices."
-msgstr ""
+msgstr "Lūdzu, atlasiet vismaz divas vecākierīces."
 
 #: ../blivetgui/dialogs/add_dialog.py:1102
 #: ../blivetgui/dialogs/edit_dialog.py:468
 #, python-brace-format
 msgid "\"{0}\" is not a valid name."
-msgstr ""
+msgstr "„{0}” nav derīgs nosaukums."
 
 #: ../blivetgui/dialogs/add_dialog.py:1108
 #, python-brace-format
 msgid "\"{0}\" subvolume must be created before creating \"{1}\" subvolume."
-msgstr ""
+msgstr "Pirms apakšsējuma „{1}” izveides jāizveido apakšsējums „{0}”."
 
 #: ../blivetgui/dialogs/add_dialog.py:1115
 #: ../blivetgui/dialogs/edit_dialog.py:231
 #, python-brace-format
 msgid "\"{0}\" is not a valid label."
-msgstr ""
+msgstr "„{0}” nav derīga etiķete."
 
 #. ---------------------------------------------------------------------------- #
 #: ../blivetgui/dialogs/device_info_dialog.py:36
 msgid "primary"
-msgstr ""
+msgstr "primārs"
 
 #. pylint: disable=W9902
 #: ../blivetgui/dialogs/device_info_dialog.py:37
 msgid "logical"
-msgstr ""
+msgstr "loģisks"
 
 #. pylint: disable=W9902
 #: ../blivetgui/dialogs/device_info_dialog.py:38
 msgid "extended"
-msgstr ""
+msgstr "paplašināts"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:67
 #, python-brace-format
 msgid "Information about {0}"
-msgstr ""
+msgstr "Informācija par {0}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:85
 msgid "LUKS/DM-Crypt Device"
-msgstr ""
+msgstr "LUKS/DM-Crypt ierīce"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:88
 msgid "MD RAID Array"
-msgstr ""
+msgstr "MD RAID masīvs"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:89
 msgid "DM Integrity Device"
-msgstr ""
+msgstr "DM Integrity ierīce"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:104
 #: ../blivetgui/dialogs/device_info_dialog.py:245
 #, python-brace-format
 msgid " • <i>Type:</i> {type}\n"
-msgstr ""
+msgstr " • <i>Tips:</i> {type}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:107
 #, python-brace-format
 msgid " • <i>Length:</i> {length}\n"
-msgstr ""
+msgstr " • <i>Garums:</i> {length}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:108
 #, python-brace-format
 msgid " • <i>Start:</i> {start}\n"
-msgstr ""
+msgstr " • <i>Sākums:</i> {start}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:109
 #, python-brace-format
 msgid " • <i>End:</i> {end}\n"
-msgstr ""
+msgstr " • <i>Beigas:</i> {end}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:116
 #, python-brace-format
 msgid " • <i>Origin:</i> {origin}\n"
-msgstr ""
+msgstr " • <i>Izcelsme:</i> {origin}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:117
 #: ../blivetgui/dialogs/device_info_dialog.py:119
 #: ../blivetgui/dialogs/device_info_dialog.py:123
 #, python-brace-format
 msgid " • <i>Segment type:</i> {segtype}\n"
-msgstr ""
+msgstr " • <i>Segmenta tips:</i> {segtype}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:120
 #, python-brace-format
 msgid " • <i>Free space:</i> {free}\n"
-msgstr ""
+msgstr " • <i>Brīvā vieta:</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:121
 #, python-brace-format
 msgid " • <i>Space used:</i> {used}\n"
-msgstr ""
+msgstr " • <i>Izmantotā vieta:</i> {used}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:125
 #, python-brace-format
 msgid " • <i>Cached:</i> Yes (cache size: {cache_size})\n"
-msgstr ""
+msgstr " • <i>Kešots:</i> Jā (kešatmiņas izmērs: {cache_size})\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:127
 msgid " • <i>Cached:</i> No\n"
-msgstr ""
+msgstr " • <i>Kešots:</i> Nē\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:132
 #, python-brace-format
 msgid " • <i>PE Size:</i> {pesize}\n"
-msgstr ""
+msgstr " • <i>PE izmērs:</i> {pesize}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:133
 #, python-brace-format
 msgid " • <i>PE Count:</i> {pecount}\n"
-msgstr ""
+msgstr " • <i>PE skaits:</i> {pecount}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:134
 #: ../blivetgui/dialogs/device_info_dialog.py:163
 #, python-brace-format
 msgid " • <i>Free Space:</i> {free}\n"
-msgstr ""
+msgstr " • <i>Brīvā vieta:</i> {free}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:135
 #, python-brace-format
 msgid " • <i>PE Free:</i> {pefree}\n"
-msgstr ""
+msgstr " • <i>Brīvie PE:</i> {pefree}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:136
 #, python-brace-format
 msgid " • <i>Reserved Space:</i> {res}\n"
-msgstr ""
+msgstr " • <i>Rezervētā vieta:</i> {res}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:137
 #: ../blivetgui/dialogs/device_info_dialog.py:156
 #, python-brace-format
 msgid " • <i>Complete:</i> {complete}\n"
-msgstr ""
+msgstr " • <i>Pilnīgs:</i> {complete}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:142
 #, python-brace-format
 msgid " • <i>Subvol ID:</i> {id}\n"
-msgstr ""
+msgstr " • <i>Apakšsējuma ID:</i> {id}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:145
 #, python-brace-format
 msgid " • <i>Data Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>Datu līmenis:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:146
 #, python-brace-format
 msgid " • <i>Metadata Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>Metadatu līmenis:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:151
 #, python-brace-format
 msgid " • <i>Level:</i> {level}\n"
-msgstr ""
+msgstr " • <i>Līmenis:</i> {level}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:152
 #, python-brace-format
 msgid " • <i>Devices:</i> {dcount}\n"
-msgstr ""
+msgstr " • <i>Ierīces:</i> {dcount}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:153
 #, python-brace-format
 msgid " • <i>Spares:</i> {spares}\n"
-msgstr ""
+msgstr " • <i>Rezerves:</i> {spares}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:154
 #, python-brace-format
 msgid " • <i>Degraded:</i> {degraded}\n"
-msgstr ""
+msgstr " • <i>Degradēts:</i> {degraded}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:155
 #, python-brace-format
 msgid " • <i>Metadata Version:</i> {metadata}\n"
-msgstr ""
+msgstr " • <i>Metadatu versija:</i> {metadata}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:161
 #, python-brace-format
 msgid " • <i>Encrypted:</i> {encrypted}\n"
-msgstr ""
+msgstr " • <i>Šifrēts:</i> {encrypted}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:161
 #: ../blivetgui/dialogs/device_info_dialog.py:162
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "Yes"
-msgstr ""
+msgstr "Jā"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:161
 #: ../blivetgui/dialogs/device_info_dialog.py:162
 #: ../blivetgui/dialogs/other_dialogs.py:175
 msgid "No"
-msgstr ""
+msgstr "Nē"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:162
 #, python-brace-format
 msgid " • <i>Overprovisioning:</i> {overprovisioning}\n"
-msgstr ""
+msgstr " • <i>Pārpiešķiršana:</i> {overprovisioning}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:164
 #, python-brace-format
 msgid " • <i>Filesystem Limit:</i> {limit}\n"
-msgstr ""
+msgstr " • <i>Failu sistēmas ierobežojums:</i> {limit}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:169
 #, python-brace-format
 msgid " • <i>Pool:</i> {pool}\n"
-msgstr ""
+msgstr " • <i>Pūls:</i> {pool}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:170
 #, python-brace-format
 msgid " • <i>Used Size:</i> {used}\n"
-msgstr ""
+msgstr " • <i>Izmantotais izmērs:</i> {used}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:184
 #, python-brace-format
 msgid "Unknown device {name}"
-msgstr ""
+msgstr "Nezināma ierīce {name}"
 
 #. device info header
 #: ../blivetgui/dialogs/device_info_dialog.py:192
 msgid "Basic information"
-msgstr ""
+msgstr "Pamatinformācija"
 
 #. 'basic' information about selected device
 #: ../blivetgui/dialogs/device_info_dialog.py:202
 #: ../blivetgui/dialogs/device_info_dialog.py:243
 #: ../blivetgui/dialogs/device_info_dialog.py:290
 msgid "existing"
-msgstr ""
+msgstr "esoša"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:202
 #: ../blivetgui/dialogs/device_info_dialog.py:243
 #: ../blivetgui/dialogs/device_info_dialog.py:290
 msgid "non-existing"
-msgstr ""
+msgstr "neesoša"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:203
 #: ../blivetgui/dialogs/device_info_dialog.py:244
 #, python-brace-format
 msgid " • <i>Status:</i> {exist}\n"
-msgstr ""
+msgstr " • <i>Statuss:</i> {exist}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:204
 #, python-brace-format
 msgid " • <i>Name:</i> {name}\n"
-msgstr ""
+msgstr " • <i>Nosaukums:</i> {name}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:205
 #, python-brace-format
 msgid " • <i>Path:</i> {path}\n"
-msgstr ""
+msgstr " • <i>Ceļš:</i> {path}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:206
 #, python-brace-format
 msgid " • <i>Size:</i> {size}\n"
-msgstr ""
+msgstr " • <i>Izmērs:</i> {size}\n"
 
 #. device format header
 #: ../blivetgui/dialogs/device_info_dialog.py:232
 msgid "Device format"
-msgstr ""
+msgstr "Ierīces formāts"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:246
 #, python-brace-format
 msgid " • <i>UUID:</i> {uuid}\n"
-msgstr ""
+msgstr " • <i>UUID:</i> {uuid}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:248
 #, python-brace-format
 msgid " • <i>Label:</i> {label}\n"
-msgstr ""
+msgstr " • <i>Etiķete:</i> {label}\n"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:262
 #, python-brace-format
@@ -832,20 +867,22 @@ msgid ""
 " • <i>Mountpoints:</i>\n"
 "     {mountpoints}"
 msgstr ""
+" • <i>Montēšanas punkti:</i>\n"
+"     {mountpoints}"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:265
 msgid " • <i>Type:</i> None"
-msgstr ""
+msgstr " • <i>Tips:</i> nav"
 
 #. device parents header
 #: ../blivetgui/dialogs/device_info_dialog.py:278
 msgid "Parents"
-msgstr ""
+msgstr "Vecākierīces"
 
 #: ../blivetgui/dialogs/device_info_dialog.py:291
 #, python-brace-format
 msgid " • {exists} {size} {type} {name}\n"
-msgstr ""
+msgstr " • {exists} {size} {type} {name}\n"
 
 #: ../blivetgui/dialogs/edit_dialog.py:102
 #, python-brace-format
@@ -853,72 +890,78 @@ msgid ""
 "<b>This device cannot be resized:</b>\n"
 "<i>{0}</i>"
 msgstr ""
+"<b>Šīs ierīces izmēru mainīt nevar:</b>\n"
+"<i>{0}</i>"
 
 #: ../blivetgui/dialogs/edit_dialog.py:104
 msgid "This device cannot be resized."
-msgstr ""
+msgstr "Šīs ierīces izmēru mainīt nevar."
 
 #: ../blivetgui/dialogs/edit_dialog.py:406
 #, python-brace-format
 msgid "'{label}' is not a valid label for this filesystem"
-msgstr ""
+msgstr "„{label}” nav derīga etiķete šai failu sistēmai"
 
 #: ../blivetgui/dialogs/edit_dialog.py:481
 #, python-brace-format
 msgid "Selected device is already named \"{0}\"."
-msgstr ""
+msgstr "Atlasītās ierīces nosaukums jau ir „{0}”."
 
 #: ../blivetgui/dialogs/edit_dialog.py:487
 #, python-brace-format
 msgid "Selected name \"{0}\" is already in use."
-msgstr ""
+msgstr "Atlasītais nosaukums „{0}” jau tiek izmantots."
 
 #: ../blivetgui/dialogs/edit_dialog.py:600
 msgid "Add parent device"
-msgstr ""
+msgstr "Pievienot vecākierīci"
 
 #: ../blivetgui/dialogs/edit_dialog.py:617
 msgid ""
 "There are currently no empty physical volumes or\n"
 "disks with enough free space to create one."
 msgstr ""
+"Pašlaik nav neviena tukša fiziskā sējuma vai\n"
+"diska ar pietiekamu brīvo vietu tā izveidei."
 
 #: ../blivetgui/dialogs/edit_dialog.py:631
 msgid "Add?"
-msgstr ""
+msgstr "Pievienot?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:643
 #, python-brace-format
 msgid "Select devices to be added to {name}:"
-msgstr ""
+msgstr "Atlasiet ierīces, ko pievienot {name}:"
 
 #: ../blivetgui/dialogs/edit_dialog.py:700
 msgid "Remove parent device"
-msgstr ""
+msgstr "Noņemt vecākierīci"
 
 #: ../blivetgui/dialogs/edit_dialog.py:720
 msgid ""
 "There isn't a physical volume that could be\n"
 "removed from this volume group."
 msgstr ""
+"Nav neviena fiziskā sējuma, ko varētu\n"
+"noņemt no šīs sējumu grupas."
 
 #: ../blivetgui/dialogs/edit_dialog.py:729
 msgid "Currently it is possible to remove only one parent at time."
-msgstr ""
+msgstr "Pašlaik vienlaikus var noņemt tikai vienu vecākierīci."
 
 #: ../blivetgui/dialogs/edit_dialog.py:737
 msgid "Remove?"
-msgstr ""
+msgstr "Noņemt?"
 
 #: ../blivetgui/dialogs/edit_dialog.py:749
 #, python-brace-format
 msgid "Select a device to be removed from {name}:"
-msgstr ""
+msgstr "Atlasiet ierīci, ko noņemt no {name}:"
 
 #: ../blivetgui/dialogs/helpers.py:143
 #, python-brace-format
 msgid "Selected mountpoint \"{0}\" is already set for another device."
-msgstr ""
+msgstr "Atlasītais montēšanas punkts „{0}” jau ir iestatīts citai ierīcei."
 
 #: ../blivetgui/dialogs/message_dialogs.py:132
 #, python-format
@@ -928,6 +971,10 @@ msgid ""
 "Automatic bug reporting tool (ABRT) or open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
+"Ja uzskatāt, ka tā ir kļūda, lūdzu, izmantojiet zemāk esošo pogu „Ziņot par "
+"kļūdu”, lai ziņotu par to ar\n"
+"automātisko kļūdu ziņošanas rīku (ABRT), vai atveriet problēmas pieteikumu "
+"mūsu <a href=\"%s\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:136
 #, python-format
@@ -935,84 +982,89 @@ msgid ""
 "If you believe this is a bug, please open an issue on our <a "
 "href=\"%s\">GitHub</a>."
 msgstr ""
+"Ja uzskatāt, ka tā ir kļūda, lūdzu, atveriet problēmas pieteikumu mūsu <a "
+"href=\"%s\">GitHub</a>."
 
 #: ../blivetgui/dialogs/message_dialogs.py:208
 msgid "Confirm delete operation"
-msgstr ""
+msgstr "Apstiprināt dzēšanu"
 
 #: ../blivetgui/dialogs/message_dialogs.py:209
 #, python-brace-format
 msgid "Are you sure you want delete device {name}?"
-msgstr ""
+msgstr "Vai tiešām vēlaties dzēst ierīci {name}?"
 
 #: ../blivetgui/dialogs/message_dialogs.py:219
 #, python-brace-format
 msgid "Following children of {name} will be also removed by this action:\n"
-msgstr ""
+msgstr "Šī darbība noņems arī šādus {name} pēctečus:\n"
 
 #: ../blivetgui/dialogs/message_dialogs.py:227
 #, python-brace-format
 msgid "Also delete following parent devices of {name}:"
-msgstr ""
+msgstr "Dzēst arī šādas {name} vecākierīces:"
 
 #: ../blivetgui/dialogs/message_dialogs.py:327
 msgid "There are no pending actions."
-msgstr ""
+msgstr "Nav gaidošu darbību."
 
 #. TRANSLATORS: This will appear in the About dialog in the Credits section. You should enter
 #. your name and email address (optional) here. Separate translator names with newlines.
 #: ../blivetgui/dialogs/other_dialogs.py:53
 msgid "translator-credits"
-msgstr ""
+msgstr "Rihards Priedītis"
 
 #: ../blivetgui/dialogs/other_dialogs.py:80 ../data/ui/blivet-gui.ui:722
 msgid "System Information"
-msgstr ""
+msgstr "Sistēmas informācija"
 
 #: ../blivetgui/dialogs/other_dialogs.py:144
 msgid "Version Information"
-msgstr ""
+msgstr "Versijas informācija"
 
 #. blivet-gui version
 #: ../blivetgui/dialogs/other_dialogs.py:147 ../data/ui/blivet-gui.ui:285
 msgid "blivet-gui"
-msgstr ""
+msgstr "blivet-gui"
 
 #. pylint: disable=broad-except
 #: ../blivetgui/dialogs/other_dialogs.py:152
 #: ../blivetgui/dialogs/other_dialogs.py:154
 msgid "blivet"
-msgstr ""
+msgstr "blivet"
 
 #: ../blivetgui/dialogs/other_dialogs.py:154
 msgid "Unknown"
-msgstr ""
+msgstr "Nezināms"
 
 #: ../blivetgui/dialogs/other_dialogs.py:161
 msgid "Startup Options"
-msgstr ""
+msgstr "Palaišanas opcijas"
 
 #: ../blivetgui/dialogs/other_dialogs.py:167
 msgid "None (all disks)"
-msgstr ""
+msgstr "Nav (visi diski)"
 
 #: ../blivetgui/dialogs/other_dialogs.py:168
 msgid "Exclusive disks"
-msgstr ""
+msgstr "Ekskluzīvie diski"
 
 #: ../blivetgui/dialogs/other_dialogs.py:170
 msgid "Selection of disks blivet-gui is allowed to operate with"
-msgstr ""
+msgstr "Diski, ar kuriem blivet-gui drīkst strādāt"
 
 #: ../blivetgui/dialogs/other_dialogs.py:174
 msgid "Advanced device information"
-msgstr ""
+msgstr "Paplašināta ierīču informācija"
 
 #: ../blivetgui/dialogs/other_dialogs.py:176
 msgid ""
 "Whether gathering all information about devices is enabled, even if it "
 "requires potentially dangerous operations like mounting or a filesystem check"
 msgstr ""
+"Vai ir iespējota visas informācijas vākšana par ierīcēm, pat ja tam "
+"vajadzīgas potenciāli bīstamas darbības, piemēram, montēšana vai failu "
+"sistēmas pārbaude"
 
 #: ../blivetgui/dialogs/other_dialogs.py:192
 msgid ""
@@ -1022,481 +1074,485 @@ msgid ""
 "by default.\n"
 "To enable this, start blivet-gui with the <tt>--auto-dev-updates</tt> option."
 msgstr ""
+"<b>Brīdinājums:</b> daļa informācijas par Btrfs ierīcēm var trūkt, jo "
+"sistēmā ir nemontētas Btrfs ierīces. Informācijas vākšanai par šīm ierīcēm "
+"tās ir jāmontē, kas pēc noklusējuma nav iespējots.\n"
+"Lai to iespējotu, palaidiet blivet-gui ar opciju <tt>--auto-dev-updates</tt>."
 
 #: ../blivetgui/dialogs/other_dialogs.py:270
 #, python-format
 msgid "Please enter passphrase to unlock %s."
-msgstr ""
+msgstr "Lūdzu, ievadiet paroles frāzi, lai atbloķētu %s."
 
 #: ../blivetgui/dialogs/size_chooser.py:215
 msgid ""
 "Currently selected size is greater than maximum limit for this selection."
-msgstr ""
+msgstr "Pašlaik izvēlētais izmērs pārsniedz šīs izvēles maksimālo robežu."
 
 #: ../blivetgui/dialogs/size_chooser.py:218
 msgid ""
 "Currently selected size is smaller than minimum limit for this selection."
-msgstr ""
+msgstr "Pašlaik izvēlētais izmērs ir mazāks par šīs izvēles minimālo robežu."
 
 #. fill combobox with supported sector sizes and select the default one
 #: ../blivetgui/dialogs/widgets.py:285
 msgid "Automatic"
-msgstr ""
+msgstr "Automātiski"
 
 #: ../blivetgui/dialogs/widgets.py:380
 msgid "Passphrase not specified."
-msgstr ""
+msgstr "Paroles frāze nav norādīta."
 
 #: ../blivetgui/dialogs/widgets.py:383
 msgid "Provided passphrases do not match."
-msgstr ""
+msgstr "Ievadītās paroles frāzes nesakrīt."
 
 #: ../blivetgui/dialogs/widgets.py:414
 msgid "Passphrases match."
-msgstr ""
+msgstr "Paroles frāzes sakrīt."
 
 #: ../blivetgui/dialogs/widgets.py:417
 msgid "Passphrases don't match."
-msgstr ""
+msgstr "Paroles frāzes nesakrīt."
 
 #: ../blivetgui/visualization/rectangle.py:53
 msgid "Group device"
-msgstr ""
+msgstr "Grupas ierīce"
 
 #: ../blivetgui/visualization/rectangle.py:54
 msgid "LiveUSB device"
-msgstr ""
+msgstr "LiveUSB ierīce"
 
 #: ../blivetgui/visualization/rectangle.py:55
 msgid "Encrypted device (locked)"
-msgstr ""
+msgstr "Šifrēta ierīce (bloķēta)"
 
 #: ../blivetgui/visualization/rectangle.py:56
 msgid "Encrypted device (unlocked)"
-msgstr ""
+msgstr "Šifrēta ierīce (atbloķēta)"
 
 #: ../blivetgui/visualization/rectangle.py:57
 msgid "Empty device"
-msgstr ""
+msgstr "Tukša ierīce"
 
 #: ../blivetgui/visualization/rectangle.py:58
 msgid "Snapshot"
-msgstr ""
+msgstr "Momentuzņēmums"
 
 #: ../blivetgui/visualization/rectangle.py:59
 msgid "Missing partition table"
-msgstr ""
+msgstr "Trūkst nodalījumu tabulas"
 
 #: ../blivetgui/visualization/rectangle.py:60
 msgid "Device or format is write protected"
-msgstr ""
+msgstr "Ierīce vai formāts ir aizsargāts pret rakstīšanu"
 
 #: ../blivetgui/visualization/rectangle.py:61
 msgid "Cached device"
-msgstr ""
+msgstr "Kešota ierīce"
 
 #: ../blivetgui/visualization/rectangle.py:62
 msgid "Incomplete device"
-msgstr ""
+msgstr "Nepilnīga ierīce"
 
 #: ../blivetgui/visualization/rectangle.py:63
 msgid "Missing subvolume information"
-msgstr ""
+msgstr "Trūkst apakšsējumu informācijas"
 
 #: ../blivetgui/visualization/rectangle.py:122
 msgid "LVM2 Volume Group — double-click to view Logical Volumes"
-msgstr ""
+msgstr "LVM2 sējumu grupa — veiciet dubultklikšķi, lai skatītu loģiskos sējumus"
 
 #: ../blivetgui/visualization/rectangle.py:123
 msgid "Btrfs Volume — double-click to view subvolumes"
-msgstr ""
+msgstr "Btrfs sējums — veiciet dubultklikšķi, lai skatītu apakšsējumus"
 
 #: ../blivetgui/visualization/rectangle.py:124
 msgid "RAID Array — double-click to view contents"
-msgstr ""
+msgstr "RAID masīvs — veiciet dubultklikšķi, lai skatītu saturu"
 
 #: ../blivetgui/visualization/rectangle.py:125
 msgid "Stratis Pool — double-click to view filesystems"
-msgstr ""
+msgstr "Stratis pūls — veiciet dubultklikšķi, lai skatītu failu sistēmas"
 
 #. TRANSLATORS: count of Logical Volumes in a Volume Group, e.g. "3 logical volumes"
 #: ../blivetgui/visualization/rectangle.py:133
 #, python-brace-format
 msgid "{count} logical volume"
 msgid_plural "{count} logical volumes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "{count} loģisko sējumu"
+msgstr[1] "{count} loģiskais sējums"
+msgstr[2] "{count} loģiskie sējumi"
 
 #. TRANSLATORS: count of subvolumes in a Btrfs volume, e.g. "3 subvolumes"
 #: ../blivetgui/visualization/rectangle.py:136
 #, python-brace-format
 msgid "{count} subvolume"
 msgid_plural "{count} subvolumes"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "{count} apakšsējumu"
+msgstr[1] "{count} apakšsējums"
+msgstr[2] "{count} apakšsējumi"
 
 #. TRANSLATORS: count of partitions on a RAID array, e.g. "3 partitions"
 #: ../blivetgui/visualization/rectangle.py:139
 #, python-brace-format
 msgid "{count} partition"
 msgid_plural "{count} partitions"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "{count} nodalījumu"
+msgstr[1] "{count} nodalījums"
+msgstr[2] "{count} nodalījumi"
 
 #. TRANSLATORS: count of filesystems in a Stratis pool, e.g. "3 filesystems"
 #: ../blivetgui/visualization/rectangle.py:142
 #, python-brace-format
 msgid "{count} filesystem"
 msgid_plural "{count} filesystems"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "{count} failu sistēmu"
+msgstr[1] "{count} failu sistēma"
+msgstr[2] "{count} failu sistēmas"
 
 #: ../data/ui/about_dialog.ui:11
 msgid "Copyright © Red Hat Inc."
-msgstr ""
+msgstr "Autortiesības © Red Hat Inc."
 
 #: ../data/ui/add_disklabel_dialog.ui:11
 msgid "No partition table found on disk"
-msgstr ""
+msgstr "Diskā nav atrasta nodalījumu tabula"
 
 #: ../data/ui/add_disklabel_dialog.ui:12
 msgid "A partition table is required before partitions can be added."
-msgstr ""
+msgstr "Pirms nodalījumu pievienošanas nepieciešama nodalījumu tabula."
 
 #: ../data/ui/add_disklabel_dialog.ui:52
 msgid "Select new partition table type:"
-msgstr ""
+msgstr "Izvēlieties jaunās nodalījumu tabulas tipu:"
 
 #: ../data/ui/blivet-gui.ui:14
 msgid "Open"
-msgstr ""
+msgstr "Atvērt"
 
 #: ../data/ui/blivet-gui.ui:28
 msgid "New"
-msgstr ""
+msgstr "Jauns"
 
 #: ../data/ui/blivet-gui.ui:37
 msgid "Delete"
-msgstr ""
+msgstr "Dzēst"
 
 #: ../data/ui/blivet-gui.ui:46
 msgid "Edit"
-msgstr ""
+msgstr "Rediģēt"
 
 #: ../data/ui/blivet-gui.ui:56 ../data/ui/blivet-gui.ui:152
 msgid "Resize"
-msgstr ""
+msgstr "Mainīt izmēru"
 
 #: ../data/ui/blivet-gui.ui:64 ../data/ui/blivet-gui.ui:160
 msgid "Rename"
-msgstr ""
+msgstr "Pārdēvēt"
 
 #. Edit format (e.g. delete existing and create a new one) on selected device.
 #: ../data/ui/blivet-gui.ui:72 ../data/ui/blivet-gui.ui:168
 msgctxt "Menu|Edit"
 msgid "Format"
-msgstr ""
+msgstr "Formatēt"
 
 #: ../data/ui/blivet-gui.ui:80 ../data/ui/blivet-gui.ui:176
 msgid "Add parent"
-msgstr ""
+msgstr "Pievienot vecākierīci"
 
 #: ../data/ui/blivet-gui.ui:88 ../data/ui/blivet-gui.ui:184
 msgid "Remove parent"
-msgstr ""
+msgstr "Noņemt vecākierīci"
 
 #: ../data/ui/blivet-gui.ui:96 ../data/ui/blivet-gui.ui:192
 #: ../data/ui/mountpoint_dialog.ui:7
 msgid "Set mountpoint"
-msgstr ""
+msgstr "Iestatīt montēšanas punktu"
 
 #: ../data/ui/blivet-gui.ui:104 ../data/ui/blivet-gui.ui:200
 msgid "Set label"
-msgstr ""
+msgstr "Iestatīt etiķeti"
 
 #: ../data/ui/blivet-gui.ui:112 ../data/ui/blivet-gui.ui:208
 msgid "Set partition table"
-msgstr ""
+msgstr "Iestatīt nodalījumu tabulu"
 
 #: ../data/ui/blivet-gui.ui:124 ../data/ui/unmount_dialog.ui:15
 msgid "Unmount"
-msgstr ""
+msgstr "Atmontēt"
 
 #: ../data/ui/blivet-gui.ui:132
 msgid "Unlock"
-msgstr ""
+msgstr "Atbloķēt"
 
 #: ../data/ui/blivet-gui.ui:140
 msgid "Information"
-msgstr ""
+msgstr "Informācija"
 
 #: ../data/ui/blivet-gui.ui:320 ../data/ui/blivet-gui.ui:332
 #: ../data/ui/blivet-gui.ui:881 ../data/ui/blivet-gui.ui:892
 #: ../data/ui/blivet-gui.ui:903
 msgid "column"
-msgstr ""
+msgstr "kolonna"
 
 #: ../data/ui/blivet-gui.ui:394
 msgctxt "ActionsToolbar|Add"
 msgid "Add new device"
-msgstr ""
+msgstr "Pievienot jaunu ierīci"
 
 #: ../data/ui/blivet-gui.ui:410
 msgctxt "ActionsToolbar|Delete"
 msgid "Delete selected device"
-msgstr ""
+msgstr "Dzēst atlasīto ierīci"
 
 #: ../data/ui/blivet-gui.ui:426
 msgctxt "ActionsToolbar|Edit"
 msgid "Edit selected device"
-msgstr ""
+msgstr "Rediģēt atlasīto ierīci"
 
 #: ../data/ui/blivet-gui.ui:452
 msgctxt "ActionsToolbar|Unmount"
 msgid "Unmount selected device"
-msgstr ""
+msgstr "Atmontēt atlasīto ierīci"
 
 #: ../data/ui/blivet-gui.ui:467
 msgctxt "ActionsToolbar|Decrypt"
 msgid "Unlock/Open selected device"
-msgstr ""
+msgstr "Atbloķēt/atvērt atlasīto ierīci"
 
 #: ../data/ui/blivet-gui.ui:482
 msgctxt "ActionsToolbar|Info"
 msgid "Display information about selected device"
-msgstr ""
+msgstr "Rādīt informāciju par atlasīto ierīci"
 
 #. Format (filesystem) type of selected device.
 #: ../data/ui/blivet-gui.ui:539
 msgctxt "LogicalView|Column"
 msgid "Format"
-msgstr ""
+msgstr "Formāts"
 
 #: ../data/ui/blivet-gui.ui:561
 msgid "Label"
-msgstr ""
+msgstr "Etiķete"
 
 #: ../data/ui/blivet-gui.ui:572
 msgid "Mountpoint"
-msgstr ""
+msgstr "Montēšanas punkts"
 
 #: ../data/ui/blivet-gui.ui:596
 msgid "Logical View"
-msgstr ""
+msgstr "Loģiskais skats"
 
 #: ../data/ui/blivet-gui.ui:619
 msgid "Physical View"
-msgstr ""
+msgstr "Fiziskais skats"
 
 #: ../data/ui/blivet-gui.ui:692
 msgid "Reload Storage"
-msgstr ""
+msgstr "Pārlādēt krātuvi"
 
 #: ../data/ui/blivet-gui.ui:700
 msgid "Queued Actions"
-msgstr ""
+msgstr "Rindā esošās darbības"
 
 #: ../data/ui/blivet-gui.ui:730
 msgid "About blivet-gui"
-msgstr ""
+msgstr "Par blivet-gui"
 
 #: ../data/ui/blivet-gui.ui:782
 msgid "Apply pending actions"
-msgstr ""
+msgstr "Izpildīt gaidošās darbības"
 
 #: ../data/ui/blivet-gui.ui:798
 msgid "Clear scheduled actions"
-msgstr ""
+msgstr "Notīrīt ieplānotās darbības"
 
 #: ../data/ui/blivet-gui.ui:814
 msgid "Undo last action"
-msgstr ""
+msgstr "Atsaukt pēdējo darbību"
 
 #: ../data/ui/cache_area.ui:31
 msgid "Cache this LV:"
-msgstr ""
+msgstr "Kešot šo loģisko sējumu:"
 
 #: ../data/ui/cache_area.ui:98
 msgid "Free space"
-msgstr ""
+msgstr "Brīvā vieta"
 
 #: ../data/ui/cache_area.ui:109
 msgid "On disk"
-msgstr ""
+msgstr "Diskā"
 
 #: ../data/ui/cache_area.ui:142
 msgid "Cache type:"
-msgstr ""
+msgstr "Kešatmiņas tips:"
 
 #: ../data/ui/cache_area.ui:156
 msgid "Writethrough"
-msgstr ""
+msgstr "Writethrough"
 
 #: ../data/ui/cache_area.ui:157
 msgid "Writeback"
-msgstr ""
+msgstr "Writeback"
 
 #: ../data/ui/custom_dialog.ui:55
 msgid "label"
-msgstr ""
+msgstr "etiķete"
 
 #: ../data/ui/custom_dialog.ui:62
 msgid "Details"
-msgstr ""
+msgstr "Informācija"
 
 #: ../data/ui/encryption_chooser.ui:21
 msgid "Encrypt:"
-msgstr ""
+msgstr "Šifrēt:"
 
 #: ../data/ui/encryption_chooser.ui:33
 msgid "Encryption type:"
-msgstr ""
+msgstr "Šifrēšanas tips:"
 
 #: ../data/ui/encryption_chooser.ui:45 ../data/ui/luks_passphrase_dialog.ui:51
 msgid "Passphrase:"
-msgstr ""
+msgstr "Paroles frāze:"
 
 #: ../data/ui/encryption_chooser.ui:57
 msgid "Repeat Passphrase:"
-msgstr ""
+msgstr "Atkārtojiet paroles frāzi:"
 
 #: ../data/ui/encryption_chooser.ui:118
 msgid "Sector size:"
-msgstr ""
+msgstr "Sektora izmērs:"
 
 #: ../data/ui/error_dialog.ui:13 ../data/ui/exception_dialog.ui:12
 msgid "Error"
-msgstr ""
+msgstr "Kļūda"
 
 #: ../data/ui/exception_dialog.ui:24
 msgid "_Back"
-msgstr ""
+msgstr "_Atpakaļ"
 
 #: ../data/ui/exception_dialog.ui:38
 msgid "_Quit"
-msgstr ""
+msgstr "_Iziet"
 
 #: ../data/ui/exception_dialog.ui:52
 msgid "_Report a bug"
-msgstr ""
+msgstr "_Ziņot par kļūdu"
 
 #: ../data/ui/exception_dialog.ui:120
 msgid "Show traceback"
-msgstr ""
+msgstr "Rādīt izsekojumu"
 
 #: ../data/ui/format_dialog.ui:17
 msgid "Format device"
-msgstr ""
+msgstr "Formatēt ierīci"
 
 #: ../data/ui/format_dialog.ui:35 ../data/ui/mountpoint_dialog.ui:29
 #: ../data/ui/resize_dialog.ui:30
 msgid "_Cancel"
-msgstr ""
+msgstr "_Atcelt"
 
 #. Perform selected format change on this device.
 #: ../data/ui/format_dialog.ui:50
 msgctxt "Dialog|Format"
 msgid "_Format"
-msgstr ""
+msgstr "_Formatēt"
 
 #: ../data/ui/format_dialog.ui:98
 msgid "Select new format:"
-msgstr ""
+msgstr "Izvēlieties jauno formātu:"
 
 #: ../data/ui/info_dialog.ui:12
 msgid "Information:"
-msgstr ""
+msgstr "Informācija:"
 
 #: ../data/ui/label_dialog.ui:7
 msgid "Set filesystem label"
-msgstr ""
+msgstr "Iestatīt failu sistēmas etiķeti"
 
 #: ../data/ui/label_dialog.ui:22 ../data/ui/rename_dialog.ui:22
 #: ../data/ui/unmount_dialog.ui:36
 msgid "Cancel"
-msgstr ""
+msgstr "Atcelt"
 
 #. Perform selected format change on this device.
 #: ../data/ui/label_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Relabel"
-msgstr ""
+msgstr "Mainīt etiķeti"
 
 #: ../data/ui/label_dialog.ui:68
 msgid "Enter new label for this filesystem:"
-msgstr ""
+msgstr "Ievadiet jauno šīs failu sistēmas etiķeti:"
 
 #: ../data/ui/luks_passphrase_dialog.ui:11
 msgid "Unlock device"
-msgstr ""
+msgstr "Atbloķēt ierīci"
 
 #: ../data/ui/mountpoint_dialog.ui:44
 msgid "_Set mountpoint"
-msgstr ""
+msgstr "Iestatīt _montēšanas punktu"
 
 #: ../data/ui/mountpoint_dialog.ui:88
 msgid "Enter new mountpoint:"
-msgstr ""
+msgstr "Ievadiet jauno montēšanas punktu:"
 
 #: ../data/ui/parent_chooser.ui:37
 msgid "Parent name:"
-msgstr ""
+msgstr "Vecākierīces nosaukums:"
 
 #: ../data/ui/parent_chooser.ui:80
 msgid "Available space:"
-msgstr ""
+msgstr "Pieejamā vieta:"
 
 #: ../data/ui/raid_chooser.ui:21
 msgid "RAID level:"
-msgstr ""
+msgstr "RAID līmenis:"
 
 #: ../data/ui/rename_dialog.ui:7
 msgid "Rename device"
-msgstr ""
+msgstr "Pārdēvēt ierīci"
 
 #. Perform selected format change on this device.
 #: ../data/ui/rename_dialog.ui:36
 msgctxt "Dialog|Format"
 msgid "Rename"
-msgstr ""
+msgstr "Pārdēvēt"
 
 #: ../data/ui/rename_dialog.ui:68
 msgid "Enter new name for this device:"
-msgstr ""
+msgstr "Ievadiet jauno šīs ierīces nosaukumu:"
 
 #: ../data/ui/resize_dialog.ui:7
 msgid "Resize device"
-msgstr ""
+msgstr "Mainīt ierīces izmēru"
 
 #: ../data/ui/resize_dialog.ui:45
 msgid "_Resize"
-msgstr ""
+msgstr "_Mainīt izmēru"
 
 #: ../data/ui/root_check_window.ui:24
 msgid "Root privileges are required for running blivet-gui."
-msgstr ""
+msgstr "blivet-gui palaišanai ir nepieciešamas root privilēģijas."
 
 #: ../data/ui/show_actions_dialog.ui:13
 msgid "Pending actions"
-msgstr ""
+msgstr "Gaidošās darbības"
 
 #: ../data/ui/size_area.ui:23
 msgid "Manually specify layout"
-msgstr ""
+msgstr "Norādīt izkārtojumu manuāli"
 
 #: ../data/ui/size_chooser.ui:14
 msgid "Size:"
-msgstr ""
+msgstr "Izmērs:"
 
 #. Confirmation dialog button for unmounting selected mountpoints.
 #: ../data/ui/unmount_dialog.ui:50
 msgctxt "Dialog|Unmount"
 msgid "Unmount"
-msgstr ""
+msgstr "Atmontēt"
 
 #: ../data/ui/unmount_dialog.ui:87
 msgid ""
@@ -1505,3 +1561,7 @@ msgid ""
 "\n"
 "Please select mountpoint(s) to unmount:"
 msgstr ""
+"<b>Atlasītā ierīce pašlaik ir montēta\n"
+"vairākos montēšanas punktos.</b>\n"
+"\n"
+"Lūdzu, atlasiet atmontējamo(s) montēšanas punktu(s):"
